@@ -17,7 +17,49 @@ public interface IFiniteDimensionalLinearMapping {
 		return getLinearity().get(vec);
 	};
 
-	int getRang();
+	default void swap(double mat[][], int row1, int row2, int col) {
+		for (int i = 0; i < col; i++) {
+			double temp = mat[row1][i];
+			mat[row1][i] = mat[row2][i];
+			mat[row2][i] = temp;
+		}
+	}
+
+	default int getRank() {
+		double mat[][] = getGenericMatrix();
+		int R = mat.length;
+		int C = mat[0].length;
+		int rank = C;
+
+		for (int row = 0; row < rank; row++) {
+			if (mat[row][row] != 0) {
+				for (int col = 0; col < R; col++) {
+					if (col != row) {
+						double mult = mat[col][row] / mat[row][row];
+						for (int i = 0; i < rank; i++){
+							mat[col][i] -= mult * mat[row][i];
+						}
+					}
+				}
+			} else {
+				boolean reduce = true;
+				for (int i = row + 1; i < R; i++) {
+					if (mat[i][row] != 0) {
+						swap(mat, row, i, rank);
+						reduce = false;
+						break;
+					}
+				}
+				if (reduce) {
+					rank--;
+					for (int i = 0; i < R; i++)
+						mat[i][row] = mat[i][rank];
+				}
+				row--;
+			}
+		}
+		return rank;
+	}
 
 	default IVec get(IVec vec1) throws Throwable {
 		if (vec1 instanceof RealVec) {

@@ -8,11 +8,18 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 
 	IFiniteDimensionalVectorSpace getSuperSpace();
 
-	default IFiniteDimensionalLinearMapping create(Map<RealVec, Map<RealVec, Double>> coordinates) throws Throwable {
+	default IFiniteDimensionalLinearMapping create(Map<RealVec, Map<RealVec, Double>> coordinates) 
+			throws Throwable {
 		return new FiniteDimensionalLinearMapping(getSuperSpace(), getSuperSpace(), coordinates);
 	};
 
 	@Override
 	boolean contains(IVec vec);
+	
+	@Override
+	default int dim() {
+		return getMap().getSource().dim()-getMap().getRank();
+	}
 
+	IFiniteDimensionalLinearMapping getMap();
 }

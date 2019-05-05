@@ -34,7 +34,7 @@ public class RealFiniteDimensionalSpace implements IFiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public boolean contains(IVec vec) {
+	public boolean contains(IVec vec) throws Throwable {
 		return (vec instanceof RealVec && vec.getDim() == dim());
 	}
 

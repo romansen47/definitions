@@ -1,16 +1,11 @@
 package definitions.structures.generic;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.IVec;
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class RealVectorSpaceTest {
 
 	static RealVec e1;
@@ -21,8 +16,6 @@ public class RealVectorSpaceTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
-
-		Random r=new Random();
 
 		 e1 = new RealVec(new double[] { 1,0,0 });
 		 e2 = new RealVec(new double[] { 0,1,0 });
@@ -39,19 +32,16 @@ public class RealVectorSpaceTest {
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void first() throws Throwable {
 		Assert.assertTrue(comp.get(e1).equals(e1));
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void second() throws Throwable {
 		Assert.assertTrue(comp.get(e2).equals(e2));
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void third() throws Throwable {
 		Assert.assertTrue(comp.get(e3).equals(e3));

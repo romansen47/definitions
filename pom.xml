@@ -32,6 +32,13 @@
 			<artifactId>commons-math3</artifactId>
 			<version>3.6</version>
 		</dependency>
+		<dependency>
+			<groupId>general</groupId>
+			<artifactId>math</artifactId>
+			<version>1.0.0-snapshot</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 </project>

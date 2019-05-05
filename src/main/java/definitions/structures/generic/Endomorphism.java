@@ -7,5 +7,7 @@ public interface Endomorphism extends IFiniteDimensionalLinearMapping {
 	default double det() {
 		return MatrixOperator.getInstance().det(getGenericMatrix());
 	}
+	
+	
 
 }

@@ -30,9 +30,4 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 		return linearity;
 	}
 
-	@Override
-	final public int getRang() {
-		return 0;
-	}
-
 }
