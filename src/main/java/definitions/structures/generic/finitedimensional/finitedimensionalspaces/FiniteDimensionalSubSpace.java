@@ -3,30 +3,35 @@ package definitions.structures.generic.finitedimensional.finitedimensionalspaces
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
 
-public class RealFiniteDimensionalSubSpace extends RealFiniteDimensionalSpace implements IFiniteDimensionalSubSpace {
+public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements IFiniteDimensionalSubSpace {
 
-	private final IFiniteDimensionalLinearMapping map;
+	private final IFiniteDimensionalLinearMapping parametrization;
 	
-	protected RealFiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
+	protected FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(map.getSource().getGenericBase());
-		this.map=map;
+		this.parametrization=map;
 	}
-
+	
 	@Override
 	public IFiniteDimensionalVectorSpace getSuperSpace() {
-		return map.getSource();
+		return parametrization.getTarget();
 	}
 
 	@Override
-	public final IFiniteDimensionalLinearMapping getMap() { 
-		return map;
+	public int dim() {
+		return parametrization.getRank();
+	}
+	
+	@Override
+	public final IFiniteDimensionalLinearMapping getParametrization() { 
+		return parametrization;
 	}
 	
 	@Override
 	public boolean contains(IVector vec){
 		try {
 			return super.contains(vec) 
-					&& ((FiniteVector)map.get((IFiniteVector) vec)).
+					&& ((FiniteVector)getParametrization().get((IFiniteVector) vec)).
 						equals(new FiniteVector(new double[((FiniteVector)vec).getDim()]));
 		} catch (Throwable e) {
 			e.printStackTrace();

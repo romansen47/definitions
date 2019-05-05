@@ -12,8 +12,8 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 	
 	@Override
 	default int dim() {
-		return getMap().getSource().dim()-getMap().getRank();
+		return getParametrization().getSource().dim()-getParametrization().getRank();
 	}
 
-	IFiniteDimensionalLinearMapping getMap();
+	IFiniteDimensionalLinearMapping getParametrization();
 }

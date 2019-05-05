@@ -3,13 +3,11 @@ package definitions.structures.generic.finitedimensional.finitedimensionalspaces
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteVector;
-import definitions.structures.generic.finitedimensionalspaces.functionspaces.IFunction;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.FiniteVector;
 
-public interface IFiniteDimensionalLinearMapping extends IFunction{
+public interface IFiniteDimensionalLinearMapping{
 
 	IFiniteDimensionalVectorSpace getSource();
 

@@ -7,13 +7,13 @@ import java.util.Set;
 
 import definitions.structures.abstr.IVector;
 
-public class RealFiniteDimensionalSpace implements IFiniteDimensionalVectorSpace {
+public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpace {
 
 	final List<FiniteVector> base;
 
 	final int dim;
 
-	protected RealFiniteDimensionalSpace(List<FiniteVector> basetmp) throws Throwable {
+	protected FiniteDimensionalVectorSpace(List<FiniteVector> basetmp) throws Throwable {
 		dim = basetmp.size();
 		base = basetmp;
 	}
@@ -49,7 +49,7 @@ public class RealFiniteDimensionalSpace implements IFiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public final int dim() {
+	public int dim() {
 		return dim;
 	}
 

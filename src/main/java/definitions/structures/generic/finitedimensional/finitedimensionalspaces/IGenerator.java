@@ -29,7 +29,7 @@ public interface IGenerator {
 					}
 				}
 			}
-			getCachedSpaces().put(Integer.valueOf(dim), new RealFiniteDimensionalSpace(basetmp));
+			getCachedSpaces().put(Integer.valueOf(dim), new FiniteDimensionalVectorSpace(basetmp));
 		}
 		return getCachedSpaces().get(dim);
 	}

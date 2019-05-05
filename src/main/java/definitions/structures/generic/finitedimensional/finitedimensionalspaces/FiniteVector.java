@@ -43,7 +43,7 @@ public class FiniteVector implements IFiniteVector {
 
 	@Override
 	public boolean elementOf(IVectorSpace space) {
-		if (space instanceof RealFiniteDimensionalSpace && ((RealFiniteDimensionalSpace) space).dim() == dim) {
+		if (space instanceof FiniteDimensionalVectorSpace && ((FiniteDimensionalVectorSpace) space).dim() == dim) {
 			return true;
 		}
 		return false;
