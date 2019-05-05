@@ -1,4 +1,4 @@
-package definitions.structures.generic;
+package definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings;
 
 import math.matrix.MatrixOperator;
 

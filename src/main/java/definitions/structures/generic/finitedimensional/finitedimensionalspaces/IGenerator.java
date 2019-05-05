@@ -1,9 +1,15 @@
-package definitions.structures.generic;
+package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Endomorphism;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.InvertibleFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Isomorphism;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.LinearSelfMapping;
 
 public interface IGenerator {
 
@@ -11,9 +17,9 @@ public interface IGenerator {
 
 	default IFiniteDimensionalVectorSpace getFiniteDimensionalVectorSpace(int dim) throws Throwable {
 		if (!getCachedSpaces().containsKey(dim)) {
-			final List<RealVec> basetmp = new ArrayList<RealVec>();
+			final List<FiniteVector> basetmp = new ArrayList<FiniteVector>();
 			for (int i = 0; i < dim; i++) {
-				basetmp.add(new RealVec(dim));
+				basetmp.add(new FiniteVector(dim));
 				basetmp.get(i).getCoordinates().put(basetmp.get(i), 1.);
 			}
 			for (int i = 0; i < dim; i++) {
@@ -56,12 +62,12 @@ public interface IGenerator {
 		final int dimTarget = genericMatrix.length;
 		final IFiniteDimensionalVectorSpace source = getFiniteDimensionalVectorSpace(dimSource);
 		final IFiniteDimensionalVectorSpace target = getFiniteDimensionalVectorSpace(dimTarget);
-		final Map<RealVec, Map<RealVec, Double>> coordinates = new HashMap<>();
+		final Map<FiniteVector, Map<FiniteVector, Double>> coordinates = new HashMap<>();
 		int i = 0;
-		for (final RealVec vec1 : source.getGenericBase()) {
+		for (final FiniteVector vec1 : source.getGenericBase()) {
 			int j = 0;
-			final Map<RealVec, Double> tmp = new HashMap<>();
-			for (final RealVec vec2 : target.getGenericBase()) {
+			final Map<FiniteVector, Double> tmp = new HashMap<>();
+			for (final FiniteVector vec2 : target.getGenericBase()) {
 				tmp.put(vec2, genericMatrix[j][i]);
 				j++;
 			}

@@ -1,6 +1,7 @@
-package definitions.structures.generic;
+package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
 
-import definitions.structures.abstr.IVec;
+import definitions.structures.abstr.IVector;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
 
 public class RealFiniteDimensionalSubSpace extends RealFiniteDimensionalSpace implements IFiniteDimensionalSubSpace {
 
@@ -22,10 +23,10 @@ public class RealFiniteDimensionalSubSpace extends RealFiniteDimensionalSpace im
 	}
 	
 	@Override
-	public boolean contains(IVec vec){
+	public boolean contains(IVector vec){
 		try {
 			return super.contains(vec) 
-					&& ((RealVec)map.get(vec)).equals(new RealVec(new double[((RealVec)vec).getDim()]));
+					&& ((FiniteVector)map.get(vec)).equals(new FiniteVector(new double[((FiniteVector)vec).getDim()]));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

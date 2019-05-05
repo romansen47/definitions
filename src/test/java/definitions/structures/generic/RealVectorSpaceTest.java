@@ -3,23 +3,27 @@ package definitions.structures.generic;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.FiniteVector;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Generator;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Isomorphism;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
 public class RealVectorSpaceTest {
 
-	static RealVec e1;
-	static RealVec e2;
-	static RealVec e3;
+	static FiniteVector e1;
+	static FiniteVector e2;
+	static FiniteVector e3;
 	
 	static IFiniteDimensionalLinearMapping comp;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		 e1 = new RealVec(new double[] { 1,0,0 });
-		 e2 = new RealVec(new double[] { 0,1,0 });
-		 e3 = new RealVec(new double[] { 0,0,1 });
+		 e1 = new FiniteVector(new double[] { 1,0,0 });
+		 e2 = new FiniteVector(new double[] { 0,1,0 });
+		 e3 = new FiniteVector(new double[] { 0,0,1 });
 		
 		double[][] matrix=new double[][] {
 			{1,0,1},{0,1,0},{-1,0,1}

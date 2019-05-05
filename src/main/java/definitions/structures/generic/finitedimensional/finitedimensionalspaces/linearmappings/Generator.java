@@ -1,7 +1,10 @@
-package definitions.structures.generic;
+package definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IGenerator;
 
 public class Generator implements IGenerator {
 

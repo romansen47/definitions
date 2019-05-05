@@ -1,15 +1,17 @@
-package definitions.structures.generic;
+package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
 
 import java.util.Map;
+
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
 
 public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearMapping {
 
 	private final IFiniteDimensionalVectorSpace source;
 	private final IFiniteDimensionalVectorSpace target;
-	private final Map<RealVec, Map<RealVec, Double>> linearity;
+	private final Map<FiniteVector, Map<FiniteVector, Double>> linearity;
 
 	protected FiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source, IFiniteDimensionalVectorSpace target,
-			Map<RealVec, Map<RealVec, Double>> linearity) throws Throwable {
+			Map<FiniteVector, Map<FiniteVector, Double>> linearity) throws Throwable {
 		this.source = source;
 		this.target = target;
 		this.linearity = linearity;
@@ -26,7 +28,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	final public Map<RealVec, Map<RealVec, Double>> getLinearity() {
+	final public Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
 		return linearity;
 	}
 
