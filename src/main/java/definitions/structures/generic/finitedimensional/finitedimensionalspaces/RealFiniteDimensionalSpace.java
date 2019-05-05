@@ -24,10 +24,10 @@ public class RealFiniteDimensionalSpace implements IFiniteDimensionalVectorSpace
 			throw new Throwable();
 		}
 		double prod = 0;
-		final Map<IVector, Double> vecCoord1 = ((FiniteVector) vec1).getGenericCoordinates();
-		final Map<IVector, Double> vecCoord2 = ((FiniteVector) vec2).getGenericCoordinates();
+		final Map<IFiniteVector, Double> vecCoord1 = ((FiniteVector) vec1).getGenericCoordinates();
+		final Map<IFiniteVector, Double> vecCoord2 = ((FiniteVector) vec2).getGenericCoordinates();
 		final List<FiniteVector> base = getGenericBase();
-		for (final IVector vec : base) {
+		for (final IFiniteVector vec : base) {
 			prod += vecCoord1.get(vec) * vecCoord2.get(vec);
 		}
 		return prod;

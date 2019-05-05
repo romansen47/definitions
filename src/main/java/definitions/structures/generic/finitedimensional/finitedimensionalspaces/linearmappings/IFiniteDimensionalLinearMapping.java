@@ -5,9 +5,11 @@ import java.util.Map;
 
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteVector;
+import definitions.structures.generic.finitedimensionalspaces.functionspaces.IFunction;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.FiniteVector;
 
-public interface IFiniteDimensionalLinearMapping {
+public interface IFiniteDimensionalLinearMapping extends IFunction{
 
 	IFiniteDimensionalVectorSpace getSource();
 
@@ -18,12 +20,15 @@ public interface IFiniteDimensionalLinearMapping {
 	default Map<FiniteVector, Double> getLinearity(FiniteVector vec) {
 		return getLinearity().get(vec);
 	};
-default IVector get(IVector vec1) throws Throwable {
+	
+	default IFiniteVector get(IFiniteVector vec1) throws Throwable {
 		if (vec1 instanceof FiniteVector) {
-			final Map<IVector, Double> coordinates = ((FiniteVector) vec1).getGenericCoordinates();
-			IVector ans = new FiniteVector(new double[getTarget().dim()]);
-			for (final IVector src : getSource().getGenericBase()) {
-				ans = getTarget().add(ans, getTarget().stretch(getColumn(src), coordinates.get(src)));
+			final Map<IFiniteVector, Double> coordinates = (Map<IFiniteVector, Double>) vec1.getGenericCoordinates();
+			IFiniteVector ans = new FiniteVector(new double[getTarget().dim()]);
+			for (final IFiniteVector src : getSource().getGenericBase()) {
+				ans = (IFiniteVector) getTarget().
+						add(ans, (IFiniteVector) getTarget().stretch((IFiniteVector) getColumn(src),
+									coordinates.get(src)));
 			}
 			return ans;
 		} else {
@@ -31,12 +36,12 @@ default IVector get(IVector vec1) throws Throwable {
 		}
 	}
 
-	default IVector getColumn(IVector vec) throws Throwable {
+	default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
 		if (vec.getDim() > getSource().dim()) {
 			throw new Throwable();
 		}
-		final Map<IVector, Double> coordinates = new HashMap<>();
-		for (final IVector vec1 : getTarget().getGenericBase()) {
+		final Map<IFiniteVector, Double> coordinates = new HashMap<>();
+		for (final IFiniteVector vec1 : getTarget().getGenericBase()) {
 			coordinates.put(vec1, getLinearity().get(vec).get(vec1));
 		}
 		return new FiniteVector(coordinates);
@@ -47,7 +52,7 @@ default IVector get(IVector vec1) throws Throwable {
 		int i = 0;
 		for (final FiniteVector vec1 : getSource().getGenericBase()) {
 			int j = 0;
-			for (final IVector vec2 : getTarget().getGenericBase()) {
+			for (final IFiniteVector vec2 : getTarget().getGenericBase()) {
 				matrix[j][i] = getLinearity(vec1).get(vec2);
 				j++;
 			}

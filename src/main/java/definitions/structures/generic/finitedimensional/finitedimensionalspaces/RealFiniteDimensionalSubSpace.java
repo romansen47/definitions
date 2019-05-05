@@ -26,7 +26,8 @@ public class RealFiniteDimensionalSubSpace extends RealFiniteDimensionalSpace im
 	public boolean contains(IVector vec){
 		try {
 			return super.contains(vec) 
-					&& ((FiniteVector)map.get(vec)).equals(new FiniteVector(new double[((FiniteVector)vec).getDim()]));
+					&& ((FiniteVector)map.get((IFiniteVector) vec)).
+						equals(new FiniteVector(new double[((FiniteVector)vec).getDim()]));
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

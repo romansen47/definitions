@@ -16,18 +16,18 @@ public class FiniteVector implements IFiniteVector {
 		return dim;
 	}
 
-	private Map<IVector, Double> coordinates;
+	private Map<IFiniteVector, Double> coordinates;
 
 	public FiniteVector(double[] coordinates) throws Throwable {
 		dim = coordinates.length;
 		setCoordinates(new HashMap<>());
 		int i = 0;
-		for (final IVector vec : Generator.getGenerator().getFiniteDimensionalVectorSpace(dim).getGenericBase()) {
+		for (final IFiniteVector vec : Generator.getGenerator().getFiniteDimensionalVectorSpace(dim).getGenericBase()) {
 			getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
 
-	public FiniteVector(Map<IVector, Double> coordinates) throws Throwable {
+	public FiniteVector(Map<IFiniteVector, Double> coordinates) throws Throwable {
 		setCoordinates(coordinates);
 		dim = coordinates.keySet().size();
 	}
@@ -37,7 +37,7 @@ public class FiniteVector implements IFiniteVector {
 		coordinates = new HashMap<>();
 	}
 
-	public final Map<IVector, Double> getGenericCoordinates() {
+	public final Map<IFiniteVector, Double> getGenericCoordinates() {
 		return getCoordinates();
 	}
 
@@ -73,11 +73,11 @@ public class FiniteVector implements IFiniteVector {
 	}
 
 	@Override
-	public Map<IVector, Double> getCoordinates() {
+	public Map<IFiniteVector, Double> getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(Map<IVector, Double> coordinates) {
+	public void setCoordinates(Map<IFiniteVector, Double> coordinates) {
 		this.coordinates = coordinates;
 	}
 

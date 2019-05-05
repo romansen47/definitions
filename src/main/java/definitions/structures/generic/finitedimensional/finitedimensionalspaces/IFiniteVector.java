@@ -6,8 +6,8 @@ import definitions.structures.abstr.IVector;
 
 public interface IFiniteVector extends IVector {
 	
-	public Map<IVector, Double> getCoordinates();
+	Map<IFiniteVector, Double> getCoordinates();
 
-	Map<IVector, Double> getGenericCoordinates();
+	Map<IFiniteVector, Double> getGenericCoordinates();
 
 }
