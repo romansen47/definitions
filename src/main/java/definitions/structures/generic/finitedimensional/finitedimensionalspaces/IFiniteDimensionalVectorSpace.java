@@ -10,11 +10,11 @@ import definitions.structures.abstr.IVector;
 
 public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 
-	List<FiniteVector> getGenericBase();
+	List<IFiniteVector> genericBaseToList() throws Throwable;
 
-	Set<IVector> baseToArray();
+	Set<IFiniteVector> getGenericBase() throws Throwable;
 
-	int dim();
+	int dim() throws Throwable;
 
 	default Map<IFiniteVector, Double> getCoordinates(IFiniteVector vec) throws Throwable {
 		if (contains(vec)) {
@@ -26,19 +26,18 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 
 	default IVector get(Map<IVector, Double> coordinates) throws Throwable {
 		IFiniteVector vec = (IFiniteVector) nullVec();
-		for (final IFiniteVector basevec : getGenericBase()) {
+		for (final IFiniteVector basevec : genericBaseToList()) {
 			vec = (IFiniteVector) add(vec, (IFiniteVector) stretch(basevec, coordinates.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
 
 	default IVector add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
-		if ( vec1.getDim() == vec2.getDim() && vec1.getDim() == dim()) {
-			final List<FiniteVector> base = getGenericBase();
+		if (vec1.getDim() == vec2.getDim() && vec1.getDim() == dim()) {
+			final List<IFiniteVector> base = genericBaseToList();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 			for (final IFiniteVector vec : base) {
-				coordinates.put(vec,vec1.getGenericCoordinates().get(vec)
-						+ vec2.getGenericCoordinates().get(vec));
+				coordinates.put(vec, vec1.getCoordinates().get(vec) + vec2.getCoordinates().get(vec));
 			}
 			return new FiniteVector(coordinates);
 		} else {
@@ -49,8 +48,8 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 	default IVector stretch(IFiniteVector vec, double r) throws Throwable {
 		if (vec.getDim() == dim()) {
 			final FiniteVector Vec = (FiniteVector) vec;
-			final Map<IFiniteVector, Double> stretched = Vec.getGenericCoordinates();
-			final List<FiniteVector> base = getGenericBase();
+			final Map<IFiniteVector, Double> stretched = Vec.getCoordinates();
+			final List<IFiniteVector> base = genericBaseToList();
 			for (final IFiniteVector vec1 : base) {
 				stretched.put(vec1, stretched.get(vec1) * r);
 			}

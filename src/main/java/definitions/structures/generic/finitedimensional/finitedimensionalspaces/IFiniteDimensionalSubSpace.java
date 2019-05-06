@@ -9,10 +9,10 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 
 	@Override
 	boolean contains(IVector vec);
-	
+
 	@Override
-	default int dim() {
-		return getParametrization().getSource().dim()-getParametrization().getRank();
+	default int dim() throws Throwable {
+		return getParametrization().getSource().dim() - getParametrization().getRank();
 	}
 
 	IFiniteDimensionalLinearMapping getParametrization();

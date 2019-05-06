@@ -9,13 +9,13 @@ import definitions.structures.abstr.IVector;
 
 public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpace {
 
-	final List<FiniteVector> base;
+	final List<IFiniteVector> base;
 
 	final int dim;
 
-	protected FiniteDimensionalVectorSpace(List<FiniteVector> basetmp) throws Throwable {
-		dim = basetmp.size();
-		base = basetmp;
+	protected FiniteDimensionalVectorSpace(List<IFiniteVector> list) throws Throwable {
+		dim = list.size();
+		base = list;
 	}
 
 	@Override
@@ -24,9 +24,9 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 			throw new Throwable();
 		}
 		double prod = 0;
-		final Map<IFiniteVector, Double> vecCoord1 = ((FiniteVector) vec1).getGenericCoordinates();
-		final Map<IFiniteVector, Double> vecCoord2 = ((FiniteVector) vec2).getGenericCoordinates();
-		final List<FiniteVector> base = getGenericBase();
+		final Map<IFiniteVector, Double> vecCoord1 = ((FiniteVector) vec1).getCoordinates();
+		final Map<IFiniteVector, Double> vecCoord2 = ((FiniteVector) vec2).getCoordinates();
+		final List<IFiniteVector> base = genericBaseToList();
 		for (final IFiniteVector vec : base) {
 			prod += vecCoord1.get(vec) * vecCoord2.get(vec);
 		}
@@ -44,18 +44,18 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 	}
 
 	@Override
-	public final List<FiniteVector> getGenericBase() {
+	public List<IFiniteVector> genericBaseToList() throws Throwable {
 		return base;
 	}
 
 	@Override
-	public int dim() {
+	public int dim() throws Throwable {
 		return dim;
 	}
 
 	@Override
-	public Set<IVector> baseToArray() {
-		return new HashSet<>(getGenericBase());
+	public Set<IFiniteVector> getGenericBase() throws Throwable {
+		return new HashSet<>(genericBaseToList());
 	}
 
 }

@@ -22,7 +22,8 @@ public class FiniteVector implements IFiniteVector {
 		dim = coordinates.length;
 		setCoordinates(new HashMap<>());
 		int i = 0;
-		for (final IFiniteVector vec : Generator.getGenerator().getFiniteDimensionalVectorSpace(dim).getGenericBase()) {
+		for (final IFiniteVector vec : Generator.getGenerator().getFiniteDimensionalVectorSpace(dim)
+				.genericBaseToList()) {
 			getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
@@ -37,12 +38,8 @@ public class FiniteVector implements IFiniteVector {
 		coordinates = new HashMap<>();
 	}
 
-	public final Map<IFiniteVector, Double> getGenericCoordinates() {
-		return getCoordinates();
-	}
-
 	@Override
-	public boolean elementOf(IVectorSpace space) {
+	public boolean elementOf(IVectorSpace space) throws Throwable {
 		if (space instanceof FiniteDimensionalVectorSpace && ((FiniteDimensionalVectorSpace) space).dim() == dim) {
 			return true;
 		}
@@ -52,7 +49,7 @@ public class FiniteVector implements IFiniteVector {
 	@Override
 	public boolean equals(IVector vec) throws Throwable {
 		if (vec instanceof FiniteVector && ((FiniteVector) vec).dim == dim) {
-			return getGenericCoordinates().equals(((FiniteVector) vec).getGenericCoordinates());
+			return getCoordinates().equals(((FiniteVector) vec).getCoordinates());
 		}
 		throw new Throwable();
 	}

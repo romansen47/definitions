@@ -2,10 +2,11 @@ package definitions.structures.generic.finitedimensional.finitedimensionalspaces
 
 import math.matrix.MatrixOperator;
 
-public interface Isomorphism extends Endomorphism {
+public interface Isomorphism extends Endomorphism, IFiniteDimensionalInjectiveLinearMapping {
 
 	default Isomorphism getInverse() throws Throwable {
-		return (Isomorphism) Generator.getGenerator()
+
+		return (InvertibleFiniteDimensionalLinearMapping) Generator.getGenerator()
 				.getFiniteDimensionalLinearMapping(MatrixOperator.getInstance().inverse(getGenericMatrix()));
 	}
 

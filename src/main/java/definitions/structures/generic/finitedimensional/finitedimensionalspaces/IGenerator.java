@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Endomorphism;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.FiniteDimensionalInjectiveLinearMapping;
+import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.InvertibleFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Isomorphism;
@@ -17,7 +19,7 @@ public interface IGenerator {
 
 	default IFiniteDimensionalVectorSpace getFiniteDimensionalVectorSpace(int dim) throws Throwable {
 		if (!getCachedSpaces().containsKey(dim)) {
-			final List<FiniteVector> basetmp = new ArrayList<FiniteVector>();
+			final List<IFiniteVector> basetmp = new ArrayList<IFiniteVector>();
 			for (int i = 0; i < dim; i++) {
 				basetmp.add(new FiniteVector(dim));
 				basetmp.get(i).getCoordinates().put(basetmp.get(i), 1.);
@@ -62,21 +64,26 @@ public interface IGenerator {
 		final int dimTarget = genericMatrix.length;
 		final IFiniteDimensionalVectorSpace source = getFiniteDimensionalVectorSpace(dimSource);
 		final IFiniteDimensionalVectorSpace target = getFiniteDimensionalVectorSpace(dimTarget);
-		final Map<FiniteVector, Map<FiniteVector, Double>> coordinates = new HashMap<>();
+		final Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates = new HashMap<>();
 		int i = 0;
-		for (final FiniteVector vec1 : source.getGenericBase()) {
+		for (final IFiniteVector vec1 : source.genericBaseToList()) {
 			int j = 0;
-			final Map<FiniteVector, Double> tmp = new HashMap<>();
-			for (final FiniteVector vec2 : target.getGenericBase()) {
+			final Map<IFiniteVector, Double> tmp = new HashMap<>();
+			for (final IFiniteVector vec2 : target.genericBaseToList()) {
 				tmp.put(vec2, genericMatrix[j][i]);
 				j++;
 			}
 			coordinates.put(vec1, tmp);
 			i++;
 		}
-		if (dimSource != dimTarget) {
-			return new FiniteDimensionalLinearMapping(source, target, coordinates);
-		} else {
+		if (dimSource < dimTarget) {
+			IFiniteDimensionalLinearMapping tmp = new FiniteDimensionalLinearMapping(source, target, coordinates);
+			if (dimSource == tmp.getRank()) {
+				IFiniteDimensionalInjectiveLinearMapping ans = new FiniteDimensionalInjectiveLinearMapping(tmp);
+				return ans;
+			}
+		} 
+		else if (dimSource==dimTarget){
 			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
 			if (ans.det() == 0) {
 				return ans;
@@ -85,6 +92,7 @@ public interface IGenerator {
 				return iso;
 			}
 		}
+		return new FiniteDimensionalLinearMapping(source,target,coordinates);
 	}
 
 }
