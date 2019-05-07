@@ -12,12 +12,8 @@ import definitions.structures.generic.finitedimensional.defs.mappings.LinearSelf
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.IVectorGenerator;
-import definitions.structures.generic.finitedimensional.defs.vectors.VectorGenerator;
-
 public class MappingGenerator implements IMappingGenerator {
 
-	private static final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
 	private static IMappingGenerator generator = null;
 	private static Map<Integer, IFiniteDimensionalVectorSpace> cachedSpaces;
 
