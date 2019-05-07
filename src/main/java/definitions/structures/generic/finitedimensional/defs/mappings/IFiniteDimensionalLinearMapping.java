@@ -1,11 +1,11 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings;
+package definitions.structures.generic.finitedimensional.defs.mappings;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.IFiniteVector;
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IFiniteDimensionalLinearMapping {
 

@@ -1,7 +1,8 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
+package definitions.structures.generic.finitedimensional.defs.subspaces;
 
 import definitions.structures.abstr.IVector;
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 
 public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpace {
 

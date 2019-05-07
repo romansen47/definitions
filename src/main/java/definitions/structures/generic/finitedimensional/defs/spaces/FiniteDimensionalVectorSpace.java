@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
+package definitions.structures.generic.finitedimensional.defs.spaces;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.IVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpace {
 
@@ -13,7 +15,7 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 
 	final int dim;
 
-	protected FiniteDimensionalVectorSpace(List<IFiniteVector> list) throws Throwable {
+	public FiniteDimensionalVectorSpace(List<IFiniteVector> list) throws Throwable {
 		dim = list.size();
 		base = list;
 	}

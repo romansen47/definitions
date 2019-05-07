@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
+package definitions.structures.generic.finitedimensional.defs.spaces;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +7,8 @@ import java.util.Set;
 
 import definitions.structures.abstr.IHilbertSpace;
 import definitions.structures.abstr.IVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 

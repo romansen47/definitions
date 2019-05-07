@@ -1,11 +1,12 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
+package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.IVector;
 import definitions.structures.abstr.IVectorSpace;
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Generator;
+import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 
 public class FiniteVector implements IFiniteVector {
 
@@ -22,7 +23,7 @@ public class FiniteVector implements IFiniteVector {
 		dim = coordinates.length;
 		setCoordinates(new HashMap<>());
 		int i = 0;
-		for (final IFiniteVector vec : Generator.getGenerator().getFiniteDimensionalVectorSpace(dim)
+		for (final IFiniteVector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim)
 				.genericBaseToList()) {
 			getCoordinates().put(vec, coordinates[i++]);
 		}

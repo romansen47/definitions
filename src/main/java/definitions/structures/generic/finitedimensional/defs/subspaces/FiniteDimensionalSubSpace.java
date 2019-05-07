@@ -1,17 +1,21 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces;
+package definitions.structures.generic.finitedimensional.defs.subspaces;
 
 import java.util.ArrayList;
 import java.util.List;
 import definitions.structures.abstr.IVector;
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.Generator;
-import definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings.IFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
+import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements IFiniteDimensionalSubSpace {
 
 	private final IFiniteDimensionalLinearMapping parametrization;
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
-		super(Generator.getGenerator().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
+		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank())
+					.genericBaseToList());
 		this.parametrization = map;
 	}
 

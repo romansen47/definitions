@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.finitedimensionalspaces.linearmappings;
+package definitions.structures.generic.finitedimensional.defs.mappings;
 
 public interface IFiniteDimensionalInjectiveLinearMapping extends IFiniteDimensionalLinearMapping {
 
