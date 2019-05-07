@@ -7,7 +7,6 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.InvertibleFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.Isomorphism;
@@ -63,6 +62,7 @@ public class RealVectorSpaceTest {
 		IFiniteDimensionalLinearMapping map4 = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix4);
 		IFiniteDimensionalSubSpace subSpace  = new FiniteDimensionalSubSpace(map4);
 		
+		@SuppressWarnings("unused")
 		Set<IFiniteVector> test=subSpace.getGenericBase();
 		
 		int i=0;
