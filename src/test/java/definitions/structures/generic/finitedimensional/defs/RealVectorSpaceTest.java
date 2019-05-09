@@ -28,18 +28,18 @@ public class RealVectorSpaceTest {
 	static IFiniteDimensionalLinearMapping comp2;
 	static IFiniteDimensionalLinearMapping comp3;
 
-	static double[][] matrix = new double[][] { { 1, 0,1 }, { 0, 1., 0 }, { -1, 0, 1 } };
+	static double[][] matrix = new double[][] { { 1, 0, 1 }, { 0, 1., 0 }, { -1, 0, 1 } };
 
 	static double[][] matrix2 = new double[][] { { 0, 1, 2 }, { 0, 0, 3 }, { 1, 0, 0 } };
 
 	static double[][] matrix3 = new double[][] { { 1.e5 } };
-	
-	static double[][] matrix4 = new double[][] { {1,3},{3,2},{1,0} };
 
-	static List<IFiniteDimensionalLinearMapping> maps=new ArrayList<>();
-	
+	static double[][] matrix4 = new double[][] { { 1, 3 }, { 3, 2 }, { 1, 0 } };
+
+	static List<IFiniteDimensionalLinearMapping> maps = new ArrayList<>();
+
 	static IFiniteDimensionalLinearMapping product;
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
@@ -51,30 +51,33 @@ public class RealVectorSpaceTest {
 		IFiniteDimensionalLinearMapping inv = ((Isomorphism) map).getInverse();
 		comp1 = MappingGenerator.getInstance().getComposition(map, inv);
 
-		IFiniteDimensionalLinearMapping map2 = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix2);
+		IFiniteDimensionalLinearMapping map2 = MappingGenerator.getInstance()
+				.getFiniteDimensionalLinearMapping(matrix2);
 		IFiniteDimensionalLinearMapping inv2 = ((Isomorphism) map2).getInverse();
-		comp2 =MappingGenerator.getInstance().getComposition(map2, inv2);
+		comp2 = MappingGenerator.getInstance().getComposition(map2, inv2);
 
-		IFiniteDimensionalLinearMapping map3 = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix3);
+		IFiniteDimensionalLinearMapping map3 = MappingGenerator.getInstance()
+				.getFiniteDimensionalLinearMapping(matrix3);
 		IFiniteDimensionalLinearMapping inv3 = ((Isomorphism) map3).getInverse();
 		comp3 = MappingGenerator.getInstance().getComposition(map3, inv3);
 
-		IFiniteDimensionalLinearMapping map4 = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix4);
-		IFiniteDimensionalSubSpace subSpace  = new FiniteDimensionalSubSpace(map4);
-		
+		IFiniteDimensionalLinearMapping map4 = MappingGenerator.getInstance()
+				.getFiniteDimensionalLinearMapping(matrix4);
+		IFiniteDimensionalSubSpace subSpace = new FiniteDimensionalSubSpace(map4);
+
 		@SuppressWarnings("unused")
-		Set<IFiniteVector> test=subSpace.getGenericBase();
-		
-		int i=0;
-		maps.add(MappingGenerator.getInstance().
-					getFiniteDimensionalLinearMapping(new double[][] {	e1.getGenericCoordinates(),
-																		e2.getGenericCoordinates(),
-																		e3.getGenericCoordinates()}));
-		while (i++<2.e6) {
-			maps.add(MappingGenerator.getInstance().getComposition(maps.get(maps.size()-1),map));
+		Set<IFiniteVector> test = subSpace.getGenericBase();
+
+		for (int j = 0; j < 10; j++) {
+			int i = 0;
+			maps.add(MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(new double[][] {
+					e1.getGenericCoordinates(), e2.getGenericCoordinates(), e3.getGenericCoordinates() }));
+			while (i++ < 1.e5) {
+				maps.add(MappingGenerator.getInstance().getComposition(maps.get(maps.size() - 1), map));
+			}
+			product = maps.get(maps.size() - 1);
+			System.out.println(product);
 		}
-		product=maps.get(maps.size()-1);
-		System.out.println(product);
 	}
 
 	@Test
@@ -119,5 +122,5 @@ public class RealVectorSpaceTest {
 	public void productTest() {
 		Assert.assertTrue(product instanceof InvertibleFiniteDimensionalLinearMapping);
 	}
-	
+
 }
