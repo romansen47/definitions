@@ -12,11 +12,16 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements IFiniteDimensionalSubSpace {
 
 	private final IFiniteDimensionalLinearMapping parametrization;
+	final List<IFiniteVector> genericBase = new ArrayList<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank())
 					.genericBaseToList());
 		this.parametrization = map;
+		
+		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
+			genericBase.add(parametrization.get(vec));
+		}
 	}
 
 	@Override
@@ -46,11 +51,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 
 	@Override
 	public List<IFiniteVector> genericBaseToList() throws Throwable {
-		List<IFiniteVector> baseAsList = new ArrayList<>();
-		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
-				baseAsList.add(parametrization.get(vec));
-		}
-		return baseAsList;
+		return genericBase;
 	}
 
 }

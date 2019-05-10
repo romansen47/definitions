@@ -19,7 +19,7 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 
 	@Override
 	default int dim() throws Throwable {
-		return getParametrization().getSource().dim() - getParametrization().getRank();
+		return getParametrization().getRank();
 	}
 
 	IFiniteDimensionalLinearMapping getParametrization();

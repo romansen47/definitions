@@ -24,7 +24,7 @@ public interface IFiniteDimensionalLinearMapping {
 	default IFiniteVector get(IFiniteVector vec1) throws Throwable {
 		if (vec1 instanceof FiniteVector) {
 			final Map<IFiniteVector, Double> coordinates = vec1.getCoordinates();
-			IFiniteVector ans = new FiniteVector(new double[getTarget().dim()]);
+			IFiniteVector ans = new FiniteVector(new double[getTarget().genericBaseToList().get(0).getDim()]);
 			for (final IFiniteVector src : getSource().genericBaseToList()) {
 				ans = (IFiniteVector) getTarget().add(ans,
 						(IFiniteVector) getTarget().stretch(getColumn(src), coordinates.get(src)));
@@ -36,9 +36,9 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
-		if (vec.getDim() > getSource().dim()) {
-			throw new Throwable();
-		}
+//		if (vec.getDim() > getSource().dim()) {
+//			throw new Throwable();
+//		}
 		final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 		for (final IFiniteVector vec1 : getTarget().genericBaseToList()) {
 			coordinates.put(vec1, getLinearity().get(vec).get(vec1));

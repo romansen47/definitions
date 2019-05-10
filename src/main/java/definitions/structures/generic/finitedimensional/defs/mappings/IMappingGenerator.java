@@ -31,6 +31,13 @@ public interface IMappingGenerator {
 		}
 		return matC;
 	}
+	
+	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(
+			IFiniteDimensionalVectorSpace source,
+			IFiniteDimensionalVectorSpace target,
+			Map<IFiniteVector,Map<IFiniteVector,Double>> map) throws Throwable {
+		return new FiniteDimensionalLinearMapping(source,target,map);
+	}
 
 	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(double[][] genericMatrix)
 			throws Throwable {
