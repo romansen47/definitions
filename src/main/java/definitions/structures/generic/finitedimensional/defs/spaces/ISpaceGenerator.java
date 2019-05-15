@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.VectorGenerator;
 

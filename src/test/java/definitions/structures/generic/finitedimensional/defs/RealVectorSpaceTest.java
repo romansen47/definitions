@@ -8,11 +8,9 @@ import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import definitions.structures.generic.finitedimensional.defs.mappings.FiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.InvertibleFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.Isomorphism;
+import definitions.structures.generic.finitedimensional.defs.mappings.Automorphism;
 import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.FiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
@@ -51,17 +49,17 @@ public class RealVectorSpaceTest {
 		e3 = new FiniteVector(new double[] { 0, 0, 1 });
 
 		IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
-		IFiniteDimensionalLinearMapping inv = ((Isomorphism) map).getInverse();
+		IFiniteDimensionalLinearMapping inv = ((Automorphism) map).getInverse();
 		comp1 = MappingGenerator.getInstance().getComposition(map, inv);
 
 		IFiniteDimensionalLinearMapping map2 = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(matrix2);
-		IFiniteDimensionalLinearMapping inv2 = ((Isomorphism) map2).getInverse();
+		IFiniteDimensionalLinearMapping inv2 = ((Automorphism) map2).getInverse();
 		comp2 = MappingGenerator.getInstance().getComposition(map2, inv2);
 
 		IFiniteDimensionalLinearMapping map3 = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(matrix3);
-		IFiniteDimensionalLinearMapping inv3 = ((Isomorphism) map3).getInverse();
+		IFiniteDimensionalLinearMapping inv3 = ((Automorphism) map3).getInverse();
 		comp3 = MappingGenerator.getInstance().getComposition(map3, inv3);
 
 		IFiniteDimensionalLinearMapping map4 = MappingGenerator.getInstance()
@@ -70,27 +68,16 @@ public class RealVectorSpaceTest {
 
 		@SuppressWarnings("unused")
 		Set<IFiniteVector> test = subSpace.getGenericBase();
-
-//		for (int j = 0; j < 10; j++) {
-//			int i = 0;
-//			maps.add(MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(new double[][] {
-//					e1.getGenericCoordinates(), e2.getGenericCoordinates(), e3.getGenericCoordinates() }));
-//			while (i++ < 1.e5) {
-//				maps.add(MappingGenerator.getInstance().getComposition(maps.get(maps.size() - 1), map));
-//			}
-//			product = maps.get(maps.size() - 1);
-//			System.out.println(product);
-//		}
 		
 		List<IFiniteVector> base=subSpace.genericBaseToList();
 		Map<IFiniteVector,Map<IFiniteVector,Double>> coordinates=new HashMap<>();
 
 		Map<IFiniteVector,Double> key1=new HashMap<>();
 		key1.put(base.get(0),0.0);
-		key1.put(base.get(1),5.);
+		key1.put(base.get(1),2.);
 		
 		Map<IFiniteVector,Double> key2=new HashMap<>();
-		key2.put(base.get(0),-5.0);
+		key2.put(base.get(0),-0.5);
 		key2.put(base.get(1),0.0);
 
 		coordinates.put(base.get(0),key1);
@@ -99,8 +86,12 @@ public class RealVectorSpaceTest {
 		IFiniteDimensionalLinearMapping testMap = 
 				MappingGenerator.getInstance().
 				getFiniteDimensionalLinearMapping(subSpace,subSpace,coordinates);
-		IFiniteVector x=testMap.get(base.get(0));
-		System.out.println(testMap.toString());
+
+ 		List <IFiniteVector> list=new ArrayList<>();
+		list.add(base.get(0));
+ 		for (int i=0;i<5000000;i++) {
+ 			list.add(testMap.get(list.get(list.size()-1)));
+ 		}
 	}
 
 	@Test
@@ -108,32 +99,32 @@ public class RealVectorSpaceTest {
 		Assert.assertTrue(comp1.get(e1).equals(e1));
 	}
 
-	@Test
+	//@Test
 	public void second1() throws Throwable {
 		Assert.assertTrue(comp1.get(e2).equals(e2));
 	}
 
-	@Test
+	//@Test
 	public void third1() throws Throwable {
 		Assert.assertTrue(comp1.get(e3).equals(e3));
 	}
 
-	@Test
+	//@Test
 	public void first2() throws Throwable {
 		Assert.assertTrue(comp2.get(e1).equals(e1));
 	}
 
-	@Test
+	//@Test
 	public void second2() throws Throwable {
 		Assert.assertTrue(comp2.get(e2).equals(e2));
 	}
 
-	@Test
+	//@Test
 	public void third2() throws Throwable {
 		Assert.assertTrue(comp2.get(e3).equals(e3));
 	}
 
-	@Test
+	//@Test
 	public void first3() throws Throwable {
 		double[] x = new double[1];
 		x[0] = 3.;
@@ -141,7 +132,7 @@ public class RealVectorSpaceTest {
 		Assert.assertTrue(comp3.get(y).equals(y));
 	}
 
-	@Test
+	//@Test
 	public void productTest() {
 		Assert.assertTrue(product instanceof InvertibleFiniteDimensionalLinearMapping);
 	}

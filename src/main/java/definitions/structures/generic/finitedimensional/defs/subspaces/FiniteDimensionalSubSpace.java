@@ -1,7 +1,10 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
@@ -13,14 +16,16 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 
 	private final IFiniteDimensionalLinearMapping parametrization;
 	final List<IFiniteVector> genericBase = new ArrayList<>();
+	private final Map<IFiniteVector, IFiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
-		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank())
-					.genericBaseToList());
+		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
 		this.parametrization = map;
-		
+
 		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
-			genericBase.add(parametrization.get(vec));
+			IFiniteVector newBaseVec = parametrization.get(vec);
+			genericBase.add(newBaseVec);
+			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
 	}
 
@@ -52,6 +57,11 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	@Override
 	public List<IFiniteVector> genericBaseToList() throws Throwable {
 		return genericBase;
+	}
+
+	@Override
+	public final Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping() {
+		return parametrizationBaseVectorMapping;
 	}
 
 }

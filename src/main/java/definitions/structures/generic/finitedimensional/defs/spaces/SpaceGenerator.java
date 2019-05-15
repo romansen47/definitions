@@ -3,8 +3,6 @@ package definitions.structures.generic.finitedimensional.defs.spaces;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
-
 public class SpaceGenerator implements ISpaceGenerator {
 
 	private static ISpaceGenerator generator = null;

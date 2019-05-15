@@ -3,7 +3,6 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -12,9 +11,9 @@ public interface IMappingGenerator {
 
 	Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces();
 
-	default IFiniteDimensionalLinearMapping getComposition(IFiniteDimensionalLinearMapping A,
-			IFiniteDimensionalLinearMapping B) throws Throwable {
-		return getFiniteDimensionalLinearMapping(composition(A.getGenericMatrix(), B.getGenericMatrix()));
+	default IFiniteDimensionalLinearMapping getComposition(IFiniteDimensionalLinearMapping a,
+			IFiniteDimensionalLinearMapping b) throws Throwable {
+		return getFiniteDimensionalLinearMapping(composition(a.getGenericMatrix(), b.getGenericMatrix()));
 	}
 
 	default double[][] composition(double[][] matA, double[][] matB) throws Throwable {
@@ -31,20 +30,20 @@ public interface IMappingGenerator {
 		}
 		return matC;
 	}
-	
-	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(
-			IFiniteDimensionalVectorSpace source,
-			IFiniteDimensionalVectorSpace target,
-			Map<IFiniteVector,Map<IFiniteVector,Double>> map) throws Throwable {
-		return new FiniteDimensionalLinearMapping(source,target,map);
+
+	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source,
+			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> map) throws Throwable {
+		return new FiniteDimensionalLinearMapping(source, target, map);
 	}
 
 	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(double[][] genericMatrix)
 			throws Throwable {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
-		final IFiniteDimensionalVectorSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);
-		final IFiniteDimensionalVectorSpace target = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimTarget);
+		final IFiniteDimensionalVectorSpace source = SpaceGenerator.getInstance()
+				.getFiniteDimensionalVectorSpace(dimSource);
+		final IFiniteDimensionalVectorSpace target = SpaceGenerator.getInstance()
+				.getFiniteDimensionalVectorSpace(dimTarget);
 		final Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates = new HashMap<>();
 		int i = 0;
 		for (final IFiniteVector vec1 : source.genericBaseToList()) {
@@ -62,15 +61,26 @@ public interface IMappingGenerator {
 			if (dimSource == tmp.getRank()) {
 				return new FiniteDimensionalInjectiveLinearMapping(tmp);
 			}
-		} 
-		else if (dimSource==dimTarget){
+		} else if (dimSource == dimTarget) {
 			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
-			if (ans.getRank()==dimSource) {
+			if (ans.getRank() == dimSource) {
 				return new InvertibleFiniteDimensionalLinearMapping(source, coordinates);
 			}
 			return ans;
 		}
-		return new FiniteDimensionalLinearMapping(source,target,coordinates);
+		return new FiniteDimensionalLinearMapping(source, target, coordinates);
 	}
-	
+
+	default IFiniteDimensionalLinearMapping getTransposedMapping(IFiniteDimensionalLinearMapping map) throws Throwable {
+		Map<IFiniteVector, Map<IFiniteVector, Double>> transposedMatrix = new HashMap<>();
+		for (IFiniteVector targetVec : map.getTarget().getGenericBase()) {
+			Map<IFiniteVector, Double> entry = new HashMap<>();
+			for (IFiniteVector sourceVec : map.getSource().getGenericBase()) {
+				entry.put(sourceVec, map.getLinearity().get(sourceVec).get(targetVec));
+			}
+			transposedMatrix.put(targetVec, entry);
+		}
+		return getFiniteDimensionalLinearMapping(map.getTarget(), map.getSource(), transposedMatrix);
+	}
+
 }

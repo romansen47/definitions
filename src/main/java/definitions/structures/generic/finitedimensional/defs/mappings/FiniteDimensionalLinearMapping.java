@@ -6,7 +6,6 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.FiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
@@ -58,10 +57,10 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 		try {
 			matrix = getGenericMatrix();
 			double x;
-			for (int i = 0; i<matrix.length;i++) {
-				for ( int j = 0;j<matrix[i].length;j++) {
-					x=matrix[i][j];
-					str += " " + (x-(x%0.001)) + " ";
+			for (int i = 0; i < matrix.length; i++) {
+				for (int j = 0; j < matrix[i].length; j++) {
+					x = matrix[i][j];
+					str += " " + (x - (x % 0.001)) + " ";
 				}
 				str += " \r";
 			}

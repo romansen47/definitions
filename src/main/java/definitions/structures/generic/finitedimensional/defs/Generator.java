@@ -13,7 +13,6 @@ import definitions.structures.generic.finitedimensional.defs.vectors.VectorGener
 
 public class Generator implements IGenerator {
 
-	
 	@SuppressWarnings("unused")
 	private static final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
 	@SuppressWarnings("unused")
@@ -38,6 +37,5 @@ public class Generator implements IGenerator {
 
 	private Generator() {
 	}
-	
 
 }
