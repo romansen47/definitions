@@ -6,7 +6,7 @@
 	<groupId>general</groupId>
 	<artifactId>definitions</artifactId>
 	<name>math</name>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>prcssng</groupId>
@@ -35,13 +35,6 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
 			<version>3.6</version>
-		</dependency>
-		<dependency>
-			<groupId>general</groupId>
-			<artifactId>math</artifactId>
-			<version>1.0.0-snapshot</version>
-			<type>jar</type>
-			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 

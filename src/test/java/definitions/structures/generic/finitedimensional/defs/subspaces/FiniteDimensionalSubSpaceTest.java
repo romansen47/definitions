@@ -29,6 +29,7 @@ public class FiniteDimensionalSubSpaceTest {
 
 	static double[][] matrix = new double[][] { { 1, 3 }, { 3, 2 }, { 1, 0 } };
 	static List<IFiniteVector> list = new ArrayList<>();
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
