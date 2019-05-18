@@ -14,7 +14,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	private final IFiniteDimensionalVectorSpace source;
 	private final IFiniteDimensionalVectorSpace target;
 	private final Map<IFiniteVector, Map<IFiniteVector, Double>> linearity;
-	final double[][] genericMatrix;
+	private final double[][] genericMatrix;
 
 	protected FiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source, IFiniteDimensionalVectorSpace target,
 			Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates) throws Throwable {
@@ -84,7 +84,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	public double[][] getGenericMatrix() throws Throwable {
+	public final double[][] getGenericMatrix() throws Throwable {
 		return genericMatrix;
 	}
 

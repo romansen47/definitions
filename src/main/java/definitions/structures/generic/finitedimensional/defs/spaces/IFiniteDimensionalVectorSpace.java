@@ -49,10 +49,11 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 
 	default IVector stretch(IFiniteVector vec, double r) throws Throwable {
 		if (vec.getDim() == dim()) {
-			final Map<IFiniteVector, Double> stretched = vec.getCoordinates();
+			final Map<IFiniteVector, Double> stretched = new HashMap<>();
+			final Map<IFiniteVector, Double> coordinates = vec.getCoordinates();
 			final List<IFiniteVector> base = genericBaseToList();
 			for (final IFiniteVector vec1 : base) {
-				stretched.put(vec1, stretched.get(getBaseVec(vec1)) * r);
+				stretched.put(vec1, coordinates.get(getBaseVec(getBaseVec(vec1))) * r);
 			}
 			return new FiniteVector(stretched);
 		}
