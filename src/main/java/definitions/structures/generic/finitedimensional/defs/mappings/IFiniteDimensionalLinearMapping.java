@@ -62,19 +62,7 @@ public interface IFiniteDimensionalLinearMapping {
 		return new FiniteVector(coordinates);
 	}
 
-	default double[][] getGenericMatrix() throws Throwable {
-		final double[][] matrix = new double[getTarget().dim()][getSource().dim()];
-		int i = 0;
-		for (final IFiniteVector vec1 : getSource().genericBaseToList()) {
-			int j = 0;
-			for (final IFiniteVector vec2 : getTarget().genericBaseToList()) {
-				matrix[j][i] = getLinearity(vec1).get(vec2);
-				j++;
-			}
-			i++;
-		}
-		return matrix;
-	}
+	double[][] getGenericMatrix() throws Throwable;
 
 	default void swap(double[][] mat, int row1, int row2, int col) {
 		for (int i = 0; i < col; i++) {

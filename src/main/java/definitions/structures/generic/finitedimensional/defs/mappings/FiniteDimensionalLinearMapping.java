@@ -14,12 +14,23 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	private final IFiniteDimensionalVectorSpace source;
 	private final IFiniteDimensionalVectorSpace target;
 	private final Map<IFiniteVector, Map<IFiniteVector, Double>> linearity;
+	final double[][] genericMatrix;
 
 	protected FiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source, IFiniteDimensionalVectorSpace target,
 			Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates) throws Throwable {
 		this.source = source;
 		this.target = target;
 		this.linearity = coordinates;
+		genericMatrix = new double[getTarget().dim()][getSource().dim()];
+		int i = 0;
+		for (final IFiniteVector vec1 : getSource().genericBaseToList()) {
+			int j = 0;
+			for (final IFiniteVector vec2 : getTarget().genericBaseToList()) {
+				genericMatrix[j][i] = getLinearity(vec1).get(vec2);
+				j++;
+			}
+			i++;
+		}
 	}
 
 	@Override
@@ -70,6 +81,11 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 		}
 
 		return str;
+	}
+
+	@Override
+	public double[][] getGenericMatrix() throws Throwable {
+		return genericMatrix;
 	}
 
 }

@@ -92,6 +92,7 @@ public class RealVectorSpaceTest {
  		for (int i=0;i<5000000;i++) {
  			list.add(testMap.get(list.get(list.size()-1)));
  		}
+ 		System.out.println("Bye bye");
 	}
 
 	@Test
