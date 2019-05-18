@@ -73,13 +73,12 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default int getRank() throws Throwable {
-		double[][] mat = new double[getTarget().genericBaseToList().size()]
-		                           [getSource().genericBaseToList().size()];
-		int m=0;
-		for (IFiniteVector vec1:getSource().genericBaseToList()) {
-			int n=0;
-			for (IFiniteVector vec2:getTarget().genericBaseToList()) {
-				mat[n][m]=getGenericMatrix()[n++][m];
+		double[][] mat = new double[getTarget().genericBaseToList().size()][getSource().genericBaseToList().size()];
+		int m = 0;
+		for (IFiniteVector vec1 : getSource().genericBaseToList()) {
+			int n = 0;
+			for (IFiniteVector vec2 : getTarget().genericBaseToList()) {
+				mat[n][m] = getGenericMatrix()[n++][m];
 			}
 			m++;
 		}

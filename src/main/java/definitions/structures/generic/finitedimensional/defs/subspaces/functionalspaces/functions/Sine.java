@@ -1,7 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public class Sine extends FiniteVector implements IFunction {
 
@@ -9,6 +8,7 @@ public class Sine extends FiniteVector implements IFunction {
 		super(coordinates);
 	}
 
+	@Override
 	public double value(double input) throws Throwable {
 		return Math.sin(input);
 	}

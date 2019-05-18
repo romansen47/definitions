@@ -1,9 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
@@ -16,5 +14,5 @@ public class Function extends FiniteVector implements IFunction {
 	public Function(double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
-	
+
 }

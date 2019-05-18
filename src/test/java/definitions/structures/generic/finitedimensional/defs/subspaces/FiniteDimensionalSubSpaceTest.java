@@ -1,8 +1,5 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,15 +8,11 @@ import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.InvertibleFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.Automorphism;
 import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.FiniteDimensionalSubSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
-import junit.framework.Assert;
 
 public class FiniteDimensionalSubSpaceTest {
 
@@ -29,7 +22,7 @@ public class FiniteDimensionalSubSpaceTest {
 
 	static double[][] matrix = new double[][] { { 1, 3 }, { 3, 2 }, { 1, 0 } };
 	static List<IFiniteVector> list = new ArrayList<>();
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 

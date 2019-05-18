@@ -1,7 +1,5 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +7,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Constant;
@@ -18,7 +14,6 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functiona
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.IFunction;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Identity;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Sine;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public class FiniteDimensionalFunctionSpaceTest {
@@ -89,12 +84,12 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test3() {
-		Assert.assertTrue(almostEqual(integral3, 2./3.*Math.pow(Math.PI, 3)));
+		Assert.assertTrue(almostEqual(integral3, 2. / 3. * Math.pow(Math.PI, 3)));
 	}
 
 	@Test
 	public void test4() {
-		Assert.assertTrue(almostEqual(integral4, 2*Math.PI));
+		Assert.assertTrue(almostEqual(integral4, 2 * Math.PI));
 	}
 
 	@Test
@@ -124,6 +119,6 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test10() {
-		Assert.assertTrue(almostEqual(integral10, 2*Math.PI));
+		Assert.assertTrue(almostEqual(integral10, 2 * Math.PI));
 	}
 }

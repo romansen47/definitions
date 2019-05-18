@@ -1,12 +1,8 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
-import java.util.List;
-import java.util.Map;
-
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.IFunction;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVectorSpace {
@@ -50,12 +46,13 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 		}
 		return null;
 	}
-	
+
+	@Override
 	default IVector stretch(IFiniteVector vec, double r) throws Throwable {
 		if (vec instanceof IFunction && vec.getDim() == dim()) {
-			return stretch((IFunction)vec,r);
+			return stretch(vec, r);
 		}
 		throw new Throwable();
 	}
-	
+
 }

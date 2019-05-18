@@ -6,7 +6,7 @@ public interface IHilbertSpace extends INormedSpace {
 
 	@Override
 	default double norm(IVector vec) throws Throwable {
-		return Math.abs(product(vec, vec));
+		return product(vec, vec);
 	}
 
 }
