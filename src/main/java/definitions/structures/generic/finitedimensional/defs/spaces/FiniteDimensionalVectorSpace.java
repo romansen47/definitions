@@ -11,9 +11,9 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 
 public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpace {
 
-	final List<IFiniteVector> base;
+	private List<IFiniteVector> base;
 
-	final int dim;
+	final private int dim;
 
 	public FiniteDimensionalVectorSpace(List<IFiniteVector> list) throws Throwable {
 		dim = list.size();
@@ -42,22 +42,40 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 
 	@Override
 	public IVector nullVec() throws Throwable {
-		return new FiniteVector(new double[base.size()]);
+		return new FiniteVector(new double[getBase().size()]);
 	}
 
 	@Override
 	public List<IFiniteVector> genericBaseToList() throws Throwable {
-		return base;
+		return getBase();
 	}
 
 	@Override
 	public int dim() throws Throwable {
-		return dim;
+		return getDim();
 	}
 
 	@Override
 	public Set<IFiniteVector> getGenericBase() throws Throwable {
 		return new HashSet<>(genericBaseToList());
+	}
+
+	/**
+	 * @return the base
+	 */
+	protected List<IFiniteVector> getBase() {
+		return base;
+	}
+	
+	protected void setBase(List<IFiniteVector> newBase) {
+		base=newBase;
+	}
+
+	/**
+	 * @return the dim
+	 */
+	protected int getDim() {
+		return dim;
 	}
 
 }

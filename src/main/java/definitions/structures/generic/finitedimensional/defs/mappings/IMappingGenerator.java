@@ -32,8 +32,22 @@ public interface IMappingGenerator {
 	}
 
 	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source,
-			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> map) throws Throwable {
-		return new FiniteDimensionalLinearMapping(source, target, map);
+			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates) throws Throwable {
+		final int dimSource = source.dim();
+		final int dimTarget = target.dim();
+		if (dimSource < dimTarget) {
+			IFiniteDimensionalLinearMapping tmp = new FiniteDimensionalLinearMapping(source, target, coordinates);
+			if (dimSource == tmp.getRank()) {
+				return new FiniteDimensionalInjectiveLinearMapping(tmp);
+			}
+		} else if (dimSource == dimTarget) {
+			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
+			if (ans.getRank() == dimSource) {
+				return new InvertibleFiniteDimensionalLinearMapping(source, coordinates);
+			}
+			return ans;
+		}
+		return new FiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
 	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(double[][] genericMatrix)

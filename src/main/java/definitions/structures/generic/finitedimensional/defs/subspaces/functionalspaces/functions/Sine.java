@@ -1,5 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class Sine extends FiniteVector implements IFunction {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.IVector;
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
@@ -14,13 +15,13 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements IFiniteDimensionalSubSpace {
 
-	private final IFiniteDimensionalLinearMapping parametrization;
+	private IFiniteDimensionalInjectiveLinearMapping parametrization;
 	final List<IFiniteVector> genericBase = new ArrayList<>();
-	private final Map<IFiniteVector, IFiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
+	private Map<IFiniteVector, IFiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
-		this.parametrization = map;
+		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 
 		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
 			IFiniteVector newBaseVec = parametrization.get(vec);
@@ -63,5 +64,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	public final Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping() {
 		return parametrizationBaseVectorMapping;
 	}
+	
+	
 
 }

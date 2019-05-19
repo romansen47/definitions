@@ -11,7 +11,6 @@ import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimen
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Constant;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Cosine;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.IFunction;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Identity;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Sine;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -65,6 +64,9 @@ public class FiniteDimensionalFunctionSpaceTest {
 		integral8 = functionSpace.product(cos, one);
 		integral9 = functionSpace.product(identity, one);
 		integral10 = functionSpace.product(one, one);
+
+		double x=functionSpace.getDistance(cos,sin);
+		double y=functionSpace.getDistance(sin,sin);
 
 	}
 

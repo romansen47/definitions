@@ -1,8 +1,12 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.IFunction;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVectorSpace {
@@ -39,7 +43,7 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 
 	@Override
 	default IFiniteVector getBaseVec(IFiniteVector baseVec) throws Throwable {
-		for (IFiniteVector vec : genericBaseToList().get(0).getGenericBase()) {
+		for (IFiniteVector vec : getGenericBase()) {
 			if (baseVec.equals(vec)) {
 				return vec;
 			}
@@ -47,12 +51,34 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 		return null;
 	}
 
-	@Override
 	default IVector stretch(IFiniteVector vec, double r) throws Throwable {
-		if (vec instanceof IFunction && vec.getDim() == dim()) {
-			return stretch(vec, r);
+		IFunction ans = stretch((IFunction) vec, r);
+		return ans;
+	}
+
+	public IFunction stretch(IFunction vec, double r) throws Throwable;
+
+	default double norm(IFunction vec) throws Throwable {
+		return Math.sqrt(product(vec, vec));
+	}
+
+	default double getDistance(IFunction fun1, IFunction fun2) throws Throwable {
+		IFunction diff = (IFunction) add(fun1, stretch(fun2, -1));
+		return norm(diff);
+	}
+
+	default IFunction add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
+		if (vec1.getDim() == vec2.getDim() && vec1.getDim() == dim()) {
+			final List<IFiniteVector> base = genericBaseToList();
+			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
+			for (final IFiniteVector vec : base) {
+				coordinates.put(getBaseVec(vec),
+						vec1.getCoordinates().get(getBaseVec(vec)) + vec2.getCoordinates().get(getBaseVec(vec)));
+			}
+			return new Function(coordinates);
+		} else {
+			throw new Exception();
 		}
-		throw new Throwable();
 	}
 
 }

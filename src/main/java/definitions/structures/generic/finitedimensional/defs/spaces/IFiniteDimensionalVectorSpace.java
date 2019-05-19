@@ -39,7 +39,7 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 			final List<IFiniteVector> base = genericBaseToList();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 			for (final IFiniteVector vec : base) {
-				coordinates.put(vec, vec1.getCoordinates().get(vec) + vec2.getCoordinates().get(vec));
+				coordinates.put(getBaseVec(vec), vec1.getCoordinates().get(getBaseVec(vec)) + vec2.getCoordinates().get(getBaseVec(vec)));
 			}
 			return new FiniteVector(coordinates);
 		} else {
@@ -72,4 +72,22 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 		}
 		return null;
 	}
+
+	default double getDistance(IFiniteVector ans, IFiniteVector vec) throws Throwable {
+		IFiniteVector diff=(IFiniteVector) add(ans, ((IFiniteVector)stretch(vec,-1)));
+		return norm(diff);
+	}
+//
+//	default IFiniteDimensionalVectorSpace getSubSpace(double[][] matrix) throws Throwable {
+//		Map<IFiniteVector,Map<IFiniteVector,Double>> coordinates=new HashMap<>();
+//		List<IFiniteVector> base=genericBaseToList();
+//		for (int i=0;i<matrix[0].length;i++) {
+//			Map<IFiniteVector,Double> vecCoordinates=new HashMap<>();
+//			for (int j=0;j<matrix.length;j++) {
+//				vecCoordinates.put(base.get(j), matrix[i][j]);
+//			}
+//			coordinates.put(base.get(i), vecCoordinates);
+//		}
+//		
+//	}
 }

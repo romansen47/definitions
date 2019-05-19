@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
+package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
 import java.util.Map;
 
@@ -14,5 +14,5 @@ public class Function extends FiniteVector implements IFunction {
 	public Function(double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
-
+	
 }

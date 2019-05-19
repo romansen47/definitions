@@ -4,7 +4,7 @@ import math.matrix.MatrixOperator;
 
 public interface Isomorphism extends IFiniteDimensionalInjectiveLinearMapping {
 
-	default Automorphism getInverse() throws Throwable {
+	default Isomorphism getInverse() throws Throwable {
 		return (InvertibleFiniteDimensionalLinearMapping) MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(MatrixOperator.getInstance().inverse(getGenericMatrix()));
 	}

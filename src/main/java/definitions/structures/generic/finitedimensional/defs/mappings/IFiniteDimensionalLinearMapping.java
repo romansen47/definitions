@@ -30,7 +30,8 @@ public interface IFiniteDimensionalLinearMapping {
 		IFiniteVector ans = new FiniteVector(new double[getTarget().genericBaseToList().get(0).getDim()]);
 		for (final IFiniteVector src : getSource().genericBaseToList()) {
 			ans = (IFiniteVector) getTarget().add(ans,
-					(IFiniteVector) getTarget().stretch(getColumn(src), coordinates.get(src)));
+					(IFiniteVector) getTarget().stretch(getTarget().getBaseVec(getColumn(src)), 
+							coordinates.get(getSource().getBaseVec(src))));
 		}
 		return ans;
 	}

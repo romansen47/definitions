@@ -1,5 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
+
 public class Constant extends Function {
 
 	final double value;

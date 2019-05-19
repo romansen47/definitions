@@ -41,13 +41,22 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 
 	default Map<IFiniteVector, Double> getInverseCoordinates(IFiniteVector vec) throws Throwable {
 
+		IFiniteVector ans = getNearestVector(vec);
+		if (getSuperSpace().getDistance(getParametrization().get(ans),vec)<1.e-5) {
+			return ans.getCoordinates();
+		}
+		else return null;
+	}
+
+	Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping();
+	
+	default IFiniteVector getNearestVector(IFiniteVector vec) throws Throwable {
 		IFiniteDimensionalLinearMapping transposed = MappingGenerator.getInstance()
 				.getTransposedMapping(getParametrization());
 		IFiniteDimensionalLinearMapping quadratic = MappingGenerator.getInstance().getComposition(transposed,
 				getParametrization());
 		IFiniteVector transformed = transposed.get(vec);
-		return quadratic.solve(transformed).getCoordinates();
+		final IFiniteVector ans=new FiniteVector(quadratic.solve(transformed).getCoordinates());
+		return ans;
 	}
-
-	Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping();
 }

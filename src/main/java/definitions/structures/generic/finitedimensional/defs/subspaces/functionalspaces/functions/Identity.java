@@ -1,5 +1,8 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
+
 public class Identity extends Function implements IFunction {
 
 	public Identity(double[] coordinates) throws Throwable {

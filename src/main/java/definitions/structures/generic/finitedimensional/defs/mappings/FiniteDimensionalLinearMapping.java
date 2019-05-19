@@ -16,7 +16,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	private final Map<IFiniteVector, Map<IFiniteVector, Double>> linearity;
 	private final double[][] genericMatrix;
 
-	protected FiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source, IFiniteDimensionalVectorSpace target,
+	public FiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source, IFiniteDimensionalVectorSpace target,
 			Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates) throws Throwable {
 		this.source = source;
 		this.target = target;

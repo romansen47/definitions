@@ -2,9 +2,11 @@ package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
 
 public interface IFiniteVector extends IVector {
 
@@ -19,9 +21,12 @@ public interface IFiniteVector extends IVector {
 		}
 		return vector;
 	}
+	
+	Set<IFiniteVector> getGenericBase() throws Throwable;
 
-	default List<IFiniteVector> getGenericBase() throws Throwable {
-		return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getDim()).genericBaseToList();
-	}
+//	default List<IFiniteVector> getGenericBase() throws Throwable {
+//		return SpaceGenerator.getInstance().
+//				getFiniteDimensionalVectorSpace(getDim()).genericBaseToList();
+//	}
 
 }
