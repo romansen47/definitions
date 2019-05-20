@@ -1,5 +1,11 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import definitions.structures.abstr.IVector;
+import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IFunction extends IFiniteVector {
@@ -24,5 +30,6 @@ public interface IFunction extends IFiniteVector {
 		}
 		return true;
 	}
+	
 
 }

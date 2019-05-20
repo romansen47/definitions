@@ -1,5 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.spaces;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +41,12 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 		return (vec instanceof FiniteVector && vec.getDim() == dim());
 	}
 
-	@Override
-	public IVector nullVec() throws Throwable {
-		return new FiniteVector(new double[getBase().size()]);
+	public IFiniteVector nullVec() throws Throwable {
+		Map<IFiniteVector,Double> coordinates=new HashMap<>();
+		for (IFiniteVector vec:genericBaseToList()) {
+			coordinates.put(vec,0.);
+		}
+		return new FiniteVector(coordinates);
 	}
 
 	@Override
@@ -63,7 +67,7 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 	/**
 	 * @return the base
 	 */
-	protected List<IFiniteVector> getBase() {
+	public List<IFiniteVector> getBase() {
 		return base;
 	}
 	

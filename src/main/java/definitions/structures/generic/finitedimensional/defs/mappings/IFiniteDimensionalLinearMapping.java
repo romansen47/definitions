@@ -3,6 +3,7 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
@@ -27,11 +28,15 @@ public interface IFiniteDimensionalLinearMapping {
 			return getOnSubSpace(vec1);
 		}
 		final Map<IFiniteVector, Double> coordinates = vec1.getCoordinates();
-		IFiniteVector ans = new FiniteVector(new double[getTarget().genericBaseToList().get(0).getDim()]);
+		IFiniteVector ans = (IFiniteVector) getTarget().nullVec();
 		for (final IFiniteVector src : getSource().genericBaseToList()) {
+			Map<IFiniteVector,Double> tmp=new HashMap<>();
+			for (IFiniteVector vec:getTarget().genericBaseToList()) {
+				tmp.put(vec, getLinearity().get(src).get(vec));
+			}
 			ans = (IFiniteVector) getTarget().add(ans,
-					(IFiniteVector) getTarget().stretch(getTarget().getBaseVec(getColumn(src)), 
-							coordinates.get(getSource().getBaseVec(src))));
+					((IFiniteVector)(getTarget().stretch( getTarget().get(tmp), 
+							coordinates.get(getSource().getBaseVec(src))))));
 		}
 		return ans;
 	}

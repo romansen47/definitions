@@ -52,7 +52,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		if (vec.getDim() == dim()) {
 			final Map<IFiniteVector, Double> coordinates = getCoordinates(vec);
 			final Map<IFiniteVector, Double> stretched = new HashMap<>();
-//			final Set<IFiniteVector> base = getGenericBase();
 			for (final IFiniteVector vec1 : getBase()) {
 				stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
 			}

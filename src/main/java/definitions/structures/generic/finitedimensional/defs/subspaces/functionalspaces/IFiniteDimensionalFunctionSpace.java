@@ -68,17 +68,24 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 	}
 
 	default IFunction add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
-		if (vec1.getDim() == vec2.getDim() && vec1.getDim() == dim()) {
-			final List<IFiniteVector> base = genericBaseToList();
+		final List<IFiniteVector> base = genericBaseToList();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 			for (final IFiniteVector vec : base) {
 				coordinates.put(getBaseVec(vec),
 						vec1.getCoordinates().get(getBaseVec(vec)) + vec2.getCoordinates().get(getBaseVec(vec)));
 			}
 			return new Function(coordinates);
-		} else {
-			throw new Exception();
-		}
 	}
+	
+	default IFunction get(IFiniteVector vec) throws Throwable {
+		Map<IFunction,Double> map=new HashMap<>();
+		int i=0;
+		for (IFiniteVector baseVec:getBase()) {
+			map.put((IFunction)baseVec,vec.getGenericCoordinates()[i++]);
+		}
+		return null;
+	}
+
+	List<IFiniteVector> getBase();
 
 }

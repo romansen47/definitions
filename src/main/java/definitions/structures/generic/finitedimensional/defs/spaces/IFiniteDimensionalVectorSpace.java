@@ -26,10 +26,10 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 		}
 	}
 
-	default IVector get(Map<IVector, Double> coordinates) throws Throwable {
+	default IFiniteVector get(Map<IFiniteVector, Double> tmp) throws Throwable {
 		IFiniteVector vec = (IFiniteVector) nullVec();
 		for (final IFiniteVector basevec : genericBaseToList()) {
-			vec = (IFiniteVector) add(vec, (IFiniteVector) stretch(basevec, coordinates.get(basevec).doubleValue()));
+			vec = (IFiniteVector) add(vec, (IFiniteVector) stretch(basevec, tmp.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
@@ -67,7 +67,7 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 	default IFiniteVector getBaseVec(IFiniteVector baseVec) throws Throwable {
 		for (IFiniteVector vec : getGenericBase()) {
 			if (baseVec.equals(vec)) {
-				return baseVec;
+				return vec;
 			}
 		}
 		return null;
@@ -90,4 +90,5 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 //		}
 //		
 //	}
+
 }

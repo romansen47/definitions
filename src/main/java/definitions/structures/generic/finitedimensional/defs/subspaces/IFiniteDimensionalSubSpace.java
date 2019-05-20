@@ -3,6 +3,7 @@ package definitions.structures.generic.finitedimensional.defs.subspaces;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
@@ -25,18 +26,14 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 
 	IFiniteDimensionalLinearMapping getParametrization();
 
-	@Override
-	default IVector add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
-		if (vec1.getDim() == vec2.getDim() && getSuperSpace().dim() == dim()) {
-			final List<IFiniteVector> base = genericBaseToList();
+	default IFiniteVector add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
+			final Set<IFiniteVector> base = getGenericBase();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 			for (final IFiniteVector vec : base) {
-				coordinates.put(vec, vec1.getCoordinates().get(vec) + vec2.getCoordinates().get(vec));
+				coordinates.put(vec, vec1.getCoordinates().get(getBaseVec(vec)) + 
+						vec2.getCoordinates().get(getBaseVec(vec)));
 			}
 			return new FiniteVector(coordinates);
-		} else {
-			throw new Exception();
-		}
 	}
 
 	default Map<IFiniteVector, Double> getInverseCoordinates(IFiniteVector vec) throws Throwable {

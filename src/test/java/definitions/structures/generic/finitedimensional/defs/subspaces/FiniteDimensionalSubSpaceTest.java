@@ -50,7 +50,7 @@ public class FiniteDimensionalSubSpaceTest {
 	static IFiniteDimensionalFunctionSpace functionSpace;
 	static IFiniteDimensionalFunctionSpace functionSpace2;
 
-	static IFiniteDimensionalFunctionSpace functionSubSpace;
+	static IFiniteDimensionalSubSpace functionSubSpace;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -133,8 +133,9 @@ public class FiniteDimensionalSubSpaceTest {
 		
 		IFiniteDimensionalInjectiveLinearMapping parametrization = (IFiniteDimensionalInjectiveLinearMapping) MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(functionSpace,functionSpace2,coordinates2);
 		
-		functionSubSpace = (IFiniteDimensionalFunctionSpace) new FiniteDimensionalSubSpace(parametrization);
-
+		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
+		IFunction sum=functionSpace.add(one2,identity2);
+		IFiniteVector max=functionSubSpace.getNearestVector(sum);
 		
 	}
 
