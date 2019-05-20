@@ -6,4 +6,8 @@ public interface IVectorSpace {
 
 	IVector nullVec() throws Throwable;
 
+	IVector add(IVector vec1, IVector vec2) throws Throwable;
+
+	IVector stretch(IVector vec1, double r) throws Throwable;
+
 }

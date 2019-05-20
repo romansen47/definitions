@@ -14,5 +14,5 @@ public class Function extends FiniteVector implements IFunction {
 	public Function(double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
-	
+
 }

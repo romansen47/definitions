@@ -7,6 +7,8 @@ import java.util.Set;
 
 import definitions.structures.abstr.IHilbertSpace;
 import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
@@ -26,42 +28,55 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 		}
 	}
 
-	default IFiniteVector get(Map<IFiniteVector, Double> tmp) throws Throwable {
+	default IVector get(Map<IFiniteVector, Double> tmp) throws Throwable {
 		IFiniteVector vec = (IFiniteVector) nullVec();
 		for (final IFiniteVector basevec : genericBaseToList()) {
-			vec = (IFiniteVector) add(vec, (IFiniteVector) stretch(basevec, tmp.get(basevec).doubleValue()));
+			vec = (IFiniteVector) add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
 
-	default IVector add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
-		if (vec1.getDim() == vec2.getDim() && vec1.getDim() == dim()) {
+	@Override
+	default IVector add(IVector vec1, IVector vec2) throws Throwable {
+		if (vec1 instanceof IFiniteVector && vec2 instanceof IFiniteVector && vec1.getDim() == vec2.getDim()
+				&& vec1.getDim() == dim()) {
 			final List<IFiniteVector> base = genericBaseToList();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 			for (final IFiniteVector vec : base) {
-				coordinates.put(getBaseVec(vec), vec1.getCoordinates().get(getBaseVec(vec)) + vec2.getCoordinates().get(getBaseVec(vec)));
+				coordinates.put(getBaseVec(vec), ((IFiniteVector) vec1).getCoordinates().get(getBaseVec(vec))
+						+ ((IFiniteVector) vec2).getCoordinates().get(getBaseVec(vec)));
 			}
 			return new FiniteVector(coordinates);
 		} else {
-			throw new Exception();
+			return ((IVectorSpace) this).add(vec1, vec2);
 		}
 	}
 
-	default IVector stretch(IFiniteVector vec, double r) throws Throwable {
-		if (vec.getDim() == dim()) {
+	@Override
+	default IVector stretch(IVector vec, double r) throws Throwable {
+		if (vec instanceof IFiniteVector && vec.getDim() == dim()) {
 			final Map<IFiniteVector, Double> stretched = new HashMap<>();
-			final Map<IFiniteVector, Double> coordinates = vec.getCoordinates();
+			final Map<IFiniteVector, Double> coordinates = ((IFiniteVector) vec).getCoordinates();
 			final List<IFiniteVector> base = genericBaseToList();
 			for (final IFiniteVector vec1 : base) {
-				stretched.put(vec1, coordinates.get(getBaseVec(getBaseVec(vec1))) * r);
+				stretched.put(vec1, coordinates.get(vec1) * r);
 			}
 			return new FiniteVector(stretched);
 		}
-		throw new Throwable();
+		return ((IVectorSpace) this).stretch(vec, r);
 	}
 
 	default IFiniteVector normalize(IFiniteVector vec) throws Throwable {
 		return (IFiniteVector) stretch(vec, 1 / norm(vec));
+	}
+
+	default IVector get(IFiniteVector vec) throws Throwable {
+		Map<IFiniteVector, Double> map = new HashMap<>();
+		int i = 0;
+		for (IFiniteVector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {
+			map.put(baseVec, vec.getGenericCoordinates()[i++]);
+		}
+		return get(map);
 	}
 
 	default IFiniteVector getBaseVec(IFiniteVector baseVec) throws Throwable {
@@ -74,21 +89,8 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 	}
 
 	default double getDistance(IFiniteVector ans, IFiniteVector vec) throws Throwable {
-		IFiniteVector diff=(IFiniteVector) add(ans, ((IFiniteVector)stretch(vec,-1)));
+		IFiniteVector diff = (IFiniteVector) add(ans, (stretch(vec, -1)));
 		return norm(diff);
 	}
-//
-//	default IFiniteDimensionalVectorSpace getSubSpace(double[][] matrix) throws Throwable {
-//		Map<IFiniteVector,Map<IFiniteVector,Double>> coordinates=new HashMap<>();
-//		List<IFiniteVector> base=genericBaseToList();
-//		for (int i=0;i<matrix[0].length;i++) {
-//			Map<IFiniteVector,Double> vecCoordinates=new HashMap<>();
-//			for (int j=0;j<matrix.length;j++) {
-//				vecCoordinates.put(base.get(j), matrix[i][j]);
-//			}
-//			coordinates.put(base.get(i), vecCoordinates);
-//		}
-//		
-//	}
 
 }

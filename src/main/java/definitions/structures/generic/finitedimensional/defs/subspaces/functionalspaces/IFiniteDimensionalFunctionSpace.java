@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.IVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -51,9 +52,13 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 		return null;
 	}
 
-	default IVector stretch(IFiniteVector vec, double r) throws Throwable {
-		IFunction ans = stretch((IFunction) vec, r);
-		return ans;
+	@Override
+	default IVector stretch(IVector vec, double r) throws Throwable {
+		if (vec instanceof IFunction) {
+			IFunction ans = stretch((IFunction) vec, r);
+			return ans;
+		}
+		return null;
 	}
 
 	public IFunction stretch(IFunction vec, double r) throws Throwable;
@@ -67,23 +72,53 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 		return norm(diff);
 	}
 
-	default IFunction add(IFiniteVector vec1, IFiniteVector vec2) throws Throwable {
-		final List<IFiniteVector> base = genericBaseToList();
+	@Override
+	default IVector add(IVector vec1, IVector vec2) throws Throwable {
+		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
+			final List<IFiniteVector> base = genericBaseToList();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
 			for (final IFiniteVector vec : base) {
-				coordinates.put(getBaseVec(vec),
-						vec1.getCoordinates().get(getBaseVec(vec)) + vec2.getCoordinates().get(getBaseVec(vec)));
+				coordinates.put(vec, ((IFiniteVector) (get((IFunction) vec1))).getCoordinates().get(getBaseVec(vec))
+						+ ((IFiniteVector) (get((IFunction) vec2))).getCoordinates().get(getBaseVec(vec)));
 			}
 			return new Function(coordinates);
-	}
-	
-	default IFunction get(IFiniteVector vec) throws Throwable {
-		Map<IFunction,Double> map=new HashMap<>();
-		int i=0;
-		for (IFiniteVector baseVec:getBase()) {
-			map.put((IFunction)baseVec,vec.getGenericCoordinates()[i++]);
 		}
-		return null;
+		if (vec1 instanceof IFiniteVector && vec2 instanceof IFiniteVector) {
+			return ((IFiniteDimensionalVectorSpace) this).add(vec1, vec2);
+		}
+		return ((IVectorSpace) this).add(vec1, vec2);
+	}
+
+	@Override
+	default IVector get(IFiniteVector vec) throws Throwable {
+		Map<IFiniteVector, Double> map = new HashMap<>();
+		int i = 0;
+		for (IFiniteVector baseVec : getBase()) {
+			map.put(baseVec, vec.getCoordinates().get(baseVec));
+		}
+		return new FiniteVector(map);
+	}
+
+	default IFunction nullFunction() throws Throwable {
+		Map<IFiniteVector, Double> nul = new HashMap<>();
+		for (IFiniteVector baseVec : getBase()) {
+			nul.put(baseVec, 0.0);
+		}
+		return new Function(nul);
+	}
+
+	@Override
+	default IFiniteVector nullVec() throws Throwable {
+		return nullFunction();
+	}
+
+	@Override
+	default IVector get(Map<IFiniteVector, Double> tmp) throws Throwable {
+		IFunction vec = nullFunction();
+		for (final IFiniteVector basevec : tmp.keySet()) {
+			vec = (IFunction) add(vec, stretch(getBaseVec(basevec), tmp.get(basevec).doubleValue()));
+		}
+		return vec;
 	}
 
 	List<IFiniteVector> getBase();

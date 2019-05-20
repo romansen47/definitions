@@ -1,9 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,10 +25,8 @@ public class FiniteVector implements IFiniteVector {
 		dim = coordinates.length;
 		setCoordinates(new HashMap<>());
 		int i = 0;
-		for (final IFiniteVector vec : 
-				SpaceGenerator.getInstance().
-				getFiniteDimensionalVectorSpace(dim).
-				genericBaseToList()) {
+		for (final IFiniteVector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim)
+				.genericBaseToList()) {
 			getCoordinates().put(vec, coordinates[i++]);
 		}
 	}

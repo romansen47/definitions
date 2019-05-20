@@ -1,13 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import definitions.structures.abstr.IVector;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -15,12 +11,11 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
 
-	final double[] intervall;
-	final double eps = 1.e-5;
+	final protected double[] intervall;
+	final protected double eps = 1.e-5;
 
 	public FiniteDimensionalFunctionSpace(List<IFiniteVector> list, double left, double right) throws Throwable {
 		super(list);
-		List<IFiniteVector> newBase = new ArrayList<>();
 		for (IFiniteVector vec : list) {
 			Map<IFiniteVector, Double> tmpCoord = new HashMap<>();
 			for (IFiniteVector otherVec : list) {
@@ -30,7 +25,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 					tmpCoord.put(otherVec, 0.0);
 				}
 			}
-			((FiniteVector)vec).setCoordinates(tmpCoord);
+			((FiniteVector) vec).setCoordinates(tmpCoord);
 		}
 		intervall = new double[2];
 		intervall[0] = left;
@@ -59,5 +54,4 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 		throw new Throwable();
 	}
-
 }

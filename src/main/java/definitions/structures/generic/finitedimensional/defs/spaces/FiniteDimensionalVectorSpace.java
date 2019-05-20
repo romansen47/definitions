@@ -12,7 +12,7 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 
 public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpace {
 
-	private List<IFiniteVector> base;
+	protected List<IFiniteVector> base;
 
 	final private int dim;
 
@@ -41,10 +41,11 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 		return (vec instanceof FiniteVector && vec.getDim() == dim());
 	}
 
+	@Override
 	public IFiniteVector nullVec() throws Throwable {
-		Map<IFiniteVector,Double> coordinates=new HashMap<>();
-		for (IFiniteVector vec:genericBaseToList()) {
-			coordinates.put(vec,0.);
+		Map<IFiniteVector, Double> coordinates = new HashMap<>();
+		for (IFiniteVector vec : genericBaseToList()) {
+			coordinates.put(vec, 0.);
 		}
 		return new FiniteVector(coordinates);
 	}
@@ -70,9 +71,9 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 	public List<IFiniteVector> getBase() {
 		return base;
 	}
-	
+
 	protected void setBase(List<IFiniteVector> newBase) {
-		base=newBase;
+		base = newBase;
 	}
 
 	/**

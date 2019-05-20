@@ -16,4 +16,8 @@ public class Constant extends Function {
 		return value;
 	}
 
+	@Override
+	public String toString() {
+		return "constant " + value + "-function ";
+	}
 }

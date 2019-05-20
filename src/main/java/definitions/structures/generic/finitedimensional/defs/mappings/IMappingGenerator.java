@@ -32,7 +32,8 @@ public interface IMappingGenerator {
 	}
 
 	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source,
-			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates) throws Throwable {
+			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates)
+			throws Throwable {
 		final int dimSource = source.dim();
 		final int dimTarget = target.dim();
 		if (dimSource < dimTarget) {
@@ -87,14 +88,15 @@ public interface IMappingGenerator {
 
 	default IFiniteDimensionalLinearMapping getTransposedMapping(IFiniteDimensionalLinearMapping map) throws Throwable {
 		Map<IFiniteVector, Map<IFiniteVector, Double>> transposedMatrix = new HashMap<>();
-		for (IFiniteVector targetVec : map.getTarget().getGenericBase()) {
+		for (IFiniteVector targetVec : ((IFiniteDimensionalVectorSpace) map.getTarget()).getGenericBase()) {
 			Map<IFiniteVector, Double> entry = new HashMap<>();
 			for (IFiniteVector sourceVec : map.getSource().getGenericBase()) {
 				entry.put(sourceVec, map.getLinearity().get(sourceVec).get(targetVec));
 			}
 			transposedMatrix.put(targetVec, entry);
 		}
-		return getFiniteDimensionalLinearMapping(map.getTarget(), map.getSource(), transposedMatrix);
+		return getFiniteDimensionalLinearMapping((IFiniteDimensionalVectorSpace) map.getTarget(), map.getSource(),
+				transposedMatrix);
 	}
 
 }

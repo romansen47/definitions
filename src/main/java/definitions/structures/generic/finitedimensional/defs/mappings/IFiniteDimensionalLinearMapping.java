@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
@@ -15,7 +18,7 @@ public interface IFiniteDimensionalLinearMapping {
 
 	IFiniteDimensionalVectorSpace getSource();
 
-	IFiniteDimensionalVectorSpace getTarget();
+	IVectorSpace getTarget();
 
 	Map<IFiniteVector, Map<IFiniteVector, Double>> getLinearity();
 
@@ -23,20 +26,30 @@ public interface IFiniteDimensionalLinearMapping {
 		return getLinearity().get(vec1);
 	}
 
-	default IFiniteVector get(IFiniteVector vec1) throws Throwable {
+	default IVector get(IFiniteVector vec1) throws Throwable {
 		if (getSource() instanceof IFiniteDimensionalSubSpace) {
 			return getOnSubSpace(vec1);
 		}
 		final Map<IFiniteVector, Double> coordinates = vec1.getCoordinates();
-		IFiniteVector ans = (IFiniteVector) getTarget().nullVec();
+		IVector ans;
+		IFiniteDimensionalVectorSpace target;
+		IVectorSpace space = getTarget();
+		if (space instanceof IFiniteDimensionalFunctionSpace) {
+			target = (IFiniteDimensionalFunctionSpace) space;
+			ans = ((IFiniteDimensionalFunctionSpace) target).nullFunction();
+		} else {
+			target = (FiniteDimensionalVectorSpace) getTarget();
+			ans = target.nullVec();
+		}
 		for (final IFiniteVector src : getSource().genericBaseToList()) {
-			Map<IFiniteVector,Double> tmp=new HashMap<>();
-			for (IFiniteVector vec:getTarget().genericBaseToList()) {
+			Map<IFiniteVector, Double> tmp = new HashMap<>();
+			for (IFiniteVector vec : target.genericBaseToList()) {
 				tmp.put(vec, getLinearity().get(src).get(vec));
 			}
-			ans = (IFiniteVector) getTarget().add(ans,
-					((IFiniteVector)(getTarget().stretch( getTarget().get(tmp), 
-							coordinates.get(getSource().getBaseVec(src))))));
+			double coord = coordinates.get(getSource().getBaseVec(src));
+			IFiniteVector vec = (IFiniteVector) target.get(tmp);
+			IVector summand = target.stretch(vec, coord);
+			ans = target.add(ans, summand);
 		}
 		return ans;
 	}
@@ -53,8 +66,7 @@ public interface IFiniteDimensionalLinearMapping {
 		} else {
 			composedMapping = mapOnSourceSpaces;
 		}
-		return composedMapping.get(inverseVector);
-
+		return (IFiniteVector) composedMapping.get(inverseVector);
 	}
 
 	default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
@@ -62,7 +74,7 @@ public interface IFiniteDimensionalLinearMapping {
 		// throw new Throwable();
 		// }
 		final Map<IFiniteVector, Double> coordinates = new HashMap<>();
-		for (final IFiniteVector vec1 : getTarget().genericBaseToList()) {
+		for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
 			coordinates.put(vec1, getLinearity().get(vec).get(vec1));
 		}
 		return new FiniteVector(coordinates);
@@ -79,11 +91,12 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default int getRank() throws Throwable {
-		double[][] mat = new double[getTarget().genericBaseToList().size()][getSource().genericBaseToList().size()];
+		double[][] mat = new double[((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()
+				.size()][getSource().genericBaseToList().size()];
 		int m = 0;
 		for (IFiniteVector vec1 : getSource().genericBaseToList()) {
 			int n = 0;
-			for (IFiniteVector vec2 : getTarget().genericBaseToList()) {
+			for (IFiniteVector vec2 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
 				mat[n][m] = getGenericMatrix()[n++][m];
 			}
 			m++;

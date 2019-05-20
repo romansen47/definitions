@@ -15,16 +15,16 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements IFiniteDimensionalSubSpace {
 
-	private IFiniteDimensionalInjectiveLinearMapping parametrization;
-	final List<IFiniteVector> genericBase = new ArrayList<>();
-	private Map<IFiniteVector, IFiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
+	protected IFiniteDimensionalInjectiveLinearMapping parametrization;
+	protected final List<IFiniteVector> genericBase = new ArrayList<>();
+	protected Map<IFiniteVector, IFiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 
 		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
-			IFiniteVector newBaseVec = parametrization.get(vec);
+			IFiniteVector newBaseVec = (IFiniteVector) parametrization.get(vec);
 			genericBase.add(newBaseVec);
 			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
@@ -32,7 +32,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 
 	@Override
 	public IFiniteDimensionalVectorSpace getSuperSpace() {
-		return parametrization.getTarget();
+		return (IFiniteDimensionalVectorSpace) parametrization.getTarget();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public boolean contains(IVector vec) {
+	public boolean contains(IVector vec) throws Throwable {
 		try {
 			return getSuperSpace().contains(vec) && this.parametrization.solve((IFiniteVector) vec) != null;
 		} catch (Throwable e) {
@@ -64,7 +64,5 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	public final Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping() {
 		return parametrizationBaseVectorMapping;
 	}
-	
-	
 
 }

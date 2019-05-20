@@ -84,7 +84,7 @@ public class FiniteDimensionalSubSpaceTest {
 
 		list.add(base.get(0));
 		for (int i = 0; i < 4; i++) {
-			list.add(testMap.get(list.get(list.size() - 1)));
+			list.add((IFiniteVector) testMap.get(list.get(list.size() - 1)));
 		}
 
 		double x = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3).getDistance(e1, e2);
@@ -134,7 +134,7 @@ public class FiniteDimensionalSubSpaceTest {
 		IFiniteDimensionalInjectiveLinearMapping parametrization = (IFiniteDimensionalInjectiveLinearMapping) MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(functionSpace,functionSpace2,coordinates2);
 		
 		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
-		IFunction sum=functionSpace.add(one2,identity2);
+		IFunction sum=(IFunction) functionSpace2.add(one2,identity2);
 		IFiniteVector max=functionSubSpace.getNearestVector(sum);
 		
 	}

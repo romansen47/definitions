@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
+import definitions.structures.abstr.IVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -21,11 +22,11 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 		this.source = source;
 		this.target = target;
 		this.linearity = coordinates;
-		genericMatrix = new double[getTarget().dim()][getSource().dim()];
+		genericMatrix = new double[((IFiniteDimensionalVectorSpace) getTarget()).dim()][getSource().dim()];
 		int i = 0;
 		for (final IFiniteVector vec1 : getSource().genericBaseToList()) {
 			int j = 0;
-			for (final IFiniteVector vec2 : getTarget().genericBaseToList()) {
+			for (final IFiniteVector vec2 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
 				genericMatrix[j][i] = getLinearity(vec1).get(vec2);
 				j++;
 			}
@@ -39,7 +40,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	final public IFiniteDimensionalVectorSpace getTarget() {
+	final public IVectorSpace getTarget() {
 		return target;
 	}
 
