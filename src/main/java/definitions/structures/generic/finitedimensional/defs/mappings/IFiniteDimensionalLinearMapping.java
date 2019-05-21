@@ -5,7 +5,6 @@ import java.util.Map;
 
 import definitions.structures.abstr.IVector;
 import definitions.structures.abstr.IVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
@@ -38,7 +37,7 @@ public interface IFiniteDimensionalLinearMapping {
 			target = (IFiniteDimensionalFunctionSpace) space;
 			ans = ((IFiniteDimensionalFunctionSpace) target).nullFunction();
 		} else {
-			target = (FiniteDimensionalVectorSpace) getTarget();
+			target = (IFiniteDimensionalVectorSpace) getTarget();
 			ans = target.nullVec();
 		}
 		for (final IFiniteVector src : getSource().genericBaseToList()) {

@@ -54,7 +54,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 		functionSpace = new FiniteDimensionalFunctionSpace(list, -Math.PI, Math.PI);
 
-		integral1 = functionSpace.product(((IFunction) functionSpace.stretch(sin, 2)), sin);
+		integral1 = functionSpace.product((functionSpace.stretch(sin, 2)), sin);
 		integral2 = functionSpace.product(cos, cos);
 		integral3 = functionSpace.product(identity, identity);
 		integral4 = functionSpace.product(identity, sin);
@@ -65,8 +65,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 		integral9 = functionSpace.product(identity, one);
 		integral10 = functionSpace.product(one, one);
 
-		double x=functionSpace.getDistance(cos,sin);
-		double y=functionSpace.getDistance(sin,sin);
+		double x = functionSpace.getDistance(cos, sin);
+		double y = functionSpace.getDistance(sin, sin);
 
 	}
 

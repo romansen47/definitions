@@ -9,7 +9,7 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 
 public interface IMappingGenerator {
 
-	Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces();
+	// Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces();
 
 	default IFiniteDimensionalLinearMapping getComposition(IFiniteDimensionalLinearMapping a,
 			IFiniteDimensionalLinearMapping b) throws Throwable {

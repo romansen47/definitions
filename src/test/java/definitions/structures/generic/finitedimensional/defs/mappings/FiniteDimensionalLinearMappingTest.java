@@ -29,7 +29,7 @@ public class FiniteDimensionalLinearMappingTest {
 		IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
 		IFiniteDimensionalLinearMapping inv = ((Automorphism) map).getInverse();
 		composition = MappingGenerator.getInstance().getComposition(map, inv);
-		
+
 	}
 
 	@SuppressWarnings("deprecation")

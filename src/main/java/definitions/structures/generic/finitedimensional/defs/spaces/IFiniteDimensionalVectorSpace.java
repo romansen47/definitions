@@ -8,7 +8,6 @@ import java.util.Set;
 import definitions.structures.abstr.IHilbertSpace;
 import definitions.structures.abstr.IVector;
 import definitions.structures.abstr.IVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
