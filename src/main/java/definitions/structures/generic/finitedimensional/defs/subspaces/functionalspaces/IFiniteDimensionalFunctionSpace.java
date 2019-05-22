@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.IVector;
-import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -13,18 +13,6 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVectorSpace {
 
 	double[] getIntervall();
-
-	@Override
-	default double product(IVector vec1, IVector vec2) throws Throwable {
-		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
-			return product((IFunction) vec1, (IFunction) vec2);
-		}
-		throw new Throwable();
-	}
-
-	default double product(IFunction fun1, IFunction fun2) throws Throwable {
-		return getIntegral(fun1, fun2);
-	}
 
 	default double getIntegral(IFunction vec1, IFunction vec2) throws Throwable {
 		double left = getIntervall()[0];
@@ -53,7 +41,7 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 	}
 
 	@Override
-	default IVector stretch(IVector vec, double r) throws Throwable {
+	default Vector stretch(Vector vec, double r) throws Throwable {
 		if (vec instanceof IFunction) {
 			IFunction ans = stretch((IFunction) vec, r);
 			return ans;
@@ -73,7 +61,7 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 	}
 
 	@Override
-	default IVector add(IVector vec1, IVector vec2) throws Throwable {
+	default Vector add(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
 			final List<IFiniteVector> base = genericBaseToList();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
@@ -86,11 +74,11 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 		if (vec1 instanceof IFiniteVector && vec2 instanceof IFiniteVector) {
 			return ((IFiniteDimensionalVectorSpace) this).add(vec1, vec2);
 		}
-		return ((IVectorSpace) this).add(vec1, vec2);
+		return ((VectorSpace) this).add(vec1, vec2);
 	}
 
 	@Override
-	default IVector get(IFiniteVector vec) throws Throwable {
+	default Vector get(IFiniteVector vec) throws Throwable {
 		Map<IFiniteVector, Double> map = new HashMap<>();
 		int i = 0;
 		for (IFiniteVector baseVec : getBase()) {
@@ -113,7 +101,7 @@ public interface IFiniteDimensionalFunctionSpace extends IFiniteDimensionalVecto
 	}
 
 	@Override
-	default IVector get(Map<IFiniteVector, Double> tmp) throws Throwable {
+	default Vector get(Map<IFiniteVector, Double> tmp) throws Throwable {
 		IFunction vec = nullFunction();
 		for (final IFiniteVector basevec : tmp.keySet()) {
 			vec = (IFunction) add(vec, stretch(getBaseVec(basevec), tmp.get(basevec).doubleValue()));

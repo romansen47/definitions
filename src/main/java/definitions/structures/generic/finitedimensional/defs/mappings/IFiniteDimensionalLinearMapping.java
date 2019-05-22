@@ -3,8 +3,8 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.IVector;
-import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
@@ -17,7 +17,7 @@ public interface IFiniteDimensionalLinearMapping {
 
 	IFiniteDimensionalVectorSpace getSource();
 
-	IVectorSpace getTarget();
+	VectorSpace getTarget();
 
 	Map<IFiniteVector, Map<IFiniteVector, Double>> getLinearity();
 
@@ -25,14 +25,14 @@ public interface IFiniteDimensionalLinearMapping {
 		return getLinearity().get(vec1);
 	}
 
-	default IVector get(IFiniteVector vec1) throws Throwable {
+	default Vector get(IFiniteVector vec1) throws Throwable {
 		if (getSource() instanceof IFiniteDimensionalSubSpace) {
 			return getOnSubSpace(vec1);
 		}
 		final Map<IFiniteVector, Double> coordinates = vec1.getCoordinates();
-		IVector ans;
+		Vector ans;
 		IFiniteDimensionalVectorSpace target;
-		IVectorSpace space = getTarget();
+		VectorSpace space = getTarget();
 		if (space instanceof IFiniteDimensionalFunctionSpace) {
 			target = (IFiniteDimensionalFunctionSpace) space;
 			ans = ((IFiniteDimensionalFunctionSpace) target).nullFunction();
@@ -47,7 +47,7 @@ public interface IFiniteDimensionalLinearMapping {
 			}
 			double coord = coordinates.get(getSource().getBaseVec(src));
 			IFiniteVector vec = (IFiniteVector) target.get(tmp);
-			IVector summand = target.stretch(vec, coord);
+			Vector summand = target.stretch(vec, coord);
 			ans = target.add(ans, summand);
 		}
 		return ans;
@@ -68,16 +68,16 @@ public interface IFiniteDimensionalLinearMapping {
 		return (IFiniteVector) composedMapping.get(inverseVector);
 	}
 
-	default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
-		// if (vec.getDim() > getSource().dim()) {
-		// throw new Throwable();
-		// }
-		final Map<IFiniteVector, Double> coordinates = new HashMap<>();
-		for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
-			coordinates.put(vec1, getLinearity().get(vec).get(vec1));
-		}
-		return new FiniteVector(coordinates);
-	}
+//	default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
+//		// if (vec.getDim() > getSource().dim()) {
+//		// throw new Throwable();
+//		// }
+//		final Map<IFiniteVector, Double> coordinates = new HashMap<>();
+//		for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
+//			coordinates.put(vec1, getLinearity().get(vec).get(vec1));
+//		}
+//		return new FiniteVector(coordinates);
+//	}
 
 	double[][] getGenericMatrix() throws Throwable;
 

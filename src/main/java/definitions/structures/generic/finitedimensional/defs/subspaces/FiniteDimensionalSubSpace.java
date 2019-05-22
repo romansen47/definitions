@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
@@ -46,7 +46,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public boolean contains(IVector vec) throws Throwable {
+	public boolean contains(Vector vec) throws Throwable {
 		try {
 			return getSuperSpace().contains(vec) && this.parametrization.solve((IFiniteVector) vec) != null;
 		} catch (Throwable e) {

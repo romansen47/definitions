@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
@@ -14,15 +14,18 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 
 	protected List<IFiniteVector> base;
 
-	final private int dim;
+	protected int dim;
 
+	protected FiniteDimensionalVectorSpace() throws Throwable {
+	}
+	
 	public FiniteDimensionalVectorSpace(List<IFiniteVector> list) throws Throwable {
 		dim = list.size();
 		base = list;
 	}
 
 	@Override
-	public double product(IVector vec1, IVector vec2) throws Throwable {
+	public double product(Vector vec1, Vector vec2) throws Throwable {
 		if (!(vec1 instanceof FiniteVector && vec2 instanceof FiniteVector)) {
 			throw new Throwable();
 		}
@@ -37,7 +40,7 @@ public class FiniteDimensionalVectorSpace implements IFiniteDimensionalVectorSpa
 	}
 
 	@Override
-	public boolean contains(IVector vec) throws Throwable {
+	public boolean contains(Vector vec) throws Throwable {
 		return (vec instanceof FiniteVector && vec.getDim() == dim());
 	}
 

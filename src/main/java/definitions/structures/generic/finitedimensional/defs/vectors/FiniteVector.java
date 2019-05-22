@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import definitions.structures.abstr.IVector;
-import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 
@@ -42,7 +42,7 @@ public class FiniteVector implements IFiniteVector {
 	}
 
 	@Override
-	public boolean elementOf(IVectorSpace space) throws Throwable {
+	public boolean elementOf(VectorSpace space) throws Throwable {
 		if (space instanceof FiniteDimensionalVectorSpace && ((FiniteDimensionalVectorSpace) space).dim() == dim) {
 			return true;
 		}
@@ -50,7 +50,7 @@ public class FiniteVector implements IFiniteVector {
 	}
 
 	@Override
-	public boolean equals(IVector vec) throws Throwable {
+	public boolean equals(Vector vec) throws Throwable {
 		if (vec instanceof FiniteVector && ((FiniteVector) vec).dim == dim) {
 			return getCoordinates().equals(((FiniteVector) vec).getCoordinates());
 		}
@@ -61,7 +61,7 @@ public class FiniteVector implements IFiniteVector {
 	public String toString() {
 		String str = "";
 		try {
-			for (final IVector vec : getGenericBase()) {
+			for (final Vector vec : getGenericBase()) {
 				str += getCoordinates().get(vec) + "\r";
 			}
 			return str;

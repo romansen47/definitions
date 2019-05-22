@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import definitions.structures.abstr.IVector;
-import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
@@ -17,7 +17,7 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 	IFiniteDimensionalVectorSpace getSuperSpace();
 
 	@Override
-	boolean contains(IVector vec) throws Throwable;
+	boolean contains(Vector vec) throws Throwable;
 
 	@Override
 	default int dim() throws Throwable {
@@ -27,7 +27,7 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 	IFiniteDimensionalLinearMapping getParametrization();
 
 	@Override
-	default IVector add(IVector vec1, IVector vec2) throws Throwable {
+	default Vector add(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof IFiniteVector && vec2 instanceof IFiniteVector) {
 			final Set<IFiniteVector> base = getGenericBase();
 			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
@@ -39,7 +39,7 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 			}
 			return get(coordinates);
 		} else
-			return ((IVectorSpace) this).add(vec1, vec2);
+			return ((VectorSpace) this).add(vec1, vec2);
 	}
 
 	default Map<IFiniteVector, Double> getInverseCoordinates(IFiniteVector vec) throws Throwable {

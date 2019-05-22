@@ -3,9 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.vectors;
 import java.util.Map;
 import java.util.Set;
 
-import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.Vector;
 
-public interface IFiniteVector extends IVector {
+public interface IFiniteVector extends Vector {
 
 	Map<IFiniteVector, Double> getCoordinates();
 

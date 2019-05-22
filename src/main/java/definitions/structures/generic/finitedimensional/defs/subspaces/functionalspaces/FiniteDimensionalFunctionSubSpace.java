@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import definitions.structures.abstr.IVector;
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.subspaces.FiniteDimensionalSubSpace;
@@ -54,7 +54,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public boolean contains(IVector vec) throws Throwable {
+	public boolean contains(Vector vec) throws Throwable {
 		return true;
 	}
 
@@ -74,7 +74,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public IVector add(IVector vec1, IVector vec2) throws Throwable {
+	public Vector add(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
 			return getSuperSpace().add(vec1, vec2);
 		}

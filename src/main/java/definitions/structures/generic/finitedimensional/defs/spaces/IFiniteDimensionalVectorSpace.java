@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import definitions.structures.abstr.IHilbertSpace;
-import definitions.structures.abstr.IVector;
-import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.abstr.HilbertSpace;
+import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
-public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
+public interface IFiniteDimensionalVectorSpace extends HilbertSpace {
 
 	List<IFiniteVector> genericBaseToList() throws Throwable;
 
@@ -27,7 +27,7 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 		}
 	}
 
-	default IVector get(Map<IFiniteVector, Double> tmp) throws Throwable {
+	default Vector get(Map<IFiniteVector, Double> tmp) throws Throwable {
 		IFiniteVector vec = (IFiniteVector) nullVec();
 		for (final IFiniteVector basevec : genericBaseToList()) {
 			vec = (IFiniteVector) add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));
@@ -36,7 +36,7 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 	}
 
 	@Override
-	default IVector add(IVector vec1, IVector vec2) throws Throwable {
+	default Vector add(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof IFiniteVector && vec2 instanceof IFiniteVector && vec1.getDim() == vec2.getDim()
 				&& vec1.getDim() == dim()) {
 			final List<IFiniteVector> base = genericBaseToList();
@@ -47,12 +47,12 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 			}
 			return new FiniteVector(coordinates);
 		} else {
-			return ((IVectorSpace) this).add(vec1, vec2);
+			return ((VectorSpace) this).add(vec1, vec2);
 		}
 	}
 
 	@Override
-	default IVector stretch(IVector vec, double r) throws Throwable {
+	default Vector stretch(Vector vec, double r) throws Throwable {
 		if (vec instanceof IFiniteVector && vec.getDim() == dim()) {
 			final Map<IFiniteVector, Double> stretched = new HashMap<>();
 			final Map<IFiniteVector, Double> coordinates = ((IFiniteVector) vec).getCoordinates();
@@ -62,14 +62,14 @@ public interface IFiniteDimensionalVectorSpace extends IHilbertSpace {
 			}
 			return new FiniteVector(stretched);
 		}
-		return ((IVectorSpace) this).stretch(vec, r);
+		return ((VectorSpace) this).stretch(vec, r);
 	}
 
 	default IFiniteVector normalize(IFiniteVector vec) throws Throwable {
 		return (IFiniteVector) stretch(vec, 1 / norm(vec));
 	}
 
-	default IVector get(IFiniteVector vec) throws Throwable {
+	default Vector get(IFiniteVector vec) throws Throwable {
 		Map<IFiniteVector, Double> map = new HashMap<>();
 		int i = 0;
 		for (IFiniteVector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {

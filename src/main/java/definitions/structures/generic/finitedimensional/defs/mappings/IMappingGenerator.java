@@ -5,6 +5,8 @@ import java.util.Map;
 
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IMappingGenerator {
@@ -34,6 +36,11 @@ public interface IMappingGenerator {
 	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source,
 			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates)
 			throws Throwable {
+		if (source instanceof IFiniteDimensionalFunctionSpace) {
+			return new FunctionSpaceOperator((IFiniteDimensionalFunctionSpace)source, 
+											 (IFiniteDimensionalFunctionSpace)target, 
+											 coordinates);
+		}
 		final int dimSource = source.dim();
 		final int dimTarget = target.dim();
 		if (dimSource < dimTarget) {

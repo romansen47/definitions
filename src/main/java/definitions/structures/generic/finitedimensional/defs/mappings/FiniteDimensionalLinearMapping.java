@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
-import definitions.structures.abstr.IVectorSpace;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -40,7 +40,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	final public IVectorSpace getTarget() {
+	final public VectorSpace getTarget() {
 		return target;
 	}
 

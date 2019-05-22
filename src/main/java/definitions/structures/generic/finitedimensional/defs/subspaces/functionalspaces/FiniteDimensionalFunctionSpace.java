@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
@@ -11,9 +12,17 @@ import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVect
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
 
-	final protected double[] intervall;
+	protected double[] intervall;
 	final protected double eps = 1.e-5;
-
+	
+	@Override
+	public double product(Vector vec1, Vector vec2) throws Throwable {
+		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
+			return getIntegral((IFunction)vec1,(IFunction)vec2);
+		}
+		throw new Throwable();
+	}
+	
 	public FiniteDimensionalFunctionSpace(List<IFiniteVector> list, double left, double right) throws Throwable {
 		super(list);
 		for (IFiniteVector vec : list) {
@@ -31,6 +40,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		intervall[0] = left;
 		intervall[1] = right;
 	}
+
+
+	protected FiniteDimensionalFunctionSpace() throws Throwable{
+	}
+
 
 	@Override
 	public double[] getIntervall() {

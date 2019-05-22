@@ -9,6 +9,8 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.mappings.FunctionSpaceOperator;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
@@ -118,7 +120,6 @@ public class FiniteDimensionalSubSpaceTest {
 		Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates2 = new HashMap<>();
 		for (IFiniteVector fun1 : functionSpace.genericBaseToList()) {
 			Map<IFiniteVector, Double> tmp = new HashMap<>();
-			;
 			for (IFiniteVector fun2 : functionSpace2.genericBaseToList()) {
 				if (((IFunction) fun1).equals((IFunction) fun2, functionSpace)) {
 					tmp.put(fun2, 1.);
@@ -128,8 +129,9 @@ public class FiniteDimensionalSubSpaceTest {
 			}
 			coordinates2.put(fun1, tmp);
 		}
+		int i=0;
 
-		IFiniteDimensionalInjectiveLinearMapping parametrization = (IFiniteDimensionalInjectiveLinearMapping) MappingGenerator
+		IFiniteDimensionalLinearMapping parametrization = MappingGenerator
 				.getInstance().getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
 		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
