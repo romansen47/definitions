@@ -9,30 +9,30 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
-public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements IFiniteDimensionalSubSpace {
+public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements ParameterizedSpace {
 
 	protected IFiniteDimensionalInjectiveLinearMapping parametrization;
-	protected final List<IFiniteVector> genericBase = new ArrayList<>();
-	protected Map<IFiniteVector, IFiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
+	protected final List<FiniteVector> genericBase = new ArrayList<>();
+	protected Map<FiniteVector, FiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 
-		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
-			IFiniteVector newBaseVec = (IFiniteVector) parametrization.get(vec);
+		for (FiniteVector vec : parametrization.getSource().genericBaseToList()) {
+			FiniteVector newBaseVec = (FiniteVector) parametrization.get(vec);
 			genericBase.add(newBaseVec);
 			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
 	}
 
 	@Override
-	public IFiniteDimensionalVectorSpace getSuperSpace() {
-		return (IFiniteDimensionalVectorSpace) parametrization.getTarget();
+	public CoordinateSpace getSuperSpace() {
+		return (CoordinateSpace) parametrization.getTarget();
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	@Override
 	public boolean contains(Vector vec) throws Throwable {
 		try {
-			return getSuperSpace().contains(vec) && this.parametrization.solve((IFiniteVector) vec) != null;
+			return getSuperSpace().contains(vec) && this.parametrization.solve((FiniteVector) vec) != null;
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -56,12 +56,12 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public List<IFiniteVector> genericBaseToList() throws Throwable {
+	public List<FiniteVector> genericBaseToList() throws Throwable {
 		return genericBase;
 	}
 
 	@Override
-	public final Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping() {
+	public final Map<FiniteVector, FiniteVector> getParametrizationBaseVectorMapping() {
 		return parametrizationBaseVectorMapping;
 	}
 

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.IVectorGenerator;
@@ -24,10 +24,10 @@ public class Generator implements IGenerator {
 
 	private static Generator generator = null;
 
-	private static Map<Integer, IFiniteDimensionalVectorSpace> cachedSpaces;
+	private static Map<Integer, CoordinateSpace> cachedSpaces;
 
 	@Override
-	public Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces() {
+	public Map<Integer, CoordinateSpace> getCachedSpaces() {
 		return cachedSpaces;
 	}
 

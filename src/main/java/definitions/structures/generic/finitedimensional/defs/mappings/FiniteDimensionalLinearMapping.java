@@ -6,27 +6,27 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearMapping {
 
-	private final IFiniteDimensionalVectorSpace source;
-	private final IFiniteDimensionalVectorSpace target;
-	private final Map<IFiniteVector, Map<IFiniteVector, Double>> linearity;
+	private final CoordinateSpace source;
+	private final CoordinateSpace target;
+	private final Map<FiniteVector, Map<FiniteVector, Double>> linearity;
 	private final double[][] genericMatrix;
 
-	public FiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source, IFiniteDimensionalVectorSpace target,
-			Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates) throws Throwable {
+	public FiniteDimensionalLinearMapping(CoordinateSpace source, CoordinateSpace target,
+			Map<FiniteVector, Map<FiniteVector, Double>> coordinates) throws Throwable {
 		this.source = source;
 		this.target = target;
 		this.linearity = coordinates;
-		genericMatrix = new double[((IFiniteDimensionalVectorSpace) getTarget()).dim()][getSource().dim()];
+		genericMatrix = new double[((CoordinateSpace) getTarget()).dim()][getSource().dim()];
 		int i = 0;
-		for (final IFiniteVector vec1 : getSource().genericBaseToList()) {
+		for (final FiniteVector vec1 : getSource().genericBaseToList()) {
 			int j = 0;
-			for (final IFiniteVector vec2 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
+			for (final FiniteVector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
 				genericMatrix[j][i] = getLinearity(vec1).get(vec2);
 				j++;
 			}
@@ -35,7 +35,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	final public IFiniteDimensionalVectorSpace getSource() {
+	final public CoordinateSpace getSource() {
 		return source;
 	}
 
@@ -45,18 +45,18 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	final public Map<IFiniteVector, Map<IFiniteVector, Double>> getLinearity() {
+	final public Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
 		return linearity;
 	}
 
 	@Override
-	public IFiniteVector solve(IFiniteVector image) throws Throwable {
+	public FiniteVector solve(FiniteVector image) throws Throwable {
 		double[][] matrix = getGenericMatrix();
 		double[] imageVector = image.getGenericCoordinates();
 		try {
 			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(
 					MatrixUtils.createRealMatrix(matrix)).getSolver().solve(MatrixUtils.createRealVector(imageVector));
-			return new FiniteVector(apacheVector.toArray());
+			return new Tuple(apacheVector.toArray());
 		} catch (Exception e) {
 			return null;
 		}

@@ -3,10 +3,10 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public interface IMappingGenerator {
 
@@ -30,8 +30,8 @@ public interface IMappingGenerator {
 		return matC;
 	}
 
-	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(IFiniteDimensionalVectorSpace source,
-			IFiniteDimensionalVectorSpace target, Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates)
+	default IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(CoordinateSpace source,
+			CoordinateSpace target, Map<FiniteVector, Map<FiniteVector, Double>> coordinates)
 			throws Throwable {
 		if (source instanceof IFiniteDimensionalFunctionSpace) {
 			return new FunctionSpaceOperator((IFiniteDimensionalFunctionSpace)source, 
@@ -59,16 +59,16 @@ public interface IMappingGenerator {
 			throws Throwable {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
-		final IFiniteDimensionalVectorSpace source = SpaceGenerator.getInstance()
+		final CoordinateSpace source = SpaceGenerator.getInstance()
 				.getFiniteDimensionalVectorSpace(dimSource);
-		final IFiniteDimensionalVectorSpace target = SpaceGenerator.getInstance()
+		final CoordinateSpace target = SpaceGenerator.getInstance()
 				.getFiniteDimensionalVectorSpace(dimTarget);
-		final Map<IFiniteVector, Map<IFiniteVector, Double>> coordinates = new HashMap<>();
+		final Map<FiniteVector, Map<FiniteVector, Double>> coordinates = new HashMap<>();
 		int i = 0;
-		for (final IFiniteVector vec1 : source.genericBaseToList()) {
+		for (final FiniteVector vec1 : source.genericBaseToList()) {
 			int j = 0;
-			final Map<IFiniteVector, Double> tmp = new HashMap<>();
-			for (final IFiniteVector vec2 : target.genericBaseToList()) {
+			final Map<FiniteVector, Double> tmp = new HashMap<>();
+			for (final FiniteVector vec2 : target.genericBaseToList()) {
 				tmp.put(vec2, genericMatrix[j][i]);
 				j++;
 			}
@@ -91,15 +91,15 @@ public interface IMappingGenerator {
 	}
 
 	default IFiniteDimensionalLinearMapping getTransposedMapping(IFiniteDimensionalLinearMapping map) throws Throwable {
-		Map<IFiniteVector, Map<IFiniteVector, Double>> transposedMatrix = new HashMap<>();
-		for (IFiniteVector targetVec : ((IFiniteDimensionalVectorSpace) map.getTarget()).getGenericBase()) {
-			Map<IFiniteVector, Double> entry = new HashMap<>();
-			for (IFiniteVector sourceVec : map.getSource().getGenericBase()) {
+		Map<FiniteVector, Map<FiniteVector, Double>> transposedMatrix = new HashMap<>();
+		for (FiniteVector targetVec : ((CoordinateSpace) map.getTarget()).getGenericBase()) {
+			Map<FiniteVector, Double> entry = new HashMap<>();
+			for (FiniteVector sourceVec : map.getSource().getGenericBase()) {
 				entry.put(sourceVec, map.getLinearity().get(sourceVec).get(targetVec));
 			}
 			transposedMatrix.put(targetVec, entry);
 		}
-		return getFiniteDimensionalLinearMapping((IFiniteDimensionalVectorSpace) map.getTarget(), map.getSource(),
+		return getFiniteDimensionalLinearMapping((CoordinateSpace) map.getTarget(), map.getSource(),
 				transposedMatrix);
 	}
 

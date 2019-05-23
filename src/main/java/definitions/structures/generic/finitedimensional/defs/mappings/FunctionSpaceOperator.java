@@ -5,23 +5,23 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearMapping {
 
 	final IFiniteDimensionalFunctionSpace source;
 	final IFiniteDimensionalFunctionSpace target;
 	private double[][] genericMatrix;
-	private Map<IFiniteVector, Map<IFiniteVector, Double>> linearity;
+	private Map<FiniteVector, Map<FiniteVector, Double>> linearity;
 	
 	public FunctionSpaceOperator(IFiniteDimensionalFunctionSpace source,
 			IFiniteDimensionalFunctionSpace target,
-			Map<IFiniteVector, Map<IFiniteVector, Double>> linearity
+			Map<FiniteVector, Map<FiniteVector, Double>> linearity
 			) throws Throwable {
 		this.source=source;
 		this.target=target;
@@ -39,12 +39,12 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 	
 	@Override
-	public IFiniteVector solve(IFiniteVector image) throws Throwable {
+	public FiniteVector solve(FiniteVector image) throws Throwable {
 		return null;
 	}
 
 	@Override
-	public IFiniteDimensionalVectorSpace getSource() {
+	public CoordinateSpace getSource() {
 		return source;
 	}
 
@@ -54,7 +54,7 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 
 	@Override
-	public Map<IFiniteVector, Map<IFiniteVector, Double>> getLinearity() {
+	public Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
 		return linearity;
 	}
 

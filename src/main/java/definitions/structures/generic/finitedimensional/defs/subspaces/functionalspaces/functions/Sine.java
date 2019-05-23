@@ -1,9 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFunction;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 
-public class Sine extends FiniteVector implements IFunction {
+public class Sine extends Tuple implements Function {
 
 	public Sine(double[] coordinates) throws Throwable {
 		super(coordinates);

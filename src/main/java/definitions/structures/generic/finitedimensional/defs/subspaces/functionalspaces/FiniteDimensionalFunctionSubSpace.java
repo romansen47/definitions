@@ -11,7 +11,7 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.subspaces.FiniteDimensionalSubSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 /**
  * @author ro
@@ -31,21 +31,21 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		eps = superSpace.getEpsilon();
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 
-		for (IFiniteVector vec : parametrization.getSource().genericBaseToList()) {
-			IFiniteVector newBaseVec = (IFiniteVector) parametrization.get(vec);
+		for (FiniteVector vec : parametrization.getSource().genericBaseToList()) {
+			FiniteVector newBaseVec = (FiniteVector) parametrization.get(vec);
 			genericBase.add(newBaseVec);
 			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
 	}
 
 	@Override
-	public List<IFiniteVector> genericBaseToList() throws Throwable {
+	public List<FiniteVector> genericBaseToList() throws Throwable {
 		return getBase();
 	}
 
 	@Override
-	public Set<IFiniteVector> getGenericBase() throws Throwable {
-		return new HashSet<IFiniteVector>(getBase());
+	public Set<FiniteVector> getGenericBase() throws Throwable {
+		return new HashSet<FiniteVector>(getBase());
 	}
 
 	@Override
@@ -64,18 +64,18 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public IFunction stretch(IFunction vec, double r) throws Throwable {
-		return (IFunction) getSuperSpace().stretch(vec, r);
+	public Function stretch(Function vec, double r) throws Throwable {
+		return (Function) getSuperSpace().stretch(vec, r);
 	}
 
 	@Override
-	public List<IFiniteVector> getBase() {
+	public List<FiniteVector> getBase() {
 		return base;
 	}
 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
+		if (vec1 instanceof Function && vec2 instanceof Function) {
 			return getSuperSpace().add(vec1, vec2);
 		}
 		return super.add(vec1, vec2);

@@ -7,22 +7,22 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Constant;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Cosine;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Identity;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Sine;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class FiniteDimensionalFunctionSpaceTest {
 
-	static IFunction sin;
-	static IFunction cos;
-	static IFunction identity;
-	static IFunction one;
+	static Function sin;
+	static Function cos;
+	static Function identity;
+	static Function one;
 
-	static IFiniteDimensionalVectorSpace genericSpace;
+	static CoordinateSpace genericSpace;
 	static IFiniteDimensionalFunctionSpace functionSpace;
 
 	static double integral1;
@@ -46,7 +46,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 		identity = new Identity(genericSpace.genericBaseToList().get(2).getGenericCoordinates());
 		one = new Constant(genericSpace.genericBaseToList().get(3).getGenericCoordinates(), 1);
 
-		List<IFiniteVector> list = new ArrayList<>();
+		List<FiniteVector> list = new ArrayList<>();
 		list.add(sin);
 		list.add(cos);
 		list.add(identity);

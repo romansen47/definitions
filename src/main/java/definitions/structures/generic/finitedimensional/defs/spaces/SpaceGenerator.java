@@ -6,10 +6,10 @@ import java.util.Map;
 public class SpaceGenerator implements ISpaceGenerator {
 
 	private static ISpaceGenerator generator = null;
-	private static Map<Integer, IFiniteDimensionalVectorSpace> cachedSpaces;
+	private static Map<Integer, CoordinateSpace> cachedSpaces;
 
 	@Override
-	public Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces() {
+	public Map<Integer, CoordinateSpace> getCachedSpaces() {
 		return cachedSpaces;
 	}
 

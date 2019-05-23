@@ -8,13 +8,13 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
-public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpace {
+public interface ParameterizedSpace extends CoordinateSpace {
 
-	IFiniteDimensionalVectorSpace getSuperSpace();
+	CoordinateSpace getSuperSpace();
 
 	@Override
 	boolean contains(Vector vec) throws Throwable;
@@ -28,12 +28,12 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 
 	@Override
 	default Vector add(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof IFiniteVector && vec2 instanceof IFiniteVector) {
-			final Set<IFiniteVector> base = getGenericBase();
-			final Map<IFiniteVector, Double> coordinates = new HashMap<>();
-			for (final IFiniteVector vec : base) {
-				double summand1 = ((IFiniteVector) vec1).getCoordinates().get(getBaseVec(vec));
-				double summand2 = ((IFiniteVector) vec2).getCoordinates().get(getBaseVec(vec));
+		if (vec1 instanceof FiniteVector && vec2 instanceof FiniteVector) {
+			final Set<FiniteVector> base = getGenericBase();
+			final Map<FiniteVector, Double> coordinates = new HashMap<>();
+			for (final FiniteVector vec : base) {
+				double summand1 = ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec));
+				double summand2 = ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec));
 				double sumOnCoordinate = summand1 + summand2;
 				coordinates.put(vec, sumOnCoordinate);
 			}
@@ -42,23 +42,23 @@ public interface IFiniteDimensionalSubSpace extends IFiniteDimensionalVectorSpac
 			return ((VectorSpace) this).add(vec1, vec2);
 	}
 
-	default Map<IFiniteVector, Double> getInverseCoordinates(IFiniteVector vec) throws Throwable {
-		IFiniteVector ans = getNearestVector(vec);
-		if (getSuperSpace().getDistance((IFiniteVector) getParametrization().get(ans), vec) < 1.e-5) {
+	default Map<FiniteVector, Double> getInverseCoordinates(FiniteVector vec) throws Throwable {
+		FiniteVector ans = getNearestVector(vec);
+		if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans), vec) < 1.e-5) {
 			return ans.getCoordinates();
 		} else
 			return null;
 	}
 
-	Map<IFiniteVector, IFiniteVector> getParametrizationBaseVectorMapping();
+	Map<FiniteVector, FiniteVector> getParametrizationBaseVectorMapping();
 
-	default IFiniteVector getNearestVector(IFiniteVector vec) throws Throwable {
+	default FiniteVector getNearestVector(FiniteVector vec) throws Throwable {
 		IFiniteDimensionalLinearMapping transposed = MappingGenerator.getInstance()
 				.getTransposedMapping(getParametrization());
 		IFiniteDimensionalLinearMapping quadratic = MappingGenerator.getInstance().getComposition(transposed,
 				getParametrization());
-		IFiniteVector transformed = (IFiniteVector) transposed.get(vec);
-		final IFiniteVector ans = new FiniteVector(quadratic.solve(transformed).getCoordinates());
+		FiniteVector transformed = (FiniteVector) transposed.get(vec);
+		final FiniteVector ans = new Tuple(quadratic.solve(transformed).getCoordinates());
 		return ans;
 	}
 }

@@ -2,10 +2,10 @@ package definitions.structures.generic.finitedimensional.defs;
 
 import java.util.Map;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 
 public interface IGenerator {
 
-	Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces();
+	Map<Integer, CoordinateSpace> getCachedSpaces();
 
 }

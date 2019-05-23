@@ -3,15 +3,15 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 import junit.framework.Assert;
 
 public class FiniteDimensionalLinearMappingTest {
 
-	static IFiniteVector e1;
-	static IFiniteVector e2;
-	static IFiniteVector e3;
+	static FiniteVector e1;
+	static FiniteVector e2;
+	static FiniteVector e3;
 
 	static IFiniteDimensionalLinearMapping composition;
 
@@ -22,9 +22,9 @@ public class FiniteDimensionalLinearMappingTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		e1 = new FiniteVector(new double[] { 1, 0, 0 });
-		e2 = new FiniteVector(new double[] { 0, 1, 0 });
-		e3 = new FiniteVector(new double[] { 0, 0, 1 });
+		e1 = new Tuple(new double[] { 1, 0, 0 });
+		e2 = new Tuple(new double[] { 0, 1, 0 });
+		e3 = new Tuple(new double[] { 0, 0, 1 });
 
 		IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
 		IFiniteDimensionalLinearMapping inv = ((Automorphism) map).getInverse();

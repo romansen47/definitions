@@ -1,8 +1,8 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
 
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.FunctionTuple;
 
-public class Constant extends Function {
+public class Constant extends FunctionTuple {
 
 	final double value;
 

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
@@ -17,24 +17,24 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	
 	@Override
 	public double product(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof IFunction && vec2 instanceof IFunction) {
-			return getIntegral((IFunction)vec1,(IFunction)vec2);
+		if (vec1 instanceof Function && vec2 instanceof Function) {
+			return getIntegral((Function)vec1,(Function)vec2);
 		}
 		throw new Throwable();
 	}
 	
-	public FiniteDimensionalFunctionSpace(List<IFiniteVector> list, double left, double right) throws Throwable {
+	public FiniteDimensionalFunctionSpace(List<FiniteVector> list, double left, double right) throws Throwable {
 		super(list);
-		for (IFiniteVector vec : list) {
-			Map<IFiniteVector, Double> tmpCoord = new HashMap<>();
-			for (IFiniteVector otherVec : list) {
+		for (FiniteVector vec : list) {
+			Map<FiniteVector, Double> tmpCoord = new HashMap<>();
+			for (FiniteVector otherVec : list) {
 				if (vec == otherVec) {
 					tmpCoord.put(otherVec, 1.0);
 				} else {
 					tmpCoord.put(otherVec, 0.0);
 				}
 			}
-			((FiniteVector) vec).setCoordinates(tmpCoord);
+			((Tuple) vec).setCoordinates(tmpCoord);
 		}
 		intervall = new double[2];
 		intervall[0] = left;
@@ -57,14 +57,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public IFunction stretch(IFunction vec, double r) throws Throwable {
+	public Function stretch(Function vec, double r) throws Throwable {
 		if (vec.getDim() == dim()) {
-			final Map<IFiniteVector, Double> coordinates = getCoordinates(vec);
-			final Map<IFiniteVector, Double> stretched = new HashMap<>();
-			for (final IFiniteVector vec1 : getBase()) {
+			final Map<FiniteVector, Double> coordinates = getCoordinates(vec);
+			final Map<FiniteVector, Double> stretched = new HashMap<>();
+			for (final FiniteVector vec1 : getBase()) {
 				stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
 			}
-			return new Function(stretched);
+			return new FunctionTuple(stretched);
 		}
 		throw new Throwable();
 	}
