@@ -1,6 +1,6 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
+package definitions.structures.generic.finitedimensional.defs.vectors;
 
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 
 public class Constant extends FunctionTuple {
 

@@ -1,6 +1,6 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
+package definitions.structures.generic.finitedimensional.defs.vectors;
 
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 
 public interface Function extends FiniteVector {
 
@@ -17,7 +17,7 @@ public interface Function extends FiniteVector {
 		double a = source.getIntervall()[0];
 		double b = source.getIntervall()[1];
 		for (int i = 0; i < n; i++) {
-			if (value(a + i *(b-a)/ 99.) != other.value(a + i*(b-a) / 99.)) {
+			if (value(a + i * (b - a) / 99.) != other.value(a + i * (b - a) / 99.)) {
 				return false;
 			}
 		}

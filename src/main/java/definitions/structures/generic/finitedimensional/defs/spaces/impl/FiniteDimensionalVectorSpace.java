@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.defs.spaces;
+package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,8 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalVectorSpace implements CoordinateSpace {
 
@@ -18,7 +19,7 @@ public class FiniteDimensionalVectorSpace implements CoordinateSpace {
 
 	protected FiniteDimensionalVectorSpace() throws Throwable {
 	}
-	
+
 	public FiniteDimensionalVectorSpace(List<FiniteVector> list) throws Throwable {
 		dim = list.size();
 		base = list;

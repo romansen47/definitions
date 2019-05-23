@@ -3,8 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
+import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 import junit.framework.Assert;
 
 public class FiniteDimensionalLinearMappingTest {

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
+package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,8 +10,10 @@ import java.util.Set;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.subspaces.FiniteDimensionalSubSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.impl.FiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 
 /**
  * @author ro
@@ -45,7 +47,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 
 	@Override
 	public Set<FiniteVector> getGenericBase() throws Throwable {
-		return new HashSet<FiniteVector>(getBase());
+		return new HashSet<>(getBase());
 	}
 
 	@Override

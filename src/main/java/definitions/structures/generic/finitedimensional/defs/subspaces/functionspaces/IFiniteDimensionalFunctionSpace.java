@@ -1,14 +1,15 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
+package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 
@@ -43,8 +44,7 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	@Override
 	default Vector stretch(Vector vec, double r) throws Throwable {
 		if (vec instanceof Function) {
-			Function ans = stretch((Function) vec, r);
-			return ans;
+			return stretch((Function) vec, r);
 		}
 		return null;
 	}
@@ -72,15 +72,14 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 			return new FunctionTuple(coordinates);
 		}
 		if (vec1 instanceof FiniteVector && vec2 instanceof FiniteVector) {
-			return ((CoordinateSpace) this).add(vec1, vec2);
+			return this.add(vec1, vec2);
 		}
-		return ((VectorSpace) this).add(vec1, vec2);
+		return this.add(vec1, vec2);
 	}
 
 	@Override
 	default Vector get(FiniteVector vec) throws Throwable {
 		Map<FiniteVector, Double> map = new HashMap<>();
-		int i = 0;
 		for (FiniteVector baseVec : getBase()) {
 			map.put(baseVec, vec.getCoordinates().get(baseVec));
 		}

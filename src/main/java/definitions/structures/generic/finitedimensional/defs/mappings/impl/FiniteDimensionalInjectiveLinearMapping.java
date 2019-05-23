@@ -1,5 +1,7 @@
-package definitions.structures.generic.finitedimensional.defs.mappings;
+package definitions.structures.generic.finitedimensional.defs.mappings.impl;
 
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 
 public class FiniteDimensionalInjectiveLinearMapping extends FiniteDimensionalLinearMapping

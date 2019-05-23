@@ -1,7 +1,6 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions;
+package definitions.structures.generic.finitedimensional.defs.vectors;
 
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class Sine extends Tuple implements Function {
 

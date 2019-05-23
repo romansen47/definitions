@@ -8,12 +8,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Constant;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Cosine;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Identity;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Sine;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
+import definitions.structures.generic.finitedimensional.defs.vectors.Cosine;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.Identity;
+import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
 
 public class FiniteDimensionalFunctionSpaceTest {
 

@@ -9,22 +9,20 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.mappings.FunctionSpaceOperator;
-import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
+import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.FiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.Function;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Constant;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Cosine;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Identity;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.functions.Sine;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.impl.FiniteDimensionalSubSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
+import definitions.structures.generic.finitedimensional.defs.vectors.Cosine;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.Identity;
+import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalSubSpaceTest {
 
@@ -129,10 +127,9 @@ public class FiniteDimensionalSubSpaceTest {
 			}
 			coordinates2.put(fun1, tmp);
 		}
-		int i=0;
 
-		IFiniteDimensionalLinearMapping parametrization = MappingGenerator
-				.getInstance().getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
+		IFiniteDimensionalLinearMapping parametrization = MappingGenerator.getInstance()
+				.getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
 		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
 		Function sum = (Function) functionSpace2.add(one2, identity2);

@@ -5,11 +5,12 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface IFiniteDimensionalLinearMapping {
 
@@ -54,8 +55,7 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default FiniteVector getOnSubSpace(FiniteVector vec1) throws Throwable {
-		FiniteVector inverseVector = new Tuple(
-				((ParameterizedSpace) getSource()).getInverseCoordinates(vec1));
+		FiniteVector inverseVector = new Tuple(((ParameterizedSpace) getSource()).getInverseCoordinates(vec1));
 		IFiniteDimensionalLinearMapping mapOnSourceSpaces = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(this.getGenericMatrix());
 		IFiniteDimensionalLinearMapping composedMapping;
@@ -68,16 +68,17 @@ public interface IFiniteDimensionalLinearMapping {
 		return (FiniteVector) composedMapping.get(inverseVector);
 	}
 
-//	default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
-//		// if (vec.getDim() > getSource().dim()) {
-//		// throw new Throwable();
-//		// }
-//		final Map<IFiniteVector, Double> coordinates = new HashMap<>();
-//		for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace) getTarget()).genericBaseToList()) {
-//			coordinates.put(vec1, getLinearity().get(vec).get(vec1));
-//		}
-//		return new FiniteVector(coordinates);
-//	}
+	// default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
+	// // if (vec.getDim() > getSource().dim()) {
+	// // throw new Throwable();
+	// // }
+	// final Map<IFiniteVector, Double> coordinates = new HashMap<>();
+	// for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace)
+	// getTarget()).genericBaseToList()) {
+	// coordinates.put(vec1, getLinearity().get(vec).get(vec1));
+	// }
+	// return new FiniteVector(coordinates);
+	// }
 
 	double[][] getGenericMatrix() throws Throwable;
 
@@ -90,8 +91,8 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default int getRank() throws Throwable {
-		double[][] mat = new double[((CoordinateSpace) getTarget()).genericBaseToList()
-				.size()][getSource().genericBaseToList().size()];
+		double[][] mat = new double[((CoordinateSpace) getTarget()).genericBaseToList().size()][getSource()
+				.genericBaseToList().size()];
 		int m = 0;
 		for (FiniteVector vec1 : getSource().genericBaseToList()) {
 			int n = 0;

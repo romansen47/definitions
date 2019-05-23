@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces;
+package definitions.structures.generic.finitedimensional.defs.subspaces.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,10 @@ import java.util.Map;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements ParameterizedSpace {

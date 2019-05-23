@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.defs.vectors;
+package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,8 +7,9 @@ import java.util.Set;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.FiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class Tuple implements FiniteVector {
 
@@ -36,25 +37,21 @@ public class Tuple implements FiniteVector {
 		dim = coordinates.keySet().size();
 	}
 
-	protected Tuple(int dim) {
+	Tuple(int dim) {
 		this.dim = dim;
 		coordinates = new HashMap<>();
 	}
 
 	@Override
 	public boolean elementOf(VectorSpace space) throws Throwable {
-		if (space instanceof FiniteDimensionalVectorSpace && ((FiniteDimensionalVectorSpace) space).dim() == dim) {
-			return true;
-		}
-		return false;
+		return space instanceof FiniteDimensionalVectorSpace && ((FiniteDimensionalVectorSpace) space).dim() == dim;
 	}
 
 	@Override
-	public boolean equals(Object vec){
-		if (!(vec instanceof Vector)){
+	public boolean equals(Object vec) {
+		if (!(vec instanceof Vector)) {
 			return false;
-		}
-		else if (vec instanceof Tuple && ((Tuple) vec).dim == dim) {
+		} else if (vec instanceof Tuple && ((Tuple) vec).dim == dim) {
 			return getCoordinates().equals(((Tuple) vec).getCoordinates());
 		}
 		return false;
@@ -86,12 +83,12 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Set<FiniteVector> getGenericBase() throws Throwable {
-		return new HashSet<FiniteVector>(getCoordinates().keySet());
+		return new HashSet<>(getCoordinates().keySet());
 	}
 
 	@Override
 	public boolean equals(Vector vec) throws Throwable {
-		return equals((Object)vec);
+		return equals((Object) vec);
 	}
 
 }

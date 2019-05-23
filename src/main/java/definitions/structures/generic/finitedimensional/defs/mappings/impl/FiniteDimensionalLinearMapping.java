@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.defs.mappings;
+package definitions.structures.generic.finitedimensional.defs.mappings.impl;
 
 import java.util.Map;
 
@@ -6,9 +6,10 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearMapping {
 
@@ -35,17 +36,17 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	final public CoordinateSpace getSource() {
+	public final CoordinateSpace getSource() {
 		return source;
 	}
 
 	@Override
-	final public VectorSpace getTarget() {
+	public final VectorSpace getTarget() {
 		return target;
 	}
 
 	@Override
-	final public Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
+	public final Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
 		return linearity;
 	}
 

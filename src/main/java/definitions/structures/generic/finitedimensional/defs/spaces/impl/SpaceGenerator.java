@@ -1,7 +1,10 @@
-package definitions.structures.generic.finitedimensional.defs.spaces;
+package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
 
 public class SpaceGenerator implements ISpaceGenerator {
 

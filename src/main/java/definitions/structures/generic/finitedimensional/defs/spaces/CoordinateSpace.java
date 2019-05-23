@@ -8,8 +8,9 @@ import java.util.Set;
 import definitions.structures.abstr.HilbertSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface CoordinateSpace extends HilbertSpace {
 

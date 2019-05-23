@@ -5,12 +5,11 @@ import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
+import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Tuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface ParameterizedSpace extends CoordinateSpace {
 
@@ -38,16 +37,18 @@ public interface ParameterizedSpace extends CoordinateSpace {
 				coordinates.put(vec, sumOnCoordinate);
 			}
 			return get(coordinates);
-		} else
-			return ((VectorSpace) this).add(vec1, vec2);
+		} else {
+			return this.add(vec1, vec2);
+		}
 	}
 
 	default Map<FiniteVector, Double> getInverseCoordinates(FiniteVector vec) throws Throwable {
 		FiniteVector ans = getNearestVector(vec);
 		if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans), vec) < 1.e-5) {
 			return ans.getCoordinates();
-		} else
+		} else {
 			return null;
+		}
 	}
 
 	Map<FiniteVector, FiniteVector> getParametrizationBaseVectorMapping();
@@ -58,7 +59,6 @@ public interface ParameterizedSpace extends CoordinateSpace {
 		IFiniteDimensionalLinearMapping quadratic = MappingGenerator.getInstance().getComposition(transposed,
 				getParametrization());
 		FiniteVector transformed = (FiniteVector) transposed.get(vec);
-		final FiniteVector ans = new Tuple(quadratic.solve(transformed).getCoordinates());
-		return ans;
+		return new Tuple(quadratic.solve(transformed).getCoordinates());
 	}
 }

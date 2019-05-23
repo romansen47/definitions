@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.mappings.MappingGenerator;
+import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.IVectorGenerator;
-import definitions.structures.generic.finitedimensional.defs.vectors.VectorGenerator;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.VectorGenerator;
 
 public class Generator implements IGenerator {
 
