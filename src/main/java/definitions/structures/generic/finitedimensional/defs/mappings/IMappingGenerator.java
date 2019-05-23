@@ -5,13 +5,10 @@ import java.util.Map;
 
 import definitions.structures.generic.finitedimensional.defs.spaces.IFiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.IFiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.IFiniteVector;
 
 public interface IMappingGenerator {
-
-	// Map<Integer, IFiniteDimensionalVectorSpace> getCachedSpaces();
 
 	default IFiniteDimensionalLinearMapping getComposition(IFiniteDimensionalLinearMapping a,
 			IFiniteDimensionalLinearMapping b) throws Throwable {

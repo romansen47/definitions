@@ -21,9 +21,4 @@ public interface IFiniteVector extends Vector {
 
 	Set<IFiniteVector> getGenericBase() throws Throwable;
 
-//	default List<IFiniteVector> getGenericBase() throws Throwable {
-//		return SpaceGenerator.getInstance().
-//				getFiniteDimensionalVectorSpace(getDim()).genericBaseToList();
-//	}
-
 }

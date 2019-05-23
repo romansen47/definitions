@@ -50,11 +50,14 @@ public class FiniteVector implements IFiniteVector {
 	}
 
 	@Override
-	public boolean equals(Vector vec) throws Throwable {
-		if (vec instanceof FiniteVector && ((FiniteVector) vec).dim == dim) {
+	public boolean equals(Object vec){
+		if (!(vec instanceof Vector)){
+			return false;
+		}
+		else if (vec instanceof FiniteVector && ((FiniteVector) vec).dim == dim) {
 			return getCoordinates().equals(((FiniteVector) vec).getCoordinates());
 		}
-		throw new Throwable();
+		return false;
 	}
 
 	@Override
@@ -83,7 +86,12 @@ public class FiniteVector implements IFiniteVector {
 
 	@Override
 	public Set<IFiniteVector> getGenericBase() throws Throwable {
-		return new HashSet(getCoordinates().keySet());
+		return new HashSet<IFiniteVector>(getCoordinates().keySet());
+	}
+
+	@Override
+	public boolean equals(Vector vec) throws Throwable {
+		return equals((Object)vec);
 	}
 
 }
