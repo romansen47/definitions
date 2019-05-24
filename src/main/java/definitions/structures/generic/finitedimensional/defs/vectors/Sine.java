@@ -17,4 +17,5 @@ public class Sine extends Tuple implements Function {
 	public String toString() {
 		return "sine function";
 	}
+
 }

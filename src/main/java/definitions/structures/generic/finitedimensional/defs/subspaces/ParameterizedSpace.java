@@ -28,9 +28,9 @@ public interface ParameterizedSpace extends CoordinateSpace {
 	@Override
 	default Vector add(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof FiniteVector && vec2 instanceof FiniteVector) {
-			final Set<FiniteVector> base = getGenericBase();
-			final Map<FiniteVector, Double> coordinates = new HashMap<>();
-			for (final FiniteVector vec : base) {
+			final Set<Vector> base = getGenericBase();
+			final Map<Vector, Double> coordinates = new HashMap<>();
+			for (final Vector vec : base) {
 				double summand1 = ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec));
 				double summand2 = ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec));
 				double sumOnCoordinate = summand1 + summand2;
@@ -42,23 +42,23 @@ public interface ParameterizedSpace extends CoordinateSpace {
 		}
 	}
 
-	default Map<FiniteVector, Double> getInverseCoordinates(FiniteVector vec) throws Throwable {
-		FiniteVector ans = getNearestVector(vec);
-		if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans), vec) < 1.e-5) {
+	default Map<Vector, Double> getInverseCoordinates(Vector vec2) throws Throwable {
+		Vector ans = getNearestVector(vec2);
+		if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans), vec2) < 1.e-5) {
 			return ans.getCoordinates();
 		} else {
 			return null;
 		}
 	}
 
-	Map<FiniteVector, FiniteVector> getParametrizationBaseVectorMapping();
+	Map<Vector, Vector> getParametrizationBaseVectorMapping();
 
-	default FiniteVector getNearestVector(FiniteVector vec) throws Throwable {
+	default FiniteVector getNearestVector(Vector vec2) throws Throwable {
 		IFiniteDimensionalLinearMapping transposed = MappingGenerator.getInstance()
 				.getTransposedMapping(getParametrization());
 		IFiniteDimensionalLinearMapping quadratic = MappingGenerator.getInstance().getComposition(transposed,
 				getParametrization());
-		FiniteVector transformed = (FiniteVector) transposed.get(vec);
+		Vector transformed = transposed.get(vec2);
 		return new Tuple(quadratic.solve(transformed).getCoordinates());
 	}
 }

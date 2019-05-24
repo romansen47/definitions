@@ -3,6 +3,7 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
@@ -29,15 +30,15 @@ public interface IMappingGenerator {
 	}
 
 	IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(CoordinateSpace source, CoordinateSpace target,
-			Map<FiniteVector, Map<FiniteVector, Double>> coordinates) throws Throwable;
+			Map<Vector, Map<Vector, Double>> matrix) throws Throwable;
 
 	IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(double[][] genericMatrix) throws Throwable;
 
 	default IFiniteDimensionalLinearMapping getTransposedMapping(IFiniteDimensionalLinearMapping map) throws Throwable {
-		Map<FiniteVector, Map<FiniteVector, Double>> transposedMatrix = new HashMap<>();
-		for (FiniteVector targetVec : ((CoordinateSpace) map.getTarget()).getGenericBase()) {
-			Map<FiniteVector, Double> entry = new HashMap<>();
-			for (FiniteVector sourceVec : map.getSource().getGenericBase()) {
+		Map<Vector, Map<Vector, Double>> transposedMatrix = new HashMap<>();
+		for (Vector targetVec : ((CoordinateSpace) map.getTarget()).getGenericBase()) {
+			Map<Vector, Double> entry = new HashMap<>();
+			for (Vector sourceVec : map.getSource().getGenericBase()) {
 				entry.put(sourceVec, map.getLinearity().get(sourceVec).get(targetVec));
 			}
 			transposedMatrix.put(targetVec, entry);

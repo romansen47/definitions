@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
@@ -49,13 +50,14 @@ public class FiniteDimensionalFunctionSpaceTest {
 		identity = new Identity(genericSpace.genericBaseToList().get(2).getGenericCoordinates());
 		one = new Constant(genericSpace.genericBaseToList().get(3).getGenericCoordinates(), 1);
 
-		List<FiniteVector> list = new ArrayList<>();
+		List<Vector> list = new ArrayList<>();
 		list.add(sin);
 		list.add(cos);
 		list.add(identity);
 		list.add(one);
 
-		functionSpace = new FiniteDimensionalFunctionSpace(list, -Math.PI, Math.PI);
+		functionSpace = SpaceGenerator.getInstance().
+				getFiniteDimensionalFunctionSpace(list, -Math.PI, Math.PI);
 
 		integral1 = functionSpace.product((functionSpace.stretch(sin, 2)), sin);
 		integral2 = functionSpace.product(cos, cos);

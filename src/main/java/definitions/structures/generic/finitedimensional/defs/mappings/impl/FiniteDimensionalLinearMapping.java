@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
+import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
@@ -15,19 +16,19 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 
 	private final CoordinateSpace source;
 	private final CoordinateSpace target;
-	private final Map<FiniteVector, Map<FiniteVector, Double>> linearity;
+	private final Map<Vector, Map<Vector, Double>> linearity;
 	private final double[][] genericMatrix;
 
 	public FiniteDimensionalLinearMapping(CoordinateSpace source, CoordinateSpace target,
-			Map<FiniteVector, Map<FiniteVector, Double>> coordinates) throws Throwable {
+			Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
 		this.source = source;
 		this.target = target;
 		this.linearity = coordinates;
 		genericMatrix = new double[((CoordinateSpace) getTarget()).dim()][getSource().dim()];
 		int i = 0;
-		for (final FiniteVector vec1 : getSource().genericBaseToList()) {
+		for (final Vector vec1 : getSource().genericBaseToList()) {
 			int j = 0;
-			for (final FiniteVector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
+			for (final Vector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
 				genericMatrix[j][i] = getLinearity(vec1).get(vec2);
 				j++;
 			}
@@ -46,12 +47,12 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	public final Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
+	public final Map<Vector, Map<Vector, Double>> getLinearity() {
 		return linearity;
 	}
 
 	@Override
-	public FiniteVector solve(FiniteVector image) throws Throwable {
+	public FiniteVector solve(Vector image) throws Throwable {
 		double[][] matrix = getGenericMatrix();
 		double[] imageVector = image.getGenericCoordinates();
 		try {
@@ -78,7 +79,6 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 				str += " \r";
 			}
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

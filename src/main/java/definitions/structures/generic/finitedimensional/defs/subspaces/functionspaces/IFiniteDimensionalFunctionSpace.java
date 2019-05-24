@@ -32,8 +32,8 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	double getEpsilon();
 
 	@Override
-	default FiniteVector getBaseVec(FiniteVector baseVec) throws Throwable {
-		for (FiniteVector vec : getGenericBase()) {
+	default Vector getBaseVec(Vector baseVec) throws Throwable {
+		for (Vector vec : getGenericBase()) {
 			if (baseVec.equals(vec)) {
 				return vec;
 			}
@@ -63,10 +63,10 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	@Override
 	default Vector add(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof Function && vec2 instanceof Function) {
-			final List<FiniteVector> base = genericBaseToList();
-			final Map<FiniteVector, Double> coordinates = new HashMap<>();
-			for (final FiniteVector vec : base) {
-				coordinates.put(vec, ((FiniteVector) (get((Function) vec1))).getCoordinates().get(getBaseVec(vec))
+			final List<Vector> base = genericBaseToList();
+			final Map<Vector, Double> coordinates = new HashMap<>();
+			for (final Vector vec : base) {
+				coordinates.put(vec,get(vec1).getCoordinates().get(getBaseVec(vec))
 						+ ((FiniteVector) (get((Function) vec2))).getCoordinates().get(getBaseVec(vec)));
 			}
 			return new FunctionTuple(coordinates);
@@ -78,17 +78,17 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	}
 
 	@Override
-	default Vector get(FiniteVector vec) throws Throwable {
-		Map<FiniteVector, Double> map = new HashMap<>();
-		for (FiniteVector baseVec : getBase()) {
+	default Vector get(Vector vec) throws Throwable {
+		Map<Vector, Double> map = new HashMap<>();
+		for (Vector baseVec : getBase()) {
 			map.put(baseVec, vec.getCoordinates().get(baseVec));
 		}
 		return new Tuple(map);
 	}
 
 	default Function nullFunction() throws Throwable {
-		Map<FiniteVector, Double> nul = new HashMap<>();
-		for (FiniteVector baseVec : getBase()) {
+		Map<Vector, Double> nul = new HashMap<>();
+		for (Vector baseVec : getBase()) {
 			nul.put(baseVec, 0.0);
 		}
 		return new FunctionTuple(nul);
@@ -100,14 +100,15 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	}
 
 	@Override
-	default Vector get(Map<FiniteVector, Double> tmp) throws Throwable {
+	default Vector get(Map<Vector, Double> tmp) throws Throwable {
 		Function vec = nullFunction();
-		for (final FiniteVector basevec : tmp.keySet()) {
-			vec = (Function) add(vec, stretch(getBaseVec(basevec), tmp.get(basevec).doubleValue()));
+		for (final Vector basevec : tmp.keySet()) {
+			vec = (Function) add(vec, stretch(getBaseVec(basevec),
+										tmp.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
 
-	List<FiniteVector> getBase();
+	List<Vector> getBase();
 
 }

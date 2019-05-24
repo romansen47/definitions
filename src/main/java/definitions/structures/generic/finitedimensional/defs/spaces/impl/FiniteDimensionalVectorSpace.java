@@ -13,16 +13,16 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalVectorSpace implements CoordinateSpace {
 
-	protected List<FiniteVector> base;
+	protected List<Vector> base;
 
 	protected int dim;
 
 	protected FiniteDimensionalVectorSpace() throws Throwable {
 	}
 
-	public FiniteDimensionalVectorSpace(List<FiniteVector> list) throws Throwable {
-		dim = list.size();
-		base = list;
+	public FiniteDimensionalVectorSpace(List<Vector> genericBase) throws Throwable {
+		dim = genericBase.size();
+		base = genericBase;
 	}
 
 	@Override
@@ -31,10 +31,10 @@ public class FiniteDimensionalVectorSpace implements CoordinateSpace {
 			throw new Throwable();
 		}
 		double prod = 0;
-		final Map<FiniteVector, Double> vecCoord1 = ((Tuple) vec1).getCoordinates();
-		final Map<FiniteVector, Double> vecCoord2 = ((Tuple) vec2).getCoordinates();
-		final List<FiniteVector> base = genericBaseToList();
-		for (final FiniteVector vec : base) {
+		final Map<Vector, Double> vecCoord1 = ((Tuple) vec1).getCoordinates();
+		final Map<Vector, Double> vecCoord2 = ((Tuple) vec2).getCoordinates();
+		final List<Vector> base = genericBaseToList();
+		for (final Vector vec : base) {
 			prod += vecCoord1.get(vec) * vecCoord2.get(vec);
 		}
 		return prod;
@@ -47,15 +47,15 @@ public class FiniteDimensionalVectorSpace implements CoordinateSpace {
 
 	@Override
 	public FiniteVector nullVec() throws Throwable {
-		Map<FiniteVector, Double> coordinates = new HashMap<>();
-		for (FiniteVector vec : genericBaseToList()) {
+		Map<Vector, Double> coordinates = new HashMap<>();
+		for (Vector vec : genericBaseToList()) {
 			coordinates.put(vec, 0.);
 		}
 		return new Tuple(coordinates);
 	}
 
 	@Override
-	public List<FiniteVector> genericBaseToList() throws Throwable {
+	public List<Vector> genericBaseToList() throws Throwable {
 		return getBase();
 	}
 
@@ -65,18 +65,18 @@ public class FiniteDimensionalVectorSpace implements CoordinateSpace {
 	}
 
 	@Override
-	public Set<FiniteVector> getGenericBase() throws Throwable {
+	public Set<Vector> getGenericBase() throws Throwable {
 		return new HashSet<>(genericBaseToList());
 	}
 
 	/**
 	 * @return the base
 	 */
-	public List<FiniteVector> getBase() {
+	public List<Vector> getBase() {
 		return base;
 	}
 
-	protected void setBase(List<FiniteVector> newBase) {
+	protected void setBase(List<Vector> newBase) {
 		base = newBase;
 	}
 

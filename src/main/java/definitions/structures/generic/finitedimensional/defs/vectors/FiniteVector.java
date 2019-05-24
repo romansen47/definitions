@@ -7,18 +7,18 @@ import definitions.structures.abstr.Vector;
 
 public interface FiniteVector extends Vector {
 
-	Map<FiniteVector, Double> getCoordinates();
+	Map<Vector, Double> getCoordinates();
 
 	default double[] getGenericCoordinates() throws Throwable {
 		final double[] vector = new double[getDim()];
 		int i = 0;
-		for (final FiniteVector basevec : getGenericBase()) {
+		for (final Vector basevec : getGenericBase()) {
 			vector[i] = getCoordinates().get(basevec);
 			i++;
 		}
 		return vector;
 	}
 
-	Set<FiniteVector> getGenericBase() throws Throwable;
+	Set<Vector> getGenericBase() throws Throwable;
 
 }

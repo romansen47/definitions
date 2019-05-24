@@ -20,19 +20,19 @@ public class Tuple implements FiniteVector {
 		return dim;
 	}
 
-	private Map<FiniteVector, Double> coordinates;
+	private Map<Vector, Double> coordinates;
 
 	public Tuple(double[] coordinates) throws Throwable {
 		dim = coordinates.length;
 		setCoordinates(new HashMap<>());
 		int i = 0;
-		for (final FiniteVector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim)
+		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim)
 				.genericBaseToList()) {
 			getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
 
-	public Tuple(Map<FiniteVector, Double> coordinates) throws Throwable {
+	public Tuple(Map<Vector, Double> coordinates) throws Throwable {
 		setCoordinates(coordinates);
 		dim = coordinates.keySet().size();
 	}
@@ -73,16 +73,16 @@ public class Tuple implements FiniteVector {
 	}
 
 	@Override
-	public Map<FiniteVector, Double> getCoordinates() {
+	public Map<Vector, Double> getCoordinates() {
 		return coordinates;
 	}
 
-	public void setCoordinates(Map<FiniteVector, Double> coordinates) {
+	public void setCoordinates(Map<Vector, Double> coordinates) {
 		this.coordinates = coordinates;
 	}
 
 	@Override
-	public Set<FiniteVector> getGenericBase() throws Throwable {
+	public Set<Vector> getGenericBase() throws Throwable {
 		return new HashSet<>(getCoordinates().keySet());
 	}
 

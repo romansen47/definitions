@@ -35,19 +35,19 @@ public class FiniteDimensionalLinearMappingTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void first1() throws Throwable {
+	public void first() throws Throwable {
 		Assert.assertTrue(composition.get(e1).equals(e1));
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void second1() throws Throwable {
+	public void second() throws Throwable {
 		Assert.assertTrue(composition.get(e2).equals(e2));
 	}
 
 	@SuppressWarnings("deprecation")
 	@Test
-	public void third1() throws Throwable {
+	public void third() throws Throwable {
 		Assert.assertTrue(composition.get(e3).equals(e3));
 	}
 }

@@ -17,15 +17,15 @@ import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVecto
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements ParameterizedSpace {
 
 	protected IFiniteDimensionalInjectiveLinearMapping parametrization;
-	protected final List<FiniteVector> genericBase = new ArrayList<>();
-	protected Map<FiniteVector, FiniteVector> parametrizationBaseVectorMapping = new HashMap<>();
+	protected final List<Vector> genericBase = new ArrayList<>();
+	protected Map<Vector, Vector> parametrizationBaseVectorMapping = new HashMap<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 
-		for (FiniteVector vec : parametrization.getSource().genericBaseToList()) {
-			FiniteVector newBaseVec = (FiniteVector) parametrization.get(vec);
+		for (Vector vec : parametrization.getSource().genericBaseToList()) {
+			Vector newBaseVec = parametrization.get(vec);
 			genericBase.add(newBaseVec);
 			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
@@ -57,12 +57,12 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public List<FiniteVector> genericBaseToList() throws Throwable {
+	public List<Vector> genericBaseToList() throws Throwable {
 		return genericBase;
 	}
 
 	@Override
-	public final Map<FiniteVector, FiniteVector> getParametrizationBaseVectorMapping() {
+	public final Map<Vector, Vector> getParametrizationBaseVectorMapping() {
 		return parametrizationBaseVectorMapping;
 	}
 

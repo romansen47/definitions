@@ -14,23 +14,23 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface IFiniteDimensionalLinearMapping {
 
-	FiniteVector solve(FiniteVector image) throws Throwable;
+	Vector solve(Vector transformed) throws Throwable;
 
 	CoordinateSpace getSource();
 
 	VectorSpace getTarget();
 
-	Map<FiniteVector, Map<FiniteVector, Double>> getLinearity();
+	Map<Vector, Map<Vector, Double>> getLinearity();
 
-	default Map<FiniteVector, Double> getLinearity(FiniteVector vec1) {
+	default Map<Vector, Double> getLinearity(Vector vec1) {
 		return getLinearity().get(vec1);
 	}
 
-	default Vector get(FiniteVector vec1) throws Throwable {
+	default Vector get(Vector vec2) throws Throwable {
 		if (getSource() instanceof ParameterizedSpace) {
-			return getOnSubSpace(vec1);
+			return getOnSubSpace(vec2);
 		}
-		final Map<FiniteVector, Double> coordinates = vec1.getCoordinates();
+		final Map<Vector, Double> coordinates = ((FiniteVector)vec2).getCoordinates();
 		Vector ans;
 		CoordinateSpace target;
 		VectorSpace space = getTarget();
@@ -41,21 +41,22 @@ public interface IFiniteDimensionalLinearMapping {
 			target = (CoordinateSpace) getTarget();
 			ans = target.nullVec();
 		}
-		for (final FiniteVector src : getSource().genericBaseToList()) {
-			Map<FiniteVector, Double> tmp = new HashMap<>();
-			for (FiniteVector vec : target.genericBaseToList()) {
+		for (final Vector src : getSource().genericBaseToList()) {
+			Map<Vector, Double> tmp = new HashMap<>();
+			for (Vector vec : target.genericBaseToList()) {
 				tmp.put(vec, getLinearity().get(src).get(vec));
 			}
 			double coord = coordinates.get(getSource().getBaseVec(src));
-			FiniteVector vec = (FiniteVector) target.get(tmp);
+			Vector vec = target.get(tmp);
 			Vector summand = target.stretch(vec, coord);
 			ans = target.add(ans, summand);
 		}
 		return ans;
 	}
 
-	default FiniteVector getOnSubSpace(FiniteVector vec1) throws Throwable {
-		FiniteVector inverseVector = new Tuple(((ParameterizedSpace) getSource()).getInverseCoordinates(vec1));
+	default FiniteVector getOnSubSpace(Vector vec2) throws Throwable {
+		Vector inverseVector = new Tuple(((ParameterizedSpace)getSource()).
+								getInverseCoordinates(vec2));
 		IFiniteDimensionalLinearMapping mapOnSourceSpaces = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(this.getGenericMatrix());
 		IFiniteDimensionalLinearMapping composedMapping;
@@ -94,9 +95,9 @@ public interface IFiniteDimensionalLinearMapping {
 		double[][] mat = new double[((CoordinateSpace) getTarget()).genericBaseToList().size()][getSource()
 				.genericBaseToList().size()];
 		int m = 0;
-		for (FiniteVector vec1 : getSource().genericBaseToList()) {
+		for (Vector vec1 : getSource().genericBaseToList()) {
 			int n = 0;
-			for (FiniteVector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
+			for (Vector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
 				mat[n][m] = getGenericMatrix()[n++][m];
 			}
 			m++;

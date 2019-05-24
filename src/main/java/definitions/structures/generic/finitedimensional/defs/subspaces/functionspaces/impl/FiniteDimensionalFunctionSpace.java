@@ -21,16 +21,16 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public double product(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof Function && vec2 instanceof Function) {
-			return getIntegral((Function) vec1, (Function) vec2);
+			return 1/(2*Math.PI)*getIntegral((Function) vec1, (Function) vec2);
 		}
 		throw new Throwable();
 	}
 
-	public FiniteDimensionalFunctionSpace(List<FiniteVector> list, double left, double right) throws Throwable {
-		super(list);
-		for (FiniteVector vec : list) {
-			Map<FiniteVector, Double> tmpCoord = new HashMap<>();
-			for (FiniteVector otherVec : list) {
+	public FiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right) throws Throwable {
+		super(genericBase);
+		for (Vector vec : genericBase) {
+			Map<Vector, Double> tmpCoord = new HashMap<>();
+			for (Vector otherVec : genericBase) {
 				if (vec == otherVec) {
 					tmpCoord.put(otherVec, 1.0);
 				} else {
@@ -60,9 +60,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public Function stretch(Function vec, double r) throws Throwable {
 		if (vec.getDim() == dim()) {
-			final Map<FiniteVector, Double> coordinates = getCoordinates(vec);
-			final Map<FiniteVector, Double> stretched = new HashMap<>();
-			for (final FiniteVector vec1 : getBase()) {
+			final Map<Vector, Double> coordinates = getCoordinates(vec);
+			final Map<Vector, Double> stretched = new HashMap<>();
+			for (final Vector vec1 : getBase()) {
 				stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
 			}
 			return new FunctionTuple(stretched);

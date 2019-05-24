@@ -9,6 +9,7 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
@@ -32,7 +33,7 @@ public class FiniteDimensionalSubSpaceTest {
 
 	static double[][] matrix = new double[][] { { 1, 3 }, { 3, 2 }, { 1, 0 } };
 	static double[][] matrix2 = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
-	static List<FiniteVector> list = new ArrayList<>();
+	static List<Vector> list = new ArrayList<>();
 
 	static Function sin;
 	static Function cos;
@@ -61,16 +62,16 @@ public class FiniteDimensionalSubSpaceTest {
 		ParameterizedSpace subSpace = new FiniteDimensionalSubSpace(map);
 
 		@SuppressWarnings("unused")
-		Set<FiniteVector> test = subSpace.getGenericBase();
+		Set<Vector> test = subSpace.getGenericBase();
 
-		List<FiniteVector> base = subSpace.genericBaseToList();
-		Map<FiniteVector, Map<FiniteVector, Double>> coordinates = new HashMap<>();
+		List<Vector> base = subSpace.genericBaseToList();
+		Map<Vector, Map<Vector, Double>> coordinates = new HashMap<>();
 
-		Map<FiniteVector, Double> key1 = new HashMap<>();
+		Map<Vector, Double> key1 = new HashMap<>();
 		key1.put(base.get(0), 0.0);
 		key1.put(base.get(1), 2.);
 
-		Map<FiniteVector, Double> key2 = new HashMap<>();
+		Map<Vector, Double> key2 = new HashMap<>();
 		key2.put(base.get(0), -0.5);
 		key2.put(base.get(1), 0.0);
 
@@ -99,8 +100,8 @@ public class FiniteDimensionalSubSpaceTest {
 		identity2 = new Identity(genericSpace2.genericBaseToList().get(2).getGenericCoordinates());
 		one2 = new Constant(genericSpace2.genericBaseToList().get(3).getGenericCoordinates(), 1);
 
-		List<FiniteVector> list = new ArrayList<>();
-		List<FiniteVector> list2 = new ArrayList<>();
+		List<Vector> list = new ArrayList<>();
+		List<Vector> list2 = new ArrayList<>();
 		list.add(sin);
 		x = sin.getDim();
 		list.add(cos);
@@ -115,10 +116,10 @@ public class FiniteDimensionalSubSpaceTest {
 
 		functionSpace2 = new FiniteDimensionalFunctionSpace(list2, -Math.PI, Math.PI);
 
-		Map<FiniteVector, Map<FiniteVector, Double>> coordinates2 = new HashMap<>();
-		for (FiniteVector fun1 : functionSpace.genericBaseToList()) {
-			Map<FiniteVector, Double> tmp = new HashMap<>();
-			for (FiniteVector fun2 : functionSpace2.genericBaseToList()) {
+		Map<Vector, Map<Vector, Double>> coordinates2 = new HashMap<>();
+		for (Vector fun1 : functionSpace.genericBaseToList()) {
+			Map<Vector, Double> tmp = new HashMap<>();
+			for (Vector fun2 : functionSpace2.genericBaseToList()) {
 				if (((Function) fun1).equals((Function) fun2, functionSpace)) {
 					tmp.put(fun2, 1.);
 				} else {
@@ -132,8 +133,8 @@ public class FiniteDimensionalSubSpaceTest {
 				.getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
 		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
-		Function sum = (Function) functionSpace2.add(one2, identity2);
-		FiniteVector max = functionSubSpace.getNearestVector(sum);
+		Vector sum = functionSpace2.add(one2, identity2);
+		Vector max = functionSubSpace.getNearestVector(sum);
 
 	}
 

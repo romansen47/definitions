@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>general</groupId>
 	<artifactId>definitions</artifactId>
-	<name>math</name>
+	<name>mathematics</name>
 	<packaging>pom</packaging>
 
 	<parent>

@@ -14,13 +14,13 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	final IFiniteDimensionalFunctionSpace source;
 	final IFiniteDimensionalFunctionSpace target;
 	private double[][] genericMatrix;
-	private Map<FiniteVector, Map<FiniteVector, Double>> linearity;
+	private Map<Vector, Map<Vector, Double>> linearity;
 
 	public FunctionSpaceOperator(IFiniteDimensionalFunctionSpace source, IFiniteDimensionalFunctionSpace target,
-			Map<FiniteVector, Map<FiniteVector, Double>> linearity) throws Throwable {
+			Map<Vector, Map<Vector, Double>> matrix) throws Throwable {
 		this.source = source;
 		this.target = target;
-		this.linearity = linearity;
+		this.linearity = matrix;
 		genericMatrix = new double[target.dim()][source.dim()];
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
@@ -34,7 +34,7 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 
 	@Override
-	public FiniteVector solve(FiniteVector image) throws Throwable {
+	public FiniteVector solve(Vector image) throws Throwable {
 		return null;
 	}
 
@@ -49,7 +49,7 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 
 	@Override
-	public Map<FiniteVector, Map<FiniteVector, Double>> getLinearity() {
+	public Map<Vector, Map<Vector, Double>> getLinearity() {
 		return linearity;
 	}
 

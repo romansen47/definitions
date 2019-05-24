@@ -33,20 +33,20 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		eps = superSpace.getEpsilon();
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 
-		for (FiniteVector vec : parametrization.getSource().genericBaseToList()) {
-			FiniteVector newBaseVec = (FiniteVector) parametrization.get(vec);
+		for (Vector vec : parametrization.getSource().genericBaseToList()) {
+			Vector newBaseVec = (FiniteVector) parametrization.get(vec);
 			genericBase.add(newBaseVec);
 			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
 	}
 
 	@Override
-	public List<FiniteVector> genericBaseToList() throws Throwable {
+	public List<Vector> genericBaseToList() throws Throwable {
 		return getBase();
 	}
 
 	@Override
-	public Set<FiniteVector> getGenericBase() throws Throwable {
+	public Set<Vector> getGenericBase() throws Throwable {
 		return new HashSet<>(getBase());
 	}
 
@@ -71,7 +71,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public List<FiniteVector> getBase() {
+	public List<Vector> getBase() {
 		return base;
 	}
 
