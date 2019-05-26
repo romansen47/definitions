@@ -10,7 +10,7 @@ public class Identity extends FunctionTuple implements Function {
 
 	@Override
 	public double value(double input) throws Throwable {
-		return input;
+		return input/Math.pow(Math.PI, 2);
 	}
 
 	@Override

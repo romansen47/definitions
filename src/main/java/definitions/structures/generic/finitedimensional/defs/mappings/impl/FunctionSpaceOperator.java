@@ -5,7 +5,7 @@ import java.util.Map;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
@@ -39,7 +39,7 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 
 	@Override
-	public CoordinateSpace getSource() {
+	public EuclideanSpace getSource() {
 		return source;
 	}
 

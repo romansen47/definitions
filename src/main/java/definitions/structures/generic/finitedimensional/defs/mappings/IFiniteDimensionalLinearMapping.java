@@ -6,7 +6,7 @@ import java.util.Map;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
@@ -16,7 +16,7 @@ public interface IFiniteDimensionalLinearMapping {
 
 	Vector solve(Vector transformed) throws Throwable;
 
-	CoordinateSpace getSource();
+	EuclideanSpace getSource();
 
 	VectorSpace getTarget();
 
@@ -30,15 +30,15 @@ public interface IFiniteDimensionalLinearMapping {
 		if (getSource() instanceof ParameterizedSpace) {
 			return getOnSubSpace(vec2);
 		}
-		final Map<Vector, Double> coordinates = ((FiniteVector)vec2).getCoordinates();
+		final Map<Vector, Double> coordinates = ((FiniteVector)vec2).getCoordinates(getSource());
 		Vector ans;
-		CoordinateSpace target;
+		EuclideanSpace target;
 		VectorSpace space = getTarget();
 		if (space instanceof IFiniteDimensionalFunctionSpace) {
 			target = (IFiniteDimensionalFunctionSpace) space;
 			ans = ((IFiniteDimensionalFunctionSpace) target).nullFunction();
 		} else {
-			target = (CoordinateSpace) getTarget();
+			target = (EuclideanSpace) getTarget();
 			ans = target.nullVec();
 		}
 		for (final Vector src : getSource().genericBaseToList()) {
@@ -92,12 +92,12 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default int getRank() throws Throwable {
-		double[][] mat = new double[((CoordinateSpace) getTarget()).genericBaseToList().size()][getSource()
+		double[][] mat = new double[((EuclideanSpace) getTarget()).genericBaseToList().size()][getSource()
 				.genericBaseToList().size()];
 		int m = 0;
 		for (Vector vec1 : getSource().genericBaseToList()) {
 			int n = 0;
-			for (Vector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
+			for (Vector vec2 : ((EuclideanSpace) getTarget()).genericBaseToList()) {
 				mat[n][m] = getGenericMatrix()[n++][m];
 			}
 			m++;

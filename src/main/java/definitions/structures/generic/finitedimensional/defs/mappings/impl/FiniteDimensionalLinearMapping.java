@@ -8,27 +8,27 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearMapping {
 
-	private final CoordinateSpace source;
-	private final CoordinateSpace target;
+	private final EuclideanSpace source;
+	private final EuclideanSpace target;
 	private final Map<Vector, Map<Vector, Double>> linearity;
 	private final double[][] genericMatrix;
 
-	public FiniteDimensionalLinearMapping(CoordinateSpace source, CoordinateSpace target,
+	public FiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
 		this.source = source;
 		this.target = target;
 		this.linearity = coordinates;
-		genericMatrix = new double[((CoordinateSpace) getTarget()).dim()][getSource().dim()];
+		genericMatrix = new double[((EuclideanSpace) getTarget()).dim()][getSource().dim()];
 		int i = 0;
 		for (final Vector vec1 : getSource().genericBaseToList()) {
 			int j = 0;
-			for (final Vector vec2 : ((CoordinateSpace) getTarget()).genericBaseToList()) {
+			for (final Vector vec2 : ((EuclideanSpace) getTarget()).genericBaseToList()) {
 				genericMatrix[j][i] = getLinearity(vec1).get(vec2);
 				j++;
 			}
@@ -37,7 +37,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	public final CoordinateSpace getSource() {
+	public final EuclideanSpace getSource() {
 		return source;
 	}
 

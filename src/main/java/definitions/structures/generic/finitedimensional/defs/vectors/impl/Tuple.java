@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import definitions.structures.abstr.HilbertSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
@@ -66,7 +68,6 @@ public class Tuple implements FiniteVector {
 			}
 			return str;
 		} catch (final Throwable e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "Problems occured...";
 		}
@@ -89,6 +90,11 @@ public class Tuple implements FiniteVector {
 	@Override
 	public boolean equals(Vector vec) throws Throwable {
 		return equals((Object) vec);
+	}
+
+	@Override
+	public Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable {
+		return getCoordinates();
 	}
 
 }

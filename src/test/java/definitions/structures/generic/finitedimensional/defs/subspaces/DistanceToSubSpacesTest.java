@@ -6,42 +6,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSubSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.impl.FiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
 import definitions.structures.generic.finitedimensional.defs.vectors.Cosine;
+import definitions.structures.generic.finitedimensional.defs.vectors.ExponentialFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.Identity;
 import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public class FiniteDimensionalSubSpaceTest {
+public class DistanceToSubSpacesTest {
 
-	static FiniteVector e1;
-	static FiniteVector e2;
-	static FiniteVector e3;
-
-	static double[][] matrix = new double[][] { { 1, 3 }, { 3, 2 }, { 1, 0 } };
-	static double[][] matrix2 = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
-	static List<Vector> list = new ArrayList<>();
-
+	static double answer;
+	
 	static Function sin;
 	static Function cos;
-	static Function identity;
+
 	static Function sin2;
 	static Function cos2;
+	static Function constant2;
 	static Function identity2;
-	static Function one2;
+	static Function exp;
 
 	static EuclideanSpace genericSpace;
 	static EuclideanSpace genericSpace2;
@@ -49,70 +48,37 @@ public class FiniteDimensionalSubSpaceTest {
 	static IFiniteDimensionalFunctionSpace functionSpace;
 	static IFiniteDimensionalFunctionSpace functionSpace2;
 
-	static ParameterizedSpace functionSubSpace;
+	static FiniteDimensionalFunctionSubSpace functionSubSpace;
 
+	@SuppressWarnings("unused")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		e1 = new Tuple(new double[] { 1, 0, 0 });
-		e2 = new Tuple(new double[] { 0, 1, 0 });
-		e3 = new Tuple(new double[] { 0, 0, 1 });
-
-		IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
-		ParameterizedSpace subSpace = new FiniteDimensionalSubSpace(map);
-
-		@SuppressWarnings("unused")
-		Set<Vector> test = subSpace.getGenericBase();
-
-		List<Vector> base = subSpace.genericBaseToList();
-		Map<Vector, Map<Vector, Double>> coordinates = new HashMap<>();
-
-		Map<Vector, Double> key1 = new HashMap<>();
-		key1.put(base.get(0), 0.0);
-		key1.put(base.get(1), 2.);
-
-		Map<Vector, Double> key2 = new HashMap<>();
-		key2.put(base.get(0), -0.5);
-		key2.put(base.get(1), 0.0);
-
-		coordinates.put(base.get(0), key1);
-		coordinates.put(base.get(1), key2);
-
-		IFiniteDimensionalLinearMapping testMap = MappingGenerator.getInstance()
-				.getFiniteDimensionalLinearMapping(subSpace, subSpace, coordinates);
-
-		list.add(base.get(0));
-		for (int i = 0; i < 4; i++) {
-			list.add((FiniteVector) testMap.get(list.get(list.size() - 1)));
-		}
-
-		double x = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3).getDistance(e1, e2);
-
-		genericSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
-		genericSpace2 = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(4);
+		genericSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(2);
+		genericSpace2 = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(5);
 
 		sin = new Sine(genericSpace.genericBaseToList().get(0).getGenericCoordinates());
 		cos = new Cosine(genericSpace.genericBaseToList().get(1).getGenericCoordinates());
-		identity = new Identity(genericSpace.genericBaseToList().get(2).getGenericCoordinates());
 
 		sin2 = new Sine(genericSpace2.genericBaseToList().get(0).getGenericCoordinates());
 		cos2 = new Cosine(genericSpace2.genericBaseToList().get(1).getGenericCoordinates());
-		identity2 = new Identity(genericSpace2.genericBaseToList().get(2).getGenericCoordinates());
-		one2 = new Constant(genericSpace2.genericBaseToList().get(3).getGenericCoordinates(), 1);
-
+		constant2 = new Constant(genericSpace2.genericBaseToList().get(2).getGenericCoordinates(),1/Math.sqrt(2*Math.PI));
+		identity2 = new Identity(genericSpace2.genericBaseToList().get(3).getGenericCoordinates());
+		exp = new ExponentialFunction(genericSpace2.genericBaseToList().get(4).getGenericCoordinates());
+		
 		List<Vector> list = new ArrayList<>();
 		List<Vector> list2 = new ArrayList<>();
+
 		list.add(sin);
-		x = sin.getDim();
 		list.add(cos);
-		list.add(identity);
 
 		functionSpace = new FiniteDimensionalFunctionSpace(list, -Math.PI, Math.PI);
 
 		list2.add(sin2);
 		list2.add(cos2);
+		list2.add(constant2);
 		list2.add(identity2);
-		list2.add(one2);
+		list2.add(exp);
 
 		functionSpace2 = new FiniteDimensionalFunctionSpace(list2, -Math.PI, Math.PI);
 
@@ -132,15 +98,28 @@ public class FiniteDimensionalSubSpaceTest {
 		IFiniteDimensionalLinearMapping parametrization = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
-		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
-		Vector sum = functionSpace2.add(one2, identity2);
-		Vector max = functionSubSpace.getNearestVector(sum);
+		functionSubSpace = new FiniteDimensionalFunctionSubSpace(parametrization, functionSpace);
+		
+//		@SuppressWarnings("unused")
+//		Vector max1 = functionSubSpace.getNearestVector(constant2);
+//		Vector max2 = functionSubSpace.getCoordinates(identity2);
+//		
+//		Vector sum = functionSubSpace.add(constant2, identity2);
+		
+		@SuppressWarnings("unused")
+//		Vector max2 = functionSpace2.getCoordinates(identity2);
+//		
+		Vector sum = functionSpace2.add(constant2, identity2);
+		
+		Vector max = functionSpace.getCoordinates(identity2);
+		
+		answer = functionSpace.norm(max);
 
 	}
 
 	@Test
 	public void first1() throws Throwable {
-		boolean ans = list.get(0).equals(list.get(4));
+		Assert.assertTrue(answer==0.0);
 	}
 
 }

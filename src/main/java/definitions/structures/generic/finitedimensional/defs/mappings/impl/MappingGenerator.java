@@ -7,7 +7,7 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.Endomorphism;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
@@ -31,8 +31,8 @@ public class MappingGenerator implements IMappingGenerator {
 			throws Throwable {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
-		final CoordinateSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);
-		final CoordinateSpace target = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimTarget);
+		final EuclideanSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);
+		final EuclideanSpace target = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimTarget);
 		final Map<Vector, Map<Vector, Double>> coordinates = new HashMap<>();
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
@@ -61,8 +61,8 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(CoordinateSpace source,
-			CoordinateSpace target, Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
+	public IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(EuclideanSpace source,
+			EuclideanSpace target, Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
 		if (source instanceof IFiniteDimensionalFunctionSpace) {
 			return new FunctionSpaceOperator((IFiniteDimensionalFunctionSpace) source,
 					(IFiniteDimensionalFunctionSpace) target, coordinates);

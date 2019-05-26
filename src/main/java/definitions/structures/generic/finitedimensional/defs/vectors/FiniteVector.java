@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 
 public interface FiniteVector extends Vector {
 
@@ -21,4 +23,6 @@ public interface FiniteVector extends Vector {
 
 	Set<Vector> getGenericBase() throws Throwable;
 
+	Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable;
+	
 }

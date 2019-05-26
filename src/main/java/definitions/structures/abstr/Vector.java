@@ -2,6 +2,8 @@ package definitions.structures.abstr;
 
 import java.util.Map;
 
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+
 public interface Vector {
 
 	int getDim();

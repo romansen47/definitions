@@ -1,5 +1,10 @@
 package definitions.structures.abstr;
 
+/**
+ * 
+ * @author ro
+ *
+ */
 public interface VectorSpace {
 
 	boolean contains(Vector vec) throws Throwable;

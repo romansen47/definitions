@@ -20,13 +20,7 @@ public interface Function extends FiniteVector {
 		return Math.PI;
 	}
 	
-	default double value(double input) throws Throwable {
-		double ans = 0;
-		for (Vector fun : this.getCoordinates().keySet()) {
-			ans += ((Function) fun).value(input) * getCoordinates().get(fun);
-		}
-		return ans;
-	}
+	double value(double input) throws Throwable;
 
 	default boolean equals(Function other, IFiniteDimensionalFunctionSpace source) throws Throwable {
 		final int n = 100;
@@ -40,22 +34,22 @@ public interface Function extends FiniteVector {
 		return true;
 	}
 	
-	@Override
-	default double[] getGenericCoordinates() throws Throwable {
-		final double[] vector = new double[getDim()];
-		int i = 0;
-		List<Vector> base=new ArrayList<>();
-		for (Vector baseVec:getCoordinates().keySet()) {
-			base.add(baseVec);
-		}
-		IFiniteDimensionalFunctionSpace space=
-				SpaceGenerator.getInstance().
-				getFiniteDimensionalFunctionSpace(base,getLeft(),getRight());
-		for (final Vector basevec : getGenericBase()) {
-			vector[i] = space.product(this,basevec);
-			i++;
-		}
-		return vector;
-	}
+//	@Override
+//	default double[] getGenericCoordinates() throws Throwable {
+//		final double[] vector = new double[getDim()];
+//		int i = 0;
+//		List<Vector> base=new ArrayList<>();
+//		for (Vector baseVec:getCoordinates().keySet()) {
+//			base.add(baseVec);
+//		}
+//		IFiniteDimensionalFunctionSpace space=
+//				SpaceGenerator.getInstance().
+//				getFiniteDimensionalFunctionSpace(base,getLeft(),getRight());
+//		for (final Vector basevec : getGenericBase()) {
+//			vector[i] = space.product(this,basevec);
+//			i++;
+//		}
+//		return vector;
+//	}
 
 }

@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
+public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 
 	double[] getIntervall();
 
@@ -25,7 +25,6 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 			ans += vec1.value(x) * vec2.value(x);
 			x += eps;
 		}
-
 		return ans * eps;
 	}
 
@@ -46,7 +45,7 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 		if (vec instanceof Function) {
 			return stretch((Function) vec, r);
 		}
-		return null;
+		return stretch(vec,r);
 	}
 
 	public Function stretch(Function vec, double r) throws Throwable;
@@ -67,7 +66,7 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 			final Map<Vector, Double> coordinates = new HashMap<>();
 			for (final Vector vec : base) {
 				coordinates.put(vec,get(vec1).getCoordinates().get(getBaseVec(vec))
-						+ ((FiniteVector) (get((Function) vec2))).getCoordinates().get(getBaseVec(vec)));
+						+ get(vec2).getCoordinates().get(getBaseVec(vec)));
 			}
 			return new FunctionTuple(coordinates);
 		}
@@ -95,7 +94,7 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	}
 
 	@Override
-	default FiniteVector nullVec() throws Throwable {
+	default Vector nullVec() throws Throwable {
 		return nullFunction();
 	}
 
@@ -103,12 +102,13 @@ public interface IFiniteDimensionalFunctionSpace extends CoordinateSpace {
 	default Vector get(Map<Vector, Double> tmp) throws Throwable {
 		Function vec = nullFunction();
 		for (final Vector basevec : tmp.keySet()) {
-			vec = (Function) add(vec, stretch(getBaseVec(basevec),
-										tmp.get(basevec).doubleValue()));
+			vec = (Function) add(vec, stretch(basevec,tmp.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
-
+	
 	List<Vector> getBase();
 
+	@Override
+	Vector getCoordinates(Vector vec) throws Throwable;
 }

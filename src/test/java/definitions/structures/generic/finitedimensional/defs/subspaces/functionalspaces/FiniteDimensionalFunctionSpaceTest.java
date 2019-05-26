@@ -8,13 +8,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
 import definitions.structures.generic.finitedimensional.defs.vectors.Cosine;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.Identity;
 import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
@@ -26,7 +24,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	static Function identity;
 	static Function one;
 
-	static CoordinateSpace genericSpace;
+	static EuclideanSpace genericSpace;
 	static IFiniteDimensionalFunctionSpace functionSpace;
 
 	static double integral1;
@@ -81,22 +79,22 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test1() {
-		Assert.assertTrue(almostEqual(integral1, 2 * Math.PI));
+		Assert.assertTrue(almostEqual(integral1, 1));
 	}
 
 	@Test
 	public void test2() {
-		Assert.assertTrue(almostEqual(integral2, Math.PI));
+		Assert.assertTrue(almostEqual(integral2, 0.5));
 	}
 
 	@Test
 	public void test3() {
-		Assert.assertTrue(almostEqual(integral3, 2. / 3. * Math.pow(Math.PI, 3)));
+		Assert.assertTrue(almostEqual(integral3, 1 / 3. * Math.pow(Math.PI, 2)));
 	}
 
 	@Test
 	public void test4() {
-		Assert.assertTrue(almostEqual(integral4, 2 * Math.PI));
+		Assert.assertTrue(almostEqual(integral4, 1));
 	}
 
 	@Test
@@ -126,6 +124,6 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test10() {
-		Assert.assertTrue(almostEqual(integral10, 2 * Math.PI));
+		Assert.assertTrue(almostEqual(integral10, 1));
 	}
 }

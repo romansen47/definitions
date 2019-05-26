@@ -7,13 +7,13 @@ import java.util.Set;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public interface ParameterizedSpace extends CoordinateSpace {
+public interface ParameterizedSpace extends EuclideanSpace {
 
-	CoordinateSpace getSuperSpace();
+	EuclideanSpace getSuperSpace();
 
 	@Override
 	boolean contains(Vector vec) throws Throwable;

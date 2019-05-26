@@ -8,7 +8,7 @@ import java.util.Map;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
@@ -23,7 +23,6 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
-
 		for (Vector vec : parametrization.getSource().genericBaseToList()) {
 			Vector newBaseVec = parametrization.get(vec);
 			genericBase.add(newBaseVec);
@@ -32,8 +31,8 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public CoordinateSpace getSuperSpace() {
-		return (CoordinateSpace) parametrization.getTarget();
+	public EuclideanSpace getSuperSpace() {
+		return (EuclideanSpace) parametrization.getTarget();
 	}
 
 	@Override

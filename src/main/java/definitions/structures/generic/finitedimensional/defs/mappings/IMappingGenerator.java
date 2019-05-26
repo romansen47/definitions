@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.CoordinateSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public interface IMappingGenerator {
@@ -29,21 +29,21 @@ public interface IMappingGenerator {
 		return matC;
 	}
 
-	IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(CoordinateSpace source, CoordinateSpace target,
+	IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Map<Vector, Map<Vector, Double>> matrix) throws Throwable;
 
 	IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(double[][] genericMatrix) throws Throwable;
 
 	default IFiniteDimensionalLinearMapping getTransposedMapping(IFiniteDimensionalLinearMapping map) throws Throwable {
 		Map<Vector, Map<Vector, Double>> transposedMatrix = new HashMap<>();
-		for (Vector targetVec : ((CoordinateSpace) map.getTarget()).getGenericBase()) {
+		for (Vector targetVec : ((EuclideanSpace) map.getTarget()).getGenericBase()) {
 			Map<Vector, Double> entry = new HashMap<>();
 			for (Vector sourceVec : map.getSource().getGenericBase()) {
 				entry.put(sourceVec, map.getLinearity().get(sourceVec).get(targetVec));
 			}
 			transposedMatrix.put(targetVec, entry);
 		}
-		return getFiniteDimensionalLinearMapping((CoordinateSpace) map.getTarget(), map.getSource(), transposedMatrix);
+		return getFiniteDimensionalLinearMapping((EuclideanSpace) map.getTarget(), map.getSource(), transposedMatrix);
 	}
 
 }

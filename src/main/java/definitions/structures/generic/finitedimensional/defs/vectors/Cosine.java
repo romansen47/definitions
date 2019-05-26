@@ -10,12 +10,12 @@ public class Cosine extends Sine {
 
 	@Override
 	public double value(double input) throws Throwable {
-		return Math.cos(input);
+		return norm*Math.cos(input);
 	}
 
 	@Override
 	public String toString() {
-		return "cosine function";
+		return "renormed cosine";
 	}
 
 }

@@ -3,8 +3,10 @@
  */
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.Vector;
@@ -14,6 +16,7 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 import definitions.structures.generic.finitedimensional.defs.subspaces.impl.FiniteDimensionalSubSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 
 /**
  * @author ro
@@ -26,13 +29,12 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	final double eps;
 
 	public FiniteDimensionalFunctionSubSpace(IFiniteDimensionalLinearMapping map,
-
 			IFiniteDimensionalFunctionSpace superSpace) throws Throwable {
 		super(map);
 		intervall = superSpace.getIntervall();
 		eps = superSpace.getEpsilon();
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
-
+		genericBase.clear();
 		for (Vector vec : parametrization.getSource().genericBaseToList()) {
 			Vector newBaseVec = (FiniteVector) parametrization.get(vec);
 			genericBase.add(newBaseVec);
@@ -87,5 +89,30 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	public double getEpsilon() {
 		return eps;
 	}
+	
+	@Override
+	public Vector getCoordinates(Vector vec) throws Throwable {
+		Map<Vector, Double> coordinates = new HashMap<>();
+		for (Vector baseVec : genericBase) {
+			coordinates.put(baseVec,product(vec, baseVec));
+		}
+		return get(coordinates);
+	}
 
+	@Override
+	public double product(Vector vec1, Vector vec2) throws Throwable {
+		if (vec1 instanceof Function && vec2 instanceof Function) {
+			return getIntegral((Function) vec1, (Function) vec2);
+		}
+		throw new Throwable();
+	}
+	
+	@Override
+	public Function nullFunction() throws Throwable {
+		Map<Vector, Double> nul = new HashMap<>();
+		for (Vector baseVec : getSuperSpace().getGenericBase()) {
+			nul.put(baseVec, 0.0);
+		}
+		return new FunctionTuple(nul);
+	}
 }

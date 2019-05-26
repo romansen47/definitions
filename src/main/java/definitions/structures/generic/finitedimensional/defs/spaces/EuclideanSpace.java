@@ -1,5 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.spaces;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteD
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public interface CoordinateSpace extends HilbertSpace {
+public interface EuclideanSpace extends HilbertSpace {
 
 	List<Vector> genericBaseToList() throws Throwable;
 
@@ -20,13 +21,13 @@ public interface CoordinateSpace extends HilbertSpace {
 
 	int dim() throws Throwable;
 
-	default Map<Vector, Double> getCoordinates(FiniteVector vec) throws Throwable {
-		if (contains(vec)) {
-			return vec.getCoordinates();
-		} else {
-			throw new Throwable();
-		}
-	}
+//	default Map<Vector, Double> getCoordinates(FiniteVector vec) throws Throwable {
+//		if (contains(vec)) {
+//			return vec.getCoordinates();
+//		} else {
+//			throw new Throwable();
+//		}
+//	}
 
 	default Vector get(Map<Vector, Double> tmp) throws Throwable {
 		Vector vec = (FiniteVector) nullVec();
@@ -66,8 +67,8 @@ public interface CoordinateSpace extends HilbertSpace {
 		return ((VectorSpace) this).stretch(vec, r);
 	}
 
-	default FiniteVector normalize(Vector vec) throws Throwable {
-		return (FiniteVector) stretch(vec, 1 / norm(vec));
+	default Vector normalize(Vector vec) throws Throwable {
+		return stretch(vec, 1 / norm(vec));
 	}
 
 	default Vector get(Vector vec) throws Throwable {
@@ -87,10 +88,16 @@ public interface CoordinateSpace extends HilbertSpace {
 		}
 		return null;
 	}
+	
+	Vector getCoordinates(Vector vec) throws Throwable;
 
 	default double getDistance(Vector ans, Vector vec2) throws Throwable {
 		Vector diff = (FiniteVector) add(ans, (stretch(vec2, -1)));
 		return norm(diff);
 	}
+	
+	List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable;
+	
+	Vector normedProjection(Vector w,Vector v) throws Throwable;
 
 }
