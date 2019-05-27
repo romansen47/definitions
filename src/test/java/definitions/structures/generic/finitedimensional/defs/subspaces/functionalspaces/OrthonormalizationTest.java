@@ -1,24 +1,17 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
-import static org.junit.Assert.*;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.TrigonometricSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.ExponentialFunction;
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class OrthonormalizationTest {
 
 	final double eps=1.e-3;
@@ -38,7 +31,6 @@ public class OrthonormalizationTest {
 	public static void setUpBeforeClass() throws Throwable {
 
 		space = SpaceGenerator.getInstance().getTrigonometricSpace(1);
-		space2 = SpaceGenerator.getInstance().getTrigonometricSpace(0);
 
 		List<Vector> genericBase = space.genericBaseToList();
 		List<Vector> system = new ArrayList<>();
@@ -63,7 +55,6 @@ public class OrthonormalizationTest {
 		
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void orthogonal() throws Throwable {
 		Assert.assertTrue(Math.abs(ans1) < eps);
@@ -71,7 +62,6 @@ public class OrthonormalizationTest {
 		Assert.assertTrue(Math.abs(ans3) < eps);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void normalized() throws Throwable {
 		Assert.assertTrue(Math.abs(space.norm(a) - 1) < eps);
@@ -79,7 +69,6 @@ public class OrthonormalizationTest {
 		Assert.assertTrue(Math.abs(space.norm(c) - 1) < eps);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void exponential() throws Throwable {
 		Vector exp=new ExponentialFunction(new double[] {1,0,0});

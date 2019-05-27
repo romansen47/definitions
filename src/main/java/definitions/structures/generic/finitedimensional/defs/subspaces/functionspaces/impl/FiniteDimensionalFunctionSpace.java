@@ -21,8 +21,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	protected double[] intervall;
 	protected final double eps = 1.e-5;
 
-	protected FiniteDimensionalFunctionSpace() throws Throwable{}
-	
+	protected FiniteDimensionalFunctionSpace() throws Throwable {
+	}
+
 	@Override
 	public double product(Vector vec1, Vector vec2) throws Throwable {
 		if (vec1 instanceof Function && vec2 instanceof Function) {
@@ -69,21 +70,21 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 		return new FunctionTuple(stretched);
 	}
-	
+
 	@Override
-	public List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable{
-		List<Vector> newBase=new ArrayList<>();
-		for (Vector vec:base) {
-			Vector tmp=nullVec();
-			for (Vector vec2:newBase) {
-				tmp=add(tmp,normedProjection(vec,vec2));
+	public List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable {
+		List<Vector> newBase = new ArrayList<>();
+		for (Vector vec : base) {
+			Vector tmp = nullVec();
+			for (Vector vec2 : newBase) {
+				tmp = add(tmp, normedProjection(vec, vec2));
 			}
-			Vector ans=normalize(add(vec,stretch(tmp,-1)));
+			Vector ans = normalize(add(vec, stretch(tmp, -1)));
 			newBase.add(ans);
 		}
 		return newBase;
 	}
-	
+
 	@Override
 	public Vector nullVec() throws Throwable {
 		return nullFunction();

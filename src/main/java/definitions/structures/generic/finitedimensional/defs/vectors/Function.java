@@ -1,5 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
+import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,10 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGe
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
+import functions.IFunction;
+import proprietary.StdDraw;
+import regression.DataSet;
+import regression.IRegression;
 
 public interface Function extends FiniteVector {
 
@@ -34,22 +40,77 @@ public interface Function extends FiniteVector {
 		return true;
 	}
 	
-//	@Override
-//	default double[] getGenericCoordinates() throws Throwable {
-//		final double[] vector = new double[getDim()];
-//		int i = 0;
-//		List<Vector> base=new ArrayList<>();
-//		for (Vector baseVec:getCoordinates().keySet()) {
-//			base.add(baseVec);
-//		}
-//		IFiniteDimensionalFunctionSpace space=
-//				SpaceGenerator.getInstance().
-//				getFiniteDimensionalFunctionSpace(base,getLeft(),getRight());
-//		for (final Vector basevec : getGenericBase()) {
-//			vector[i] = space.product(this,basevec);
-//			i++;
-//		}
-//		return vector;
-//	}
+	@SuppressWarnings("unused")
+	default void plot(double left,double right)
+			throws Throwable {
+		
+		int count=10000;
+		
+		
+		double delta=(right-left)/count;
+		double x=0;
+		double min=value((right-left)/2.);
+		double max=min;
+		for (double i = 0; i < count-1; i += 1) {
+			x=left+delta*i;
+			double y=value(x);
+			if (y>max) {
+				max=y;
+			}
+			if (y<min) {
+				min=y;
+			}
+		}
+		
+		final StdDraw stddraw = new StdDraw();
+		stddraw.setCanvasSize(1000, 700);
+		StdDraw.setXscale(left, right);
+		StdDraw.setYscale(1.5*min,1.5*max);
 
+		double z=0;
+		StdDraw.setPenRadius(0.001);
+		for (double i = 0; i < count-1; i += 1) {
+			z=left+delta*i;
+			StdDraw.setPenColor(Color.black);
+			StdDraw.line(z, value(z), z+delta, value(z+delta));
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	default void plotCompare(double left,double right,Function fun)
+			throws Throwable {
+		
+		int count=10000;
+		
+		
+		double delta=(right-left)/count;
+		double x=0;
+		double min=value((right-left)/2.);
+		double max=min;
+		for (double i = 0; i < count-1; i += 1) {
+			x=left+delta*i;
+			double y=value(x);
+			if (y>max) {
+				max=y;
+			}
+			if (y<min) {
+				min=y;
+			}
+		}
+		
+		final StdDraw stddraw = new StdDraw();
+		stddraw.setCanvasSize(1000, 700);
+		StdDraw.setXscale(left, right);
+		StdDraw.setYscale(1.5*min,1.5*max);
+
+		double z=0;
+		StdDraw.setPenRadius(0.001);
+		for (double i = 0; i < count-1; i += 1) {
+			z=left+delta*i;
+			StdDraw.setPenColor(Color.blue);
+			StdDraw.line(z, value(z), z+delta, value(z+delta));
+			StdDraw.setPenColor(Color.red);
+			StdDraw.line(z, fun.value(z), z+delta, fun.value(z+delta));
+		}
+	}
 }

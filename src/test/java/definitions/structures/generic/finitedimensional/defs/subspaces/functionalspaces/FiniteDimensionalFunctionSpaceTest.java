@@ -79,22 +79,22 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test1() {
-		Assert.assertTrue(almostEqual(integral1, 1));
+		Assert.assertTrue(almostEqual(integral1, 2));
 	}
 
 	@Test
 	public void test2() {
-		Assert.assertTrue(almostEqual(integral2, 0.5));
+		Assert.assertTrue(almostEqual(integral2, 1));
 	}
 
 	@Test
 	public void test3() {
-		Assert.assertTrue(almostEqual(integral3, 1 / 3. * Math.pow(Math.PI, 2)));
+		Assert.assertTrue(almostEqual(integral3, 2 / 3. * Math.pow(Math.PI, 3)));
 	}
 
 	@Test
 	public void test4() {
-		Assert.assertTrue(almostEqual(integral4, 1));
+		Assert.assertTrue(almostEqual(integral4, 2*Math.sqrt(Math.PI)));
 	}
 
 	@Test
@@ -124,6 +124,6 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test10() {
-		Assert.assertTrue(almostEqual(integral10, 1));
+		Assert.assertTrue(almostEqual(integral10, 2*Math.PI));
 	}
 }
