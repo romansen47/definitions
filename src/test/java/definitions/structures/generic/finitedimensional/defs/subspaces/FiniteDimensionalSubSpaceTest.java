@@ -58,7 +58,8 @@ public class FiniteDimensionalSubSpaceTest {
 		e2 = new Tuple(new double[] { 0, 1, 0 });
 		e3 = new Tuple(new double[] { 0, 0, 1 });
 
-		IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
+		IFiniteDimensionalLinearMapping map = 
+				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
 		ParameterizedSpace subSpace = new FiniteDimensionalSubSpace(map);
 
 		@SuppressWarnings("unused")
