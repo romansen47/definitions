@@ -80,9 +80,8 @@ public interface Function extends FiniteVector {
 	default void plotCompare(double left,double right,Function fun)
 			throws Throwable {
 		
-		int count=10000;
-		
-		
+		int count=1000;
+				
 		double delta=(right-left)/count;
 		double x=0;
 		double min=value((right-left)/2.);
@@ -101,10 +100,10 @@ public interface Function extends FiniteVector {
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(1.5*min,1.5*max);
+		StdDraw.setYscale(min-0.5*Math.abs(min),max+0.5*Math.abs(max));
 
 		double z=0;
-		StdDraw.setPenRadius(0.001);
+		StdDraw.setPenRadius(0.003);
 		for (double i = 0; i < count-1; i += 1) {
 			z=left+delta*i;
 			StdDraw.setPenColor(Color.blue);

@@ -99,7 +99,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	
 	@Override
 	public double getDistance(Vector ans, Vector vec2) throws Throwable {
-		Vector diff = (FiniteVector) add(ans, (stretch(vec2, -1)));
+		Vector diff = add(ans, (stretch(vec2, -1)));
 		return norm(diff);
 	}
 	

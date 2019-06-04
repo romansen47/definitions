@@ -6,6 +6,7 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
@@ -55,7 +56,13 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	}
 
 	default double getDistance(Function fun1, Function fun2) throws Throwable {
-		Function diff = (Function) add(fun1, stretch(fun2, -1));
+		Function diff = new FunctionTuple(new double[] {1}) {
+			//(Function) add(fun1, stretch(fun2, -1));
+			@Override
+			public double value(double input) throws Throwable {
+				return fun1.value(input)-fun2.value(input);
+			}
+		};
 		return norm(diff);
 	}
 
