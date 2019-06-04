@@ -5,12 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.HilbertSpace;
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;

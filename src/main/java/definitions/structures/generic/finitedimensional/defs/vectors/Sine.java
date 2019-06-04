@@ -1,7 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class Sine extends FunctionTuple implements Function {
 

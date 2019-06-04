@@ -6,7 +6,6 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;

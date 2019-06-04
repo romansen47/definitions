@@ -1,19 +1,15 @@
 package definitions.structures.generic.finitedimensional.defs.spaces;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.VectorGenerator;
 

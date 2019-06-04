@@ -1,20 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import java.awt.Color;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
-import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
-import functions.IFunction;
 import proprietary.StdDraw;
-import regression.DataSet;
-import regression.IRegression;
 
 public interface Function extends FiniteVector {
 

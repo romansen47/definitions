@@ -3,11 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 
 public class SpaceGenerator implements ISpaceGenerator {
 

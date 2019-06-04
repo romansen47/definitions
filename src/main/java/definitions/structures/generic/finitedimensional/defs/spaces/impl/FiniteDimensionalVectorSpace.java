@@ -9,7 +9,6 @@ import java.util.Set;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
