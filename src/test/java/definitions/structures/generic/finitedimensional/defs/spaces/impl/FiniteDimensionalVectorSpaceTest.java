@@ -1,7 +1,5 @@
 package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

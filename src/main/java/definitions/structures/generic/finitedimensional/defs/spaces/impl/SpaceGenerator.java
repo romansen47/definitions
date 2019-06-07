@@ -1,7 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
@@ -29,14 +29,22 @@ public class SpaceGenerator implements ISpaceGenerator {
 	public static ISpaceGenerator getInstance() {
 		if (generator == null) {
 			generator = new SpaceGenerator();
-			cachedCoordinateSpaces = new HashMap<>();
-			cachedFunctionSpaces = new HashMap<>();
 		}
 		return generator;
 	}
 
 	private SpaceGenerator() {
+		cachedCoordinateSpaces = new ConcurrentHashMap<>();
+		cachedFunctionSpaces = new ConcurrentHashMap<>();
 	}
 
+	@Override
+	public String toString(){
+		String ans="";
+		for (int i:cachedCoordinateSpaces.keySet()) {
+			ans+=cachedCoordinateSpaces.get(i).toString()+"\r";
+		}
+		return ans;
+	}
 
 }

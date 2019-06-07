@@ -1,7 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
@@ -34,7 +34,7 @@ public class Generator implements IGenerator {
 	public static IGenerator getGenerator() {
 		if (generator == null) {
 			generator = new Generator();
-			cachedSpaces = new HashMap<>();
+			cachedSpaces = new ConcurrentHashMap<>();
 		}
 		return generator;
 	}

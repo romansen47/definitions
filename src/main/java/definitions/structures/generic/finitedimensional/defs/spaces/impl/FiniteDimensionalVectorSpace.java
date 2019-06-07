@@ -90,7 +90,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	@Override
 	public Vector getCoordinates(Vector vec) throws Throwable {
 		Map<Vector, Double> coordinates = new HashMap<>();
-		for (Vector baseVec : getGenericBase()) {
+		for (Vector baseVec : genericBaseToList()) {
 			coordinates.put(baseVec, product(vec, baseVec));
 		}
 		return get(coordinates);
@@ -118,6 +118,15 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public Vector normedProjection(Vector w, Vector v) throws Throwable {
-		return stretch(v,product(w,v));///Math.pow(norm(v), 2));
+		return stretch(v,product(w,v));
+	}
+	
+	@Override
+	public String toString() {
+		String ans="";
+			for (Vector vec:getBase()) {
+				ans+=vec.toString();
+			}
+		return ans;
 	}
 }

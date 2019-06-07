@@ -1,9 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.spaces;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.HilbertSpace;
 import definitions.structures.abstr.Vector;
@@ -41,7 +41,7 @@ public interface EuclideanSpace extends HilbertSpace {
 		if (vec1 instanceof FiniteVector && vec2 instanceof FiniteVector && vec1.getDim() == vec2.getDim()
 				&& vec1.getDim() == dim()) {
 			final List<Vector> base = genericBaseToList();
-			final Map<Vector, Double> coordinates = new HashMap<>();
+			final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
 				coordinates.put(getBaseVec(vec), ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec))
 						+ ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)));
@@ -55,7 +55,7 @@ public interface EuclideanSpace extends HilbertSpace {
 	@Override
 	default Vector stretch(Vector vec, double r) throws Throwable {
 		if (vec instanceof FiniteVector && vec.getDim() == dim()) {
-			final Map<Vector, Double> stretched = new HashMap<>();
+			final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
 			final Map<Vector, Double> coordinates = ((FiniteVector) vec).getCoordinates();
 			final List<Vector> base = genericBaseToList();
 			for (final Vector vec1 : base) {
@@ -71,7 +71,7 @@ public interface EuclideanSpace extends HilbertSpace {
 	}
 
 	default Vector get(Vector vec) throws Throwable {
-		Map<Vector, Double> map = new HashMap<>();
+		Map<Vector, Double> map = new ConcurrentHashMap<>();
 		int i = 0;
 		for (Vector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {
 			map.put(baseVec, ((FiniteVector)vec).getGenericCoordinates()[i++]);
@@ -80,7 +80,7 @@ public interface EuclideanSpace extends HilbertSpace {
 	}
 
 	default Vector getBaseVec(Vector vec2) throws Throwable {
-		for (Vector vec : getGenericBase()) {
+		for (Vector vec : genericBaseToList()) {
 			if (vec2.equals(vec)) {
 				return vec;
 			}

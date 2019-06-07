@@ -24,11 +24,13 @@ public interface ISpaceGenerator {
 			final List<Vector> basetmp = new ArrayList<Vector>();
 			for (int i = 0; i < dim; i++) {
 				basetmp.add(VectorGenerator.getInstance().getFiniteVector(dim));
-				basetmp.get(i).getCoordinates().put(basetmp.get(i), 1.);
 			}
 			for (int i = 0; i < dim; i++) {
 				for (int j = 0; j < dim; j++) {
-					if (i != j) {
+					if (i == j) {
+						basetmp.get(i).getCoordinates().put(basetmp.get(i), 1.);
+					}
+					else {
 						basetmp.get(i).getCoordinates().put(basetmp.get(j), 0.);
 					}
 				}

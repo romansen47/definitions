@@ -1,9 +1,10 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionalspaces;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;

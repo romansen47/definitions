@@ -1,9 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
@@ -36,7 +36,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		intervall[0] = left;
 		intervall[1] = right;
 		for (Vector vec : genericBase) {
-			Map<Vector, Double> tmpCoord = new HashMap<>();
+			Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
 			for (Vector otherVec : genericBase) {
 				if (vec == otherVec) {
 					tmpCoord.put(otherVec, 1.0);// / norm(vec));
@@ -61,7 +61,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public Function stretch(Function vec, double r) throws Throwable {
 		final Map<Vector, Double> coordinates = vec.getCoordinates();
-		final Map<Vector, Double> stretched = new HashMap<>();
+		final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
 		for (final Vector vec1 : getBase()) {
 			stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
 		}

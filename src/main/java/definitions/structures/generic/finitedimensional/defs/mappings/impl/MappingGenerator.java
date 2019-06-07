@@ -1,7 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.mappings.impl;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.Endomorphism;
@@ -21,7 +21,7 @@ public class MappingGenerator implements IMappingGenerator {
 		}
 		return generator;
 	}
-
+	
 	private MappingGenerator() {
 	}
 
@@ -32,11 +32,11 @@ public class MappingGenerator implements IMappingGenerator {
 		final int dimTarget = genericMatrix.length;
 		final EuclideanSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);
 		final EuclideanSpace target = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimTarget);
-		final Map<Vector, Map<Vector, Double>> coordinates = new HashMap<>();
+		final Map<Vector, Map<Vector, Double>> coordinates = new ConcurrentHashMap<>();
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
-			final Map<Vector, Double> tmp = new HashMap<>();
+			final Map<Vector, Double> tmp = new ConcurrentHashMap<>();
 			for (final Vector vec2 : target.genericBaseToList()) {
 				tmp.put(vec2, genericMatrix[j][i]);
 				j++;

@@ -1,7 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.mappings;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
@@ -34,10 +34,10 @@ public interface IMappingGenerator {
 	IFiniteDimensionalLinearMapping getFiniteDimensionalLinearMapping(double[][] genericMatrix) throws Throwable;
 
 	default IFiniteDimensionalLinearMapping getTransposedMapping(IFiniteDimensionalLinearMapping map) throws Throwable {
-		Map<Vector, Map<Vector, Double>> transposedMatrix = new HashMap<>();
-		for (Vector targetVec : ((EuclideanSpace) map.getTarget()).getGenericBase()) {
-			Map<Vector, Double> entry = new HashMap<>();
-			for (Vector sourceVec : map.getSource().getGenericBase()) {
+		Map<Vector, Map<Vector, Double>> transposedMatrix = new ConcurrentHashMap<>();
+		for (Vector targetVec : ((EuclideanSpace) map.getTarget()).genericBaseToList()) {
+			Map<Vector, Double> entry = new ConcurrentHashMap<>();
+			for (Vector sourceVec : map.getSource().genericBaseToList()) {
 				entry.put(sourceVec, map.getLinearity().get(sourceVec).get(targetVec));
 			}
 			transposedMatrix.put(targetVec, entry);

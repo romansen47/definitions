@@ -1,9 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.subspaces.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
@@ -18,7 +18,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 
 	protected IFiniteDimensionalInjectiveLinearMapping parametrization;
 	protected final List<Vector> genericBase = new ArrayList<>();
-	protected Map<Vector, Vector> parametrizationBaseVectorMapping = new HashMap<>();
+	protected Map<Vector, Vector> parametrizationBaseVectorMapping = new ConcurrentHashMap<>();
 
 	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
 		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());

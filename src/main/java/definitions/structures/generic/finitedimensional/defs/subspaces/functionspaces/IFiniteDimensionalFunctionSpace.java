@@ -32,7 +32,7 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 
 	@Override
 	default Vector getBaseVec(Vector baseVec) throws Throwable {
-		for (Vector vec : getGenericBase()) {
+		for (Vector vec : genericBaseToList()) {
 			if (baseVec.equals(vec)) {
 				return vec;
 			}

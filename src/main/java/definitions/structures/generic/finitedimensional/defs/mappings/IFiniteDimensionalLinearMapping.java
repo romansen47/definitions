@@ -1,7 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.mappings;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
@@ -42,7 +42,7 @@ public interface IFiniteDimensionalLinearMapping {
 			ans = target.nullVec();
 		}
 		for (final Vector src : getSource().genericBaseToList()) {
-			Map<Vector, Double> tmp = new HashMap<>();
+			Map<Vector, Double> tmp = new ConcurrentHashMap<>();
 			for (Vector vec : target.genericBaseToList()) {
 				tmp.put(vec, getLinearity().get(src).get(vec));
 			}
@@ -55,7 +55,8 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default FiniteVector getOnSubSpace(Vector vec2) throws Throwable {
-		Vector inverseVector = new Tuple(((ParameterizedSpace)getSource()).
+		ParameterizedSpace space=(ParameterizedSpace) getSource();
+		Vector inverseVector = new Tuple(space.
 								getInverseCoordinates(vec2));
 		IFiniteDimensionalLinearMapping mapOnSourceSpaces = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(this.getGenericMatrix());
@@ -73,7 +74,7 @@ public interface IFiniteDimensionalLinearMapping {
 	// // if (vec.getDim() > getSource().dim()) {
 	// // throw new Throwable();
 	// // }
-	// final Map<IFiniteVector, Double> coordinates = new HashMap<>();
+	// final Map<IFiniteVector, Double> coordinates = new ConcurrentHashMap<>();
 	// for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace)
 	// getTarget()).genericBaseToList()) {
 	// coordinates.put(vec1, getLinearity().get(vec).get(vec1));

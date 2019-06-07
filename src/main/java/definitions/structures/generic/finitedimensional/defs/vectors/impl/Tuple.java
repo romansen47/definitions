@@ -1,9 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
@@ -16,19 +16,18 @@ public class Tuple implements FiniteVector {
 
 	final int dim;
 
+	private Map<Vector, Double> coordinates;
+
 	@Override
 	public final int getDim() {
 		return dim;
 	}
 
-	private Map<Vector, Double> coordinates;
-
 	public Tuple(double[] coordinates) throws Throwable {
 		dim = coordinates.length;
-		setCoordinates(new HashMap<>());
+		setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim)
-				.genericBaseToList()) {
+		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim).genericBaseToList()) {
 			getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
@@ -40,7 +39,7 @@ public class Tuple implements FiniteVector {
 
 	Tuple(int dim) {
 		this.dim = dim;
-		coordinates = new HashMap<>();
+		coordinates = new ConcurrentHashMap<>();
 	}
 
 	@Override
@@ -83,7 +82,7 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Set<Vector> getGenericBase() throws Throwable {
-		return new HashSet<>(getCoordinates().keySet());
+		return getCoordinates().keySet();
 	}
 
 	@Override

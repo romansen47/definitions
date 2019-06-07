@@ -3,11 +3,11 @@
  */
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
@@ -92,7 +92,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	
 	@Override
 	public Vector getCoordinates(Vector vec) throws Throwable {
-		Map<Vector, Double> coordinates = new HashMap<>();
+		Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 		for (Vector baseVec : genericBase) {
 			coordinates.put(baseVec,product(vec, baseVec));
 		}
@@ -109,8 +109,8 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	
 	@Override
 	public Function nullFunction() throws Throwable {
-		Map<Vector, Double> nul = new HashMap<>();
-		for (Vector baseVec : getSuperSpace().getGenericBase()) {
+		Map<Vector, Double> nul = new ConcurrentHashMap<>();
+		for (Vector baseVec : getSuperSpace().genericBaseToList()) {
 			nul.put(baseVec, 0.0);
 		}
 		return new FunctionTuple(nul);

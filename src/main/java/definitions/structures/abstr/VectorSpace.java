@@ -14,5 +14,8 @@ public interface VectorSpace {
 	Vector add(Vector vec1, Vector vec2) throws Throwable;
 
 	Vector stretch(Vector vec1, double r) throws Throwable;
+	
+	@Override
+	String toString();
 
 }

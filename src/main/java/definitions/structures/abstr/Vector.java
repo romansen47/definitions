@@ -14,4 +14,7 @@ public interface Vector {
 
 	double[] getGenericCoordinates() throws Throwable;
 
+	@Override
+	String toString();
+	
 }
