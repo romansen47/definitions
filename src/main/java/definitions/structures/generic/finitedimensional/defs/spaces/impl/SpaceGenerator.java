@@ -9,6 +9,8 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 
 public class SpaceGenerator implements ISpaceGenerator {
 
+	private static int i=0;
+	
 	private static ISpaceGenerator generator = null;
 
 	private static Map<Integer, EuclideanSpace> cachedCoordinateSpaces;

@@ -84,9 +84,10 @@ public class FiniteDimensionalSubSpaceTest {
 		IFiniteDimensionalLinearMapping testMap = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(subSpace, subSpace, coordinates);
 
-		list.add(alpha);
-		list.add(testMap.get(alpha));
-		list.add(testMap.get(beta));
+		list.add(base.get(0));
+		for (int i = 0; i < 4; i++) {
+			list.add((FiniteVector) testMap.get(list.get(list.size() - 1)));
+		}
 
 		genericSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
 		genericSpace2 = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(4);
@@ -139,11 +140,13 @@ public class FiniteDimensionalSubSpaceTest {
 
 	@Test
 	public void first1() throws Throwable {
-		boolean ans = list.get(0).equals(list.get(1));
+		boolean ans = list.get(0).equals(list.get(4));
 		System.out.println(list.get(0).toString());
 		System.out.println(list.get(1).toString());
 		System.out.println(list.get(2).toString());
-		Assert.assertTrue(true);
+		System.out.println(list.get(3).toString());
+		System.out.println(list.get(4).toString());
+		Assert.assertTrue(ans);
 	}
 
 }
