@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import deprecated.numbers.Binary;
+import deprecated.numbers.Functions;
+
 public class FactorialTest {
 
 	static Functions fun;

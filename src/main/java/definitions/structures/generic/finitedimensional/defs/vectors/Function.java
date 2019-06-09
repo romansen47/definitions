@@ -3,7 +3,7 @@ package definitions.structures.generic.finitedimensional.defs.vectors;
 import java.awt.Color;
 
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import proprietary.StdDraw;
+import deprecated.proprietary.StdDraw;
 
 public interface Function extends FiniteVector {
 
@@ -100,5 +100,6 @@ public interface Function extends FiniteVector {
 			StdDraw.setPenColor(Color.red);
 			StdDraw.line(z, fun.value(z), z+delta, fun.value(z+delta));
 		}
+		double ans=0;
 	}
 }

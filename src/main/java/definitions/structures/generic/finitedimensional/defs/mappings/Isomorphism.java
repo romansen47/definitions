@@ -2,7 +2,7 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.InvertibleFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
-import math.matrix.MatrixOperator;
+import deprecated.math.matrix.MatrixOperator;
 
 public interface Isomorphism extends IFiniteDimensionalInjectiveLinearMapping {
 

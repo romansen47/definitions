@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import math.matrix.IMatrixTrix;
-import math.matrix.MatrixOperator;
+import deprecated.math.matrix.IMatrixTrix;
+import deprecated.math.matrix.MatrixOperator;
 
 public class MatrixOperatorTest {
 

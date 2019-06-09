@@ -6,6 +6,9 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
+import deprecated.regression.IRegression;
+import deprecated.regression.LinReg;
+
 public class LinRegTest {
 
 	final Random random = new Random();

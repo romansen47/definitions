@@ -1,6 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.mappings;
 
-import math.matrix.MatrixOperator;
+import deprecated.math.matrix.MatrixOperator;
 
 public interface Endomorphism extends IFiniteDimensionalLinearMapping {
 

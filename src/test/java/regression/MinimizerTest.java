@@ -4,11 +4,11 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import functions.Function;
+import deprecated.regression.Minimizer;
 
 public class MinimizerTest {
 
-	final static Function fun = new Function() {
+	final static deprecated.functions.Function fun = new deprecated.functions.Function() {
 		@Override
 		public double value(double[] input) {
 			double tmp = 0;

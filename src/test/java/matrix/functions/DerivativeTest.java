@@ -3,14 +3,14 @@ package matrix.functions;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 
-import math.matrix.IMatrix;
-import math.matrix.Matrix;
-import math.matrix.functions.Derivative;
-import math.matrix.functions.Function;
-import math.matrix.functions.IDerivative;
-import math.matrix.functions.IFunction;
-import math.matrix.regression.GradientMinimizer;
-import math.matrix.regression.IMinimizer;
+import deprecated.math.matrix.IMatrix;
+import deprecated.math.matrix.Matrix;
+import deprecated.math.matrix.functions.IDerivative;
+import deprecated.math.matrix.functions.IFunction;
+import deprecated.math.matrix.regression.GradientMinimizer;
+import deprecated.math.matrix.regression.IMinimizer;
+//import deprecated.functions.Function;
+//import deprecated.functions.IFunction;
 
 public class DerivativeTest {
 
@@ -22,7 +22,7 @@ public class DerivativeTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
-		testfun = new Function() {
+		testfun = new deprecated.math.matrix.functions.Function() {
 			@Override
 			public IMatrix value(IMatrix input) throws Exception {
 				return new Matrix(
@@ -30,7 +30,7 @@ public class DerivativeTest {
 			}
 		};
 
-		derivative = new Derivative(testfun);
+		derivative = new deprecated.math.matrix.functions.Derivative(testfun);
 
 		val = derivative.jacobi(new Matrix(new double[][] { { 1, -1 } }));
 
