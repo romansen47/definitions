@@ -4,15 +4,15 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Functi
 
 public class Sine extends FunctionTuple implements Function {
 
-	final double norm=1/Math.sqrt(Math.PI);
-	
+	final double norm = 1 / Math.sqrt(Math.PI);
+
 	public Sine(double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
 
 	@Override
 	public double value(double input) throws Throwable {
-		return norm*Math.sin(input);
+		return norm * Math.sin(input);
 	}
 
 	@Override

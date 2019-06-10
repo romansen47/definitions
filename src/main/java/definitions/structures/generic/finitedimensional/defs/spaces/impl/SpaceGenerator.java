@@ -9,20 +9,17 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 
 public class SpaceGenerator implements ISpaceGenerator {
 
-	private static int i=0;
-	
 	private static ISpaceGenerator generator = null;
 
 	private static Map<Integer, EuclideanSpace> cachedCoordinateSpaces;
-	
-	private static Map<Integer, IFiniteDimensionalFunctionSpace> 
-				cachedFunctionSpaces;
+
+	private static Map<Integer, IFiniteDimensionalFunctionSpace> cachedFunctionSpaces;
 
 	@Override
 	public Map<Integer, EuclideanSpace> getCachedCoordinateSpaces() {
 		return cachedCoordinateSpaces;
 	}
-	
+
 	@Override
 	public Map<Integer, IFiniteDimensionalFunctionSpace> getCachedFunctionSpaces() {
 		return cachedFunctionSpaces;
@@ -41,10 +38,10 @@ public class SpaceGenerator implements ISpaceGenerator {
 	}
 
 	@Override
-	public String toString(){
-		String ans="";
-		for (int i:cachedCoordinateSpaces.keySet()) {
-			ans+=cachedCoordinateSpaces.get(i).toString()+"\r";
+	public String toString() {
+		String ans = "";
+		for (int i : cachedCoordinateSpaces.keySet()) {
+			ans += cachedCoordinateSpaces.get(i).toString() + "\r";
 		}
 		return ans;
 	}

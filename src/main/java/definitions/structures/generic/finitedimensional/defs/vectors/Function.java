@@ -14,7 +14,7 @@ public interface Function extends FiniteVector {
 	default double getRight() {
 		return Math.PI;
 	}
-	
+
 	double value(double input) throws Throwable;
 
 	default boolean equals(Function other, IFiniteDimensionalFunctionSpace source) throws Throwable {
@@ -28,78 +28,75 @@ public interface Function extends FiniteVector {
 		}
 		return true;
 	}
-	
+
 	@SuppressWarnings("unused")
-	default void plot(double left,double right)
-			throws Throwable {
-		
-		int count=10000;
-		
-		
-		double delta=(right-left)/count;
-		double x=0;
-		double min=value((right-left)/2.);
-		double max=min;
-		for (double i = 0; i < count-1; i += 1) {
-			x=left+delta*i;
-			double y=value(x);
-			if (y>max) {
-				max=y;
+	default void plot(double left, double right) throws Throwable {
+
+		int count = 10000;
+
+		double delta = (right - left) / count;
+		double x = 0;
+		double min = value((right - left) / 2.);
+		double max = min;
+		for (double i = 0; i < count - 1; i += 1) {
+			x = left + delta * i;
+			double y = value(x);
+			if (y > max) {
+				max = y;
 			}
-			if (y<min) {
-				min=y;
+			if (y < min) {
+				min = y;
 			}
 		}
-		
+
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(1.5*min,1.5*max);
+		StdDraw.setYscale(1.5 * min, 1.5 * max);
 
-		double z=0;
+		double z = 0;
 		StdDraw.setPenRadius(0.001);
-		for (double i = 0; i < count-1; i += 1) {
-			z=left+delta*i;
+		for (double i = 0; i < count - 1; i += 1) {
+			z = left + delta * i;
 			StdDraw.setPenColor(Color.black);
-			StdDraw.line(z, value(z), z+delta, value(z+delta));
+			StdDraw.line(z, value(z), z + delta, value(z + delta));
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
-	default void plotCompare(double left,double right,Function fun)
-			throws Throwable {
-		
-		int count=1000;
-				
-		double delta=(right-left)/count;
-		double x=0;
-		double min=value((right-left)/2.);
-		double max=min;
-		for (double i = 0; i < count-1; i += 1) {
-			x=left+delta*i;
-			double y=value(x);
-			if (y>max) {
-				max=y;
+	default void plotCompare(double left, double right, Function fun) throws Throwable {
+
+		int count = 1000;
+
+		double delta = (right - left) / count;
+		double x = 0;
+		double min = value((right - left) / 2.);
+		double max = min;
+		for (double i = 0; i < count - 1; i += 1) {
+			x = left + delta * i;
+			double y = value(x);
+			if (y > max) {
+				max = y;
 			}
-			if (y<min) {
-				min=y;
+			if (y < min) {
+				min = y;
 			}
 		}
-		
+
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(min-0.5*Math.abs(min),max+0.5*Math.abs(max));
+		StdDraw.setYscale(min - 0.5 * Math.abs(min), max + 0.5 * Math.abs(max));
 
-		double z=0;
+		double z = 0;
 		StdDraw.setPenRadius(0.003);
-		for (double i = 0; i < count-1; i += 1) {
-			z=left+delta*i;
+		for (double i = 0; i < count - 1; i += 1) {
+			z = left + delta * i;
 			StdDraw.setPenColor(Color.blue);
-			StdDraw.line(z, value(z), z+delta, value(z+delta));
+			StdDraw.line(z, value(z), z + delta, value(z + delta));
 			StdDraw.setPenColor(Color.red);
-			StdDraw.line(z, fun.value(z), z+delta, fun.value(z+delta));
+			StdDraw.line(z, fun.value(z), z + delta, fun.value(z + delta));
 		}
-		double ans=0;
+		double ans = 0;
 	}
 }

@@ -21,7 +21,7 @@ public class MappingGenerator implements IMappingGenerator {
 		}
 		return generator;
 	}
-	
+
 	private MappingGenerator() {
 	}
 
@@ -69,8 +69,7 @@ public class MappingGenerator implements IMappingGenerator {
 		final int dimSource = source.dim();
 		final int dimTarget = target.dim();
 		if (dimSource < dimTarget) {
-			IFiniteDimensionalLinearMapping tmp = 
-					new FiniteDimensionalLinearMapping(source, target, coordinates);
+			IFiniteDimensionalLinearMapping tmp = new FiniteDimensionalLinearMapping(source, target, coordinates);
 			if (dimSource == tmp.getRank()) {
 				return new FiniteDimensionalInjectiveLinearMapping(tmp);
 			}

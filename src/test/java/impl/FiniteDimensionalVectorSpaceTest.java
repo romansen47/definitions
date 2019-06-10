@@ -11,6 +11,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class FiniteDimensionalVectorSpaceTest {
 
 	static EuclideanSpace space;
@@ -57,7 +58,6 @@ public class FiniteDimensionalVectorSpaceTest {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void orthogonal() throws Throwable {
 		Assert.assertTrue(Math.abs(ans1) < 1.e-5);
@@ -66,7 +66,6 @@ public class FiniteDimensionalVectorSpaceTest {
 		Assert.assertTrue(Math.abs(ans4) < 1.e-5);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void normalized() throws Throwable {
 		Assert.assertTrue(Math.abs(space.norm(a) - 1) < 1.e-5);

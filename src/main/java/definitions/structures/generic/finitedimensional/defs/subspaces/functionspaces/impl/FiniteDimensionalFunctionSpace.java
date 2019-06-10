@@ -16,7 +16,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
 
 	protected double[] intervall;
-	protected final double eps = 1.e-5;
+	protected final double eps = 5.e-6;
 
 	protected FiniteDimensionalFunctionSpace() throws Throwable {
 	}

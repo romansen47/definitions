@@ -24,6 +24,7 @@ import definitions.structures.generic.finitedimensional.defs.vectors.Identity;
 import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class FiniteDimensionalSubSpaceTest {
 
 	static double[][] matrix;
@@ -48,7 +49,7 @@ public class FiniteDimensionalSubSpaceTest {
 
 	static Vector alpha;
 	static Vector beta;
-	static int m = (int) 1.e3;
+	static int m = (int) 1.e5;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -140,10 +141,10 @@ public class FiniteDimensionalSubSpaceTest {
 	@Test
 	public void first1() throws Throwable {
 		final boolean ans = list.get(0).equals(list.get(m + 4));
-		System.out.println(list.get(0).toString());
-		System.out.println(list.get(1).toString());
-		System.out.println(list.get(2).toString());
-		System.out.println(list.get(3).toString());
+//		System.out.println(list.get(0).toString());
+//		System.out.println(list.get(1).toString());
+//		System.out.println(list.get(2).toString());
+//		System.out.println(list.get(3).toString());
 		Assert.assertTrue(ans);
 	}
 

@@ -38,6 +38,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
 /**
  * <i>Standard draw</i>. Our class StdDraw provides a basic capability for
@@ -180,7 +181,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		frame.setContentPane(draw);
 		frame.addKeyListener(std); // JLabel cannot get keyboard focus
 		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // closes all windows
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // closes all windows
 		// frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // closes only
 		// current window
 		frame.setTitle("Standard Draw");
@@ -191,6 +192,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	}
 
 	// create the menu bar (changed to private)
+	@SuppressWarnings("deprecation")
 	private static JMenuBar createMenuBar() {
 		final JMenuBar menuBar = new JMenuBar();
 		final JMenu menu = new JMenu("File");

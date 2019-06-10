@@ -12,5 +12,5 @@ public class ExponentialFunction extends FunctionTuple implements Function {
 	public double value(double input) {
 		return Math.exp(input);
 	}
-	
+
 }

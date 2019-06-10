@@ -12,7 +12,6 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements ParameterizedSpace {
 
@@ -48,7 +47,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	@Override
 	public boolean contains(Vector vec) throws Throwable {
 		try {
-			return getSuperSpace().contains(vec) && this.parametrization.solve((FiniteVector) vec) != null;
+			return getSuperSpace().contains(vec) && this.parametrization.solve(vec) != null;
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

@@ -14,7 +14,6 @@ import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDim
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.impl.FiniteDimensionalSubSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 
@@ -36,7 +35,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
 		genericBase.clear();
 		for (Vector vec : parametrization.getSource().genericBaseToList()) {
-			Vector newBaseVec = (FiniteVector) parametrization.get(vec);
+			Vector newBaseVec = parametrization.get(vec);
 			genericBase.add(newBaseVec);
 			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
@@ -89,12 +88,12 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	public double getEpsilon() {
 		return eps;
 	}
-	
+
 	@Override
 	public Vector getCoordinates(Vector vec) throws Throwable {
 		Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 		for (Vector baseVec : genericBase) {
-			coordinates.put(baseVec,product(vec, baseVec));
+			coordinates.put(baseVec, product(vec, baseVec));
 		}
 		return get(coordinates);
 	}
@@ -106,7 +105,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		}
 		throw new Throwable();
 	}
-	
+
 	@Override
 	public Function nullFunction() throws Throwable {
 		Map<Vector, Double> nul = new ConcurrentHashMap<>();

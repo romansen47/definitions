@@ -2,7 +2,6 @@ package definitions.structures.generic.finitedimensional.defs.subspaces;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
@@ -45,8 +44,9 @@ public interface ParameterizedSpace extends EuclideanSpace {
 
 	default Map<Vector, Double> getInverseCoordinates(Vector vec2) throws Throwable {
 		Vector ans = getNearestVector(vec2);
-		//if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans), vec2) < 1.e-5) {
-			return ans.getCoordinates();
+		// if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans),
+		// vec2) < 1.e-5) {
+		return ans.getCoordinates();
 //		} else {
 //			return null;
 //		}

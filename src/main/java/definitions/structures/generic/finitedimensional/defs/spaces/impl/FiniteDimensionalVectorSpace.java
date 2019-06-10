@@ -95,22 +95,22 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		}
 		return get(coordinates);
 	}
-	
+
 	@Override
 	public double getDistance(Vector ans, Vector vec2) throws Throwable {
 		Vector diff = add(ans, (stretch(vec2, -1)));
 		return norm(diff);
 	}
-	
+
 	@Override
-	public List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable{
-		List<Vector> newBase=new ArrayList<>();
-		for (Vector vec:base) {
-			Vector tmp=nullVec();
-			for (Vector vec2:newBase) {
-				tmp=add(tmp,normedProjection(vec,vec2));
+	public List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable {
+		List<Vector> newBase = new ArrayList<>();
+		for (Vector vec : base) {
+			Vector tmp = nullVec();
+			for (Vector vec2 : newBase) {
+				tmp = add(tmp, normedProjection(vec, vec2));
 			}
-			Vector ans=normalize(add(vec,stretch(tmp,-1)));
+			Vector ans = normalize(add(vec, stretch(tmp, -1)));
 			newBase.add(ans);
 		}
 		return newBase;
@@ -118,15 +118,15 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public Vector normedProjection(Vector w, Vector v) throws Throwable {
-		return stretch(v,product(w,v));
+		return stretch(v, product(w, v));
 	}
-	
+
 	@Override
 	public String toString() {
-		String ans="";
-			for (Vector vec:getBase()) {
-				ans+=vec.toString();
-			}
+		String ans = "";
+		for (Vector vec : getBase()) {
+			ans += vec.toString();
+		}
 		return ans;
 	}
 }

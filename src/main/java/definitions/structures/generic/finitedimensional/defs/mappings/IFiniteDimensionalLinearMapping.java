@@ -30,7 +30,7 @@ public interface IFiniteDimensionalLinearMapping {
 		if (getSource() instanceof ParameterizedSpace) {
 			return getOnSubSpace(vec2);
 		}
-		final Map<Vector, Double> coordinates = ((FiniteVector)vec2).getCoordinates(getSource());
+		final Map<Vector, Double> coordinates = ((FiniteVector) vec2).getCoordinates(getSource());
 		Vector ans;
 		EuclideanSpace target;
 		VectorSpace space = getTarget();
@@ -55,9 +55,8 @@ public interface IFiniteDimensionalLinearMapping {
 	}
 
 	default FiniteVector getOnSubSpace(Vector vec2) throws Throwable {
-		ParameterizedSpace space=(ParameterizedSpace) getSource();
-		Vector inverseVector = new Tuple(space.
-								getInverseCoordinates(vec2));
+		ParameterizedSpace space = (ParameterizedSpace) getSource();
+		Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
 		IFiniteDimensionalLinearMapping mapOnSourceSpaces = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(this.getGenericMatrix());
 		IFiniteDimensionalLinearMapping composedMapping;

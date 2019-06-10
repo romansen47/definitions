@@ -45,7 +45,7 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 		if (vec instanceof Function) {
 			return stretch((Function) vec, r);
 		}
-		return stretch(vec,r);
+		return stretch(vec, r);
 	}
 
 	public Function stretch(Function vec, double r) throws Throwable;
@@ -55,11 +55,10 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	}
 
 	default double getDistance(Function fun1, Function fun2) throws Throwable {
-		Function diff = new FunctionTuple(new double[] {1}) {
-			//(Function) add(fun1, stretch(fun2, -1));
+		Function diff = new FunctionTuple() {
 			@Override
 			public double value(double input) throws Throwable {
-				return fun1.value(input)-fun2.value(input);
+				return fun1.value(input) - fun2.value(input);
 			}
 		};
 		return norm(diff);
@@ -71,7 +70,7 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Double> coordinates = new HashMap<>();
 			for (final Vector vec : base) {
-				coordinates.put(vec,get(vec1).getCoordinates().get(getBaseVec(vec))
+				coordinates.put(vec, get(vec1).getCoordinates().get(getBaseVec(vec))
 						+ get(vec2).getCoordinates().get(getBaseVec(vec)));
 			}
 			return new FunctionTuple(coordinates);
@@ -108,11 +107,11 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	default Vector get(Map<Vector, Double> tmp) throws Throwable {
 		Function vec = nullFunction();
 		for (final Vector basevec : tmp.keySet()) {
-			vec = (Function) add(vec, stretch(basevec,tmp.get(basevec).doubleValue()));
+			vec = (Function) add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
-	
+
 	List<Vector> getBase();
 
 	@Override

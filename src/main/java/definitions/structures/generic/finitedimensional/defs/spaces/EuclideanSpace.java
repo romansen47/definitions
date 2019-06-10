@@ -20,18 +20,10 @@ public interface EuclideanSpace extends HilbertSpace {
 
 	int dim() throws Throwable;
 
-//	default Map<Vector, Double> getCoordinates(FiniteVector vec) throws Throwable {
-//		if (contains(vec)) {
-//			return vec.getCoordinates();
-//		} else {
-//			throw new Throwable();
-//		}
-//	}
-
 	default Vector get(Map<Vector, Double> tmp) throws Throwable {
-		Vector vec = (FiniteVector) nullVec();
+		Vector vec = nullVec();
 		for (final Vector basevec : genericBaseToList()) {
-			vec = (FiniteVector) add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));
+			vec = add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));
 		}
 		return vec;
 	}
@@ -74,7 +66,7 @@ public interface EuclideanSpace extends HilbertSpace {
 		Map<Vector, Double> map = new ConcurrentHashMap<>();
 		int i = 0;
 		for (Vector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {
-			map.put(baseVec, ((FiniteVector)vec).getGenericCoordinates()[i++]);
+			map.put(baseVec, ((FiniteVector) vec).getGenericCoordinates()[i++]);
 		}
 		return get(map);
 	}
@@ -87,16 +79,16 @@ public interface EuclideanSpace extends HilbertSpace {
 		}
 		return null;
 	}
-	
+
 	Vector getCoordinates(Vector vec) throws Throwable;
 
 	default double getDistance(Vector ans, Vector vec2) throws Throwable {
-		Vector diff = (FiniteVector) add(ans, (stretch(vec2, -1)));
+		Vector diff = add(ans, (stretch(vec2, -1)));
 		return norm(diff);
 	}
-	
+
 	List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable;
-	
-	Vector normedProjection(Vector w,Vector v) throws Throwable;
+
+	Vector normedProjection(Vector w, Vector v) throws Throwable;
 
 }

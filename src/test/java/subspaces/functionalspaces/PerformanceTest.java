@@ -10,6 +10,7 @@ import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class PerformanceTest {
 
 	final static int max = 50;

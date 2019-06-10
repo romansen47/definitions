@@ -10,7 +10,7 @@ public class Cosine extends Sine {
 
 	@Override
 	public double value(double input) throws Throwable {
-		return norm*Math.cos(input);
+		return norm * Math.cos(input);
 	}
 
 	@Override

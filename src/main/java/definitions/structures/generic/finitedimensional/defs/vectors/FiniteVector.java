@@ -8,8 +8,10 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 
 public interface FiniteVector extends Vector {
 
+	@Override
 	Map<Vector, Double> getCoordinates();
 
+	@Override
 	default double[] getGenericCoordinates() throws Throwable {
 		final double[] vector = new double[getDim()];
 		int i = 0;
@@ -23,5 +25,5 @@ public interface FiniteVector extends Vector {
 	Set<Vector> getGenericBase() throws Throwable;
 
 	Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable;
-	
+
 }

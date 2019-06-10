@@ -10,6 +10,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGe
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
+import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.VectorGenerator;
 
@@ -29,8 +30,7 @@ public interface ISpaceGenerator {
 				for (int j = 0; j < dim; j++) {
 					if (i == j) {
 						basetmp.get(i).getCoordinates().put(basetmp.get(i), 1.);
-					}
-					else {
+					} else {
 						basetmp.get(i).getCoordinates().put(basetmp.get(j), 0.);
 					}
 				}
@@ -50,43 +50,92 @@ public interface ISpaceGenerator {
 		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
 		return newSpace;
 	}
-	
+
 	default IFiniteDimensionalFunctionSpace getTrigonometricSpace(int n) throws Throwable {
-		List<Vector> tmpBase=new ArrayList<>();
-		EuclideanSpace space=SpaceGenerator.getInstance().
-								getFiniteDimensionalVectorSpace(2*n+1);
-		List<Vector> coordinates=space.genericBaseToList();
-		tmpBase.add(new Constant(coordinates.get(0).
-						getGenericCoordinates(),1./Math.sqrt(2*Math.PI)));
-		for (int i=0;i<n;i++) {
-			final int j=i+1;
-			Vector sin=new FunctionTuple(coordinates.get(2*i+1).getCoordinates()) {
+		List<Vector> tmpBase = new ArrayList<>();
+		EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(2 * n + 1);
+		List<Vector> coordinates = space.genericBaseToList();
+		tmpBase.add(new Constant(coordinates.get(0).getGenericCoordinates(), 1. / Math.sqrt(2 * Math.PI)));
+		for (int i = 0; i < n; i++) {
+			final int j = i + 1;
+			Vector sin = new FunctionTuple(coordinates.get(2 * i + 1).getCoordinates()) {
 				@Override
 				public double value(double input) {
-					return Math.sin(j*input)/Math.sqrt(Math.PI);
+					return Math.sin(j * input) / Math.sqrt(Math.PI);
 				}
+
 				@Override
 				public String toString() {
-					return "x -> "+1/Math.sqrt(Math.PI)+"*sin("+j+"*x)";
+					return "x -> " + 1 / Math.sqrt(Math.PI) + "*sin(" + j + "*x)";
 				}
 			};
 			tmpBase.add(sin);
 		}
-		for (int i=1;i<n+1;i++) {
-			final int j=i;
-			Vector cos=new FunctionTuple(coordinates.get(2*j).getCoordinates()) {
+		for (int i = 1; i < n + 1; i++) {
+			final int j = i;
+			Vector cos = new FunctionTuple(coordinates.get(2 * j).getCoordinates()) {
 				@Override
 				public double value(double input) {
-					return Math.cos(j*input)/Math.sqrt(Math.PI);
+					return Math.cos(j * input) / Math.sqrt(Math.PI);
 				}
+
 				@Override
 				public String toString() {
-					return "x -> "+1/Math.sqrt(Math.PI)+"*cos("+j+"*x)";
+					return "x -> " + 1 / Math.sqrt(Math.PI) + "*cos(" + j + "*x)";
 				}
 			};
 			tmpBase.add(cos);
 		}
-		return getFiniteDimensionalFunctionSpace(tmpBase,-Math.PI,Math.PI);
+		return getFiniteDimensionalFunctionSpace(tmpBase, -Math.PI, Math.PI);
+	}
+
+	default IFiniteDimensionalFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n, Function fun)
+			throws Throwable {
+		List<Vector> tmpBase = new ArrayList<>();
+		EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(2 * n + 2);
+		List<Vector> coordinates = space.genericBaseToList();
+		tmpBase.add(new Constant(coordinates.get(0).getGenericCoordinates(), 1. / Math.sqrt(2 * Math.PI)));
+		for (int i = 0; i < n; i++) {
+			final int j = i + 1;
+			Vector sin = new FunctionTuple(coordinates.get(2 * i + 1).getCoordinates()) {
+				@Override
+				public double value(double input) {
+					return Math.sin(j * input) / Math.sqrt(Math.PI);
+				}
+
+				@Override
+				public String toString() {
+					return "x -> " + 1 / Math.sqrt(Math.PI) + "*sin(" + j + "*x)";
+				}
+			};
+			tmpBase.add(sin);
+		}
+		for (int i = 1; i < n + 1; i++) {
+			final int j = i;
+			Vector cos = new FunctionTuple(coordinates.get(2 * j).getCoordinates()) {
+				@Override
+				public double value(double input) {
+					return Math.cos(j * input) / Math.sqrt(Math.PI);
+				}
+
+				@Override
+				public String toString() {
+					return "x -> " + 1 / Math.sqrt(Math.PI) + "*cos(" + j + "*x)";
+				}
+			};
+			tmpBase.add(cos);
+		}
+		double[] lastCoords = new double[2 * n + 2];
+		lastCoords[lastCoords.length - 1] = 1;
+		Function newFun = new FunctionTuple(lastCoords) {
+			@Override
+			public double value(double input) throws Throwable {
+				return fun.value(input);
+			}
+		};
+
+		tmpBase.add(fun);
+		return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(tmpBase, -Math.PI, Math.PI);
 	}
 
 }

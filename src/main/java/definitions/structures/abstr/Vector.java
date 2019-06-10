@@ -16,5 +16,5 @@ public interface Vector {
 
 	@Override
 	String toString();
-	
+
 }

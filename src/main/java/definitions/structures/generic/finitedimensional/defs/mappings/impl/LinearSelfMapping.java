@@ -8,8 +8,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 
 public class LinearSelfMapping extends FiniteDimensionalLinearMapping implements Endomorphism {
 
-	protected LinearSelfMapping(EuclideanSpace source, Map<Vector, Map<Vector, Double>> coordinates)
-			throws Throwable {
+	protected LinearSelfMapping(EuclideanSpace source, Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
 		super(source, source, coordinates);
 	}
 

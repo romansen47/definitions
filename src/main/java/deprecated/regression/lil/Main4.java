@@ -3,6 +3,8 @@ package deprecated.regression.lil;
 import java.awt.Color;
 import java.io.IOException;
 
+import deprecated.functions.Function;
+import deprecated.functions.IFunction;
 import deprecated.math.IVector;
 import deprecated.math.MathOp;
 import deprecated.proprietary.StdDraw;
@@ -10,8 +12,6 @@ import deprecated.regression.DataSet;
 import deprecated.regression.IRegression;
 import deprecated.regression.LinReg;
 import deprecated.regression.Minimizer;
-import deprecated.functions.Function;
-import deprecated.functions.IFunction;
 
 public class Main4 extends deprecated.regression.Main {
 

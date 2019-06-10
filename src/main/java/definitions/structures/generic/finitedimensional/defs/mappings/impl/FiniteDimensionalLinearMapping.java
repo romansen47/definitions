@@ -39,7 +39,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	@Override
 	public final EuclideanSpace getSource() {
 		return source;
-		
+
 	}
 
 	@Override
