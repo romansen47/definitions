@@ -1,7 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import java.awt.Color;
-
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import deprecated.proprietary.StdDraw;
 
@@ -17,6 +16,15 @@ public interface Function extends FiniteVector {
 
 	double value(double input) throws Throwable;
 
+//	@Override
+//	default Map<Vector, Double> getCoordinates(EuclideanSpace space) throws Throwable {
+//		Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
+//		for (Vector baseVec : space.genericBaseToList()) {
+//			newCoordinates.put(baseVec, space.product(this, baseVec));
+//		}
+//		return newCoordinates;
+//	}
+	
 	default boolean equals(Function other, IFiniteDimensionalFunctionSpace source) throws Throwable {
 		final int n = 100;
 		double a = source.getIntervall()[0];
@@ -32,7 +40,7 @@ public interface Function extends FiniteVector {
 	@SuppressWarnings("unused")
 	default void plot(double left, double right) throws Throwable {
 
-		int count = 10000;
+		int count = 1000;
 
 		double delta = (right - left) / count;
 		double x = 0;
@@ -48,7 +56,11 @@ public interface Function extends FiniteVector {
 				min = y;
 			}
 		}
-
+		double d=max-min;
+		if (delta==0) {
+			min=min-100;
+			max=max+100;
+		}
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
@@ -82,18 +94,22 @@ public interface Function extends FiniteVector {
 				min = y;
 			}
 		}
-
+		double d=max-min;
+		if (delta==0) {
+			min=min-100;
+			max=max+100;
+		}
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(min - 0.5 * Math.abs(min), max + 0.5 * Math.abs(max));
-
+		StdDraw.setYscale(min - 0.2 * d, max + 0.5 *d);
 		double z = 0;
-		StdDraw.setPenRadius(0.003);
 		for (double i = 0; i < count - 1; i += 1) {
 			z = left + delta * i;
+			StdDraw.setPenRadius(0.004);
 			StdDraw.setPenColor(Color.blue);
 			StdDraw.line(z, value(z), z + delta, value(z + delta));
+			StdDraw.setPenRadius(0.002);
 			StdDraw.setPenColor(Color.red);
 			StdDraw.line(z, fun.value(z), z + delta, fun.value(z + delta));
 		}

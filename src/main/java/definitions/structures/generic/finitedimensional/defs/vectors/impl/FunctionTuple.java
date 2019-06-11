@@ -1,10 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 
 public class FunctionTuple extends Tuple implements Function {
@@ -17,18 +14,14 @@ public class FunctionTuple extends Tuple implements Function {
 		super(coordinates);
 	}
 
-	public FunctionTuple() throws Throwable {
-		super(new double[] { 1 });
-	}
-
-	@Override
-	public Map<Vector, Double> getCoordinates(EuclideanSpace space) throws Throwable {
-		Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
-		for (Vector baseVec : space.genericBaseToList()) {
-			newCoordinates.put(baseVec, space.product(this, baseVec));
-		}
-		return newCoordinates;
-	}
+//	@Override
+//	public Map<Vector, Double> getCoordinates(EuclideanSpace space) throws Throwable {
+//		Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
+//		for (Vector baseVec : space.genericBaseToList()) {
+//			newCoordinates.put(baseVec, space.product(this, baseVec));
+//		}
+//		return newCoordinates;
+//	}
 
 	@Override
 	public double value(double input) throws Throwable {

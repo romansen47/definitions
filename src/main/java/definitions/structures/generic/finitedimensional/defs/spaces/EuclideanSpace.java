@@ -89,6 +89,6 @@ public interface EuclideanSpace extends HilbertSpace {
 
 	List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable;
 
-	Vector normedProjection(Vector w, Vector v) throws Throwable;
+	Vector projection(Vector w, Vector v) throws Throwable;
 
 }

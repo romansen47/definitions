@@ -73,7 +73,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	}
 
 	boolean almostEqual(double a, double b) {
-		return Math.abs(a - b) < 1.e-3;
+		return Math.abs(a - b) < 1.e-2;
 	}
 
 	@Test

@@ -75,6 +75,7 @@ public class Tuple implements FiniteVector {
 		return coordinates;
 	}
 
+	@Override
 	public void setCoordinates(Map<Vector, Double> coordinates) {
 		this.coordinates = coordinates;
 	}

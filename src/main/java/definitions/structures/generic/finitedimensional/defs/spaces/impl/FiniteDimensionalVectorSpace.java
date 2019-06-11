@@ -108,7 +108,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		for (Vector vec : base) {
 			Vector tmp = nullVec();
 			for (Vector vec2 : newBase) {
-				tmp = add(tmp, normedProjection(vec, vec2));
+				tmp = add(tmp, projection(vec, vec2));
 			}
 			Vector ans = normalize(add(vec, stretch(tmp, -1)));
 			newBase.add(ans);
@@ -117,7 +117,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public Vector normedProjection(Vector w, Vector v) throws Throwable {
+	public Vector projection(Vector w, Vector v) throws Throwable {
 		return stretch(v, product(w, v));
 	}
 

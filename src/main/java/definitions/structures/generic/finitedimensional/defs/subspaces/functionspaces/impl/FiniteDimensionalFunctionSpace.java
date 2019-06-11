@@ -16,18 +16,19 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
 
 	protected double[] intervall;
-	protected final double eps = 5.e-6;
+	protected final double eps = 1.e-5;
 
 	protected FiniteDimensionalFunctionSpace() throws Throwable {
 	}
 
 	@Override
 	public double product(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof Function && vec2 instanceof Function) {
-			double lengthOfIntervall = intervall[1] - intervall[0];
-			return getIntegral((Function) vec1, (Function) vec2);/// lengthOfIntervall;///Math.PI;
-		}
-		throw new Throwable();
+//		if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple) {
+//			return super.product(vec1, vec2);
+//		}
+//		else {
+			return getIntegral((Function) vec1, (Function) vec2);
+//		}
 	}
 
 	public FiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right) throws Throwable {
@@ -74,11 +75,23 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		for (Vector vec : base) {
 			Vector tmp = nullVec();
 			for (Vector vec2 : newBase) {
-				tmp = add(tmp, normedProjection(vec, vec2));
+				tmp = add(tmp, projection(vec, vec2));
 			}
 			Vector ans = normalize(add(vec, stretch(tmp, -1)));
 			newBase.add(ans);
 		}
+//		for (Vector baseVec:newBase) {
+//			Map<Vector,Double> coordinates=new ConcurrentHashMap<>();
+//			for (Vector otherBaseVec:newBase) {
+//				if (baseVec.equals(otherBaseVec)) {
+//					coordinates.put(baseVec, 1.);
+//				}
+//				else{
+//					coordinates.put(otherBaseVec,0.);
+//				}
+//			}
+//			baseVec.setCoordinates(coordinates);
+//		}
 		return newBase;
 	}
 

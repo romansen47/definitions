@@ -17,4 +17,6 @@ public interface Vector {
 	@Override
 	String toString();
 
+	void setCoordinates(Map<Vector, Double> coordinates);
+
 }

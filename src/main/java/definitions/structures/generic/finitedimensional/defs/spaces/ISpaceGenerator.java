@@ -9,6 +9,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteD
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
@@ -51,6 +52,18 @@ public interface ISpaceGenerator {
 		return newSpace;
 	}
 
+	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left,
+			double right) throws Throwable {
+		IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
+		if (space != null && space instanceof FiniteDimensionalSobolevSpace && space.getIntervall()[0] == left
+				&& space.getIntervall()[1] == right) {
+			return space;
+		}
+		FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right);
+		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
+		return newSpace;
+	}
+
 	default IFiniteDimensionalFunctionSpace getTrigonometricSpace(int n) throws Throwable {
 		List<Vector> tmpBase = new ArrayList<>();
 		EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(2 * n + 1);
@@ -63,7 +76,6 @@ public interface ISpaceGenerator {
 				public double value(double input) {
 					return Math.sin(j * input) / Math.sqrt(Math.PI);
 				}
-
 				@Override
 				public String toString() {
 					return "x -> " + 1 / Math.sqrt(Math.PI) + "*sin(" + j + "*x)";
@@ -78,7 +90,6 @@ public interface ISpaceGenerator {
 				public double value(double input) {
 					return Math.cos(j * input) / Math.sqrt(Math.PI);
 				}
-
 				@Override
 				public String toString() {
 					return "x -> " + 1 / Math.sqrt(Math.PI) + "*cos(" + j + "*x)";
@@ -87,6 +98,11 @@ public interface ISpaceGenerator {
 			tmpBase.add(cos);
 		}
 		return getFiniteDimensionalFunctionSpace(tmpBase, -Math.PI, Math.PI);
+	}
+
+	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(IFiniteDimensionalFunctionSpace space)
+			throws Throwable {
+		return new FiniteDimensionalSobolevSpace(space);
 	}
 
 	default IFiniteDimensionalFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n, Function fun)
@@ -133,9 +149,10 @@ public interface ISpaceGenerator {
 				return fun.value(input);
 			}
 		};
-
-		tmpBase.add(fun);
+		tmpBase.add(newFun);
 		return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(tmpBase, -Math.PI, Math.PI);
 	}
 
+	
+	
 }

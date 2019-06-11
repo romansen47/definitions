@@ -9,6 +9,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
@@ -55,7 +56,7 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	}
 
 	default double getDistance(Function fun1, Function fun2) throws Throwable {
-		Function diff = new FunctionTuple() {
+		Function diff = new GenericFunction() {
 			@Override
 			public double value(double input) throws Throwable {
 				return fun1.value(input) - fun2.value(input);

@@ -17,6 +17,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGe
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class TrigonometricSpaceWithLinearGrowthTest {
 
@@ -40,14 +41,14 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 100;
+	static int dim = 10;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
 		trigonometricFunctionSpace = SpaceGenerator.getInstance().getTrigonometricSpace(dim);
 
-		identity = new FunctionTuple() {
+		identity = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return input;
@@ -56,7 +57,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		Function idToFourier = new FunctionTuple(identity.getCoordinates(trigonometricFunctionSpace));
 
-		Function newBaseFunction = new FunctionTuple(new double[] { 1 }) {
+		Function newBaseFunction = new GenericFunction() {
 
 			private final Function normedIdToFourier = (Function) trigonometricFunctionSpace.normalize(idToFourier);
 
@@ -99,7 +100,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		testValues = readFile(PATH);
 
-		staircaseFunction = new FunctionTuple() {
+		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -133,8 +134,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		testValues2 = readFile(PATH2);
 
-		staircaseFunction2 = new FunctionTuple() {
-
+		staircaseFunction2 = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
@@ -188,7 +188,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	@Test
 	public void test4() throws Throwable {
 
-		final Function exp = new FunctionTuple() {
+		final Function exp = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return Math.exp(input);
@@ -217,7 +217,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			i++;
 		}
 		System.out.println(str);
-
 	}
 
 	protected static double[][] readFile(String string) throws IOException {
