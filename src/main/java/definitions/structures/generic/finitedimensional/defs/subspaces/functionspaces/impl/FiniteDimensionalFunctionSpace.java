@@ -10,25 +10,26 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteD
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
 
 	protected double[] intervall;
-	protected final double eps = 1.e-5;
+	protected final double eps = 1.e-4;
 
 	protected FiniteDimensionalFunctionSpace() throws Throwable {
 	}
 
 	@Override
 	public double product(Vector vec1, Vector vec2) throws Throwable {
-//		if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple) {
-//			return super.product(vec1, vec2);
-//		}
-//		else {
+		if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple
+				&& ((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase()) {
+			return super.product(vec1, vec2);
+		} else {
 			return getIntegral((Function) vec1, (Function) vec2);
-//		}
+		}
 	}
 
 	public FiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right) throws Throwable {
@@ -40,7 +41,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
 			for (Vector otherVec : genericBase) {
 				if (vec == otherVec) {
-					tmpCoord.put(otherVec, 1.0);// / norm(vec));
+					tmpCoord.put(otherVec, 1.0);
 				} else {
 					tmpCoord.put(otherVec, 0.0);
 				}
@@ -61,12 +62,21 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Function stretch(Function vec, double r) throws Throwable {
-		final Map<Vector, Double> coordinates = vec.getCoordinates();
-		final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
-		for (final Vector vec1 : getBase()) {
-			stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
+		if (vec instanceof GenericFunction) {
+			return new GenericFunction() {
+				@Override
+				public double value(double input) throws Throwable {
+					return r * vec.value(input);
+				}
+			};
+		} else {
+			final Map<Vector, Double> coordinates = vec.getCoordinates();
+			final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
+			for (final Vector vec1 : getBase()) {
+				stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
+			}
+			return new FunctionTuple(stretched);
 		}
-		return new FunctionTuple(stretched);
 	}
 
 	@Override
@@ -80,24 +90,38 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			Vector ans = normalize(add(vec, stretch(tmp, -1)));
 			newBase.add(ans);
 		}
-//		for (Vector baseVec:newBase) {
-//			Map<Vector,Double> coordinates=new ConcurrentHashMap<>();
-//			for (Vector otherBaseVec:newBase) {
-//				if (baseVec.equals(otherBaseVec)) {
-//					coordinates.put(baseVec, 1.);
-//				}
-//				else{
-//					coordinates.put(otherBaseVec,0.);
-//				}
-//			}
-//			baseVec.setCoordinates(coordinates);
-//		}
+		for (Vector baseVec : newBase) {
+			Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
+			for (Vector otherBaseVec : newBase) {
+				if (baseVec.equals(otherBaseVec)) {
+					coordinates.put(baseVec, 1.);
+				} else {
+					coordinates.put(otherBaseVec, 0.);
+				}
+			}
+			baseVec.setCoordinates(coordinates);
+		}
 		return newBase;
 	}
 
 	@Override
 	public Vector nullVec() throws Throwable {
-		return nullFunction();
+		return new GenericFunction() {
+			@Override
+			public double value(double input) {
+				return 0.;
+			}
+		};
+//		return nullFunction();
 	}
+
+//	@Override
+//	public Vector getCoordinates(Vector vec) throws Throwable {
+//		Map<Vector, Double> coordinates = new HashMap<>();
+//		for (Vector baseVec : genericBaseToList()) {
+//			coordinates.put(baseVec, product(vec, baseVec));
+//		}
+//		return get(coordinates);
+//	}
 
 }

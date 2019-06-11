@@ -38,7 +38,7 @@ public abstract class GenericFunction implements Function {
 		}
 		return newCoordinates;
 	}
-	
+
 	@Override
 	public int getDim() {
 		return 0;

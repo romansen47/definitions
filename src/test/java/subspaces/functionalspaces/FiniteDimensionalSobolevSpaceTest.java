@@ -29,7 +29,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 10;
+	static final int dim = 100;
 
 	static Function normalizedIdentity;
 	static Function exp;
@@ -59,10 +59,11 @@ public class FiniteDimensionalSobolevSpaceTest {
 		testValues2 = readFile(PATH2);
 
 		normalizedIdentity = new GenericFunction() {
-			final double norm=Math.sqrt(2*Math.PI)+Math.sqrt(2*Math.pow(Math.PI, 3)/3);
+			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt(2 * Math.pow(Math.PI, 3) / 3);
+
 			@Override
 			public double value(double input) throws Throwable {
-				return input/norm;
+				return input / norm;
 			}
 		};
 		exp = new GenericFunction() {
@@ -79,6 +80,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 		};
 		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
+
 			@Override
 			public double value(double input) {
 				double newInput = (length / (2 * Math.PI)) * input + length / 2.;
@@ -90,23 +92,24 @@ public class FiniteDimensionalSobolevSpaceTest {
 				return testValues2[1][k];
 			}
 		};
-		
-		trigonometricFunctionSpace=SpaceGenerator.getInstance().
-								getTrigonometricFunctionSpaceWithLinearGrowth(dim, normalizedIdentity);
+
+		trigonometricFunctionSpace = SpaceGenerator.getInstance().getTrigonometricFunctionSpaceWithLinearGrowth(dim,
+				normalizedIdentity);
 
 		sobolevSpace = new FiniteDimensionalSobolevSpace(trigonometricFunctionSpace);
-		
+
 		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
-		
+
 		expToSobolevFourierCoordinates = sobolevSpace.getCoordinates(exp);
-		
+
 		newAbs = sobolevSpace.getCoordinates(abs);
-		
-		staircaseFunctionToFourier = sobolevSpace.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction));
+
+		staircaseFunctionToFourier = sobolevSpace
+				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction));
 
 	}
 
-	//@Test
+	// @Test
 	public void test1() throws Throwable {
 		for (Vector vec : sobolevSpace.genericBaseToList()) {
 			((Function) vec).plot(left, right);
@@ -114,7 +117,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 		}
 	}
 
-	@Test
+//	@Test
 	public void scalarProducts() throws Throwable {
 		List<Vector> base = sobolevSpace.genericBaseToList();
 		double[][] scalarProducts = new double[base.size()][base.size()];

@@ -41,7 +41,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 10;
+	static int dim = 50;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -195,11 +195,11 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			}
 		};
 		final Function ans = (Function) extendedTrigonometricFunctionSpace.getCoordinates(exp);
-		ans.plotCompare(left, right, exp);
+		exp.plotCompare(left, right, ans);
 
 	}
 
-	@Test
+//	@Test
 	public void test5() throws Throwable {
 
 		List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();

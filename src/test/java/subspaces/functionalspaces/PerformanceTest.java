@@ -7,7 +7,7 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
@@ -26,37 +26,32 @@ public class PerformanceTest {
 	@BeforeClass
 	public static void prepare() throws Throwable {
 		space = SpaceGenerator.getInstance().getTrigonometricSpace(max);
-		parabel = new FunctionTuple(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(1).genericBaseToList()
-				.get(0).getGenericCoordinates()) {
+		parabel = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return Math.pow(input, 2) - Math.abs(input);
 			}
 		};
-		abs = new FunctionTuple(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(1).genericBaseToList()
-				.get(0).getGenericCoordinates()) {
+		abs = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return Math.abs(input);
 			}
 		};
-		exp = new FunctionTuple(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(1).genericBaseToList()
-				.get(0).getGenericCoordinates()) {
+		exp = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				final double rest = -(Math.exp(Math.PI) - Math.exp(-Math.PI)) / (2 * Math.PI);
 				return Math.exp(input) + rest;
 			}
 		};
-		symExp = new FunctionTuple(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(1).genericBaseToList()
-				.get(0).getGenericCoordinates()) {
+		symExp = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return Math.exp(input) + Math.exp(-input);
 			}
 		};
-		circle = new FunctionTuple(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(1).genericBaseToList()
-				.get(0).getGenericCoordinates()) {
+		circle = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return Math.sqrt(Math.pow(Math.PI, 2) - Math.pow(input, 2));

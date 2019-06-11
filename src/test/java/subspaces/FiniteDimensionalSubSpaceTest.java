@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.BeforeClass;
+
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
@@ -136,7 +137,7 @@ public class FiniteDimensionalSubSpaceTest {
 
 	}
 
-	//@Test
+	// @Test
 	public void first1() throws Throwable {
 		final boolean ans = list.get(0).equals(list.get(m + 4));
 //		System.out.println(list.get(0).toString());

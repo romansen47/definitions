@@ -2,7 +2,6 @@ package numbers;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 import deprecated.numbers.Binary;
 import deprecated.numbers.Functions;
@@ -19,7 +18,7 @@ public class FactorialTest {
 		bin = new Binary(NUMBER);
 	}
 
-	@Test
+//	@Test
 	public void test() {
 		final Functions fun = new Functions();
 		final int NUMBER = 1000;

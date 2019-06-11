@@ -11,18 +11,15 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
-import definitions.structures.generic.finitedimensional.defs.vectors.Cosine;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.Identity;
-import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class FiniteDimensionalFunctionSpaceTest {
 
-	static Function sin;
-	static Function cos;
-	static Function identity;
-	static Function one;
+	static Function orthonormalSine;
+	static Function orthonormalCosine;
+	static Function orthonormalIdentity;
+	static Function orthonormalConstant;
 
 	static EuclideanSpace genericSpace;
 	static IFiniteDimensionalFunctionSpace functionSpace;
@@ -41,34 +38,39 @@ public class FiniteDimensionalFunctionSpaceTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		genericSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(4);
+		Function fun = new GenericFunction() {
+			@Override
+			public double value(double input) {
+				return input;
+			}
+		};
 
-		sin = new Sine(genericSpace.genericBaseToList().get(0).getGenericCoordinates());
-		cos = new Cosine(genericSpace.genericBaseToList().get(1).getGenericCoordinates());
-		identity = new Identity(genericSpace.genericBaseToList().get(2).getGenericCoordinates());
-		one = new Constant(genericSpace.genericBaseToList().get(3).getGenericCoordinates(), 1);
+		functionSpace = SpaceGenerator.getInstance().getTrigonometricFunctionSpaceWithLinearGrowth(1, fun);
+
+		orthonormalConstant = (Function) functionSpace.genericBaseToList().get(0);
+		orthonormalSine = (Function) functionSpace.genericBaseToList().get(1);
+		orthonormalCosine = (Function) functionSpace.genericBaseToList().get(2);
+		orthonormalIdentity = (Function) functionSpace.genericBaseToList().get(3);
 
 		final List<Vector> list = new ArrayList<>();
-		list.add(sin);
-		list.add(cos);
-		list.add(identity);
-		list.add(one);
+		list.add(orthonormalSine);
+		list.add(orthonormalCosine);
+		list.add(orthonormalIdentity);
+		list.add(orthonormalConstant);
 
-		functionSpace = SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(list, -Math.PI, Math.PI);
+		integral1 = functionSpace.product((functionSpace.stretch(orthonormalSine, 2)), orthonormalSine);
+		integral2 = functionSpace.product(orthonormalCosine, orthonormalCosine);
+		integral3 = functionSpace.product(orthonormalIdentity, orthonormalIdentity);
+		integral4 = functionSpace.product(orthonormalIdentity, orthonormalSine);
+		integral5 = functionSpace.product(orthonormalIdentity, orthonormalCosine);
+		integral6 = functionSpace.product(orthonormalSine, orthonormalCosine);
+		integral7 = functionSpace.product(orthonormalSine, orthonormalConstant);
+		integral8 = functionSpace.product(orthonormalCosine, orthonormalConstant);
+		integral9 = functionSpace.product(orthonormalIdentity, orthonormalConstant);
+		integral10 = functionSpace.product(orthonormalConstant, orthonormalConstant);
 
-		integral1 = functionSpace.product((functionSpace.stretch(sin, 2)), sin);
-		integral2 = functionSpace.product(cos, cos);
-		integral3 = functionSpace.product(identity, identity);
-		integral4 = functionSpace.product(identity, sin);
-		integral5 = functionSpace.product(identity, cos);
-		integral6 = functionSpace.product(sin, cos);
-		integral7 = functionSpace.product(sin, one);
-		integral8 = functionSpace.product(cos, one);
-		integral9 = functionSpace.product(identity, one);
-		integral10 = functionSpace.product(one, one);
-
-		final double x = functionSpace.getDistance(cos, sin);
-		final double y = functionSpace.getDistance(sin, sin);
+		final double x = functionSpace.getDistance(orthonormalCosine, orthonormalSine);
+		final double y = functionSpace.getDistance(orthonormalSine, orthonormalSine);
 
 	}
 
@@ -88,7 +90,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test3() {
-		Assert.assertTrue(almostEqual(integral3, 2 / 3. * Math.pow(Math.PI, 3)));
+		Assert.assertTrue(almostEqual(integral3, 1));
 	}
 
 	@Test
@@ -123,6 +125,6 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test10() {
-		Assert.assertTrue(almostEqual(integral10, 2 * Math.PI));
+		Assert.assertTrue(almostEqual(integral10, 1));
 	}
 }

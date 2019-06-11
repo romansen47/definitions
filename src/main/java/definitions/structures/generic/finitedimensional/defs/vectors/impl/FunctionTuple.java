@@ -1,6 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 
 import java.util.Map;
+
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 

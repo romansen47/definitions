@@ -1,6 +1,7 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import java.awt.Color;
+
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import deprecated.proprietary.StdDraw;
 
@@ -24,7 +25,7 @@ public interface Function extends FiniteVector {
 //		}
 //		return newCoordinates;
 //	}
-	
+
 	default boolean equals(Function other, IFiniteDimensionalFunctionSpace source) throws Throwable {
 		final int n = 100;
 		double a = source.getIntervall()[0];
@@ -56,10 +57,10 @@ public interface Function extends FiniteVector {
 				min = y;
 			}
 		}
-		double d=max-min;
-		if (delta==0) {
-			min=min-100;
-			max=max+100;
+		double d = max - min;
+		if (delta == 0) {
+			min = min - 100;
+			max = max + 100;
 		}
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
@@ -94,15 +95,15 @@ public interface Function extends FiniteVector {
 				min = y;
 			}
 		}
-		double d=max-min;
-		if (delta==0) {
-			min=min-100;
-			max=max+100;
+		double d = max - min;
+		if (delta == 0) {
+			min = min - 100;
+			max = max + 100;
 		}
 		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(min - 0.2 * d, max + 0.5 *d);
+		StdDraw.setYscale(min - 0.2 * d, max + 0.5 * d);
 		double z = 0;
 		for (double i = 0; i < count - 1; i += 1) {
 			z = left + delta * i;
