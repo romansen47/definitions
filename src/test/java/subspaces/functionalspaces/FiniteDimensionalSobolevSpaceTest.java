@@ -12,8 +12,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
@@ -24,12 +24,12 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	static IFiniteDimensionalFunctionSpace trigonometricFunctionSpace;
 	static IFiniteDimensionalFunctionSpace sobolevSpace;
-	final static ISpaceGenerator spaceGen = SpaceGenerator.getInstance();
+	final static ISpaceGenerator spaceGen = Generator.getGenerator().getSpacegenerator();
 
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 100;
+	static final int dim = 5;
 
 	static Function normalizedIdentity;
 	static Function exp;
@@ -42,9 +42,11 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	static Vector abs;
 	static Vector staircaseFunction;
+	static Vector staircaseFunction2;
 
 	static Vector newAbs;
 	static Vector staircaseFunctionToFourier;
+	static Vector staircaseFunction2ToFourier;
 	static Function stairs;
 
 	static Vector idToSobolevFourierCoordinates;
@@ -79,6 +81,20 @@ public class FiniteDimensionalSobolevSpaceTest {
 			}
 		};
 		staircaseFunction = new GenericFunction() {
+			int length = (int) testValues[0][testValues[0].length - 1];
+
+			@Override
+			public double value(double input) {
+				double newInput = (length / (2 * Math.PI)) * input + length / 2.;
+				int k = 0;
+				int l = (int) (newInput - newInput % 1);
+				while (testValues[0][k] < l) {
+					k++;
+				}
+				return testValues[1][k];
+			}
+		};
+		staircaseFunction2 = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
@@ -93,8 +109,8 @@ public class FiniteDimensionalSobolevSpaceTest {
 			}
 		};
 
-		trigonometricFunctionSpace = SpaceGenerator.getInstance().getTrigonometricFunctionSpaceWithLinearGrowth(dim,
-				normalizedIdentity);
+		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(dim, normalizedIdentity);
 
 		sobolevSpace = new FiniteDimensionalSobolevSpace(trigonometricFunctionSpace);
 
@@ -107,17 +123,20 @@ public class FiniteDimensionalSobolevSpaceTest {
 		staircaseFunctionToFourier = sobolevSpace
 				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction));
 
+		staircaseFunction2ToFourier = sobolevSpace
+				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction2));
+
 	}
 
-	// @Test
+	@Test
 	public void test1() throws Throwable {
 		for (Vector vec : sobolevSpace.genericBaseToList()) {
 			((Function) vec).plot(left, right);
-			((FiniteDimensionalSobolevSpace) sobolevSpace).getDerivative(vec).plot(left, right);
+			((Function) vec).getDerivative().plot(left, right);
 		}
 	}
 
-//	@Test
+	@Test
 	public void scalarProducts() throws Throwable {
 		List<Vector> base = sobolevSpace.genericBaseToList();
 		double[][] scalarProducts = new double[base.size()][base.size()];
@@ -145,13 +164,18 @@ public class FiniteDimensionalSobolevSpaceTest {
 	}
 
 	@Test
-	public void staircaseFunction() throws Throwable {
+	public void abs() throws Throwable {
 		((Function) abs).plotCompare(left, right, (Function) newAbs);
 	}
 
 	@Test
-	public void staircaseFunction2() throws Throwable {
+	public void staircaseFunction() throws Throwable {
 		((Function) staircaseFunction).plotCompare(left, right, (Function) staircaseFunctionToFourier);
+	}
+
+	@Test
+	public void staircaseFunction2() throws Throwable {
+		((Function) staircaseFunction2).plotCompare(left, right, (Function) staircaseFunction2ToFourier);
 	}
 
 	protected static double[][] readFile(String string) throws IOException {

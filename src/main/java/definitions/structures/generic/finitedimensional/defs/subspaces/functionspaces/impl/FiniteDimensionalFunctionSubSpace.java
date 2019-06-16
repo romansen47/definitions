@@ -27,28 +27,29 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	final double[] intervall;
 	final double eps;
 
-	public FiniteDimensionalFunctionSubSpace(IFiniteDimensionalLinearMapping map,
-			IFiniteDimensionalFunctionSpace superSpace) throws Throwable {
+	public FiniteDimensionalFunctionSubSpace(final IFiniteDimensionalLinearMapping map,
+			final IFiniteDimensionalFunctionSpace superSpace) throws Throwable {
 		super(map);
-		intervall = superSpace.getIntervall();
-		eps = superSpace.getEpsilon();
+		this.intervall = superSpace.getIntervall();
+		this.eps = superSpace.getEpsilon();
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
-		genericBase.clear();
-		for (Vector vec : parametrization.getSource().genericBaseToList()) {
-			Vector newBaseVec = parametrization.get(vec);
-			genericBase.add(newBaseVec);
-			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
+		this.genericBase.clear();
+		for (final Vector vec : ((definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace) this.parametrization
+				.getSource()).genericBaseToList()) {
+			final Vector newBaseVec = this.parametrization.get(vec);
+			this.genericBase.add(newBaseVec);
+			this.getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
 	}
 
 	@Override
 	public List<Vector> genericBaseToList() throws Throwable {
-		return getBase();
+		return this.getBase();
 	}
 
 	@Override
 	public Set<Vector> getGenericBase() throws Throwable {
-		return new HashSet<>(getBase());
+		return new HashSet<>(this.getBase());
 	}
 
 	@Override
@@ -57,59 +58,59 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public boolean contains(Vector vec) throws Throwable {
+	public boolean contains(final Vector vec) throws Throwable {
 		return true;
 	}
 
 	@Override
 	public double[] getIntervall() {
-		return intervall;
+		return this.intervall;
 	}
 
 	@Override
-	public Function stretch(Function vec, double r) throws Throwable {
-		return (Function) getSuperSpace().stretch(vec, r);
+	public Function stretch(final Function vec, final double r) throws Throwable {
+		return (Function) this.getSuperSpace().stretch(vec, r);
 	}
 
 	@Override
 	public List<Vector> getBase() {
-		return base;
+		return this.base;
 	}
 
 	@Override
-	public Vector add(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof Function && vec2 instanceof Function) {
-			return getSuperSpace().add(vec1, vec2);
+	public Vector add(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
+			return this.getSuperSpace().add(vec1, vec2);
 		}
 		return super.add(vec1, vec2);
 	}
 
 	@Override
 	public double getEpsilon() {
-		return eps;
+		return this.eps;
 	}
 
 	@Override
-	public Vector getCoordinates(Vector vec) throws Throwable {
-		Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
-		for (Vector baseVec : genericBase) {
-			coordinates.put(baseVec, product(vec, baseVec));
+	public Vector getCoordinates(final Vector vec) throws Throwable {
+		final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : this.genericBase) {
+			coordinates.put(baseVec, this.product(vec, baseVec));
 		}
-		return get(coordinates);
+		return this.get(coordinates);
 	}
 
 	@Override
-	public double product(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof Function && vec2 instanceof Function) {
-			return getIntegral((Function) vec1, (Function) vec2);
+	public double product(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
+			return this.getIntegral((Function) vec1, (Function) vec2);
 		}
 		throw new Throwable();
 	}
 
 	@Override
 	public Function nullFunction() throws Throwable {
-		Map<Vector, Double> nul = new ConcurrentHashMap<>();
-		for (Vector baseVec : getSuperSpace().genericBaseToList()) {
+		final Map<Vector, Double> nul = new ConcurrentHashMap<>();
+		for (final Vector baseVec : this.getSuperSpace().genericBaseToList()) {
 			nul.put(baseVec, 0.0);
 		}
 		return new FunctionTuple(nul);

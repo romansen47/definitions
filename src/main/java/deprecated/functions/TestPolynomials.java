@@ -2,7 +2,7 @@ package deprecated.functions;
 
 public class TestPolynomials {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 
 		final double[] values = new double[4];
 		values[0] = 1;

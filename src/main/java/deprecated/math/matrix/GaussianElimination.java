@@ -4,7 +4,7 @@ public class GaussianElimination {
 	private static final double EPSILON = 1e-10;
 
 	// Gaussian elimination with partial pivoting
-	public static double[] lsolve(double[][] A, double[] b) {
+	public static double[] lsolve(final double[][] A, final double[] b) {
 		final int n = b.length;
 
 		for (int p = 0; p < n; p++) {

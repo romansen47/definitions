@@ -20,7 +20,7 @@ public interface EuclideanSpace extends HilbertSpace {
 
 	int dim() throws Throwable;
 
-	default Vector get(Map<Vector, Double> tmp) throws Throwable {
+	default Vector get(final Map<Vector, Double> tmp) throws Throwable {
 		Vector vec = nullVec();
 		for (final Vector basevec : genericBaseToList()) {
 			vec = add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));
@@ -29,9 +29,9 @@ public interface EuclideanSpace extends HilbertSpace {
 	}
 
 	@Override
-	default Vector add(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof FiniteVector && vec2 instanceof FiniteVector && vec1.getDim() == vec2.getDim()
-				&& vec1.getDim() == dim()) {
+	default Vector add(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim() == vec2.getDim())
+				&& (vec1.getDim() == dim())) {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
@@ -45,8 +45,8 @@ public interface EuclideanSpace extends HilbertSpace {
 	}
 
 	@Override
-	default Vector stretch(Vector vec, double r) throws Throwable {
-		if (vec instanceof FiniteVector && vec.getDim() == dim()) {
+	default Vector stretch(final Vector vec, final double r) throws Throwable {
+		if ((vec instanceof FiniteVector) && (vec.getDim() == dim())) {
 			final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
 			final Map<Vector, Double> coordinates = ((FiniteVector) vec).getCoordinates();
 			final List<Vector> base = genericBaseToList();
@@ -58,21 +58,21 @@ public interface EuclideanSpace extends HilbertSpace {
 		return ((VectorSpace) this).stretch(vec, r);
 	}
 
-	default Vector normalize(Vector vec) throws Throwable {
+	default Vector normalize(final Vector vec) throws Throwable {
 		return stretch(vec, 1 / norm(vec));
 	}
 
-	default Vector get(Vector vec) throws Throwable {
-		Map<Vector, Double> map = new ConcurrentHashMap<>();
+	default Vector get(final Vector vec) throws Throwable {
+		final Map<Vector, Double> map = new ConcurrentHashMap<>();
 		int i = 0;
-		for (Vector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {
+		for (final Vector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {
 			map.put(baseVec, ((FiniteVector) vec).getGenericCoordinates()[i++]);
 		}
 		return get(map);
 	}
 
-	default Vector getBaseVec(Vector vec2) throws Throwable {
-		for (Vector vec : genericBaseToList()) {
+	default Vector getBaseVec(final Vector vec2) throws Throwable {
+		for (final Vector vec : genericBaseToList()) {
 			if (vec2.equals(vec)) {
 				return vec;
 			}
@@ -82,8 +82,8 @@ public interface EuclideanSpace extends HilbertSpace {
 
 	Vector getCoordinates(Vector vec) throws Throwable;
 
-	default double getDistance(Vector ans, Vector vec2) throws Throwable {
-		Vector diff = add(ans, (stretch(vec2, -1)));
+	default double getDistance(final Vector ans, final Vector vec2) throws Throwable {
+		final Vector diff = add(ans, (stretch(vec2, -1)));
 		return norm(diff);
 	}
 

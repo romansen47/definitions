@@ -4,17 +4,17 @@ public class Functions {
 	public Functions() {
 	}
 
-	public static Binary add(Binary A, Binary B) {
+	public static Binary add(final Binary A, final Binary B) {
 		final Binary ans = A.copy();
 		final Binary tmp = B.copy();
-		while (tmp.length > 1 || (tmp.length == 1 && tmp.tuple[0] == true)) {
+		while ((tmp.length > 1) || ((tmp.length == 1) && (tmp.tuple[0] == true))) {
 			ans.addone();
 			tmp.subone();
 		}
 		return (ans);
 	}
 
-	public static Binary add2(Binary A, Binary B) {
+	public static Binary add2(final Binary A, final Binary B) {
 		final int max = Math.max(A.length, B.length);
 		final boolean[] TMP1 = new boolean[max + 1];
 		final boolean[] TMP2 = new boolean[max + 1];
@@ -26,20 +26,20 @@ public class Functions {
 			TMP2[i] = B.tuple[i];
 		}
 		boolean tmp = false;
-		for (int i = 0; i < max + 1; i++) {
+		for (int i = 0; i < (max + 1); i++) {
 			if (tmp == false) {
-				if (TMP1[i] == TMP2[i] && TMP1[i] == true) {
+				if ((TMP1[i] == TMP2[i]) && (TMP1[i] == true)) {
 					tmp = true;
 					ans[i] = false;
 				} else {
 					ans[i] = (TMP1[i] || TMP2[i]);
 				}
 			} else {
-				if (TMP1[i] == false && TMP2[i] == false) {
+				if ((TMP1[i] == false) && (TMP2[i] == false)) {
 					ans[i] = true;
 					tmp = false;
 				} else {
-					if ((TMP1[i] == false && TMP2[i] == true) || (TMP1[i] == true && TMP2[i] == false)) {
+					if (((TMP1[i] == false) && (TMP2[i] == true)) || ((TMP1[i] == true) && (TMP2[i] == false))) {
 						ans[i] = false;
 						tmp = true;
 					} else {
@@ -51,7 +51,7 @@ public class Functions {
 		return (new Binary(ans));
 	}
 
-	public static Binary mult(Binary A, Binary B) {
+	public static Binary mult(final Binary A, final Binary B) {
 		Binary ans = A.copy();
 		final Binary tmp = B.copy();
 		// tmp.subone();
@@ -62,7 +62,7 @@ public class Functions {
 		return (ans);
 	}
 
-	public static Binary shiftright(Binary tmp) {
+	public static Binary shiftright(final Binary tmp) {
 		final boolean[] ans = new boolean[tmp.length + 1];
 		for (int i = 0; i < tmp.length; i++) {
 			ans[i + 1] = tmp.tuple[i];
@@ -70,7 +70,7 @@ public class Functions {
 		return (new Binary(ans));
 	}
 
-	public static Binary shiftleft(Binary tmp) {
+	public static Binary shiftleft(final Binary tmp) {
 		final boolean[] ans = new boolean[tmp.length - 1];
 		for (int i = 0; i < ans.length; i++) {
 			ans[i] = tmp.tuple[i + 1];
@@ -78,7 +78,7 @@ public class Functions {
 		return (new Binary(ans));
 	}
 
-	public static Binary mult2(Binary tmp1, Binary tmp2) {
+	public static Binary mult2(final Binary tmp1, final Binary tmp2) {
 		Binary A = tmp1.copy();
 		Binary tmp;
 		if (tmp2.tuple[0] == false) {
@@ -95,7 +95,7 @@ public class Functions {
 		return (tmp);
 	}
 
-	public Binary fak(Binary m) {
+	public Binary fak(final Binary m) {
 		final Binary n = m.copy();
 		if (n.length == 1) {
 			return (new Binary(1));
@@ -110,7 +110,7 @@ public class Functions {
 		}
 	}
 
-	public Binary fak(int n) {
+	public Binary fak(final int n) {
 		final Binary index = new Binary(1);
 		Binary FAK = new Binary(1);
 		for (int i = 0; i < n; i++) {
@@ -120,28 +120,28 @@ public class Functions {
 		return (FAK);
 	}
 
-	public Binary fakimpl(Binary n) {
+	public Binary fakimpl(final Binary n) {
 		if (n.length == 1) {
 			return (new Binary(1));
 		} else {
 			Binary tmp = n.copy();
 			final Binary tmp2 = tmp.copy();
 			tmp.subone();
-			tmp = fakimpl(tmp);
+			tmp = this.fakimpl(tmp);
 			return (mult2(tmp, tmp2));
 		}
 	}
 
 	// function definition for naturals
 
-	public static Natural add(Natural tmp1, Natural tmp2) {
+	public static Natural add(final Natural tmp1, final Natural tmp2) {
 		final int LENGTH = Math.max(tmp1.length, tmp2.length) + 1;
 		final int min = Math.min(tmp1.length, tmp2.length);
 		final int[] tuple = new int[LENGTH];
 		{
 			int rest = 0;
 			if (tmp1.length == tmp2.length) {
-				for (int i = 0; i < LENGTH - 1; i++) // LENGTH-1
+				for (int i = 0; i < (LENGTH - 1); i++) // LENGTH-1
 				{
 					final int TMP = tmp1.tuple[LENGTH - 2 - i] + tmp2.tuple[LENGTH - i - 2] + rest;
 					tuple[LENGTH - i - 1] = TMP % Natural.MAX;
@@ -156,14 +156,14 @@ public class Functions {
 					rest = TMP / Natural.MAX;
 				}
 				if (tmp1.length < tmp2.length) {
-					for (int i = min; i < LENGTH - 1; i++) // LENGTH-1
+					for (int i = min; i < (LENGTH - 1); i++) // LENGTH-1
 					{
 						final int TMP = tmp2.tuple[LENGTH - i - 2] + rest;
 						tuple[LENGTH - i - 1] = TMP % Natural.MAX;
 						rest = TMP / Natural.MAX;
 					}
 				} else {
-					for (int i = min; i < LENGTH - 1; i++) // LENGTH-1
+					for (int i = min; i < (LENGTH - 1); i++) // LENGTH-1
 					{
 						final int TMP = tmp1.tuple[LENGTH - i - 2] + rest;
 						tuple[LENGTH - i - 1] = TMP % Natural.MAX;
@@ -177,11 +177,11 @@ public class Functions {
 		return (answer);
 	}
 
-	public static Natural mult(Natural tmp1, Natural tmp2) {
+	public static Natural mult(final Natural tmp1, final Natural tmp2) {
 
 		Natural ans = tmp1.copy();
 		final Natural tmp = tmp2.copy();
-		while (tmp.tuple.length > 1 || (tmp.tuple.length == 1 && tmp.tuple[0] > 1)) {
+		while ((tmp.tuple.length > 1) || ((tmp.tuple.length == 1) && (tmp.tuple[0] > 1))) {
 			ans = add(ans, tmp1);
 			tmp.minusone();
 		}
@@ -189,8 +189,8 @@ public class Functions {
 		return (ans);
 	}
 
-	public static Natural mult(int n, Natural N) {
-		if (n == 0 || (N.length == 0 && N.tuple[0] == 0)) {
+	public static Natural mult(final int n, final Natural N) {
+		if ((n == 0) || ((N.length == 0) && (N.tuple[0] == 0))) {
 			return (new Natural(0));
 		}
 		int i = n;
@@ -203,7 +203,7 @@ public class Functions {
 		return (tmp);
 	}
 
-	public static Natural mult2(Natural tmp1, Natural tmp2) {
+	public static Natural mult2(final Natural tmp1, final Natural tmp2) {
 		Natural A = tmp1.copy();
 		Natural tmp = new Natural(0);
 		for (int i = 0; i < tmp2.length; i++) {
@@ -214,16 +214,16 @@ public class Functions {
 		return (tmp);
 	}
 
-	static Natural faculty(Natural param) {
+	static Natural faculty(final Natural param) {
 		Natural FAK = param.copy();
-		while (param.length > 1 || (param.length == 1 && param.tuple[0] > 1)) {
+		while ((param.length > 1) || ((param.length == 1) && (param.tuple[0] > 1))) {
 			param.minusone();
 			FAK = mult2(FAK, param);
 		}
 		return (FAK);
 	}
 
-	public static Natural shiftleft(Natural tmp) {
+	public static Natural shiftleft(final Natural tmp) {
 		final int[] ans = new int[tmp.length + 1];
 		for (int i = 0; i < tmp.length; i++) {
 			ans[i] = tmp.tuple[i];

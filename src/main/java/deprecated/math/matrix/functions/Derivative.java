@@ -7,24 +7,24 @@ public class Derivative implements IDerivative {
 
 	final private IFunction function;
 
-	public Derivative(IFunction function) {
+	public Derivative(final IFunction function) {
 		this.function = function;
 	}
 
 	@Override
-	public IFunction jacobi(IMatrix mat) {
+	public IFunction jacobi(final IMatrix mat) {
 		return new Function() {
 			@Override
-			public IMatrix value(IMatrix input) throws Exception {
-				return (function.value(mat.add(input.scaleBy(eps))).add((function.value(mat)).scaleBy(-1)))
-						.scaleBy(Math.pow(eps, -1));
+			public IMatrix value(final IMatrix input) throws Exception {
+				return (Derivative.this.function.value(mat.add(input.scaleBy(eps)))
+						.add((Derivative.this.function.value(mat)).scaleBy(-1))).scaleBy(Math.pow(eps, -1));
 			}
 		};
 	}
 
 	@Override
-	public IMatrix jacobiMatrix(IMatrix mat) throws Exception {
-		final IFunction jacobi = jacobi(mat);
+	public IMatrix jacobiMatrix(final IMatrix mat) throws Exception {
+		final IFunction jacobi = this.jacobi(mat);
 		final IMatrix vector = jacobi.value(new Identity(mat.getLength()));
 		return vector;
 	}
@@ -33,7 +33,7 @@ public class Derivative implements IDerivative {
 	 * @return the function
 	 */
 	public IFunction getFunction() {
-		return function;
+		return this.function;
 	}
 
 }

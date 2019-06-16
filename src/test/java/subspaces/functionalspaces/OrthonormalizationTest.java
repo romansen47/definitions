@@ -7,15 +7,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
 public class OrthonormalizationTest {
 
-	final double eps = 1.e-3;
+	final double eps = 1.e-5;
 
 	static EuclideanSpace space;
 	static EuclideanSpace space2;
@@ -31,7 +31,7 @@ public class OrthonormalizationTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		space = SpaceGenerator.getInstance().getTrigonometricSpace(1);
+		space = Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(1);
 
 		final List<Vector> genericBase = space.genericBaseToList();
 		final List<Vector> system = new ArrayList<>();

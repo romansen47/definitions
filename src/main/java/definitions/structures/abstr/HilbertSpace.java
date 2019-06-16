@@ -5,7 +5,7 @@ public interface HilbertSpace extends NormedSpace {
 	double product(Vector vec1, Vector vec2) throws Throwable;
 
 	@Override
-	default double norm(Vector vec) throws Throwable {
+	default double norm(final Vector vec) throws Throwable {
 		return Math.sqrt(product(vec, vec));
 	}
 

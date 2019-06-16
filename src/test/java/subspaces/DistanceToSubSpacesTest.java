@@ -9,9 +9,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
@@ -45,7 +46,7 @@ public class DistanceToSubSpacesTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		genericSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(5);
+		genericSpace = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(5);
 
 		sin = new Sine(genericSpace.genericBaseToList().get(0).getGenericCoordinates());
 		cos = new Cosine(genericSpace.genericBaseToList().get(1).getGenericCoordinates());
@@ -84,10 +85,11 @@ public class DistanceToSubSpacesTest {
 			coordinates2.put(fun1, tmp);
 		}
 
-		final IFiniteDimensionalLinearMapping parametrization = MappingGenerator.getInstance()
+		final Homomorphism parametrization = Generator.getGenerator().getMappinggenerator()
 				.getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
-		functionSubSpace = new FiniteDimensionalFunctionSubSpace(parametrization, functionSpace);
+		functionSubSpace = new FiniteDimensionalFunctionSubSpace((IFiniteDimensionalLinearMapping) parametrization,
+				functionSpace);
 		final Vector sum = functionSpace2.add(constant, identity);
 		final Vector max = functionSpace.getCoordinates(identity);
 		answer = functionSpace.norm(max);

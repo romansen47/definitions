@@ -2,7 +2,7 @@ package deprecated.numbers;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		final Functions fun = new Functions();
 		final int NUMBER = 5000;
 		final Binary bin = new Binary(NUMBER);

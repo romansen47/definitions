@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Main2 extends deprecated.regression.Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 
 		values = readFile(PATH);
 		final List<IRegression> linRegs = new ArrayList<>();
@@ -18,7 +18,7 @@ public class Main2 extends deprecated.regression.Main {
 			extendedValues[1][i] = values[1][i];
 		}
 		for (int i = values[0].length; i < extendedValues[0].length; i++) {
-			extendedValues[0][i] = values[0][values[0].length - 1] + i - values[0].length;
+			extendedValues[0][i] = (values[0][values[0].length - 1] + i) - values[0].length;
 			extendedValues[1][i] = linreg.getPolynomial().eval(i);
 		}
 		for (int i = 0; i < DEGREE; i++) {

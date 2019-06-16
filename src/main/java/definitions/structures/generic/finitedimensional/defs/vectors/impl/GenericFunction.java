@@ -31,9 +31,9 @@ public abstract class GenericFunction implements Function {
 //	}
 
 	@Override
-	public Map<Vector, Double> getCoordinates(EuclideanSpace space) throws Throwable {
-		Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
-		for (Vector baseVec : space.genericBaseToList()) {
+	public Map<Vector, Double> getCoordinates(final EuclideanSpace space) throws Throwable {
+		final Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : space.genericBaseToList()) {
 			newCoordinates.put(baseVec, space.product(this, baseVec));
 		}
 		return newCoordinates;
@@ -45,17 +45,17 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
-	public boolean elementOf(VectorSpace space) throws Throwable {
+	public boolean elementOf(final VectorSpace space) throws Throwable {
 		return true;
 	}
 
 	@Override
-	public boolean equals(Vector vec) throws Throwable {
+	public boolean equals(final Vector vec) throws Throwable {
 		return super.equals(vec);
 	}
 
 	@Override
-	public void setCoordinates(Map<Vector, Double> coordinates) {
+	public void setCoordinates(final Map<Vector, Double> coordinates) {
 	}
 
 }

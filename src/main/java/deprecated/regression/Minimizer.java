@@ -15,27 +15,27 @@ public class Minimizer {
 
 	final double eps = 1.e-7;
 
-	public Minimizer(IFunction fun) {
+	public Minimizer(final IFunction fun) {
 		this.fun = fun;
-		der = new Derivative(eps, fun);
+		this.der = new Derivative(this.eps, fun);
 	}
 
 	public double[] find(final double[] start) {
 		double[] tmp = start;
-		while (norm(der.Gradient(tmp)) > eps) {
-			tmp = NewtonStep(tmp);
+		while (this.norm(this.der.Gradient(tmp)) > this.eps) {
+			tmp = this.NewtonStep(tmp);
 		}
 		return tmp;
 	}
 
-	private double[] NewtonStep(double[] tmp) {
+	private double[] NewtonStep(final double[] tmp) {
 		final double[] ans = tmp.clone();
 		final double[] minGrad = tmp.clone();
 		for (int i = 0; i < tmp.length; i++) {
 			minGrad[i] = -minGrad[i];
 		}
-		final RealVector tmpdelta = new LUDecomposition(MatrixUtils.createRealMatrix(der.HesseMatrix(tmp))).getSolver()
-				.solve(MatrixUtils.createRealVector((der).Gradient(tmp)));
+		final RealVector tmpdelta = new LUDecomposition(MatrixUtils.createRealMatrix(this.der.HesseMatrix(tmp)))
+				.getSolver().solve(MatrixUtils.createRealVector((this.der).Gradient(tmp)));
 		for (int i = 0; i < tmp.length; i++) {
 			ans[i] -= tmpdelta.getEntry(i);
 		}
@@ -48,7 +48,7 @@ public class Minimizer {
 		return ans;
 	}
 
-	private double norm(double[] start) {
+	private double norm(final double[] start) {
 		return new MathOp(1.e-5).MagnitudeOfVector(start);
 	}
 

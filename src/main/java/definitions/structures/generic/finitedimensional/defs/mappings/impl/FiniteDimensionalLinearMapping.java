@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
+import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
@@ -12,24 +13,19 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearMapping {
+public class FiniteDimensionalLinearMapping extends LinearMapping implements IFiniteDimensionalLinearMapping {
 
-	private final EuclideanSpace source;
-	private final EuclideanSpace target;
-	private final Map<Vector, Map<Vector, Double>> linearity;
-	private final double[][] genericMatrix;
-
-	public FiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
-			Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
-		this.source = source;
-		this.target = target;
+	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+			final Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
+		super(source, target);
 		this.linearity = coordinates;
-		genericMatrix = new double[((EuclideanSpace) getTarget()).dim()][getSource().dim()];
+		this.genericMatrix = new double[((EuclideanSpace) this.getTarget()).dim()][((EuclideanSpace) this.getSource())
+				.dim()];
 		int i = 0;
-		for (final Vector vec1 : getSource().genericBaseToList()) {
+		for (final Vector vec1 : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 			int j = 0;
-			for (final Vector vec2 : ((EuclideanSpace) getTarget()).genericBaseToList()) {
-				genericMatrix[j][i] = getLinearity(vec1).get(vec2);
+			for (final Vector vec2 : ((EuclideanSpace) this.getTarget()).genericBaseToList()) {
+				this.genericMatrix[j][i] = this.getLinearity(vec1).get(vec2);
 				j++;
 			}
 			i++;
@@ -37,30 +33,29 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 	}
 
 	@Override
-	public final EuclideanSpace getSource() {
-		return source;
-
+	public final VectorSpace getSource() {
+		return this.source;
 	}
 
 	@Override
 	public final VectorSpace getTarget() {
-		return target;
+		return this.target;
 	}
 
 	@Override
 	public final Map<Vector, Map<Vector, Double>> getLinearity() {
-		return linearity;
+		return this.linearity;
 	}
 
 	@Override
-	public FiniteVector solve(Vector image) throws Throwable {
-		double[][] matrix = getGenericMatrix();
-		double[] imageVector = image.getGenericCoordinates();
+	public FiniteVector solve(final Vector image) throws Throwable {
+		final double[][] matrix = this.getGenericMatrix();
+		final double[] imageVector = image.getGenericCoordinates();
 		try {
 			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(
 					MatrixUtils.createRealMatrix(matrix)).getSolver().solve(MatrixUtils.createRealVector(imageVector));
 			return new Tuple(apacheVector.toArray());
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return null;
 		}
 	}
@@ -70,7 +65,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 		String str = "";
 		double[][] matrix;
 		try {
-			matrix = getGenericMatrix();
+			matrix = this.getGenericMatrix();
 			double x;
 			for (int i = 0; i < matrix.length; i++) {
 				for (int j = 0; j < matrix[i].length; j++) {
@@ -79,7 +74,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 				}
 				str += " \r";
 			}
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			e.printStackTrace();
 		}
 
@@ -88,7 +83,7 @@ public class FiniteDimensionalLinearMapping implements IFiniteDimensionalLinearM
 
 	@Override
 	public final double[][] getGenericMatrix() throws Throwable {
-		return genericMatrix;
+		return this.genericMatrix;
 	}
 
 }

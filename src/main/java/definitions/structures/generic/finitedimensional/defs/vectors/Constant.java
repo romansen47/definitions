@@ -6,18 +6,18 @@ public class Constant extends FunctionTuple {
 
 	final double value;
 
-	public Constant(double[] coordinates, double value) throws Throwable {
+	public Constant(final double[] coordinates, final double value) throws Throwable {
 		super(coordinates);
 		this.value = value;
 	}
 
 	@Override
-	public double value(double input) {
-		return value;
+	public double value(final double input) {
+		return this.value;
 	}
 
 	@Override
 	public String toString() {
-		return "constant " + value + "-function ";
+		return "constant " + this.value + "-function ";
 	}
 }

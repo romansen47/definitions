@@ -6,13 +6,13 @@ public class Sine extends FunctionTuple implements Function {
 
 	final double norm = 1 / Math.sqrt(Math.PI);
 
-	public Sine(double[] coordinates) throws Throwable {
+	public Sine(final double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
 
 	@Override
-	public double value(double input) throws Throwable {
-		return norm * Math.sin(input);
+	public double value(final double input) throws Throwable {
+		return this.norm * Math.sin(input);
 	}
 
 	@Override

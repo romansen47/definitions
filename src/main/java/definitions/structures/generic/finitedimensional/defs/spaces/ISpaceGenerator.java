@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
@@ -14,7 +15,6 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.VectorGenerator;
 
 public interface ISpaceGenerator {
 
@@ -22,11 +22,11 @@ public interface ISpaceGenerator {
 
 	Map<Integer, IFiniteDimensionalFunctionSpace> getCachedFunctionSpaces();
 
-	default EuclideanSpace getFiniteDimensionalVectorSpace(int dim) throws Throwable {
+	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) throws Throwable {
 		if (!getCachedCoordinateSpaces().containsKey(dim)) {
 			final List<Vector> basetmp = new ArrayList<Vector>();
 			for (int i = 0; i < dim; i++) {
-				basetmp.add(VectorGenerator.getInstance().getFiniteVector(dim));
+				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
 			}
 			for (int i = 0; i < dim; i++) {
 				for (int j = 0; j < dim; j++) {
@@ -42,79 +42,80 @@ public interface ISpaceGenerator {
 		return getCachedCoordinateSpaces().get(dim);
 	}
 
-	default IFiniteDimensionalFunctionSpace getFiniteDimensionalFunctionSpace(List<Vector> genericBase, double left,
-			double right) throws Throwable {
-		IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
-		if (space != null && space.getIntervall()[0] == left && space.getIntervall()[1] == right) {
+	default IFiniteDimensionalFunctionSpace getFiniteDimensionalFunctionSpace(final List<Vector> genericBase,
+			final double left, final double right) throws Throwable {
+		final IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
+		if ((space != null) && (space.getIntervall()[0] == left) && (space.getIntervall()[1] == right)) {
 			return space;
 		}
-		FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(genericBase, left, right);
+		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(genericBase, left, right);
 		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
 		return newSpace;
 	}
 
-	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left,
-			double right) throws Throwable {
-		IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
-		if (space != null && space instanceof FiniteDimensionalSobolevSpace && space.getIntervall()[0] == left
-				&& space.getIntervall()[1] == right) {
+	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(final List<Vector> genericBase,
+			final double left, final double right) throws Throwable {
+		final IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
+		if ((space != null) && (space instanceof FiniteDimensionalSobolevSpace) && (space.getIntervall()[0] == left)
+				&& (space.getIntervall()[1] == right)) {
 			return space;
 		}
-		FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right);
+		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right);
 		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
 		return newSpace;
 	}
 
-	default IFiniteDimensionalFunctionSpace getTrigonometricSpace(int n) throws Throwable {
+	default IFiniteDimensionalFunctionSpace getTrigonometricSpace(final int n) throws Throwable {
 		return new TrigonometricSpace(n, -Math.PI, Math.PI);
 	}
 
-	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(IFiniteDimensionalFunctionSpace space)
-			throws Throwable {
+	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(
+			final IFiniteDimensionalFunctionSpace space) throws Throwable {
 		return new FiniteDimensionalSobolevSpace(space);
 	}
 
-	default IFiniteDimensionalFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n, Function fun)
-			throws Throwable {
-		List<Vector> tmpBase = new ArrayList<>();
-		EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(2 * n + 2);
-		List<Vector> coordinates = space.genericBaseToList();
+	default IFiniteDimensionalFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(final int n,
+			final Function fun) throws Throwable {
+		final List<Vector> tmpBase = new ArrayList<>();
+		final EuclideanSpace space = Generator.getGenerator().getSpacegenerator()
+				.getFiniteDimensionalVectorSpace((2 * n) + 2);
+		final List<Vector> coordinates = space.genericBaseToList();
 		tmpBase.add(new Constant(coordinates.get(0).getGenericCoordinates(), 1. / Math.sqrt(2 * Math.PI)));
 		for (int i = 0; i < n; i++) {
 			final int j = i + 1;
-			Vector sin = new FunctionTuple(coordinates.get(2 * i + 1).getCoordinates()) {
+			final Vector sin = new FunctionTuple(coordinates.get((2 * i) + 1).getCoordinates()) {
 				@Override
-				public double value(double input) {
+				public double value(final double input) {
 					return Math.sin(j * input) / Math.sqrt(Math.PI);
 				}
 
 				@Override
 				public String toString() {
-					return "x -> " + 1 / Math.sqrt(Math.PI) + "*sin(" + j + "*x)";
+					return "x -> " + (1 / Math.sqrt(Math.PI)) + "*sin(" + j + "*x)";
 				}
 			};
 			tmpBase.add(sin);
 		}
-		for (int i = 1; i < n + 1; i++) {
+		for (int i = 1; i < (n + 1); i++) {
 			final int j = i;
-			Vector cos = new FunctionTuple(coordinates.get(2 * j).getCoordinates()) {
+			final Vector cos = new FunctionTuple(coordinates.get(2 * j).getCoordinates()) {
 				@Override
-				public double value(double input) {
+				public double value(final double input) {
 					return Math.cos(j * input) / Math.sqrt(Math.PI);
 				}
 
 				@Override
 				public String toString() {
-					return "x -> " + 1 / Math.sqrt(Math.PI) + "*cos(" + j + "*x)";
+					return "x -> " + (1 / Math.sqrt(Math.PI)) + "*cos(" + j + "*x)";
 				}
 			};
 			tmpBase.add(cos);
 		}
-		double[] lastCoords = new double[2 * n + 2];
+		final double[] lastCoords = new double[(2 * n) + 2];
 		lastCoords[lastCoords.length - 1] = 1;
-		Function newFun = new FunctionTuple(lastCoords) {
+		final Function newFun = new FunctionTuple(lastCoords) {
 			@Override
-			public double value(double input) throws Throwable {
+			public double value(final double input) throws Throwable {
 				return fun.value(input);
 			}
 		};

@@ -16,9 +16,9 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 
 	double[] getIntervall();
 
-	default double getIntegral(Function vec1, Function vec2) throws Throwable {
-		double left = getIntervall()[0];
-		double right = getIntervall()[1];
+	default double getIntegral(final Function vec1, final Function vec2) throws Throwable {
+		final double left = getIntervall()[0];
+		final double right = getIntervall()[1];
 		final double eps = (right - left) * getEpsilon();
 		double ans = 0;
 		double x = left;
@@ -32,8 +32,8 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	double getEpsilon();
 
 	@Override
-	default Vector getBaseVec(Vector baseVec) throws Throwable {
-		for (Vector vec : genericBaseToList()) {
+	default Vector getBaseVec(final Vector baseVec) throws Throwable {
+		for (final Vector vec : genericBaseToList()) {
 			if (baseVec.equals(vec)) {
 				return vec;
 			}
@@ -42,7 +42,7 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	}
 
 	@Override
-	default Vector stretch(Vector vec, double r) throws Throwable {
+	default Vector stretch(final Vector vec, final double r) throws Throwable {
 		if (vec instanceof Function) {
 			return stretch((Function) vec, r);
 		}
@@ -51,14 +51,14 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 
 	public Function stretch(Function vec, double r) throws Throwable;
 
-	default double norm(Function vec) throws Throwable {
+	default double norm(final Function vec) throws Throwable {
 		return Math.sqrt(product(vec, vec));
 	}
 
-	default double getDistance(Function fun1, Function fun2) throws Throwable {
-		Function diff = new GenericFunction() {
+	default double getDistance(final Function fun1, final Function fun2) throws Throwable {
+		final Function diff = new GenericFunction() {
 			@Override
-			public double value(double input) throws Throwable {
+			public double value(final double input) throws Throwable {
 				return fun1.value(input) - fun2.value(input);
 			}
 		};
@@ -66,12 +66,12 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	}
 
 	@Override
-	default Vector add(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof Function && vec2 instanceof Function) {
-			if (vec1 instanceof GenericFunction || vec2 instanceof GenericFunction) {
+	default Vector add(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
+			if ((vec1 instanceof GenericFunction) || (vec2 instanceof GenericFunction)) {
 				return new GenericFunction() {
 					@Override
-					public double value(double input) throws Throwable {
+					public double value(final double input) throws Throwable {
 						return ((Function) vec1).value(input) + ((Function) vec2).value(input);
 					}
 				};
@@ -84,24 +84,24 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 			}
 			return new FunctionTuple(coordinates);
 		}
-		if (vec1 instanceof FiniteVector && vec2 instanceof FiniteVector) {
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector)) {
 			return this.add(vec1, vec2);
 		}
 		return this.add(vec1, vec2);
 	}
 
 	@Override
-	default Vector get(Vector vec) throws Throwable {
-		Map<Vector, Double> map = new HashMap<>();
-		for (Vector baseVec : getBase()) {
+	default Vector get(final Vector vec) throws Throwable {
+		final Map<Vector, Double> map = new HashMap<>();
+		for (final Vector baseVec : getBase()) {
 			map.put(baseVec, vec.getCoordinates().get(baseVec));
 		}
 		return new Tuple(map);
 	}
 
 	default Function nullFunction() throws Throwable {
-		Map<Vector, Double> nul = new HashMap<>();
-		for (Vector baseVec : getBase()) {
+		final Map<Vector, Double> nul = new HashMap<>();
+		for (final Vector baseVec : getBase()) {
 			nul.put(baseVec, 0.0);
 		}
 		return new FunctionTuple(nul);
@@ -113,7 +113,7 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
 	}
 
 	@Override
-	default Vector get(Map<Vector, Double> tmp) throws Throwable {
+	default Vector get(final Map<Vector, Double> tmp) throws Throwable {
 		Function vec = nullFunction();
 		for (final Vector basevec : tmp.keySet()) {
 			vec = (Function) add(vec, stretch(basevec, tmp.get(basevec).doubleValue()));

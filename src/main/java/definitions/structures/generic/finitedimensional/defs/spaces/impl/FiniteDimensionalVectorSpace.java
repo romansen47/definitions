@@ -20,35 +20,35 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	protected FiniteDimensionalVectorSpace() throws Throwable {
 	}
 
-	public FiniteDimensionalVectorSpace(List<Vector> genericBase) throws Throwable {
-		dim = genericBase.size();
-		base = genericBase;
+	public FiniteDimensionalVectorSpace(final List<Vector> genericBase) throws Throwable {
+		this.dim = genericBase.size();
+		this.base = genericBase;
 	}
 
 	@Override
-	public double product(Vector vec1, Vector vec2) throws Throwable {
-		if (!(vec1 instanceof Tuple && vec2 instanceof Tuple)) {
+	public double product(final Vector vec1, final Vector vec2) throws Throwable {
+		if (!((vec1 instanceof Tuple) && (vec2 instanceof Tuple))) {
 			throw new Throwable();
 		}
 		double prod = 0;
 		final Map<Vector, Double> vecCoord1 = vec1.getCoordinates();
 		final Map<Vector, Double> vecCoord2 = vec2.getCoordinates();
-		final List<Vector> base = genericBaseToList();
+		final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec : base) {
-			prod += vecCoord1.get(getBaseVec(vec)) * vecCoord2.get(getBaseVec(vec));
+			prod += vecCoord1.get(this.getBaseVec(vec)) * vecCoord2.get(this.getBaseVec(vec));
 		}
 		return prod;
 	}
 
 	@Override
-	public boolean contains(Vector vec) throws Throwable {
-		return (vec instanceof Tuple && vec.getDim() == dim());
+	public boolean contains(final Vector vec) throws Throwable {
+		return ((vec instanceof Tuple) && (vec.getDim() == this.dim()));
 	}
 
 	@Override
 	public Vector nullVec() throws Throwable {
-		Map<Vector, Double> coordinates = new HashMap<>();
-		for (Vector vec : genericBaseToList()) {
+		final Map<Vector, Double> coordinates = new HashMap<>();
+		for (final Vector vec : this.genericBaseToList()) {
 			coordinates.put(vec, 0.);
 		}
 		return new Tuple(coordinates);
@@ -56,75 +56,75 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public List<Vector> genericBaseToList() throws Throwable {
-		return getBase();
+		return this.getBase();
 	}
 
 	@Override
 	public int dim() throws Throwable {
-		return getDim();
+		return this.getDim();
 	}
 
 	@Override
 	public Set<Vector> getGenericBase() throws Throwable {
-		return new HashSet<>(genericBaseToList());
+		return new HashSet<>(this.genericBaseToList());
 	}
 
 	/**
 	 * @return the base
 	 */
 	public List<Vector> getBase() {
-		return base;
+		return this.base;
 	}
 
-	protected void setBase(List<Vector> newBase) {
-		base = newBase;
+	protected void setBase(final List<Vector> newBase) {
+		this.base = newBase;
 	}
 
 	/**
 	 * @return the dim
 	 */
 	protected int getDim() {
-		return dim;
+		return this.dim;
 	}
 
 	@Override
-	public Vector getCoordinates(Vector vec) throws Throwable {
-		Map<Vector, Double> coordinates = new HashMap<>();
-		for (Vector baseVec : genericBaseToList()) {
-			coordinates.put(baseVec, product(vec, baseVec));
+	public Vector getCoordinates(final Vector vec) throws Throwable {
+		final Map<Vector, Double> coordinates = new HashMap<>();
+		for (final Vector baseVec : this.genericBaseToList()) {
+			coordinates.put(baseVec, this.product(vec, baseVec));
 		}
-		return get(coordinates);
+		return this.get(coordinates);
 	}
 
 	@Override
-	public double getDistance(Vector ans, Vector vec2) throws Throwable {
-		Vector diff = add(ans, (stretch(vec2, -1)));
-		return norm(diff);
+	public double getDistance(final Vector ans, final Vector vec2) throws Throwable {
+		final Vector diff = this.add(ans, (this.stretch(vec2, -1)));
+		return this.norm(diff);
 	}
 
 	@Override
-	public List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable {
-		List<Vector> newBase = new ArrayList<>();
-		for (Vector vec : base) {
-			Vector tmp = nullVec();
-			for (Vector vec2 : newBase) {
-				tmp = add(tmp, projection(vec, vec2));
+	public List<Vector> getOrthonormalBase(final List<Vector> base) throws Throwable {
+		final List<Vector> newBase = new ArrayList<>();
+		for (final Vector vec : base) {
+			Vector tmp = this.nullVec();
+			for (final Vector vec2 : newBase) {
+				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			Vector ans = normalize(add(vec, stretch(tmp, -1)));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, -1)));
 			newBase.add(ans);
 		}
 		return newBase;
 	}
 
 	@Override
-	public Vector projection(Vector w, Vector v) throws Throwable {
-		return stretch(v, product(w, v));
+	public Vector projection(final Vector w, final Vector v) throws Throwable {
+		return this.stretch(v, this.product(w, v));
 	}
 
 	@Override
 	public String toString() {
 		String ans = "";
-		for (Vector vec : getBase()) {
+		for (final Vector vec : this.getBase()) {
 			ans += vec.toString();
 		}
 		return ans;

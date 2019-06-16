@@ -6,13 +6,13 @@ public interface IMatrix {
 
 	double[][] getValues();
 
-	default IMatrix getRow(int i) throws Exception {
+	default IMatrix getRow(final int i) throws Exception {
 		final double[][] values = new double[1][getValues().length];
 		values[0] = getValues()[i];
 		return new Matrix(values);
 	}
 
-	default IMatrix getColumn(int i) throws Exception {
+	default IMatrix getColumn(final int i) throws Exception {
 		final double[][] values = new double[getValues().length][1];
 		for (int j = 0; j < getValues().length; j++) {
 			values[j][0] = getValues()[j][i];
@@ -28,7 +28,7 @@ public interface IMatrix {
 		return getValues().length;
 	}
 
-	default double getEntry(int i, int j) throws Exception {
+	default double getEntry(final int i, final int j) throws Exception {
 		return getValues()[i][j];
 	}
 
@@ -53,11 +53,11 @@ public interface IMatrix {
 		return new Matrix(trans);
 	}
 
-	default IMatrix multiplyWith(IMatrix mat) throws Exception {
+	default IMatrix multiplyWith(final IMatrix mat) throws Exception {
 		final double[][] ans = new double[getHeight()][mat.getLength()];
 		for (int i = 0; i < getHeight(); i++) {
 			for (int j = 0; j < mat.getLength(); j++) {
-				;
+
 				for (int m = 0; m < getLength(); m++) {
 					ans[i][j] += getEntry(i, m) * mat.getEntry(m, j);
 				}
@@ -66,13 +66,13 @@ public interface IMatrix {
 		return new Matrix(ans);
 	}
 
-	default IMatrix lsolve(IMatrix A) throws Exception {
+	default IMatrix lsolve(final IMatrix A) throws Exception {
 
 		final double[][] ans = new double[A.getLength()][getLength()];
 		final double[][] tmpA = new double[getHeight()][getLength()];
 		for (int i = 0; i < getHeight(); i++) {
 			for (int j = 0; j < getLength(); j++) {
-				;
+
 				tmpA[i][j] = getEntry(i, j);
 			}
 		}
@@ -94,8 +94,8 @@ public interface IMatrix {
 		return Math.sqrt(ans);
 	}
 
-	default IMatrix add(IMatrix mat) throws Exception {
-		if (getLength() != mat.getLength() || getHeight() != mat.getHeight()) {
+	default IMatrix add(final IMatrix mat) throws Exception {
+		if ((getLength() != mat.getLength()) || (getHeight() != mat.getHeight())) {
 			throw new Exception();
 		}
 		final double[][] ans = new double[getHeight()][getLength()];
@@ -107,7 +107,7 @@ public interface IMatrix {
 		return new Matrix(ans);
 	}
 
-	default IMatrix scaleBy(double r) throws Exception {
+	default IMatrix scaleBy(final double r) throws Exception {
 		final double[][] ans = new double[getHeight()][getLength()];
 		for (int i = 0; i < getHeight(); i++) {
 			for (int j = 0; j < getLength(); j++) {
@@ -121,7 +121,7 @@ public interface IMatrix {
 		return scaleBy(Math.pow(norm(), -1));
 	}
 
-	default IMatrix getUnit(int i, int j) {
+	default IMatrix getUnit(final int i, final int j) {
 		final double[][] tmp = new double[getHeight()][getLength()];
 		tmp[i][j] = 1;
 		return new Matrix(tmp);

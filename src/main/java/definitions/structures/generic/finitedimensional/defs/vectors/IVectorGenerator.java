@@ -1,6 +1,9 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
+import definitions.structures.abstr.Vector;
+
 public interface IVectorGenerator {
 
-	FiniteVector getFiniteVector(int dim);
+	Vector getFiniteVector(int dim);
+
 }

@@ -137,8 +137,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param h the height as a number of pixels
 	 * @throws new Exception if the width or height is 0 or negative.
 	 */
-	public void setCanvasSize(int w, int h) {
-		if (w < 1 || h < 1) {
+	public void setCanvasSize(final int w, final int h) {
+		if ((w < 1) || (h < 1)) {
 			throw new RuntimeException("width and height must be positive");
 		}
 		width = w;
@@ -192,7 +192,6 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	}
 
 	// create the menu bar (changed to private)
-	@SuppressWarnings("deprecation")
 	private static JMenuBar createMenuBar() {
 		final JMenuBar menuBar = new JMenuBar();
 		final JMenu menu = new JMenu("File");
@@ -229,10 +228,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param min the minimum value of the X scale
 	 * @param max the maximum value of the X scale
 	 */
-	public static void setXscale(double min, double max) {
+	public static void setXscale(final double min, final double max) {
 		final double size = max - min;
-		xmin = min - BORDER * size;
-		xmax = max + BORDER * size;
+		xmin = min - (BORDER * size);
+		xmax = max + (BORDER * size);
 	}
 
 	/**
@@ -241,36 +240,36 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param min the minimum value of the Y scale
 	 * @param max the maximum value of the Y scale
 	 */
-	public static void setYscale(double min, double max) {
+	public static void setYscale(final double min, final double max) {
 		final double size = max - min;
-		ymin = min - BORDER * size;
-		ymax = max + BORDER * size;
+		ymin = min - (BORDER * size);
+		ymax = max + (BORDER * size);
 	}
 
 	// helper functions that scale from user coordinates to screen coordinates and
 	// back
-	private static double scaleX(double x) {
-		return width * (x - xmin) / (xmax - xmin);
+	private static double scaleX(final double x) {
+		return (width * (x - xmin)) / (xmax - xmin);
 	}
 
-	private static double scaleY(double y) {
-		return height * (ymax - y) / (ymax - ymin);
+	private static double scaleY(final double y) {
+		return (height * (ymax - y)) / (ymax - ymin);
 	}
 
-	private static double factorX(double w) {
-		return w * width / Math.abs(xmax - xmin);
+	private static double factorX(final double w) {
+		return (w * width) / Math.abs(xmax - xmin);
 	}
 
-	private static double factorY(double h) {
-		return h * height / Math.abs(ymax - ymin);
+	private static double factorY(final double h) {
+		return (h * height) / Math.abs(ymax - ymin);
 	}
 
-	private static double userX(double x) {
-		return xmin + x * (xmax - xmin) / width;
+	private static double userX(final double x) {
+		return xmin + ((x * (xmax - xmin)) / width);
 	}
 
-	private static double userY(double y) {
-		return ymax - y * (ymax - ymin) / height;
+	private static double userY(final double y) {
+		return ymax - ((y * (ymax - ymin)) / height);
 	}
 
 	/**
@@ -285,7 +284,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param color the Color to make the background
 	 */
-	public static void clear(Color color) {
+	public static void clear(final Color color) {
 		offscreen.setColor(color);
 		offscreen.fillRect(0, 0, width, height);
 		offscreen.setColor(penColor);
@@ -305,7 +304,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param r the radius of the pen
 	 * @throws RuntimeException if r is negative
 	 */
-	public static void setPenRadius(double r) {
+	public static void setPenRadius(final double r) {
 		if (r < 0) {
 			throw new RuntimeException("pen radius must be positive");
 		}
@@ -328,7 +327,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param color the Color to make the pen
 	 */
-	public static void setPenColor(Color color) {
+	public static void setPenColor(final Color color) {
 		penColor = color;
 		offscreen.setColor(penColor);
 	}
@@ -345,7 +344,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param f the font to make text
 	 */
-	public static void setFont(Font f) {
+	public static void setFont(final Font f) {
 		font = f;
 	}
 
@@ -361,7 +360,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x1 the x-coordinate of the destination point
 	 * @param y1 the y-coordinate of the destination point
 	 */
-	public static void line(double x0, double y0, double x1, double y1) {
+	public static void line(final double x0, final double y0, final double x1, final double y1) {
 		offscreen.draw(new Line2D.Double(scaleX(x0), scaleY(y0), scaleX(x1), scaleY(y1)));
 		show();
 	}
@@ -372,7 +371,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the x-coordinate of the pixel
 	 * @param y the y-coordinate of the pixel
 	 */
-	public static void pixel(double x, double y) {
+	public static void pixel(final double x, final double y) {
 		offscreen.fillRect((int) Math.round(scaleX(x)), (int) Math.round(scaleY(y)), 1, 1);
 	}
 
@@ -382,7 +381,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x the x-coordinate of the point
 	 * @param y the y-coordinate of the point
 	 */
-	public static void point(double x, double y) {
+	public static void point(final double x, final double y) {
 		final double xs = scaleX(x);
 		final double ys = scaleY(y);
 		final double r = penRadius;
@@ -392,7 +391,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		if (r <= 1) {
 			pixel(x, y);
 		} else {
-			offscreen.fill(new Ellipse2D.Double(xs - r / 2, ys - r / 2, r, r));
+			offscreen.fill(new Ellipse2D.Double(xs - (r / 2), ys - (r / 2), r, r));
 		}
 		show();
 	}
@@ -405,7 +404,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param r the radius of the circle
 	 * @throws RuntimeException if the radius of the circle is negative
 	 */
-	public static void circle(double x, double y, double r) {
+	public static void circle(final double x, final double y, final double r) {
 		if (r < 0) {
 			throw new RuntimeException("circle radius can't be negative");
 		}
@@ -413,10 +412,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		final double ys = scaleY(y);
 		final double ws = factorX(2 * r);
 		final double hs = factorY(2 * r);
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		} else {
-			offscreen.draw(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+			offscreen.draw(new Ellipse2D.Double(xs - (ws / 2), ys - (hs / 2), ws, hs));
 		}
 		show();
 	}
@@ -430,7 +429,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param r the radius of the circle
 	 * @throws RuntimeException if the radius of the circle is negative
 	 */
-	public static void filledCircle(double x, double y, double r) {
+	public static void filledCircle(final double x, final double y, final double r) {
 		if (r < 0) {
 			throw new RuntimeException("circle radius can't be negative");
 		}
@@ -438,10 +437,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		final double ys = scaleY(y);
 		final double ws = factorX(2 * r);
 		final double hs = factorY(2 * r);
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		} else {
-			offscreen.fill(new Ellipse2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+			offscreen.fill(new Ellipse2D.Double(xs - (ws / 2), ys - (hs / 2), ws, hs));
 		}
 		show();
 	}
@@ -458,7 +457,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *               degree arc, then angle2 should be angle1 + 90.
 	 * @throws RuntimeException if the radius of the circle is negative
 	 */
-	public static void arc(double x, double y, double r, double angle1, double angle2) {
+	public static void arc(final double x, final double y, final double r, final double angle1, double angle2) {
 		if (r < 0) {
 			throw new RuntimeException("arc radius can't be negative");
 		}
@@ -469,10 +468,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		final double ys = scaleY(y);
 		final double ws = factorX(2 * r);
 		final double hs = factorY(2 * r);
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		} else {
-			offscreen.draw(new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
+			offscreen.draw(new Arc2D.Double(xs - (ws / 2), ys - (hs / 2), ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
 		}
 		show();
 	}
@@ -486,7 +485,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param r radius is half the length of any side of the square
 	 * @throws RuntimeException if r is negative
 	 */
-	public static void square(double x, double y, double r) {
+	public static void square(final double x, final double y, final double r) {
 		if (r < 0) {
 			throw new RuntimeException("square side length can't be negative");
 		}
@@ -494,10 +493,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		final double ys = scaleY(y);
 		final double ws = factorX(2 * r);
 		final double hs = factorY(2 * r);
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		} else {
-			offscreen.draw(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+			offscreen.draw(new Rectangle2D.Double(xs - (ws / 2), ys - (hs / 2), ws, hs));
 		}
 		show();
 	}
@@ -511,7 +510,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param r radius is half the length of any side of the square
 	 * @throws RuntimeException if r is negative
 	 */
-	public static void filledSquare(double x, double y, double r) {
+	public static void filledSquare(final double x, final double y, final double r) {
 		if (r < 0) {
 			throw new RuntimeException("square side length can't be negative");
 		}
@@ -519,10 +518,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		final double ys = scaleY(y);
 		final double ws = factorX(2 * r);
 		final double hs = factorY(2 * r);
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		} else {
-			offscreen.fill(new Rectangle2D.Double(xs - ws / 2, ys - hs / 2, ws, hs));
+			offscreen.fill(new Rectangle2D.Double(xs - (ws / 2), ys - (hs / 2), ws, hs));
 		}
 		show();
 	}
@@ -533,7 +532,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x an array of all the x-coordindates of the polygon
 	 * @param y an array of all the y-coordindates of the polygon
 	 */
-	public static void polygon(double[] x, double[] y) {
+	public static void polygon(final double[] x, final double[] y) {
 		final int N = x.length;
 		final GeneralPath path = new GeneralPath();
 		path.moveTo((float) scaleX(x[0]), (float) scaleY(y[0]));
@@ -551,7 +550,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param x an array of all the x-coordindates of the polygon
 	 * @param y an array of all the y-coordindates of the polygon
 	 */
-	public static void filledPolygon(double[] x, double[] y) {
+	public static void filledPolygon(final double[] x, final double[] y) {
 		final int N = x.length;
 		final GeneralPath path = new GeneralPath();
 		path.moveTo((float) scaleX(x[0]), (float) scaleY(y[0]));
@@ -568,7 +567,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *************************************************************************/
 
 	// get an image from the given filename
-	private static Image getImage(String filename) {
+	private static Image getImage(final String filename) {
 
 		// to read from file
 		ImageIcon icon = new ImageIcon(filename);
@@ -602,17 +601,17 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param s the name of the image/picture, e.g., "ball.gif"
 	 * @throws RuntimeException if the image's width or height are negative
 	 */
-	public static void picture(double x, double y, String s) {
+	public static void picture(final double x, final double y, final String s) {
 		final Image image = getImage(s);
 		final double xs = scaleX(x);
 		final double ys = scaleY(y);
 		final int ws = image.getWidth(null);
 		final int hs = image.getHeight(null);
-		if (ws < 0 || hs < 0) {
+		if ((ws < 0) || (hs < 0)) {
 			throw new RuntimeException("image " + s + " is corrupt");
 		}
 
-		offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
+		offscreen.drawImage(image, (int) Math.round(xs - (ws / 2.0)), (int) Math.round(ys - (hs / 2.0)), null);
 		show();
 	}
 
@@ -626,18 +625,18 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param degrees is the number of degrees to rotate counterclockwise
 	 * @throws RuntimeException if the image's width or height are negative
 	 */
-	public static void picture(double x, double y, String s, double degrees) {
+	public static void picture(final double x, final double y, final String s, final double degrees) {
 		final Image image = getImage(s);
 		final double xs = scaleX(x);
 		final double ys = scaleY(y);
 		final int ws = image.getWidth(null);
 		final int hs = image.getHeight(null);
-		if (ws < 0 || hs < 0) {
+		if ((ws < 0) || (hs < 0)) {
 			throw new RuntimeException("image " + s + " is corrupt");
 		}
 
 		offscreen.rotate(Math.toRadians(-degrees), xs, ys);
-		offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0), null);
+		offscreen.drawImage(image, (int) Math.round(xs - (ws / 2.0)), (int) Math.round(ys - (hs / 2.0)), null);
 		offscreen.rotate(Math.toRadians(+degrees), xs, ys);
 
 		show();
@@ -652,19 +651,19 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param w the width of the image
 	 * @param h the height of the image
 	 */
-	public static void picture(double x, double y, String s, double w, double h) {
+	public static void picture(final double x, final double y, final String s, final double w, final double h) {
 		final Image image = getImage(s);
 		final double xs = scaleX(x);
 		final double ys = scaleY(y);
 		final double ws = factorX(w);
 		final double hs = factorY(h);
-		if (ws < 0 || hs < 0) {
+		if ((ws < 0) || (hs < 0)) {
 			throw new RuntimeException("image " + s + " is corrupt");
 		}
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		} else {
-			offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0),
+			offscreen.drawImage(image, (int) Math.round(xs - (ws / 2.0)), (int) Math.round(ys - (hs / 2.0)),
 					(int) Math.round(ws), (int) Math.round(hs), null);
 		}
 		show();
@@ -682,21 +681,22 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param degrees is the number of degrees to rotate counterclockwise
 	 * @throws RuntimeException if the image's width or height are negative
 	 */
-	public static void picture(double x, double y, String s, double w, double h, double degrees) {
+	public static void picture(final double x, final double y, final String s, final double w, final double h,
+			final double degrees) {
 		final Image image = getImage(s);
 		final double xs = scaleX(x);
 		final double ys = scaleY(y);
 		final double ws = factorX(w);
 		final double hs = factorY(h);
-		if (ws < 0 || hs < 0) {
+		if ((ws < 0) || (hs < 0)) {
 			throw new RuntimeException("image " + s + " is corrupt");
 		}
-		if (ws <= 1 && hs <= 1) {
+		if ((ws <= 1) && (hs <= 1)) {
 			pixel(x, y);
 		}
 
 		offscreen.rotate(Math.toRadians(-degrees), xs, ys);
-		offscreen.drawImage(image, (int) Math.round(xs - ws / 2.0), (int) Math.round(ys - hs / 2.0),
+		offscreen.drawImage(image, (int) Math.round(xs - (ws / 2.0)), (int) Math.round(ys - (hs / 2.0)),
 				(int) Math.round(ws), (int) Math.round(hs), null);
 		offscreen.rotate(Math.toRadians(+degrees), xs, ys);
 
@@ -714,14 +714,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param y the center y coordinate of the text
 	 * @param s the text
 	 */
-	public static void text(double x, double y, String s) {
+	public static void text(final double x, final double y, final String s) {
 		offscreen.setFont(font);
 		final FontMetrics metrics = offscreen.getFontMetrics();
 		final double xs = scaleX(x);
 		final double ys = scaleY(y);
 		final int ws = metrics.stringWidth(s);
 		final int hs = metrics.getDescent();
-		offscreen.drawString(s, (float) (xs - ws / 2.0), (float) (ys + hs));
+		offscreen.drawString(s, (float) (xs - (ws / 2.0)), (float) (ys + hs));
 		show();
 	}
 
@@ -734,7 +734,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * @param t number of milliseconds
 	 * @throws InterruptedException
 	 */
-	public static void show(int t) throws InterruptedException {
+	public static void show(final int t) throws InterruptedException {
 		defer = true;
 		onscreen.drawImage(offscreenImage, 0, 0, null);
 		frame.repaint();
@@ -764,7 +764,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *
 	 * @param filename the name of the file with one of the required suffixes
 	 */
-	public static void save(String filename) {
+	public static void save(final String filename) {
 		final File file = new File(filename);
 		final String suffix = filename.substring(filename.lastIndexOf('.') + 1);
 
@@ -805,7 +805,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(final ActionEvent e) {
 		final FileDialog chooser = new FileDialog(StdDraw.frame, "Use a .png or .jpg extension", FileDialog.SAVE);
 		chooser.setVisible(true);
 		final String filename = chooser.getFile();
@@ -850,7 +850,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mouseClicked(final MouseEvent e) {
 	}
 
 	/**
@@ -858,7 +858,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mouseEntered(MouseEvent e) {
+	public void mouseEntered(final MouseEvent e) {
 	}
 
 	/**
@@ -866,7 +866,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mouseExited(MouseEvent e) {
+	public void mouseExited(final MouseEvent e) {
 	}
 
 	/**
@@ -874,7 +874,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(final MouseEvent e) {
 		mouseX = StdDraw.userX(e.getX());
 		mouseY = StdDraw.userY(e.getY());
 		mousePressed = true;
@@ -885,7 +885,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(final MouseEvent e) {
 		mousePressed = false;
 	}
 
@@ -894,7 +894,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mouseDragged(MouseEvent e) {
+	public void mouseDragged(final MouseEvent e) {
 		mouseX = StdDraw.userX(e.getX());
 		mouseY = StdDraw.userY(e.getY());
 	}
@@ -904,7 +904,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(final MouseEvent e) {
 		mouseX = StdDraw.userX(e.getX());
 		mouseY = StdDraw.userY(e.getY());
 	}
@@ -936,7 +936,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(final KeyEvent e) {
 		keysTyped.addFirst(e.getKeyChar());
 	}
 
@@ -945,7 +945,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(final KeyEvent e) {
 	}
 
 	/**
@@ -953,7 +953,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	@Deprecated
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(final KeyEvent e) {
 	}
 
 	/**
@@ -961,7 +961,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 */
 	// test client
 	@Deprecated
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		StdDraw.square(.2, .8, .1);
 		StdDraw.filledSquare(.8, .8, .2);
 		StdDraw.circle(.8, .2, .2);

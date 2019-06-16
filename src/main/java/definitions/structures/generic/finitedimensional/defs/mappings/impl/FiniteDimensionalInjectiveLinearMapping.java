@@ -7,8 +7,8 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 public class FiniteDimensionalInjectiveLinearMapping extends FiniteDimensionalLinearMapping
 		implements IFiniteDimensionalInjectiveLinearMapping {
 
-	protected FiniteDimensionalInjectiveLinearMapping(IFiniteDimensionalLinearMapping mapping) throws Throwable {
-		super(mapping.getSource(), (EuclideanSpace) mapping.getTarget(), mapping.getLinearity());
+	protected FiniteDimensionalInjectiveLinearMapping(final IFiniteDimensionalLinearMapping mapping) throws Throwable {
+		super((EuclideanSpace) mapping.getSource(), (EuclideanSpace) mapping.getTarget(), mapping.getLinearity());
 	}
 
 }

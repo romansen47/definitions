@@ -7,8 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
@@ -29,7 +29,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(4);
+		space = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(4);
 
 		final List<Vector> genericBase = space.genericBaseToList();
 		final List<Vector> system = new ArrayList<>();

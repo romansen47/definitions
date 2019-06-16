@@ -3,6 +3,7 @@ package mappings;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.generic.finitedimensional.defs.mappings.Automorphism;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
@@ -17,7 +18,7 @@ public class FiniteDimensionalLinearMappingTest {
 	static FiniteVector e2;
 	static FiniteVector e3;
 
-	static IFiniteDimensionalLinearMapping composition;
+	static Homomorphism composition;
 
 	static double[][] matrix = new double[][] { { 1, 0, 1 }, { 0, 1., 0 }, { -1, 0, 1 } };
 
@@ -30,9 +31,8 @@ public class FiniteDimensionalLinearMappingTest {
 		e2 = new Tuple(new double[] { 0, 1, 0 });
 		e3 = new Tuple(new double[] { 0, 0, 1 });
 
-		final IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance()
-				.getFiniteDimensionalLinearMapping(matrix);
-		final IFiniteDimensionalLinearMapping inv = ((Automorphism) map).getInverse();
+		final Homomorphism map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
+		final Homomorphism inv = ((Automorphism) map).getInverse();
 		composition = MappingGenerator.getInstance().getComposition(map, inv);
 
 	}

@@ -4,7 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
@@ -13,7 +13,7 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class PerformanceTest {
 
-	final static int max = 150;
+	final static int max = 1000;
 
 	static IFiniteDimensionalFunctionSpace space;
 
@@ -25,7 +25,7 @@ public class PerformanceTest {
 
 	@BeforeClass
 	public static void prepare() throws Throwable {
-		space = SpaceGenerator.getInstance().getTrigonometricSpace(max);
+		space = Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(max);
 		parabel = new GenericFunction() {
 			@Override
 			public double value(double input) {

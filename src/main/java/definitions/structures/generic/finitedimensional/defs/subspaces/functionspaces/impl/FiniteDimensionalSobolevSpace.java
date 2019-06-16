@@ -6,75 +6,65 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpace {
 
-	public FiniteDimensionalSobolevSpace(List<Vector> genericBase, double left, double right) throws Throwable {
+	public FiniteDimensionalSobolevSpace(final List<Vector> genericBase, final double left, final double right)
+			throws Throwable {
 		super(genericBase, left, right);
 	}
 
-	public FiniteDimensionalSobolevSpace(IFiniteDimensionalFunctionSpace space) throws Throwable {
+	public FiniteDimensionalSobolevSpace(final IFiniteDimensionalFunctionSpace space) throws Throwable {
 		super(space.genericBaseToList(), space.getIntervall()[0], space.getIntervall()[1]);
-		List<Vector> newBaseTmp = this.getOrthonormalBase(base);
-		List<Vector> newBase = new ArrayList<>();
-		List<Vector> newCoordinates = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim)
-				.genericBaseToList();
-		int dim = space.genericBaseToList().size();
+		final List<Vector> newBaseTmp = this.getOrthonormalBase(this.base);
+		final List<Vector> newBase = new ArrayList<>();
+		final List<Vector> newCoordinates = Generator.getGenerator().getSpacegenerator()
+				.getFiniteDimensionalVectorSpace(this.dim).genericBaseToList();
+		final int dim = space.genericBaseToList().size();
 		for (int i = 0; i < dim; i++) {
 			final int j = i;
 			final Function baseFunction = new FunctionTuple(newCoordinates.get(i).getGenericCoordinates()) {
 				@Override
-				public double value(double input) throws Throwable {
+				public double value(final double input) throws Throwable {
 					return ((Function) newBaseTmp.get(j)).value(input);
 				}
 			};
 			newBase.add(baseFunction);
 		}
-		for (Vector vec : newBase) {
+		for (final Vector vec : newBase) {
 			final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 			coordinates.put(vec, 1.);
-			for (Vector vec2 : newBase) {
+			for (final Vector vec2 : newBase) {
 				if (!vec.equals(vec2)) {
 					coordinates.put(vec2, 0.);
 				}
 			}
 			vec.setCoordinates(coordinates);
 		}
-		setBase(newBase);
-	}
-
-	public Function getDerivative(Vector fun) throws Throwable {
-		return new GenericFunction() {
-			double eps = 1.e-5;
-
-			@Override
-			public double value(double input) throws Throwable {
-				return (((Function) fun).value(input + eps) - ((Function) fun).value(input)) / eps;
-			}
-		};
+		this.setBase(newBase);
 	}
 
 	@Override
-	public double product(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof Function && vec2 instanceof Function) {
-			if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple
-					&& ((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase()) {
+	public double product(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
+			if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
+					&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
 				return super.product(vec1, vec2);
 			} else {
-				return super.product(vec1, vec2) + super.product(getDerivative(vec1), getDerivative(vec2));
+				return super.product(vec1, vec2)
+						+ super.product(((Function) vec1).getDerivative(), ((Function) vec2).getDerivative());
 			}
 		}
 		return super.product(vec1, vec2);
 	}
 
 	@Override
-	public Vector projection(Vector w, Vector v) throws Throwable {
-		return stretch(v, product(w, v));
+	public Vector projection(final Vector w, final Vector v) throws Throwable {
+		return this.stretch(v, this.product(w, v));
 	}
 
 }

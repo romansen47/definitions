@@ -14,22 +14,22 @@ public class DataSet {
 	final Double value;
 	final double valueFromRegression;
 
-	public DataSet(double days, Double value, IFunction fun) {
+	public DataSet(final double days, final Double value, final IFunction fun) {
 		this.days = (int) days;
-		date = beginning.plus((int) days, ChronoUnit.DAYS);
+		this.date = beginning.plus((int) days, ChronoUnit.DAYS);
 		this.value = value;
-		valueFromRegression = fun.value(new double[] { days });
+		this.valueFromRegression = fun.value(new double[] { days });
 	}
 
 	@Override
 	public String toString() {
-		String ans = days + " | " + date.toString() + " | ";
-		if (value == null) {
+		String ans = this.days + " | " + this.date.toString() + " | ";
+		if (this.value == null) {
 			ans += "|";
 		} else {
-			ans += Double.toString(value).replace(".", ",") + "|";
+			ans += Double.toString(this.value).replace(".", ",") + "|";
 		}
-		return ans += Double.toString(valueFromRegression).replace(".", ",");
+		return ans += Double.toString(this.valueFromRegression).replace(".", ",");
 	}
 
 }

@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
 public class Tuple implements FiniteVector {
@@ -19,39 +19,41 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public final int getDim() {
-		return dim;
+		return this.dim;
 	}
 
-	public Tuple(double[] coordinates) throws Throwable {
-		dim = coordinates.length;
-		setCoordinates(new ConcurrentHashMap<>());
+	public Tuple(final double[] coordinates) throws Throwable {
+		this.dim = coordinates.length;
+		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim).genericBaseToList()) {
-			getCoordinates().put(vec, coordinates[i++]);
+		for (final Vector vec : Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(this.dim)
+				.genericBaseToList()) {
+			this.getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
 
-	public Tuple(Map<Vector, Double> coordinates) throws Throwable {
-		setCoordinates(coordinates);
-		dim = coordinates.keySet().size();
+	public Tuple(final Map<Vector, Double> coordinates) throws Throwable {
+		this.setCoordinates(coordinates);
+		this.dim = coordinates.keySet().size();
 	}
 
-	Tuple(int dim) {
+	Tuple(final int dim) {
 		this.dim = dim;
-		coordinates = new ConcurrentHashMap<>();
+		this.coordinates = new ConcurrentHashMap<>();
 	}
 
 	@Override
-	public boolean elementOf(VectorSpace space) throws Throwable {
-		return space instanceof FiniteDimensionalVectorSpace && ((FiniteDimensionalVectorSpace) space).dim() == dim;
+	public boolean elementOf(final VectorSpace space) throws Throwable {
+		return (space instanceof FiniteDimensionalVectorSpace)
+				&& (((FiniteDimensionalVectorSpace) space).dim() == this.dim);
 	}
 
 	@Override
-	public boolean equals(Object vec) {
+	public boolean equals(final Object vec) {
 		if (!(vec instanceof Vector)) {
 			return false;
-		} else if (vec instanceof Tuple && ((Tuple) vec).dim == dim) {
-			return getCoordinates().equals(((Tuple) vec).getCoordinates());
+		} else if ((vec instanceof Tuple) && (((Tuple) vec).dim == this.dim)) {
+			return this.getCoordinates().equals(((Tuple) vec).getCoordinates());
 		}
 		return false;
 	}
@@ -60,8 +62,8 @@ public class Tuple implements FiniteVector {
 	public String toString() {
 		String str = "";
 		try {
-			for (final Vector vec : getGenericBase()) {
-				str += getCoordinates().get(vec) + "\r";
+			for (final Vector vec : this.getGenericBase()) {
+				str += this.getCoordinates().get(vec) + "\r";
 			}
 			return str;
 		} catch (final Throwable e) {
@@ -72,27 +74,27 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Map<Vector, Double> getCoordinates() {
-		return coordinates;
+		return this.coordinates;
 	}
 
 	@Override
-	public void setCoordinates(Map<Vector, Double> coordinates) {
+	public void setCoordinates(final Map<Vector, Double> coordinates) {
 		this.coordinates = coordinates;
 	}
 
 	@Override
 	public Set<Vector> getGenericBase() throws Throwable {
-		return getCoordinates().keySet();
+		return this.getCoordinates().keySet();
 	}
 
 	@Override
-	public boolean equals(Vector vec) throws Throwable {
-		return equals((Object) vec);
+	public boolean equals(final Vector vec) throws Throwable {
+		return this.equals((Object) vec);
 	}
 
 	@Override
-	public Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable {
-		return getCoordinates();
+	public Map<Vector, Double> getCoordinates(final EuclideanSpace source) throws Throwable {
+		return this.getCoordinates();
 	}
 
 }

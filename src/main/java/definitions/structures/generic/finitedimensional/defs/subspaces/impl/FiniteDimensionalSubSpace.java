@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
 
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements ParameterizedSpace {
@@ -19,36 +19,37 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	protected final List<Vector> genericBase = new ArrayList<>();
 	protected Map<Vector, Vector> parametrizationBaseVectorMapping = new ConcurrentHashMap<>();
 
-	public FiniteDimensionalSubSpace(IFiniteDimensionalLinearMapping map) throws Throwable {
-		super(SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(map.getRank()).genericBaseToList());
+	public FiniteDimensionalSubSpace(final IFiniteDimensionalLinearMapping map) throws Throwable {
+		super(Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(map.getRank())
+				.genericBaseToList());
 		this.parametrization = (IFiniteDimensionalInjectiveLinearMapping) map;
-		for (Vector vec : parametrization.getSource().genericBaseToList()) {
-			Vector newBaseVec = parametrization.get(vec);
-			genericBase.add(newBaseVec);
-			getParametrizationBaseVectorMapping().put(vec, newBaseVec);
+		for (final Vector vec : ((EuclideanSpace) this.parametrization.getSource()).genericBaseToList()) {
+			final Vector newBaseVec = this.parametrization.get(vec);
+			this.genericBase.add(newBaseVec);
+			this.getParametrizationBaseVectorMapping().put(vec, newBaseVec);
 		}
 	}
 
 	@Override
 	public EuclideanSpace getSuperSpace() {
-		return (EuclideanSpace) parametrization.getTarget();
+		return (EuclideanSpace) this.parametrization.getTarget();
 	}
 
 	@Override
 	public int dim() throws Throwable {
-		return parametrization.getRank();
+		return this.parametrization.getRank();
 	}
 
 	@Override
 	public final IFiniteDimensionalLinearMapping getParametrization() {
-		return parametrization;
+		return this.parametrization;
 	}
 
 	@Override
-	public boolean contains(Vector vec) throws Throwable {
+	public boolean contains(final Vector vec) throws Throwable {
 		try {
-			return getSuperSpace().contains(vec) && this.parametrization.solve(vec) != null;
-		} catch (Throwable e) {
+			return this.getSuperSpace().contains(vec) && (this.parametrization.solve(vec) != null);
+		} catch (final Throwable e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -56,12 +57,12 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 
 	@Override
 	public List<Vector> genericBaseToList() throws Throwable {
-		return genericBase;
+		return this.genericBase;
 	}
 
 	@Override
 	public final Map<Vector, Vector> getParametrizationBaseVectorMapping() {
-		return parametrizationBaseVectorMapping;
+		return this.parametrizationBaseVectorMapping;
 	}
 
 }

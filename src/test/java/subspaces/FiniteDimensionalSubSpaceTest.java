@@ -7,11 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.BeforeClass;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
@@ -57,9 +58,9 @@ public class FiniteDimensionalSubSpaceTest {
 		matrix2 = new double[][] { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 }, { 0, 0, 0 } };
 		list = new ArrayList<>();
 
-		final IFiniteDimensionalLinearMapping map = MappingGenerator.getInstance()
+		final Homomorphism map = Generator.getGenerator().getMappinggenerator()
 				.getFiniteDimensionalLinearMapping(matrix);
-		final ParameterizedSpace subSpace = new FiniteDimensionalSubSpace(map);
+		final ParameterizedSpace subSpace = new FiniteDimensionalSubSpace((IFiniteDimensionalLinearMapping) map);
 
 		final List<Vector> base = subSpace.genericBaseToList();
 		final Map<Vector, Map<Vector, Double>> coordinates = new ConcurrentHashMap<>();
@@ -80,16 +81,16 @@ public class FiniteDimensionalSubSpaceTest {
 		coordinates.put(beta, key2);
 
 		System.out.println("Test");
-		final IFiniteDimensionalLinearMapping testMap = MappingGenerator.getInstance()
-				.getFiniteDimensionalLinearMapping(subSpace, subSpace, coordinates);
+		final Homomorphism testMap = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(subSpace,
+				subSpace, coordinates);
 
 		list.add(base.get(0));
 		for (int i = 0; i < m + 4; i++) {
 			list.add(testMap.get(list.get(list.size() - 1)));
 		}
 
-		genericSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
-		genericSpace2 = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(4);
+		genericSpace = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(3);
+		genericSpace2 = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(4);
 
 		sin = new Sine(genericSpace.genericBaseToList().get(0).getGenericCoordinates());
 		cos = new Cosine(genericSpace.genericBaseToList().get(1).getGenericCoordinates());
@@ -128,10 +129,10 @@ public class FiniteDimensionalSubSpaceTest {
 			coordinates2.put(fun1, tmp);
 		}
 
-		final IFiniteDimensionalLinearMapping parametrization = MappingGenerator.getInstance()
+		final Homomorphism parametrization = MappingGenerator.getInstance()
 				.getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
-		functionSubSpace = new FiniteDimensionalSubSpace(parametrization);
+		functionSubSpace = new FiniteDimensionalSubSpace((IFiniteDimensionalLinearMapping) parametrization);
 		final Vector sum = functionSpace2.add(one2, identity2);
 		final Vector max = functionSubSpace.getNearestVector(sum);
 

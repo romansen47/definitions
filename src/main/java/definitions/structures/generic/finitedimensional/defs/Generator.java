@@ -1,7 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
@@ -11,35 +10,43 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGe
 import definitions.structures.generic.finitedimensional.defs.vectors.IVectorGenerator;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.VectorGenerator;
 
+@SuppressWarnings("unused")
 public class Generator implements IGenerator {
 
-	@SuppressWarnings("unused")
-	private static final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
-
-	@SuppressWarnings("unused")
-	private static final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
-
-	@SuppressWarnings("unused")
-	private static final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
+	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
+	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
+	private final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
 
 	private static Generator generator = null;
 
-	private static Map<Integer, EuclideanSpace> cachedSpaces;
-
 	@Override
 	public Map<Integer, EuclideanSpace> getCachedSpaces() {
-		return cachedSpaces;
+		return getSpacegenerator().getCachedCoordinateSpaces();
 	}
 
 	public static IGenerator getGenerator() {
 		if (generator == null) {
 			generator = new Generator();
-			cachedSpaces = new ConcurrentHashMap<>();
 		}
 		return generator;
 	}
 
 	private Generator() {
+	}
+
+	@Override
+	public IVectorGenerator getVectorgenerator() {
+		return generator.vectorGenerator;
+	}
+
+	@Override
+	public IMappingGenerator getMappinggenerator() {
+		return generator.mappingGenerator;
+	}
+
+	@Override
+	public ISpaceGenerator getSpacegenerator() {
+		return generator.spaceGenerator;
 	}
 
 }

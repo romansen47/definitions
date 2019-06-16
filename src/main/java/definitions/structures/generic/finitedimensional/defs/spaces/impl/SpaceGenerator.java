@@ -40,7 +40,7 @@ public class SpaceGenerator implements ISpaceGenerator {
 	@Override
 	public String toString() {
 		String ans = "";
-		for (int i : cachedCoordinateSpaces.keySet()) {
+		for (final int i : cachedCoordinateSpaces.keySet()) {
 			ans += cachedCoordinateSpaces.get(i).toString() + "\r";
 		}
 		return ans;

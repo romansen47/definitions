@@ -3,8 +3,10 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
@@ -12,28 +14,24 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public interface IFiniteDimensionalLinearMapping {
+public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 
 	Vector solve(Vector transformed) throws Throwable;
 
-	EuclideanSpace getSource();
-
-	VectorSpace getTarget();
-
-	Map<Vector, Map<Vector, Double>> getLinearity();
-
-	default Map<Vector, Double> getLinearity(Vector vec1) {
+	@Override
+	default Map<Vector, Double> getLinearity(final Vector vec1) throws Throwable {
 		return getLinearity().get(vec1);
 	}
 
-	default Vector get(Vector vec2) throws Throwable {
+	@Override
+	default Vector get(final Vector vec2) throws Throwable {
 		if (getSource() instanceof ParameterizedSpace) {
 			return getOnSubSpace(vec2);
 		}
-		final Map<Vector, Double> coordinates = ((FiniteVector) vec2).getCoordinates(getSource());
+		final Map<Vector, Double> coordinates = ((FiniteVector) vec2).getCoordinates((EuclideanSpace) getSource());
 		Vector ans;
 		EuclideanSpace target;
-		VectorSpace space = getTarget();
+		final VectorSpace space = getTarget();
 		if (space instanceof IFiniteDimensionalFunctionSpace) {
 			target = (IFiniteDimensionalFunctionSpace) space;
 			ans = ((IFiniteDimensionalFunctionSpace) target).nullFunction();
@@ -41,27 +39,27 @@ public interface IFiniteDimensionalLinearMapping {
 			target = (EuclideanSpace) getTarget();
 			ans = target.nullVec();
 		}
-		for (final Vector src : getSource().genericBaseToList()) {
-			Map<Vector, Double> tmp = new ConcurrentHashMap<>();
-			for (Vector vec : target.genericBaseToList()) {
+		for (final Vector src : ((EuclideanSpace) getSource()).genericBaseToList()) {
+			final Map<Vector, Double> tmp = new ConcurrentHashMap<>();
+			for (final Vector vec : target.genericBaseToList()) {
 				tmp.put(vec, getLinearity().get(src).get(vec));
 			}
-			double coord = coordinates.get(getSource().getBaseVec(src));
-			Vector vec = target.get(tmp);
-			Vector summand = target.stretch(vec, coord);
+			final double coord = coordinates.get(((EuclideanSpace) getSource()).getBaseVec(src));
+			final Vector vec = target.get(tmp);
+			final Vector summand = target.stretch(vec, coord);
 			ans = target.add(ans, summand);
 		}
 		return ans;
 	}
 
-	default FiniteVector getOnSubSpace(Vector vec2) throws Throwable {
-		ParameterizedSpace space = (ParameterizedSpace) getSource();
-		Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
-		IFiniteDimensionalLinearMapping mapOnSourceSpaces = MappingGenerator.getInstance()
-				.getFiniteDimensionalLinearMapping(this.getGenericMatrix());
+	default FiniteVector getOnSubSpace(final Vector vec2) throws Throwable {
+		final ParameterizedSpace space = (ParameterizedSpace) getSource();
+		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
+		final IFiniteDimensionalLinearMapping mapOnSourceSpaces = (IFiniteDimensionalLinearMapping) Generator
+				.getGenerator().getMappinggenerator().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
 		IFiniteDimensionalLinearMapping composedMapping;
 		if (getTarget() instanceof ParameterizedSpace) {
-			composedMapping = MappingGenerator.getInstance()
+			composedMapping = (IFiniteDimensionalLinearMapping) MappingGenerator.getInstance()
 					.getComposition(((ParameterizedSpace) getTarget()).getParametrization(), mapOnSourceSpaces);
 		} else {
 			composedMapping = mapOnSourceSpaces;
@@ -69,48 +67,36 @@ public interface IFiniteDimensionalLinearMapping {
 		return (FiniteVector) composedMapping.get(inverseVector);
 	}
 
-	// default IFiniteVector getColumn(IFiniteVector vec) throws Throwable {
-	// // if (vec.getDim() > getSource().dim()) {
-	// // throw new Throwable();
-	// // }
-	// final Map<IFiniteVector, Double> coordinates = new ConcurrentHashMap<>();
-	// for (final IFiniteVector vec1 : ((IFiniteDimensionalVectorSpace)
-	// getTarget()).genericBaseToList()) {
-	// coordinates.put(vec1, getLinearity().get(vec).get(vec1));
-	// }
-	// return new FiniteVector(coordinates);
-	// }
-
 	double[][] getGenericMatrix() throws Throwable;
 
-	default void swap(double[][] mat, int row1, int row2, int col) {
+	default void swap(final double[][] mat, final int row1, final int row2, final int col) {
 		for (int i = 0; i < col; i++) {
-			double temp = mat[row1][i];
+			final double temp = mat[row1][i];
 			mat[row1][i] = mat[row2][i];
 			mat[row2][i] = temp;
 		}
 	}
 
 	default int getRank() throws Throwable {
-		double[][] mat = new double[((EuclideanSpace) getTarget()).genericBaseToList().size()][getSource()
-				.genericBaseToList().size()];
+		final double[][] mat = new double[((EuclideanSpace) getTarget()).genericBaseToList()
+				.size()][((EuclideanSpace) getSource()).genericBaseToList().size()];
 		int m = 0;
-		for (Vector vec1 : getSource().genericBaseToList()) {
+		for (final Vector vec1 : ((EuclideanSpace) getSource()).genericBaseToList()) {
 			int n = 0;
-			for (Vector vec2 : ((EuclideanSpace) getTarget()).genericBaseToList()) {
+			for (final Vector vec2 : ((EuclideanSpace) getTarget()).genericBaseToList()) {
 				mat[n][m] = getGenericMatrix()[n++][m];
 			}
 			m++;
 		}
-		int r = mat.length;
-		int c = mat[0].length;
+		final int r = mat.length;
+		final int c = mat[0].length;
 		int rank = c;
 
 		for (int row = 0; row < rank; row++) {
 			if (mat[row][row] != 0) {
 				for (int col = 0; col < r; col++) {
 					if (col != row) {
-						double mult = mat[col][row] / mat[row][row];
+						final double mult = mat[col][row] / mat[row][row];
 						for (int i = 0; i < rank; i++) {
 							mat[col][i] -= mult * mat[row][i];
 						}

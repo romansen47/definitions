@@ -9,38 +9,38 @@ public class Binary {
 
 	// Constructors
 
-	public Binary(boolean[] TUPLE) {
-		tuple = TUPLE;
-		length = tuple.length;
-		normalize();
+	public Binary(final boolean[] TUPLE) {
+		this.tuple = TUPLE;
+		this.length = this.tuple.length;
+		this.normalize();
 
 	}
 
-	public Binary(int n) {
+	public Binary(final int n) {
 		int m = n;
-		tuple = new boolean[1];
-		tuple[0] = false;
+		this.tuple = new boolean[1];
+		this.tuple[0] = false;
 		while (m > 0) {
-			addone();
+			this.addone();
 			m -= 1;
 		}
 	}
 
 	public void normalize() {
-		if (length > 1 && tuple[length - 1] == false) {
-			final boolean[] tmp = new boolean[length - 1];
+		if ((this.length > 1) && (this.tuple[this.length - 1] == false)) {
+			final boolean[] tmp = new boolean[this.length - 1];
 			for (int i = 0; i < tmp.length; i++) {
-				tmp[i] = tuple[i];
+				tmp[i] = this.tuple[i];
 			}
-			tuple = tmp;
-			length = length - 1;
-			normalize();
+			this.tuple = tmp;
+			this.length = this.length - 1;
+			this.normalize();
 		}
 	}
 
 	// Copy function
 
-	private boolean[] copy(boolean[] tmp) {
+	private boolean[] copy(final boolean[] tmp) {
 		final boolean[] ans = new boolean[tmp.length];
 		for (int i = 0; i < tmp.length; i++) {
 			ans[i] = tmp[i];
@@ -49,14 +49,14 @@ public class Binary {
 	}
 
 	public Binary copy() {
-		return (new Binary(copy(tuple)));
+		return (new Binary(this.copy(this.tuple)));
 	}
 
 	// presentation functions
 
 	public void present() {
-		for (int i = 0; i < length; i++) {
-			if (tuple[length - 1 - i] == true) {
+		for (int i = 0; i < this.length; i++) {
+			if (this.tuple[this.length - 1 - i] == true) {
 				System.out.print(1);
 			} else {
 				System.out.print(0);
@@ -68,8 +68,8 @@ public class Binary {
 	@Override
 	public String toString() {
 		String str = "";
-		for (int i = 0; i < length; i++) {
-			if (tuple[length - 1 - i] == true) {
+		for (int i = 0; i < this.length; i++) {
+			if (this.tuple[this.length - 1 - i] == true) {
 				str += 1;
 			}
 			str += 0;
@@ -78,22 +78,22 @@ public class Binary {
 	}
 
 	public void dezimal() {
-		if (length == 1) {
-			if (tuple[0] == true) {
+		if (this.length == 1) {
+			if (this.tuple[0] == true) {
 				System.out.println(1);
 			} else {
 				System.out.println(0);
 			}
 		} else {
 			int ans = 0;
-			if (tuple[0] == true) {
+			if (this.tuple[0] == true) {
 				ans = 1;
 			} else {
 				ans = 0;
 			}
 			int basis = 1;
-			for (int i = 1; i < length; i++) {
-				if (tuple[i] == true) {
+			for (int i = 1; i < this.length; i++) {
+				if (this.tuple[i] == true) {
 					ans += basis * 2;
 				}
 				basis = basis * 2;
@@ -104,7 +104,7 @@ public class Binary {
 
 	// private methods
 
-	private boolean reverse(boolean tmp) {
+	private boolean reverse(final boolean tmp) {
 		if (tmp == true) {
 			return (false);
 		}
@@ -114,40 +114,40 @@ public class Binary {
 	// public methods
 
 	public void addone() {
-		final boolean[] tmp = new boolean[length + 1];
-		for (int i = 0; i < length; i++) {
-			tmp[i] = tuple[i];
+		final boolean[] tmp = new boolean[this.length + 1];
+		for (int i = 0; i < this.length; i++) {
+			tmp[i] = this.tuple[i];
 		}
 		int i = 0;
-		while (i < length && tuple[i] == true) {
-			tmp[i] = reverse(tuple[i++]);
+		while ((i < this.length) && (this.tuple[i] == true)) {
+			tmp[i] = this.reverse(this.tuple[i++]);
 		}
 		tmp[i] = true;
-		tuple = tmp;
-		length = tmp.length;
-		normalize();
+		this.tuple = tmp;
+		this.length = tmp.length;
+		this.normalize();
 	}
 
 	public void subone() {
-		final boolean[] tmp = copy(tuple);
+		final boolean[] tmp = this.copy(this.tuple);
 		int i = 0;
-		while (i < length && tuple[i] == false) {
-			tmp[i] = reverse(tuple[i++]);
+		while ((i < this.length) && (this.tuple[i] == false)) {
+			tmp[i] = this.reverse(this.tuple[i++]);
 		}
 		tmp[i] = false;
-		tuple = tmp;
-		normalize();
+		this.tuple = tmp;
+		this.normalize();
 	}
 
 	public Binary subonebin() {
-		final boolean[] tmp = copy(tuple);
+		final boolean[] tmp = this.copy(this.tuple);
 		int i = 0;
-		while (i < length && tuple[i] == false) {
-			tmp[i] = reverse(tuple[i++]);
+		while ((i < this.length) && (this.tuple[i] == false)) {
+			tmp[i] = this.reverse(this.tuple[i++]);
 		}
 		tmp[i] = false;
-		tuple = tmp;
-		normalize();
+		this.tuple = tmp;
+		this.normalize();
 		return (this);
 	}
 }

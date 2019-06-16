@@ -12,7 +12,7 @@ public class Main3 extends deprecated.regression.Main {
 	static double[][] vals;
 	static double[][] newvals;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 		values = readFile(PATH);
 		newvals = centralize(values);
 		double min = 200000.0;
@@ -43,13 +43,14 @@ public class Main3 extends deprecated.regression.Main {
 			altInput[0][i] = values[0][i];
 			altInput[1][i] = values[1][i];
 			valsToPlot[0][i] = values[0][i];
-			valsToPlot[1][i] = reg.getPolynomial().eval(values[0][i]) + a0 * Math.sin(b0 + c0 * values[0][i]);
+			valsToPlot[1][i] = reg.getPolynomial().eval(values[0][i]) + (a0 * Math.sin(b0 + (c0 * values[0][i])));
 		}
-		for (int i = values[0].length; i < 2 * values[0].length; i++) {
-			altInput[0][i] = values[0][values[0].length - 1] - values[0].length + i;
+		for (int i = values[0].length; i < (2 * values[0].length); i++) {
+			altInput[0][i] = (values[0][values[0].length - 1] - values[0].length) + i;
 			altInput[1][i] = reg.getPolynomial().eval(altInput[0][i]);
-			valsToPlot[0][i] = values[0][values[0].length - 1] - values[0].length + i;
-			valsToPlot[1][i] = reg.getPolynomial().eval(valsToPlot[0][i]) + a0 * Math.sin(b0 + c0 * valsToPlot[0][i]);
+			valsToPlot[0][i] = (values[0][values[0].length - 1] - values[0].length) + i;
+			valsToPlot[1][i] = reg.getPolynomial().eval(valsToPlot[0][i])
+					+ (a0 * Math.sin(b0 + (c0 * valsToPlot[0][i])));
 		}
 //		IRegression.preparePlot(altInput,2*DIMX,DIMY);
 //		IRegression.drawInput(altInput);
@@ -61,7 +62,7 @@ public class Main3 extends deprecated.regression.Main {
 
 		final IFunction fun = new Function() {
 			@Override
-			public double value(double[] point) {
+			public double value(final double[] point) {
 				return val(point[0], point[1], point[2], newvals) / 100000.0;
 			}
 		};
@@ -73,21 +74,60 @@ public class Main3 extends deprecated.regression.Main {
 
 	}
 
-	private static double correlation(double[] ds, double[] ds2) {
-		final IVector mathob = new MathOp(1.e-7);
-		return mathob.ScalarProduct(ds, ds2) / (mathob.MagnitudeOfVector(ds) * mathob.MagnitudeOfVector(ds2));
+	private static double[] centralized(double[] input) {
+		double[] ans = new double[input.length];
+		double erw = erwartung(input);
+		for (int i = 0; i < input.length; i++) {
+			ans[i] = input[i] - erw;
+		}
+		return ans;
 	}
 
-	private static double val(double a, double b, double c, double[][] values) {
+	private static double sigma(double[] input) {
+		double ans = 0;
+		for (double val : input) {
+			ans += Math.pow(val, 2);
+		}
+		return Math.sqrt(ans);
+	}
+
+	private static double erwartung(double[] input) {
+		double ans = 0;
+		for (double val : input) {
+			ans += val;
+		}
+		return ans / input.length;
+	}
+
+	private static double product(double[] input, double[] input2) {
+		double ans = 0;
+		for (int i = 0; i < input.length; i++) {
+			ans += input[i] * input2[i];
+		}
+		return ans;
+	}
+
+	private static double correlation(final double[] ds, final double[] ds2) {
+		final IVector mathop = new MathOp(1.e-7);
+		double[] cetrDs1 = centralized(ds);
+		double[] cetrDs2 = centralized(ds2);
+		double product = product(ds, ds2);
+		double sig1 = sigma(ds);
+		double sig2 = sigma(ds2);
+		double ans = product / (sig1 * sig2);
+		return ans;
+	}
+
+	private static double val(final double a, final double b, final double c, final double[][] values) {
 		double ans = 0.0;
 		for (int i = 0; i < values[0].length; i++) {
-			ans += Math.pow(values[1][i] - a * Math.sin(b + c * values[0][i]), 2);
+			ans += Math.pow(values[1][i] - (a * Math.sin(b + (c * values[0][i]))), 2);
 		}
 		return ans;
 	}
 
 	@SuppressWarnings("unused")
-	private static double[][] getAsinVals(double[][] newvals) {
+	private static double[][] getAsinVals(final double[][] newvals) {
 		final double max = getMax(newvals);
 		final double[][] normvals = normalizeValues(max, newvals);
 		final double[][] asinvals = new double[2][normvals[0].length];
@@ -99,7 +139,7 @@ public class Main3 extends deprecated.regression.Main {
 		return asinvals;
 	}
 
-	private static double[][] normalizeValues(double max, double[][] newvals) {
+	private static double[][] normalizeValues(final double max, final double[][] newvals) {
 		final double[][] normvals = new double[2][newvals[0].length];
 		normvals[0] = newvals[0];
 		for (int i = 0; i < newvals[0].length; i++) {
@@ -109,7 +149,7 @@ public class Main3 extends deprecated.regression.Main {
 	}
 
 	@SuppressWarnings("unused")
-	private static double getMin(double[][] newvals) {
+	private static double getMin(final double[][] newvals) {
 		double min = Math.abs(newvals[1][0]);
 		for (int i = 0; i < newvals[0].length; i++) {
 			min = Math.min(min, Math.abs(newvals[1][i]));
@@ -117,7 +157,7 @@ public class Main3 extends deprecated.regression.Main {
 		return min;
 	}
 
-	private static double getMax(double[][] newvals) {
+	private static double getMax(final double[][] newvals) {
 		double max = Math.abs(newvals[1][0]);
 		for (int i = 0; i < newvals[0].length; i++) {
 			max = Math.max(max, Math.abs(newvals[1][i]));
@@ -125,7 +165,7 @@ public class Main3 extends deprecated.regression.Main {
 		return max;
 	}
 
-	public static double[][] centralize(double[][] vals) {
+	public static double[][] centralize(final double[][] vals) {
 		final IRegression linreg = new LinReg(vals, 1);
 		final double[][] newvalues = new double[2][vals[0].length];
 		newvalues[0] = vals[0];

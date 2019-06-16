@@ -18,13 +18,13 @@ public class Main5 extends deprecated.regression.Main {
 	static double[][] vals;
 	static double[][] newvals;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 		values = readFile(PATH);
 		newvals = values;
 
 		final IFunction fun = new Function() {
 			@Override
-			public double value(double[] point) {
+			public double value(final double[] point) {
 				return val(point[0], point[1], point[2], point[3], point[4], point[5], point[6], point[7], newvals)
 						* 1.e-10;
 			}
@@ -38,9 +38,9 @@ public class Main5 extends deprecated.regression.Main {
 		@SuppressWarnings("unused")
 		final IFunction reg = new Function() {
 			@Override
-			public double value(double[] input) {
-				return coeffs[0] + coeffs[1] * input[0] + coeffs[2] * Math.sin(coeffs[3] + coeffs[4] * input[0])
-						+ coeffs[5] * Math.cos(coeffs[6] + coeffs[7] * input[0]);
+			public double value(final double[] input) {
+				return coeffs[0] + (coeffs[1] * input[0]) + (coeffs[2] * Math.sin(coeffs[3] + (coeffs[4] * input[0])))
+						+ (coeffs[5] * Math.cos(coeffs[6] + (coeffs[7] * input[0])));
 			}
 		};
 
@@ -118,11 +118,11 @@ public class Main5 extends deprecated.regression.Main {
 	}
 
 	@SuppressWarnings("unused")
-	private static void printDataToXml(double[] coeffs, double[][] newvals2, IFunction fun, double correlation)
-			throws IOException {
+	private static void printDataToXml(final double[] coeffs, final double[][] newvals2, final IFunction fun,
+			final double correlation) throws IOException {
 		final double length = (int) (newvals2[0][newvals2[0].length - 1]);
 		final DataSet[] data = new DataSet[(int) length];
-		for (int i = 0; i < newvals2[0].length - 1; i++) {
+		for (int i = 0; i < (newvals2[0].length - 1); i++) {
 			data[(int) newvals2[0][i]] = new DataSet((int) newvals2[0][i], newvals2[1][i], fun);
 			for (int j = (int) newvals2[0][i] + 1; j < newvals2[0][i + 1]; j++) {
 				data[j] = new DataSet(j, null, fun);
@@ -143,30 +143,31 @@ public class Main5 extends deprecated.regression.Main {
 		}
 	}
 
-	private static double correlation(double[] ds, double[] ds2) {
+	private static double correlation(final double[] ds, final double[] ds2) {
 		final IVector mathob = new MathOp(1.e-5);
 		return mathob.ScalarProduct(ds, ds2) / (mathob.MagnitudeOfVector(ds) * mathob.MagnitudeOfVector(ds2));
 	}
 
-	private static double val(double a, double b, double c, double d, double e, double f, double g, double h,
-			double[][] values) {
+	private static double val(final double a, final double b, final double c, final double d, final double e,
+			final double f, final double g, final double h, final double[][] values) {
 		double ans = 0.0;
 		for (int i = 0; i < values[0].length; i++) {
-			ans += Math.pow(values[1][i] - a - b * values[0][i] - c * Math.sin(d + e * values[0][i])
-					- f * Math.cos(g + h * values[0][i]), 2);
+			ans += Math.pow(values[1][i] - a - (b * values[0][i]) - (c * Math.sin(d + (e * values[0][i])))
+					- (f * Math.cos(g + (h * values[0][i]))), 2);
 		}
 		return ans;
 	}
 
-	private static double val(double a, double b, double c, double d, double e, double[][] values) {
+	private static double val(final double a, final double b, final double c, final double d, final double e,
+			final double[][] values) {
 		double ans = 0.0;
 		for (int i = 0; i < values[0].length; i++) {
-			ans += Math.pow(values[1][i] - a - b * values[0][i] - c * Math.sin(d + e * values[0][i]), 2);
+			ans += Math.pow(values[1][i] - a - (b * values[0][i]) - (c * Math.sin(d + (e * values[0][i]))), 2);
 		}
 		return ans;
 	}
 
-	public static double[][] centralize(double[][] vals) {
+	public static double[][] centralize(final double[][] vals) {
 		final IRegression linreg = new LinReg(vals, 1);
 		final double[][] newvalues = new double[2][vals[0].length];
 		newvalues[0] = vals[0];

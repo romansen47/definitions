@@ -4,7 +4,7 @@ public interface IMatrixTrix {
 
 	final static deprecated.math.IMathOp mathOperator = deprecated.math.MathOp.getInstance();
 
-	default double[] matrixMult(double[][] matrix, double[] vector) {
+	default double[] matrixMult(final double[][] matrix, final double[] vector) {
 		final double[] y = new double[matrix.length];
 		for (int i = 0; i < matrix.length; i++) {
 			double tmp = 0;
@@ -17,7 +17,7 @@ public interface IMatrixTrix {
 	}
 
 	// Only for quadratic matrices!!!
-	default double[][] adjointMatrix(double[][] matrix, int a, int b) {
+	default double[][] adjointMatrix(final double[][] matrix, final int a, final int b) {
 		final int k = matrix.length;
 		final double[][] adj = new double[k - 1][k - 1];
 		for (int i = 0; i < a; i++) {
@@ -39,14 +39,14 @@ public interface IMatrixTrix {
 		return adj;
 	}
 
-	default double det(double[][] matrix) {
+	default double det(final double[][] matrix) {
 		double det = 0;
 		if (matrix.length == 1) {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
 			final double[][] adj = adjointMatrix(matrix, i, 0);
-			if (i % 2 == 0) {
+			if ((i % 2) == 0) {
 				det += det(adj) * matrix[i][0];
 			} else {
 				det += -det(adj) * matrix[i][0];
@@ -55,8 +55,8 @@ public interface IMatrixTrix {
 		return det;
 	}
 
-	default double[][] inverse(double[][] matrix) throws Throwable {
-		if (matrix.length == 1 && matrix[0].length == 1) {
+	default double[][] inverse(final double[][] matrix) throws Throwable {
+		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final double in = matrix[0][0];
 			if (in == 0.) {
 				throw new Throwable();

@@ -12,14 +12,14 @@ public interface IRegression {
 
 	void solveAndDraw(Color col, double[][] values, double precision);
 
-	static void drawInput(double[][] values) {
+	static void drawInput(final double[][] values) {
 		deprecated.proprietary.StdDraw.setPenRadius(0.01);
 		for (int i = 0; i < values[0].length; i += 1) {
 			deprecated.proprietary.StdDraw.point(values[0][i], values[1][i]);
 		}
 	}
 
-	static void preparePlot(double[][] values, int dimsX, int dimsY) {
+	static void preparePlot(final double[][] values, final int dimsX, final int dimsY) {
 		double min = values[1][0];
 		double max = values[1][0];
 

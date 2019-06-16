@@ -13,20 +13,21 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 
 	final IFiniteDimensionalFunctionSpace source;
 	final IFiniteDimensionalFunctionSpace target;
-	private double[][] genericMatrix;
-	private Map<Vector, Map<Vector, Double>> linearity;
+	private final double[][] genericMatrix;
+	private final Map<Vector, Map<Vector, Double>> linearity;
 
-	public FunctionSpaceOperator(IFiniteDimensionalFunctionSpace source, IFiniteDimensionalFunctionSpace target,
-			Map<Vector, Map<Vector, Double>> matrix) throws Throwable {
+	public FunctionSpaceOperator(final IFiniteDimensionalFunctionSpace source,
+			final IFiniteDimensionalFunctionSpace target, final Map<Vector, Map<Vector, Double>> matrix)
+			throws Throwable {
 		this.source = source;
 		this.target = target;
 		this.linearity = matrix;
-		genericMatrix = new double[target.dim()][source.dim()];
+		this.genericMatrix = new double[target.dim()][source.dim()];
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
 			for (final Vector vec2 : target.genericBaseToList()) {
-				genericMatrix[j][i] = target.product(vec1, vec2);
+				this.genericMatrix[j][i] = target.product(vec1, vec2);
 				j++;
 			}
 			i++;
@@ -34,28 +35,28 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 
 	@Override
-	public FiniteVector solve(Vector image) throws Throwable {
+	public FiniteVector solve(final Vector image) throws Throwable {
 		return null;
 	}
 
 	@Override
 	public EuclideanSpace getSource() {
-		return source;
+		return this.source;
 	}
 
 	@Override
 	public VectorSpace getTarget() {
-		return target;
+		return this.target;
 	}
 
 	@Override
 	public Map<Vector, Map<Vector, Double>> getLinearity() {
-		return linearity;
+		return this.linearity;
 	}
 
 	@Override
 	public double[][] getGenericMatrix() throws Throwable {
-		return genericMatrix;
+		return this.genericMatrix;
 	}
 
 }

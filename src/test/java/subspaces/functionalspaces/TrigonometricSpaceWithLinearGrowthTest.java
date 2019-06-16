@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
@@ -32,21 +33,23 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 	static Function staircaseFunction;
 	static Function staircaseFunction2;
+	static Function staircaseFunction3;
 	static Function identity;
 
 	static Vector staircaseFunctionToFourier;
 	static Vector staircaseFunction2ToFourier;
+	static Vector staircaseFunction3ToFourier;
 	static Vector identityToFourier;
 
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 50;
+	static int dim = 5;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		trigonometricFunctionSpace = SpaceGenerator.getInstance().getTrigonometricSpace(dim);
+		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(dim);
 
 		identity = new GenericFunction() {
 			@Override
@@ -151,20 +154,38 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		};
 
 		staircaseFunction2ToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction2);
+//		staircaseFunction2.plotCompare(left, right, (Function) staircaseFunction2ToFourier);
+		int length = (int) testValues2[0][testValues2[0].length - 1];
 
-		staircaseFunction2.plotCompare(left, right, (Function) staircaseFunction2ToFourier);
+		staircaseFunction3 = new GenericFunction() {
+			@Override
+			public double value(double input) throws Throwable {
+				double newx = -Math.PI + 2 * Math.PI * input / length;
+				return staircaseFunction2.value(newx);
+			}
+		};
+
+		staircaseFunction3ToFourier = new GenericFunction() {
+			@Override
+			public double value(double input) throws Throwable {
+				double newx = -Math.PI + 2 * Math.PI * input / length;
+				return ((Function) staircaseFunction2ToFourier).value(newx);
+			}
+		};
+
+		staircaseFunction3.plotCompare(0, length, (Function) staircaseFunction3ToFourier);
 
 		String ans = "";
 
-		for (Entry<Vector, Double> x : staircaseFunction2ToFourier.getCoordinates().entrySet()) {
-			ans += x.toString() + "\r";
+		for (Entry<Vector, Double> entry : staircaseFunction2ToFourier.getCoordinates().entrySet()) {
+			ans += entry.toString() + "\r";
 		}
 
 		System.out.println(ans);
 
 	}
 
-	@Test
+//	@Test
 	public void test3() throws Throwable {
 
 		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
@@ -185,7 +206,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 	}
 
-	@Test
+//	@Test
 	public void test4() throws Throwable {
 
 		final Function exp = new GenericFunction() {
@@ -247,6 +268,32 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			ans[1][i] = values.get(i)[1];
 		}
 		return ans;
+	}
+
+	protected double correlationCoefficient(double[] measured, double[] produced) {
+
+		return 0;
+	}
+
+	protected double covariance(double[] randomVar1, double[] randomVar2) {
+
+		return 0;
+	}
+
+	protected double expectedValue(double[] randomVar) {
+		double ans = 0;
+		for (double entry : randomVar) {
+			ans += entry;
+		}
+		return ans / randomVar.length;
+	}
+
+	protected Function standardDeviation() {
+		return null;
+	}
+
+	protected double mean() {
+		return 0;
 	}
 
 }

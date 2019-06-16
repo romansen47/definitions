@@ -23,23 +23,24 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public double product(Vector vec1, Vector vec2) throws Throwable {
-		if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple
-				&& ((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase()) {
+	public double product(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
+				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
 			return super.product(vec1, vec2);
 		} else {
-			return getIntegral((Function) vec1, (Function) vec2);
+			return this.getIntegral((Function) vec1, (Function) vec2);
 		}
 	}
 
-	public FiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right) throws Throwable {
+	public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right)
+			throws Throwable {
 		super(genericBase);
-		intervall = new double[2];
-		intervall[0] = left;
-		intervall[1] = right;
-		for (Vector vec : genericBase) {
-			Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
-			for (Vector otherVec : genericBase) {
+		this.intervall = new double[2];
+		this.intervall[0] = left;
+		this.intervall[1] = right;
+		for (final Vector vec : genericBase) {
+			final Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
+			for (final Vector otherVec : genericBase) {
 				if (vec == otherVec) {
 					tmpCoord.put(otherVec, 1.0);
 				} else {
@@ -52,47 +53,47 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public double[] getIntervall() {
-		return intervall;
+		return this.intervall;
 	}
 
 	@Override
 	public double getEpsilon() {
-		return eps;
+		return this.eps;
 	}
 
 	@Override
-	public Function stretch(Function vec, double r) throws Throwable {
+	public Function stretch(final Function vec, final double r) throws Throwable {
 		if (vec instanceof GenericFunction) {
 			return new GenericFunction() {
 				@Override
-				public double value(double input) throws Throwable {
+				public double value(final double input) throws Throwable {
 					return r * vec.value(input);
 				}
 			};
 		} else {
 			final Map<Vector, Double> coordinates = vec.getCoordinates();
 			final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
-			for (final Vector vec1 : getBase()) {
-				stretched.put(vec1, coordinates.get(getBaseVec(vec1)) * r);
+			for (final Vector vec1 : this.getBase()) {
+				stretched.put(vec1, coordinates.get(this.getBaseVec(vec1)) * r);
 			}
 			return new FunctionTuple(stretched);
 		}
 	}
 
 	@Override
-	public List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable {
-		List<Vector> newBase = new ArrayList<>();
-		for (Vector vec : base) {
-			Vector tmp = nullVec();
-			for (Vector vec2 : newBase) {
-				tmp = add(tmp, projection(vec, vec2));
+	public List<Vector> getOrthonormalBase(final List<Vector> base) throws Throwable {
+		final List<Vector> newBase = new ArrayList<>();
+		for (final Vector vec : base) {
+			Vector tmp = this.nullVec();
+			for (final Vector vec2 : newBase) {
+				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			Vector ans = normalize(add(vec, stretch(tmp, -1)));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, -1)));
 			newBase.add(ans);
 		}
-		for (Vector baseVec : newBase) {
-			Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
-			for (Vector otherBaseVec : newBase) {
+		for (final Vector baseVec : newBase) {
+			final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
+			for (final Vector otherBaseVec : newBase) {
 				if (baseVec.equals(otherBaseVec)) {
 					coordinates.put(baseVec, 1.);
 				} else {
@@ -108,7 +109,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public Vector nullVec() throws Throwable {
 		return new GenericFunction() {
 			@Override
-			public double value(double input) {
+			public double value(final double input) {
 				return 0.;
 			}
 		};

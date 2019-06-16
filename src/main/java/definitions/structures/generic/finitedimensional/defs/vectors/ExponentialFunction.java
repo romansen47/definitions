@@ -4,12 +4,12 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Functi
 
 public class ExponentialFunction extends FunctionTuple implements Function {
 
-	public ExponentialFunction(double[] coordinates) throws Throwable {
+	public ExponentialFunction(final double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
 
 	@Override
-	public double value(double input) {
+	public double value(final double input) {
 		return Math.exp(input);
 	}
 

@@ -18,26 +18,27 @@ public class GradientMinimizer implements IMinimizer {
 	final double stepsize;
 	final double precission;
 
-	public GradientMinimizer(double eps, double precission) {
-		stepsize = eps;
+	public GradientMinimizer(final double eps, final double precission) {
+		this.stepsize = eps;
 		this.precission = precission;
 	}
 
 	@Override
-	public IMatrix find(IFunction function, IMatrix init) throws Exception {
+	public IMatrix find(final IFunction function, final IMatrix init) throws Exception {
 		double norm = Double.MAX_VALUE;
 		final IMatrix tmp = new Matrix(init.getValues().clone());
 		final IDerivative derivative = new Derivative(function);
 		final IMatrix direction = derivative.jacobiMatrix(tmp);
-		while (norm > precission) {
-			norm = goAlongMinimizingDirection(derivative, tmp, direction.scaleBy(-1));
+		while (norm > this.precission) {
+			norm = this.goAlongMinimizingDirection(derivative, tmp, direction.scaleBy(-1));
 		}
 		return tmp;
 	}
 
-	private double goAlongMinimizingDirection(IDerivative derivative, IMatrix tmp, IMatrix direction) throws Exception {
+	private double goAlongMinimizingDirection(final IDerivative derivative, IMatrix tmp, final IMatrix direction)
+			throws Exception {
 		final IMatrix delta = derivative.jacobi(tmp).value(direction.scaleBy(-1));
-		tmp = tmp.add(delta.toUnit().scaleBy(getStepsize()));
+		tmp = tmp.add(delta.toUnit().scaleBy(this.getStepsize()));
 		return tmp.norm();
 	}
 
@@ -45,14 +46,14 @@ public class GradientMinimizer implements IMinimizer {
 	 * @return the stepsize
 	 */
 	public final double getStepsize() {
-		return stepsize;
+		return this.stepsize;
 	}
 
 	/**
 	 * @return the precission
 	 */
 	public double getPrecission() {
-		return precission;
+		return this.precission;
 	}
 
 }

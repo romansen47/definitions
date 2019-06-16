@@ -4,12 +4,12 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Functi
 
 public class Identity extends FunctionTuple implements Function {
 
-	public Identity(double[] coordinates) throws Throwable {
+	public Identity(final double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
 
 	@Override
-	public double value(double input) throws Throwable {
+	public double value(final double input) throws Throwable {
 		return input;// Math.pow(Math.PI, 2);
 	}
 

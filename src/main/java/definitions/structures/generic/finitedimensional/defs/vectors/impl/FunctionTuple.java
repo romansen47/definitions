@@ -7,11 +7,11 @@ import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 
 public class FunctionTuple extends Tuple implements Function {
 
-	public FunctionTuple(Map<Vector, Double> coordinates) throws Throwable {
+	public FunctionTuple(final Map<Vector, Double> coordinates) throws Throwable {
 		super(coordinates);
 	}
 
-	public FunctionTuple(double[] coordinates) throws Throwable {
+	public FunctionTuple(final double[] coordinates) throws Throwable {
 		super(coordinates);
 	}
 
@@ -25,10 +25,10 @@ public class FunctionTuple extends Tuple implements Function {
 //	}
 
 	@Override
-	public double value(double input) throws Throwable {
+	public double value(final double input) throws Throwable {
 		double ans = 0;
-		for (Vector fun : this.getCoordinates().keySet()) {
-			ans += ((Function) fun).value(input) * getCoordinates().get(fun);
+		for (final Vector fun : this.getCoordinates().keySet()) {
+			ans += ((Function) fun).value(input) * this.getCoordinates().get(fun);
 		}
 		return ans;
 	}

@@ -19,7 +19,7 @@ public class Main {
 	static final int DIMY = 300;
 	protected static double[][] values;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(final String[] args) throws IOException {
 
 		values = readFile(PATH);
 		final List<IRegression> linRegs = new ArrayList<>();
@@ -35,17 +35,17 @@ public class Main {
 		linRegs.get(0).solveAndDraw(Color.RED, values, 10.0);
 	}
 
-	protected static void printSortedList(List<IRegression> linRegs) {
+	protected static void printSortedList(final List<IRegression> linRegs) {
 		for (int i = 0; i < DEGREE; i++) {
 			System.out.println("Regression " + linRegs.get(i).getPolynomial().getDegree() + "-ter Ordnung: Abstand="
 					+ linRegs.get(i).getDistance());
 		}
 	}
 
-	public static List<Integer> evaluateList(List<IRegression> linRegs) {
+	public static List<Integer> evaluateList(final List<IRegression> linRegs) {
 		class SortByEval implements Comparator<IRegression> {
 			@Override
-			public int compare(IRegression o1, IRegression o2) {
+			public int compare(final IRegression o1, final IRegression o2) {
 				return (int) (o1.getDistance() - o2.getDistance());
 			}
 		}
@@ -57,7 +57,7 @@ public class Main {
 		return sortedMoves;
 	}
 
-	protected static double[][] readFile(String string) throws IOException {
+	protected static double[][] readFile(final String string) throws IOException {
 		final List<double[]> values = new ArrayList<>();
 		final BufferedReader br = new BufferedReader(new FileReader(string));
 		String line = "";

@@ -18,7 +18,7 @@ public class VectorGenerator implements IVectorGenerator {
 	}
 
 	@Override
-	public FiniteVector getFiniteVector(int dim) {
+	public FiniteVector getFiniteVector(final int dim) {
 		return new Tuple(dim);
 	}
 

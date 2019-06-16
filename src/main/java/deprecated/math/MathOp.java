@@ -11,7 +11,7 @@ public class MathOp implements IMathOp {
 		return instance;
 	}
 
-	public static IMathOp getInstance(double squareRootCorrectness) {
+	public static IMathOp getInstance(final double squareRootCorrectness) {
 		if (MathOp.instance == null) {
 			return new MathOp(squareRootCorrectness);
 		}
@@ -20,12 +20,12 @@ public class MathOp implements IMathOp {
 
 	private final double squareRootCorrectness;
 
-	public MathOp(double squareRootCorrectness) {
+	public MathOp(final double squareRootCorrectness) {
 		this.squareRootCorrectness = squareRootCorrectness;
 	}
 
 	public double getSquareRootCorrectness() {
-		return squareRootCorrectness;
+		return this.squareRootCorrectness;
 	}
 
 }
