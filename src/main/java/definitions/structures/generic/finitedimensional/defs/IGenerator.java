@@ -1,5 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -61,4 +62,12 @@ public interface IGenerator {
 	IMappingGenerator getMappinggenerator();
 
 	ISpaceGenerator getSpacegenerator();
+
+	void saveCoordinateSpaces() throws IOException;
+
+	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;
+
+	void saveFunctionSpaces() throws IOException;
+
+	void loadFunctionSpaces() throws IOException, ClassNotFoundException;
 }

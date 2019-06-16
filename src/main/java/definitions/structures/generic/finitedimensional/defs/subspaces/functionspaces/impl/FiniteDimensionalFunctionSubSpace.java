@@ -3,6 +3,9 @@
  */
 package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -22,10 +25,19 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Functi
  *
  */
 public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
-		implements IFiniteDimensionalFunctionSpace {
+		implements IFiniteDimensionalFunctionSpace, Serializable {
 
+	private static final long serialVersionUID = 8782137998323986519L;
+	
 	final double[] intervall;
+	
 	final double eps;
+	
+	final String PATH = "vectorSpaces.data";
+
+	FileOutputStream f_out = new FileOutputStream(PATH);
+
+	ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
 
 	public FiniteDimensionalFunctionSubSpace(final IFiniteDimensionalLinearMapping map,
 			final IFiniteDimensionalFunctionSpace superSpace) throws Throwable {
@@ -115,4 +127,5 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		}
 		return new FunctionTuple(nul);
 	}
+
 }

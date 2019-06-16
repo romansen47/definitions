@@ -112,12 +112,13 @@ public interface Function extends FiniteVector {
 	}
 
 	default Function getDerivative() throws Throwable {
+		final Function fun=this;
 		return new GenericFunction() {
 			double eps = 1.e-5;
 
 			@Override
 			public double value(final double input) throws Throwable {
-				return ((this).value(input + this.eps) - (this).value(input)) / this.eps;
+				return (fun.value(input + this.eps) - fun.value(input)) / this.eps;
 			}
 		};
 	}

@@ -1,5 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -7,7 +8,9 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 
-public class SpaceGenerator implements ISpaceGenerator {
+public class SpaceGenerator implements ISpaceGenerator,Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static ISpaceGenerator generator = null;
 
@@ -32,6 +35,7 @@ public class SpaceGenerator implements ISpaceGenerator {
 		return generator;
 	}
 
+
 	private SpaceGenerator() {
 		cachedCoordinateSpaces = new ConcurrentHashMap<>();
 		cachedFunctionSpaces = new ConcurrentHashMap<>();
@@ -44,6 +48,16 @@ public class SpaceGenerator implements ISpaceGenerator {
 			ans += cachedCoordinateSpaces.get(i).toString() + "\r";
 		}
 		return ans;
+	}
+
+	@Override
+	public void setCachedCoordinateSpaces(ISpaceGenerator gen) {
+		cachedCoordinateSpaces=gen.getCachedCoordinateSpaces();
+	}
+	
+	@Override
+	public void setCachedFunctionSpaces(ISpaceGenerator gen) {
+		cachedFunctionSpaces=gen.getCachedFunctionSpaces();
 	}
 
 }

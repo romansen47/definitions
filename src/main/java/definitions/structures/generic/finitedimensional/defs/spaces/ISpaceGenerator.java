@@ -1,10 +1,12 @@
 package definitions.structures.generic.finitedimensional.defs.spaces;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
@@ -15,6 +17,7 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.Monome;
 
 public interface ISpaceGenerator {
 
@@ -123,4 +126,25 @@ public interface ISpaceGenerator {
 		return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(tmpBase, -Math.PI, Math.PI);
 	}
 
+	void setCachedCoordinateSpaces(ISpaceGenerator readObject);
+
+	void setCachedFunctionSpaces(ISpaceGenerator gen);
+
+	default VectorSpace getPolynomialFunctionSpace(int maxDegree,double left,double right) throws Throwable {
+		int key=(int) (maxDegree*(1.e3+left)*(1.e3+right));
+		List<Vector> base = new ArrayList<>();
+		if (getCachedFunctionSpaces().containsKey(key)) {
+			return getCachedFunctionSpaces().get(key);
+		}
+		for (int i = 0; i < maxDegree + 1; i++) {
+			base.add(new Monome(i));
+		}
+		VectorSpace ans=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
+		getCachedFunctionSpaces().put(key,(IFiniteDimensionalFunctionSpace) ans);
+		return ans;
+	}
+	default VectorSpace getPolynomialSobolevSpace(int maxDegree,double left,double right) throws Throwable {
+		return (IFiniteDimensionalFunctionSpace) Generator.getGenerator()
+				.getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) getPolynomialFunctionSpace(maxDegree, left, right));
+	}
 }

@@ -38,17 +38,20 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		this.intervall = new double[2];
 		this.intervall[0] = left;
 		this.intervall[1] = right;
-		for (final Vector vec : genericBase) {
+		List<Vector> newBase=getOrthonormalBase(genericBase);
+		for (final Vector vec : newBase) {
 			final Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
-			for (final Vector otherVec : genericBase) {
+			for (final Vector otherVec : newBase) {
 				if (vec == otherVec) {
 					tmpCoord.put(otherVec, 1.0);
 				} else {
 					tmpCoord.put(otherVec, 0.0);
 				}
+//				tmpCoord.put(otherVec, product(vec,otherVec));
 			}
-			((Tuple) vec).setCoordinates(tmpCoord);
+			vec.setCoordinates(tmpCoord);
 		}
+		setBase(newBase);
 	}
 
 	@Override
@@ -105,6 +108,10 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		return newBase;
 	}
 
+	public Vector normalize(final Vector vec) throws Throwable {
+		return stretch((Function)vec, 1 / norm((Function)vec));
+	}
+	
 	@Override
 	public Vector nullVec() throws Throwable {
 		return new GenericFunction() {

@@ -15,15 +15,6 @@ public class FunctionTuple extends Tuple implements Function {
 		super(coordinates);
 	}
 
-//	@Override
-//	public Map<Vector, Double> getCoordinates(EuclideanSpace space) throws Throwable {
-//		Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
-//		for (Vector baseVec : space.genericBaseToList()) {
-//			newCoordinates.put(baseVec, space.product(this, baseVec));
-//		}
-//		return newCoordinates;
-//	}
-
 	@Override
 	public double value(final double input) throws Throwable {
 		double ans = 0;
