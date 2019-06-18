@@ -29,7 +29,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 5;
+	static final int dim = 4;
 
 	static Function normalizedIdentity;
 	static Function exp;

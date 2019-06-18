@@ -21,15 +21,6 @@ public abstract class GenericFunction implements Function {
 		return null;
 	}
 
-//	@Override
-//	public Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable {
-//		Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
-//		for (Vector baseVec : source.genericBaseToList()) {
-//			coordinates.put(baseVec, source.product(this,baseVec));
-//		}
-//		return coordinates;
-//	}
-
 	@Override
 	public Map<Vector, Double> getCoordinates(final EuclideanSpace space) throws Throwable {
 		final Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();

@@ -47,7 +47,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 				} else {
 					tmpCoord.put(otherVec, 0.0);
 				}
-//				tmpCoord.put(otherVec, product(vec,otherVec));
 			}
 			vec.setCoordinates(tmpCoord);
 		}

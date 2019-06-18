@@ -108,7 +108,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		for (final Vector baseVec : this.genericBase) {
 			coordinates.put(baseVec, this.product(vec, baseVec));
 		}
-		return this.get(coordinates);
+		return new FunctionTuple(coordinates);
 	}
 
 	@Override

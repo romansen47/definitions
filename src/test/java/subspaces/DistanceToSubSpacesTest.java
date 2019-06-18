@@ -18,12 +18,8 @@ import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGe
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSubSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Constant;
-import definitions.structures.generic.finitedimensional.defs.vectors.Cosine;
-import definitions.structures.generic.finitedimensional.defs.vectors.ExponentialFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.Sine;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class DistanceToSubSpacesTest {
 
@@ -48,17 +44,40 @@ public class DistanceToSubSpacesTest {
 
 		genericSpace = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(5);
 
-		sin = new Sine(genericSpace.genericBaseToList().get(0).getGenericCoordinates());
-		cos = new Cosine(genericSpace.genericBaseToList().get(1).getGenericCoordinates());
-		constant = new Constant(genericSpace.genericBaseToList().get(2).getGenericCoordinates(),
-				1 / Math.sqrt(2 * Math.PI));
-		identity = new FunctionTuple(genericSpace.genericBaseToList().get(3).getGenericCoordinates()) {
+		sin = new GenericFunction() {
+			@Override
+			public double value(double input) {
+				return Math.sin(input);
+			}
+		};
+		
+		cos = new GenericFunction() {
+			@Override
+			public double value(double input) {
+				return Math.cos(input);
+			}
+		};
+		
+		constant = new GenericFunction() {
+			@Override
+			public double value(double input) {
+				return 1 / Math.sqrt(2 * Math.PI);
+			}
+		};
+
+		identity = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return input;
 			}
 		};
-		exp = new ExponentialFunction(genericSpace.genericBaseToList().get(4).getGenericCoordinates());
+		
+		exp = new GenericFunction() {
+			@Override
+			public double value(double input) {
+				return Math.exp(input);
+			}
+		};
 
 		final List<Vector> list = new ArrayList<>();
 

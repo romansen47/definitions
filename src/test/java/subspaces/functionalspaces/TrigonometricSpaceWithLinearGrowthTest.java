@@ -44,7 +44,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 5;
+	static int dim = 4;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -127,8 +127,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		for (Entry<Vector, Double> x : staircaseFunctionToFourier.getCoordinates().entrySet()) {
 			ans += x.toString() + "\r";
 		}
-
-		System.out.println(ans);
 
 	}
 

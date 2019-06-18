@@ -20,7 +20,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	public FiniteDimensionalSobolevSpace(final IFiniteDimensionalFunctionSpace space) throws Throwable {
 		super(space.genericBaseToList(), space.getIntervall()[0], space.getIntervall()[1]);
-		final List<Vector> newBaseTmp = this.getOrthonormalBase(this.base);
+		final List<Vector> newBaseTmp = this.base;//this.getOrthonormalBase(this.base);
 		final List<Vector> newBase = new ArrayList<>();
 		final List<Vector> newCoordinates = Generator.getGenerator().getSpacegenerator()
 				.getFiniteDimensionalVectorSpace(this.dim).genericBaseToList();

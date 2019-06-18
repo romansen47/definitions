@@ -9,6 +9,8 @@ import java.util.Set;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
@@ -92,6 +94,9 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		final Map<Vector, Double> coordinates = new HashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.product(vec, baseVec));
+		}
+		if (vec instanceof GenericFunction) {
+			return new FunctionTuple(coordinates);
 		}
 		return this.get(coordinates);
 	}

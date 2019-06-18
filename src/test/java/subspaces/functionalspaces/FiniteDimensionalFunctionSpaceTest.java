@@ -96,7 +96,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test4() {
-		Assert.assertTrue(almostEqual(integral4, 2 * Math.sqrt(Math.PI)));
+		Assert.assertTrue(almostEqual(integral4, 0));
 	}
 
 	@Test

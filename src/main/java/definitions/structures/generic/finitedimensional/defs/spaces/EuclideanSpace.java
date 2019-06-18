@@ -40,7 +40,7 @@ public interface EuclideanSpace extends HilbertSpace {
 			}
 			return new Tuple(coordinates);
 		} else {
-			return ((VectorSpace) this).add(vec1, vec2);
+			return this.add(vec1, vec2);
 		}
 	}
 
@@ -55,7 +55,7 @@ public interface EuclideanSpace extends HilbertSpace {
 			}
 			return new Tuple(stretched);
 		}
-		return ((VectorSpace) this).stretch(vec, r);
+		return this.stretch(vec, r);
 	}
 
 	default Vector normalize(final Vector vec) throws Throwable {

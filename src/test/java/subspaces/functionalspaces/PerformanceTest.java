@@ -13,7 +13,7 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class PerformanceTest {
 
-	final static int max = 1000;
+	final static int max = 200;
 
 	static IFiniteDimensionalFunctionSpace space;
 
