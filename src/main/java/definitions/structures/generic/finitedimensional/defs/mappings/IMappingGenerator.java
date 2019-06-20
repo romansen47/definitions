@@ -8,18 +8,20 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.generic.finitedimensional.defs.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 
 public interface IMappingGenerator {
 
 	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) throws Throwable {
 
-		final Homomorphism ans = new LinearMapping(a.getTarget(), b.getSource()) {
+		final Homomorphism ans = new LinearMapping(b.getSource(),a.getTarget()) {
 
 			@Override
 			public Vector get(final Vector vec2) throws Throwable {
 				return b.get(a.get(vec2));
 			}
+
 
 			@Override
 			public Map<Vector, Double> getLinearity(final Vector vec1) {

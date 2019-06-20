@@ -3,6 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.math3.linear.LUDecomposition;
+import org.apache.commons.math3.linear.MatrixUtils;
+
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
@@ -16,7 +19,17 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 
-	Vector solve(Vector transformed) throws Throwable;
+	default FiniteVector solve(final Vector image) throws Throwable {
+		final double[][] matrix = this.getGenericMatrix();
+		final double[] imageVector = image.getGenericCoordinates();
+		try {
+			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(
+					MatrixUtils.createRealMatrix(matrix)).getSolver().solve(MatrixUtils.createRealVector(imageVector));
+			return new Tuple(apacheVector.toArray());
+		} catch (final Exception e) {
+			return null;
+		}
+	}
 
 	@Override
 	default Map<Vector, Double> getLinearity(final Vector vec1) throws Throwable {

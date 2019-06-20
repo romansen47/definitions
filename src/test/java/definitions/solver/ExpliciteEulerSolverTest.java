@@ -20,7 +20,6 @@ public class ExpliciteEulerSolverTest {
 
 	@Test
 	public void testSolve() throws Throwable {
-
 		Solver solver = new ExpliciteEulerSolver(fun, 0, 1.e-3);
 		Function solution = solver.solve();
 		solution.plot(-Math.PI, Math.PI);

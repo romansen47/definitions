@@ -9,12 +9,13 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.operators.DerivativeOperator;
 import deprecated.proprietary.StdDraw;
 
 public interface Function extends FiniteVector {
 
 	final static double eps = 1.e-3;
-
+	
 	final static Function one = new GenericFunction() {
 		@Override
 		public double value(double input) {

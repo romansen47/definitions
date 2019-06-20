@@ -48,19 +48,6 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements IFi
 	}
 
 	@Override
-	public FiniteVector solve(final Vector image) throws Throwable {
-		final double[][] matrix = this.getGenericMatrix();
-		final double[] imageVector = image.getGenericCoordinates();
-		try {
-			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(
-					MatrixUtils.createRealMatrix(matrix)).getSolver().solve(MatrixUtils.createRealVector(imageVector));
-			return new Tuple(apacheVector.toArray());
-		} catch (final Exception e) {
-			return null;
-		}
-	}
-
-	@Override
 	public String toString() {
 		String str = "";
 		double[][] matrix;

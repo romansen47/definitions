@@ -1,0 +1,1 @@
+package definitions.structures.generic.finitedimensional.defs.vectors.impl.operators;

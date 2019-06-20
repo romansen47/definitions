@@ -8,15 +8,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Homomorphism;
-import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.impl.FunctionSpaceOperator;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.operators.DerivativeOperator;
 
 public class DerivativesAndIntegrals {
 
@@ -28,7 +24,7 @@ public class DerivativesAndIntegrals {
 
 	final List<Function> testfunctions = new ArrayList<>();
 
-	final static int degree = 200;
+	final static int degree = 20;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -47,15 +43,21 @@ public class DerivativesAndIntegrals {
 		space = Generator.getGenerator().getTrigonometricSpace(degree);
 	}
 
-	@Test
+//	@Test
 	public void test() throws Throwable {
-		Homomorphism derivativeOperator = new LinearMapping(space, space) {
-			@Override
-			public Vector get(Vector vec2) throws Throwable {
-				return ((Function) vec2).getProjectionOfDerivative((IFiniteDimensionalFunctionSpace) space);
-			}
-		};
-		((Function) derivativeOperator.get(sine)).plotCompare(-1, 1, cosine);
+		Homomorphism derivativeOperator = new DerivativeOperator(space, space);
+		Vector derivative = derivativeOperator.get(sine);
+		((Function)derivative).plotCompare(-1,1,cosine);
+		Map<Vector, Map<Vector, Double>> test = derivativeOperator.getLinearity();
+		int i = 0;
+	}
+	
+	@Test
+	public void test2() throws Throwable {
+		Homomorphism derivativeOperator = new DerivativeOperator(space, space);
+		Vector derivative = ((DerivativeOperator)derivativeOperator).get(sine,5);
+		((Function)derivative).plotCompare(-1,1,cosine);//(Function) space.stretch(sine,-1));
+		
 	}
 
 }
