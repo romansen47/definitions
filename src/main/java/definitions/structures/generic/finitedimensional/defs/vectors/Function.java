@@ -148,7 +148,7 @@ public interface Function extends FiniteVector {
 			beta = betaNext;
 		}
 
-		StdDraw.save(Integer.toString(this.hashCode()) + ".png");
+//		StdDraw.save(Integer.toString(this.hashCode()) + ".png");
 
 	}
 
