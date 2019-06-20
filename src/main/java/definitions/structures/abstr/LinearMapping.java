@@ -14,4 +14,19 @@ public abstract class LinearMapping implements Homomorphism {
 		this.target = space2;
 	}
 
+	@Override
+	public Map<Vector, Map<Vector, Double>> getLinearity() throws Throwable {
+		return linearity;
+	}
+
+	@Override
+	public VectorSpace getSource() {
+		return source;
+	}
+
+
+	@Override
+	public VectorSpace getTarget() {
+		return target;
+	}
 }

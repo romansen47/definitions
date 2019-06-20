@@ -42,26 +42,11 @@ public class LinearMappingOnFunctionSpaceTest {
 					}
 				};
 			}
-
 			@Override
-			public Map<Vector, Double> getLinearity(Vector vec1) {
+			public Map<Vector, Double> getLinearity(Vector vec1) throws Throwable {
 				return null;
 			}
-
-			@Override
-			public Map<Vector, Map<Vector, Double>> getLinearity() {
-				return linearity;
-			}
-
-			@Override
-			public VectorSpace getTarget() {
-				return source;
-			}
-
-			@Override
-			public VectorSpace getSource() {
-				return target;
-			}
+			
 		};
 		map2 = new LinearMapping(space, space) {
 			@Override
@@ -73,25 +58,9 @@ public class LinearMappingOnFunctionSpaceTest {
 					}
 				};
 			}
-
 			@Override
-			public Map<Vector, Double> getLinearity(Vector vec1) {
+			public Map<Vector, Double> getLinearity(Vector vec1) throws Throwable {
 				return null;
-			}
-
-			@Override
-			public Map<Vector, Map<Vector, Double>> getLinearity() {
-				return linearity;
-			}
-
-			@Override
-			public VectorSpace getTarget() {
-				return source;
-			}
-
-			@Override
-			public VectorSpace getSource() {
-				return target;
 			}
 		};
 

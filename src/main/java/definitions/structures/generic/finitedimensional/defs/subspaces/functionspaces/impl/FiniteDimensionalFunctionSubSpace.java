@@ -111,13 +111,13 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		return new FunctionTuple(coordinates);
 	}
 
-	@Override
-	public double product(final Vector vec1, final Vector vec2) throws Throwable {
-		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			return this.getIntegral((Function) vec1, (Function) vec2);
-		}
-		throw new Throwable();
-	}
+//	@Override
+//	public double product(final Vector vec1, final Vector vec2) throws Throwable {
+//		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
+//			return this.getIntegral((Function) vec1, (Function) vec2);
+//		}
+//		throw new Throwable();
+//	}
 
 	@Override
 	public Function nullFunction() throws Throwable {

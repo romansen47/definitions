@@ -5,6 +5,7 @@ import java.util.Set;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 
 public interface FiniteVector extends Vector {
 
@@ -25,5 +26,9 @@ public interface FiniteVector extends Vector {
 	Set<Vector> getGenericBase() throws Throwable;
 
 	Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable;
+
+	default Function getProjection(EuclideanSpace source) throws Throwable{
+		return new FunctionTuple(getCoordinates(source));
+	}
 
 }

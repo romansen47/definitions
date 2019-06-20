@@ -11,7 +11,6 @@ import definitions.structures.generic.finitedimensional.defs.subspaces.functions
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
@@ -28,7 +27,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
 			return super.product(vec1, vec2);
 		} else {
-			return this.getIntegral((Function) vec1, (Function) vec2);
+			return getIntegral((Function) vec1, (Function) vec2);
 		}
 	}
 
@@ -119,16 +118,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 				return 0.;
 			}
 		};
-//		return nullFunction();
 	}
-
-//	@Override
-//	public Vector getCoordinates(Vector vec) throws Throwable {
-//		Map<Vector, Double> coordinates = new HashMap<>();
-//		for (Vector baseVec : genericBaseToList()) {
-//			coordinates.put(baseVec, product(vec, baseVec));
-//		}
-//		return get(coordinates);
-//	}
 
 }

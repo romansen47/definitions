@@ -2,25 +2,19 @@ package definitions.structures.generic.finitedimensional.defs.mappings.impl;
 
 import java.util.Map;
 
+import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 
-public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearMapping {
-
-	final IFiniteDimensionalFunctionSpace source;
-	final IFiniteDimensionalFunctionSpace target;
-	private final double[][] genericMatrix;
-	private final Map<Vector, Map<Vector, Double>> linearity;
+public class FunctionSpaceOperator extends LinearMapping implements IFiniteDimensionalLinearMapping {
 
 	public FunctionSpaceOperator(final IFiniteDimensionalFunctionSpace source,
 			final IFiniteDimensionalFunctionSpace target, final Map<Vector, Map<Vector, Double>> matrix)
 			throws Throwable {
-		this.source = source;
-		this.target = target;
+		super(source,target);
 		this.linearity = matrix;
 		this.genericMatrix = new double[target.dim()][source.dim()];
 		int i = 0;
@@ -40,7 +34,7 @@ public class FunctionSpaceOperator implements IFiniteDimensionalInjectiveLinearM
 	}
 
 	@Override
-	public EuclideanSpace getSource() {
+	public VectorSpace getSource() {
 		return this.source;
 	}
 

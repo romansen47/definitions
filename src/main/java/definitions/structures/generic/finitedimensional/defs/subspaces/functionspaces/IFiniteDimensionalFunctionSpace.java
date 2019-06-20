@@ -6,31 +6,16 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
-public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace {
+public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace,FunctionSpace {
 
-	double[] getIntervall();
-
-	default double getIntegral(final Function vec1, final Function vec2) throws Throwable {
-		final double left = getIntervall()[0];
-		final double right = getIntervall()[1];
-		final double eps = (right - left) * getEpsilon();
-		double ans = 0;
-		double x = left;
-		while (x < right) {
-			ans += vec1.value(x) * vec2.value(x);
-			x += eps;
-		}
-		return ans * eps;
-	}
-
-	double getEpsilon();
-
+	
 	@Override
 	default Vector getBaseVec(final Vector baseVec) throws Throwable {
 		for (final Vector vec : genericBaseToList()) {

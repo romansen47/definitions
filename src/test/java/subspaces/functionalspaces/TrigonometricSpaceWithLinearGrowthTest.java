@@ -44,7 +44,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 4;
+	static int dim = 2;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -122,12 +122,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		staircaseFunction.plotCompare(left, right, (Function) staircaseFunctionToFourier);
 
-		String ans = "";
-
-		for (Entry<Vector, Double> x : staircaseFunctionToFourier.getCoordinates().entrySet()) {
-			ans += x.toString() + "\r";
-		}
-
 	}
 
 	@Test
@@ -152,7 +146,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		};
 
 		staircaseFunction2ToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction2);
-//		staircaseFunction2.plotCompare(left, right, (Function) staircaseFunction2ToFourier);
+
 		int length = (int) testValues2[0][testValues2[0].length - 1];
 
 		staircaseFunction3 = new GenericFunction() {
@@ -179,32 +173,18 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			ans += entry.toString() + "\r";
 		}
 
-		System.out.println(ans);
-
 	}
 
-//	@Test
+	@Test
 	public void test3() throws Throwable {
 
 		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
 
 		identity.plotCompare(left, right, (Function) identityToFourier);
 
-		String ans = "";
-
-		for (Entry<Vector, Double> x : identityToFourier.getCoordinates().entrySet()) {
-			ans += x.toString() + "\r";
-		}
-
-		System.out.println(identity.value(1));
-
-		System.out.println(ans);
-
-		System.out.println(((Function) identityToFourier).value(1));
-
 	}
 
-//	@Test
+	@Test
 	public void test4() throws Throwable {
 
 		final Function exp = new GenericFunction() {
@@ -218,7 +198,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 	}
 
-//	@Test
+	@Test
 	public void test5() throws Throwable {
 
 		List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();
@@ -243,8 +223,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		final BufferedReader br = new BufferedReader(new FileReader(string));
 		String line = "";
 		LocalDate firstDate = null;
-		try {
-			while ((line = br.readLine()) != null) {
+		while ((line = br.readLine()) != null) {
 				final String[] parts = line.split(";");
 				String[] tmpdate = parts[0].split("-");
 				final LocalDate date = LocalDate.of(Integer.parseInt(tmpdate[0]), Integer.parseInt(tmpdate[1]),
@@ -257,9 +236,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				tmp[1] = Double.parseDouble(parts[1]);
 				values.add(tmp);
 			}
-		} finally {
-			br.close();
-		}
 		final double[][] ans = new double[2][values.size()];
 		for (int i = 0; i < values.size(); i++) {
 			ans[0][i] = values.get(i)[0];

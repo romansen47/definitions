@@ -65,7 +65,7 @@ public class MappingGenerator implements IMappingGenerator {
 	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
 		if (source instanceof IFiniteDimensionalFunctionSpace) {
-			return new FunctionSpaceOperator((IFiniteDimensionalFunctionSpace) source,
+			return new InjectiveFunctionSpaceOperator((IFiniteDimensionalFunctionSpace) source,
 					(IFiniteDimensionalFunctionSpace) target, coordinates);
 		}
 		final int dimSource = source.dim();
