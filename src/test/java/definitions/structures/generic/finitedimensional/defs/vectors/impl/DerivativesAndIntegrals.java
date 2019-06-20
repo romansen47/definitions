@@ -22,38 +22,40 @@ public class DerivativesAndIntegrals {
 
 	static Function sine;
 
+	static Function cosine;
+
 	static VectorSpace space;
 
 	final List<Function> testfunctions = new ArrayList<>();
+
+	final static int degree = 200;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 		sine = new GenericFunction() {
 			@Override
 			public double value(double value) {
-				return Math.sin(value*Math.PI);
+				return Math.sin(value * Math.PI);
 			}
 		};
-		space=Generator.getGenerator().getTrigonometricSpace(20);
+		cosine = new GenericFunction() {
+			@Override
+			public double value(double value) {
+				return Math.cos(value * Math.PI) * Math.PI;
+			}
+		};
+		space = Generator.getGenerator().getTrigonometricSpace(degree);
 	}
 
 	@Test
 	public void test() throws Throwable {
-		Function asTuple=sine.getProjection((EuclideanSpace) space);		
-		Function derivative=asTuple.getProjectionOfDerivative((IFiniteDimensionalFunctionSpace) space);
-		Homomorphism derivativeOperator=new LinearMapping(space, space) {
+		Homomorphism derivativeOperator = new LinearMapping(space, space) {
 			@Override
 			public Vector get(Vector vec2) throws Throwable {
-				return ((Function)vec2).getProjectionOfDerivative((IFiniteDimensionalFunctionSpace) space);
-			}
-
-			@Override
-			public Map<Vector, Double> getLinearity(Vector vec1) throws Throwable {
-				return null;
+				return ((Function) vec2).getProjectionOfDerivative((IFiniteDimensionalFunctionSpace) space);
 			}
 		};
-		((Function)derivativeOperator.get(asTuple)).plotCompare(-1,1,derivative);
-		
+		((Function) derivativeOperator.get(sine)).plotCompare(-1, 1, cosine);
 	}
-	
+
 }
