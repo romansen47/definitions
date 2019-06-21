@@ -70,6 +70,10 @@ public interface ISpaceGenerator {
 	default IFiniteDimensionalFunctionSpace getTrigonometricSpace(final int n) throws Throwable {
 		return new TrigonometricSpace(n, -Math.PI, Math.PI);
 	}
+	
+	default IFiniteDimensionalFunctionSpace getTrigonometricSobolevSpace(final int n) throws Throwable {
+		return new TrigonometricSobolevSpace(n, -Math.PI, Math.PI);
+	}
 
 	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(
 			final IFiniteDimensionalFunctionSpace space) throws Throwable {

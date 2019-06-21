@@ -102,7 +102,7 @@ public interface EuclideanSpace extends HilbertSpace {
 	}
 
 	/**
-	 * Method to clone a vector.
+	 * Method to clone a vector. Transformes instances of generic functions to function tuples in concrete space.
 	 * 
 	 * @param vec the vector to clone.
 	 * @return copy of vec.

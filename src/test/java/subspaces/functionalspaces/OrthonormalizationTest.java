@@ -15,7 +15,7 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class OrthonormalizationTest {
 
-	final double eps = 1.e-5;
+	final double eps = 1.e-3;
 
 	static EuclideanSpace space;
 	static EuclideanSpace space2;
@@ -70,7 +70,7 @@ public class OrthonormalizationTest {
 		Assert.assertTrue(Math.abs(space.norm(c) - 1) < eps);
 	}
 
-//	@Test
+	@Test
 	public void exponential() throws Throwable {
 		final Vector exp = new GenericFunction() {
 			@Override

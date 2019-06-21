@@ -23,7 +23,7 @@ public class PolynomeRegressionTest {
 	static IFiniteDimensionalFunctionSpace space=null;
 	static IFiniteDimensionalFunctionSpace newSpace=null;
 	
-	private static int maxDegree=4;
+	private static int maxDegree=10;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -48,7 +48,7 @@ public class PolynomeRegressionTest {
 		
 		space=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
 		
-		newSpace=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) space);
+//		newSpace=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) space);
 		
 	}
 	
@@ -62,12 +62,12 @@ public class PolynomeRegressionTest {
 		Function ans=new FunctionTuple(exp.getCoordinates(space));
 		ans.plotCompare(left, right, exp);
 	}
-	@Test
+//	@Test
 	public void sinTest2() throws Throwable {
 		Function ans=new FunctionTuple(sin.getCoordinates(newSpace));
 		ans.plotCompare(left, right, sin);
 	}
-	@Test
+//	@Test
 	public void expTest2() throws Throwable {
 		Function ans=new FunctionTuple(exp.getCoordinates(newSpace));
 		ans.plotCompare(left, right, exp);

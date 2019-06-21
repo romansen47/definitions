@@ -17,6 +17,9 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			throws Throwable {
 		super(genericBase, left, right);
 	}
+	
+	protected FiniteDimensionalSobolevSpace() throws Throwable{
+	}
 
 	public FiniteDimensionalSobolevSpace(final IFiniteDimensionalFunctionSpace space) throws Throwable {
 		super(space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1]);

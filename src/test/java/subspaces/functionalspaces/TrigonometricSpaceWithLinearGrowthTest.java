@@ -44,7 +44,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 2;
+	static int dim = 3;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {

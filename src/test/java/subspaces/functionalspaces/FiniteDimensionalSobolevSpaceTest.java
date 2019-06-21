@@ -112,7 +112,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
 				.getTrigonometricFunctionSpaceWithLinearGrowth(dim, normalizedIdentity);
 
-		sobolevSpace = new FiniteDimensionalSobolevSpace(trigonometricFunctionSpace);
+		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim);
 
 		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
 
