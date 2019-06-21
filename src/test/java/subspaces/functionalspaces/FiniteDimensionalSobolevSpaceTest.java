@@ -114,17 +114,17 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim);
 
-		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
+//		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
 
-		expToSobolevFourierCoordinates = sobolevSpace.copyVector(exp);
+		expToSobolevFourierCoordinates = sobolevSpace.getCoordinates(exp);
 
-		newAbs = sobolevSpace.copyVector(abs);
+		newAbs = sobolevSpace.getCoordinates(abs);
 
 		staircaseFunctionToFourier = sobolevSpace
-				.copyVector(trigonometricFunctionSpace.copyVector(staircaseFunction));
+				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction));
 
 		staircaseFunction2ToFourier = sobolevSpace
-				.copyVector(trigonometricFunctionSpace.copyVector(staircaseFunction2));
+				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction2));
 
 	}
 

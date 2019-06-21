@@ -61,7 +61,7 @@ public class PerformanceTest {
 
 	@Test
 	public void identity() throws Throwable {
-		final Vector toFourier = space.copyVector(parabel);
+		final Vector toFourier = space.getCoordinates(parabel);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		parabel.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
 		final double ans = space.getDistance((Function) toFourier, parabel);
@@ -70,7 +70,7 @@ public class PerformanceTest {
 
 	@Test
 	public void abs() throws Throwable {
-		final Vector toFourier = space.copyVector(abs);
+		final Vector toFourier = space.getCoordinates(abs);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		abs.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
 		final double ans = space.getDistance((Function) toFourier, abs);
@@ -79,7 +79,7 @@ public class PerformanceTest {
 
 	@Test
 	public void exp() throws Throwable {
-		final Vector toFourier = space.copyVector(exp);
+		final Vector toFourier = space.getCoordinates(exp);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		exp.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
 		final double ans = space.getDistance((Function) toFourier, exp);
@@ -88,7 +88,7 @@ public class PerformanceTest {
 
 	@Test
 	public void symExp() throws Throwable {
-		final Vector toFourier = space.copyVector(symExp);
+		final Vector toFourier = space.getCoordinates(symExp);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		symExp.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
 		final double ans = space.getDistance((Function) toFourier, symExp);
@@ -97,7 +97,7 @@ public class PerformanceTest {
 
 	@Test
 	public void circle() throws Throwable {
-		final Vector toFourier = space.copyVector(circle);
+		final Vector toFourier = space.getCoordinates(circle);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		circle.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
 		final double ans = space.getDistance((Function) toFourier, circle);

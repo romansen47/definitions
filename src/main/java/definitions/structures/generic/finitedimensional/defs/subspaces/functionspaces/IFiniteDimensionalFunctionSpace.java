@@ -69,5 +69,5 @@ public interface IFiniteDimensionalFunctionSpace extends EuclideanSpace,Function
 	}
 
 	@Override
-	Vector copyVector(Vector vec) throws Throwable;
+	Vector getCoordinates(Vector vec) throws Throwable;
 }

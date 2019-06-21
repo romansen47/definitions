@@ -109,7 +109,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public Vector copyVector(final Vector vec) throws Throwable {
+	public Vector getCoordinates(final Vector vec) throws Throwable {
 		final Map<Vector, Double> coordinates = new HashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.product(vec, baseVec));

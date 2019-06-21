@@ -102,13 +102,13 @@ public interface EuclideanSpace extends HilbertSpace {
 	}
 
 	/**
-	 * Method to clone a vector. Transformes instances of generic functions to function tuples in concrete space.
+	 * Method to project a vector. Transformes instances of generic functions to function tuples in concrete space.
 	 * 
 	 * @param vec the vector to clone.
 	 * @return copy of vec.
 	 * @throws Throwable
 	 */
-	Vector copyVector(Vector vec) throws Throwable;
+	Vector getCoordinates(Vector vec) throws Throwable;
 
 	/**
 	 * Method to compute the distance between two vectors.
