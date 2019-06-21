@@ -118,7 +118,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			}
 		};
 
-		staircaseFunctionToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction);
+		staircaseFunctionToFourier = extendedTrigonometricFunctionSpace.copyVector(staircaseFunction);
 
 		staircaseFunction.plotCompare(left, right, (Function) staircaseFunctionToFourier);
 
@@ -145,7 +145,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		};
 
-		staircaseFunction2ToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction2);
+		staircaseFunction2ToFourier = extendedTrigonometricFunctionSpace.copyVector(staircaseFunction2);
 
 		int length = (int) testValues2[0][testValues2[0].length - 1];
 
@@ -178,7 +178,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	@Test
 	public void test3() throws Throwable {
 
-		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
+		identityToFourier = extendedTrigonometricFunctionSpace.copyVector(identity);
 
 		identity.plotCompare(left, right, (Function) identityToFourier);
 
@@ -193,7 +193,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				return Math.exp(input);
 			}
 		};
-		final Function ans = (Function) extendedTrigonometricFunctionSpace.getCoordinates(exp);
+		final Function ans = (Function) extendedTrigonometricFunctionSpace.copyVector(exp);
 		exp.plotCompare(left, right, ans);
 
 	}

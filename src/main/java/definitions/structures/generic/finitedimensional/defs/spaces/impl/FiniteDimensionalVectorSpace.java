@@ -13,15 +13,36 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Functi
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
+/**
+ * 
+ * @author RoManski
+ *
+ * Conrete implementation of a finite dimensional vector space.
+ */
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
+	/**
+	 * the base.
+	 */
 	protected List<Vector> base;
 
+	/**
+	 * the dimension.
+	 */
 	protected int dim;
 
+	/**
+	 * Plain constructor.
+	 * @throws Throwable
+	 */
 	protected FiniteDimensionalVectorSpace() throws Throwable {
 	}
 
+	/**
+	 * Generator using a linear independent set of vectors.
+	 * @param genericBase the set of vectors.
+	 * @throws Throwable
+	 */
 	public FiniteDimensionalVectorSpace(final List<Vector> genericBase) throws Throwable {
 		this.dim = genericBase.size();
 		this.base = genericBase;
@@ -58,7 +79,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public List<Vector> genericBaseToList() throws Throwable {
-		return this.getBase();
+		return base;
 	}
 
 	@Override
@@ -72,25 +93,23 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	/**
-	 * @return the base
+	 * setter for the base.
+	 * @param newBase the new base.
 	 */
-	public List<Vector> getBase() {
-		return this.base;
-	}
-
 	protected void setBase(final List<Vector> newBase) {
 		this.base = newBase;
 	}
 
 	/**
-	 * @return the dim
+	 * Getter for the dimension.
+	 * @return the dimension.
 	 */
 	protected int getDim() {
 		return this.dim;
 	}
 
 	@Override
-	public Vector getCoordinates(final Vector vec) throws Throwable {
+	public Vector copyVector(final Vector vec) throws Throwable {
 		final Map<Vector, Double> coordinates = new HashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.product(vec, baseVec));
@@ -129,9 +148,14 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	@Override
 	public String toString() {
 		String ans = "";
-		for (final Vector vec : this.getBase()) {
-			ans += vec.toString();
+		try {
+			for (final Vector vec : this.genericBaseToList()) {
+				ans += vec.toString();
+			}
+			return ans;
+		} catch (Throwable e) {
+			e.printStackTrace();
 		}
-		return ans;
+		return super.toString();
 	}
 }

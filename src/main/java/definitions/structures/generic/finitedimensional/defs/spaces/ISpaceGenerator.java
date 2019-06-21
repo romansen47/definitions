@@ -1,6 +1,5 @@
 package definitions.structures.generic.finitedimensional.defs.spaces;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +47,7 @@ public interface ISpaceGenerator {
 	default IFiniteDimensionalFunctionSpace getFiniteDimensionalFunctionSpace(final List<Vector> genericBase,
 			final double left, final double right) throws Throwable {
 		final IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
-		if ((space != null) && (space.getIntervall()[0] == left) && (space.getIntervall()[1] == right)) {
+		if ((space != null) && (space.getInterval()[0] == left) && (space.getInterval()[1] == right)) {
 			return space;
 		}
 		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(genericBase, left, right);
@@ -59,8 +58,8 @@ public interface ISpaceGenerator {
 	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(final List<Vector> genericBase,
 			final double left, final double right) throws Throwable {
 		final IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
-		if ((space != null) && (space instanceof FiniteDimensionalSobolevSpace) && (space.getIntervall()[0] == left)
-				&& (space.getIntervall()[1] == right)) {
+		if ((space != null) && (space instanceof FiniteDimensionalSobolevSpace) && (space.getInterval()[0] == left)
+				&& (space.getInterval()[1] == right)) {
 			return space;
 		}
 		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right);
@@ -139,12 +138,12 @@ public interface ISpaceGenerator {
 		for (int i = 0; i < maxDegree + 1; i++) {
 			base.add(new Monome(i));
 		}
-		VectorSpace ans=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
+		VectorSpace ans=Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
 		getCachedFunctionSpaces().put(key,(IFiniteDimensionalFunctionSpace) ans);
 		return ans;
 	}
 	default VectorSpace getPolynomialSobolevSpace(int maxDegree,double left,double right) throws Throwable {
-		return (IFiniteDimensionalFunctionSpace) Generator.getGenerator()
+		return Generator.getGenerator()
 				.getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) getPolynomialFunctionSpace(maxDegree, left, right));
 	}
 }

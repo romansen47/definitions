@@ -2,16 +2,11 @@ package definitions.structures.generic.finitedimensional.defs.mappings.impl;
 
 import java.util.Map;
 
-import org.apache.commons.math3.linear.LUDecomposition;
-import org.apache.commons.math3.linear.MatrixUtils;
-
 import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public class FiniteDimensionalLinearMapping extends LinearMapping implements IFiniteDimensionalLinearMapping {
 
@@ -22,9 +17,9 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements IFi
 		this.genericMatrix = new double[((EuclideanSpace) this.getTarget()).dim()][((EuclideanSpace) this.getSource())
 				.dim()];
 		int i = 0;
-		for (final Vector vec1 : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
+		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
-			for (final Vector vec2 : ((EuclideanSpace) this.getTarget()).genericBaseToList()) {
+			for (final Vector vec2 : target.genericBaseToList()) {
 				this.genericMatrix[j][i] = this.getLinearity(vec1).get(vec2);
 				j++;
 			}

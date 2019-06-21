@@ -2,7 +2,6 @@ package definitions.structures.generic.finitedimensional.defs.mappings.impl;
 
 import java.util.Map;
 
-import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalInjectiveLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;

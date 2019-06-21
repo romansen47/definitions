@@ -44,12 +44,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 
 	default Map<Vector, Double> getInverseCoordinates(final Vector vec2) throws Throwable {
 		final Vector ans = getNearestVector(vec2);
-		// if (getSuperSpace().getDistance((FiniteVector) getParametrization().get(ans),
-		// vec2) < 1.e-5) {
 		return ans.getCoordinates();
-//		} else {
-//			return null;
-//		}
 	}
 
 	Map<Vector, Vector> getParametrizationBaseVectorMapping();
@@ -62,4 +57,5 @@ public interface ParameterizedSpace extends EuclideanSpace {
 		final Vector transformed = transposed.get(vec2);
 		return new Tuple(quadratic.solve(transformed).getCoordinates());
 	}
+	
 }

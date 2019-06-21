@@ -1,18 +1,19 @@
 package definitions.structures.generic.finitedimensional.defs.vectors;
 
 import java.awt.Color;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.LinearMapping;
+import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.operators.DerivativeOperator;
 import deprecated.proprietary.StdDraw;
 
-public interface Function extends FiniteVector {
+public interface Function extends Vector {
 
 	final static double eps = 1.e-3;
 	
@@ -43,10 +44,10 @@ public interface Function extends FiniteVector {
 
 	default boolean equals(final Function other, final IFiniteDimensionalFunctionSpace source) throws Throwable {
 		final int n = 100;
-		final double a = source.getIntervall()[0];
-		final double b = source.getIntervall()[1];
+		final double a = source.getInterval()[0];
+		final double b = source.getInterval()[1];
 		for (int i = 0; i < n; i++) {
-			if (value(a + ((i * (b - a)) / 99.)) != other.value(a + ((i * (b - a)) / 99.))) {
+			if (Math.abs(value(a + ((i * (b - a)) / 99.)) - other.value(a + ((i * (b - a)) / 99.)))>eps) {
 				return false;
 			}
 		}
@@ -91,10 +92,9 @@ public interface Function extends FiniteVector {
 		}
 	}
 
-	@SuppressWarnings("unused")
 	default void plotCompare(final double left, final double right, final Function fun) throws Throwable {
 
-		final int count = 1000;
+		final int count = 500;
 		final double delta = (right - left) / count;
 		double x = 0;
 		double min = value((right - left) / 2.);
@@ -160,6 +160,7 @@ public interface Function extends FiniteVector {
 			public double value(final double input) throws Throwable {
 				return (fun.value(input + eps) - fun.value(input)) / eps;
 			}
+
 		};
 	}
 
@@ -198,5 +199,17 @@ public interface Function extends FiniteVector {
 
 	default Function getProjectionOfDerivative(IFiniteDimensionalFunctionSpace space) throws Throwable {
 		return new FunctionTuple(this.getDerivative().getCoordinates(space));
+	}
+
+	default Map<Vector, Double> getCoordinates(final EuclideanSpace space) throws Throwable {
+		final Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : space.genericBaseToList()) {
+			newCoordinates.put(baseVec, space.product(this, baseVec));
+		}
+		return newCoordinates;
+	}
+	
+	default Function getProjection(EuclideanSpace source) throws Throwable{
+		return new FunctionTuple(getCoordinates(source));
 	}
 }

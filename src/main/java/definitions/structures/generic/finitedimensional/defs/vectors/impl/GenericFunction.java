@@ -1,7 +1,6 @@
 package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Vector;
@@ -17,10 +16,10 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
-	public Set<Vector> getGenericBase() throws Throwable {
+	public double[] getGenericCoordinates() throws Throwable {
 		return null;
 	}
-
+	
 	@Override
 	public Map<Vector, Double> getCoordinates(final EuclideanSpace space) throws Throwable {
 		final Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();

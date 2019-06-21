@@ -12,31 +12,38 @@ import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
+/**
+ * 
+ * @author RoManski
+ *
+ * Concrete implementation of a finite dimensional function space.
+ */
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		implements IFiniteDimensionalFunctionSpace {
 
-	protected double[] intervall;
+	/**
+	 * the interval.
+	 */
+	protected double[] interval;
+	
+	/**
+	 * The correctness parameter.
+	 */
 	protected final double eps = 1.e-4;
 
+	/**
+	 * Plain constructor.
+	 * @throws Throwable
+	 */
 	protected FiniteDimensionalFunctionSpace() throws Throwable {
 	}
 
-	@Override
-	public double product(final Vector vec1, final Vector vec2) throws Throwable {
-		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
-				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
-			return super.product(vec1, vec2);
-		} else {
-			return getIntegral((Function) vec1, (Function) vec2);
-		}
-	}
-
-	public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right)
+		public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right)
 			throws Throwable {
 		super(genericBase);
-		this.intervall = new double[2];
-		this.intervall[0] = left;
-		this.intervall[1] = right;
+		this.interval = new double[2];
+		this.interval[0] = left;
+		this.interval[1] = right;
 		List<Vector> newBase=getOrthonormalBase(genericBase);
 		for (final Vector vec : newBase) {
 			final Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
@@ -53,8 +60,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public double[] getIntervall() {
-		return this.intervall;
+	public double[] getInterval() {
+		return this.interval;
 	}
 
 	@Override
@@ -63,18 +70,28 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public Function stretch(final Function vec, final double r) throws Throwable {
+	public double product(final Vector vec1, final Vector vec2) throws Throwable {
+		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
+				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+			return super.product(vec1, vec2);
+		} else {
+			return getIntegral((Function) vec1, (Function) vec2);
+		}
+	}
+
+	@Override
+	public Function stretch(final Vector vec, final double r) throws Throwable {
 		if (vec instanceof GenericFunction) {
 			return new GenericFunction() {
 				@Override
 				public double value(final double input) throws Throwable {
-					return r * vec.value(input);
+					return r * ((Function)vec).value(input);
 				}
 			};
 		} else {
 			final Map<Vector, Double> coordinates = vec.getCoordinates();
 			final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
-			for (final Vector vec1 : this.getBase()) {
+			for (final Vector vec1 : base) {
 				stretched.put(vec1, coordinates.get(this.getBaseVec(vec1)) * r);
 			}
 			return new FunctionTuple(stretched);
@@ -106,8 +123,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		return newBase;
 	}
 
+	@Override
 	public Vector normalize(final Vector vec) throws Throwable {
-		return stretch((Function)vec, 1 / norm((Function)vec));
+		return stretch(vec, 1 / norm(vec));
 	}
 	
 	@Override

@@ -12,15 +12,18 @@ import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 
 public class PolynomeRegressionTest {
 
-	final static double left=-1;//-Math.PI;
-	final static double right=1;//Math.PI;
+	final static double left=-1;
+	final static double right=1;
+	
 	final static List<Vector> base=new ArrayList<>();
+	
 	static Function sin=null;
 	static Function exp=null;
 
 	static IFiniteDimensionalFunctionSpace space=null;
 	static IFiniteDimensionalFunctionSpace newSpace=null;
-	private static int maxDegree=5;
+	
+	private static int maxDegree=4;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -44,6 +47,7 @@ public class PolynomeRegressionTest {
 		}
 		
 		space=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
+		
 		newSpace=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) space);
 		
 	}

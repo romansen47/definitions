@@ -5,7 +5,7 @@ import java.util.Map;
 import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.Generator;
+import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 
 public class FunctionTuple extends Tuple implements Function {
@@ -40,5 +40,10 @@ public class FunctionTuple extends Tuple implements Function {
 				return null;
 			}
 		};
+	}
+
+	@Override
+	public Function getProjection(EuclideanSpace source) throws Throwable {
+		return Function.super.getProjection(source);
 	}
 }

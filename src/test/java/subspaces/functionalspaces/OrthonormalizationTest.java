@@ -78,7 +78,7 @@ public class OrthonormalizationTest {
 				return Math.exp(input);
 			}
 		};
-		final Vector x = space.getCoordinates(exp);
+		final Vector x = space.copyVector(exp);
 		final double y = (Math.exp(Math.PI) - Math.exp(-Math.PI)) / Math.sqrt(2 * Math.PI);
 		Assert.assertTrue(
 				Math.abs(x.getGenericCoordinates()[0] - y) < eps || Math.abs(x.getGenericCoordinates()[1] - y) < eps

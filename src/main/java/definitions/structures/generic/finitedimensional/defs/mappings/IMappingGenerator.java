@@ -8,7 +8,6 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 
 public interface IMappingGenerator {
@@ -25,7 +24,6 @@ public interface IMappingGenerator {
 
 			@Override
 			public Map<Vector, Double> getLinearity(final Vector vec1) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 

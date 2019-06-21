@@ -21,6 +21,12 @@ public class DerivativeOperator extends LinearMapping implements IFiniteDimensio
 	}
 	
 	public Vector get(Vector vec2,int degree) throws Throwable {
+		if (degree==0) {
+			return vec2;
+		}
+		if (degree==1) {
+			return get(vec2);
+		}
 		Homomorphism tmp=this;
 		for (int i=0;i<degree;i++) {
 			tmp=MappingGenerator.getInstance().getComposition(this, tmp);

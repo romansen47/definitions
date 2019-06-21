@@ -7,19 +7,50 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.HilbertSpace;
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
+/**
+ * 
+ * @author RoManski
+ *
+ *         An euclidean vector space is a finite dimensional hilbert space. It
+ *         is equipped with a base. The norm can be used to normalize vectors,
+ *         compute distances between vectors and generate an orthonormal base.
+ */
 public interface EuclideanSpace extends HilbertSpace {
 
+	/**
+	 * A base is an ordered set of linearly independent vectors.
+	 * 
+	 * @return the base as ordered base.
+	 * @throws Throwable
+	 */
 	List<Vector> genericBaseToList() throws Throwable;
 
+	/**
+	 * The base can be returned as an unordered set.
+	 * 
+	 * @return the base as a set.
+	 * @throws Throwable
+	 */
 	Set<Vector> getGenericBase() throws Throwable;
 
+	/**
+	 * The dimension of the space. This is the size of the base.
+	 * 
+	 * @return
+	 * @throws Throwable
+	 */
 	int dim() throws Throwable;
 
+	/**
+	 * Elements of the vector space can be created using a map (Vector -> double).
+	 * 
+	 * @param tmp the coordinates with respect to the base
+	 * @return the corresponding vector
+	 * @throws Throwable
+	 */
 	default Vector get(final Map<Vector, Double> tmp) throws Throwable {
 		Vector vec = nullVec();
 		for (final Vector basevec : genericBaseToList()) {
@@ -39,38 +70,28 @@ public interface EuclideanSpace extends HilbertSpace {
 						+ ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)));
 			}
 			return new Tuple(coordinates);
-		} else {
-			return this.add(vec1, vec2);
 		}
+		return null;
 	}
 
 	@Override
 	default Vector stretch(final Vector vec, final double r) throws Throwable {
-		if ((vec instanceof FiniteVector) && (vec.getDim() == dim())) {
-			final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
-			final Map<Vector, Double> coordinates = ((FiniteVector) vec).getCoordinates();
-			final List<Vector> base = genericBaseToList();
-			for (final Vector vec1 : base) {
-				stretched.put(vec1, coordinates.get(vec1) * r);
-			}
-			return new Tuple(stretched);
+		final Map<Vector, Double> stretched = new ConcurrentHashMap<>();
+		final Map<Vector, Double> coordinates = ((FiniteVector) vec).getCoordinates();
+		final List<Vector> base = genericBaseToList();
+		for (final Vector vec1 : base) {
+			stretched.put(vec1, coordinates.get(vec1) * r);
 		}
-		return this.stretch(vec, r);
+		return new Tuple(stretched);
 	}
 
-	default Vector normalize(final Vector vec) throws Throwable {
-		return stretch(vec, 1 / norm(vec));
-	}
-
-	default Vector get(final Vector vec) throws Throwable {
-		final Map<Vector, Double> map = new ConcurrentHashMap<>();
-		int i = 0;
-		for (final Vector baseVec : ((FiniteDimensionalVectorSpace) this).getBase()) {
-			map.put(baseVec, ((FiniteVector) vec).getGenericCoordinates()[i++]);
-		}
-		return get(map);
-	}
-
+	/**
+	 * Compare vectors in order to identify base vectors.
+	 * 
+	 * @param vec2
+	 * @return the base vector, if has same coordinates. Otherwise null.
+	 * @throws Throwable
+	 */
 	default Vector getBaseVec(final Vector vec2) throws Throwable {
 		for (final Vector vec : genericBaseToList()) {
 			if (vec2.equals(vec)) {
@@ -80,15 +101,35 @@ public interface EuclideanSpace extends HilbertSpace {
 		return null;
 	}
 
-	Vector getCoordinates(Vector vec) throws Throwable;
+	/**
+	 * Method to clone a vector.
+	 * 
+	 * @param vec the vector to clone.
+	 * @return copy of vec.
+	 * @throws Throwable
+	 */
+	Vector copyVector(Vector vec) throws Throwable;
 
-	default double getDistance(final Vector ans, final Vector vec2) throws Throwable {
-		final Vector diff = add(ans, (stretch(vec2, -1)));
+	/**
+	 * Method to compute the distance between two vectors.
+	 * 
+	 * @param vec1 first vector.
+	 * @param vec2 second vector.
+	 * @return the distance.
+	 * @throws Throwable
+	 */
+	default double getDistance(final Vector vec1, final Vector vec2) throws Throwable {
+		final Vector diff = add(vec1, (stretch(vec2, -1)));
 		return norm(diff);
 	}
 
+	/**
+	 * Method to create an orthonormal base.
+	 * 
+	 * @param the original base.
+	 * @return an orthonormal base of same span.
+	 * @throws Throwable
+	 */
 	List<Vector> getOrthonormalBase(List<Vector> base) throws Throwable;
-
-	Vector projection(Vector w, Vector v) throws Throwable;
 
 }

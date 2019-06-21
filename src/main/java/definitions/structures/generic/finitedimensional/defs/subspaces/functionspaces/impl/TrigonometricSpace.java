@@ -16,11 +16,11 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		final EuclideanSpace space = Generator.getGenerator().getSpacegenerator()
 				.getFiniteDimensionalVectorSpace(this.dim);
 		final List<Vector> coordinates = space.genericBaseToList();
-		this.intervall = new double[] { left, right };
+		this.interval = new double[] { left, right };
 		tmpBase.add(new GenericFunction() {
 			@Override
 			public double value(final double input) {
-				return 1. / Math.sqrt(2 * Math.PI);
+				return 1. / Math.sqrt(2*Math.PI);
 			}
 
 			@Override
