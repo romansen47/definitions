@@ -10,20 +10,22 @@ import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
+import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpace {
 
-	public FiniteDimensionalSobolevSpace(final List<Vector> genericBase, final double left, final double right)
-			throws Throwable {
+	final int degree;
+
+	public FiniteDimensionalSobolevSpace(final List<Vector> genericBase, final double left, final double right,
+			int degree) throws Throwable {
 		super(genericBase, left, right);
-	}
-	
-	protected FiniteDimensionalSobolevSpace() throws Throwable{
+		this.degree = degree;
 	}
 
-	public FiniteDimensionalSobolevSpace(final IFiniteDimensionalFunctionSpace space) throws Throwable {
+	public FiniteDimensionalSobolevSpace(final IFiniteDimensionalFunctionSpace space, int degree) throws Throwable {
 		super(space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1]);
-		final List<Vector> newBaseTmp = this.base;//this.getOrthonormalBase(this.base);
+		this.degree = degree;
+		final List<Vector> newBaseTmp = this.base;// this.getOrthonormalBase(this.base);
 		final List<Vector> newBase = new ArrayList<>();
 		final List<Vector> newCoordinates = Generator.getGenerator().getSpacegenerator()
 				.getFiniteDimensionalVectorSpace(this.dim).genericBaseToList();
@@ -51,6 +53,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		this.setBase(newBase);
 	}
 
+	public FiniteDimensionalSobolevSpace(int degree) throws Throwable{
+		this.degree=degree;
+	}
+
 	@Override
 	public double product(final Vector vec1, final Vector vec2) throws Throwable {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
@@ -58,8 +64,24 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 					&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
 				return super.product(vec1, vec2);
 			} else {
-				return super.product(vec1, vec2)
-						+ super.product(((Function) vec1).getDerivative(), ((Function) vec2).getDerivative());
+				double product=0;
+				Function tmp1=new GenericFunction() {
+					@Override
+					public double value(double input) throws Throwable {
+						return ((Function)vec1).value(input);
+					}
+				};
+				Function tmp2=new GenericFunction() {
+					@Override
+					public double value(double input) throws Throwable {
+						return ((Function)vec2).value(input);
+					}
+				};
+				for (int i=0;i<degree;i++) {
+					product+=super.product(tmp1,tmp2);
+					tmp1=tmp1.getDerivative();
+					tmp2=tmp2.getDerivative();
+				}
 			}
 		}
 		return super.product(vec1, vec2);

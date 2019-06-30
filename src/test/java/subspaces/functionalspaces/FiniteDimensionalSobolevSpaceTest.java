@@ -29,8 +29,10 @@ public class FiniteDimensionalSobolevSpaceTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 2;
+	static final int dim = 3;
 
+	static final int degree=3;
+	
 	static Function normalizedIdentity;
 	static Function exp;
 
@@ -112,7 +114,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
 				.getTrigonometricFunctionSpaceWithLinearGrowth(dim, normalizedIdentity);
 
-		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim);
+		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim,degree);
 
 		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
 

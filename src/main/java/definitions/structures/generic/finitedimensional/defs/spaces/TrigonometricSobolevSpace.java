@@ -11,7 +11,8 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Generi
 
 public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
-	public TrigonometricSobolevSpace(final int n, final double left, final double right) throws Throwable {
+	public TrigonometricSobolevSpace(final int n, final double left, final double right,int degree) throws Throwable {
+		super(degree);
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
 		final EuclideanSpace space = Generator.getGenerator().getSpacegenerator()

@@ -40,17 +40,17 @@ public interface IGenerator {
 		return getSpacegenerator().getFiniteDimensionalFunctionSpace(genericBase, left, right);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left, double right)
+	default VectorSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left, double right,final int degree)
 			throws Throwable {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(genericBase, left, right);
+		return getSpacegenerator().getFiniteDimensionalSobolevSpace(genericBase, left, right,degree);
 	}
 
 	default VectorSpace getTrigonometricSpace(int n) throws Throwable {
 		return getSpacegenerator().getTrigonometricSpace(n);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(IFiniteDimensionalFunctionSpace space) throws Throwable {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(space);
+	default VectorSpace getFiniteDimensionalSobolevSpace(IFiniteDimensionalFunctionSpace space,int degree) throws Throwable {
+		return getSpacegenerator().getFiniteDimensionalSobolevSpace(space,degree);
 	}
 
 	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n, Function fun) throws Throwable {

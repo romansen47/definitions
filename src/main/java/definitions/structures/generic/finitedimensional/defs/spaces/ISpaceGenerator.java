@@ -56,13 +56,13 @@ public interface ISpaceGenerator {
 	}
 
 	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(final List<Vector> genericBase,
-			final double left, final double right) throws Throwable {
+			final double left, final double right,final int degree) throws Throwable {
 		final IFiniteDimensionalFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
 		if ((space != null) && (space instanceof FiniteDimensionalSobolevSpace) && (space.getInterval()[0] == left)
 				&& (space.getInterval()[1] == right)) {
 			return space;
 		}
-		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right);
+		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right,degree);
 		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
 		return newSpace;
 	}
@@ -71,13 +71,13 @@ public interface ISpaceGenerator {
 		return new TrigonometricSpace(n, -Math.PI, Math.PI);
 	}
 	
-	default IFiniteDimensionalFunctionSpace getTrigonometricSobolevSpace(final int n) throws Throwable {
-		return new TrigonometricSobolevSpace(n, -Math.PI, Math.PI);
+	default IFiniteDimensionalFunctionSpace getTrigonometricSobolevSpace(final int n,final int degree) throws Throwable {
+		return new TrigonometricSobolevSpace(n, -Math.PI, Math.PI,degree);
 	}
 
 	default IFiniteDimensionalFunctionSpace getFiniteDimensionalSobolevSpace(
-			final IFiniteDimensionalFunctionSpace space) throws Throwable {
-		return new FiniteDimensionalSobolevSpace(space);
+			final IFiniteDimensionalFunctionSpace space,final int degree) throws Throwable {
+		return new FiniteDimensionalSobolevSpace(space,degree);
 	}
 
 	default IFiniteDimensionalFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(final int n,
@@ -146,8 +146,9 @@ public interface ISpaceGenerator {
 		getCachedFunctionSpaces().put(key,(IFiniteDimensionalFunctionSpace) ans);
 		return ans;
 	}
-	default VectorSpace getPolynomialSobolevSpace(int maxDegree,double left,double right) throws Throwable {
+	
+	default VectorSpace getPolynomialSobolevSpace(int maxDegree,double left,double right,int degree) throws Throwable {
 		return Generator.getGenerator()
-				.getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) getPolynomialFunctionSpace(maxDegree, left, right));
+				.getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) getPolynomialFunctionSpace(maxDegree, left, right),degree);
 	}
 }

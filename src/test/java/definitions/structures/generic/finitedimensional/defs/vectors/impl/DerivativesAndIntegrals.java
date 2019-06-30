@@ -28,6 +28,7 @@ public class DerivativesAndIntegrals {
 	final List<Function> testfunctions = new ArrayList<>();
 
 	final static int degree = 50;
+	final static int sobolevDegree=5;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -44,7 +45,7 @@ public class DerivativesAndIntegrals {
 			}
 		};
 		space = Generator.getGenerator().getTrigonometricSpace(degree);
-		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(degree);
+		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(degree,sobolevDegree);
 	}
 
 	@Test
