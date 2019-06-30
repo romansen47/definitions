@@ -27,7 +27,7 @@ public class DerivativesAndIntegrals {
 	static VectorSpace sobolevSpace;
 	final List<Function> testfunctions = new ArrayList<>();
 
-	final static int degree = 50;
+	final static int degree = 10;
 	final static int sobolevDegree=5;
 
 	@BeforeClass

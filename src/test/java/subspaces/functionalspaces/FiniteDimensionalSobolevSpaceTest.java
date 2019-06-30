@@ -31,7 +31,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	static final int dim = 3;
 
-	static final int degree=3;
+	static final int degree=2;
 	
 	static Function normalizedIdentity;
 	static Function exp;

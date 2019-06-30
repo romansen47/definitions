@@ -19,7 +19,7 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Generi
 
 public class PolynomialRegressionTest {
 
-	final static int maxDegree = 15;
+	final static int maxDegree = 6;
 	final static double left = -1;
 	final static double right = 1;
 	final static int degree = 2;
