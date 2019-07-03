@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import junit.framework.Assert;
@@ -15,7 +15,7 @@ public class PerformanceTest {
 
 	final static int max = 200;
 
-	static IFiniteDimensionalFunctionSpace space;
+	static EuclideanFunctionSpace space;
 
 	static Function parabel;
 	static Function abs;
@@ -64,7 +64,7 @@ public class PerformanceTest {
 		final Vector toFourier = space.getCoordinates(parabel);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		parabel.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
-		final double ans = space.getDistance((Function) toFourier, parabel);
+		final double ans = space.getDistance(toFourier, parabel);
 		Assert.assertTrue(ans < 0.1);
 	}
 
@@ -73,7 +73,7 @@ public class PerformanceTest {
 		final Vector toFourier = space.getCoordinates(abs);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		abs.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
-		final double ans = space.getDistance((Function) toFourier, abs);
+		final double ans = space.getDistance(toFourier, abs);
 		Assert.assertTrue(ans < 0.1);
 	}
 
@@ -82,7 +82,7 @@ public class PerformanceTest {
 		final Vector toFourier = space.getCoordinates(exp);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		exp.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
-		final double ans = space.getDistance((Function) toFourier, exp);
+		final double ans = space.getDistance(toFourier, exp);
 		Assert.assertTrue(ans < 5);
 	}
 
@@ -91,7 +91,7 @@ public class PerformanceTest {
 		final Vector toFourier = space.getCoordinates(symExp);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		symExp.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
-		final double ans = space.getDistance((Function) toFourier, symExp);
+		final double ans = space.getDistance(toFourier, symExp);
 		Assert.assertTrue(ans < 0.1);
 	}
 
@@ -100,7 +100,7 @@ public class PerformanceTest {
 		final Vector toFourier = space.getCoordinates(circle);
 		// ((Function)toFourier).plot(-Math.PI,Math.PI);
 		circle.plotCompare(-Math.PI, Math.PI, ((Function) toFourier));
-		final double ans = space.getDistance((Function) toFourier, circle);
+		final double ans = space.getDistance(toFourier, circle);
 		Assert.assertTrue(ans < 0.1);
 	}
 

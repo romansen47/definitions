@@ -7,21 +7,22 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.FunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 import deprecated.proprietary.StdDraw;
 
 public interface Function extends Vector {
 
-	final static double eps = 1.e-3;
-	
-	final static Function one = new GenericFunction() {
+	double eps = 1.e-3;
+
+	Function one = new GenericFunction() {
 		@Override
 		public double value(double input) {
 			return 1.;
 		}
+
 		@Override
 		public String toString() {
 			return "1-function";
@@ -40,14 +41,14 @@ public interface Function extends Vector {
 		return Math.PI;
 	}
 
-	double value(double input) throws Throwable;
+	double value(double input);
 
-	default boolean equals(final Function other, final IFiniteDimensionalFunctionSpace source) throws Throwable {
+	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
 		final int n = 100;
 		final double a = source.getInterval()[0];
 		final double b = source.getInterval()[1];
 		for (int i = 0; i < n; i++) {
-			if (Math.abs(value(a + ((i * (b - a)) / 99.)) - other.value(a + ((i * (b - a)) / 99.)))>eps) {
+			if (Math.abs(value(a + ((i * (b - a)) / 99.)) - other.value(a + ((i * (b - a)) / 99.))) > eps) {
 				return false;
 			}
 		}
@@ -55,7 +56,7 @@ public interface Function extends Vector {
 	}
 
 	@SuppressWarnings("unused")
-	default void plot(final double left, final double right) throws Throwable {
+	default void plot(final double left, final double right) {
 
 		final int count = 1000;
 
@@ -92,7 +93,7 @@ public interface Function extends Vector {
 		}
 	}
 
-	default void plotCompare(final double left, final double right, final Function fun) throws Throwable {
+	default void plotCompare(final double left, final double right, final Function fun) {
 
 		final int count = 500;
 		final double delta = (right - left) / count;
@@ -135,8 +136,8 @@ public interface Function extends Vector {
 
 			z = left + (delta * i);
 
-			double alphaNext = value(z + delta);
-			double betaNext = fun.value(z + delta);
+			final double alphaNext = value(z + delta);
+			final double betaNext = fun.value(z + delta);
 
 			StdDraw.setPenRadius(0.0035);
 			StdDraw.setPenColor(Color.blue);
@@ -153,18 +154,18 @@ public interface Function extends Vector {
 
 	}
 
-	default Function getDerivative() throws Throwable {
+	default Function getDerivative() {
 		final Function fun = this;
 		return new GenericFunction() {
 			@Override
-			public double value(final double input) throws Throwable {
+			public double value(final double input) {
 				return (fun.value(input + eps) - fun.value(input)) / eps;
 			}
 
 		};
 	}
 
-	default Function getDerivative(int n) throws Throwable {
+	default Function getDerivative(int n) {
 		if (n < 0) {
 			return getPrimitiveIntegral(-n);
 		}
@@ -175,18 +176,18 @@ public interface Function extends Vector {
 		}
 	}
 
-	default Function getPrimitiveIntegral() throws Throwable {
-		EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getTrigonometricSpace(20);
+	default Function getPrimitiveIntegral() {
+		final EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getTrigonometricSpace(20);
 		final Function projection = getProjection(space);
 		return new FunctionTuple(new GenericFunction() {
 			@Override
-			public double value(double input) throws Throwable {
+			public double value(double input) {
 				return FunctionSpace.getIntegral(projection, one, left, input, eps);
 			}
 		}.getCoordinates(space));
 	}
 
-	default Function getPrimitiveIntegral(int n) throws Throwable {
+	default Function getPrimitiveIntegral(int n) {
 		if (n < 0) {
 			return getDerivative(-n);
 		}
@@ -197,19 +198,19 @@ public interface Function extends Vector {
 		}
 	}
 
-	default Function getProjectionOfDerivative(IFiniteDimensionalFunctionSpace space) throws Throwable {
+	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
 		return new FunctionTuple(this.getDerivative().getCoordinates(space));
 	}
 
-	default Map<Vector, Double> getCoordinates(final EuclideanSpace space) throws Throwable {
+	default Map<Vector, Double> getCoordinates(final EuclideanSpace space) {
 		final Map<Vector, Double> newCoordinates = new ConcurrentHashMap<>();
 		for (final Vector baseVec : space.genericBaseToList()) {
 			newCoordinates.put(baseVec, space.product(this, baseVec));
 		}
 		return newCoordinates;
 	}
-	
-	default Function getProjection(EuclideanSpace source) throws Throwable{
+
+	default Function getProjection(EuclideanSpace source) {
 		return new FunctionTuple(getCoordinates(source));
 	}
 }

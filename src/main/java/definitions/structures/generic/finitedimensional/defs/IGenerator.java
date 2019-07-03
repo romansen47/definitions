@@ -10,9 +10,9 @@ import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.IVectorGenerator;
+import exceptions.WrongClassException;
 
 public interface IGenerator {
 
@@ -22,39 +22,44 @@ public interface IGenerator {
 		return getVectorgenerator().getFiniteVector(dim);
 	}
 
-	default Homomorphism getFiniteDimensionalLinearMapping(double[][] genericMatrix) throws Throwable {
+	default Homomorphism getFiniteDimensionalLinearMapping(double[][] genericMatrix) {
 		return getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
 	}
 
 	default Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
-			Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
+			Map<Vector, Map<Vector, Double>> coordinates) {
 		return getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
-	default VectorSpace getFiniteDimensionalVectorSpace(int dim) throws Throwable {
+	default VectorSpace getFiniteDimensionalVectorSpace(int dim) {
 		return getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
-	default VectorSpace getFiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right)
-			throws Throwable {
+	default VectorSpace getFiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right) {
 		return getSpacegenerator().getFiniteDimensionalFunctionSpace(genericBase, left, right);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left, double right,final int degree)
-			throws Throwable {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(genericBase, left, right,degree);
+	default VectorSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left, double right,
+			final int degree) {
+		return getSpacegenerator().getFiniteDimensionalSobolevSpace(genericBase, left, right, degree);
 	}
 
-	default VectorSpace getTrigonometricSpace(int n) throws Throwable {
+	default VectorSpace getTrigonometricSpace(int n) {
 		return getSpacegenerator().getTrigonometricSpace(n);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(IFiniteDimensionalFunctionSpace space,int degree) throws Throwable {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(space,degree);
+	default VectorSpace getFiniteDimensionalSobolevSpace(EuclideanFunctionSpace space, int degree) {
+		return getSpacegenerator().getFiniteDimensionalSobolevSpace(space, degree);
 	}
 
-	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n, Function fun) throws Throwable {
-		return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(n, fun);
+	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n) {
+		try {
+			return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(n);
+		} catch (final WrongClassException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	IVectorGenerator getVectorgenerator();

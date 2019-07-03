@@ -1,16 +1,16 @@
-package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
+package definitions.structures.generic.finitedimensional.defs.spaces;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
-	public TrigonometricSpace(final int n, final double left, final double right) throws Throwable {
+	public TrigonometricSpace(final int n, final double left, final double right) {
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
 		final EuclideanSpace space = Generator.getGenerator().getSpacegenerator()
@@ -20,7 +20,7 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		tmpBase.add(new GenericFunction() {
 			@Override
 			public double value(final double input) {
-				return 1. / Math.sqrt(2*Math.PI);
+				return 1. / Math.sqrt(2 * Math.PI);
 			}
 
 			@Override
@@ -33,8 +33,7 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		this.base = tmpBase;
 	}
 
-	private void getSineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase)
-			throws Throwable {
+	private void getSineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final int j = i;
 			final Vector sin = new GenericFunction() {
@@ -52,8 +51,7 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		}
 	}
 
-	private void getCosineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase)
-			throws Throwable {
+	private void getCosineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final int j = i;
 			final Vector sin = new GenericFunction() {

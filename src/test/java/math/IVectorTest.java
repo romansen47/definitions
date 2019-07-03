@@ -24,7 +24,7 @@ public class IVectorTest {
 
 	@Test
 	public void testAdditionOfVectors() {
-		assertTrue(same(VEC.AdditionOfVectors(vec1, vec2), new double[] { 2, 0 }));
+		assertTrue(this.same(VEC.AdditionOfVectors(vec1, vec2), new double[] { 2, 0 }));
 	}
 
 	@Test

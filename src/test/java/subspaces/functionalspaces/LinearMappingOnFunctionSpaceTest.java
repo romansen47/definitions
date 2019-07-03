@@ -46,7 +46,7 @@
 //			public Map<Vector, Double> getLinearity(Vector vec1) throws Throwable {
 //				return null;
 //			}
-//			
+//
 //		};
 //		map2 = new LinearMapping(space, space) {
 //			@Override

@@ -14,16 +14,15 @@ import org.junit.Test;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalSobolevSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class FiniteDimensionalSobolevSpaceTest {
 
-	static IFiniteDimensionalFunctionSpace trigonometricFunctionSpace;
-	static IFiniteDimensionalFunctionSpace sobolevSpace;
+	static EuclideanFunctionSpace trigonometricFunctionSpace;
+	static EuclideanFunctionSpace sobolevSpace;
 	final static ISpaceGenerator spaceGen = Generator.getGenerator().getSpacegenerator();
 
 	static double left = -Math.PI;
@@ -31,8 +30,8 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	static final int dim = 3;
 
-	static final int degree=2;
-	
+	static final int degree = 1;
+
 	static Function normalizedIdentity;
 	static Function exp;
 
@@ -63,11 +62,11 @@ public class FiniteDimensionalSobolevSpaceTest {
 		testValues2 = readFile(PATH2);
 
 		normalizedIdentity = new GenericFunction() {
-			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt(2 * Math.pow(Math.PI, 3) / 3);
+			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt((2 * Math.pow(Math.PI, 3)) / 3);
 
 			@Override
-			public double value(double input) throws Throwable {
-				return input / norm;
+			public double value(double input) {
+				return input / this.norm;
 			}
 		};
 		exp = new GenericFunction() {
@@ -87,9 +86,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 			@Override
 			public double value(double input) {
-				double newInput = (length / (2 * Math.PI)) * input + length / 2.;
+				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
 				int k = 0;
-				int l = (int) (newInput - newInput % 1);
+				final int l = (int) (newInput - (newInput % 1));
 				while (testValues[0][k] < l) {
 					k++;
 				}
@@ -101,9 +100,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 			@Override
 			public double value(double input) {
-				double newInput = (length / (2 * Math.PI)) * input + length / 2.;
+				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
 				int k = 0;
-				int l = (int) (newInput - newInput % 1);
+				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
 					k++;
 				}
@@ -112,9 +111,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 		};
 
 		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(dim, normalizedIdentity);
+				.getTrigonometricFunctionSpaceWithLinearGrowth(dim);
 
-		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim,degree);
+		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim, degree);
 
 		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
 
@@ -132,7 +131,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	@Test
 	public void test1() throws Throwable {
-		for (Vector vec : sobolevSpace.genericBaseToList()) {
+		for (final Vector vec : sobolevSpace.genericBaseToList()) {
 			((Function) vec).plot(left, right);
 			((Function) vec).getDerivative().plot(left, right);
 		}
@@ -140,14 +139,14 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	@Test
 	public void scalarProducts() throws Throwable {
-		List<Vector> base = sobolevSpace.genericBaseToList();
-		double[][] scalarProducts = new double[base.size()][base.size()];
+		final List<Vector> base = sobolevSpace.genericBaseToList();
+		final double[][] scalarProducts = new double[base.size()][base.size()];
 		int i = 0;
-		for (Vector vec1 : base) {
+		for (final Vector vec1 : base) {
 			int j = 0;
-			for (Vector vec2 : base) {
+			for (final Vector vec2 : base) {
 				scalarProducts[i][j] = sobolevSpace.product(vec1, vec2);
-				System.out.print((scalarProducts[i][j] - scalarProducts[i][j] % 0.001) + ",");
+				System.out.print((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
 				j++;
 			}
 			System.out.println("");
@@ -188,7 +187,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 		try {
 			while ((line = br.readLine()) != null) {
 				final String[] parts = line.split(";");
-				String[] tmpdate = parts[0].split("-");
+				final String[] tmpdate = parts[0].split("-");
 				final LocalDate date = LocalDate.of(Integer.parseInt(tmpdate[0]), Integer.parseInt(tmpdate[1]),
 						Integer.parseInt(tmpdate[2]));
 				if (firstDate == null) {

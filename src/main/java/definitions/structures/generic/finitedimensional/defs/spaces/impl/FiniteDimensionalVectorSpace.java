@@ -17,14 +17,14 @@ import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
  * 
  * @author RoManski
  *
- * Conrete implementation of a finite dimensional vector space.
+ *         Conrete implementation of a finite dimensional vector space.
  */
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	/**
 	 * the base.
 	 */
-	protected List<Vector> base;
+	protected volatile List<Vector> base;
 
 	/**
 	 * the dimension.
@@ -33,43 +33,42 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	/**
 	 * Plain constructor.
+	 * 
 	 * @throws Throwable
 	 */
-	protected FiniteDimensionalVectorSpace() throws Throwable {
+	protected FiniteDimensionalVectorSpace() {
 	}
 
 	/**
 	 * Generator using a linear independent set of vectors.
+	 * 
 	 * @param genericBase the set of vectors.
 	 * @throws Throwable
 	 */
-	public FiniteDimensionalVectorSpace(final List<Vector> genericBase) throws Throwable {
+	public FiniteDimensionalVectorSpace(final List<Vector> genericBase) {
 		this.dim = genericBase.size();
 		this.base = genericBase;
 	}
 
 	@Override
-	public double product(final Vector vec1, final Vector vec2) throws Throwable {
-		if (!((vec1 instanceof Tuple) && (vec2 instanceof Tuple))) {
-			throw new Throwable();
-		}
+	public double product(final Vector vec1, final Vector vec2) {
 		double prod = 0;
 		final Map<Vector, Double> vecCoord1 = vec1.getCoordinates();
 		final Map<Vector, Double> vecCoord2 = vec2.getCoordinates();
 		final List<Vector> base = this.genericBaseToList();
-		for (final Vector vec : base) {
-			prod += vecCoord1.get(this.getBaseVec(vec)) * vecCoord2.get(this.getBaseVec(vec));
+		for (final Vector vec : vecCoord1.keySet()) {
+			prod += vecCoord1.get(vec) * vecCoord2.get(vec);
 		}
 		return prod;
 	}
 
 	@Override
-	public boolean contains(final Vector vec) throws Throwable {
+	public boolean contains(final Vector vec) {
 		return ((vec instanceof Tuple) && (vec.getDim() == this.dim()));
 	}
 
 	@Override
-	public Vector nullVec() throws Throwable {
+	public Vector nullVec() {
 		final Map<Vector, Double> coordinates = new HashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
 			coordinates.put(vec, 0.);
@@ -78,22 +77,23 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public List<Vector> genericBaseToList() throws Throwable {
-		return base;
+	public List<Vector> genericBaseToList() {
+		return this.base;
 	}
 
 	@Override
-	public int dim() throws Throwable {
+	public int dim() {
 		return this.getDim();
 	}
 
 	@Override
-	public Set<Vector> getGenericBase() throws Throwable {
+	public Set<Vector> getGenericBase() {
 		return new HashSet<>(this.genericBaseToList());
 	}
 
 	/**
 	 * setter for the base.
+	 * 
 	 * @param newBase the new base.
 	 */
 	protected void setBase(final List<Vector> newBase) {
@@ -102,6 +102,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	/**
 	 * Getter for the dimension.
+	 * 
 	 * @return the dimension.
 	 */
 	protected int getDim() {
@@ -109,7 +110,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public Vector getCoordinates(final Vector vec) throws Throwable {
+	public Vector getCoordinates(final Vector vec) {
 		final Map<Vector, Double> coordinates = new HashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.product(vec, baseVec));
@@ -121,13 +122,13 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public double getDistance(final Vector ans, final Vector vec2) throws Throwable {
+	public double getDistance(final Vector ans, final Vector vec2) {
 		final Vector diff = this.add(ans, (this.stretch(vec2, -1)));
 		return this.norm(diff);
 	}
 
 	@Override
-	public List<Vector> getOrthonormalBase(final List<Vector> base) throws Throwable {
+	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
 			Vector tmp = this.nullVec();
@@ -141,7 +142,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public Vector projection(final Vector w, final Vector v) throws Throwable {
+	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.product(w, v));
 	}
 
@@ -153,7 +154,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 				ans += vec.toString();
 			}
 			return ans;
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			e.printStackTrace();
 		}
 		return super.toString();

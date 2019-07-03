@@ -12,14 +12,14 @@ import definitions.structures.abstr.VectorSpace;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.ParameterizedSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.spaces.ParameterizedSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
 
 public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 
-	default FiniteVector solve(final Vector image) throws Throwable {
+	default FiniteVector solve(final Vector image) {
 		final double[][] matrix = this.getGenericMatrix();
 		final double[] imageVector = image.getGenericCoordinates();
 		try {
@@ -32,12 +32,12 @@ public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 	}
 
 	@Override
-	default Map<Vector, Double> getLinearity(final Vector vec1) throws Throwable {
+	default Map<Vector, Double> getLinearity(final Vector vec1) {
 		return getLinearity().get(vec1);
 	}
 
 	@Override
-	default Vector get(final Vector vec2) throws Throwable {
+	default Vector get(final Vector vec2) {
 		if (getSource() instanceof ParameterizedSpace) {
 			return getOnSubSpace(vec2);
 		}
@@ -45,9 +45,9 @@ public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 		Vector ans;
 		EuclideanSpace target;
 		final VectorSpace space = getTarget();
-		if (space instanceof IFiniteDimensionalFunctionSpace) {
-			target = (IFiniteDimensionalFunctionSpace) space;
-			ans = ((IFiniteDimensionalFunctionSpace) target).nullFunction();
+		if (space instanceof EuclideanFunctionSpace) {
+			target = (EuclideanFunctionSpace) space;
+			ans = ((EuclideanFunctionSpace) target).nullFunction();
 		} else {
 			target = (EuclideanSpace) getTarget();
 			ans = target.nullVec();
@@ -65,7 +65,7 @@ public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 		return ans;
 	}
 
-	default FiniteVector getOnSubSpace(final Vector vec2) throws Throwable {
+	default FiniteVector getOnSubSpace(final Vector vec2) {
 		final ParameterizedSpace space = (ParameterizedSpace) getSource();
 		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
 		final IFiniteDimensionalLinearMapping mapOnSourceSpaces = (IFiniteDimensionalLinearMapping) Generator
@@ -80,7 +80,7 @@ public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 		return (FiniteVector) composedMapping.get(inverseVector);
 	}
 
-	double[][] getGenericMatrix() throws Throwable;
+	double[][] getGenericMatrix();
 
 	default void swap(final double[][] mat, final int row1, final int row2, final int col) {
 		for (int i = 0; i < col; i++) {
@@ -90,7 +90,7 @@ public interface IFiniteDimensionalLinearMapping extends Homomorphism {
 		}
 	}
 
-	default int getRank() throws Throwable {
+	default int getRank() {
 		final double[][] mat = new double[((EuclideanSpace) getTarget()).genericBaseToList()
 				.size()][((EuclideanSpace) getSource()).genericBaseToList().size()];
 		int m = 0;

@@ -4,11 +4,11 @@ import java.util.Map;
 
 public interface Homomorphism {
 
-	Vector get(Vector vec2) throws Throwable;
+	Vector get(Vector vec2);
 
-	Map<Vector, Double> getLinearity(Vector vec1) throws Throwable;
+	Map<Vector, Double> getLinearity(Vector vec1);
 
-	Map<Vector, Map<Vector, Double>> getLinearity() throws Throwable;
+	Map<Vector, Map<Vector, Double>> getLinearity();
 
 	VectorSpace getTarget();
 

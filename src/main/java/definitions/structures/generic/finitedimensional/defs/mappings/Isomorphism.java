@@ -4,7 +4,7 @@ import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.mappings.impl.InvertibleFiniteDimensionalLinearMapping;
 import deprecated.math.matrix.MatrixOperator;
 
-public interface Isomorphism extends IFiniteDimensionalInjectiveLinearMapping {
+public interface Isomorphism extends FiniteDimensionalEmbedding {
 
 	default Isomorphism getInverse() throws Throwable {
 		return (InvertibleFiniteDimensionalLinearMapping) Generator.getGenerator().getMappinggenerator()

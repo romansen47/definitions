@@ -13,7 +13,7 @@ public interface FiniteVector extends Vector {
 	Map<Vector, Double> getCoordinates();
 
 	@Override
-	default double[] getGenericCoordinates() throws Throwable {
+	default double[] getGenericCoordinates() {
 		final double[] vector = new double[getDim()];
 		int i = 0;
 		for (final Vector basevec : getGenericBase()) {
@@ -23,11 +23,11 @@ public interface FiniteVector extends Vector {
 		return vector;
 	}
 
-	Set<Vector> getGenericBase() throws Throwable;
+	Set<Vector> getGenericBase();
 
-	Map<Vector, Double> getCoordinates(EuclideanSpace source) throws Throwable;
+	Map<Vector, Double> getCoordinates(EuclideanSpace source);
 
-	default Function getProjection(EuclideanSpace source) throws Throwable{
+	default Function getProjection(EuclideanSpace source) {
 		return new FunctionTuple(getCoordinates(source));
 	}
 

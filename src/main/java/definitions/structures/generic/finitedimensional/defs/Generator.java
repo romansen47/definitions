@@ -20,15 +20,15 @@ public class Generator implements IGenerator {
 
 	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
 	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
-	private ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
-	private final String PATH="coordinateSpaces.data";
-	private final String PATH2="functionSapces.data";
+	private final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
+	private final String PATH = "coordinateSpaces.data";
+	private final String PATH2 = "functionSapces.data";
 
 	private static Generator generator = null;
 
 	@Override
 	public Map<Integer, EuclideanSpace> getCachedSpaces() {
-		return getSpacegenerator().getCachedCoordinateSpaces();
+		return this.getSpacegenerator().getCachedCoordinateSpaces();
 	}
 
 	public static IGenerator getGenerator() {
@@ -55,34 +55,36 @@ public class Generator implements IGenerator {
 	public ISpaceGenerator getSpacegenerator() {
 		return generator.spaceGenerator;
 	}
+
 	@Override
 	public void saveCoordinateSpaces() throws IOException {
-		FileOutputStream f_out = new FileOutputStream(PATH);
-		ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(spaceGenerator);
+		final FileOutputStream f_out = new FileOutputStream(this.PATH);
+		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+		obj_out.writeObject(this.spaceGenerator);
 		obj_out.close();
 	}
 
 	@Override
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
-		FileInputStream f_in = new FileInputStream(PATH);
-		ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		spaceGenerator.setCachedCoordinateSpaces((SpaceGenerator) obj_in.readObject());
+		final FileInputStream f_in = new FileInputStream(this.PATH);
+		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
+		this.spaceGenerator.setCachedCoordinateSpaces((SpaceGenerator) obj_in.readObject());
 		obj_in.close();
 	}
+
 	@Override
 	public void saveFunctionSpaces() throws IOException {
-		FileOutputStream f_out = new FileOutputStream(PATH2);
-		ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(spaceGenerator);
+		final FileOutputStream f_out = new FileOutputStream(this.PATH2);
+		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+		obj_out.writeObject(this.spaceGenerator);
 		obj_out.close();
 	}
 
 	@Override
 	public void loadFunctionSpaces() throws IOException, ClassNotFoundException {
-		FileInputStream f_in = new FileInputStream(PATH2);
-		ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		spaceGenerator.setCachedCoordinateSpaces((SpaceGenerator) obj_in.readObject());
+		final FileInputStream f_in = new FileInputStream(this.PATH2);
+		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
+		this.spaceGenerator.setCachedCoordinateSpaces((SpaceGenerator) obj_in.readObject());
 		obj_in.close();
 	}
 }

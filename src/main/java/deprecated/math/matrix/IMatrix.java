@@ -2,7 +2,7 @@ package deprecated.math.matrix;
 
 public interface IMatrix {
 
-	final IMatrixTrix operator = MatrixOperator.getInstance();
+	IMatrixTrix operator = MatrixOperator.getInstance();
 
 	double[][] getValues();
 

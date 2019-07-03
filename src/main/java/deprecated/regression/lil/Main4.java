@@ -82,8 +82,8 @@ public class Main4 extends deprecated.regression.Main3 {
 //	}
 
 	private static double[] centralized(double[] input) {
-		double[] ans = new double[input.length];
-		double erw = erwartung(input);
+		final double[] ans = new double[input.length];
+		final double erw = erwartung(input);
 		for (int i = 0; i < input.length; i++) {
 			ans[i] = input[i] - erw;
 		}
@@ -92,7 +92,7 @@ public class Main4 extends deprecated.regression.Main3 {
 
 	private static double sigma(double[] input) {
 		double ans = 0;
-		for (double val : input) {
+		for (final double val : input) {
 			ans += Math.pow(val, 2);
 		}
 		return Math.sqrt(ans);
@@ -100,7 +100,7 @@ public class Main4 extends deprecated.regression.Main3 {
 
 	private static double erwartung(double[] input) {
 		double ans = 0;
-		for (double val : input) {
+		for (final double val : input) {
 			ans += val;
 		}
 		return ans / input.length;
@@ -115,12 +115,12 @@ public class Main4 extends deprecated.regression.Main3 {
 	}
 
 	private static double correlation(final double[] ds, final double[] ds2) {
-		double[] cetrDs1 = centralized(ds);
-		double[] cetrDs2 = centralized(ds2);
-		double product = product(cetrDs1, cetrDs2);
-		double sig1 = sigma(cetrDs1);
-		double sig2 = sigma(cetrDs2);
-		double ans = product / (sig1 * sig2);
+		final double[] cetrDs1 = centralized(ds);
+		final double[] cetrDs2 = centralized(ds2);
+		final double product = product(cetrDs1, cetrDs2);
+		final double sig1 = sigma(cetrDs1);
+		final double sig2 = sigma(cetrDs2);
+		final double ans = product / (sig1 * sig2);
 		return ans;
 	}
 

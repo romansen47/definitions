@@ -21,12 +21,12 @@ public class IScalarTest {
 
 	@Test
 	public void testAbs() {
-		assertTrue(SCALOP.Abs(TESTNUM) + TESTNUM == 0);
+		assertTrue((SCALOP.Abs(this.TESTNUM) + this.TESTNUM) == 0);
 	}
 
 	@Test
 	public void testSignumFunction() {
-		assertTrue(SCALOP.SignumFunction(TESTNUM) + 1 == 0);
+		assertTrue((SCALOP.SignumFunction(this.TESTNUM) + 1) == 0);
 	}
 
 }

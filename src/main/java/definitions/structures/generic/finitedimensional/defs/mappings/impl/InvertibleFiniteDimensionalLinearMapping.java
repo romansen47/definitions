@@ -9,11 +9,11 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 public class InvertibleFiniteDimensionalLinearMapping extends FiniteDimensionalLinearMapping implements Automorphism {
 
 	protected InvertibleFiniteDimensionalLinearMapping(final EuclideanSpace source,
-			final Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
+			final Map<Vector, Map<Vector, Double>> coordinates) {
 		super(source, source, coordinates);
-		if (this.getRank() < source.dim()) {
-			throw new Throwable();
-		}
+//		if (this.getRank() < source.dim()) {
+//			throw new Throwable();
+//		}
 	}
 
 }

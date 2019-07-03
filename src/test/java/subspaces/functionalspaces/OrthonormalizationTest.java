@@ -58,16 +58,16 @@ public class OrthonormalizationTest {
 
 	@Test
 	public void orthogonal() throws Throwable {
-		Assert.assertTrue(Math.abs(ans1) < eps);
-		Assert.assertTrue(Math.abs(ans2) < eps);
-		Assert.assertTrue(Math.abs(ans3) < eps);
+		Assert.assertTrue(Math.abs(ans1) < this.eps);
+		Assert.assertTrue(Math.abs(ans2) < this.eps);
+		Assert.assertTrue(Math.abs(ans3) < this.eps);
 	}
 
 	@Test
 	public void normalized() throws Throwable {
-		Assert.assertTrue(Math.abs(space.norm(a) - 1) < eps);
-		Assert.assertTrue(Math.abs(space.norm(b) - 1) < eps);
-		Assert.assertTrue(Math.abs(space.norm(c) - 1) < eps);
+		Assert.assertTrue(Math.abs(space.norm(a) - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(b) - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(c) - 1) < this.eps);
 	}
 
 	@Test
@@ -80,8 +80,8 @@ public class OrthonormalizationTest {
 		};
 		final Vector x = space.getCoordinates(exp);
 		final double y = (Math.exp(Math.PI) - Math.exp(-Math.PI)) / Math.sqrt(2 * Math.PI);
-		Assert.assertTrue(
-				Math.abs(x.getGenericCoordinates()[0] - y) < eps || Math.abs(x.getGenericCoordinates()[1] - y) < eps
-						|| Math.abs(x.getGenericCoordinates()[2] - y) < eps);
+		Assert.assertTrue((Math.abs(x.getGenericCoordinates()[0] - y) < this.eps)
+				|| (Math.abs(x.getGenericCoordinates()[1] - y) < this.eps)
+				|| (Math.abs(x.getGenericCoordinates()[2] - y) < this.eps));
 	}
 }

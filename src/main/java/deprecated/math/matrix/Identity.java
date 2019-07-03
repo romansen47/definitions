@@ -6,7 +6,7 @@ public final class Identity extends Matrix implements IMatrix {
 		super(id(n));
 	}
 
-	final static double[][] id(final int n) {
+	static double[][] id(final int n) {
 		final double[][] id = new double[n][n];
 		for (int i = 0; i < n; i++) {
 			id[i][i] = 1;

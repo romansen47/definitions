@@ -49,9 +49,9 @@ public class PolynomialRegressionTest {
 
 			@Override
 			public double value(double input) {
-				double newInput = (length / (2 * Math.PI)) * input + length / 2.;
+				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
 				int k = 0;
-				int l = (int) (newInput - newInput % 1);
+				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
 					k++;
 				}
@@ -60,7 +60,7 @@ public class PolynomialRegressionTest {
 
 		};
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
-		
+
 	}
 
 	@Test
@@ -82,7 +82,7 @@ public class PolynomialRegressionTest {
 		LocalDate firstDate = null;
 		while ((line = br.readLine()) != null) {
 			final String[] parts = line.split(";");
-			String[] tmpdate = parts[0].split("-");
+			final String[] tmpdate = parts[0].split("-");
 			final LocalDate date = LocalDate.of(Integer.parseInt(tmpdate[0]), Integer.parseInt(tmpdate[1]),
 					Integer.parseInt(tmpdate[2]));
 			if (firstDate == null) {
@@ -98,6 +98,7 @@ public class PolynomialRegressionTest {
 			ans[0][i] = values.get(i)[0];
 			ans[1][i] = values.get(i)[1];
 		}
+		br.close();
 		return ans;
 	}
 

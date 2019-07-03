@@ -19,7 +19,7 @@ public class ExpliciteEulerSolver implements Solver {
 	public Function solve() {
 		return new GenericFunction() {
 			@Override
-			public double value(final double input) throws Throwable {
+			public double value(final double input) {
 				double ans = ExpliciteEulerSolver.this.initialData;
 				double xval = -Math.PI;
 				while (xval < input) {

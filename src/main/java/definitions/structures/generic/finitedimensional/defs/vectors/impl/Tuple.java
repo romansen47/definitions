@@ -22,7 +22,7 @@ public class Tuple implements FiniteVector {
 		return this.dim;
 	}
 
-	public Tuple(final double[] coordinates) throws Throwable {
+	public Tuple(final double[] coordinates) {
 		this.dim = coordinates.length;
 		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
@@ -32,7 +32,7 @@ public class Tuple implements FiniteVector {
 		}
 	}
 
-	public Tuple(final Map<Vector, Double> coordinates) throws Throwable {
+	public Tuple(final Map<Vector, Double> coordinates) {
 		this.setCoordinates(coordinates);
 		this.dim = coordinates.keySet().size();
 	}
@@ -43,7 +43,7 @@ public class Tuple implements FiniteVector {
 	}
 
 	@Override
-	public boolean elementOf(final VectorSpace space) throws Throwable {
+	public boolean elementOf(final VectorSpace space) {
 		return (space instanceof FiniteDimensionalVectorSpace)
 				&& (((FiniteDimensionalVectorSpace) space).dim() == this.dim);
 	}
@@ -83,17 +83,17 @@ public class Tuple implements FiniteVector {
 	}
 
 	@Override
-	public Set<Vector> getGenericBase() throws Throwable {
+	public Set<Vector> getGenericBase() {
 		return this.getCoordinates().keySet();
 	}
 
 	@Override
-	public boolean equals(final Vector vec) throws Throwable {
+	public boolean equals(final Vector vec) {
 		return this.equals((Object) vec);
 	}
 
 	@Override
-	public Map<Vector, Double> getCoordinates(final EuclideanSpace source) throws Throwable {
+	public Map<Vector, Double> getCoordinates(final EuclideanSpace source) {
 		return this.getCoordinates();
 	}
 

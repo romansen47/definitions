@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 
-public class SpaceGenerator implements ISpaceGenerator,Serializable {
+public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class SpaceGenerator implements ISpaceGenerator,Serializable {
 
 	private static Map<Integer, EuclideanSpace> cachedCoordinateSpaces;
 
-	private static Map<Integer, IFiniteDimensionalFunctionSpace> cachedFunctionSpaces;
+	private static Map<Integer, EuclideanFunctionSpace> cachedFunctionSpaces;
 
 	@Override
 	public Map<Integer, EuclideanSpace> getCachedCoordinateSpaces() {
@@ -24,7 +24,7 @@ public class SpaceGenerator implements ISpaceGenerator,Serializable {
 	}
 
 	@Override
-	public Map<Integer, IFiniteDimensionalFunctionSpace> getCachedFunctionSpaces() {
+	public Map<Integer, EuclideanFunctionSpace> getCachedFunctionSpaces() {
 		return cachedFunctionSpaces;
 	}
 
@@ -34,7 +34,6 @@ public class SpaceGenerator implements ISpaceGenerator,Serializable {
 		}
 		return generator;
 	}
-
 
 	private SpaceGenerator() {
 		cachedCoordinateSpaces = new ConcurrentHashMap<>();
@@ -52,12 +51,12 @@ public class SpaceGenerator implements ISpaceGenerator,Serializable {
 
 	@Override
 	public void setCachedCoordinateSpaces(ISpaceGenerator gen) {
-		cachedCoordinateSpaces=gen.getCachedCoordinateSpaces();
+		cachedCoordinateSpaces = gen.getCachedCoordinateSpaces();
 	}
-	
+
 	@Override
 	public void setCachedFunctionSpaces(ISpaceGenerator gen) {
-		cachedFunctionSpaces=gen.getCachedFunctionSpaces();
+		cachedFunctionSpaces = gen.getCachedFunctionSpaces();
 	}
 
 }

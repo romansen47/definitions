@@ -5,13 +5,12 @@ import java.util.List;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
 public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
-	public TrigonometricSobolevSpace(final int n, final double left, final double right,int degree) throws Throwable {
+	public TrigonometricSobolevSpace(final int n, final double left, final double right, int degree) {
 		super(degree);
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
@@ -22,7 +21,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		tmpBase.add(new GenericFunction() {
 			@Override
 			public double value(final double input) {
-				return 1. / Math.sqrt(2*Math.PI);
+				return 1. / Math.sqrt(2 * Math.PI);
 			}
 
 			@Override
@@ -35,40 +34,40 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		this.base = tmpBase;
 	}
 
-	private void getSineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase)
-			throws Throwable {
+	private void getSineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final int j = i;
 			final Vector sin = new GenericFunction() {
-				private double norm=Math.sqrt(Math.PI*(1+Math.pow(j,2)));
+				private final double norm = Math.sqrt(Math.PI * (1 + Math.pow(j, 2)));
+
 				@Override
 				public double value(final double input) {
-					return Math.sin(j * input) / norm;
+					return Math.sin(j * input) / this.norm;
 				}
 
 				@Override
 				public String toString() {
-					return "x -> " + 1 / norm + "*sin(" + j + "*x)";
+					return "x -> " + (1 / this.norm) + "*sin(" + j + "*x)";
 				}
 			};
 			tmpBase.add(sin);
 		}
 	}
 
-	private void getCosineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase)
-			throws Throwable {
+	private void getCosineFunctions(final int n, final List<Vector> coordinates, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final int j = i;
 			final Vector cos = new GenericFunction() {
-				private double norm=Math.sqrt(Math.PI*(1+Math.pow(j,2)));
+				private final double norm = Math.sqrt(Math.PI * (1 + Math.pow(j, 2)));
+
 				@Override
 				public double value(final double input) {
-					return Math.cos(j * input) / norm;
+					return Math.cos(j * input) / this.norm;
 				}
 
 				@Override
 				public String toString() {
-					return "x -> " + 1/norm + "*cos(" + j + "*x)";
+					return "x -> " + (1 / this.norm) + "*cos(" + j + "*x)";
 				}
 			};
 			tmpBase.add(cos);

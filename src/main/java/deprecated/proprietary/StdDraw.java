@@ -119,7 +119,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	private static double mouseY = 0;
 
 	// keyboard state
-	private static LinkedList<Character> keysTyped = new LinkedList<Character>();
+	private static LinkedList<Character> keysTyped = new LinkedList<>();
 
 	// not instantiable
 	public StdDraw() {

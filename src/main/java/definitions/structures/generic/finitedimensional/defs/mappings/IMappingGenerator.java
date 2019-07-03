@@ -3,8 +3,8 @@ package definitions.structures.generic.finitedimensional.defs.mappings;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.HilbertSpace;
 import definitions.structures.abstr.Homomorphism;
+import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
@@ -12,15 +12,14 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 
 public interface IMappingGenerator {
 
-	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) throws Throwable {
+	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) {
 
-		final Homomorphism ans = new LinearMapping(b.getSource(),a.getTarget()) {
+		final Homomorphism ans = new LinearMapping(b.getSource(), a.getTarget()) {
 
 			@Override
-			public Vector get(final Vector vec2) throws Throwable {
+			public Vector get(final Vector vec2) {
 				return b.get(a.get(vec2));
 			}
-
 
 			@Override
 			public Map<Vector, Double> getLinearity(final Vector vec1) {
@@ -28,13 +27,13 @@ public interface IMappingGenerator {
 			}
 
 			@Override
-			public Map<Vector, Map<Vector, Double>> getLinearity() throws Throwable {
+			public Map<Vector, Map<Vector, Double>> getLinearity() {
 				if (linearity == null) {
 					linearity = new ConcurrentHashMap<>();
 					for (final Vector vec : ((EuclideanSpace) b.getSource()).genericBaseToList()) {
 						final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 						for (final Vector vec2 : ((EuclideanSpace) b.getSource()).genericBaseToList()) {
-							coordinates.put(vec2, ((HilbertSpace) b.getSource()).product(vec, vec2));
+							coordinates.put(vec2, ((InnerProductSpace) b.getSource()).product(vec, vec2));
 						}
 						linearity.put(vec, coordinates);
 					}
@@ -56,10 +55,7 @@ public interface IMappingGenerator {
 		return ans;
 	}
 
-	default double[][] composition(final double[][] matA, final double[][] matB) throws Throwable {
-		if (matA[0].length != matB.length) {
-			throw new Throwable();
-		}
+	default double[][] composition(final double[][] matA, final double[][] matB) {
 		final double[][] matC = new double[matA.length][matB[0].length];
 		for (int i = 0; i < matA.length; i++) {
 			for (int j = 0; j < matB[0].length; j++) {
@@ -72,11 +68,11 @@ public interface IMappingGenerator {
 	}
 
 	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
-			Map<Vector, Map<Vector, Double>> matrix) throws Throwable;
+			Map<Vector, Map<Vector, Double>> matrix);
 
-	Homomorphism getFiniteDimensionalLinearMapping(double[][] genericMatrix) throws Throwable;
+	Homomorphism getFiniteDimensionalLinearMapping(double[][] genericMatrix);
 
-	default Homomorphism getTransposedMapping(final IFiniteDimensionalLinearMapping map) throws Throwable {
+	default Homomorphism getTransposedMapping(final IFiniteDimensionalLinearMapping map) {
 		final Map<Vector, Map<Vector, Double>> transposedMatrix = new ConcurrentHashMap<>();
 		for (final Vector targetVec : ((EuclideanSpace) map.getTarget()).genericBaseToList()) {
 			final Map<Vector, Double> entry = new ConcurrentHashMap<>();

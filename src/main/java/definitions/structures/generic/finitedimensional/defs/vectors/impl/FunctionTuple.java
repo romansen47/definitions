@@ -10,18 +10,18 @@ import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 
 public class FunctionTuple extends Tuple implements Function {
 
-	private LinearMapping derivativeProjection = null;
+	private final LinearMapping derivativeProjection = null;
 
-	public FunctionTuple(final Map<Vector, Double> coordinates) throws Throwable {
+	public FunctionTuple(final Map<Vector, Double> coordinates) {
 		super(coordinates);
 	}
 
-	public FunctionTuple(final double[] coordinates) throws Throwable {
+	public FunctionTuple(final double[] coordinates) {
 		super(coordinates);
 	}
 
 	@Override
-	public double value(final double input) throws Throwable {
+	public double value(final double input) {
 		double ans = 0;
 		for (final Vector fun : this.getCoordinates().keySet()) {
 			ans += ((Function) fun).value(input) * this.getCoordinates().get(fun);
@@ -29,12 +29,13 @@ public class FunctionTuple extends Tuple implements Function {
 		return ans;
 	}
 
-	public LinearMapping getDerivative(VectorSpace space) throws Throwable {
+	public LinearMapping getDerivative(VectorSpace space) {
 		return new LinearMapping(space, space) {
 			@Override
-			public Vector get(Vector vec2) throws Throwable {
-				return ((Function)vec2).getDerivative();
+			public Vector get(Vector vec2) {
+				return ((Function) vec2).getDerivative();
 			}
+
 			@Override
 			public Map<Vector, Double> getLinearity(Vector vec1) {
 				return null;
@@ -43,7 +44,7 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	@Override
-	public Function getProjection(EuclideanSpace source) throws Throwable {
+	public Function getProjection(EuclideanSpace source) {
 		return Function.super.getProjection(source);
 	}
 }

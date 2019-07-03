@@ -38,39 +38,39 @@ public class MatrixOperatorTest {
 
 	@Test
 	public void det() {
-		final double det1 = MatOp.det(Matrix1);
-		final double det2 = MatOp.det(Matrix2);
+		final double det1 = this.MatOp.det(Matrix1);
+		final double det2 = this.MatOp.det(Matrix2);
 
-		assertTrue(Math.abs(det1 - 1.0d) < tolerance);
-		assertTrue(Math.abs(det2 + 1.0d) < tolerance);
+		assertTrue(Math.abs(det1 - 1.0d) < this.tolerance);
+		assertTrue(Math.abs(det2 + 1.0d) < this.tolerance);
 	}
 
 	@Test
 	public void matrixMult() {
 
-		final double[] firstRow1 = MatOp.matrixMult(Matrix1, vec1);
-		final double[] secondRow1 = MatOp.matrixMult(Matrix1, vec2);
+		final double[] firstRow1 = this.MatOp.matrixMult(Matrix1, vec1);
+		final double[] secondRow1 = this.MatOp.matrixMult(Matrix1, vec2);
 
-		final double[] firstRow2 = MatOp.matrixMult(Matrix2, vec1);
-		final double[] secondRow2 = MatOp.matrixMult(Matrix2, vec2);
+		final double[] firstRow2 = this.MatOp.matrixMult(Matrix2, vec1);
+		final double[] secondRow2 = this.MatOp.matrixMult(Matrix2, vec2);
 
-		assertTrue(same(firstRow1, new double[] { 0, -1 }));
-		assertTrue(same(secondRow1, new double[] { 1, 0 }));
+		assertTrue(this.same(firstRow1, new double[] { 0, -1 }));
+		assertTrue(this.same(secondRow1, new double[] { 1, 0 }));
 
-		assertTrue(same(firstRow2, new double[] { 1, 0 }));
-		assertTrue(same(secondRow2, new double[] { 0, -1 }));
+		assertTrue(this.same(firstRow2, new double[] { 1, 0 }));
+		assertTrue(this.same(secondRow2, new double[] { 0, -1 }));
 	}
 
 	@Test
 	public void inverse() throws Throwable {
-		final double[][] inverse1 = MatOp.inverse(Matrix1);
-		final double[][] inverse2 = MatOp.inverse(Matrix2);
+		final double[][] inverse1 = this.MatOp.inverse(Matrix1);
+		final double[][] inverse2 = this.MatOp.inverse(Matrix2);
 
-		assertTrue(same(MatOp.matrixMult(inverse1, vec1), vec2));
-		assertTrue(same(MatOp.matrixMult(inverse1, vec2), new double[] { -1, 0 }));
+		assertTrue(this.same(this.MatOp.matrixMult(inverse1, vec1), vec2));
+		assertTrue(this.same(this.MatOp.matrixMult(inverse1, vec2), new double[] { -1, 0 }));
 
-		assertTrue(same(MatOp.matrixMult(inverse2, vec1), vec1));
-		assertTrue(same(MatOp.matrixMult(inverse2, vec2), new double[] { 0, -1 }));
+		assertTrue(this.same(this.MatOp.matrixMult(inverse2, vec1), vec1));
+		assertTrue(this.same(this.MatOp.matrixMult(inverse2, vec2), new double[] { 0, -1 }));
 	}
 
 	public boolean same(double[] vec1, double[] vec2) {
@@ -78,6 +78,6 @@ public class MatrixOperatorTest {
 		for (int i = 0; i < vec1.length; i++) {
 			ans += Math.abs(vec1[i] - vec2[i]);
 		}
-		return ans < tolerance;
+		return ans < this.tolerance;
 	}
 }

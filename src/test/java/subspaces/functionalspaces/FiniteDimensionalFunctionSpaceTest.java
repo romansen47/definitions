@@ -10,7 +10,7 @@ import org.junit.Test;
 import definitions.structures.abstr.Vector;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
 import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
 
@@ -22,7 +22,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	static Function orthonormalConstant;
 
 	static EuclideanSpace genericSpace;
-	static IFiniteDimensionalFunctionSpace functionSpace;
+	static EuclideanFunctionSpace functionSpace;
 
 	static double integral1;
 	static double integral2;
@@ -38,15 +38,14 @@ public class FiniteDimensionalFunctionSpaceTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		Function fun = new GenericFunction() {
+		final Function fun = new GenericFunction() {
 			@Override
 			public double value(double input) {
 				return input;
 			}
 		};
 
-		functionSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(1,
-				fun);
+		functionSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(1);
 
 		orthonormalConstant = (Function) functionSpace.genericBaseToList().get(0);
 		orthonormalSine = (Function) functionSpace.genericBaseToList().get(1);
@@ -81,51 +80,51 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	@Test
 	public void test1() {
-		Assert.assertTrue(almostEqual(integral1, 2));
+		Assert.assertTrue(this.almostEqual(integral1, 2));
 	}
 
 	@Test
 	public void test2() {
-		Assert.assertTrue(almostEqual(integral2, 1));
+		Assert.assertTrue(this.almostEqual(integral2, 1));
 	}
 
 	@Test
 	public void test3() {
-		Assert.assertTrue(almostEqual(integral3, 1));
+		Assert.assertTrue(this.almostEqual(integral3, 1));
 	}
 
 	@Test
 	public void test4() {
-		Assert.assertTrue(almostEqual(integral4, 0));
+		Assert.assertTrue(this.almostEqual(integral4, 0));
 	}
 
 	@Test
 	public void test5() {
-		Assert.assertTrue(almostEqual(integral5, 0));
+		Assert.assertTrue(this.almostEqual(integral5, 0));
 	}
 
 	@Test
 	public void test6() {
-		Assert.assertTrue(almostEqual(integral6, 0));
+		Assert.assertTrue(this.almostEqual(integral6, 0));
 	}
 
 	@Test
 	public void test7() {
-		Assert.assertTrue(almostEqual(integral7, 0));
+		Assert.assertTrue(this.almostEqual(integral7, 0));
 	}
 
 	@Test
 	public void test8() {
-		Assert.assertTrue(almostEqual(integral8, 0));
+		Assert.assertTrue(this.almostEqual(integral8, 0));
 	}
 
 	@Test
 	public void test9() {
-		Assert.assertTrue(almostEqual(integral9, 0));
+		Assert.assertTrue(this.almostEqual(integral9, 0));
 	}
 
 	@Test
 	public void test10() {
-		Assert.assertTrue(almostEqual(integral10, 1));
+		Assert.assertTrue(this.almostEqual(integral10, 1));
 	}
 }

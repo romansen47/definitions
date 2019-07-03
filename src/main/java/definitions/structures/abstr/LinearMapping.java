@@ -12,32 +12,32 @@ public abstract class LinearMapping implements Homomorphism {
 	protected Map<Vector, Map<Vector, Double>> linearity;
 	protected double[][] genericMatrix;
 
-	public LinearMapping(final VectorSpace source, final VectorSpace target) throws Throwable {
+	protected LinearMapping(final VectorSpace source, final VectorSpace target) {
 		this.source = source;
 		this.target = target;
 	}
 
 	@Override
-	public Map<Vector,Map<Vector,Double>> getLinearity() throws Throwable{
-		if (linearity==null) {
-			linearity = new ConcurrentHashMap<>();
-			for (Vector vec1:((EuclideanSpace)source).genericBaseToList()) {
-				Vector tmp=get(vec1);
-				Map<Vector,Double> tmpCoord=new ConcurrentHashMap<>();
-				for (Vector vec2:((EuclideanSpace)target).genericBaseToList()){
-					tmpCoord.put(vec2,((EuclideanSpace)target).product(vec2,tmp));
+	public Map<Vector, Map<Vector, Double>> getLinearity() {
+		if (this.linearity == null) {
+			this.linearity = new ConcurrentHashMap<>();
+			for (final Vector vec1 : ((EuclideanSpace) this.source).genericBaseToList()) {
+				final Vector tmp = this.get(vec1);
+				final Map<Vector, Double> tmpCoord = new ConcurrentHashMap<>();
+				for (final Vector vec2 : ((EuclideanSpace) this.target).genericBaseToList()) {
+					tmpCoord.put(vec2, ((EuclideanSpace) this.target).product(vec2, tmp));
 				}
-				linearity.put(vec1,tmpCoord);
+				this.linearity.put(vec1, tmpCoord);
 			}
 		}
-		return linearity;
+		return this.linearity;
 	}
-	
-	public double[][] getGenericMatrix() throws Throwable {
-		if (!(source instanceof EuclideanSpace && target instanceof EuclideanSpace)) {
+
+	public double[][] getGenericMatrix() {
+		if (!((this.source instanceof EuclideanSpace) && (this.target instanceof EuclideanSpace))) {
 			return null;
 		}
-		if (genericMatrix == null) {
+		if (this.genericMatrix == null) {
 			this.genericMatrix = new double[((EuclideanSpace) this.getTarget())
 					.dim()][((EuclideanSpace) this.getSource()).dim()];
 			int i = 0;
@@ -50,21 +50,21 @@ public abstract class LinearMapping implements Homomorphism {
 				i++;
 			}
 		}
-		return genericMatrix;
+		return this.genericMatrix;
 	}
-	
+
 	@Override
 	public VectorSpace getSource() {
-		return source;
+		return this.source;
 	}
 
 	@Override
 	public VectorSpace getTarget() {
-		return target;
+		return this.target;
 	}
 
 	@Override
-	public Map<Vector, Double> getLinearity(Vector vec1) throws Throwable {
-		return linearity.get(vec1);
+	public Map<Vector, Double> getLinearity(Vector vec1) {
+		return this.linearity.get(vec1);
 	}
 }

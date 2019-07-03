@@ -11,7 +11,7 @@ import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpa
 public class FiniteDimensionalLinearMapping extends LinearMapping implements IFiniteDimensionalLinearMapping {
 
 	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
+			final Map<Vector, Map<Vector, Double>> coordinates) {
 		super(source, target);
 		this.linearity = coordinates;
 		this.genericMatrix = new double[((EuclideanSpace) this.getTarget()).dim()][((EuclideanSpace) this.getSource())
@@ -64,7 +64,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements IFi
 	}
 
 	@Override
-	public final double[][] getGenericMatrix() throws Throwable {
+	public final double[][] getGenericMatrix() {
 		return this.genericMatrix;
 	}
 

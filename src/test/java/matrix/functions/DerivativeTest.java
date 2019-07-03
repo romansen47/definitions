@@ -46,7 +46,7 @@ public class DerivativeTest {
 
 	// @Test
 	public void test() throws Exception {
-		Assert.assertTrue(Math.abs(mat.getEntry(0, 0) + 4) < 1.e3 * IDerivative.eps);
+		Assert.assertTrue(Math.abs(mat.getEntry(0, 0) + 4) < (1.e3 * IDerivative.eps));
 	}
 
 }

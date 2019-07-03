@@ -6,6 +6,7 @@ import org.junit.Test;
 import definitions.structures.generic.finitedimensional.defs.Generator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
 import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.generic.finitedimensional.defs.vectors.functions.ExponentialFunction;
 
 public class ExpliciteEulerSolverTest {
 
@@ -15,13 +16,13 @@ public class ExpliciteEulerSolverTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 		setSpace(Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(1));
-		fun = (Function) getSpace().genericBaseToList().get(0);
+		fun = new ExponentialFunction(0, 0);// (Function) getSpace().genericBaseToList().get(0);
 	}
 
 	@Test
 	public void testSolve() throws Throwable {
-		Solver solver = new ExpliciteEulerSolver(fun, 0, 1.e-3);
-		Function solution = solver.solve();
+		final Solver solver = new ExpliciteEulerSolver(fun, 0, 1.e-3);
+		final Function solution = solver.solve();
 		solution.plot(-Math.PI, Math.PI);
 	}
 

@@ -1,5 +1,5 @@
 ///**
-// * 
+// *
 // */
 //package definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.impl;
 //
@@ -28,11 +28,11 @@
 //		implements IFiniteDimensionalFunctionSpace, Serializable {
 //
 //	private static final long serialVersionUID = 8782137998323986519L;
-//	
+//
 //	final double[] intervall;
-//	
+//
 //	final double eps;
-//	
+//
 //	final String PATH = "vectorSpaces.data";
 //
 //	FileOutputStream f_out = new FileOutputStream(PATH);

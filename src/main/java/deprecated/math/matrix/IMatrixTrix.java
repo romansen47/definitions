@@ -2,7 +2,7 @@ package deprecated.math.matrix;
 
 public interface IMatrixTrix {
 
-	final static deprecated.math.IMathOp mathOperator = deprecated.math.MathOp.getInstance();
+	deprecated.math.IMathOp mathOperator = deprecated.math.MathOp.getInstance();
 
 	default double[] matrixMult(final double[][] matrix, final double[] vector) {
 		final double[] y = new double[matrix.length];

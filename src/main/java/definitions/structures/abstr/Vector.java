@@ -6,13 +6,13 @@ public interface Vector {
 
 	int getDim();
 
-	boolean elementOf(VectorSpace space) throws Throwable;
+	boolean elementOf(VectorSpace space);
 
-	boolean equals(Vector vec) throws Throwable;
+	boolean equals(Vector vec);
 
 	Map<Vector, Double> getCoordinates();
 
-	double[] getGenericCoordinates() throws Throwable;
+	double[] getGenericCoordinates();
 
 	@Override
 	String toString();

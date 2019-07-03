@@ -10,7 +10,7 @@ import definitions.structures.generic.finitedimensional.defs.mappings.Endomorphi
 import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
 import definitions.structures.generic.finitedimensional.defs.mappings.IMappingGenerator;
 import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.IFiniteDimensionalFunctionSpace;
+import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
 
 public class MappingGenerator implements IMappingGenerator {
 
@@ -27,7 +27,7 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public Homomorphism getFiniteDimensionalLinearMapping(final double[][] genericMatrix) throws Throwable {
+	public Homomorphism getFiniteDimensionalLinearMapping(final double[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
 		final EuclideanSpace source = Generator.getGenerator().getSpacegenerator()
@@ -63,10 +63,10 @@ public class MappingGenerator implements IMappingGenerator {
 
 	@Override
 	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Double>> coordinates) throws Throwable {
-		if (source instanceof IFiniteDimensionalFunctionSpace) {
-			return new InjectiveFunctionSpaceOperator((IFiniteDimensionalFunctionSpace) source,
-					(IFiniteDimensionalFunctionSpace) target, coordinates);
+			final Map<Vector, Map<Vector, Double>> coordinates) {
+		if (source instanceof EuclideanFunctionSpace) {
+			return new InjectiveFunctionSpaceOperator((EuclideanFunctionSpace) source, (EuclideanFunctionSpace) target,
+					coordinates);
 		}
 		final int dimSource = source.dim();
 		final int dimTarget = target.dim();
@@ -86,7 +86,7 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 //	@Override
-//	public Homomorphism getComposition(Homomorphism map2, Homomorphism map) throws Throwable {
+//	public Homomorphism getComposition(Homomorphism map2, Homomorphism map)  {
 //		return (Homomorphism) getComposition((IFiniteDimensionalLinearMapping)map2,(IFiniteDimensionalLinearMapping)map);
 //	}
 
