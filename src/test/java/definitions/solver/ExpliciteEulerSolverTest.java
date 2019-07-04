@@ -3,10 +3,10 @@ package definitions.solver;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.functions.ExponentialFunction;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.functions.ExponentialFunction;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public class ExpliciteEulerSolverTest {
 

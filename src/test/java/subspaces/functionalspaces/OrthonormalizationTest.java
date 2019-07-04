@@ -7,9 +7,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")

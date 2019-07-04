@@ -1,7 +1,7 @@
 package definitions.solver;
 
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
 
 public class ExpliciteEulerSolver implements Solver {
 

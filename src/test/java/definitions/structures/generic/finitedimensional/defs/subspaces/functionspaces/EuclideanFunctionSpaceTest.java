@@ -3,11 +3,11 @@ package definitions.structures.generic.finitedimensional.defs.subspaces.function
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.FunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.vectors.functions.LinearFunction;
-import definitions.structures.generic.finitedimensional.defs.vectors.functions.Sine;
+import definitions.structures.abstr.FunctionSpace;
+import definitions.structures.finitedimensional.vectors.functions.LinearFunction;
+import definitions.structures.finitedimensional.vectors.functions.Sine;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class EuclideanFunctionSpaceTest {

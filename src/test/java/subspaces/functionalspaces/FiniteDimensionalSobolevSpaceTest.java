@@ -12,12 +12,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.spaces.ISpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.subspaces.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.FunctionTuple;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.functions.ExponentialFunction;
+import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
 
 public class FiniteDimensionalSobolevSpaceTest {
 
@@ -28,7 +29,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 3;
+	static final int dim = 2;
 
 	static final int degree = 1;
 
@@ -69,12 +70,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 				return input / this.norm;
 			}
 		};
-		exp = new GenericFunction() {
-			@Override
-			public double value(double input) {
-				return Math.exp(input);
-			}
-		};
+		exp = new ExponentialFunction(0, 1);
 		abs = new GenericFunction() {
 			@Override
 			public double value(double input) {
@@ -139,19 +135,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	@Test
 	public void scalarProducts() throws Throwable {
-		final List<Vector> base = sobolevSpace.genericBaseToList();
-		final double[][] scalarProducts = new double[base.size()][base.size()];
-		int i = 0;
-		for (final Vector vec1 : base) {
-			int j = 0;
-			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = sobolevSpace.product(vec1, vec2);
-				System.out.print((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
-				j++;
-			}
-			System.out.println("");
-			i++;
-		}
+		sobolevSpace.show();
 	}
 
 	@Test

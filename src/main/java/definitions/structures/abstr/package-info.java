@@ -1,5 +1,5 @@
 /**
- *
+ * Basic abstract structure definitions.
  */
 /**
  * @author ro

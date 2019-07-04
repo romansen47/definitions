@@ -12,17 +12,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.spaces.impl.SpaceGenerator;
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 
 public class PolynomialRegressionTest {
 
-	final static int maxDegree = 6;
+	final static int maxDegree = 3;
+	final static int trigonometricDegree = 5;
 	final static double left = -1;
 	final static double right = 1;
-	final static int degree = 2;
+	final static int degree = 1;
 
 	static VectorSpace polynomialSpace;
 	static VectorSpace trigonometricSpace;
@@ -43,7 +44,9 @@ public class PolynomialRegressionTest {
 	public static void before() throws Throwable {
 		testValues2 = readFile(PATH2);
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialSobolevSpace(maxDegree, left, right, degree);
-		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace(maxDegree);
+//		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace(maxDegree, left, right);
+		trigonometricSpace = SpaceGenerator.getInstance()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(trigonometricDegree, 1);
 		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
@@ -57,22 +60,26 @@ public class PolynomialRegressionTest {
 				}
 				return testValues2[1][k];
 			}
-
 		};
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
 
 	}
 
 	@Test
-	public void test() throws Throwable {
+	public void test1() throws Throwable {
 		final Function coordinates = exp.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, exp);
 	}
 
 	@Test
-	public void test1() throws Throwable {
+	public void test2() throws Throwable {
 		final Function coordinates = staircaseFunction2.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, staircaseFunction);
+	}
+
+	@Test
+	public void test() throws Throwable {
+		staircaseFunction2.plotCompare(left, right, staircaseFunction);
 	}
 
 	protected static double[][] readFile(String string) throws IOException {
@@ -102,4 +109,8 @@ public class PolynomialRegressionTest {
 		return ans;
 	}
 
+	@Test
+	public void test3() {
+		((EuclideanSpace) trigonometricSpace).show();
+	}
 }

@@ -1,6 +1,6 @@
 package definitions.solver;
 
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
 
 public class NewtonSolver {
 

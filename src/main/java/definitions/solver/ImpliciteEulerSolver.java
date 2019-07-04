@@ -1,6 +1,6 @@
 package definitions.solver;
 
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
+import definitions.structures.finitedimensional.vectors.Function;
 
 public class ImpliciteEulerSolver extends ExpliciteEulerSolver {
 

@@ -13,14 +13,14 @@ public interface VectorSpace {
 	 * Not yet implemented.
 	 * 
 	 * @param vec the vector to check for.
-	 * @return @
+	 * @return whether vec is an element of the space.
 	 */
 	boolean contains(Vector vec);
 
 	/**
 	 * Vector space is not empty.
 	 * 
-	 * @return the zero vector. @
+	 * @return the zero vector.
 	 */
 	Vector nullVec();
 
@@ -29,7 +29,7 @@ public interface VectorSpace {
 	 * 
 	 * @param vec1 summand a.
 	 * @param vec2 summand b.
-	 * @return the addition of a and b @
+	 * @return the addition of a and b.
 	 */
 	Vector add(Vector vec1, Vector vec2);
 
@@ -38,7 +38,7 @@ public interface VectorSpace {
 	 * 
 	 * @param vec1 the vector to stretch.
 	 * @param r    the factor.
-	 * @return the stretched vector @
+	 * @return the stretched vector.
 	 */
 	Vector stretch(Vector vec1, double r);
 

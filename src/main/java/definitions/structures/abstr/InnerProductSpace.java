@@ -24,7 +24,7 @@ public interface InnerProductSpace extends NormedSpace {
 	}
 
 	/**
-	 * Method to project one vector on another.
+	 * Method to project one vector onto another.
 	 * 
 	 * @param w reference vector.
 	 * @param v projected vector.

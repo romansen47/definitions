@@ -10,10 +10,11 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.generic.finitedimensional.defs.Generator;
-import definitions.structures.generic.finitedimensional.defs.spaces.EuclideanSpace;
-import definitions.structures.generic.finitedimensional.defs.vectors.Function;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.operators.DerivativeOperator;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.impl.operators.DerivativeOperator;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegrals {
 

@@ -4,11 +4,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Homomorphism;
-import definitions.structures.generic.finitedimensional.defs.mappings.Automorphism;
-import definitions.structures.generic.finitedimensional.defs.mappings.IFiniteDimensionalLinearMapping;
-import definitions.structures.generic.finitedimensional.defs.mappings.impl.MappingGenerator;
-import definitions.structures.generic.finitedimensional.defs.vectors.FiniteVector;
-import definitions.structures.generic.finitedimensional.defs.vectors.impl.Tuple;
+import definitions.structures.finitedimensional.mappings.Automorphism;
+import definitions.structures.finitedimensional.mappings.FiniteDimensionalHomomorphism;
+import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
+import definitions.structures.finitedimensional.vectors.FiniteVector;
+import definitions.structures.finitedimensional.vectors.impl.Tuple;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
@@ -22,7 +22,7 @@ public class FiniteDimensionalLinearMappingTest {
 
 	static double[][] matrix = new double[][] { { 1, 0, 1 }, { 0, 1., 0 }, { -1, 0, 1 } };
 
-	static IFiniteDimensionalLinearMapping product;
+	static FiniteDimensionalHomomorphism product;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
