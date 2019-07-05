@@ -20,7 +20,7 @@ import deprecated.proprietary.StdDraw;
  * @author ro
  *
  */
-public interface Function extends Vector {
+public interface Function extends Vector,Plotable {
 
 	/**
 	 * Functions carry around a correctness parameter.
@@ -59,12 +59,7 @@ public interface Function extends Vector {
 		return true;
 	}
 
-	/**
-	 * Method to plot the function.
-	 * 
-	 * @param left  the left.
-	 * @param right the right.
-	 */
+	@Override
 	default void plot(final double left, final double right) {
 
 		final int count = 1000;
@@ -83,7 +78,6 @@ public interface Function extends Vector {
 				min = y;
 			}
 		}
-		final double d = max - min;
 		if (delta == 0) {
 			min = min - 100;
 			max = max + 100;
@@ -102,13 +96,7 @@ public interface Function extends Vector {
 		}
 	}
 
-	/**
-	 * Method to plot the function against another function.
-	 * 
-	 * @param left  the left.
-	 * @param right the right.
-	 * @param fun   the other function.
-	 */
+	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
 		final int count = 500;
 		final double delta = (right - left) / count;

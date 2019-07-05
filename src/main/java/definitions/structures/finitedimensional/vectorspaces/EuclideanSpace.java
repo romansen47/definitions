@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.vectors.FiniteVector;
+import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.vectors.impl.Tuple;
 
 /**
@@ -143,6 +144,14 @@ public interface EuclideanSpace extends InnerProductSpace {
 			i++;
 		}
 
+	}
+
+	default Vector copyVector(final Vector vec){
+		final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : this.genericBaseToList()) {
+			coordinates.put(baseVec, this.product(vec, baseVec));
+		}
+		return new FunctionTuple(coordinates);
 	}
 
 }

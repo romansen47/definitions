@@ -1,7 +1,5 @@
 package definitions.structures.finitedimensional.functionspaces.impl;
 
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.List;
 
