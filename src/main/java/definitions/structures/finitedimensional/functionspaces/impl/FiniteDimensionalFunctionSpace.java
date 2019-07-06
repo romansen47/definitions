@@ -10,6 +10,7 @@ import definitions.structures.finitedimensional.functionspaces.EuclideanFunction
 import definitions.structures.finitedimensional.vectors.Function;
 import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
@@ -67,16 +68,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public double product(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
-				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
-			return super.product(vec1, vec2);
-		} else {
-			return this.integral((Function) vec1, (Function) vec2);
-		}
-	}
-
-	@Override
 	public Function stretch(final Vector vec, final double r) {
 		if (vec instanceof GenericFunction) {
 			return new GenericFunction() {
@@ -125,6 +116,16 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		return this.stretch(vec, 1 / this.norm(vec));
 	}
 
+	@Override
+	public double product(final Vector vec1, final Vector vec2) {
+		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
+				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+			return ((EuclideanSpace)this).product(vec1, vec2);
+		} else {
+			return this.integral((Function) vec1, (Function) vec2);
+		}
+	}
+	
 	@Override
 	public Vector nullVec() {
 		return new GenericFunction() {

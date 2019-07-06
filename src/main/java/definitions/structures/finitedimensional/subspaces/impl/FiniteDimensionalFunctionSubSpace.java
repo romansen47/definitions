@@ -1,11 +1,13 @@
 package definitions.structures.finitedimensional.subspaces.impl;
 
+import definitions.structures.finitedimensional.vectors.Function;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.mappings.FiniteDimensionalEmbedding;
@@ -133,14 +135,21 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 
 	@Override
 	public double getLeft() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getInterval()[0];
 	}
 
 	@Override
 	public double getRight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return getInterval()[1];
 	}
 
+	@Override
+	public double product(Vector vec1,Vector vec2) {
+//		if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple) {
+//			return super.product(vec1, vec2);
+//		}
+//		return this.integral((Function) vec1, (Function) vec2);
+		return ((InnerProductSpace) getParametrization().getTarget()).product(vec1,vec2);
+	}
+	
 }

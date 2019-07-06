@@ -9,10 +9,15 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectors.FiniteVector;
 import definitions.structures.finitedimensional.vectors.impl.Tuple;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.ParameterizedSpace;
+
+import definitions.structures.finitedimensional.vectors.Function;
 
 /**
  * Finite dimensional homomorphism.
@@ -42,10 +47,15 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 
 	@Override
 	default Vector get(final Vector vec2) {
-//		if (getSource() instanceof ParameterizedSpace) {
-//			return getOnSubSpace(vec2);
-//		}
-		final Map<Vector, Double> coordinates = ((FiniteVector) vec2).getCoordinates((EuclideanSpace) getSource());
+		if (getSource() instanceof ParameterizedSpace) {
+			return getOnSubSpace(vec2);
+		}
+		Map<Vector, Double> coordinates;
+		if (vec2 instanceof Function) {
+			coordinates = ((Function) vec2).getCoordinates((EuclideanSpace) getSource());
+		} else {
+			coordinates = ((FiniteVector) vec2).getCoordinates((EuclideanSpace) getSource());
+		}
 		Vector ans;
 		EuclideanSpace target;
 		final VectorSpace space = getTarget();
@@ -69,20 +79,20 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 		return ans;
 	}
 
-//	default FiniteVector getOnSubSpace(final Vector vec2) {
-//		final ParameterizedSpace space = (ParameterizedSpace) getSource();
-//		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
-//		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) Generator
-//				.getGenerator().getMappinggenerator().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
-//		FiniteDimensionalHomomorphism composedMapping;
-//		if (getTarget() instanceof ParameterizedSpace) {
-//			composedMapping = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance()
-//					.getComposition(((ParameterizedSpace) getTarget()).getParametrization(), mapOnSourceSpaces);
-//		} else {
-//			composedMapping = mapOnSourceSpaces;
-//		}
-//		return (FiniteVector) composedMapping.get(inverseVector);
-//	}
+	default FiniteVector getOnSubSpace(final Vector vec2) {
+		final ParameterizedSpace space = (ParameterizedSpace) getSource();
+		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
+		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) Generator.getGenerator()
+				.getMappinggenerator().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
+		FiniteDimensionalHomomorphism composedMapping;
+		if (getTarget() instanceof ParameterizedSpace) {
+			composedMapping = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance()
+					.getComposition(((ParameterizedSpace) getTarget()).getParametrization(), mapOnSourceSpaces);
+		} else {
+			composedMapping = mapOnSourceSpaces;
+		}
+		return (FiniteVector) composedMapping.get(inverseVector);
+	}
 
 	/**
 	 * method to swap columns and rows.

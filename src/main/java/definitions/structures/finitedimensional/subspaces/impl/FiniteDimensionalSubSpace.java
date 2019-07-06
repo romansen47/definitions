@@ -24,7 +24,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	public FiniteDimensionalSubSpace(final FiniteDimensionalEmbedding map) throws Throwable {
 		super(Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace( map.getRank())
 				.genericBaseToList());
-		this.parametrization = (FiniteDimensionalEmbedding) map;
+		this.parametrization = map;
 		for (final Vector vec : ((EuclideanSpace) this.parametrization.getSource()).genericBaseToList()) {
 			final Vector newBaseVec = this.parametrization.get(vec);
 			this.genericBase.add(newBaseVec);

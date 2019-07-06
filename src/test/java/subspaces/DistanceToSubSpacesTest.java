@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
@@ -17,9 +16,13 @@ import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimens
 import definitions.structures.finitedimensional.mappings.FiniteDimensionalEmbedding;
 import definitions.structures.finitedimensional.subspaces.impl.FiniteDimensionalFunctionSubSpace;
 import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.functions.Constant;
+import definitions.structures.finitedimensional.vectors.functions.ExponentialFunction;
+import definitions.structures.finitedimensional.vectors.functions.LinearFunction;
+import definitions.structures.finitedimensional.vectors.functions.Sine;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+
 public class DistanceToSubSpacesTest {
 
 	static double answer;
@@ -43,40 +46,15 @@ public class DistanceToSubSpacesTest {
 
 		genericSpace = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(5);
 
-		sin = new GenericFunction() {
-			@Override
-			public double value(double input) {
-				return Math.sin(input);
-			}
-		};
+		sin = new Sine(1, 0, 1);
 
-		cos = new GenericFunction() {
-			@Override
-			public double value(double input) {
-				return Math.cos(input);
-			}
-		};
+		cos = new Sine(1, 0.5 * Math.PI, 1);
 
-		constant = new GenericFunction() {
-			@Override
-			public double value(double input) {
-				return 1 / Math.sqrt(2 * Math.PI);
-			}
-		};
+		constant = new Constant(1 / Math.sqrt(2 * Math.PI));
 
-		identity = new GenericFunction() {
-			@Override
-			public double value(double input) {
-				return input;
-			}
-		};
+		identity = new LinearFunction(0, 1);
 
-		exp = new GenericFunction() {
-			@Override
-			public double value(double input) {
-				return Math.exp(input);
-			}
-		};
+		exp = new ExponentialFunction(0, 1);
 
 		final List<Vector> list = new ArrayList<>();
 
@@ -99,15 +77,19 @@ public class DistanceToSubSpacesTest {
 			coordinates2.put(fun1, tmp);
 		}
 
+		final FiniteDimensionalEmbedding parametrization = (FiniteDimensionalEmbedding) Generator.getGenerator()
+				.getMappinggenerator().getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
 
-		final FiniteDimensionalEmbedding parametrization =(FiniteDimensionalEmbedding) Generator.getGenerator().getMappinggenerator()
-				.getFiniteDimensionalLinearMapping(functionSpace, functionSpace2, coordinates2);
-
-		functionSubSpace = new FiniteDimensionalFunctionSubSpace((FiniteDimensionalEmbedding) parametrization,functionSpace2);
+		functionSubSpace = new FiniteDimensionalFunctionSubSpace((FiniteDimensionalEmbedding) parametrization,
+				functionSpace2);
 		final Vector sum = functionSpace2.add(constant, identity);
 
-		final Vector max = functionSpace.copyVector(identity);
-		answer = functionSpace.norm(max);
+//		final Vector id = functionSpace2.copyVector(identity);
+		Vector projection = identity.getProjection(functionSubSpace);
+		for (Vector baseVec:functionSubSpace.getGenericBase()) {
+			((Function)baseVec).plot(-Math.PI,Math.PI);
+		}
+		answer = functionSubSpace.getDistance(identity, projection);
 
 	}
 
