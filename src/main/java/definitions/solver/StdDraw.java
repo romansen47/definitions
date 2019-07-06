@@ -1,4 +1,4 @@
-package deprecated.proprietary;
+package definitions.solver;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

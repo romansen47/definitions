@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.solver.StdDraw;
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.Generator;
@@ -12,7 +13,6 @@ import definitions.structures.finitedimensional.vectors.functions.Constant;
 import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import deprecated.proprietary.StdDraw;
 
 /**
  * Function.

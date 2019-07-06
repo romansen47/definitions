@@ -2,7 +2,6 @@ package definitions.structures.finitedimensional.mappings;
 
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.mappings.impl.InvertibleSelfMapping;
-import deprecated.math.matrix.MatrixOperator;
 
 /**
  * Isomorphism between vector spaces.
@@ -17,9 +16,10 @@ public interface Isomorphism extends FiniteDimensionalEmbedding {
 	 * @return
 	 * @throws Throwable
 	 */
-	default Isomorphism getInverse() throws Throwable {
-		return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
-				.getFiniteDimensionalLinearMapping(MatrixOperator.getInstance().inverse(getGenericMatrix()));
-	}
+//	default Isomorphism getInverse() throws Throwable {
+//		return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+//				.getFiniteDimensionalLinearMapping(MatrixOperator.getInstance().inverse(getGenericMatrix()));
+//	}
 
+	Isomorphism getInverse() throws Throwable;
 }
