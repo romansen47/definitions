@@ -10,8 +10,6 @@ import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public class FunctionTuple extends Tuple implements Function {
 
-	private final LinearMapping derivativeProjection = null;
-
 	public FunctionTuple(final Map<Vector, Double> coordinates) {
 		super(coordinates);
 	}

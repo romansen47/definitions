@@ -32,8 +32,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			}
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Double> coordinates = new HashMap<>();
-			Vector newVec1=convertToTuple(vec1);
-			Vector newVec2=convertToTuple(vec2);
+			final Vector newVec1 = functionTuple(vec1);
+			final Vector newVec2 = functionTuple(vec2);
 			for (final Vector vec : base) {
 				coordinates.put(vec,
 						newVec1.getCoordinates().get(getBaseVec(vec)) + newVec2.getCoordinates().get(getBaseVec(vec)));
@@ -43,13 +43,18 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		return null;
 	}
 
-	default Vector convertToTuple(Vector vec) {
-		if (vec.getCoordinates()==null) {
+	/**
+	 * Convert generic function to function tuple
+	 * @param vec the function
+	 * @return the projection of vec
+	 */
+	default Vector functionTuple(Vector vec) {
+		if (vec.getCoordinates() == null) {
 			return ((Function) vec).getProjection(this);
 		}
 		return vec;
 	}
-	
+
 	/**
 	 * Method to get the zero function.
 	 * 
@@ -79,5 +84,5 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	@Override
 	Vector getCoordinates(Vector vec);
-	
+
 }

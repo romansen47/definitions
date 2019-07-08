@@ -13,11 +13,10 @@ import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectors.FiniteVector;
+import definitions.structures.finitedimensional.vectors.Function;
 import definitions.structures.finitedimensional.vectors.impl.Tuple;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.vectorspaces.ParameterizedSpace;
-
-import definitions.structures.finitedimensional.vectors.Function;
 
 /**
  * Finite dimensional homomorphism.

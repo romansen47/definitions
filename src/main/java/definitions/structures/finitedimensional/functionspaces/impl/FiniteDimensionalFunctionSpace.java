@@ -120,12 +120,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public double product(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
 				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
-			return ((EuclideanSpace)this).product(vec1, vec2);
+			return ((EuclideanSpace) this).product(vec1, vec2);
 		} else {
 			return this.integral((Function) vec1, (Function) vec2);
 		}
 	}
-	
+
 	@Override
 	public Vector nullVec() {
 		return new GenericFunction() {

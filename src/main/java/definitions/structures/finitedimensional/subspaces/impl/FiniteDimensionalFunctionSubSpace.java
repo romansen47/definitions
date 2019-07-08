@@ -1,6 +1,5 @@
 package definitions.structures.finitedimensional.subspaces.impl;
 
-import definitions.structures.finitedimensional.vectors.Function;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -15,52 +14,10 @@ import definitions.structures.finitedimensional.vectors.Function;
 import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
-//public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace implements EuclideanFunctionSpace {
-//
-//	final double left;
-//	final double right;
-//	final double eps;
-//	final double[] interval;
-//
-//	public FiniteDimensionalFunctionSubSpace(FiniteDimensionalEmbedding map,double right,double eps) throws Throwable {
-//		super(map);
-//		this.right=right;
-//		this.left=-right;
-//		this.eps=eps;
-//		interval=new double[] {-right,right};
-//	}
-//
-//	@Override
-//	public double[] getInterval() {
-//		return interval;
-//	}
-//
-//	@Override
-//	public double getEpsilon() {
-//		// TODO Auto-generated method stub
-//		return eps;
-//	}
-//
-//	@Override
-//	public double getLeft() {
-//		return left;
-//	}
-//
-//	@Override
-//	public double getRight() {
-//		return right;
-//	}
-//
-//	@Override
-//	public Vector add(Vector vec1, Vector vec2) {
-//		return EuclideanFunctionSpace.super.add(vec1, vec2);
-//	}
-//
-//}
 /**
-* @author ro
-*
-*/
+ * @author ro
+ *
+ */
 public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		implements EuclideanFunctionSpace, Serializable {
 
@@ -81,10 +38,9 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 		super(map);
 		this.intervall = superSpace.getInterval();
 		this.eps = superSpace.getEpsilon();
-		this.parametrization = (FiniteDimensionalEmbedding) map;
+		this.parametrization = map;
 		this.genericBase.clear();
-		for (final Vector vec : ((EuclideanSpace) this.parametrization
-				.getSource()).genericBaseToList()) {
+		for (final Vector vec : ((EuclideanSpace) this.parametrization.getSource()).genericBaseToList()) {
 			final Vector newBaseVec = this.parametrization.get(vec);
 			this.genericBase.add(newBaseVec);
 			this.getParametrizationBaseVectorMapping().put(vec, newBaseVec);
@@ -107,12 +63,12 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public Function stretch(final Vector vec, final double r){
+	public Function stretch(final Vector vec, final double r) {
 		return (Function) this.getSuperSpace().stretch(vec, r);
 	}
 
 	@Override
-	public Vector add(final Vector vec1, final Vector vec2){
+	public Vector add(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			return this.getSuperSpace().add(vec1, vec2);
 		}
@@ -135,21 +91,21 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 
 	@Override
 	public double getLeft() {
-		return getInterval()[0];
+		return this.getInterval()[0];
 	}
 
 	@Override
 	public double getRight() {
-		return getInterval()[1];
+		return this.getInterval()[1];
 	}
 
 	@Override
-	public double product(Vector vec1,Vector vec2) {
+	public double product(Vector vec1, Vector vec2) {
 //		if (vec1 instanceof FunctionTuple && vec2 instanceof FunctionTuple) {
 //			return super.product(vec1, vec2);
 //		}
 //		return this.integral((Function) vec1, (Function) vec2);
-		return ((InnerProductSpace) getParametrization().getTarget()).product(vec1,vec2);
+		return ((InnerProductSpace) this.getParametrization().getTarget()).product(vec1, vec2);
 	}
-	
+
 }

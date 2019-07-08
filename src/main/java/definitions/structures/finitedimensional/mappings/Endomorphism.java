@@ -1,6 +1,5 @@
 package definitions.structures.finitedimensional.mappings;
 
-
 /**
  * Finite dimensional linear self mapping.
  * 
@@ -28,7 +27,7 @@ public interface Endomorphism extends FiniteDimensionalHomomorphism {
 		}
 		return det;
 	}
-	
+
 	default double[][] adjointMatrix(final double[][] matrix, final int a, final int b) {
 		final int k = matrix.length;
 		final double[][] adj = new double[k - 1][k - 1];

@@ -20,7 +20,7 @@ import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public interface Function extends Vector,Plotable {
+public interface Function extends Vector, Plotable {
 
 	/**
 	 * Functions carry around a correctness parameter.

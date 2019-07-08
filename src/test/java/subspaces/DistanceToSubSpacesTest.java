@@ -84,8 +84,8 @@ public class DistanceToSubSpacesTest {
 				functionSpace2);
 		final Vector sum = functionSpace2.add(constant, identity);
 
-//		final Vector id = functionSpace2.copyVector(identity);
 		Vector projection = identity.getProjection(functionSubSpace);
+		
 		for (Vector baseVec:functionSubSpace.getGenericBase()) {
 			((Function)baseVec).plot(-Math.PI,Math.PI);
 		}

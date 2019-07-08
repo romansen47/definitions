@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.mappings.FiniteDimensionalEmbedding;
-import definitions.structures.finitedimensional.mappings.FiniteDimensionalHomomorphism;
-import definitions.structures.finitedimensional.mappings.impl.InjectiveLinearMapping;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.vectorspaces.ParameterizedSpace;
 import definitions.structures.finitedimensional.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -22,7 +19,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	protected Map<Vector, Vector> parametrizationBaseVectorMapping = new ConcurrentHashMap<>();
 
 	public FiniteDimensionalSubSpace(final FiniteDimensionalEmbedding map) throws Throwable {
-		super(Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace( map.getRank())
+		super(Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(map.getRank())
 				.genericBaseToList());
 		this.parametrization = map;
 		for (final Vector vec : ((EuclideanSpace) this.parametrization.getSource()).genericBaseToList()) {
@@ -38,7 +35,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public int dim(){
+	public int dim() {
 		return this.parametrization.getRank();
 	}
 

@@ -2,6 +2,7 @@ package definitions.structures.finitedimensional.mappings;
 
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.mappings.impl.InvertibleSelfMapping;
+
 /**
  * Automorphism.
  * 
@@ -9,9 +10,10 @@ import definitions.structures.finitedimensional.mappings.impl.InvertibleSelfMapp
  *
  */
 public interface Automorphism extends Endomorphism, Isomorphism {
-	
+
+	@Override
 	default Isomorphism getInverse() throws Throwable {
-		final double[][] matrix=getGenericMatrix();
+		final double[][] matrix = getGenericMatrix();
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final double in = matrix[0][0];
 			if (in == 0.) {

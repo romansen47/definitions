@@ -146,7 +146,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 
 	}
 
-	default Vector copyVector(final Vector vec){
+	default Vector copyVector(final Vector vec) {
 		final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.product(vec, baseVec));

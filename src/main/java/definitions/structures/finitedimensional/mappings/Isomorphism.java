@@ -1,8 +1,5 @@
 package definitions.structures.finitedimensional.mappings;
 
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.mappings.impl.InvertibleSelfMapping;
-
 /**
  * Isomorphism between vector spaces.
  * 
