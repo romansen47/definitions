@@ -15,7 +15,9 @@ import definitions.structures.finitedimensional.vectorspaces.impl.FiniteDimensio
 public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace implements ParameterizedSpace {
 
 	protected FiniteDimensionalEmbedding parametrization;
+	
 	protected final List<Vector> genericBase = new ArrayList<>();
+	
 	protected Map<Vector, Vector> parametrizationBaseVectorMapping = new ConcurrentHashMap<>();
 
 	public FiniteDimensionalSubSpace(final FiniteDimensionalEmbedding map) throws Throwable {

@@ -6,6 +6,7 @@ import org.junit.Test;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.finitedimensional.mappings.Automorphism;
 import definitions.structures.finitedimensional.mappings.FiniteDimensionalHomomorphism;
+import definitions.structures.finitedimensional.mappings.Isomorphism;
 import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectors.FiniteVector;
 import definitions.structures.finitedimensional.vectors.impl.Tuple;
@@ -17,7 +18,8 @@ public class FiniteDimensionalLinearMappingTest {
 	static FiniteVector e1;
 	static FiniteVector e2;
 	static FiniteVector e3;
-
+	static Homomorphism map;
+	static Homomorphism inv;
 	static Homomorphism composition;
 
 	static double[][] matrix = new double[][] { { 1, 0, 1 }, { 0, 1., 0 }, { -1, 0, 1 } };
@@ -31,8 +33,9 @@ public class FiniteDimensionalLinearMappingTest {
 		e2 = new Tuple(new double[] { 0, 1, 0 });
 		e3 = new Tuple(new double[] { 0, 0, 1 });
 
-		final Homomorphism map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
-		final Homomorphism inv = ((Automorphism) map).getInverse();
+		map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
+		inv = ((Automorphism) map).getInverse();
+		
 		composition = MappingGenerator.getInstance().getComposition(map, inv);
 
 	}
@@ -50,5 +53,22 @@ public class FiniteDimensionalLinearMappingTest {
 	@Test
 	public void third() throws Throwable {
 		Assert.assertTrue(composition.get(e3).equals(e3));
+	}
+
+	@Test
+	public void iso1() throws Throwable {
+		Assert.assertTrue(map instanceof Isomorphism);
+	}
+	
+
+	@Test
+	public void iso2() throws Throwable {
+		Assert.assertTrue(inv instanceof Isomorphism);
+	}
+	
+
+	@Test
+	public void iso3() throws Throwable {
+		Assert.assertTrue(composition instanceof Isomorphism);
 	}
 }
