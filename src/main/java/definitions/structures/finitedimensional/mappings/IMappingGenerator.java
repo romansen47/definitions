@@ -4,23 +4,24 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Homomorphism;
-import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public interface IMappingGenerator {
 
 	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) {
-		Map<Vector, Map<Vector, Double>> linearity = new ConcurrentHashMap<>();
-		for (final Vector vec : ((EuclideanSpace) b.getSource()).genericBaseToList()) {
-			final Map<Vector, Double> coordinates = new ConcurrentHashMap<>();
-			for (final Vector vec2 : ((EuclideanSpace) b.getSource()).genericBaseToList()) {
-				coordinates.put(vec2, ((InnerProductSpace) b.getSource()).product(vec, vec2));
-			}
-			linearity.put(vec, coordinates);
-		}
-		return getFiniteDimensionalLinearMapping(((EuclideanSpace) a.getSource()), ((EuclideanSpace) b.getTarget()),
-				linearity);
+		final Map<Vector, Map<Vector, Double>> linearity = new ConcurrentHashMap<>();
+		final double tmp;
+//		for (final Vector vec : ((EuclideanSpace) b.getSource()).genericBaseToList()) {
+//			linearity.put(vec,((Function)a.get(b.get(vec))).getCoordinates((EuclideanSpace) a.getTarget()));
+//		}
+//		return getFiniteDimensionalLinearMapping(((EuclideanSpace) a.getSource()), ((EuclideanSpace) b.getTarget()),
+//				linearity);
+		final double[][] genericMatrix = MappingGenerator.getInstance().composition(a.getGenericMatrix(),
+				b.getGenericMatrix());
+		return getFiniteDimensionalLinearMapping(((EuclideanSpace) b.getSource()), ((EuclideanSpace) a.getSource()),
+				genericMatrix);
 	}
 
 	default double[][] composition(final double[][] matA, final double[][] matB) {
@@ -37,6 +38,9 @@ public interface IMappingGenerator {
 
 	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Map<Vector, Map<Vector, Double>> matrix);
+
+	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
+			double[][] genericMatrix);
 
 	Homomorphism getFiniteDimensionalLinearMapping(double[][] genericMatrix);
 

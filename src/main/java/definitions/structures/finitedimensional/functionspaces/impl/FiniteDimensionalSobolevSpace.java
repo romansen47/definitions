@@ -105,11 +105,13 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 						return ((Function) vec2).value(input);
 					}
 				};
+				product += super.product(tmp1, tmp2);
 				for (int i = 0; i < this.getDegree(); i++) {
-					product += super.product(tmp1, tmp2);
 					tmp1 = tmp1.getDerivative();
 					tmp2 = tmp2.getDerivative();
+					product += super.product(tmp1, tmp2);
 				}
+				return product;
 			}
 		}
 		return super.product(vec1, vec2);

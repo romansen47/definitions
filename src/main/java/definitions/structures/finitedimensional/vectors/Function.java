@@ -9,9 +9,9 @@ import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectors.functions.Constant;
 import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.specialfunctions.Constant;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 /**
@@ -91,14 +91,14 @@ public interface Function extends Vector, Plotable {
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
-			StdDraw.setPenColor(Color.black);
+			StdDraw.setPenColor(Color.blue);
 			StdDraw.line(z, value(z), z + delta, value(z + delta));
 		}
 	}
 
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
-		final int count = 500;
+		final int count = 1000;
 		final double delta = (right - left) / count;
 		double x = 0;
 		double min = value((right - left) / 2.);
@@ -243,6 +243,9 @@ public interface Function extends Vector, Plotable {
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
+		if (this instanceof FunctionTuple) {
+			return this;
+		}
 		return new FunctionTuple(getCoordinates(source));
 	}
 }

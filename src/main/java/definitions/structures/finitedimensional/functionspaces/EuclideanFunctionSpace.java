@@ -45,6 +45,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	/**
 	 * Convert generic function to function tuple
+	 * 
 	 * @param vec the function
 	 * @return the projection of vec
 	 */

@@ -1,5 +1,6 @@
 package definitions.structures.finitedimensional.mappings.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -83,6 +84,24 @@ public class MappingGenerator implements IMappingGenerator {
 			return ans;
 		}
 		return new FiniteDimensionalLinearMapping(source, target, coordinates);
+	}
+
+	@Override
+	public Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
+			double[][] genericMatrix) {
+		final Map<Vector, Map<Vector, Double>> map = new HashMap<>();
+		int i = 0;
+		for (final Vector vec1 : source.genericBaseToList()) {
+			int j = 0;
+			final Map<Vector, Double> coordinates = new HashMap<>();
+			for (final Vector vec2 : target.genericBaseToList()) {
+				coordinates.put(vec2, genericMatrix[j][i]);
+				j++;
+			}
+			map.put(vec1, coordinates);
+			i++;
+		}
+		return this.getFiniteDimensionalLinearMapping(source, target, map);
 	}
 
 //	@Override

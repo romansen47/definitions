@@ -75,4 +75,5 @@ public interface IGenerator {
 	void saveFunctionSpaces() throws IOException;
 
 	void loadFunctionSpaces() throws IOException, ClassNotFoundException;
+
 }

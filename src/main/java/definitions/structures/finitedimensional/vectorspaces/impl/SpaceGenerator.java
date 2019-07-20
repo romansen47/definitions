@@ -59,4 +59,9 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		cachedFunctionSpaces = gen.getCachedFunctionSpaces();
 	}
 
+	@Override
+	public EuclideanFunctionSpace getPolynomialFunctionSpace(int n, double right) {
+		return new PolynomialFunctionSpace(n, right);
+	}
+
 }

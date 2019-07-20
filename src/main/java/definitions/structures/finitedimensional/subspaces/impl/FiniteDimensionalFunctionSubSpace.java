@@ -2,7 +2,6 @@ package definitions.structures.finitedimensional.subspaces.impl;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,9 +18,7 @@ import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
  *
  */
 public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
-		implements EuclideanFunctionSpace, Serializable {
-
-	private static final long serialVersionUID = 8782137998323986519L;
+		implements EuclideanFunctionSpace {
 
 	final double[] intervall;
 

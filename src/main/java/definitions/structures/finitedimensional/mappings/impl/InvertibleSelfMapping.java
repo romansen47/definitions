@@ -22,9 +22,6 @@ public class InvertibleSelfMapping extends InjectiveLinearMapping implements Aut
 	 */
 	protected InvertibleSelfMapping(final EuclideanSpace source, final Map<Vector, Map<Vector, Double>> coordinates) {
 		super(source, source, coordinates);
-//		if (this.getRank() < source.dim()) {
-//			throw new Throwable();
-//		}
 	}
 
 }

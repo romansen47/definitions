@@ -2,9 +2,11 @@ package definitions.structures.finitedimensional.vectors.impl;
 
 import java.util.Map;
 
-import definitions.structures.abstr.LinearMapping;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.abstr.impl.LinearMapping;
+import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.finitedimensional.vectors.Function;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
@@ -28,7 +30,7 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	public LinearMapping getDerivative(VectorSpace space) {
-		return new LinearMapping(space, space) {
+		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace)space, (EuclideanFunctionSpace)space) {
 			@Override
 			public Vector get(Vector vec2) {
 				return ((Function) vec2).getDerivative();

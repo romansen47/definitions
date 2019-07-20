@@ -150,9 +150,9 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			for (final Vector vec : this.genericBaseToList()) {
 				ans += vec.toString();
 			}
-			return ans;
 		} catch (final Throwable e) {
 			e.printStackTrace();
+			return ans;
 		}
 		return super.toString();
 	}

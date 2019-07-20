@@ -6,15 +6,17 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.abstr.impl.RealLine;
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.functions.LinearFunction;
-import definitions.structures.finitedimensional.vectors.impl.Monome;
+import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
 import definitions.structures.finitedimensional.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.vectorspaces.impl.TrigonometricSobolevSpace;
+import definitions.structures.finitedimensional.vectorspaces.impl.TrigonometricSpace;
 import exceptions.WrongClassException;
 
 public interface ISpaceGenerator {
@@ -24,6 +26,9 @@ public interface ISpaceGenerator {
 	Map<Integer, EuclideanFunctionSpace> getCachedFunctionSpaces();
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
+		if (dim==1) {
+			return RealLine.getRealLine();
+		}
 		if (!getCachedCoordinateSpaces().containsKey(dim)) {
 			final List<Vector> basetmp = new ArrayList<>();
 			for (int i = 0; i < dim; i++) {
@@ -94,27 +99,15 @@ public interface ISpaceGenerator {
 		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n, right), new LinearFunction(0, 1));
 	}
 
+	EuclideanFunctionSpace getPolynomialFunctionSpace(final int n, double right);
+
 	void setCachedCoordinateSpaces(ISpaceGenerator readObject);
 
 	void setCachedFunctionSpaces(ISpaceGenerator gen);
 
-	default VectorSpace getPolynomialFunctionSpace(int maxDegree, double left, double right) {
-		final int key = (int) (maxDegree * (1.e3 + left) * (1.e3 + right));
-		final List<Vector> base = new ArrayList<>();
-		if (getCachedFunctionSpaces().containsKey(key)) {
-			return getCachedFunctionSpaces().get(key);
-		}
-		for (int i = 0; i < (maxDegree + 1); i++) {
-			base.add(new Monome(i));
-		}
-		final VectorSpace ans = Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
-		getCachedFunctionSpaces().put(key, (EuclideanFunctionSpace) ans);
-		return ans;
-	}
-
-	default VectorSpace getPolynomialSobolevSpace(int maxDegree, double left, double right, int degree) {
-		return Generator.getGenerator().getFiniteDimensionalSobolevSpace(
-				(EuclideanFunctionSpace) getPolynomialFunctionSpace(maxDegree, left, right), degree);
+	default VectorSpace getPolynomialSobolevSpace(int maxDegree, double right, int degree) {
+		return Generator.getGenerator().getFiniteDimensionalSobolevSpace(getPolynomialFunctionSpace(maxDegree, right),
+				degree);
 	}
 
 	default EuclideanSpace extend(VectorSpace space, Vector fun) throws WrongClassException {
