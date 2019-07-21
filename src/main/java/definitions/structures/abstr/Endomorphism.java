@@ -1,11 +1,11 @@
-package definitions.structures.finitedimensional.mappings;
+package definitions.structures.abstr;
 
 /**
  * Finite dimensional linear self mapping.
  * 
  * @author ro
  */
-public interface Endomorphism extends FiniteDimensionalHomomorphism {
+public interface Endomorphism extends Homomorphism {
 
 	/**
 	 * Method to compute the determinant of the linear self mapping.

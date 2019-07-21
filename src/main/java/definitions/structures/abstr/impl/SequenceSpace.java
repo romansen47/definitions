@@ -6,7 +6,7 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 
 public interface SequenceSpace extends VectorSpace {
-
+	
 	VectorSpace getTargetSpace();
 	
 	@Override

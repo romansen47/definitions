@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.abstr.Endomorphism;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.mappings.Endomorphism;
 import definitions.structures.finitedimensional.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.finitedimensional.mappings.IMappingGenerator;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
@@ -54,7 +54,7 @@ public class MappingGenerator implements IMappingGenerator {
 			}
 		} else if (dimSource == dimTarget) {
 			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
-			if (ans.getRank() == dimSource) {
+			if (((FiniteDimensionalHomomorphism) ans).getRank() == dimSource) {
 				return new InvertibleSelfMapping(source, coordinates);
 			}
 			return ans;
@@ -78,7 +78,7 @@ public class MappingGenerator implements IMappingGenerator {
 			}
 		} else if (dimSource == dimTarget) {
 			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
-			if (ans.getRank() == dimSource) {
+			if (((FiniteDimensionalHomomorphism) ans).getRank() == dimSource) {
 				return new InvertibleSelfMapping(source, coordinates);
 			}
 			return ans;

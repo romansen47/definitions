@@ -2,8 +2,8 @@ package definitions.structures.finitedimensional.mappings.impl;
 
 import java.util.Map;
 
+import definitions.structures.abstr.Endomorphism;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.mappings.Endomorphism;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 /**

@@ -1,5 +1,6 @@
 package definitions.structures.finitedimensional.mappings;
 
+import definitions.structures.abstr.Endomorphism;
 import definitions.structures.finitedimensional.Generator;
 import definitions.structures.finitedimensional.mappings.impl.InvertibleSelfMapping;
 

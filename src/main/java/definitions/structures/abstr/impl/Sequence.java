@@ -16,7 +16,7 @@ public interface Sequence extends Vector {
 
 	@Override
 	public default boolean elementOf(VectorSpace space) {
-		return true;
+		return space instanceof SequenceSpace;
 	}
 
 	@Override
