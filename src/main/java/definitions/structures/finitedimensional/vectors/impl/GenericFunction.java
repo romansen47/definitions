@@ -41,7 +41,7 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
-	public boolean equals(final Vector vec) {
+	public Boolean equals(final Vector vec) {
 		return super.equals(vec);
 	}
 

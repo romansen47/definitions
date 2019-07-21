@@ -32,7 +32,7 @@ public interface Vector {
 	 * @param vec the vector to checl equality for.
 	 * @return true if vec is essentially the same as this one.
 	 */
-	boolean equals(Vector vec);
+	Boolean equals(Vector vec);
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.

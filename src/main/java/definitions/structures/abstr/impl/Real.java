@@ -31,7 +31,7 @@ public class Real implements Vector {
 	}
 
 	@Override
-	public boolean equals(Vector vec) {
+	public Boolean equals(Vector vec) {
 		return (vec instanceof Real && ((Real) vec).getValue() == this.getValue());
 	}
 
