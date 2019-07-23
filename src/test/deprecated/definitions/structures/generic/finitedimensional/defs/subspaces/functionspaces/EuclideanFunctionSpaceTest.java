@@ -4,10 +4,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.FunctionSpace;
-import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class EuclideanFunctionSpaceTest {

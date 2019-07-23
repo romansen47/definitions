@@ -8,11 +8,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 public class FiniteDimensionalFunctionSpaceTest {
 
@@ -58,16 +58,16 @@ public class FiniteDimensionalFunctionSpaceTest {
 		list.add(orthonormalIdentity);
 		list.add(orthonormalConstant);
 
-		integral1 = functionSpace.product((functionSpace.stretch(orthonormalSine, 2)), orthonormalSine);
-		integral2 = functionSpace.product(orthonormalCosine, orthonormalCosine);
-		integral3 = functionSpace.product(orthonormalIdentity, orthonormalIdentity);
-		integral4 = functionSpace.product(orthonormalIdentity, orthonormalSine);
-		integral5 = functionSpace.product(orthonormalIdentity, orthonormalCosine);
-		integral6 = functionSpace.product(orthonormalSine, orthonormalCosine);
-		integral7 = functionSpace.product(orthonormalSine, orthonormalConstant);
-		integral8 = functionSpace.product(orthonormalCosine, orthonormalConstant);
-		integral9 = functionSpace.product(orthonormalIdentity, orthonormalConstant);
-		integral10 = functionSpace.product(orthonormalConstant, orthonormalConstant);
+		integral1 = functionSpace.innerProduct((functionSpace.stretch(orthonormalSine, 2)), orthonormalSine);
+		integral2 = functionSpace.innerProduct(orthonormalCosine, orthonormalCosine);
+		integral3 = functionSpace.innerProduct(orthonormalIdentity, orthonormalIdentity);
+		integral4 = functionSpace.innerProduct(orthonormalIdentity, orthonormalSine);
+		integral5 = functionSpace.innerProduct(orthonormalIdentity, orthonormalCosine);
+		integral6 = functionSpace.innerProduct(orthonormalSine, orthonormalCosine);
+		integral7 = functionSpace.innerProduct(orthonormalSine, orthonormalConstant);
+		integral8 = functionSpace.innerProduct(orthonormalCosine, orthonormalConstant);
+		integral9 = functionSpace.innerProduct(orthonormalIdentity, orthonormalConstant);
+		integral10 = functionSpace.innerProduct(orthonormalConstant, orthonormalConstant);
 
 		final double x = functionSpace.getDistance(orthonormalCosine, orthonormalSine);
 		final double y = functionSpace.getDistance(orthonormalSine, orthonormalSine);

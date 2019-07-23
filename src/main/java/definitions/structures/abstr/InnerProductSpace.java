@@ -16,12 +16,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @param vec2 the second vector
 	 * @return the scalar product of vec1 and vec2
 	 */
-	double product(Vector vec1, Vector vec2);
-
-	@Override
-	default double norm(final Vector vec) {
-		return Math.sqrt(product(vec, vec));
-	}
+	Scalar innerProduct(Vector vec1, Vector vec2);
 
 	/**
 	 * Method to project one vector onto another.
@@ -31,5 +26,11 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @return projection of v on w.
 	 */
 	Vector projection(Vector w, Vector v);
-
+	
+	
+	@Override
+	default double norm(final Vector vec) {
+		return Math.sqrt(innerProduct(vec, vec).getValue());
+	}
+	
 }

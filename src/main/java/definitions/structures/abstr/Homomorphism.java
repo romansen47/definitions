@@ -26,7 +26,7 @@ public interface Homomorphism {
 	 * @return the image of the base vector.
 	 */
 
-	default Map<Vector, Double> getLinearity(final Vector vec1) {
+	default Map<Vector, Scalar> getLinearity(final Vector vec1) {
 		return getLinearity().get(vec1);
 	}
 
@@ -36,7 +36,7 @@ public interface Homomorphism {
 	 * 
 	 * @return the image of the base vector.
 	 */
-	Map<Vector, Map<Vector, Double>> getLinearity();
+	Map<Vector, Map<Vector, Scalar>> getLinearity();
 
 	/**
 	 * Getter for the source space.
@@ -58,6 +58,6 @@ public interface Homomorphism {
 	 * 
 	 * @return
 	 */
-	double[][] getGenericMatrix();
+	Scalar[][] getGenericMatrix();
 
 }

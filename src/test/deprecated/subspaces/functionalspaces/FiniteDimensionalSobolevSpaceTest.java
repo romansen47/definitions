@@ -12,13 +12,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerator;
 
 public class FiniteDimensionalSobolevSpaceTest {
 
@@ -29,9 +28,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 2;
+	static final int dim = 1;
 
-	static final int degree = 1;
+	static final int degree = 2;
 
 	static Function normalizedIdentity;
 	static Function exp;
@@ -111,7 +110,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim, degree);
 
-		idToSobolevFourierCoordinates = new FunctionTuple(normalizedIdentity.getCoordinates(sobolevSpace));
+		idToSobolevFourierCoordinates = normalizedIdentity.getProjection(sobolevSpace);
 
 		expToSobolevFourierCoordinates = sobolevSpace.getCoordinates(exp);
 

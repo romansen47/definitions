@@ -1,0 +1,151 @@
+package definitions.structures.finitedimensional.real.functionspaces.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import definitions.structures.abstr.Scalar;
+import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
+
+/**
+ * 
+ * @author RoManski
+ *
+ *         Concrete implementation of a finite dimensional function space.
+ */
+public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace implements EuclideanFunctionSpace {
+
+	/**
+	 * the interval.
+	 */
+	protected double[] interval;
+
+	/**
+	 * The correctness parameter.
+	 */
+	protected final double eps = 1.e-5;
+
+	/**
+	 * Plain constructor. @
+	 */
+	protected FiniteDimensionalFunctionSpace() {
+	}
+
+	public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right) {
+		super(genericBase);
+		this.interval = new double[2];
+		this.interval[0] = left;
+		this.interval[1] = right;
+		final List<Vector> newBase = this.getOrthonormalBase(genericBase);
+		for (final Vector vec : newBase) {
+			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
+			for (final Vector otherVec : newBase) {
+				if (vec == otherVec) {
+					tmpCoord.put(otherVec,new Real(1.0));
+				} else {
+					tmpCoord.put(otherVec,new Real(0.0));
+				}
+			}
+			vec.setCoordinates(tmpCoord);
+		}
+		this.setBase(newBase);
+	}
+
+	@Override
+	public double[] getInterval() {
+		return this.interval;
+	}
+
+	@Override
+	public double getEpsilon() {
+		return this.eps;
+	}
+
+	@Override
+	public Function stretch(final Vector vec, final Scalar r) {
+		if (vec instanceof GenericFunction) {
+			return new GenericFunction() {
+				@Override
+				public Scalar value(final Scalar input) {
+					return new Real(r.getValue() * ((Function) vec).value(input).getValue());
+				}
+			};
+		} else {
+			final Map<Vector, Scalar> coordinates = vec.getCoordinates();
+			final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
+			for (final Vector vec1 : coordinates.keySet()) {
+				stretched.put(vec1, new Real(coordinates.get(vec1).getValue() * r.getValue()));
+			}
+			return new FunctionTuple(stretched);
+		}
+	}
+
+	@Override
+	public List<Vector> getOrthonormalBase(final List<Vector> base) {
+		final List<Vector> newBase = new ArrayList<>();
+		for (final Vector vec : base) {
+			Vector tmp = this.nullVec();
+			for (final Vector vec2 : newBase) {
+				tmp = this.add(tmp, this.projection(vec, vec2));
+			}
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, new Real(-1))));
+			newBase.add(ans);
+		}
+		for (final Vector baseVec : newBase) {
+			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+			for (final Vector otherBaseVec : newBase) {
+				if (baseVec.equals(otherBaseVec)) {
+					coordinates.put(baseVec,new Real(1.));
+				} else {
+					coordinates.put(otherBaseVec, new Real(0.));
+				}
+			}
+			baseVec.setCoordinates(coordinates);
+		}
+		return newBase;
+	}
+
+	@Override
+	public Vector normalize(final Vector vec) {
+		return this.stretch(vec, new Real(1 / this.norm(vec)));
+	}
+
+	@Override
+	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
+		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
+				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+			return ((EuclideanSpace) this).innerProduct(vec1, vec2);
+		} else {
+			return new Real(this.integral((Function) vec1, (Function) vec2));
+		}
+	}
+
+	@Override
+	public Vector nullVec() {
+		return new GenericFunction() {
+			@Override
+			public Scalar value(final Scalar input) {
+				return new Real(0.);
+			}
+		};
+	}
+
+	@Override
+	public double getLeft() {
+		return this.getInterval()[0];
+	}
+
+	@Override
+	public double getRight() {
+		return this.getInterval()[1];
+	}
+
+}

@@ -7,9 +7,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")
@@ -50,9 +50,9 @@ public class OrthonormalizationTest {
 		b = newBase.get(1);
 		c = newBase.get(2);
 
-		ans1 = space.product(a, b);
-		ans2 = space.product(b, c);
-		ans3 = space.product(c, a);
+		ans1 = space.innerProduct(a, b);
+		ans2 = space.innerProduct(b, c);
+		ans3 = space.innerProduct(c, a);
 
 	}
 

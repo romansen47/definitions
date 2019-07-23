@@ -1,6 +1,7 @@
 package definitions.solver;
 
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 
 public class NewtonSolver {
 
@@ -25,6 +26,7 @@ public class NewtonSolver {
 	}
 
 	private double doStep(double lastVal) throws Throwable {
-		return lastVal - (this.function.value(lastVal) / this.function.getDerivative().value(lastVal));
+		return lastVal - (this.function.value(new Real(lastVal)).getValue() / 
+				this.function.getDerivative().value(new Real(lastVal)).getValue());
 	}
 }

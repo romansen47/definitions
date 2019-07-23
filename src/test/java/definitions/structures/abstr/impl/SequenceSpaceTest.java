@@ -7,19 +7,25 @@ import java.util.Map;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Field;
 import definitions.structures.abstr.Homomorphism;
+import definitions.structures.abstr.Scalar;
+import definitions.structures.abstr.SequenceSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public class SequenceSpaceTest {
 
 	final VectorSpace functionSpace=SpaceGenerator.getInstance().getTrigonometricSpace(1);
 	
+	final Field field=RealLine.getRealLine();
+	
 	final Homomorphism identity=new Identity(functionSpace) {
 
 		@Override
-		public Map<Vector, Map<Vector, Double>> getLinearity() {
+		public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 			return null;
 		}
 
@@ -34,7 +40,7 @@ public class SequenceSpaceTest {
 		}
 
 		@Override
-		public double[][] getGenericMatrix() {
+		public Scalar[][] getGenericMatrix() {
 			return null;
 		}
 		
@@ -45,6 +51,11 @@ public class SequenceSpaceTest {
 		@Override
 		public VectorSpace getTargetSpace() {
 			return functionSpace;
+		}
+
+		@Override
+		public Field getField() {
+			return field;
 		}
 		
 	};

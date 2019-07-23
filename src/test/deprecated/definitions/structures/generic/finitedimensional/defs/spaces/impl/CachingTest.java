@@ -3,9 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.IGenerator;
-import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.IGenerator;
+import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerator;
 
 public class CachingTest {
 

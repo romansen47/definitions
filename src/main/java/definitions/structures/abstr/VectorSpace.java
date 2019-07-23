@@ -8,7 +8,9 @@ package definitions.structures.abstr;
  *         collection of 'things', which can be added and streched.
  */
 public interface VectorSpace {
-
+	
+	Field getField();
+	
 	/**
 	 * Not yet implemented.
 	 * 
@@ -40,7 +42,7 @@ public interface VectorSpace {
 	 * @param r    the factor.
 	 * @return the stretched vector.
 	 */
-	Vector stretch(Vector vec1, double r);
+	Vector stretch(Vector vec1, Scalar r);
 
 	/**
 	 * For debugging purposes.
@@ -50,4 +52,8 @@ public interface VectorSpace {
 	@Override
 	String toString();
 
+	default Integer dim() {
+		return null;
+	}
+	
 }

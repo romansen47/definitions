@@ -3,6 +3,7 @@ package definitions.structures.abstr.impl;
 import java.util.Map;
 
 import definitions.structures.abstr.Homomorphism;
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 
@@ -28,12 +29,12 @@ public abstract class LinearMapping implements Homomorphism {
 	/**
 	 * The restriction to the base.
 	 */
-	protected Map<Vector, Map<Vector, Double>> linearity;
+	protected Map<Vector, Map<Vector, Scalar>> linearity;
 
 	/**
 	 * Linearity as a matrix.
 	 */
-	protected double[][] genericMatrix;
+	protected Scalar[][] genericMatrix;
 
 	/**
 	 * Constructor. Called by instance of MappingGenerator.

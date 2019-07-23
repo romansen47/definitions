@@ -1,5 +1,8 @@
 package definitions.structures.abstr;
 
+import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.finitedimensional.real.vectors.Real;
+
 /**
  * 
  * @author RoManski
@@ -8,6 +11,12 @@ package definitions.structures.abstr;
  */
 public interface NormedSpace extends VectorSpace {
 
+
+	@Override
+	default Field getField() {
+		return RealLine.getRealLine();
+	}
+	
 	/**
 	 * The defined norm.
 	 * 
@@ -24,7 +33,7 @@ public interface NormedSpace extends VectorSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return stretch(vec, 1 / norm(vec));
+		return stretch(vec, new Real(1 / norm(vec)));
 	}
 
 }

@@ -5,7 +5,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -50,7 +51,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 */
 	@Test
 	public void testStretch() {
-		Assert.assertTrue(space.stretch(nul,factor).equals(nul));
+		Assert.assertTrue(space.stretch(nul,new Real(factor)).equals(nul));
 	}
 
 }

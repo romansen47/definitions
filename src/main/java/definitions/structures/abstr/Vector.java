@@ -39,14 +39,14 @@ public interface Vector {
 	 * 
 	 * @return the coordinates.
 	 */
-	Map<Vector, Double> getCoordinates();
+	Map<Vector, Scalar> getCoordinates();
 
 	/**
 	 * Coordinates as double[].
 	 * 
 	 * @return the ccordinates as double[].
 	 */
-	double[] getGenericCoordinates();
+	Scalar[] getGenericCoordinates();
 
 	@Override
 	String toString();
@@ -56,6 +56,6 @@ public interface Vector {
 	 * 
 	 * @param coordinates the coordinates.
 	 */
-	void setCoordinates(Map<Vector, Double> coordinates);
+	void setCoordinates(Map<Vector, Scalar> coordinates);
 
 }

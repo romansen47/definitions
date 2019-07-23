@@ -3,6 +3,8 @@
  */
 package definitions.structures.abstr.impl;
 
+import definitions.structures.finitedimensional.real.vectors.Real;
+
 /**
  * @author RoManski
  *

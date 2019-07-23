@@ -10,18 +10,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace;
-import definitions.structures.finitedimensional.mappings.FiniteDimensionalEmbedding;
-import definitions.structures.finitedimensional.subspaces.impl.FiniteDimensionalFunctionSubSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Constant;
-import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace;
+import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalEmbedding;
+import definitions.structures.finitedimensional.real.subspaces.impl.FiniteDimensionalFunctionSubSpace;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Constant;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public class DistanceToSubSpacesTest {
 
@@ -43,7 +43,7 @@ public class DistanceToSubSpacesTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		genericSpace = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(5);
+		genericSpace = (EuclideanSpace) Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(5);
 
 		sin = new Sine(1, 0, 1);
 
@@ -75,7 +75,7 @@ public class DistanceToSubSpacesTest {
 		for (final Vector fun1 : space.genericBaseToList()) {
 			final Map<Vector, Double> tmp = new HashMap<>();
 			for (final Vector fun2 : extendedSpace.genericBaseToList()) {
-				tmp.put(fun2, extendedSpace.product(fun1, fun2));
+				tmp.put(fun2, extendedSpace.innerProduct(fun1, fun2));
 			}
 			coordinates2.put(fun1, tmp);
 		}

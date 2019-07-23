@@ -9,12 +9,12 @@ import org.junit.Test;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.mappings.impl.DerivativeOperator;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.Monome;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.impl.Monome;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegrals {
 
@@ -96,7 +96,7 @@ public class DerivativesAndIntegrals {
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = ((InnerProductSpace) sobolevSpace).product(vec1, vec2);
+				scalarProducts[i][j] = ((InnerProductSpace) sobolevSpace).innerProduct(vec1, vec2);
 				System.out.print((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
 				j++;
 			}

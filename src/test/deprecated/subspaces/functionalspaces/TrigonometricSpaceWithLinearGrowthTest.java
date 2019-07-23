@@ -13,12 +13,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.FunctionTuple;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class TrigonometricSpaceWithLinearGrowthTest {
@@ -65,7 +65,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 			private final Function normedIdToFourier = (Function) trigonometricFunctionSpace.normalize(idToFourier);
 
-			private final double factor = trigonometricFunctionSpace.product(identity, this.normedIdToFourier);
+			private final double factor = trigonometricFunctionSpace.innerProduct(identity, this.normedIdToFourier);
 
 			@Override
 			public double value(double input) {
@@ -204,7 +204,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.product(vec1, vec2);
+				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2);
 				str += (scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",";
 				j++;
 			}

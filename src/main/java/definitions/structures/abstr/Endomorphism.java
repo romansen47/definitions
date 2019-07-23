@@ -1,5 +1,7 @@
 package definitions.structures.abstr;
 
+import definitions.structures.finitedimensional.real.vectors.Real;
+
 /**
  * Finite dimensional linear self mapping.
  * 
@@ -12,25 +14,25 @@ public interface Endomorphism extends Homomorphism {
 	 * 
 	 * @return the determinant
 	 */
-	default double det(final double[][] matrix) {
-		double det = 0;
+	default Scalar det(final Scalar[][] matrix) {
+		Scalar det = new Real(0);
 		if (matrix.length == 1) {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
-			final double[][] adj = adjointMatrix(matrix, i, 0);
+			final Scalar[][] adj = adjointMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det += det(adj) * matrix[i][0];
+				det = new Real(det.getValue()+det(adj).getValue() * matrix[i][0].getValue());
 			} else {
-				det += -det(adj) * matrix[i][0];
+				det = new Real(det.getValue()-det(adj).getValue() * matrix[i][0].getValue());
 			}
 		}
 		return det;
 	}
 
-	default double[][] adjointMatrix(final double[][] matrix, final int a, final int b) {
+	default Scalar[][] adjointMatrix(final Scalar[][] matrix, final int a, final int b) {
 		final int k = matrix.length;
-		final double[][] adj = new double[k - 1][k - 1];
+		final Scalar[][] adj = new Scalar[k - 1][k - 1];
 		for (int i = 0; i < a; i++) {
 			for (int j = 0; j < b; j++) {
 				adj[i][j] = matrix[i][j];

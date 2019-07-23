@@ -1,7 +1,9 @@
 package definitions.solver;
 
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.abstr.Scalar;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 
 public class ExpliciteEulerSolver implements Solver {
 
@@ -19,14 +21,15 @@ public class ExpliciteEulerSolver implements Solver {
 	public Function solve() {
 		return new GenericFunction() {
 			@Override
-			public double value(final double input) {
+			public Scalar value(final Scalar input) {
 				double ans = ExpliciteEulerSolver.this.initialData;
 				double xval = -Math.PI;
-				while (xval < input) {
-					ans += ExpliciteEulerSolver.this.eps * ExpliciteEulerSolver.this.fun.value(xval);
+				while (xval < input.getValue()) {
+					ans += ExpliciteEulerSolver.this.eps * 
+							ExpliciteEulerSolver.this.fun.value(new Real(xval)).getValue();
 					xval += ExpliciteEulerSolver.this.eps;
 				}
-				return ans;
+				return new Real(ans);
 			}
 		};
 	}

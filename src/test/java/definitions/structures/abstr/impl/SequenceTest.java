@@ -5,7 +5,9 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
+import definitions.structures.abstr.Sequence;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.real.vectors.Real;
 
 public class SequenceTest {
 

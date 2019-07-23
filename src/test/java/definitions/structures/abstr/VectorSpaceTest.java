@@ -5,7 +5,8 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.abstr.impl.RealLine;
+import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.finitedimensional.real.vectors.Real;
 
 public class VectorSpaceTest {
 
@@ -30,7 +31,7 @@ public class VectorSpaceTest {
 
 	@Test
 	public void testStretch() {
-		Assert.assertTrue(space.stretch(nul,1).equals(nul));
+		Assert.assertTrue(space.stretch(nul,new Real(-11.1)).equals(nul));
 	}
 
 }

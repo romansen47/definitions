@@ -1,6 +1,7 @@
 package definitions.structures.abstr;
 
-import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
 
 /**
  * 
@@ -39,9 +40,10 @@ public interface FunctionSpace extends VectorSpace {
 	static double getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
 		double ans = 0;
 		double x = left;
+		Scalar tmp=new Real(x);
 		while (x < right) {
-			ans += vec1.value(x) * vec2.value(x);
-			x += eps;
+			ans += vec1.value(tmp).getValue() * vec2.value(tmp).getValue();
+			tmp = new Real(tmp.getValue()+eps);
 		}
 		return ans * eps;
 	}

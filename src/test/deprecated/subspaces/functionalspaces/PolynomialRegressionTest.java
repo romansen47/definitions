@@ -12,18 +12,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public class PolynomialRegressionTest {
 
-	final static int maxDegree = 3;
-	final static int trigonometricDegree = 5;
+	final static int maxDegree = 2;
+	final static int trigonometricDegree = 15;
 	final static double left = -1;
 	final static double right = 1;
-	final static int degree = 1;
+	final static int degree = 2;
 
 	static VectorSpace polynomialSpace;
 	static VectorSpace trigonometricSpace;
@@ -45,8 +45,10 @@ public class PolynomialRegressionTest {
 		testValues2 = readFile(PATH2);
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialSobolevSpace(maxDegree, right, degree);
 //		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace(maxDegree, left, right);
+//		trigonometricSpace = SpaceGenerator.getInstance()
+//				.getTrigonometricFunctionSpaceWithLinearGrowth(trigonometricDegree, 1);
 		trigonometricSpace = SpaceGenerator.getInstance()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(trigonometricDegree, 1);
+				.getTrigonometricSobolevSpace(trigonometricDegree, 1);
 		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 

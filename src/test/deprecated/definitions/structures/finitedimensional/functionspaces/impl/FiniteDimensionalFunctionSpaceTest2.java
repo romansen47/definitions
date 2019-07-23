@@ -8,14 +8,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Constant;
-import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Constant;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public class FiniteDimensionalFunctionSpaceTest2 {
 

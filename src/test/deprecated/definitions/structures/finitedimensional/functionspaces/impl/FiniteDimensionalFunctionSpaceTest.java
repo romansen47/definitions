@@ -12,9 +12,9 @@ import org.junit.Test;
 import definitions.structures.abstr.NormedSpace;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -41,7 +41,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#product(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
+	 * {@link definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace#innerProduct(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
 	 */
 	@Test
 	public final void testProduct() {
@@ -50,7 +50,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
+	 * {@link definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
 	 */
 	@Test
 	public final void testNullVec() {
@@ -60,7 +60,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getOrthonormalBase(java.util.List)}.
+	 * {@link definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace#getOrthonormalBase(java.util.List)}.
 	 */
 	@SuppressWarnings({ "unused" })
 	@Test
