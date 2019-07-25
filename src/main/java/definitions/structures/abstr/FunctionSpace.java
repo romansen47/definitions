@@ -43,7 +43,8 @@ public interface FunctionSpace extends VectorSpace {
 		Scalar tmp=new Real(x);
 		while (x < right) {
 			ans += vec1.value(tmp).getValue() * vec2.value(tmp).getValue();
-			tmp = new Real(tmp.getValue()+eps);
+			x+=eps;
+			tmp = new Real(x);
 		}
 		return ans * eps;
 	}

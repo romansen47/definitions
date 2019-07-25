@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.Real;
@@ -49,9 +50,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
 			for (final Vector otherVec : newBase) {
 				if (vec == otherVec) {
-					tmpCoord.put(otherVec,new Real(1.0));
+					tmpCoord.put(otherVec,RealLine.getRealLine().getOne());
 				} else {
-					tmpCoord.put(otherVec,new Real(0.0));
+					tmpCoord.put(otherVec,RealLine.getRealLine().getZero());
 				}
 			}
 			vec.setCoordinates(tmpCoord);
@@ -115,7 +116,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Vector normalize(final Vector vec) {
-		return this.stretch(vec, new Real(1 / this.norm(vec)));
+		return this.stretch(vec, this.norm(vec).getInverse());
 	}
 
 	@Override

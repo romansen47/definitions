@@ -1,5 +1,6 @@
 package definitions.structures.abstr;
 
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.vectors.Real;
 
 /**
@@ -15,7 +16,7 @@ public interface Endomorphism extends Homomorphism {
 	 * @return the determinant
 	 */
 	default Scalar det(final Scalar[][] matrix) {
-		Scalar det = new Real(0);
+		Scalar det = RealLine.getRealLine().getZero();
 		if (matrix.length == 1) {
 			return matrix[0][0];
 		}

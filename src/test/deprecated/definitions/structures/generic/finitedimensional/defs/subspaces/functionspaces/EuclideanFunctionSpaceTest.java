@@ -4,6 +4,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.FunctionSpace;
+import definitions.structures.abstr.Scalar;
+import definitions.structures.abstr.VectorSpace;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -12,13 +15,14 @@ import exceptions.WrongClassException;
 
 public class EuclideanFunctionSpaceTest {
 
+	final static VectorSpace realLine=RealLine.getRealLine();
 	private static FunctionSpace polynomialSpace;
 	private static FunctionSpace polynomialSpaceSobolev;
 
 	private static FunctionSpace trigonometricSpace;
 	private static FunctionSpace trigonometricSpaceSobolev;
 
-	final static int dim = 3;
+	final static int dim = 1;
 	final static int degree = 1;
 
 	private static FunctionSpace extendedSpace;
@@ -37,7 +41,8 @@ public class EuclideanFunctionSpaceTest {
 
 	@Test
 	public void polynomialL2() throws WrongClassException {
-		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpace, new Sine(1, 0, 1));
+		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpace, 
+				new Sine(RealLine.getRealLine().getOne(), (Scalar) RealLine.getRealLine().nullVec(), RealLine.getRealLine().getOne()));
 		((EuclideanSpace) extendedSpace).show();
 	}
 
@@ -51,14 +56,14 @@ public class EuclideanFunctionSpaceTest {
 	@Test
 	public void trigonometricL2() throws WrongClassException {
 		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpace,
-				new LinearFunction(1, 1));
+				new LinearFunction(((RealLine) realLine).getOne(), ((RealLine) realLine).getOne()));
 		((EuclideanSpace) extendedSpace).show();
 	}
 
 	@Test
 	public void trigonometricSobolev() throws WrongClassException {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpaceSobolev,
-				new LinearFunction(1, 1));
+				new LinearFunction(((RealLine) realLine).getOne(), ((RealLine) realLine).getOne()));
 		((EuclideanSpace) extendedToSobolev).show();
 	}
 

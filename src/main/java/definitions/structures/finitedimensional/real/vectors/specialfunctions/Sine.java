@@ -15,6 +15,12 @@ public class Sine extends GenericFunction {
 		this.b = b;
 		this.c = c;
 	}
+	
+	public Sine(double a, double b, double c) {
+		this.a = new Real(a);
+		this.b = new Real(b);
+		this.c = new Real(c);
+	}
 
 	@Override
 	public Scalar value(Scalar input) {

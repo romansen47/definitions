@@ -2,6 +2,7 @@ package definitions.structures.finitedimensional.real.mappings;
 
 import definitions.structures.abstr.Endomorphism;
 import definitions.structures.abstr.Scalar;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.mappings.impl.InvertibleSelfMapping;
 import definitions.structures.finitedimensional.real.vectors.Real;
@@ -19,7 +20,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 		final Scalar[][] matrix = getGenericMatrix();
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final Scalar in = matrix[0][0];
-			if (in.equals(new Real(0.))) {
+			if (in.equals(RealLine.getRealLine().getZero())) {
 				throw new Throwable();
 			}
 			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()

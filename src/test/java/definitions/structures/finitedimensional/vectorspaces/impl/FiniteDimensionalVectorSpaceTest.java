@@ -14,7 +14,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class FiniteDimensionalVectorSpaceTest {
 
-	final int dim = 1000;
+	final int dim = 2;
 	final VectorSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim);
 	final Vector nul = space.nullVec();
 	private double factor = 1.e11;

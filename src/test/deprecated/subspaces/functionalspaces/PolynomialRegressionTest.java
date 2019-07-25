@@ -11,8 +11,10 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
@@ -30,8 +32,8 @@ public class PolynomialRegressionTest {
 
 	static Function exp = new GenericFunction() {
 		@Override
-		public double value(double input) {
-			return Math.exp(input);
+		public Scalar value(Scalar input) {
+			return new Real(Math.exp(input.getValue()));
 		}
 	};
 	static Function staircaseFunction;
@@ -53,14 +55,14 @@ public class PolynomialRegressionTest {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
-			public double value(double input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
+			public Scalar value(Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return testValues2[1][k];
+				return new Real(testValues2[1][k]);
 			}
 		};
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.finitedimensional.real.vectors.Real;
@@ -87,7 +88,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	private void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					new Real(0.), 
+					RealLine.getRealLine().getZero(), 
 					new Real(d * i));
 			tmpBase.add(sin);
 		}

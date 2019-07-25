@@ -9,12 +9,14 @@ import definitions.structures.abstr.Field;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
+import definitions.structures.abstr.impl.RealZero;
 import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
-public final class RealLine implements Field,EuclideanSpace{
+public final class RealLine implements Field, EuclideanSpace{
 
 	final private static Real one = RealOne.getOne();
+	final private static Real zero = RealZero.getZero();
 
 	private static RealLine instance;
 	
@@ -39,7 +41,7 @@ public final class RealLine implements Field,EuclideanSpace{
 
 	@Override
 	public Vector nullVec() {
-		return new Real(0);
+		return getZero();
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public final class RealLine implements Field,EuclideanSpace{
 	}
 
 	@Override
-	public Scalar innerProduct(Vector vec1, Vector vec2) {
+	public Real innerProduct(Vector vec1, Vector vec2) {
 		return new Real( ((Real) vec1).getValue() * ((Real) vec2).getValue());
 	}
 
@@ -95,6 +97,10 @@ public final class RealLine implements Field,EuclideanSpace{
 
 	public final Real getOne() {
 		return one;
+	}
+	
+	public final Real getZero() {
+		return zero;
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
@@ -70,7 +71,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
-			coordinates.put(vec, new Real(0.));
+			coordinates.put(vec, RealLine.getRealLine().getZero());
 		}
 		return new Tuple(coordinates);
 	}
@@ -118,12 +119,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			return new FunctionTuple(coordinates);
 		}
 		return this.get(coordinates);
-	}
-
-	@Override
-	public double getDistance(final Vector ans, final Vector vec2) {
-		final Vector diff = this.add(ans, (this.stretch(vec2, new Real(-1))));
-		return this.norm(diff);
 	}
 
 	@Override

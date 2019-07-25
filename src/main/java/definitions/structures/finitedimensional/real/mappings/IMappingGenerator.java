@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -30,6 +31,7 @@ public interface IMappingGenerator {
 		final Scalar[][] matC = new Scalar[scalars.length][scalars2[0].length];
 		for (int i = 0; i < scalars.length; i++) {
 			for (int j = 0; j < scalars2[0].length; j++) {
+				matC[i][j]=RealLine.getRealLine().getZero();
 				for (int k = 0; k < scalars[0].length; k++) {
 					matC[i][j] = new Real(matC[i][j].getValue()+scalars[i][k].getValue() * scalars2[k][j].getValue());
 				}

@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
@@ -71,10 +72,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		}
 		for (final Vector vec : newBase) {
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			coordinates.put(vec, new Real(1.));
+			coordinates.put(vec, RealLine.getRealLine().getOne());
 			for (final Vector vec2 : newBase) {
 				if (!vec.equals(vec2)) {
-					coordinates.put(vec2, new Real(0.));
+					coordinates.put(vec2, RealLine.getRealLine().getZero());
 				}
 			}
 			vec.setCoordinates(coordinates);
@@ -105,14 +106,14 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 					public Scalar value(Scalar input) {
 						return ((Function) vec1).value(input);
 					}
-				};
+				}.getProjection(this);
 				Vector tmp2 = new GenericFunction() {
 					@Override
 					public Scalar value(Scalar input) {
 						return ((Function) vec2).value(input);
 					}
-				};
-				product += super.innerProduct(tmp1, tmp2).getValue();
+				}.getProjection(this);
+				product += integral((Function)tmp1, (Function)tmp2);
 				for (int i = 0; i < this.getDegree(); i++) {
 					if (derivativeBuilder==null) {
 						tmp1 = ((Function) tmp1).getDerivative();

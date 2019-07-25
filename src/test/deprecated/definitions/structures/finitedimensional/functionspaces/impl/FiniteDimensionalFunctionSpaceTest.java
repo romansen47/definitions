@@ -54,7 +54,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@Test
 	public final void testNullVec() {
-		final double d = ((NormedSpace) trigonometricSpace).norm(trigonometricSpace.nullVec());
+		final double d = ((NormedSpace) trigonometricSpace).norm(trigonometricSpace.nullVec()).getValue();
 //		Assert.assertEquals(0.,d);
 	}
 

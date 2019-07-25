@@ -9,7 +9,7 @@ import definitions.structures.finitedimensional.real.vectors.Real;
  *
  *         A normed space is a vector space with a norm.
  */
-public interface NormedSpace extends VectorSpace {
+public interface NormedSpace extends RealSpace, MetricSpace {
 
 
 	@Override
@@ -23,7 +23,12 @@ public interface NormedSpace extends VectorSpace {
 	 * @param vec the vector to compute the norm for.
 	 * @return the norm of the vector.
 	 */
-	double norm(Vector vec);
+	Real norm(Vector vec);
+	
+	@Override
+	default Real getDistance(Vector vec1,Vector vec2) {
+		return norm(add(vec1,stretch(vec2,new Real(-1))));
+	}
 
 	/**
 	 * Any non-zero vector can be normalized. The normalization of a vector is a
@@ -33,7 +38,7 @@ public interface NormedSpace extends VectorSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return stretch(vec, new Real(1 / norm(vec)));
+		return stretch(vec, norm(vec).getInverse());
 	}
 
 }

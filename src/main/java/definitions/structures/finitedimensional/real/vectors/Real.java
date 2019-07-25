@@ -34,7 +34,7 @@ public class Real extends Number implements Scalar {
 
 	@Override
 	public boolean elementOf(VectorSpace space) {
-		return true;
+		return space==RealLine.getRealLine();
 	}
 
 	@Override
@@ -82,5 +82,26 @@ public class Real extends Number implements Scalar {
 	@Override
 	public double doubleValue() {
 		return getValue();
+	}
+
+	@Override
+	public Scalar getInverse() {
+		if (getValue()!=0.) {
+			return new Real(1/getValue());
+		}
+		return null;
+	}
+	
+	@Override
+	public String toString() {
+		return ""+this.getValue();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj.equals(this)) {
+			return true;
+		}
+		return obj instanceof Real && ((Real)obj).getValue()== getValue(); 
 	}
 }

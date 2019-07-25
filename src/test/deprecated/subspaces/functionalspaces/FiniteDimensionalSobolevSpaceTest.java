@@ -11,16 +11,21 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerator;
 
 public class FiniteDimensionalSobolevSpaceTest {
 
+	final static VectorSpace realLine=RealLine.getRealLine();
 	static EuclideanFunctionSpace trigonometricFunctionSpace;
 	static EuclideanFunctionSpace sobolevSpace;
 	final static ISpaceGenerator spaceGen = Generator.getGenerator().getSpacegenerator();
@@ -65,43 +70,43 @@ public class FiniteDimensionalSobolevSpaceTest {
 			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt((2 * Math.pow(Math.PI, 3)) / 3);
 
 			@Override
-			public double value(double input) {
-				return input / this.norm;
+			public Scalar value(Scalar input) {
+				return new Real(input.getValue() / this.norm);
 			}
 		};
-		exp = new ExponentialFunction(0, 1);
+		exp = new ExponentialFunction((Scalar) realLine.nullVec(), ((RealLine) realLine).getOne());
 		abs = new GenericFunction() {
 			@Override
-			public double value(double input) {
-				return Math.abs(input);
+			public Scalar value(Scalar input) {
+				return new Real(Math.abs(input.getValue()));
 			}
 		};
 		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
-			public double value(double input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
+			public Scalar value(Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return testValues[1][k];
+				return new Real(testValues[1][k]);
 			}
 		};
 		staircaseFunction2 = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
-			public double value(double input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
+			public Scalar value(Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return testValues2[1][k];
+				return new Real(testValues2[1][k]);
 			}
 		};
 

@@ -3,8 +3,10 @@ package definitions.structures.finitedimensional.vectorspaces;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -18,8 +20,8 @@ public class PolynomialFunctionSpaceTest {
 
 	private static Function abs = new GenericFunction() {
 		@Override
-		public double value(double input) {
-			return Math.abs(input);
+		public Scalar value(Scalar input) {
+			return new Real(Math.abs(input.getValue()));
 		}
 	};
 
@@ -29,12 +31,12 @@ public class PolynomialFunctionSpaceTest {
 		final int period = tmpPeriod;
 
 		@Override
-		public double value(double input) {
-			final double val = abs.value(input) * this.period;
+		public Scalar value(Scalar input) {
+			final double val = abs.value(input).getValue() * this.period;
 			if ((val - (val % 1.)) / this.period < 0.5) {
-				return (val / this.period) % 1.;
+				return new Real((val / this.period) % 1.);
 			}
-			return 1. - ((val / this.period) % 1.);
+			return new Real(1. - ((val / this.period) % 1.));
 		}
 	};
 

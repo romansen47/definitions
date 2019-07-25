@@ -7,6 +7,7 @@ import java.util.Map;
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
@@ -67,7 +68,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	default Function nullFunction() {
 		final Map<Vector, Scalar> nul = new HashMap<>();
 		for (final Vector baseVec : genericBaseToList()) {
-			nul.put(baseVec, new Real(0.0));
+			nul.put(baseVec, RealLine.getRealLine().getZero());
 		}
 		return new FunctionTuple(nul);
 	}

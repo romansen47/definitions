@@ -1,5 +1,7 @@
 package definitions.structures.abstr;
 
+import definitions.structures.finitedimensional.real.vectors.Real;
+
 /**
  * 
  * @author RoManski
@@ -29,8 +31,8 @@ public interface InnerProductSpace extends NormedSpace {
 	
 	
 	@Override
-	default double norm(final Vector vec) {
-		return Math.sqrt(innerProduct(vec, vec).getValue());
+	default Real norm(final Vector vec) {
+		return new Real(Math.sqrt(innerProduct(vec, vec).getValue()));
 	}
 	
 }

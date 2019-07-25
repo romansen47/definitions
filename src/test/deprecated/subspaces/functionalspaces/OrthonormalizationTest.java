@@ -6,8 +6,10 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.real.Generator;
+import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import junit.framework.Assert;
@@ -38,7 +40,7 @@ public class OrthonormalizationTest {
 
 		final Vector x1 = space.add(genericBase.get(0), genericBase.get(1));
 		final Vector x2 = space.add(genericBase.get(1), genericBase.get(2));
-		final Vector x3 = space.add(genericBase.get(2), space.stretch(genericBase.get(0), 2));
+		final Vector x3 = space.add(genericBase.get(2), space.stretch(genericBase.get(0), new Real(2)));
 
 		system.add(x1);
 		system.add(x2);
@@ -50,9 +52,9 @@ public class OrthonormalizationTest {
 		b = newBase.get(1);
 		c = newBase.get(2);
 
-		ans1 = space.innerProduct(a, b);
-		ans2 = space.innerProduct(b, c);
-		ans3 = space.innerProduct(c, a);
+		ans1 = space.innerProduct(a, b).getValue();
+		ans2 = space.innerProduct(b, c).getValue();
+		ans3 = space.innerProduct(c, a).getValue();
 
 	}
 
@@ -65,23 +67,23 @@ public class OrthonormalizationTest {
 
 	@Test
 	public void normalized() throws Throwable {
-		Assert.assertTrue(Math.abs(space.norm(a) - 1) < this.eps);
-		Assert.assertTrue(Math.abs(space.norm(b) - 1) < this.eps);
-		Assert.assertTrue(Math.abs(space.norm(c) - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < this.eps);
 	}
 
 	@Test
 	public void exponential() throws Throwable {
 		final Vector exp = new GenericFunction() {
 			@Override
-			public double value(double input) {
-				return Math.exp(input);
+			public Scalar value(Scalar input) {
+				return new Real(Math.exp(input.getValue()));
 			}
 		};
 		final Vector x = space.getCoordinates(exp);
 		final double y = (Math.exp(Math.PI) - Math.exp(-Math.PI)) / Math.sqrt(2 * Math.PI);
-		Assert.assertTrue((Math.abs(x.getGenericCoordinates()[0] - y) < this.eps)
-				|| (Math.abs(x.getGenericCoordinates()[1] - y) < this.eps)
-				|| (Math.abs(x.getGenericCoordinates()[2] - y) < this.eps));
+		Assert.assertTrue((Math.abs(x.getGenericCoordinates()[0].getValue() - y) < this.eps)
+				|| (Math.abs(x.getGenericCoordinates()[1].getValue() - y) < this.eps)
+				|| (Math.abs(x.getGenericCoordinates()[2].getValue() - y) < this.eps));
 	}
 }

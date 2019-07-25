@@ -7,9 +7,13 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.abstr.VectorSpace;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Constant;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
@@ -19,15 +23,16 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
 
 public class FiniteDimensionalFunctionSpaceTest2 {
 
+	final static VectorSpace realLine=RealLine.getRealLine();
 	final static List<Vector> list = new ArrayList<>();
 	static EuclideanFunctionSpace space;
 	static Function sine = new Sine(1, 0, Math.PI);
 	static Function cosine = new Sine(1, 0.5 * Math.PI, Math.PI);
-	static Function id = new LinearFunction(0, 1);
+	static Function id = new LinearFunction((Scalar) realLine.nullVec(), ((RealLine) realLine).getOne());
 	static Function abs = new GenericFunction() {
 		@Override
-		public double value(double input) {
-			return Math.abs(input);
+		public Scalar value(Scalar input) {
+			return new Real(Math.abs(input.getValue()));
 		}
 	};
 	static Function projection;
@@ -36,12 +41,12 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
-		final Function fun = new Constant(1);
+		final Function fun = new Constant(((RealLine) realLine).getOne());
 		list.add(fun);
 
 		for (int i = 1; i < max; i++) {
-			list.add(new ExponentialFunction(0, i));
-			list.add(new ExponentialFunction(0, -i));
+			list.add(new ExponentialFunction((Scalar) realLine.nullVec(), new Real(i)));
+			list.add(new ExponentialFunction((Scalar) realLine.nullVec(), new Real(-i)));
 		}
 
 		space = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(list, -1, 1, 2);
@@ -52,23 +57,23 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 	public final void testSine() {
 		projection = sine.getProjection(space);
 		sine.plotCompare(-1, 1, projection);
-		final double ans = space.getDistance(sine, projection);
-		Assert.assertTrue(Math.abs(ans) < 1.e-2);
+		final Real ans = space.getDistance(sine, projection);
+		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-2);
 	}
 
 	@Test
 	public final void testCosine() {
 		projection = cosine.getProjection(space);
 		cosine.plotCompare(-1, 1, projection);
-		final double ans = space.getDistance(cosine, projection);
-		Assert.assertTrue(Math.abs(ans) < 1.e-2);
+		final Real ans = space.getDistance(cosine, projection);
+		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-2);
 	}
 
 	@Test
 	public final void testId() {
 		projection = id.getProjection(space);
 		id.plotCompare(-1, 1, projection);
-		final double ans = space.getDistance(id, projection);
+		final double ans = space.getDistance(id, projection).getValue();
 		Assert.assertTrue(Math.abs(ans) < 1.e-3);
 	}
 
@@ -76,7 +81,7 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 	public final void testabs() {
 		projection = abs.getProjection(space);
 		abs.plotCompare(-1, 1, projection);
-		final double ans = space.getDistance(abs, projection);
+		final double ans = space.getDistance(abs, projection).getValue();
 		Assert.assertTrue(Math.abs(ans) < 1.e-1);
 	}
 

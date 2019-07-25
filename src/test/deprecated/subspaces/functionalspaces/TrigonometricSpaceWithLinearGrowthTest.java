@@ -12,10 +12,12 @@ import java.util.Map.Entry;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
@@ -54,7 +56,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		identity = new GenericFunction() {
 			@Override
-			public double value(double input) {
+			public Scalar value(Scalar input) {
 				return input;
 			}
 		};
@@ -65,12 +67,12 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 			private final Function normedIdToFourier = (Function) trigonometricFunctionSpace.normalize(idToFourier);
 
-			private final double factor = trigonometricFunctionSpace.innerProduct(identity, this.normedIdToFourier);
+			private final Scalar factor = trigonometricFunctionSpace.innerProduct(identity, this.normedIdToFourier);
 
 			@Override
-			public double value(double input) {
-				final double ans = identity.value(input) - (this.factor * this.normedIdToFourier.value(input));
-				return ans;
+			public Scalar value(Scalar input) {
+				final double ans = identity.value(input).getValue() - (this.factor.getValue() * this.normedIdToFourier.value(input).getValue());
+				return new Real(ans);
 			}
 		};
 
@@ -99,14 +101,14 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
-			public double value(double input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
+			public Scalar value(Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return testValues[1][k];
+				return new Real (testValues[1][k]);
 			}
 		};
 
@@ -129,14 +131,14 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
-			public double value(double input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input) + (this.length / 2.);
+			public Scalar value(Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return testValues2[1][k];
+				return new Real(testValues2[1][k]);
 			}
 
 		};
@@ -147,17 +149,17 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		staircaseFunction3 = new GenericFunction() {
 			@Override
-			public double value(double input) {
-				final double newx = -Math.PI + ((2 * Math.PI * input) / length);
-				return staircaseFunction2.value(newx);
+			public Scalar value(Scalar input) {
+				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
+				return staircaseFunction2.value(new Real(newx));
 			}
 		};
 
 		staircaseFunction3ToFourier = new GenericFunction() {
 			@Override
-			public double value(double input) {
-				final double newx = -Math.PI + ((2 * Math.PI * input) / length);
-				return ((Function) staircaseFunction2ToFourier).value(newx);
+			public Scalar value(Scalar input) {
+				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
+				return ((Function) staircaseFunction2ToFourier).value(new Real(newx));
 			}
 		};
 
@@ -165,7 +167,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		String ans = "";
 
-		for (final Entry<Vector, Double> entry : staircaseFunction2ToFourier.getCoordinates().entrySet()) {
+		for (final Entry<Vector, Scalar> entry : staircaseFunction2ToFourier.getCoordinates().entrySet()) {
 			ans += entry.toString() + "\r";
 		}
 
@@ -185,8 +187,8 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		final Function exp = new GenericFunction() {
 			@Override
-			public double value(double input) {
-				return Math.exp(input);
+			public Scalar value(Scalar input) {
+				return new Real(Math.exp(input.getValue()));
 			}
 		};
 		final Function ans = (Function) extendedTrigonometricFunctionSpace.getCoordinates(exp);
@@ -204,7 +206,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2);
+				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2).getValue();
 				str += (scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",";
 				j++;
 			}

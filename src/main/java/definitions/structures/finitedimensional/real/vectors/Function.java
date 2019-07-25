@@ -8,6 +8,7 @@ import definitions.solver.StdDraw;
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
@@ -31,7 +32,7 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * static constant 1-function.
 	 */
-	Function one = new Constant(new Real(1));
+	Function one = new Constant(RealLine.getRealLine().getOne());
 
 	/**
 	 * Evaluation of the function.

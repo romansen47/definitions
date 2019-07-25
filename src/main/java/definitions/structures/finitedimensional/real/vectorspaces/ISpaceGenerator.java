@@ -38,9 +38,9 @@ public interface ISpaceGenerator {
 			for (int i = 0; i < dim; i++) {
 				for (int j = 0; j < dim; j++) {
 					if (i == j) {
-						basetmp.get(i).getCoordinates().put(basetmp.get(i), new Real(1.));
+						basetmp.get(i).getCoordinates().put(basetmp.get(i), RealLine.getRealLine().getOne());
 					} else {
-						basetmp.get(i).getCoordinates().put(basetmp.get(j), new Real(0.));
+						basetmp.get(i).getCoordinates().put(basetmp.get(j), RealLine.getRealLine().getZero());
 					}
 				}
 			}
@@ -96,12 +96,12 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(final int n)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n), new LinearFunction(new Real(0.), new Real(1.)));
+		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n), new LinearFunction(RealLine.getRealLine().getZero(), RealLine.getRealLine().getOne()));
 	}
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(final int n, double right)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n, right),new LinearFunction(new Real(0.), new Real(1.)));
+		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n, right),new LinearFunction(RealLine.getRealLine().getZero(), RealLine.getRealLine().getOne()));
 	}
 
 	EuclideanFunctionSpace getPolynomialFunctionSpace(final int n, double right);

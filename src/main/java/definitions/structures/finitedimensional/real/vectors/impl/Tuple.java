@@ -90,7 +90,12 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Boolean equals(final Vector vec) {
-		return this.equals((Object) vec);
+		for (int i=0;i<vec.getGenericCoordinates().length;i++) {
+			if (!vec.getGenericCoordinates()[i].equals(getGenericCoordinates()[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.finitedimensional.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalEmbedding;
 import definitions.structures.finitedimensional.real.vectors.Function;
@@ -83,7 +84,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	public Function nullFunction() {
 		final Map<Vector, Scalar> nul = new ConcurrentHashMap<>();
 		for (final Vector baseVec : this.getSuperSpace().genericBaseToList()) {
-			nul.put(baseVec, new Real(0.0));
+			nul.put(baseVec, RealLine.getRealLine().getZero());
 		}
 		return new FunctionTuple(nul);
 	}

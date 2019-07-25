@@ -35,13 +35,22 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 	 * @return x, the source image of y with respect to the mapping.
 	 */
 	default FiniteVector solve(final Vector image) {
-		final double[][] matrix = this.getGenericMatrix();
-		final double[] imageVector = image.getGenericCoordinates();
+		final Scalar[][] matrix = this.getGenericMatrix();
+		final Scalar[] imageVector = image.getGenericCoordinates();
+		
+
+		final double[][] matrixAsDoubles = new double[matrix.length][matrix[0].length];
+		final double[] imageVectorAsDoubles = new double[imageVector.length];
+		
 		try {
 			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(
-					MatrixUtils.createRealMatrix(matrix)).getSolver().solve(MatrixUtils.createRealVector(imageVector));
-			for (RealVector vec:apacheVector.toArray())
-			return new Tuple(apacheVector.toArray());
+					MatrixUtils.createRealMatrix(matrixAsDoubles)).getSolver().solve(MatrixUtils.createRealVector(imageVectorAsDoubles));
+			double[] ans=apacheVector.toArray();
+			Scalar[] ansAsScalars=new Scalar[ans.length];
+			for (int i=0;i<ans.length;i++) {
+				ansAsScalars[i]=new Real(ans[i]);
+			}
+			return new Tuple(ansAsScalars);
 		} catch (final Exception e) {
 			return null;
 		}
