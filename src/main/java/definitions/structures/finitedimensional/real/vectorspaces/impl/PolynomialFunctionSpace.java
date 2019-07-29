@@ -16,5 +16,6 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 			tmpBase.add(new Monome(i));
 		}
 		this.base = this.getOrthonormalBase(tmpBase);
+		this.dim=this.base.size();
 	}
 }

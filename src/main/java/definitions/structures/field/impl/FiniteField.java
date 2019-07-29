@@ -1,8 +1,8 @@
-package definitions.structures.finitedimensional.field.impl;
+package definitions.structures.field.impl;
 
-import definitions.structures.abstr.Field;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.Field;
 
 public class FiniteField implements Field {
 

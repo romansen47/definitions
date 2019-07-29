@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;

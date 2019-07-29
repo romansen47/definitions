@@ -1,5 +1,7 @@
 package definitions.structures.abstr;
 
+import definitions.structures.field.Field;
+
 /**
  * 
  * @author RoManski

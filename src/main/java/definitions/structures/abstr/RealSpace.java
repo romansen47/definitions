@@ -3,7 +3,8 @@
  */
 package definitions.structures.abstr;
 
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.Field;
+import definitions.structures.field.impl.RealLine;
 
 /**
  * @author RoManski

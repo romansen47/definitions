@@ -1,25 +1,25 @@
-package definitions.structures.finitedimensional.field.impl;
+package definitions.structures.field.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import definitions.structures.abstr.Algebra;
-import definitions.structures.abstr.Field;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
 import definitions.structures.abstr.impl.RealZero;
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.Field;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
-public final class RealLine implements Field, EuclideanSpace{
+public final class RealLine implements Field, EuclideanSpace {
 
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
 
 	private static RealLine instance;
-	
+
 	private final List<Vector> base;
 
 	private RealLine() {
@@ -56,7 +56,7 @@ public final class RealLine implements Field, EuclideanSpace{
 
 	@Override
 	public Real innerProduct(Vector vec1, Vector vec2) {
-		return new Real( ((Real) vec1).getValue() * ((Real) vec2).getValue());
+		return new Real(((Real) vec1).getValue() * ((Real) vec2).getValue());
 	}
 
 	@Override
@@ -98,29 +98,29 @@ public final class RealLine implements Field, EuclideanSpace{
 	public final Real getOne() {
 		return one;
 	}
-	
+
 	public final Real getZero() {
 		return zero;
 	}
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
-		double val1=((Real)vec1).getValue();
-		double val2=((Real)vec2).getValue();
-		double ans=val1*val2;
+		double val1 = ((Real) vec1).getValue();
+		double val2 = ((Real) vec2).getValue();
+		double ans = val1 * val2;
 		return new Real(ans);
 	}
 
 	@Override
 	public Vector inverse(Vector factor) {
-		if (factor==null) {
+		if (factor == null) {
 			return null;
 		}
-		Real num = ((Real)factor);
-		if (num.getValue()==0.0){
+		Real num = ((Real) factor);
+		if (num.getValue() == 0.0) {
 			return null;
 		}
-		return new Real(1/num.getValue());
+		return new Real(1 / num.getValue());
 	}
 
 }

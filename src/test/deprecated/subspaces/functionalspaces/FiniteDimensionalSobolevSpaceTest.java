@@ -14,11 +14,11 @@ import org.junit.Test;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerator;
@@ -35,7 +35,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	static final int dim = 1;
 
-	static final int degree = 2;
+	static final int degree = 1;
 
 	static Function normalizedIdentity;
 	static Function exp;
@@ -111,8 +111,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 		};
 
 		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(dim);
-
+//				.getTrigonometricFunctionSpaceWithLinearGrowth(dim);
+				.getTrigonometricSpace(dim);
+				
 		sobolevSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSobolevSpace(dim, degree);
 
 		idToSobolevFourierCoordinates = normalizedIdentity.getProjection(sobolevSpace);

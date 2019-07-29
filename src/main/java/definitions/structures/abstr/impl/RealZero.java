@@ -1,6 +1,6 @@
 package definitions.structures.abstr.impl;
 
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.scalar.Real;
 
 public final class RealZero extends Real{
 

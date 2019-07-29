@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;

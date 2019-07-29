@@ -7,10 +7,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -32,7 +32,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-5;
+	protected final double eps = 1.e-4;
 
 	/**
 	 * Plain constructor. @

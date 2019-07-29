@@ -7,8 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import junit.framework.Assert;
 

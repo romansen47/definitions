@@ -5,10 +5,10 @@ import java.util.List;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalSobolevSpace;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -49,6 +49,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		});
 		this.getSineFunctions(n, 1, tmpBase);
 		this.getCosineFunctions(n, 1, tmpBase);
+		this.base=tmpBase;
 		this.base = this.getOrthonormalBase(tmpBase);
 	}
 

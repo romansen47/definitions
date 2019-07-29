@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.NormedSpace;
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
@@ -54,8 +55,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@Test
 	public final void testNullVec() {
-		final double d = ((NormedSpace) trigonometricSpace).norm(trigonometricSpace.nullVec()).getValue();
-//		Assert.assertEquals(0.,d);
+		final Scalar d = ((NormedSpace) trigonometricSpace).norm(trigonometricSpace.nullVec());
+		Assert.assertTrue(Math.abs(d.getValue())<1.e-3);
 	}
 
 	/**

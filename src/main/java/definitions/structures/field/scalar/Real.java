@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.finitedimensional.real.vectors;
+package definitions.structures.field.scalar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
 
 /**
  * @author RoManski

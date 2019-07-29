@@ -3,7 +3,7 @@
  */
 package definitions.structures.abstr.impl;
 
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.scalar.Real;
 
 /**
  * @author RoManski

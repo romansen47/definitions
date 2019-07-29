@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 /**

@@ -6,7 +6,7 @@ import org.junit.Test;
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;

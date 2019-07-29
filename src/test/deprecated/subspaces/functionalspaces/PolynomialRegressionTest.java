@@ -13,19 +13,21 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public class PolynomialRegressionTest {
 
-	final static int maxDegree = 2;
-	final static int trigonometricDegree = 15;
+	final static int polynomialDegree = 5;
+	final static int trigonometricDegree = 100;
 	final static double left = -1;
 	final static double right = 1;
-	final static int degree = 2;
+	
+	// @TODO: Derivatives don't work
+	final static int sobolevDegree = 0;
 
 	static VectorSpace polynomialSpace;
 	static VectorSpace trigonometricSpace;
@@ -36,21 +38,27 @@ public class PolynomialRegressionTest {
 			return new Real(Math.exp(input.getValue()));
 		}
 	};
+	
 	static Function staircaseFunction;
 	static Function staircaseFunction2;
-	protected static final String PATH2 = "src/main/resources/test.csv";
+	
+	static Function measures;
+	static Function measures2;
+	
+	protected static final String PATH = "src/main/resources/test.csv";
+	protected static final String PATH2 = "src/main/resources/test2.csv";
 
+	protected static double[][] testValues;
 	protected static double[][] testValues2;
 
 	@BeforeClass
 	public static void before() throws Throwable {
+		testValues = readFile(PATH);
 		testValues2 = readFile(PATH2);
-		polynomialSpace = SpaceGenerator.getInstance().getPolynomialSobolevSpace(maxDegree, right, degree);
-//		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace(maxDegree, left, right);
-//		trigonometricSpace = SpaceGenerator.getInstance()
-//				.getTrigonometricFunctionSpaceWithLinearGrowth(trigonometricDegree, 1);
+		polynomialSpace = SpaceGenerator.getInstance()
+				.getPolynomialSobolevSpace(polynomialDegree, right, sobolevDegree);
 		trigonometricSpace = SpaceGenerator.getInstance()
-				.getTrigonometricSobolevSpace(trigonometricDegree, 1);
+				.getTrigonometricSobolevSpace(trigonometricDegree, sobolevDegree);
 		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
@@ -66,10 +74,25 @@ public class PolynomialRegressionTest {
 			}
 		};
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
+		
+		measures = new GenericFunction() {
+			int length = (int) testValues2[0][testValues2[0].length - 1];
 
+			@Override
+			public Scalar value(Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				int k = 0;
+				final int l = (int) (newInput - (newInput % 1));
+				while (testValues2[0][k] < l) {
+					k++;
+				}
+				return new Real(testValues2[1][k]);
+			}
+		};
+		measures2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
 	}
 
-	@Test
+//	@Test
 	public void test1() throws Throwable {
 		final Function coordinates = exp.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, exp);
@@ -78,10 +101,13 @@ public class PolynomialRegressionTest {
 	@Test
 	public void test2() throws Throwable {
 		final Function coordinates = staircaseFunction2.getProjection((EuclideanSpace) polynomialSpace);
-		coordinates.plotCompare(left, right, staircaseFunction);
+		coordinates.plotCompare(left, right, staircaseFunction2);
+
+		final Function coordinates2 = measures2.getProjection((EuclideanSpace) polynomialSpace);
+		coordinates2.plotCompare(left, right, staircaseFunction2);
 	}
 
-	@Test
+//	@Test
 	public void test() throws Throwable {
 		staircaseFunction2.plotCompare(left, right, staircaseFunction);
 	}
@@ -113,7 +139,7 @@ public class PolynomialRegressionTest {
 		return ans;
 	}
 
-	@Test
+//	@Test
 	public void test3() {
 		((EuclideanSpace) trigonometricSpace).show();
 	}

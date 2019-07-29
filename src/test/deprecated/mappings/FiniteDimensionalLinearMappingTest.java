@@ -7,13 +7,13 @@ import definitions.structures.abstr.Algebra;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.mappings.Automorphism;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.finitedimensional.real.mappings.Isomorphism;
 import definitions.structures.finitedimensional.real.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.real.vectors.FiniteVector;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
 import junit.framework.Assert;
 

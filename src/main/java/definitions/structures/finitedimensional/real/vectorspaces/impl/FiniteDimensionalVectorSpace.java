@@ -9,8 +9,8 @@ import java.util.Set;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.impl.Tuple;

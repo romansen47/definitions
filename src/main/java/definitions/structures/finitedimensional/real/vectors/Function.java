@@ -8,7 +8,8 @@ import definitions.solver.StdDraw;
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
@@ -250,7 +251,7 @@ public interface Function extends Vector, Plotable {
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
-		if (this instanceof FunctionTuple) {
+		if (this instanceof FunctionTuple && source.contains(this)) {
 			return this;
 		}
 		return new FunctionTuple(getCoordinates(source));

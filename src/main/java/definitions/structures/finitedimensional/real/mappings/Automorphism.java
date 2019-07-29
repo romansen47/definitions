@@ -2,10 +2,10 @@ package definitions.structures.finitedimensional.real.mappings;
 
 import definitions.structures.abstr.Endomorphism;
 import definitions.structures.abstr.Scalar;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.mappings.impl.InvertibleSelfMapping;
-import definitions.structures.finitedimensional.real.vectors.Real;
 
 /**
  * Automorphism.

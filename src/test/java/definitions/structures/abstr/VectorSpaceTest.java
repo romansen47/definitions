@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 
 public class VectorSpaceTest {
 

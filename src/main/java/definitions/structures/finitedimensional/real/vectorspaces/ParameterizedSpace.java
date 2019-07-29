@@ -6,10 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.finitedimensional.real.vectors.FiniteVector;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
 
 public interface ParameterizedSpace extends EuclideanSpace {

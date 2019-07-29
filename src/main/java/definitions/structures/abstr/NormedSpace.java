@@ -1,7 +1,8 @@
 package definitions.structures.abstr;
 
-import definitions.structures.finitedimensional.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.Field;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 
 /**
  * 

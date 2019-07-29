@@ -20,7 +20,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class VectorTest {
 
-	final int dim=Math.abs(new Random().nextInt(1000));
+	final int dim=Math.abs(new Random().nextInt(100));
 	
 	final EuclideanSpace space=(EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim);
 	

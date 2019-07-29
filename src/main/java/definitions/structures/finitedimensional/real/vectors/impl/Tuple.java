@@ -1,5 +1,6 @@
 package definitions.structures.finitedimensional.real.vectors.impl;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,8 +28,8 @@ public class Tuple implements FiniteVector {
 		this.dim = coordinates.length;
 		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : ((EuclideanSpace) Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(this.dim))
-				.genericBaseToList()) {
+		for (final Vector vec : ((EuclideanSpace) Generator.getGenerator().getSpacegenerator()
+				.getFiniteDimensionalVectorSpace(this.dim)).genericBaseToList()) {
 			this.getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
@@ -45,8 +46,26 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public boolean elementOf(final VectorSpace space) {
-		return (space instanceof FiniteDimensionalVectorSpace)
-				&& (((FiniteDimensionalVectorSpace) space).dim() == this.dim);
+		if (!(space instanceof FiniteDimensionalVectorSpace)
+				&& (((FiniteDimensionalVectorSpace) space).dim() == this.dim)) {
+			return false;
+		}
+		List<Vector> base = ((EuclideanSpace) space).genericBaseToList();
+		for (Vector vec : this.coordinates.keySet()) {
+			boolean ans=false;
+			for (Vector spaceBaseVec:base) {
+				if (vec.equals(spaceBaseVec)) {
+					ans=true;
+				}
+			}
+			if (ans == false) {
+				return false;
+			}
+//			if (!base.contains(vec)) {
+//				return false;
+//			}
+		}
+		return true;
 	}
 
 	@Override
@@ -90,7 +109,7 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Boolean equals(final Vector vec) {
-		for (int i=0;i<vec.getGenericCoordinates().length;i++) {
+		for (int i = 0; i < vec.getGenericCoordinates().length; i++) {
 			if (!vec.getGenericCoordinates()[i].equals(getGenericCoordinates()[i])) {
 				return false;
 			}
@@ -100,7 +119,15 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
-		return this.getCoordinates();
+		Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
+		if (this.elementOf(source)) {
+			return this.getCoordinates();
+		} else {
+			for (Vector baseVec : source.genericBaseToList()) {
+				newCoordinates.put(baseVec, source.innerProduct(this, baseVec));
+			}
+		}
+		return newCoordinates;
 	}
 
 }

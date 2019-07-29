@@ -1,6 +1,6 @@
 package definitions.structures.abstr;
 
-import definitions.structures.finitedimensional.real.vectors.Real;
+import definitions.structures.field.scalar.Real;
 
 /**
  * 

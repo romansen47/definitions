@@ -6,10 +6,10 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.abstr.impl.LinearMapping;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 public class FunctionTuple extends Tuple implements Function {

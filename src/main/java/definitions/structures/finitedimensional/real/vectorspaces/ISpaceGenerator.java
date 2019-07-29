@@ -6,13 +6,13 @@ import java.util.Map;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
@@ -82,6 +82,9 @@ public interface ISpaceGenerator {
 	}
 
 	default EuclideanFunctionSpace getTrigonometricSobolevSpace(final int n, final int degree) {
+		if (degree==0) {
+			return getTrigonometricSpace(n);
+		}
 		EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(n, -Math.PI, Math.PI, degree);
 		((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
 		return ans;
@@ -89,6 +92,9 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final EuclideanFunctionSpace space,
 			final int degree) {
+		if (degree==0) {
+			return space;
+		}
 		EuclideanFunctionSpace ans = new FiniteDimensionalSobolevSpace(space, degree);
 		((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
 		return ans;

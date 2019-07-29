@@ -9,10 +9,10 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 

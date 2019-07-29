@@ -7,12 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.field.impl.RealLine;
+import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -106,13 +106,13 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 					public Scalar value(Scalar input) {
 						return ((Function) vec1).value(input);
 					}
-				}.getProjection(this);
+				};//.getProjection(this);
 				Vector tmp2 = new GenericFunction() {
 					@Override
 					public Scalar value(Scalar input) {
 						return ((Function) vec2).value(input);
 					}
-				}.getProjection(this);
+				};//.getProjection(this);
 				product += integral((Function)tmp1, (Function)tmp2);
 				for (int i = 0; i < this.getDegree(); i++) {
 					if (derivativeBuilder==null) {
