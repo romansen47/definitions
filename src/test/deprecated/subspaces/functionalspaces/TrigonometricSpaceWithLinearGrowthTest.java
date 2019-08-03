@@ -47,7 +47,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 3;
+	static int dim = 1;
 
 	@BeforeClass
 	public static void setUpBeforeClass() {
@@ -61,7 +61,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			}
 		};
 
-		final Function idToFourier = new FunctionTuple(identity.getCoordinates(trigonometricFunctionSpace));
+		final Function idToFourier = identity.getProjection(trigonometricFunctionSpace);
 
 		final Function newBaseFunction = new GenericFunction() {
 

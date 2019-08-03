@@ -14,7 +14,7 @@ public interface RealSpace extends VectorSpace {
 
 	@Override
 	default Field getField() {
-		return RealLine.getRealLine();
+		return RealLine.getInstance();
 	}
 	
 }

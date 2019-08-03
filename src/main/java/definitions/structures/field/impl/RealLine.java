@@ -13,7 +13,7 @@ import definitions.structures.field.Field;
 import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
-public final class RealLine implements Field, EuclideanSpace {
+public class RealLine implements Field, EuclideanSpace {
 
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
@@ -27,7 +27,7 @@ public final class RealLine implements Field, EuclideanSpace {
 		this.base.add(this.getOne());
 	}
 
-	public static RealLine getRealLine() {
+	public static RealLine getInstance() {
 		if (instance == null) {
 			instance = new RealLine();
 		}
@@ -81,7 +81,7 @@ public final class RealLine implements Field, EuclideanSpace {
 	}
 
 	@Override
-	public Integer dim() {
+	public Integer getDim() {
 		return 1;
 	}
 
@@ -93,14 +93,6 @@ public final class RealLine implements Field, EuclideanSpace {
 	@Override
 	public List<Vector> getOrthonormalBase(List<Vector> base) {
 		return this.base;
-	}
-
-	public final Real getOne() {
-		return one;
-	}
-
-	public final Real getZero() {
-		return zero;
 	}
 
 	@Override
@@ -123,4 +115,13 @@ public final class RealLine implements Field, EuclideanSpace {
 		return new Real(1 / num.getValue());
 	}
 
+
+	public final Real getOne() {
+		return one;
+	}
+
+	public final Real getZero() {
+		return zero;
+	}
+	
 }

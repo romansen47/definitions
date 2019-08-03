@@ -11,6 +11,7 @@ import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.Real;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.real.vectors.Plotable;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -40,24 +41,31 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	protected FiniteDimensionalFunctionSpace() {
 	}
 
-	public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right) {
+	public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right,
+			boolean orthonormalize) {
 		super(genericBase);
 		this.interval = new double[2];
 		this.interval[0] = left;
 		this.interval[1] = right;
-		final List<Vector> newBase = this.getOrthonormalBase(genericBase);
+		final List<Vector> newBase;
+		if (orthonormalize) {
+			newBase = this.getOrthonormalBase(genericBase);
+		} else {
+			newBase = genericBase;
+		}
 		for (final Vector vec : newBase) {
 			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
 			for (final Vector otherVec : newBase) {
 				if (vec == otherVec) {
-					tmpCoord.put(otherVec,RealLine.getRealLine().getOne());
+					tmpCoord.put(otherVec, RealLine.getInstance().getOne());
 				} else {
-					tmpCoord.put(otherVec,RealLine.getRealLine().getZero());
+					tmpCoord.put(otherVec, RealLine.getInstance().getZero());
 				}
 			}
 			vec.setCoordinates(tmpCoord);
 		}
 		this.setBase(newBase);
+
 	}
 
 	@Override
@@ -68,25 +76,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public double getEpsilon() {
 		return this.eps;
-	}
-
-	@Override
-	public Function stretch(final Vector vec, final Scalar r) {
-		if (vec instanceof GenericFunction) {
-			return new GenericFunction() {
-				@Override
-				public Scalar value(final Scalar input) {
-					return new Real(r.getValue() * ((Function) vec).value(input).getValue());
-				}
-			};
-		} else {
-			final Map<Vector, Scalar> coordinates = vec.getCoordinates();
-			final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
-			for (final Vector vec1 : coordinates.keySet()) {
-				stretched.put(vec1, new Real(coordinates.get(vec1).getValue() * r.getValue()));
-			}
-			return new FunctionTuple(stretched);
-		}
 	}
 
 	@Override
@@ -104,7 +93,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector otherBaseVec : newBase) {
 				if (baseVec.equals(otherBaseVec)) {
-					coordinates.put(baseVec,new Real(1.));
+					coordinates.put(baseVec, new Real(1.));
 				} else {
 					coordinates.put(otherBaseVec, new Real(0.));
 				}
@@ -123,7 +112,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
 				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
-			return ((EuclideanSpace) this).innerProduct(vec1, vec2);
+			return super.innerProduct(vec1, vec2);
 		} else {
 			return new Real(this.integral((Function) vec1, (Function) vec2));
 		}
@@ -149,4 +138,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		return this.getInterval()[1];
 	}
 
+	public void plotBase() {
+		for (Vector vec:genericBaseToList()) {
+			((Plotable)vec).plot(getLeft(), getRight());
+		}
+	}
 }

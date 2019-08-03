@@ -70,8 +70,8 @@ public class MappingGenerator implements IMappingGenerator {
 			return new InjectiveFunctionSpaceOperator((EuclideanFunctionSpace) source, (EuclideanFunctionSpace) target,
 					coordinates);
 		}
-		final int dimSource = source.dim();
-		final int dimTarget = target.dim();
+		final int dimSource = source.getDim();
+		final int dimTarget = target.getDim();
 		if (dimSource < dimTarget) {
 			final FiniteDimensionalHomomorphism tmp = new FiniteDimensionalLinearMapping(source, target, coordinates);
 			if (dimSource == tmp.getRank()) {

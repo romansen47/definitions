@@ -10,7 +10,7 @@ import definitions.structures.field.scalar.Real;
 
 public class VectorSpaceTest {
 
-	final VectorSpace space=RealLine.getRealLine();
+	final VectorSpace space=RealLine.getInstance();
 	
 	final Vector nul=space.nullVec();
 

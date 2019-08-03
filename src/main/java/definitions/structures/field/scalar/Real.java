@@ -28,13 +28,13 @@ public class Real extends Number implements Scalar {
 	}
 
 	@Override
-	public int getDim() {
+	public Integer getDim() {
 		return 1;
 	}
 
 	@Override
 	public boolean elementOf(VectorSpace space) {
-		return space==RealLine.getRealLine();
+		return space==RealLine.getInstance();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class Real extends Number implements Scalar {
 	public Map<Vector, Scalar> getCoordinates() {
 		if (coordinates==null) {
 			coordinates = new HashMap<>();
-			coordinates.put(RealLine.getRealLine().getOne(),this);
+			coordinates.put(RealLine.getInstance().getOne(),this);
 		}
 		return coordinates;
 	}

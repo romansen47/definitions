@@ -52,7 +52,7 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector sin = new Sine(
 					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					RealLine.getRealLine().getZero(),
+					RealLine.getInstance().getZero(),
 					new Real( d * i));
 			tmpBase.add(sin);
 		}

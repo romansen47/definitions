@@ -20,7 +20,7 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class FiniteDimensionalLinearMappingTest {
 
-	final static Algebra realLine=RealLine.getRealLine();
+	final static Algebra realLine=RealLine.getInstance();
 	static FiniteVector e1;
 	static FiniteVector e2;
 	static FiniteVector e3;

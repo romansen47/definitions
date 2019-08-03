@@ -25,7 +25,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerato
 
 public class FiniteDimensionalSobolevSpaceTest {
 
-	final static VectorSpace realLine=RealLine.getRealLine();
+	final static VectorSpace realLine=RealLine.getInstance();
 	static EuclideanFunctionSpace trigonometricFunctionSpace;
 	static EuclideanFunctionSpace sobolevSpace;
 	final static ISpaceGenerator spaceGen = Generator.getGenerator().getSpacegenerator();

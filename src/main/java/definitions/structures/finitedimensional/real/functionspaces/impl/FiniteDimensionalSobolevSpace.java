@@ -29,7 +29,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * The sobolev degree.
 	 */
-	final private int degree;
+	private Integer degree;
 
 	/**
 	 * Constructor.
@@ -41,9 +41,9 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 */
 	public FiniteDimensionalSobolevSpace(final List<Vector> genericBase, final double left, final double right,
 			int degree) {
-		super(genericBase, left, right);
+		super(genericBase, left, right,true);
 		this.degree = degree;
-		setDerivativeBuilder(new DerivativeOperator(this,this));
+		getDerivativeBuilder();
 	}
 
 	/**
@@ -53,35 +53,46 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param degree the sobolev degree of the converted space.
 	 */
 	public FiniteDimensionalSobolevSpace(final EuclideanFunctionSpace space, int degree) {
-		super(space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1]);
-		this.degree = degree;
-		final List<Vector> newBaseTmp = this.base;// this.getOrthonormalBase(this.base);
-		final List<Vector> newBase = new ArrayList<>();
-		final List<Vector> newCoordinates = ((EuclideanSpace) Generator.getGenerator().getSpacegenerator()
-				.getFiniteDimensionalVectorSpace(this.dim)).genericBaseToList();
-		final int dim = space.genericBaseToList().size();
-		for (int i = 0; i < dim; i++) {
-			final int j = i;
-			final Function baseFunction = new FunctionTuple(newCoordinates.get(i).getGenericCoordinates()) {
-				@Override
-				public Scalar value(final Scalar input) {
-					return ((Function) newBaseTmp.get(j)).value(input);
-				}
-			};
-			newBase.add(baseFunction);
-		}
-		for (final Vector vec : newBase) {
-			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			coordinates.put(vec, RealLine.getRealLine().getOne());
-			for (final Vector vec2 : newBase) {
-				if (!vec.equals(vec2)) {
-					coordinates.put(vec2, RealLine.getRealLine().getZero());
-				}
-			}
-			vec.setCoordinates(coordinates);
-		}
-		this.setBase(newBase);
-		getDerivativeBuilder();
+		super(space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1],false);
+		this.degree=degree;
+//		final List<Vector> newBaseTmp = this.base;// this.getOrthonormalBase(this.base);
+//		final List<Vector> newBase = new ArrayList<>();
+//		final List<Vector> newCoordinates = ((EuclideanSpace) Generator.getGenerator().getSpacegenerator()
+//				.getFiniteDimensionalVectorSpace(this.dim)).genericBaseToList();
+//		final int dim = space.genericBaseToList().size();
+//		for (int i = 0; i < dim; i++) {
+//			final int j = i;
+//			final Function baseFunction = 
+//					new FunctionTuple(newCoordinates.get(i).getGenericCoordinates()) {
+//				@Override
+//				public Scalar value(final Scalar input) {
+//					return ((Function) newBaseTmp.get(j)).value(input);
+//				}
+//			};
+//			newBase.add(baseFunction);
+//		}
+//		this.setBase(space.genericBaseToList());
+//		this.setBase(this.getOrthonormalBase(this.base));
+//		final Map<Vector,Map<Vector,Scalar>> tmpCoord=new ConcurrentHashMap<>();
+//		for (final Vector vec : base) {
+//			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+//			for (final Vector vec2 : base) {
+//				if (!((Function)vec).equals((Function)vec2)) {
+//					coordinates.put(vec2, RealLine.getInstance().getZero());
+//				}
+//				coordinates.put(vec, RealLine.getInstance().getOne());
+//			}
+//			tmpCoord.put(vec,coordinates);
+//		}
+//		for (final Vector vec : base) {
+//			vec.setCoordinates(tmpCoord.get(vec));
+//		}
+//		this.setBase(newBase);
+//		if (ortho) {
+//			orthoNormalizeBase()
+//			this.setBase(this.getOrthonormalBase(this.base));
+//		}
+//		this.plotBase();
 	}
 
 	/**
@@ -106,16 +117,20 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 					public Scalar value(Scalar input) {
 						return ((Function) vec1).value(input);
 					}
-				};//.getProjection(this);
+				};
 				Vector tmp2 = new GenericFunction() {
 					@Override
 					public Scalar value(Scalar input) {
 						return ((Function) vec2).value(input);
 					}
-				};//.getProjection(this);
+				};
+//				if (derivativeBuilder!=null) {
+//					tmp1=((Function) tmp1).getProjection(this);
+//					tmp2=((Function) tmp2).getProjection(this);
+//				}
 				product += integral((Function)tmp1, (Function)tmp2);
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (derivativeBuilder==null) {
+					if (!(tmp1 instanceof FunctionTuple)) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp1 = ((Function) tmp2).getDerivative();
 					}
@@ -141,7 +156,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * 
 	 * @return the sobolev degree
 	 */
-	public final int getDegree() {
+	public final Integer getDegree() {
+		if (degree==null) {
+			degree=base.size();
+		}
 		return this.degree;
 	}
 

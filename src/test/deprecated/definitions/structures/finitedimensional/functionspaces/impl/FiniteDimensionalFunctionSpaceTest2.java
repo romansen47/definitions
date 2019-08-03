@@ -23,7 +23,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
 
 public class FiniteDimensionalFunctionSpaceTest2 {
 
-	final static VectorSpace realLine=RealLine.getRealLine();
+	final static VectorSpace realLine=RealLine.getInstance();
 	final static List<Vector> list = new ArrayList<>();
 	static EuclideanFunctionSpace space;
 	static Function sine = new Sine(1, 0, Math.PI);
@@ -49,8 +49,8 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 			list.add(new ExponentialFunction((Scalar) realLine.nullVec(), new Real(-i)));
 		}
 
-		space = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(list, -1, 1, 2);
-//		space=SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(list, -1, 1);
+//		space = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(list, -1, 1, 2);
+		space=SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(list, -1, 1);
 	}
 
 	@Test
@@ -58,6 +58,7 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 		projection = sine.getProjection(space);
 		sine.plotCompare(-1, 1, projection);
 		final Real ans = space.getDistance(sine, projection);
+		System.out.println("Distance Sine: "+ans.getValue());
 		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-2);
 	}
 
@@ -66,6 +67,7 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 		projection = cosine.getProjection(space);
 		cosine.plotCompare(-1, 1, projection);
 		final Real ans = space.getDistance(cosine, projection);
+		System.out.println("Distance Cosine: "+ans.getValue());
 		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-2);
 	}
 
@@ -73,16 +75,18 @@ public class FiniteDimensionalFunctionSpaceTest2 {
 	public final void testId() {
 		projection = id.getProjection(space);
 		id.plotCompare(-1, 1, projection);
-		final double ans = space.getDistance(id, projection).getValue();
-		Assert.assertTrue(Math.abs(ans) < 1.e-3);
+		final Real ans = space.getDistance(id, projection);
+		System.out.println("Distance Identity: "+ans.getValue());
+		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-3);
 	}
 
 	@Test
 	public final void testabs() {
 		projection = abs.getProjection(space);
 		abs.plotCompare(-1, 1, projection);
-		final double ans = space.getDistance(abs, projection).getValue();
-		Assert.assertTrue(Math.abs(ans) < 1.e-1);
+		final Real ans = space.getDistance(abs, projection);
+		System.out.println("Distance Absolute: "+ans.getValue());
+		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-1);
 	}
 
 }

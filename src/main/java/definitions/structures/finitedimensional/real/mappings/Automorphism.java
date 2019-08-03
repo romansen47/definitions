@@ -20,7 +20,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 		final Scalar[][] matrix = getGenericMatrix();
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final Scalar in = matrix[0][0];
-			if (in.equals(RealLine.getRealLine().getZero())) {
+			if (in.equals(RealLine.getInstance().getZero())) {
 				throw new Throwable();
 			}
 			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()

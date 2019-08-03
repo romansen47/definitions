@@ -20,7 +20,7 @@ public class SequenceSpaceTest {
 
 	final VectorSpace functionSpace=SpaceGenerator.getInstance().getTrigonometricSpace(1);
 	
-	final Field field=RealLine.getRealLine();
+	final Field field=RealLine.getInstance();
 	
 	final Homomorphism identity=new Identity(functionSpace) {
 

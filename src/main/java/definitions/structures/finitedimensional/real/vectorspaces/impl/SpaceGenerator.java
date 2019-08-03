@@ -60,8 +60,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
-	public EuclideanFunctionSpace getPolynomialFunctionSpace(int n, double right) {
-		return new PolynomialFunctionSpace(n, right);
+	public EuclideanFunctionSpace getPolynomialFunctionSpace(int n, double right,boolean ortho) {
+		return new PolynomialFunctionSpace(n, right,ortho);
 	}
 
 }

@@ -13,7 +13,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace
 
 public class ExpliciteEulerSolverTest {
 
-	final static VectorSpace realLine=RealLine.getRealLine();
+	final static VectorSpace realLine=RealLine.getInstance();
 	private static EuclideanSpace space;
 	private static Function fun;
 

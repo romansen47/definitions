@@ -49,8 +49,11 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		});
 		this.getSineFunctions(n, 1, tmpBase);
 		this.getCosineFunctions(n, 1, tmpBase);
+		for (Vector vec:tmpBase) {
+			vec=normalize(vec);
+		}
 		this.base=tmpBase;
-		this.base = this.getOrthonormalBase(tmpBase);
+//		this.base = this.getOrthonormalBase(tmpBase);
 	}
 
 //	/**
@@ -88,10 +91,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 	private void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
-			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					RealLine.getRealLine().getZero(), 
+			final Vector sin = new Sine(RealLine.getInstance().getOne(),
+					RealLine.getInstance().getZero(), 
 					new Real(d * i));
-			tmpBase.add(sin);
+			tmpBase.add(this.normalize(sin));
 		}
 	}
 

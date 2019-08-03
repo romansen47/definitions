@@ -48,8 +48,8 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	}
 
 	@Override
-	public Integer dim() {
-		return super.dim();
+	public Integer getDim() {
+		return super.getDim();
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class FiniteDimensionalFunctionSubSpace extends FiniteDimensionalSubSpace
 	public Function nullFunction() {
 		final Map<Vector, Scalar> nul = new ConcurrentHashMap<>();
 		for (final Vector baseVec : this.getSuperSpace().genericBaseToList()) {
-			nul.put(baseVec, RealLine.getRealLine().getZero());
+			nul.put(baseVec, RealLine.getInstance().getZero());
 		}
 		return new FunctionTuple(nul);
 	}

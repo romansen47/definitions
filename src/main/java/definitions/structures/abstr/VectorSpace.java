@@ -54,7 +54,7 @@ public interface VectorSpace {
 	@Override
 	String toString();
 
-	default Integer dim() {
+	default Integer getDim() {
 		return null;
 	}
 	

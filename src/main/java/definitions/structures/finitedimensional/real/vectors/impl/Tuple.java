@@ -12,6 +12,7 @@ import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.vectors.FiniteVector;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public class Tuple implements FiniteVector {
 
@@ -20,7 +21,7 @@ public class Tuple implements FiniteVector {
 	private Map<Vector, Scalar> coordinates;
 
 	@Override
-	public final int getDim() {
+	public final Integer getDim() {
 		return this.dim;
 	}
 
@@ -47,7 +48,7 @@ public class Tuple implements FiniteVector {
 	@Override
 	public boolean elementOf(final VectorSpace space) {
 		if (!(space instanceof FiniteDimensionalVectorSpace)
-				&& (((FiniteDimensionalVectorSpace) space).dim() == this.dim)) {
+				&& (((FiniteDimensionalVectorSpace) space).getDim() == this.dim)) {
 			return false;
 		}
 		List<Vector> base = ((EuclideanSpace) space).genericBaseToList();
@@ -82,8 +83,9 @@ public class Tuple implements FiniteVector {
 	public String toString() {
 		String str = "";
 		try {
-			for (final Vector vec : this.getGenericBase()) {
-				str += this.getCoordinates().get(vec) + "\r";
+			for (int i=0;i<dim;i++)  {
+				str += this.getCoordinates().get(((EuclideanSpace) SpaceGenerator.getInstance()
+						.getFiniteDimensionalVectorSpace(dim)).genericBaseToList().get(i)) + "\r";
 			}
 			return str;
 		} catch (final Throwable e) {

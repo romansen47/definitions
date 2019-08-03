@@ -64,14 +64,14 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return ((vec instanceof Tuple) && (vec.getDim() == this.dim()));
+		return ((vec instanceof Tuple) && (vec.getDim() == this.getDim()));
 	}
 
 	@Override
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
-			coordinates.put(vec, RealLine.getRealLine().getZero());
+			coordinates.put(vec, RealLine.getInstance().getZero());
 		}
 		return new Tuple(coordinates);
 	}
@@ -81,9 +81,15 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.base;
 	}
 
+
+	/**
+	 * Getter for the dimension.
+	 * 
+	 * @return the dimension.
+	 */
 	@Override
-	public Integer dim() {
-		return this.getDim();
+	public Integer getDim() {
+		return this.dim;
 	}
 
 	@Override
@@ -96,17 +102,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * 
 	 * @param newBase the new base.
 	 */
-	protected void setBase(final List<Vector> newBase) {
+	public void setBase(final List<Vector> newBase) {
 		this.base = newBase;
-	}
-
-	/**
-	 * Getter for the dimension.
-	 * 
-	 * @return the dimension.
-	 */
-	protected int getDim() {
-		return this.dim;
 	}
 
 	@Override

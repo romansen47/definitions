@@ -7,7 +7,7 @@ public interface Sequence extends Vector {
 	Vector getValue(int n);
 	
 	@Override
-	public default int getDim() {
+	public default Integer getDim() {
 		return -1;
 	}
 

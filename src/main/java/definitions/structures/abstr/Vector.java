@@ -16,7 +16,7 @@ public interface Vector {
 	 * @return the dimension of the underlying vector space, if finite dimensional.
 	 *         Otherwise null.
 	 */
-	int getDim();
+	Integer getDim();
 
 	/**
 	 * Method to verify that the vector is contained by a specific vector space.

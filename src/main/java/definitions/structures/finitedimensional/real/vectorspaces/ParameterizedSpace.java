@@ -20,7 +20,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 	boolean contains(Vector vec);
 
 	@Override
-	default Integer dim() {
+	default Integer getDim() {
 		return getParametrization().getRank();
 	}
 

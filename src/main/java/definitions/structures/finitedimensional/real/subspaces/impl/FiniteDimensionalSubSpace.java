@@ -37,7 +37,7 @@ public class FiniteDimensionalSubSpace extends FiniteDimensionalVectorSpace impl
 	}
 
 	@Override
-	public Integer dim() {
+	public Integer getDim() {
 		return this.parametrization.getRank();
 	}
 

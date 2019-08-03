@@ -33,8 +33,8 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		super(source, target);
 		this.linearity = coordinates;
-		this.genericMatrix = new Scalar[((EuclideanSpace) this.getTarget()).dim()][((EuclideanSpace) this.getSource())
-				.dim()];
+		this.genericMatrix = new Scalar[((EuclideanSpace) this.getTarget()).getDim()][((EuclideanSpace) this.getSource())
+				.getDim()];
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
@@ -46,6 +46,12 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		}
 	}
 
+	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+			final Map<Vector, Map<Vector, Scalar>> coordinates,Scalar[][] matrix) {
+		this(source, target,coordinates);
+		this.genericMatrix=matrix;
+	}
+	
 	public FiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target) {
 		super(source, target);
 	}
@@ -111,7 +117,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 //				}
 			}
 			this.genericMatrix = new Scalar[((EuclideanSpace) this.getTarget())
-					.dim()][((EuclideanSpace) this.getSource()).dim()];
+					.getDim()][((EuclideanSpace) this.getSource()).getDim()];
 			int i = 0;
 			for (final Vector vec1 : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 				int j = 0;

@@ -15,7 +15,7 @@ public interface NormedSpace extends RealSpace, MetricSpace {
 
 	@Override
 	default Field getField() {
-		return RealLine.getRealLine();
+		return RealLine.getInstance();
 	}
 	
 	/**

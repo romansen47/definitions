@@ -16,7 +16,7 @@ public interface SequenceSpace extends VectorSpace {
 		return new Sequence() {
 
 			@Override
-			public int getDim() {
+			public Integer getDim() {
 				return -1;
 			}
 

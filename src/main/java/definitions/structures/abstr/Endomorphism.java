@@ -16,7 +16,7 @@ public interface Endomorphism extends Homomorphism {
 	 * @return the determinant
 	 */
 	default Scalar det(final Scalar[][] matrix) {
-		Scalar det = RealLine.getRealLine().getZero();
+		Scalar det = RealLine.getInstance().getZero();
 		if (matrix.length == 1) {
 			return matrix[0][0];
 		}

@@ -6,5 +6,11 @@ import definitions.structures.abstr.Vector;
 public interface Field extends Algebra {
 
 	Vector inverse(Vector factor);
+
+	Vector getOne();
+
+	default Vector getZero() {
+		return nullVec();
+	};
 	
 }

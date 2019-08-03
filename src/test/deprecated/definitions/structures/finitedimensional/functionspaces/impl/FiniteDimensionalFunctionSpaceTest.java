@@ -25,7 +25,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
 public class FiniteDimensionalFunctionSpaceTest {
 
 	static VectorSpace trigonometricSpace;
-	final static int degree = 5;
+	final static int degree = 2;
 
 	static Vector fun1;
 	static Vector fun2;
@@ -36,17 +36,9 @@ public class FiniteDimensionalFunctionSpaceTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace(degree, 1);
+		((EuclideanSpace) trigonometricSpace).show();
 		fun1 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(1);
 		fun2 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(2);
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace#innerProduct(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
-	 */
-	@Test
-	public final void testProduct() {
-		((EuclideanSpace) trigonometricSpace).show();
 	}
 
 	/**

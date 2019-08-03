@@ -22,13 +22,13 @@ public class CachingTest {
 
 //		gen.loadFunctionSpaces();
 		for (int i = 0; i < 5; i++) {
-			spacesGen.getPolynomialFunctionSpace(i, 1);
+			spacesGen.getPolynomialFunctionSpace(i, 1,true);
 		}
 
 		gen.saveCoordinateSpaces();
 		gen.saveFunctionSpaces();
 		final VectorSpace space = spacesGen.getFiniteDimensionalVectorSpace(199);
-		final VectorSpace space2 = spacesGen.getPolynomialFunctionSpace(2, -1);
+		final VectorSpace space2 = spacesGen.getPolynomialFunctionSpace(2, -1,true);
 	}
 
 }

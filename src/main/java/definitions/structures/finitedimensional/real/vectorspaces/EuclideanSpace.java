@@ -44,7 +44,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 * @return the dimension. null if space is infinitely dimensional.
 	 */
 	@Override
-	Integer dim();
+	Integer getDim();
 
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> double).
@@ -59,11 +59,25 @@ public interface EuclideanSpace extends InnerProductSpace {
 		}
 		return vec;
 	}
+	
+	/**
+	 * Elements of the vector space can be created using a map (Vector -> double).
+	 * 
+	 * @param tmp the coordinates with respect to the base
+	 * @return the corresponding vector @
+	 */
+	default Vector get(final Scalar[] tmp) {
+		Vector vec = nullVec();
+		for (int i=0;i<getDim();i++) {
+			vec = add(vec, stretch(genericBaseToList().get(i), tmp[i]));
+		}
+		return vec;
+	}
 
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim() == vec2.getDim())
-				&& (vec1.getDim() == dim())) {
+				&& (vec1.getDim() == getDim())) {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
@@ -81,7 +95,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 		final Map<Vector, Scalar> coordinates = ((FiniteVector) vec).getCoordinates();
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
-			stretched.put(vec1, (Scalar) RealLine.getRealLine().product(coordinates.get(vec1) , r));
+			stretched.put(vec1, (Scalar) RealLine.getInstance().product(coordinates.get(vec1) , r));
 		}
 		return new Tuple(stretched);
 	}

@@ -3,6 +3,7 @@ package definitions.structures.finitedimensional.real.functionspaces;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
@@ -68,7 +69,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	default Function nullFunction() {
 		final Map<Vector, Scalar> nul = new HashMap<>();
 		for (final Vector baseVec : genericBaseToList()) {
-			nul.put(baseVec, RealLine.getRealLine().getZero());
+			nul.put(baseVec, RealLine.getInstance().getZero());
 		}
 		return new FunctionTuple(nul);
 	}
@@ -89,5 +90,23 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	@Override
 	Vector getCoordinates(Vector vec);
-
+	
+	@Override
+	default Function stretch(final Vector vec, final Scalar r) {
+		if (vec instanceof GenericFunction) {
+			return new GenericFunction() {
+				@Override
+				public Scalar value(final Scalar input) {
+					return new Real(r.getValue() * ((Function) vec).value(input).getValue());
+				}
+			};
+		} else {
+			final Map<Vector, Scalar> coordinates = vec.getCoordinates();
+			final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
+			for (final Vector vec1 : coordinates.keySet()) {
+				stretched.put(vec1, new Real(coordinates.get(vec1).getValue() * r.getValue()));
+			}
+			return new FunctionTuple(stretched);
+		}
+	}
 }

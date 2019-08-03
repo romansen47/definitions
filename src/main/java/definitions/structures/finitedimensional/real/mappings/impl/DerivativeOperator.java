@@ -1,8 +1,10 @@
 package definitions.structures.finitedimensional.real.mappings.impl;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import definitions.structures.abstr.Homomorphism;
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalHomomorphism;
@@ -15,16 +17,12 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 		super(source, target);
 		this.linearity = new HashMap<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
-			this.linearity.put(baseVec, ((Function) baseVec)
-					.getProjectionOfDerivative((EuclideanFunctionSpace) this.target).getCoordinates());
+			final Function derivative=((Function) baseVec).getDerivative();
+			final Map<Vector, Scalar> derivativeOnSpace=derivative.getCoordinates(target);
+			this.linearity.put(baseVec,derivativeOnSpace);
 		}
 		this.getGenericMatrix();
 	}
-
-//	@Override
-//	public Vector get(Vector vec) {
-//		return ((Function) vec).getProjectionOfDerivative((EuclideanFunctionSpace) this.target);
-//	}
 
 	public Vector get(Vector vec, int degree) {
 		if (degree < 1) {

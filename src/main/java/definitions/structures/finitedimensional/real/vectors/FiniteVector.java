@@ -7,6 +7,7 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 /**
  * Finite vector.
@@ -23,7 +24,8 @@ public interface FiniteVector extends Vector {
 	default Scalar[] getGenericCoordinates() {
 		final Scalar[] vector = new Scalar[getDim()];
 		int i = 0;
-		for (final Vector basevec : getGenericBase()) {
+		for (final Vector basevec : ((EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getDim())).
+				genericBaseToList()) {
 			vector[i] = getCoordinates().get(basevec);
 			i++;
 		}

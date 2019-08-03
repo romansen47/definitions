@@ -32,7 +32,7 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
-	public int getDim() {
+	public Integer getDim() {
 		return -1;
 	}
 

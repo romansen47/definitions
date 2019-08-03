@@ -33,7 +33,9 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * static constant 1-function.
 	 */
-	Function one = new Constant(RealLine.getRealLine().getOne());
+	Function one = new Constant(RealLine.getInstance().getOne());
+
+	Function derivative = null;
 
 	/**
 	 * Evaluation of the function.
@@ -56,9 +58,8 @@ public interface Function extends Vector, Plotable {
 		final double b = source.getInterval()[1];
 		double x;
 		for (int i = 0; i < n; i++) {
-			x=a + ((i * (b - a)) / 99.);
-			if (Math.abs( value(new Real(x)).getValue() - 
-					other.value(new Real(x)).getValue()) > eps) {
+			x = a + ((i * (b - a)) / 99.);
+			if (Math.abs(value(new Real(x)).getValue() - other.value(new Real(x)).getValue()) > eps) {
 				return false;
 			}
 		}
@@ -132,13 +133,13 @@ public interface Function extends Vector, Plotable {
 		StdDraw.setXscale(left, right);
 		StdDraw.setYscale(min, max);
 
-		Scalar tmp=new Real(left);
+		Scalar tmp = new Real(left);
 		double alpha = value(tmp).getValue();
 		double beta = fun.value(tmp).getValue();
 		double z = 0;
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
-			tmp = new Real(z+delta);
+			tmp = new Real(z + delta);
 			final double alphaNext = value(tmp).getValue();
 			final double betaNext = fun.value(tmp).getValue();
 			StdDraw.setPenRadius(0.0035);
@@ -161,13 +162,29 @@ public interface Function extends Vector, Plotable {
 	 * @return the derivative.
 	 */
 	default Function getDerivative() {
+		if (derivative==null) {
 		final Function fun = this;
 		return new GenericFunction() {
 			@Override
 			public Scalar value(final Scalar input) {
-				return new Real( ( fun.value(new Real(input.getValue() + eps)).getValue() - fun.value(input).getValue()) / eps);
+				double dy = fun.value(new Real(input.getValue() + eps)).getValue() - fun.value(input).getValue();
+				double dx = eps;
+				return new Real(dy / dx);
 			}
 		};
+		}
+		else {
+			return derivative;
+		}
+	}
+	
+	/**
+	 * Method to compute the derivative of the function.
+	 * 
+	 * @return the derivative.
+	 */
+	default Function getDerivative(EuclideanSpace space) {
+		return getDerivative().getProjection(space);
 	}
 
 	/**
@@ -198,7 +215,8 @@ public interface Function extends Vector, Plotable {
 		return new FunctionTuple(new GenericFunction() {
 			@Override
 			public Scalar value(Scalar input) {
-				return new Real(FunctionSpace.getIntegral(projection, one, ((FunctionSpace) space).getLeft(), input.getValue(), eps));
+				return new Real(FunctionSpace.getIntegral(projection, one, ((FunctionSpace) space).getLeft(),
+						input.getValue(), eps));
 			}
 		}.getCoordinates(space));
 	}
@@ -227,7 +245,7 @@ public interface Function extends Vector, Plotable {
 	 * @return the projection of the derivative.
 	 */
 	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
-		return this.getDerivative().getProjection(space);
+		return this.getDerivative(space);
 	}
 
 	/**

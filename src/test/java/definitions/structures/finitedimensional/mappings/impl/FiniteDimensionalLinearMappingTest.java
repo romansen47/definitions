@@ -20,7 +20,7 @@ public class FiniteDimensionalLinearMappingTest {
 
 	Map<Vector, Map<Vector, Scalar>> ans1;
 	Scalar[][] ans2;
-	final VectorSpace space = RealLine.getRealLine();
+	final VectorSpace space = RealLine.getInstance();
 
 	final Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) space, (EuclideanSpace) space) {
 		@Override
