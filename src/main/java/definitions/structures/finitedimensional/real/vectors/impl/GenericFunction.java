@@ -1,5 +1,6 @@
 package definitions.structures.finitedimensional.real.vectors.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,6 +13,8 @@ import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace
 
 public abstract class GenericFunction implements Function {
 
+	Map<EuclideanSpace,Map<Vector, Scalar>> coordinatesMap=new HashMap<>();;
+	
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		return null;
@@ -22,14 +25,22 @@ public abstract class GenericFunction implements Function {
 		return null;
 	}
 
-	@Override
-	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		for (final Vector baseVec : space.genericBaseToList()) {
-			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
-		}
-		return newCoordinates;
-	}
+//	@Override
+//	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
+//		if (coordinatesMap!=null) {
+//			if (coordinatesMap.get(space)!=null) {
+//				return coordinatesMap.get(space);
+//			}
+////			Map<Vector, Scalar> map=new ConcurrentHashMap<>();
+////			coordinatesMap.put(space,map);
+//		}
+//		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
+//		for (final Vector baseVec : space.genericBaseToList()) {
+//			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
+//		}
+//		coordinatesMap.put(space,newCoordinates);
+//		return newCoordinates;
+//	}
 
 	@Override
 	public Integer getDim() {
@@ -47,7 +58,17 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates,final EuclideanSpace space) {
+		this.coordinatesMap.put(space,coordinates);
+	}
+	
+	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+	}
+	
+	@Override
+	public Map<EuclideanSpace,Map<Vector, Scalar>> getCoordinatesMap(){
+		return coordinatesMap;
 	}
 
 }

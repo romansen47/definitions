@@ -97,7 +97,7 @@ public interface ISpaceGenerator {
 		if (degree == 0) {
 			return space;
 		}
-		FiniteDimensionalSobolevSpace ans = new FiniteDimensionalSobolevSpace(space, degree);
+		FiniteDimensionalSobolevSpace ans = new FiniteDimensionalSobolevSpace(space, degree,true);
 		ans.getDerivativeBuilder();
 		return ans;
 	}
@@ -121,8 +121,8 @@ public interface ISpaceGenerator {
 	void setCachedFunctionSpaces(ISpaceGenerator gen);
 
 	default VectorSpace getPolynomialSobolevSpace(int maxDegree, double right, int degree) {
-		VectorSpace ans= Generator.getGenerator().getFiniteDimensionalSobolevSpace(getPolynomialFunctionSpace(maxDegree, right,false),
-				degree);
+		EuclideanFunctionSpace polynoms=getPolynomialFunctionSpace(maxDegree, right,false);
+		VectorSpace ans= Generator.getGenerator().getFiniteDimensionalSobolevSpace(polynoms,degree);
 		((FiniteDimensionalVectorSpace) ans).setBase(((EuclideanSpace)ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
 		return ans;
 	}

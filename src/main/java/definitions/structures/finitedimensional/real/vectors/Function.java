@@ -218,6 +218,7 @@ public interface Function extends Vector, Plotable {
 				return new Real(FunctionSpace.getIntegral(projection, one, ((FunctionSpace) space).getLeft(),
 						input.getValue(), eps));
 			}
+
 		}.getCoordinates(space));
 	}
 
@@ -255,6 +256,12 @@ public interface Function extends Vector, Plotable {
 	 * @return the coordinates of the projection.
 	 */
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
+		Map<EuclideanSpace,Map<Vector, Scalar>> coordinatesMap=getCoordinatesMap();
+		if (coordinatesMap!=null) {
+			if (coordinatesMap.get(space)!=null) {
+				return coordinatesMap.get(space);
+			}
+		}
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		for (final Vector baseVec : space.genericBaseToList()) {
 			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
@@ -274,4 +281,21 @@ public interface Function extends Vector, Plotable {
 		}
 		return new FunctionTuple(getCoordinates(source));
 	}
+
+	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
+	
+	void setCoordinates(Map<Vector, Scalar> coordinates);
+	
+	Map<EuclideanSpace,Map<Vector, Scalar>> getCoordinatesMap();
+	
+//	@Override
+//	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
+//		
+//		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
+//		for (final Vector baseVec : space.genericBaseToList()) {
+//			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
+//		}
+//		coordinatesMap.put(space,newCoordinates);
+//		return newCoordinates;
+//	}
 }

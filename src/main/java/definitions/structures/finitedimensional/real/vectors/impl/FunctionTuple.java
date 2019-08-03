@@ -1,6 +1,8 @@
 package definitions.structures.finitedimensional.real.vectors.impl;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
@@ -14,6 +16,8 @@ import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace
 
 public class FunctionTuple extends Tuple implements Function {
 
+	Map<EuclideanSpace,Map<Vector, Scalar>> coordinatesMap=new HashMap<>();;
+	
 	public FunctionTuple(final Map<Vector, Scalar> coordinates) {
 		super(coordinates);
 	}
@@ -37,7 +41,6 @@ public class FunctionTuple extends Tuple implements Function {
 			public Vector get(Vector vec2) {
 				return ((Function) vec2).getDerivative();
 			}
-
 			@Override
 			public Map<Vector, Scalar> getLinearity(Vector vec1) {
 				return null;
@@ -49,4 +52,15 @@ public class FunctionTuple extends Tuple implements Function {
 	public Function getProjection(EuclideanSpace source) {
 		return Function.super.getProjection(source);
 	}
+
+	@Override
+	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+		coordinatesMap.put(space,((Function) coordinates).getCoordinates(space));
+	}
+
+	@Override
+	public Map<EuclideanSpace,Map<Vector, Scalar>> getCoordinatesMap(){
+		return coordinatesMap;
+	}
+	
 }

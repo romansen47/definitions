@@ -88,8 +88,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		return vec;
 	}
 
-	@Override
-	Vector getCoordinates(Vector vec);
+//	@Override
+//	Vector getCoordinates(Vector vec);
 	
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {

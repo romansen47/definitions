@@ -107,7 +107,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 					}
 //				} else {
 //					for (final Vector sourceVec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
-//						Map<Vector, Double> tmp = new HashMap<>();
+//						Map<Vector, Scalar> tmp = new HashMap<>();
 //						for (final Vector targetVec : ((EuclideanSpace) this.getTarget()).genericBaseToList()) {
 //							tmp.put(targetVec,
 //									((InnerProductSpace) this.getTarget()).innerProduct(this.get(sourceVec), targetVec));

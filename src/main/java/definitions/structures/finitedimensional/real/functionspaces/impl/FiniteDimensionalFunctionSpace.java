@@ -14,6 +14,7 @@ import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.Plotable;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
@@ -33,7 +34,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-4;
+	protected final double eps = 1.e-5;
 
 	/**
 	 * Plain constructor. @
@@ -141,6 +142,42 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public void plotBase() {
 		for (Vector vec:genericBaseToList()) {
 			((Plotable)vec).plot(getLeft(), getRight());
+		}
+	}
+	
+
+
+	/**
+	 * Method to fill a list with sine functions.
+	 * 
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param d
+	 * @param tmpBase the list.
+	 */
+	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
+		for (int i = 1; i < (n + 1); i++) {
+			final Vector sin = new Sine(
+					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
+					RealLine.getInstance().getZero(),
+					new Real( d * i));
+			tmpBase.add(sin);
+		}
+	}
+
+	/**
+	 * Method to fill a list with sine functions.
+	 * 
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param d
+	 * @param tmpBase the list.
+	 */
+	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
+		for (int i = 1; i < (n + 1); i++) {
+			final Vector cos = new Sine(
+					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
+					new Real(0.5 * Math.PI),
+					new Real(d * i));
+			tmpBase.add(cos);
 		}
 	}
 }

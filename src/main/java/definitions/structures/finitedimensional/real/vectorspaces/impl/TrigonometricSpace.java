@@ -41,38 +41,4 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		this.base = tmpBase;
 	}
 
-	/**
-	 * Method to fill a list with sine functions.
-	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
-	 * @param tmpBase the list.
-	 */
-	private void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
-		for (int i = 1; i < (n + 1); i++) {
-			final Vector sin = new Sine(
-					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					RealLine.getInstance().getZero(),
-					new Real( d * i));
-			tmpBase.add(sin);
-		}
-	}
-
-	/**
-	 * Method to fill a list with sine functions.
-	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
-	 * @param tmpBase the list.
-	 */
-	private void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
-		for (int i = 1; i < (n + 1); i++) {
-			final Vector cos = new Sine(
-					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					new Real(0.5 * Math.PI),
-					new Real(d * i));
-			tmpBase.add(cos);
-		}
-	}
-
 }

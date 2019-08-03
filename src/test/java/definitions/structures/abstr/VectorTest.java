@@ -20,7 +20,7 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class VectorTest {
 
-	final int dim=Math.abs(new Random().nextInt(100));
+	final int dim=Math.abs(new Random().nextInt(10));
 	
 	final EuclideanSpace space=(EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim);
 	
@@ -33,10 +33,11 @@ public class VectorTest {
 	 */
 	@Test
 	public void testGetDim() {
-		strings.append("Dimension test.");
-		strings.append("getDim()="+nul.getDim());
-		strings.append("dim="+dim);
+		strings.append("Dimension test.\r");
+		strings.append("getDim()="+nul.getDim()+"\r");
+		strings.append("dim="+dim+"\r");
 		Assert.assertTrue(nul.getDim()==dim);
+		System.out.println(strings);
 	}
 
 	/**

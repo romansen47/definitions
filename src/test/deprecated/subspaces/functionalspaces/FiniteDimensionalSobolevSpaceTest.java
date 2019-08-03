@@ -33,9 +33,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 1;
+	static final int dim = 7;
 
-	static final int degree = 1;
+	static final int degree = 2;
 
 	static Function normalizedIdentity;
 	static Function exp;
@@ -122,12 +122,6 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		newAbs = sobolevSpace.getCoordinates(abs);
 
-		staircaseFunctionToFourier = sobolevSpace
-				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction));
-
-		staircaseFunction2ToFourier = sobolevSpace
-				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction2));
-
 	}
 
 	@Test
@@ -160,11 +154,15 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	@Test
 	public void staircaseFunction() throws Throwable {
+		staircaseFunctionToFourier = sobolevSpace
+				.getCoordinates(staircaseFunction);
 		((Function) staircaseFunction).plotCompare(left, right, (Function) staircaseFunctionToFourier);
 	}
 
 	@Test
 	public void staircaseFunction2() throws Throwable {
+		staircaseFunction2ToFourier = sobolevSpace
+				.getCoordinates(trigonometricFunctionSpace.getCoordinates(staircaseFunction2));
 		((Function) staircaseFunction2).plotCompare(left, right, (Function) staircaseFunction2ToFourier);
 	}
 

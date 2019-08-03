@@ -39,6 +39,7 @@ public interface IMappingGenerator {
 		}
 		return matC;
 	}
+	
 
 	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Map<Vector, Map<Vector, Scalar>> matrix);

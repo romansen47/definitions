@@ -52,9 +52,12 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
 	 */
-	public FiniteDimensionalSobolevSpace(final EuclideanFunctionSpace space, int degree) {
+	public FiniteDimensionalSobolevSpace(final EuclideanFunctionSpace space, int degree,boolean ortho) {
 		super(space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1],false);
 		this.degree=degree;
+		if (ortho) {
+			setBase(getOrthonormalBase(this.base));
+		}
 //		final List<Vector> newBaseTmp = this.base;// this.getOrthonormalBase(this.base);
 //		final List<Vector> newBase = new ArrayList<>();
 //		final List<Vector> newCoordinates = ((EuclideanSpace) Generator.getGenerator().getSpacegenerator()
@@ -112,25 +115,30 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				return super.innerProduct(vec1, vec2);
 			} else {
 				double product = 0;
-				Vector tmp1 = new GenericFunction() {
-					@Override
-					public Scalar value(Scalar input) {
-						return ((Function) vec1).value(input);
-					}
-				};
-				Vector tmp2 = new GenericFunction() {
-					@Override
-					public Scalar value(Scalar input) {
-						return ((Function) vec2).value(input);
-					}
-				};
-//				if (derivativeBuilder!=null) {
+				Vector tmp1 = vec1;
+//				new GenericFunction() {
+//					@Override
+//					public Scalar value(Scalar input) {
+//						return ((Function) vec1).value(input);
+//					}
+//				};
+				Vector tmp2 = vec2;
+//				new GenericFunction() {
+//					@Override
+//					public Scalar value(Scalar input) {
+//						return ((Function) vec2).value(input);
+//					}
+//				};
+//				try { 
 //					tmp1=((Function) tmp1).getProjection(this);
 //					tmp2=((Function) tmp2).getProjection(this);
 //				}
-				product += integral((Function)tmp1, (Function)tmp2);
+//				catch (Exception e) {
+//					System.out.println("Base not created yet.");
+//				}
+				product += super.innerProduct((Function)tmp1, (Function)tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (!(tmp1 instanceof FunctionTuple)) {
+					if (!(tmp1 instanceof FunctionTuple) || derivativeBuilder==null) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp1 = ((Function) tmp2).getDerivative();
 					}

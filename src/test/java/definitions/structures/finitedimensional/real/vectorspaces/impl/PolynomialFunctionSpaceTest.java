@@ -19,7 +19,7 @@ import definitions.structures.java.Reader;
  */
 public class PolynomialFunctionSpaceTest {
 
-	static final int sobolevDegree = 100;
+	static final int sobolevDegree = 3;
 	private static final int polynomialDegree = 2;
 	static EuclideanFunctionSpace linearSpace;
 
