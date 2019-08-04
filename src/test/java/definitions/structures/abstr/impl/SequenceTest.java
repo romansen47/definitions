@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Sequence;
 import definitions.structures.abstr.Vector;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 
 public class SequenceTest {
 

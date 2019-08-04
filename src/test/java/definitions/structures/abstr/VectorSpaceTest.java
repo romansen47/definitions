@@ -6,7 +6,7 @@ import org.junit.Test;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 
 public class VectorSpaceTest {
 

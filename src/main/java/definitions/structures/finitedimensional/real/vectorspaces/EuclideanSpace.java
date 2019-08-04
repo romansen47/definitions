@@ -9,7 +9,7 @@ import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectors.FiniteVector;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
@@ -47,7 +47,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	Integer getDim();
 
 	/**
-	 * Elements of the vector space can be created using a map (Vector -> double).
+	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
 	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
@@ -61,7 +61,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	}
 	
 	/**
-	 * Elements of the vector space can be created using a map (Vector -> double).
+	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
 	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
@@ -170,6 +170,18 @@ public interface EuclideanSpace extends InnerProductSpace {
 			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
 		}
 		return new FunctionTuple(coordinates);
+	}
+	
+	@Override
+	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
+		double prod = 0;
+		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
+		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
+		final List<Vector> base = this.genericBaseToList();
+		for (final Vector vec : vecCoord1.keySet()) {
+			prod += vecCoord1.get(vec).getValue() * vecCoord2.get(vec).getValue();
+		}
+		return new Real(prod);
 	}
 
 }

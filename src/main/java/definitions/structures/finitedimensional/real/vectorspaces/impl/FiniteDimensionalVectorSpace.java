@@ -10,7 +10,7 @@ import java.util.Set;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
@@ -50,17 +50,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.base = genericBase;
 	}
 
-	@Override
-	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		double prod = 0;
-		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
-		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
-		final List<Vector> base = this.genericBaseToList();
-		for (final Vector vec : vecCoord1.keySet()) {
-			prod += vecCoord1.get(vec).getValue() * vecCoord2.get(vec).getValue();
-		}
-		return new Real(prod);
-	}
+	
 
 	@Override
 	public boolean contains(final Vector vec) {

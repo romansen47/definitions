@@ -9,7 +9,7 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.abstr.impl.LinearMapping;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;

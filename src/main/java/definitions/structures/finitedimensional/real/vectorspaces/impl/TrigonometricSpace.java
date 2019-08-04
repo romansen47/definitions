@@ -5,7 +5,7 @@ import java.util.List;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Constant;

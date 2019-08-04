@@ -9,7 +9,7 @@ import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalEmbedding;
 import definitions.structures.finitedimensional.real.vectors.Function;

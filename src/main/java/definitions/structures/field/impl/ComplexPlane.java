@@ -1,4 +1,4 @@
-package definitions.structures.finitedimensional.real.vectorspaces.impl;
+package definitions.structures.field.impl;
 
 import java.util.Map;
 import java.util.Set;
@@ -13,13 +13,14 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.abstr.impl.LinearMapping;
 import definitions.structures.field.Field;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.mappings.impl.InvertibleSelfMapping;
 import definitions.structures.finitedimensional.real.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.real.vectors.FiniteVector;
 import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
 public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field {
 

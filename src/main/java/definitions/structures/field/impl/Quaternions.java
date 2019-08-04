@@ -1,29 +1,45 @@
+/**
+ * 
+ */
 package definitions.structures.field.impl;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import definitions.structures.abstr.Algebra;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.Field;
+import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-public class FiniteField implements Field {
+/**
+ * @author RoManski
+ *
+ */
+public class Quaternions extends FiniteDimensionalVectorSpace implements Algebra {
 
-	@Override
-	public Vector product(Vector vec1, Vector vec2) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * the base.
+	 */
+	final private List<Vector> base;
+
+	/**
+	 * the dimension.
+	 */
+	private final int dim=4;
+
+	public Quaternions() {
+		base=new ArrayList<>();
 	}
 
 	@Override
 	public Field getField() {
-		// TODO Auto-generated method stub
-		return null;
+		return RealLine.getInstance();
 	}
 
 	@Override
 	public boolean contains(Vector vec) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -46,7 +62,7 @@ public class FiniteField implements Field {
 	}
 
 	@Override
-	public Vector inverse(Vector factor) {
+	public Vector product(Vector vec1, Vector vec2) {
 		// TODO Auto-generated method stub
 		return null;
 	}

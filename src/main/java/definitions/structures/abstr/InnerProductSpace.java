@@ -1,6 +1,6 @@
 package definitions.structures.abstr;
 
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 
 /**
  * 

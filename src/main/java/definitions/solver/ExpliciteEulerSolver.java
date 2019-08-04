@@ -1,7 +1,7 @@
 package definitions.solver;
 
 import definitions.structures.abstr.Scalar;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 

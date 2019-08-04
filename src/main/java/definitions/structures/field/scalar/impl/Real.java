@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.field.scalar;
+package definitions.structures.field.scalar.impl;
 
 import java.util.HashMap;
 import java.util.Map;

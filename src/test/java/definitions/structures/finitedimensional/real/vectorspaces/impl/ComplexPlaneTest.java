@@ -14,8 +14,9 @@ import definitions.structures.abstr.Algebra;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.Field;
+import definitions.structures.field.impl.ComplexPlane;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 
 /**
  * @author RoManski
@@ -44,7 +45,7 @@ public class ComplexPlaneTest {
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.finitedimensional.real.vectorspaces.impl.ComplexPlane#product(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
+	 * Test method for {@link definitions.structures.field.impl.ComplexPlane#product(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
 	 */
 	@Test
 	public void testProduct() {
@@ -55,7 +56,7 @@ public class ComplexPlaneTest {
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.finitedimensional.real.vectorspaces.impl.ComplexPlane#add(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
+	 * Test method for {@link definitions.structures.field.impl.ComplexPlane#add(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
 	 */
 	@Test
 	public void testAdd() {
@@ -63,7 +64,7 @@ public class ComplexPlaneTest {
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.finitedimensional.real.vectorspaces.impl.ComplexPlane#stretch(definitions.structures.abstr.Vector, definitions.structures.abstr.Scalar)}.
+	 * Test method for {@link definitions.structures.field.impl.ComplexPlane#stretch(definitions.structures.abstr.Vector, definitions.structures.abstr.Scalar)}.
 	 */
 	@Test
 	public void testStretch() {
@@ -71,7 +72,7 @@ public class ComplexPlaneTest {
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.finitedimensional.real.vectorspaces.impl.ComplexPlane#inverse(definitions.structures.abstr.Vector)}.
+	 * Test method for {@link definitions.structures.field.impl.ComplexPlane#inverse(definitions.structures.abstr.Vector)}.
 	 */
 	@Test
 	public void testInverse() {

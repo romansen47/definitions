@@ -10,7 +10,7 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
 import definitions.structures.abstr.impl.RealZero;
 import definitions.structures.field.Field;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 public class RealLine implements Field, EuclideanSpace {

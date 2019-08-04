@@ -3,7 +3,7 @@ package definitions.structures.finitedimensional.real.vectors.specialfunctions;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.impl.RealZero;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.Real;
+import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 
 /**
