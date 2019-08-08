@@ -5,12 +5,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.solver.StdDraw;
-import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
@@ -162,22 +160,21 @@ public interface Function extends Vector, Plotable {
 	 * @return the derivative.
 	 */
 	default Function getDerivative() {
-		if (derivative==null) {
-		final Function fun = this;
-		return new GenericFunction() {
-			@Override
-			public Scalar value(final Scalar input) {
-				double dy = fun.value(new Real(input.getValue() + eps)).getValue() - fun.value(input).getValue();
-				double dx = eps;
-				return new Real(dy / dx);
-			}
-		};
-		}
-		else {
+		if (derivative == null) {
+			final Function fun = this;
+			return new GenericFunction() {
+				@Override
+				public Scalar value(final Scalar input) {
+					double dy = fun.value(new Real(input.getValue() + eps)).getValue() - fun.value(input).getValue();
+					double dx = eps;
+					return new Real(dy / dx);
+				}
+			};
+		} else {
 			return derivative;
 		}
 	}
-	
+
 	/**
 	 * Method to compute the derivative of the function.
 	 * 
@@ -194,9 +191,9 @@ public interface Function extends Vector, Plotable {
 	 * @return the n-th derivative of the function.
 	 */
 	default Function getDerivative(int n) {
-		if (n < 0) {
-			return getPrimitiveIntegral(-n);
-		}
+//		if (n < 0) {
+//			return getPrimitiveIntegral(-n);
+//		}
 		if (n == 0) {
 			return this;
 		} else {
@@ -209,18 +206,18 @@ public interface Function extends Vector, Plotable {
 	 * 
 	 * @return the integral function.
 	 */
-	default Function getPrimitiveIntegral() {
-		final EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getTrigonometricSpace(20);
-		final Function projection = getProjection(space);
-		return new FunctionTuple(new GenericFunction() {
-			@Override
-			public Scalar value(Scalar input) {
-				return new Real(FunctionSpace.getIntegral(projection, one, ((FunctionSpace) space).getLeft(),
-						input.getValue(), eps));
-			}
-
-		}.getCoordinates(space));
-	}
+//	default Function getPrimitiveIntegral() {
+//		final EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getTrigonometricSpace(20);
+//		final Function projection = getProjection(space);
+//		return new FunctionTuple(new GenericFunction() {
+//			@Override
+//			public Scalar value(Scalar input) {
+//				return new Real(FunctionSpace.getIntegral(projection, one, ((FunctionSpace) space).getLeft(),
+//						input.getValue(), eps));
+//			}
+//
+//		}.getCoordinates(space));
+//	}
 
 	/**
 	 * Method to get an n-th primitive integral.
@@ -228,16 +225,16 @@ public interface Function extends Vector, Plotable {
 	 * @param n the degree.
 	 * @return an n-th integral.
 	 */
-	default Function getPrimitiveIntegral(int n) {
-		if (n < 0) {
-			return getDerivative(-n);
-		}
-		if (n == 0) {
-			return this;
-		} else {
-			return getPrimitiveIntegral().getPrimitiveIntegral(n - 1);
-		}
-	}
+//	default Function getPrimitiveIntegral(int n) {
+//		if (n < 0) {
+//			return getDerivative(-n);
+//		}
+//		if (n == 0) {
+//			return this;
+//		} else {
+//			return getPrimitiveIntegral().getPrimitiveIntegral(n - 1);
+//		}
+//	}
 
 	/**
 	 * Method to compute the projection of the derivative onto a vector space.
@@ -256,9 +253,9 @@ public interface Function extends Vector, Plotable {
 	 * @return the coordinates of the projection.
 	 */
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		Map<EuclideanSpace,Map<Vector, Scalar>> coordinatesMap=getCoordinatesMap();
-		if (coordinatesMap!=null) {
-			if (coordinatesMap.get(space)!=null) {
+		Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
+		if (coordinatesMap != null) {
+			if (coordinatesMap.get(space) != null) {
 				return coordinatesMap.get(space);
 			}
 		}
@@ -279,23 +276,13 @@ public interface Function extends Vector, Plotable {
 		if (this instanceof FunctionTuple && source.contains(this)) {
 			return this;
 		}
-		return new FunctionTuple(getCoordinates(source));
+		return new FunctionTuple(getCoordinates(source), source);
 	}
 
-	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
-	
+
+	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
+
+	Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap();
 	
-	Map<EuclideanSpace,Map<Vector, Scalar>> getCoordinatesMap();
-	
-//	@Override
-//	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-//		
-//		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-//		for (final Vector baseVec : space.genericBaseToList()) {
-//			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
-//		}
-//		coordinatesMap.put(space,newCoordinates);
-//		return newCoordinates;
-//	}
 }

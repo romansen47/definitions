@@ -13,14 +13,15 @@ import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace
 
 public class ExpliciteEulerSolverTest {
 
-	final static VectorSpace realLine=RealLine.getInstance();
+	final static VectorSpace realLine = RealLine.getInstance();
 	private static EuclideanSpace space;
 	private static Function fun;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
-		setSpace(Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(1));
-		fun = new ExponentialFunction((Scalar)realLine.nullVec(),(Scalar)realLine.nullVec());// (Function) getSpace().genericBaseToList().get(0);
+		setSpace(Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(RealLine.getInstance(), 1));
+		fun = new ExponentialFunction((Scalar) realLine.nullVec(), (Scalar) realLine.nullVec());// (Function)
+																								// getSpace().genericBaseToList().get(0);
 	}
 
 	@Test

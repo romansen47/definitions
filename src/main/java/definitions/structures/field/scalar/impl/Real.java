@@ -10,6 +10,7 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.RealLine;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
@@ -20,9 +21,9 @@ public class Real extends Number implements Scalar {
 	private static final long serialVersionUID = 448447488896787384L;
 
 	final private double realValue;
-	
-	private Map <Vector,Scalar> coordinates;
-	
+
+	private Map<Vector, Scalar> coordinates;
+
 	public Real(double value) {
 		this.realValue = value;
 	}
@@ -34,7 +35,7 @@ public class Real extends Number implements Scalar {
 
 	@Override
 	public boolean elementOf(VectorSpace space) {
-		return space==RealLine.getInstance();
+		return space == RealLine.getInstance();
 	}
 
 	@Override
@@ -44,64 +45,64 @@ public class Real extends Number implements Scalar {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		if (coordinates==null) {
-			coordinates = new HashMap<>();
-			coordinates.put(RealLine.getInstance().getOne(),this);
+		if (this.coordinates == null) {
+			this.coordinates = new HashMap<>();
+			this.coordinates.put(RealLine.getInstance().getOne(), this);
 		}
-		return coordinates;
-	}
-
-	@Override
-	public Scalar[] getGenericCoordinates() {
-		return new Scalar[] {this};
+		return this.coordinates;
 	}
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
 	}
 
+	@Override
 	public double getValue() {
 		return this.realValue;
 	}
 
 	@Override
 	public int intValue() {
-		return (int)getValue();
+		return (int) this.getValue();
 	}
 
 	@Override
 	public long longValue() {
-		return (long)getValue();
+		return (long) this.getValue();
 	}
 
 	@Override
 	public float floatValue() {
-		return (float)getValue();
+		return (float) this.getValue();
 	}
 
 	@Override
 	public double doubleValue() {
-		return getValue();
+		return this.getValue();
 	}
 
 	@Override
 	public Scalar getInverse() {
-		if (getValue()!=0.) {
-			return new Real(1/getValue());
+		if (Math.abs(this.getValue())>1.e-15) {
+			return new Real(1 / this.getValue());
 		}
 		return null;
 	}
-	
+
 	@Override
 	public String toString() {
-		return ""+this.getValue();
+		return "" + this.getValue();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj.equals(this)) {
 			return true;
 		}
-		return obj instanceof Real && ((Real)obj).getValue()== getValue(); 
+		return obj instanceof Real && ((Real) obj).getValue() == this.getValue();
+	}
+
+	@Override
+	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 }

@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.Field;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
@@ -15,7 +16,6 @@ import definitions.structures.finitedimensional.real.vectors.Plotable;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
@@ -39,12 +39,13 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Plain constructor. @
 	 */
-	protected FiniteDimensionalFunctionSpace() {
+	protected FiniteDimensionalFunctionSpace(Field field) {
+		super(field);
 	}
 
-	public FiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left, final double right,
-			boolean orthonormalize) {
-		super(genericBase);
+	public FiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase, final double left,
+			final double right, boolean orthonormalize) {
+		super(field, genericBase);
 		this.interval = new double[2];
 		this.interval[0] = left;
 		this.interval[1] = right;
@@ -140,12 +141,10 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	public void plotBase() {
-		for (Vector vec:genericBaseToList()) {
-			((Plotable)vec).plot(getLeft(), getRight());
+		for (Vector vec : this.genericBaseToList()) {
+			((Plotable) vec).plot(this.getLeft(), this.getRight());
 		}
 	}
-	
-
 
 	/**
 	 * Method to fill a list with sine functions.
@@ -156,10 +155,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
-			final Vector sin = new Sine(
-					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					RealLine.getInstance().getZero(),
-					new Real( d * i));
+			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
+					new Real(d * i));
 			tmpBase.add(sin);
 		}
 	}
@@ -173,9 +170,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
-			final Vector cos = new Sine(
-					new Real(Math.sqrt(Math.abs(d) / Math.PI)),
-					new Real(0.5 * Math.PI),
+			final Vector cos = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), new Real(0.5 * Math.PI),
 					new Real(d * i));
 			tmpBase.add(cos);
 		}

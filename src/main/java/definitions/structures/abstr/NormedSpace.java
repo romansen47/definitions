@@ -1,7 +1,6 @@
 package definitions.structures.abstr;
 
 import definitions.structures.field.Field;
-import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 
 /**
@@ -10,14 +9,11 @@ import definitions.structures.field.scalar.impl.Real;
  *
  *         A normed space is a vector space with a norm.
  */
-public interface NormedSpace extends RealSpace, MetricSpace {
-
+public interface NormedSpace extends VectorSpace, MetricSpace {
 
 	@Override
-	default Field getField() {
-		return RealLine.getInstance();
-	}
-	
+	Field getField();
+
 	/**
 	 * The defined norm.
 	 * 
@@ -25,10 +21,10 @@ public interface NormedSpace extends RealSpace, MetricSpace {
 	 * @return the norm of the vector.
 	 */
 	Real norm(Vector vec);
-	
+
 	@Override
-	default Real getDistance(Vector vec1,Vector vec2) {
-		return norm(add(vec1,stretch(vec2,new Real(-1))));
+	default Real getDistance(Vector vec1, Vector vec2) {
+		return norm(add(vec1, stretch(vec2, new Real(-1))));
 	}
 
 	/**

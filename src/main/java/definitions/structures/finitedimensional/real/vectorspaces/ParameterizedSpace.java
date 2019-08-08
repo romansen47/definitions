@@ -56,7 +56,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 		final FiniteDimensionalHomomorphism quadratic = (FiniteDimensionalHomomorphism) Generator.getGenerator()
 				.getMappinggenerator().getComposition(transposed, getParametrization());
 		final Vector transformed = transposed.get(vec2);
-		return new Tuple(quadratic.solve(transformed).getCoordinates());
+		return new Tuple(quadratic.solve((FiniteVector) transformed).getCoordinates());
 	}
 
 }

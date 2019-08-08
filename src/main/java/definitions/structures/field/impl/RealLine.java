@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import definitions.structures.abstr.Algebra;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
@@ -41,7 +40,7 @@ public class RealLine implements Field, EuclideanSpace {
 
 	@Override
 	public Vector nullVec() {
-		return getZero();
+		return this.getZero();
 	}
 
 	@Override
@@ -115,13 +114,19 @@ public class RealLine implements Field, EuclideanSpace {
 		return new Real(1 / num.getValue());
 	}
 
-
+	@Override
 	public final Real getOne() {
 		return one;
 	}
 
+	@Override
 	public final Real getZero() {
 		return zero;
 	}
-	
+
+	@Override
+	public Field getField() {
+		return this;
+	}
+
 }

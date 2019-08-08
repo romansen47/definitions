@@ -40,10 +40,10 @@ public interface FunctionSpace extends VectorSpace {
 	static double getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
 		double ans = 0;
 		double x = left;
-		Scalar tmp=new Real(x);
+		Scalar tmp = new Real(x);
 		while (x < right) {
 			ans += vec1.value(tmp).getValue() * vec2.value(tmp).getValue();
-			x+=eps;
+			x += eps;
 			tmp = new Real(x);
 		}
 		return ans * eps;

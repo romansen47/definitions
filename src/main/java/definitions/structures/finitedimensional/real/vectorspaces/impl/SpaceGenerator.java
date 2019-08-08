@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.field.Field;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerator;
@@ -60,8 +61,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
-	public EuclideanFunctionSpace getPolynomialFunctionSpace(int n, double right,boolean ortho) {
-		return new PolynomialFunctionSpace(n, right,ortho);
+	public EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, int n, double right, boolean ortho) {
+		return new PolynomialFunctionSpace(field, n, right, ortho);
 	}
 
 }

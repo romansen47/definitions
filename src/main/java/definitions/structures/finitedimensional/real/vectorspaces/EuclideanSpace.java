@@ -59,7 +59,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 		}
 		return vec;
 	}
-	
+
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
@@ -68,7 +68,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 */
 	default Vector get(final Scalar[] tmp) {
 		Vector vec = nullVec();
-		for (int i=0;i<getDim();i++) {
+		for (int i = 0; i < getDim(); i++) {
 			vec = add(vec, stretch(genericBaseToList().get(i), tmp[i]));
 		}
 		return vec;
@@ -81,8 +81,9 @@ public interface EuclideanSpace extends InnerProductSpace {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
-				coordinates.put(getBaseVec(vec), new Real(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)).getValue()
-						+ ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)).getValue()));
+				coordinates.put(getBaseVec(vec),
+						new Real(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)).getValue()
+								+ ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)).getValue()));
 			}
 			return new Tuple(coordinates);
 		}
@@ -95,7 +96,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 		final Map<Vector, Scalar> coordinates = ((FiniteVector) vec).getCoordinates();
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
-			stretched.put(vec1, (Scalar) RealLine.getInstance().product(coordinates.get(vec1) , r));
+			stretched.put(vec1, (Scalar) RealLine.getInstance().product(coordinates.get(vec1), r));
 		}
 		return new Tuple(stretched);
 	}
@@ -131,6 +132,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 * @param vec2 second vector.
 	 * @return the distance. @
 	 */
+	@Override
 	default Real getDistance(final Vector vec1, final Vector vec2) {
 		final Vector diff = add(vec1, (stretch(vec2, new Real(-1))));
 		return norm(diff);
@@ -169,9 +171,9 @@ public interface EuclideanSpace extends InnerProductSpace {
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
 		}
-		return new FunctionTuple(coordinates);
+		return new FunctionTuple(coordinates, this);
 	}
-	
+
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		double prod = 0;

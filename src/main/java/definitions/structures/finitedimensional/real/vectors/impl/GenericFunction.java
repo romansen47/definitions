@@ -13,34 +13,30 @@ import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace
 
 public abstract class GenericFunction implements Function {
 
-	Map<EuclideanSpace,Map<Vector, Scalar>> coordinatesMap=new HashMap<>();;
-	
+	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
+	private Map<Vector, Scalar> coordinates;
+
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		return null;
+		return coordinates;
 	}
 
 	@Override
-	public Scalar[] getGenericCoordinates() {
-		return null;
+	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
+		if (coordinatesMap!=null) {
+			if (coordinatesMap.get(space)!=null) {
+				return coordinatesMap.get(space);
+			}
+			Map<Vector, Scalar> map=new ConcurrentHashMap<>();
+			coordinatesMap.put(space,map);
+		}
+		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : space.genericBaseToList()) {
+			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
+		}
+		coordinatesMap.put(space,newCoordinates);
+		return newCoordinates;
 	}
-
-//	@Override
-//	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-//		if (coordinatesMap!=null) {
-//			if (coordinatesMap.get(space)!=null) {
-//				return coordinatesMap.get(space);
-//			}
-////			Map<Vector, Scalar> map=new ConcurrentHashMap<>();
-////			coordinatesMap.put(space,map);
-//		}
-//		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-//		for (final Vector baseVec : space.genericBaseToList()) {
-//			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
-//		}
-//		coordinatesMap.put(space,newCoordinates);
-//		return newCoordinates;
-//	}
 
 	@Override
 	public Integer getDim() {
@@ -58,17 +54,19 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
-	public void setCoordinates(final Map<Vector, Scalar> coordinates,final EuclideanSpace space) {
-		this.coordinatesMap.put(space,coordinates);
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		this.coordinatesMap.put(space, coordinates);
+		this.setCoordinates(coordinates);
 	}
-	
+
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+		this.coordinates=coordinates;
 	}
-	
+
 	@Override
-	public Map<EuclideanSpace,Map<Vector, Scalar>> getCoordinatesMap(){
-		return coordinatesMap;
+	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
+		return this.coordinatesMap;
 	}
 
 }

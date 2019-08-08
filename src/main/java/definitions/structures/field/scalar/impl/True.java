@@ -10,6 +10,7 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.Modulo2;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
@@ -48,22 +49,17 @@ public final class True implements Scalar {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		if (coordinates == null) {
-			coordinates = new ConcurrentHashMap<>();
-			coordinates.put(this, this);
-			coordinates.put(False.getInstance(), False.getInstance());
+		if (this.coordinates == null) {
+			this.coordinates = new ConcurrentHashMap<>();
+			this.coordinates.put(this, this);
+			this.coordinates.put(False.getInstance(), False.getInstance());
 		}
-		return coordinates;
-	}
-
-	@Override
-	public Scalar[] getGenericCoordinates() {
-		return new Scalar[] {this,False.getInstance()};
+		return this.coordinates;
 	}
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
-//		this.coordinates = coordinates;
+		this.coordinates = coordinates;
 	}
 
 	@Override
@@ -74,6 +70,10 @@ public final class True implements Scalar {
 	@Override
 	public Scalar getInverse() {
 		return False.getInstance();
+	}
+
+	@Override
+	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) { 
 	}
 
 }

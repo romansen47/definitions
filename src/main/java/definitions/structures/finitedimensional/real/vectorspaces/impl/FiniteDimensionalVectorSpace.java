@@ -9,6 +9,7 @@ import java.util.Set;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.Field;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
@@ -34,10 +35,17 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	protected int dim;
 
+	final private Field field;
+
 	/**
 	 * Plain constructor.
 	 */
+	protected FiniteDimensionalVectorSpace(Field field) {
+		this.field = field;
+	}
+
 	protected FiniteDimensionalVectorSpace() {
+		this.field = RealLine.getInstance();
 	}
 
 	/**
@@ -45,12 +53,11 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * 
 	 * @param genericBase the set of vectors.
 	 */
-	public FiniteDimensionalVectorSpace(final List<Vector> genericBase) {
+	public FiniteDimensionalVectorSpace(Field field, final List<Vector> genericBase) {
+		this.field = field;
 		this.dim = genericBase.size();
 		this.base = genericBase;
 	}
-
-	
 
 	@Override
 	public boolean contains(final Vector vec) {
@@ -70,7 +77,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	public List<Vector> genericBaseToList() {
 		return this.base;
 	}
-
 
 	/**
 	 * Getter for the dimension.
@@ -103,7 +109,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
 		}
 		if (vec instanceof GenericFunction) {
-			return new FunctionTuple(coordinates);
+			return new FunctionTuple(coordinates, this);
 		}
 		return this.get(coordinates);
 	}
@@ -116,7 +122,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp,new Real(-1))));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, new Real(-1))));
 			newBase.add(ans);
 		}
 		return newBase;
@@ -139,5 +145,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			return ans;
 		}
 		return super.toString();
+	}
+
+	@Override
+	public Field getField() {
+		return this.field;
 	}
 }

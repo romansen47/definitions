@@ -1,21 +1,16 @@
 package definitions.structures.finitedimensional.real.functionspaces.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
-import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.
@@ -39,11 +34,11 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param right       the sup of the intervall.
 	 * @param degree      the sobolev degree.
 	 */
-	public FiniteDimensionalSobolevSpace(final List<Vector> genericBase, final double left, final double right,
-			int degree) {
-		super(genericBase, left, right,true);
+	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
+			final double right, int degree) {
+		super(field, genericBase, left, right, true);
 		this.degree = degree;
-		getDerivativeBuilder();
+		this.getDerivativeBuilder();
 	}
 
 	/**
@@ -52,11 +47,11 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
 	 */
-	public FiniteDimensionalSobolevSpace(final EuclideanFunctionSpace space, int degree,boolean ortho) {
-		super(space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1],false);
-		this.degree=degree;
+	public FiniteDimensionalSobolevSpace(Field field, final EuclideanFunctionSpace space, int degree, boolean ortho) {
+		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
+		this.degree = degree;
 		if (ortho) {
-			setBase(getOrthonormalBase(this.base));
+			this.setBase(this.getOrthonormalBase(this.base));
 		}
 //		final List<Vector> newBaseTmp = this.base;// this.getOrthonormalBase(this.base);
 //		final List<Vector> newBase = new ArrayList<>();
@@ -103,7 +98,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * 
 	 * @param degree the sobolev degree.
 	 */
-	protected FiniteDimensionalSobolevSpace(int degree) {
+	protected FiniteDimensionalSobolevSpace(Field field, int degree) {
+		super(field);
 		this.degree = degree;
 	}
 
@@ -136,15 +132,14 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 //				catch (Exception e) {
 //					System.out.println("Base not created yet.");
 //				}
-				product += super.innerProduct((Function)tmp1, (Function)tmp2).getValue();
+				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (!(tmp1 instanceof FunctionTuple) || derivativeBuilder==null) {
+					if (!(tmp1 instanceof FunctionTuple) || this.derivativeBuilder == null) {
 						tmp1 = ((Function) tmp1).getDerivative();
-						tmp1 = ((Function) tmp2).getDerivative();
-					}
-					else {
-						tmp1 = derivativeBuilder.get(tmp1);
-						tmp1 = derivativeBuilder.get(tmp2);
+						tmp2 = ((Function) tmp2).getDerivative();
+					} else {
+						tmp1 = this.derivativeBuilder.get(tmp1);
+						tmp2 = this.derivativeBuilder.get(tmp2);
 					}
 					product += super.innerProduct(tmp1, tmp2).getValue();
 				}
@@ -165,17 +160,17 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @return the sobolev degree
 	 */
 	public final Integer getDegree() {
-		if (degree==null) {
-			degree=base.size();
+		if (this.degree == null) {
+			this.degree = this.base.size();
 		}
 		return this.degree;
 	}
 
 	public DerivativeOperator getDerivativeBuilder() {
-		if (derivativeBuilder==null) {
-			setDerivativeBuilder(new DerivativeOperator(this,this));
+		if (this.derivativeBuilder == null) {
+			this.setDerivativeBuilder(new DerivativeOperator(this, this));
 		}
-		return derivativeBuilder;
+		return this.derivativeBuilder;
 	}
 
 	public void setDerivativeBuilder(DerivativeOperator derivativeBuilder) {

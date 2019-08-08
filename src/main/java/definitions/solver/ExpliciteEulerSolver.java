@@ -25,8 +25,8 @@ public class ExpliciteEulerSolver implements Solver {
 				double ans = ExpliciteEulerSolver.this.initialData;
 				double xval = -Math.PI;
 				while (xval < input.getValue()) {
-					ans += ExpliciteEulerSolver.this.eps * 
-							ExpliciteEulerSolver.this.fun.value(new Real(xval)).getValue();
+					ans += ExpliciteEulerSolver.this.eps
+							* ExpliciteEulerSolver.this.fun.value(new Real(xval)).getValue();
 					xval += ExpliciteEulerSolver.this.eps;
 				}
 				return new Real(ans);

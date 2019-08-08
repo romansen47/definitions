@@ -3,14 +3,16 @@
  */
 package definitions.structures.finitedimensional.real.functionspaces.impl;
 
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.field.Field;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
@@ -23,10 +25,11 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class FiniteDimensionalSobolevSpaceTestDepr {
 
+	final static Field realSpace = RealLine.getInstance();
 	final static int sobolevDegree = 1;
 	final static int fourierDegree = 7;
 	final static VectorSpace trigonometricSobolevSpace = SpaceGenerator.getInstance()
-			.getTrigonometricSobolevSpace(fourierDegree, sobolevDegree);
+			.getTrigonometricSobolevSpace(realSpace, fourierDegree, sobolevDegree);
 
 	static Function sine;
 	static Function sineProjection;
@@ -50,8 +53,7 @@ public class FiniteDimensionalSobolevSpaceTestDepr {
 	 */
 	@Test
 	public void testInnerProduct() {
-		Scalar ans = ((InnerProductSpace) trigonometricSobolevSpace)
-				.innerProduct(sineProjection,cosineProjection);
+		Scalar ans = ((InnerProductSpace) trigonometricSobolevSpace).innerProduct(sineProjection, cosineProjection);
 		System.err.println("Answer: " + ans.getValue());
 		Assert.assertTrue(Math.abs(ans.getValue()) < 1.e-2);
 	}
@@ -63,7 +65,7 @@ public class FiniteDimensionalSobolevSpaceTestDepr {
 	@Test
 	public void testGetDerivativeBuilder() {
 		try {
-			DerivativeOperator derivativeOperator = ((FiniteDimensionalSobolevSpace) trigonometricSobolevSpace)
+			Homomorphism derivativeOperator = ((FiniteDimensionalSobolevSpace) trigonometricSobolevSpace)
 					.getDerivativeBuilder();
 			final Function derivative = (Function) derivativeOperator.get(sineProjection);
 			derivative.plotCompare(-Math.PI, Math.PI, cosineProjection);

@@ -7,10 +7,11 @@ public interface Field extends Algebra {
 
 	Vector inverse(Vector factor);
 
+	@Override
 	Vector getOne();
 
 	default Vector getZero() {
 		return nullVec();
 	};
-	
+
 }

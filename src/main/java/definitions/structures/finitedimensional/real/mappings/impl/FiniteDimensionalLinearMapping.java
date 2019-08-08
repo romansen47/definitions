@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.abstr.impl.LinearMapping;
-import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
@@ -33,8 +31,8 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		super(source, target);
 		this.linearity = coordinates;
-		this.genericMatrix = new Scalar[((EuclideanSpace) this.getTarget()).getDim()][((EuclideanSpace) this.getSource())
-				.getDim()];
+		this.genericMatrix = new Scalar[((EuclideanSpace) this.getTarget())
+				.getDim()][((EuclideanSpace) this.getSource()).getDim()];
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
@@ -47,11 +45,11 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	}
 
 	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates,Scalar[][] matrix) {
-		this(source, target,coordinates);
-		this.genericMatrix=matrix;
+			final Map<Vector, Map<Vector, Scalar>> coordinates, Scalar[][] matrix) {
+		this(source, target, coordinates);
+		this.genericMatrix = matrix;
 	}
-	
+
 	public FiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target) {
 		super(source, target);
 	}
@@ -101,10 +99,10 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 			if (this.linearity == null) {
 				this.linearity = new HashMap<>();
 //				if (this instanceof Function) {
-					for (final Vector sourceVec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
-						this.linearity.put(sourceVec,
-								((Function) this.get(sourceVec)).getCoordinates((EuclideanSpace) this.target));
-					}
+				for (final Vector sourceVec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
+					this.linearity.put(sourceVec,
+							((Function) this.get(sourceVec)).getCoordinates((EuclideanSpace) this.target));
+				}
 //				} else {
 //					for (final Vector sourceVec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 //						Map<Vector, Scalar> tmp = new HashMap<>();
@@ -145,5 +143,5 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	public Map<Vector, Scalar> getLinearity(Vector vec1) {
 		return this.linearity.get(vec1);
 	}
-	
+
 }

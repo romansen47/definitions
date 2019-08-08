@@ -3,12 +3,14 @@
  */
 package definitions.structures.finitedimensional.real.vectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalSobolevSpace;
@@ -23,12 +25,12 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 5;
+	static final int trigonometricDegree = 10;
 	static final int sobolevDegree = 1;
-	static int derivativeDegree = 1;
+	static int derivativeDegree = sobolevDegree+5;
 
 	static EuclideanFunctionSpace trigSpace;
-	static Function exp;
+	static Function symExp;
 	static Function derivative;
 
 	/**
@@ -36,20 +38,24 @@ public class FunctionTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		trigSpace = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(trigonometricDegree, sobolevDegree);
-		exp = new GenericFunction() {
-			final Function symExp = new ExponentialFunction();
+		trigSpace = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(RealLine.getInstance(),
+				trigonometricDegree, sobolevDegree);
+		symExp = new GenericFunction() {
+			final Function exp = new ExponentialFunction();
 
 			@Override
 			public Scalar value(Scalar input) {
-				return new Real(
-						symExp.value(input).getValue() + symExp.value(new Real(input.getValue() * (-1))).getValue());
+//				return new Real(Math.pow(Math.sin(input.getValue()),1));
+				return new Real(this.exp.value(input).getValue()
+						+ this.exp.value(new Real(input.getValue() * (-1))).getValue());
 			}
 		};
-		Function expProjected = exp.getProjection(trigSpace);
-		trigSpace.show();
-		exp.plotCompare(-Math.PI, Math.PI, expProjected);
-		derivative = exp.getDerivative();
+//		Function expProjected = exp.getProjectionOfDerivative(trigSpace);
+//		trigSpace.show();
+//		exp.plotCompare(-Math.PI, Math.PI, expProjected);
+		symExp.plot(-Math.PI, Math.PI);
+		derivative = symExp.getDerivative();
+//		trigSpace.show();
 	}
 
 	/**
@@ -83,7 +89,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getDerivative(definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace)}.
 	 */
-	@Test
+//	@Test
 	public final void testGetDerivativeEuclideanSpace() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -94,10 +100,14 @@ public class FunctionTest {
 	 */
 	@Test
 	public final void testGetDerivativeInt() {
-		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
-//		.getDerivativeBuilder().get(exp,1);
+		final DerivativeOperator derivativeBuilder = 
+				((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
+		
 		for (int i = 0; i < derivativeDegree; i++) {
-			derivative.plotCompare(-Math.PI, Math.PI, (Function) derivativeBuilder.get(exp, i + 1));
+			Function highDerivative=(Function) derivativeBuilder.get(symExp, i+1 );
+			derivative.plotCompare(-Math.PI, Math.PI,highDerivative);
+//			highDerivative.plot(-Math.PI, Math.PI);
+//			derivative.plot(-Math.PI, Math.PI);
 			derivative = derivative.getDerivative();
 		}
 	}
@@ -106,7 +116,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getPrimitiveIntegral()}.
 	 */
-	@Test
+//	@Test
 	public final void testGetPrimitiveIntegral() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -115,7 +125,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getPrimitiveIntegral(int)}.
 	 */
-	@Test
+//	@Test
 	public final void testGetPrimitiveIntegralInt() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -124,7 +134,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getProjectionOfDerivative(definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace)}.
 	 */
-	@Test
+//	@Test
 	public final void testGetProjectionOfDerivative() {
 		fail("Not yet implemented"); // TODO
 	}

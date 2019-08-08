@@ -36,8 +36,8 @@ public class ExponentialFunction extends GenericFunction {
 	}
 
 	public ExponentialFunction() {
-		this.a=RealZero.getZero();
-		this.b=RealLine.getInstance().getOne();
+		this.a = RealZero.getZero();
+		this.b = RealLine.getInstance().getOne();
 	}
 
 	@Override

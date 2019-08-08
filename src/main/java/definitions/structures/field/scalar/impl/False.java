@@ -10,6 +10,7 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.Modulo2;
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
@@ -18,15 +19,15 @@ import definitions.structures.field.impl.Modulo2;
 public final class False implements Scalar {
 
 	static private Scalar instance;
-	
+
 	private Map<Vector, Scalar> coordinates;
-	
+
 	private False() {
 	}
-	
+
 	static public Scalar getInstance() {
-		if (instance==null) {
-			instance=new False();
+		if (instance == null) {
+			instance = new False();
 		}
 		return instance;
 	}
@@ -48,22 +49,17 @@ public final class False implements Scalar {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		if (coordinates==null){
-			coordinates=new ConcurrentHashMap<>();
-			coordinates.put(this,True.getInstance());
-			coordinates.put(True.getInstance(),False.getInstance());
+		if (this.coordinates == null) {
+			this.coordinates = new ConcurrentHashMap<>();
+			this.coordinates.put(this, True.getInstance());
+			this.coordinates.put(True.getInstance(), False.getInstance());
 		}
-		return coordinates;
-	}
-
-	@Override
-	public Scalar[] getGenericCoordinates() {
-		return new Scalar[] {False.getInstance(),this};
+		return this.coordinates;
 	}
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
-//		this.coordinates=coordinates;
+		this.coordinates=coordinates;
 	}
 
 	@Override
@@ -74,6 +70,10 @@ public final class False implements Scalar {
 	@Override
 	public Scalar getInverse() {
 		return True.getInstance();
+	}
+
+	@Override
+	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 
 }

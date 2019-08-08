@@ -23,9 +23,9 @@ public interface Endomorphism extends Homomorphism {
 		for (int i = 0; i < matrix.length; i++) {
 			final Scalar[][] adj = adjointMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = new Real(det.getValue()+det(adj).getValue() * matrix[i][0].getValue());
+				det = new Real(det.getValue() + det(adj).getValue() * matrix[i][0].getValue());
 			} else {
-				det = new Real(det.getValue()-det(adj).getValue() * matrix[i][0].getValue());
+				det = new Real(det.getValue() - det(adj).getValue() * matrix[i][0].getValue());
 			}
 		}
 		return det;

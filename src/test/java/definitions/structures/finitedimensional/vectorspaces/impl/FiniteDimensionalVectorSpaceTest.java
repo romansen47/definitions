@@ -1,8 +1,8 @@
 package definitions.structures.finitedimensional.vectorspaces.impl;
 
-
 import org.junit.Assert;
 import org.junit.Test;
+
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.scalar.impl.Real;
@@ -15,9 +15,9 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
 public class FiniteDimensionalVectorSpaceTest {
 
 	final int dim = 2;
-	final VectorSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim);
-	final Vector nul = space.nullVec();
-	private double factor = 1.e11;
+	final VectorSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim);
+	final Vector nul = this.space.nullVec();
+	private final double factor = 1.e11;
 
 	/**
 	 * Test method for
@@ -25,7 +25,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 */
 	@Test
 	public void testContains() {
-		Assert.assertTrue(space.contains(nul));
+		Assert.assertTrue(this.space.contains(this.nul));
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 */
 	@Test
 	public void testNullVec() {
-		Assert.assertTrue(space.nullVec().equals(nul));
+		Assert.assertTrue(this.space.nullVec().equals(this.nul));
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 */
 	@Test
 	public void testAdd() {
-		Assert.assertTrue(space.add(space.nullVec(),nul).equals(nul));
+		Assert.assertTrue(this.space.add(this.space.nullVec(), this.nul).equals(this.nul));
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 */
 	@Test
 	public void testStretch() {
-		Assert.assertTrue(space.stretch(nul,new Real(factor)).equals(nul));
+		Assert.assertTrue(this.space.stretch(this.nul, new Real(this.factor)).equals(this.nul));
 	}
 
 }

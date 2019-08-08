@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
@@ -47,7 +48,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 			}
 		};
 
-		functionSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(1);
+		functionSpace = Generator.getGenerator().getSpacegenerator()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), 1);
 
 		orthonormalConstant = (Function) functionSpace.genericBaseToList().get(0);
 		orthonormalSine = (Function) functionSpace.genericBaseToList().get(1);
@@ -60,7 +62,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 		list.add(orthonormalIdentity);
 		list.add(orthonormalConstant);
 
-		integral1 = functionSpace.innerProduct((functionSpace.stretch(orthonormalSine, new Real(2))), orthonormalSine).getValue();
+		integral1 = functionSpace.innerProduct((functionSpace.stretch(orthonormalSine, new Real(2))), orthonormalSine)
+				.getValue();
 		integral2 = functionSpace.innerProduct(orthonormalCosine, orthonormalCosine).getValue();
 		integral3 = functionSpace.innerProduct(orthonormalIdentity, orthonormalIdentity).getValue();
 		integral4 = functionSpace.innerProduct(orthonormalIdentity, orthonormalSine).getValue();

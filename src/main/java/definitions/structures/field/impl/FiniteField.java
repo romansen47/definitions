@@ -1,10 +1,7 @@
 package definitions.structures.field.impl;
 
-import java.util.Map;
-
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.Field;
 
 public class FiniteField implements Field {

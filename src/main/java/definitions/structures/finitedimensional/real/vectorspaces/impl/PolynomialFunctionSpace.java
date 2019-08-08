@@ -1,25 +1,23 @@
 package definitions.structures.finitedimensional.real.vectorspaces.impl;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.Vector;
+import definitions.structures.field.Field;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.impl.Monome;
 
 public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
-	protected PolynomialFunctionSpace(int maxDegree, double right) {
-		super();
-		base=new ArrayList<>();
-		prepare(maxDegree, right);
+	protected PolynomialFunctionSpace(Field field, int maxDegree, double right) {
+		super(field);
+		this.base = new ArrayList<>();
+		this.prepare(maxDegree, right);
 	}
 
-	protected PolynomialFunctionSpace(int maxDegree, double right, boolean ortho) {
-		this(maxDegree, right);
+	protected PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
+		this(field, maxDegree, right);
 		if (ortho) {
-			this.base = getOrthonormalBase(this.base);
+			this.base = this.getOrthonormalBase(this.base);
 		}
 	}
 

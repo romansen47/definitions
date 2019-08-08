@@ -10,9 +10,9 @@ import definitions.structures.field.Field;
  *         collection of 'things', which can be added and streched.
  */
 public interface VectorSpace {
-	
+
 	Field getField();
-	
+
 	/**
 	 * Not yet implemented.
 	 * 
@@ -57,5 +57,5 @@ public interface VectorSpace {
 	default Integer getDim() {
 		return null;
 	}
-	
+
 }

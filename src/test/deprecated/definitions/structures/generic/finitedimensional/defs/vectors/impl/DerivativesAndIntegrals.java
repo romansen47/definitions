@@ -10,6 +10,7 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.InnerProductSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
@@ -30,9 +31,10 @@ public class DerivativesAndIntegrals {
 	final static int degree = 2;
 	final static int sobolevDegree = 1;
 
-	static EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getTrigonometricSpace(degree);
+	static EuclideanSpace space = (EuclideanSpace) Generator.getGenerator()
+			.getTrigonometricSpace(RealLine.getInstance(), degree);
 	static EuclideanSpace sobolevSpace = Generator.getGenerator().getSpacegenerator()
-			.getTrigonometricSobolevSpace(degree, sobolevDegree);
+			.getTrigonometricSobolevSpace(RealLine.getInstance(), degree, sobolevDegree);
 
 	static final Homomorphism derivativeOperator = new DerivativeOperator(space, space);
 
@@ -61,13 +63,13 @@ public class DerivativesAndIntegrals {
 
 	}
 
-	//@Test
+	// @Test
 	public void test2() throws Throwable {
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(sine, 1000);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, sine);
 	}
 
-	//@Test
+	// @Test
 	public void test3() throws Throwable {
 		final Homomorphism derivativeOperatorSobToL2 = new DerivativeOperator(sobolevSpace, space);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToL2).get(sine, 4000);
@@ -75,7 +77,7 @@ public class DerivativesAndIntegrals {
 
 	}
 
-	//@Test
+	// @Test
 	public void test4() throws Throwable {
 		final Homomorphism derivativeOperatorL2ToSob = new DerivativeOperator(space, sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorL2ToSob).get(sine, 4000);
@@ -83,7 +85,7 @@ public class DerivativesAndIntegrals {
 
 	}
 
-	//@Test
+	// @Test
 	public void test5() throws Throwable {
 		final Homomorphism derivativeOperatorSobToSob = new DerivativeOperator(sobolevSpace, sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(sine, 4000);

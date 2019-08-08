@@ -31,15 +31,14 @@ public interface IMappingGenerator {
 		final Scalar[][] matC = new Scalar[scalars.length][scalars2[0].length];
 		for (int i = 0; i < scalars.length; i++) {
 			for (int j = 0; j < scalars2[0].length; j++) {
-				matC[i][j]=RealLine.getInstance().getZero();
+				matC[i][j] = RealLine.getInstance().getZero();
 				for (int k = 0; k < scalars[0].length; k++) {
-					matC[i][j] = new Real(matC[i][j].getValue()+scalars[i][k].getValue() * scalars2[k][j].getValue());
+					matC[i][j] = new Real(matC[i][j].getValue() + scalars[i][k].getValue() * scalars2[k][j].getValue());
 				}
 			}
 		}
 		return matC;
 	}
-	
 
 	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Map<Vector, Map<Vector, Scalar>> matrix);

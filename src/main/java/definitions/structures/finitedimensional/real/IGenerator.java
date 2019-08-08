@@ -8,6 +8,7 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.field.Field;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.mappings.IMappingGenerator;
 import definitions.structures.finitedimensional.real.vectors.IVectorGenerator;
@@ -36,26 +37,27 @@ public interface IGenerator {
 		return getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
-	default VectorSpace getFiniteDimensionalFunctionSpace(List<Vector> genericBase, double left, double right) {
-		return getSpacegenerator().getFiniteDimensionalFunctionSpace(genericBase, left, right);
+	default VectorSpace getFiniteDimensionalFunctionSpace(Field field, List<Vector> genericBase, double left,
+			double right) {
+		return getSpacegenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(List<Vector> genericBase, double left, double right,
-			final int degree) {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(genericBase, left, right, degree);
+	default VectorSpace getFiniteDimensionalSobolevSpace(Field field, List<Vector> genericBase, double left,
+			double right, final int degree) {
+		return getSpacegenerator().getFiniteDimensionalSobolevSpace(field, genericBase, left, right, degree);
 	}
 
-	default VectorSpace getTrigonometricSpace(int n) {
-		return getSpacegenerator().getTrigonometricSpace(n);
+	default VectorSpace getTrigonometricSpace(Field field, int n) {
+		return getSpacegenerator().getTrigonometricSpace(field, n);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(EuclideanFunctionSpace space, int degree) {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(space, degree);
+	default VectorSpace getFiniteDimensionalSobolevSpace(Field field, EuclideanFunctionSpace space, int degree) {
+		return getSpacegenerator().getFiniteDimensionalSobolevSpace(field, space, degree);
 	}
 
-	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(int n) {
+	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, int n) {
 		try {
-			return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(n);
+			return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
 		} catch (final WrongClassException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

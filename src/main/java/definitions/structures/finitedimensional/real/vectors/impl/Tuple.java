@@ -2,6 +2,7 @@ package definitions.structures.finitedimensional.real.vectors.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -53,10 +54,10 @@ public class Tuple implements FiniteVector {
 		}
 		List<Vector> base = ((EuclideanSpace) space).genericBaseToList();
 		for (Vector vec : this.coordinates.keySet()) {
-			boolean ans=false;
-			for (Vector spaceBaseVec:base) {
+			boolean ans = false;
+			for (Vector spaceBaseVec : base) {
 				if (vec.equals(spaceBaseVec)) {
-					ans=true;
+					ans = true;
 				}
 			}
 			if (ans == false) {
@@ -83,9 +84,11 @@ public class Tuple implements FiniteVector {
 	public String toString() {
 		String str = "";
 		try {
-			for (int i=0;i<dim;i++)  {
-				str += this.getCoordinates().get(((EuclideanSpace) SpaceGenerator.getInstance()
-						.getFiniteDimensionalVectorSpace(dim)).genericBaseToList().get(i)) + "\r";
+			for (int i = 0; i < this.dim; i++) {
+				str += this.getCoordinates()
+						.get(((EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim))
+								.genericBaseToList().get(i))
+						+ "\r";
 			}
 			return str;
 		} catch (final Throwable e) {
@@ -111,8 +114,9 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public Boolean equals(final Vector vec) {
-		for (int i = 0; i < vec.getGenericCoordinates().length; i++) {
-			if (!vec.getGenericCoordinates()[i].equals(getGenericCoordinates()[i])) {
+		int i=0;
+		for (Vector key:getCoordinates().keySet()) {
+			if (!(coordinates.get(key).getValue()==vec.getCoordinates().get(key).getValue())) {
 				return false;
 			}
 		}
@@ -130,6 +134,11 @@ public class Tuple implements FiniteVector {
 			}
 		}
 		return newCoordinates;
+	}
+
+	@Override
+	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+		setCoordinates(coordinates);
 	}
 
 }

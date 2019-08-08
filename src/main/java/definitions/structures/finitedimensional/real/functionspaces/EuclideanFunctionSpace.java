@@ -30,7 +30,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 				return new GenericFunction() {
 					@Override
 					public Scalar value(final Scalar input) {
-						return new Real(((Function) vec1).value(input).getValue() + ((Function) vec2).value(input).getValue());
+						return new Real(
+								((Function) vec1).value(input).getValue() + ((Function) vec2).value(input).getValue());
 					}
 				};
 			}
@@ -39,11 +40,10 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			final Vector newVec1 = functionTuple(vec1);
 			final Vector newVec2 = functionTuple(vec2);
 			for (final Vector vec : base) {
-				coordinates.put(vec,
-						new Real(newVec1.getCoordinates().get(getBaseVec(vec)).getValue() +
-								newVec2.getCoordinates().get(getBaseVec(vec)).getValue()));
+				coordinates.put(vec, new Real(newVec1.getCoordinates().get(getBaseVec(vec)).getValue()
+						+ newVec2.getCoordinates().get(getBaseVec(vec)).getValue()));
 			}
-			return new FunctionTuple(coordinates);
+			return new FunctionTuple(coordinates, this);
 		}
 		return null;
 	}
@@ -71,7 +71,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		for (final Vector baseVec : genericBaseToList()) {
 			nul.put(baseVec, RealLine.getInstance().getZero());
 		}
-		return new FunctionTuple(nul);
+		return new FunctionTuple(nul, this);
 	}
 
 	@Override
@@ -83,14 +83,14 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	default Vector get(final Map<Vector, Scalar> tmp) {
 		Function vec = nullFunction();
 		for (final Vector basevec : tmp.keySet()) {
-			vec = (Function) add(vec, stretch(basevec,tmp.get(basevec)));
+			vec = (Function) add(vec, stretch(basevec, tmp.get(basevec)));
 		}
 		return vec;
 	}
 
 //	@Override
 //	Vector getCoordinates(Vector vec);
-	
+
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
 		if (vec instanceof GenericFunction) {
@@ -106,7 +106,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			for (final Vector vec1 : coordinates.keySet()) {
 				stretched.put(vec1, new Real(coordinates.get(vec1).getValue() * r.getValue()));
 			}
-			return new FunctionTuple(stretched);
+			return new FunctionTuple(stretched, this);
 		}
 	}
 }

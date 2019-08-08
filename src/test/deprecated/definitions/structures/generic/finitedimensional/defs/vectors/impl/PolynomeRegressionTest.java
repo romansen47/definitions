@@ -3,11 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
@@ -31,18 +29,20 @@ public class PolynomeRegressionTest {
 
 	private static int maxDegree = 3;
 
-	//@BeforeClass
+	// @BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
 		sin = new GenericFunction() {
-			//@Override
+			// @Override
+			@Override
 			public Scalar value(Scalar input) {
-				return new Real(Math.sin(input.getValue()* Math.PI));
+				return new Real(Math.sin(input.getValue() * Math.PI));
 			}
 		};
 
 		exp = new GenericFunction() {
-			//@Override
+			// @Override
+			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.exp(input.getValue() * Math.PI));
 			}
@@ -52,33 +52,34 @@ public class PolynomeRegressionTest {
 			base.add(new Monome(i));
 		}
 
-		space = (EuclideanFunctionSpace) Generator.getGenerator().getFiniteDimensionalFunctionSpace(base, left, right);
+		space = (EuclideanFunctionSpace) Generator.getGenerator()
+				.getFiniteDimensionalFunctionSpace(RealLine.getInstance(), base, left, right);
 
 //		newSpace=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) space);
 
 	}
 
-	//@Test
+	// @Test
 	public void sinTest1() throws Throwable {
-		final Function ans = new FunctionTuple(sin.getCoordinates(space));
+		final Function ans = sin.getProjection(space);
 		ans.plotCompare(left, right, sin);
 	}
 
-	//@Test
+	// @Test
 	public void expTest1() throws Throwable {
-		final Function ans = new FunctionTuple(exp.getCoordinates(space));
+		final Function ans = exp.getProjection(space);
 		ans.plotCompare(left, right, exp);
 	}
 
 //	//@Test
 	public void sinTest2() throws Throwable {
-		final Function ans = new FunctionTuple(sin.getCoordinates(newSpace));
+		final Function ans =  sin.getProjection(newSpace) ;
 		ans.plotCompare(left, right, sin);
 	}
 
 //	//@Test
 	public void expTest2() throws Throwable {
-		final Function ans = new FunctionTuple(exp.getCoordinates(newSpace));
+		final Function ans = exp.getProjection(newSpace);
 		ans.plotCompare(left, right, exp);
 	}
 

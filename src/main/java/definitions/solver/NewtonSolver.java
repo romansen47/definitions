@@ -26,7 +26,7 @@ public class NewtonSolver {
 	}
 
 	private double doStep(double lastVal) throws Throwable {
-		return lastVal - (this.function.value(new Real(lastVal)).getValue() / 
-				this.function.getDerivative().value(new Real(lastVal)).getValue());
+		return lastVal - (this.function.value(new Real(lastVal)).getValue()
+				/ this.function.getDerivative().value(new Real(lastVal)).getValue());
 	}
 }

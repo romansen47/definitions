@@ -14,11 +14,11 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
@@ -52,7 +52,8 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	@BeforeClass
 	public static void setUpBeforeClass() {
 
-		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(dim);
+		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
+				.getTrigonometricSpace(RealLine.getInstance(), dim);
 
 		identity = new GenericFunction() {
 			@Override
@@ -71,7 +72,8 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 			@Override
 			public Scalar value(Scalar input) {
-				final double ans = identity.value(input).getValue() - (this.factor.getValue() * this.normedIdToFourier.value(input).getValue());
+				final double ans = identity.value(input).getValue()
+						- (this.factor.getValue() * this.normedIdToFourier.value(input).getValue());
 				return new Real(ans);
 			}
 		};
@@ -81,7 +83,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		try {
 			extendedTrigonometricFunctionSpace = SpaceGenerator.getInstance()
-					.getTrigonometricFunctionSpaceWithLinearGrowth(dim);
+					.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
 		} catch (final WrongClassException e) {
 			e.printStackTrace();
 		}
@@ -108,7 +110,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return new Real (testValues[1][k]);
+				return new Real(testValues[1][k]);
 			}
 		};
 

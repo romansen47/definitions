@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
@@ -25,7 +26,7 @@ public class PolynomialRegressionTest {
 	final static int trigonometricDegree = 100;
 	final static double left = -1;
 	final static double right = 1;
-	
+
 	// @TODO: Derivatives don't work
 	final static int sobolevDegree = 0;
 
@@ -38,13 +39,13 @@ public class PolynomialRegressionTest {
 			return new Real(Math.exp(input.getValue()));
 		}
 	};
-	
+
 	static Function staircaseFunction;
 	static Function staircaseFunction2;
-	
+
 	static Function measures;
 	static Function measures2;
-	
+
 	protected static final String PATH = "src/main/resources/test.csv";
 	protected static final String PATH2 = "src/main/resources/test2.csv";
 
@@ -55,10 +56,10 @@ public class PolynomialRegressionTest {
 	public static void before() throws Throwable {
 		testValues = readFile(PATH);
 		testValues2 = readFile(PATH2);
-		polynomialSpace = SpaceGenerator.getInstance()
-				.getPolynomialSobolevSpace(polynomialDegree, right, sobolevDegree);
-		trigonometricSpace = SpaceGenerator.getInstance()
-				.getTrigonometricSobolevSpace(trigonometricDegree, sobolevDegree);
+		polynomialSpace = SpaceGenerator.getInstance().getPolynomialSobolevSpace(RealLine.getInstance(),
+				polynomialDegree, right, sobolevDegree);
+		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(RealLine.getInstance(),
+				trigonometricDegree, sobolevDegree);
 		staircaseFunction = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
@@ -74,7 +75,7 @@ public class PolynomialRegressionTest {
 			}
 		};
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
-		
+
 		measures = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 

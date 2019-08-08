@@ -1,21 +1,28 @@
 package definitions.structures.finitedimensional.real.vectorspaces;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.NormedSpace;
+import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.abstr.impl.LinearMapping;
+import definitions.structures.field.Field;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalSobolevSpace;
+import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
+import definitions.structures.finitedimensional.real.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
+import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.TrigonometricSobolevSpace;
@@ -24,13 +31,16 @@ import exceptions.WrongClassException;
 
 public interface ISpaceGenerator {
 
+	final EuclideanSpace realSpace = RealLine.getInstance();
+
 	Map<Integer, EuclideanSpace> getCachedCoordinateSpaces();
 
 	Map<Integer, EuclideanFunctionSpace> getCachedFunctionSpaces();
 
 	default VectorSpace getFiniteDimensionalVectorSpace(final int dim) {
+		final Field field = RealLine.getInstance();
 		if (dim == 1) {
-			return RealLine.getInstance();
+			return field;
 		}
 		if (!getCachedCoordinateSpaces().containsKey(dim)) {
 			final List<Vector> basetmp = new ArrayList<>();
@@ -40,90 +50,131 @@ public interface ISpaceGenerator {
 			for (int i = 0; i < dim; i++) {
 				for (int j = 0; j < dim; j++) {
 					if (i == j) {
-						basetmp.get(i).getCoordinates().put(basetmp.get(i), RealLine.getInstance().getOne());
+						basetmp.get(i).getCoordinates().put(basetmp.get(i), (Scalar) field.getOne());
 					} else {
-						basetmp.get(i).getCoordinates().put(basetmp.get(j), RealLine.getInstance().getZero());
+						basetmp.get(i).getCoordinates().put(basetmp.get(j), (Scalar) field.getZero());
 					}
 				}
 			}
-			getCachedCoordinateSpaces().put(Integer.valueOf(dim), new FiniteDimensionalVectorSpace(basetmp));
+			getCachedCoordinateSpaces().put(Integer.valueOf(dim), new FiniteDimensionalVectorSpace(field, basetmp));
 		}
 		return getCachedCoordinateSpaces().get(dim);
 	}
 
-	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(final List<Vector> genericBase, final double left,
-			final double right) {
+	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
+			final double left, final double right) {
 		final EuclideanFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
 		if ((space != null) && (space.getInterval()[0] == left) && (space.getInterval()[1] == right)) {
 			return space;
 		}
-		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(genericBase, left, right,true);
+		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(field, genericBase, left,
+				right, true);
 		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
 		return newSpace;
 	}
 
-	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final List<Vector> genericBase, final double left,
-			final double right, final int degree) {
+	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase,
+			final double left, final double right, final int degree) {
 		final EuclideanFunctionSpace space = getCachedFunctionSpaces().get(genericBase.hashCode());
 		if ((space != null) && (space instanceof FiniteDimensionalSobolevSpace) && (space.getInterval()[0] == left)
 				&& (space.getInterval()[1] == right)) {
 			return space;
 		}
-		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(genericBase, left, right,
-				degree);
+		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(field, genericBase, left,
+				right, degree);
 		getCachedFunctionSpaces().put(genericBase.hashCode(), newSpace);
 		return newSpace;
 	}
 
-	default EuclideanFunctionSpace getTrigonometricSpace(final int n) {
-		return new TrigonometricSpace(n, Math.PI);
+	default EuclideanFunctionSpace getTrigonometricSpace(Field field, final int n) {
+		return new TrigonometricSpace(field, n, Math.PI);
 	}
 
-	default EuclideanFunctionSpace getTrigonometricSpace(final int n, double right) {
-		return new TrigonometricSpace(n, right);
+	default EuclideanFunctionSpace getTrigonometricSpace(Field field, final int n, double right) {
+		return new TrigonometricSpace(field, n, right);
 	}
 
-	default EuclideanFunctionSpace getTrigonometricSobolevSpace(final int n, final int degree) {
+	default EuclideanFunctionSpace getTrigonometricSobolevSpace(Field field, final int n, final int degree) {
 		if (degree == 0) {
-			return getTrigonometricSpace(n);
+			return getTrigonometricSpace(field, n);
 		}
-		EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(n, -Math.PI, Math.PI, degree);
-		((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
+		EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(field, n, -Math.PI, Math.PI, degree);
+		createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
 		return ans;
 	}
 
-	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final EuclideanFunctionSpace space,
+	default void createTrigonometricDerivativeBuilder(EuclideanFunctionSpace ans) {
+		List<Vector> base = ans.genericBaseToList();
+		final Field realLine = RealLine.getInstance();
+		final Scalar unit = (Scalar) realLine.getOne();
+		final Scalar zero = (Scalar) realLine.getZero();
+		Map<Vector, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
+		for (Vector vec : base) {
+			Map<Vector, Scalar> tmp = new HashMap<>();
+			if (vec instanceof Sine) {
+				final Scalar freq = ((Sine) vec).getFrequency();
+				final boolean isSine = ((Sine) vec).getTranslation().getValue() == 0.;
+				for (Vector otherVec : base) {
+					tmp.put(otherVec, zero);
+					if (otherVec instanceof Sine) {
+						final Scalar otherFreq = ((Sine) otherVec).getFrequency();
+						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getValue() == 0.;
+						if (freq.getValue() == otherFreq.getValue()) {
+							if (!isSine && otherIsSine) {
+								tmp.put(otherVec, new Real(-freq.getValue()));
+							}
+							if (isSine && !otherIsSine) {
+								tmp.put(otherVec, freq);
+							}
+						}
+					}
+				}
+				coordinatesMap.put(vec,tmp);
+			} else {
+				tmp = new HashMap<>();
+				for (Vector otherVec : base) {
+					tmp.put(otherVec, zero);
+				}
+			}
+			coordinatesMap.put(vec, tmp);
+		}
+		((TrigonometricSobolevSpace) ans)
+				.setDerivativeBuilder(new DerivativeOperator(ans, ans, coordinatesMap));
+	};
+
+	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(Field field, final EuclideanFunctionSpace space,
 			final int degree) {
 		if (degree == 0) {
 			return space;
 		}
-		FiniteDimensionalSobolevSpace ans = new FiniteDimensionalSobolevSpace(space, degree,true);
+		FiniteDimensionalSobolevSpace ans = new FiniteDimensionalSobolevSpace(field, space, degree, false);
 		ans.getDerivativeBuilder();
 		return ans;
 	}
 
-	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(final int n)
+	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, final int n)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n),
+		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(field, n),
 				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()));
 	}
 
-	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(final int n, double right)
+	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, final int n, double right)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(n, right),
+		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(field, n, right),
 				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()));
 	}
 
-	EuclideanFunctionSpace getPolynomialFunctionSpace(final int n, double right,boolean ortho);
+	EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, final int n, double right, boolean ortho);
 
 	void setCachedCoordinateSpaces(ISpaceGenerator readObject);
 
 	void setCachedFunctionSpaces(ISpaceGenerator gen);
 
-	default VectorSpace getPolynomialSobolevSpace(int maxDegree, double right, int degree) {
-		EuclideanFunctionSpace polynoms=getPolynomialFunctionSpace(maxDegree, right,false);
-		VectorSpace ans= Generator.getGenerator().getFiniteDimensionalSobolevSpace(polynoms,degree);
-		((FiniteDimensionalVectorSpace) ans).setBase(((EuclideanSpace)ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
+	default VectorSpace getPolynomialSobolevSpace(Field field, int maxDegree, double right, int degree) {
+		EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
+		VectorSpace ans = Generator.getGenerator().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
+		((FiniteDimensionalVectorSpace) ans)
+				.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
 		return ans;
 	}
 
@@ -164,15 +215,16 @@ public interface ISpaceGenerator {
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {
-				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(newBase,((FunctionSpace) space).getLeft(),((FunctionSpace) space).getRight());
+				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
+						((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight());
 			}
-			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(newBase);
+			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
 			throw new WrongClassException("Input should be a function, not a vector.");
 		}
 	}
 
-	default EuclideanSpace getFiniteDimensionalVectorSpace(List<Vector> newBase) {
-		return new FiniteDimensionalVectorSpace(newBase);
+	default EuclideanSpace getFiniteDimensionalVectorSpace(Field field, List<Vector> newBase) {
+		return new FiniteDimensionalVectorSpace(field, newBase);
 	}
 }

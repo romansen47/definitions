@@ -20,17 +20,17 @@ public interface FiniteVector extends Vector {
 	@Override
 	Map<Vector, Scalar> getCoordinates();
 
-	@Override
-	default Scalar[] getGenericCoordinates() {
-		final Scalar[] vector = new Scalar[getDim()];
-		int i = 0;
-		for (final Vector basevec : ((EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getDim())).
-				genericBaseToList()) {
-			vector[i] = getCoordinates().get(basevec);
-			i++;
-		}
-		return vector;
-	}
+//	@Override
+//	default Scalar[] getGenericCoordinates() {
+//		final Scalar[] vector = new Scalar[getDim()];
+//		int i = 0;
+//		for (final Vector basevec : ((EuclideanSpace) SpaceGenerator.getInstance()
+//				.getFiniteDimensionalVectorSpace(getDim())).genericBaseToList()) {
+//			vector[i] = getCoordinates().get(basevec);
+//			i++;
+//		}
+//		return vector;
+//	}
 
 	/**
 	 * Method to get the base corresponding to the coordinates of the vector.
@@ -55,7 +55,11 @@ public interface FiniteVector extends Vector {
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
-		return new FunctionTuple(getCoordinates(source));
+		return new FunctionTuple(getCoordinates(source), source);
 	}
+
+	void setCoordinates(Map<Vector, Scalar> coordinates);
+
+	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
 
 }

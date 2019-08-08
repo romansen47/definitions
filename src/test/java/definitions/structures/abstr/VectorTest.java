@@ -9,8 +9,6 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.Vector;
-import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
 
@@ -20,36 +18,39 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class VectorTest {
 
-	final int dim=Math.abs(new Random().nextInt(10));
-	
-	final EuclideanSpace space=(EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim);
-	
-	final Vector nul=space.nullVec();
-	
-	final StringBuilder strings=new StringBuilder();
-	
+	final int dim = Math.abs(new Random().nextInt(10));
+
+	final EuclideanSpace space = (EuclideanSpace) SpaceGenerator.getInstance()
+			.getFiniteDimensionalVectorSpace(this.dim);
+
+	final Vector nul = this.space.nullVec();
+
+	final StringBuilder strings = new StringBuilder();
+
 	/**
 	 * Test method for {@link definitions.structures.abstr.Vector#getDim()}.
 	 */
 	@Test
 	public void testGetDim() {
-		strings.append("Dimension test.\r");
-		strings.append("getDim()="+nul.getDim()+"\r");
-		strings.append("dim="+dim+"\r");
-		Assert.assertTrue(nul.getDim()==dim);
-		System.out.println(strings);
+		this.strings.append("Dimension test.\r");
+		this.strings.append("getDim()=" + this.nul.getDim() + "\r");
+		this.strings.append("dim=" + this.dim + "\r");
+		Assert.assertTrue(this.nul.getDim() == this.dim);
+		System.out.println(this.strings);
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.abstr.Vector#elementOf(definitions.structures.abstr.VectorSpace)}.
+	 * Test method for
+	 * {@link definitions.structures.abstr.Vector#elementOf(definitions.structures.abstr.VectorSpace)}.
 	 */
 	@Test
 	public void testElementOf() {
-		Assert.assertTrue(nul.elementOf(space));
+		Assert.assertTrue(this.nul.elementOf(this.space));
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.abstr.Vector#equals(definitions.structures.abstr.Vector)}.
+	 * Test method for
+	 * {@link definitions.structures.abstr.Vector#equals(definitions.structures.abstr.Vector)}.
 	 */
 //	@Test
 //	public void testEquals() {
@@ -62,18 +63,19 @@ public class VectorTest {
 	 */
 	@Test
 	public void testGetCoordinates() {
-		final Map<Vector, Scalar> coordinates=nul.getCoordinates();
-		for (Vector vec:nul.getCoordinates().keySet()) {
-			Assert.assertTrue(coordinates.get(vec).getValue()==0.);
+		final Map<Vector, Scalar> coordinates = this.nul.getCoordinates();
+		for (Vector vec : this.nul.getCoordinates().keySet()) {
+			Assert.assertTrue(coordinates.get(vec).getValue() == 0.);
 		}
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.abstr.Vector#getGenericCoordinates()}.
+	 * Test method for
+	 * {@link definitions.structures.abstr.Vector#getGenericCoordinates()}.
 	 */
 	@Test
 	public void testGetGenericCoordinates() {
-		testGetCoordinates() ;
+		this.testGetCoordinates();
 	}
 
 }

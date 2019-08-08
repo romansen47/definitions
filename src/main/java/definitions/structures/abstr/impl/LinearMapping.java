@@ -47,5 +47,4 @@ public abstract class LinearMapping implements Homomorphism {
 		this.target = target;
 	}
 
-	
 }

@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import definitions.structures.abstr.Vector;
-import definitions.structures.field.impl.RealLine;
+import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
 import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.Constant;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
@@ -27,7 +26,8 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 	 * @param left  the inf of the interval.
 	 * @param right the sup of the interval.
 	 */
-	public TrigonometricSpace(final int n, final double right) {
+	public TrigonometricSpace(Field field, final int n, final double right) {
+		super(field);
 		final double left = -right;
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;

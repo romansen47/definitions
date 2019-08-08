@@ -15,5 +15,4 @@ public abstract class Identity extends LinearMapping implements Endomorphism {
 		return vec;
 	}
 
-
 }

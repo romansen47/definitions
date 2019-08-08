@@ -7,6 +7,7 @@ import definitions.structures.abstr.FunctionSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
+import definitions.structures.field.Field;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.finitedimensional.real.vectors.Function;
 import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
@@ -19,7 +20,7 @@ import exceptions.WrongClassException;
 public class EuclideanFunctionSpaceTest {
 
 	final static VectorSpace realLine = RealLine.getInstance();
-	
+
 	private static FunctionSpace polynomialSpace;
 	private static FunctionSpace polynomialSpaceSobolev;
 
@@ -37,13 +38,14 @@ public class EuclideanFunctionSpaceTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace(polynomialDegree, Math.PI, false);
+		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree,
+				Math.PI, false);
 		polynomialSpaceSobolev = (FunctionSpace) SpaceGenerator.getInstance()
-				.getPolynomialSobolevSpace(polynomialDegree, Math.PI, sobolevDegree);
+				.getPolynomialSobolevSpace((Field) realLine, polynomialDegree, Math.PI, sobolevDegree);
 
-		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace(trigonometricDegree);
-		trigonometricSpaceSobolev = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(trigonometricDegree,
-				sobolevDegree);
+		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace((Field) realLine, trigonometricDegree);
+		trigonometricSpaceSobolev = SpaceGenerator.getInstance().getTrigonometricSobolevSpace((Field) realLine,
+				trigonometricDegree, sobolevDegree);
 	}
 
 	@Test

@@ -2,6 +2,8 @@ package definitions.structures.abstr;
 
 import java.util.Map;
 
+import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+
 /**
  * Vector interface.
  * 
@@ -44,12 +46,13 @@ public interface Vector {
 	/**
 	 * Coordinates as double[].
 	 * 
-	 * @return the ccordinates as double[].
+	 * @return the coordinates as double[].
 	 */
-	Scalar[] getGenericCoordinates();
+//	Scalar[] getGenericCoordinates();
 
 	@Override
 	String toString();
+
 
 	/**
 	 * Setter for coordinates on a base.
@@ -57,5 +60,7 @@ public interface Vector {
 	 * @param coordinates the coordinates.
 	 */
 	void setCoordinates(Map<Vector, Scalar> coordinates);
+
+	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
 
 }

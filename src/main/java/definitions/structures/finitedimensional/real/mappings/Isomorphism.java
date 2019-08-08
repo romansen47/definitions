@@ -15,7 +15,7 @@ public interface Isomorphism extends Homomorphism {
 	 * @return
 	 * @throws Throwable
 	 */
-	
+
 	Isomorphism getInverse() throws Throwable;
-	 
+
 }
