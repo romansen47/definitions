@@ -21,6 +21,10 @@ public class Complex implements Scalar {
 		this.imag = im;
 	}
 
+	public Complex(double x, double y) {
+		this(new Real(x),new Real(y));
+	}
+
 	@Override
 	public Integer getDim() {
 		return 2;
@@ -33,8 +37,8 @@ public class Complex implements Scalar {
 
 	@Override
 	public Boolean equals(Vector vec) {
-		return vec instanceof Complex && ((Complex) vec).getReal() == this.getReal()
-				&& ((Complex) vec).getImag() == this.getImag();
+		return vec instanceof Complex && ((Complex) vec).getReal().getValue() == this.getReal().getValue()
+				&& ((Complex) vec).getImag().getValue() == this.getImag().getValue();
 	}
 
 	@Override

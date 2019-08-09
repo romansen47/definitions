@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.abstr.RealSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.Field;
@@ -12,15 +13,15 @@ import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.real.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field {
+public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,EuclideanSpace,RealSpace{
 
 //	static private EuclideanSpace space;
 
 	static private EuclideanSpace instance;
 
-	final Vector zero;
-	final Vector one;
-	final Vector i;
+	private final Vector zero;
+	private final Vector one;
+	private final Vector i;
 
 	public Vector getI() {
 		return this.i;
@@ -90,7 +91,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	private Vector conjugate(Vector factor) {
-		Scalar newRe = new Real(((Complex) factor).getImag().getValue());
+		Scalar newRe = new Real(((Complex) factor).getReal().getValue());
 		Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
 		return new Complex(newRe, newIm);
 	}
@@ -116,9 +117,13 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	public Field getField() {
-		return RealLine.getInstance();
+	public Integer getDim() {
+		return 2;
 	}
+//	@Override
+//	public Field getField() {
+//		return RealLine.getInstance();
+//	}
 
 	@Override
 	public Vector projection(Vector w, Vector v) {

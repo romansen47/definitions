@@ -12,6 +12,7 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.abstr.impl.LinearMapping;
 import definitions.structures.field.Field;
+import definitions.structures.field.impl.ComplexPlane;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.real.Generator;
@@ -37,6 +38,32 @@ public interface ISpaceGenerator {
 
 	Map<Integer, EuclideanFunctionSpace> getCachedFunctionSpaces();
 
+
+	
+	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {
+		final Field field = (Field) ComplexPlane.getInstance();
+		if (dim == 1) {
+			return field;
+		}
+		if (!getCachedCoordinateSpaces().containsKey(dim)) {
+			final List<Vector> basetmp = new ArrayList<>();
+			for (int i = 0; i < dim; i++) {
+				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
+			}
+			for (int i = 0; i < dim; i++) {
+				for (int j = 0; j < dim; j++) {
+					if (i == j) {
+						basetmp.get(i).getCoordinates().put(basetmp.get(i), (Scalar) field.getOne());
+					} else {
+						basetmp.get(i).getCoordinates().put(basetmp.get(j), (Scalar) field.getZero());
+					}
+				}
+			}
+			getCachedCoordinateSpaces().put(Integer.valueOf(dim), new FiniteDimensionalVectorSpace(field, basetmp));
+		}
+		return getCachedCoordinateSpaces().get(dim);
+	}
+	
 	default VectorSpace getFiniteDimensionalVectorSpace(final int dim) {
 		final Field field = RealLine.getInstance();
 		if (dim == 1) {

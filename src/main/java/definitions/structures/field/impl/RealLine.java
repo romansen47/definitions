@@ -1,18 +1,24 @@
 package definitions.structures.field.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import definitions.structures.abstr.RealSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
 import definitions.structures.abstr.impl.RealZero;
 import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.Real;
+import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalEmbedding;
+import definitions.structures.finitedimensional.real.mappings.impl.InjectiveLinearMapping;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.real.vectorspaces.SubSpace;
 
-public class RealLine implements Field, EuclideanSpace {
+public class RealLine implements Field, SubSpace, RealSpace {
 
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
@@ -126,7 +132,22 @@ public class RealLine implements Field, EuclideanSpace {
 
 	@Override
 	public Field getField() {
-		return this;
+		return RealSpace.super.getField();
+	}
+
+	@Override
+	public EuclideanSpace getSuperSpace() {
+		return ComplexPlane.getInstance();
+	}
+
+	@Override
+	public FiniteDimensionalEmbedding getEmbedding() {
+		Map<Vector,Map<Vector,Scalar>> coord=new HashMap<>();
+		Map<Vector,Scalar> tmp=new HashMap<>();
+		tmp.put(((Field) getSuperSpace()).getOne(),getOne());
+		tmp.put(((ComplexPlane) getSuperSpace()).getI(),getZero());
+		coord.put(getOne(),tmp);
+		return new InjectiveLinearMapping(this,ComplexPlane.getInstance(),coord);
 	}
 
 }

@@ -5,18 +5,20 @@ package definitions.structures.field.scalar.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.RealLine;
+import definitions.structures.finitedimensional.real.vectors.FiniteVector;
 import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
  *
  */
-public class Real extends Number implements Scalar {
+public class Real extends Number implements Scalar,FiniteVector {
 
 	private static final long serialVersionUID = 448447488896787384L;
 
@@ -28,6 +30,10 @@ public class Real extends Number implements Scalar {
 		this.realValue = value;
 	}
 
+	public Scalar toComplex() {
+		return new Complex(this,RealLine.getInstance().getZero());
+	}
+	
 	@Override
 	public Integer getDim() {
 		return 1;
@@ -104,5 +110,16 @@ public class Real extends Number implements Scalar {
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+	}
+
+	@Override
+	public Set<Vector> getGenericBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
+		return getCoordinates();
 	}
 }
