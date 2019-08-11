@@ -1,16 +1,20 @@
 package definitions.structures.field.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.EuclideanField;
 import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.False;
 import definitions.structures.field.scalar.impl.True;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public final class Modulo2 implements EuclideanSpace, EuclideanField {
 
@@ -22,9 +26,17 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 
 	private final List<Vector> base = new ArrayList<>();
 
+	private Homomorphism multiplicationMatrix;
+
 	private Modulo2() {
-		this.base.add(this.zero);
+//		this.base.add(this.zero);
 		this.base.add(this.unit);
+		Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
+		Map<Vector, Scalar> a = new HashMap<>();
+		a.put(this.unit, (Scalar) this.unit);
+		multiplicationMap.put(this.unit, a);
+		this.setMultiplicationMatrix(
+				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
 	}
 
 	public static EuclideanSpace getInstance() {
@@ -101,6 +113,7 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 		return this.base;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Set<Vector> getGenericBase() {
 		return (Set<Vector>) this.base;
@@ -114,6 +127,17 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 	@Override
 	public List<Vector> getOrthonormalBase(List<Vector> base) {
 		return base;
+	}
+
+	@Override
+	public Homomorphism getMultiplicationMatrix() {
+		return this.multiplicationMatrix;
+	}
+
+	@Override
+	public void setMultiplicationMatrix(Homomorphism multiplicationMatrix) {
+		this.multiplicationMatrix = multiplicationMatrix;
+
 	}
 
 }

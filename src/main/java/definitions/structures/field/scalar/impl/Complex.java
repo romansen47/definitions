@@ -2,15 +2,17 @@ package definitions.structures.field.scalar.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.Field;
 import definitions.structures.field.impl.ComplexPlane;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectors.FiniteVector;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
-public class Complex implements Scalar {
+public class Complex implements FiniteVector, Scalar {
 
 	private final Scalar real;
 	private final Scalar imag;
@@ -22,7 +24,7 @@ public class Complex implements Scalar {
 	}
 
 	public Complex(double x, double y) {
-		this(new Real(x),new Real(y));
+		this(new Real(x), new Real(y));
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class Complex implements Scalar {
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
-		this.coordinates=coordinates;
+		this.coordinates = coordinates;
 	}
 
 	@Override
@@ -85,5 +87,15 @@ public class Complex implements Scalar {
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+	}
+
+	@Override
+	public Set<Vector> getGenericBase() {
+		return ComplexPlane.getInstance().getGenericBase();
+	}
+
+	@Override
+	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
+		return this.getCoordinates();
 	}
 }

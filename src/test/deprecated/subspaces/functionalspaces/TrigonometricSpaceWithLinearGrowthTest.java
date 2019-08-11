@@ -16,11 +16,11 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class TrigonometricSpaceWithLinearGrowthTest {

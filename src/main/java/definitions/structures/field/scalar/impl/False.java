@@ -10,7 +10,7 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.Modulo2;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
@@ -59,7 +59,7 @@ public final class False implements Scalar {
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
-		this.coordinates=coordinates;
+		this.coordinates = coordinates;
 	}
 
 	@Override

@@ -6,19 +6,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.RealSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
 import definitions.structures.abstr.impl.RealZero;
+import definitions.structures.field.EuclideanField;
 import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalEmbedding;
-import definitions.structures.finitedimensional.real.mappings.impl.InjectiveLinearMapping;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.real.vectorspaces.SubSpace;
+import definitions.structures.finitedimensional.mappings.FiniteDimensionalEmbedding;
+import definitions.structures.finitedimensional.mappings.impl.InjectiveLinearMapping;
+import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.SubField;
 
-public class RealLine implements Field, SubSpace, RealSpace {
+public class RealLine implements SubField, EuclideanField, RealSpace {
 
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
@@ -27,9 +30,18 @@ public class RealLine implements Field, SubSpace, RealSpace {
 
 	private final List<Vector> base;
 
+	private Homomorphism multiplicationMatrix;
+
 	private RealLine() {
 		this.base = new ArrayList<>();
 		this.base.add(this.getOne());
+		Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
+		Map<Vector, Scalar> a = new HashMap<>();
+		a.put(RealLine.one, RealLine.one);
+		multiplicationMap.put(RealLine.one, a);
+		this.setMultiplicationMatrix(
+				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+
 	}
 
 	public static RealLine getInstance() {
@@ -142,12 +154,22 @@ public class RealLine implements Field, SubSpace, RealSpace {
 
 	@Override
 	public FiniteDimensionalEmbedding getEmbedding() {
-		Map<Vector,Map<Vector,Scalar>> coord=new HashMap<>();
-		Map<Vector,Scalar> tmp=new HashMap<>();
-		tmp.put(((Field) getSuperSpace()).getOne(),getOne());
-		tmp.put(((ComplexPlane) getSuperSpace()).getI(),getZero());
-		coord.put(getOne(),tmp);
-		return new InjectiveLinearMapping(this,ComplexPlane.getInstance(),coord);
+		Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
+		Map<Vector, Scalar> tmp = new HashMap<>();
+		tmp.put(((Field) this.getSuperSpace()).getOne(), this.getOne());
+		tmp.put(((ComplexPlane) this.getSuperSpace()).getI(), this.getZero());
+		coord.put(this.getOne(), tmp);
+		return new InjectiveLinearMapping(this, ComplexPlane.getInstance(), coord);
+	}
+
+	@Override
+	public Homomorphism getMultiplicationMatrix() {
+		return this.multiplicationMatrix;
+	}
+
+	@Override
+	public void setMultiplicationMatrix(Homomorphism multiplicationMatrix) {
+		this.multiplicationMatrix = multiplicationMatrix;
 	}
 
 }

@@ -3,16 +3,12 @@
  */
 package definitions.structures.field.impl;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.scalar.impl.Complex;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
 
 /**
  * @author ro
@@ -21,8 +17,8 @@ import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace
 public class ComplexPlaneTest {
 
 	final ComplexPlane complexPlane = (ComplexPlane) ComplexPlane.getInstance();
-	final Vector one = complexPlane.getOne();
-	final Vector im = complexPlane.getI();
+	final Vector one = this.complexPlane.getOne();
+	final Vector im = this.complexPlane.getI();
 
 	Vector reMin = new Complex(-1, 0);
 	Vector imMin = new Complex(0, -1);
@@ -34,7 +30,7 @@ public class ComplexPlaneTest {
 	@Test
 	public void testNullVec() {
 		boolean ans = true;
-		Complex nul = (Complex) complexPlane.nullVec();
+		Complex nul = (Complex) this.complexPlane.nullVec();
 		if (nul.getReal().getValue() != 0.0 || nul.getImag().getValue() != 0.0) {
 			ans = false;
 		}
@@ -47,7 +43,7 @@ public class ComplexPlaneTest {
 	 */
 	@Test
 	public void testGetI() {
-		Assert.assertTrue(complexPlane.getI().equals(new Complex(0, 1)));
+		Assert.assertTrue(this.complexPlane.getI().equals(new Complex(0, 1)));
 	}
 
 	/**
@@ -56,10 +52,10 @@ public class ComplexPlaneTest {
 	 */
 	@Test
 	public void testProduct() {
-		Assert.assertTrue(complexPlane.product(one, one).equals(one));
-		Assert.assertTrue(complexPlane.product(one, im).equals(im));
-		Assert.assertTrue(complexPlane.product(im, one).equals(im));
-		Assert.assertTrue(complexPlane.product(im, im).equals(new Complex(-1, 0)));
+		Assert.assertTrue(this.complexPlane.product(this.one, this.one).equals(this.one));
+		Assert.assertTrue(this.complexPlane.product(this.one, this.im).equals(this.im));
+		Assert.assertTrue(this.complexPlane.product(this.im, this.one).equals(this.im));
+		Assert.assertTrue(this.complexPlane.product(this.im, this.im).equals(new Complex(-1, 0)));
 	}
 
 	/**
@@ -68,8 +64,8 @@ public class ComplexPlaneTest {
 	 */
 	@Test
 	public void testAdd() {
-		Assert.assertTrue(complexPlane.add(one, reMin).equals(complexPlane.nullVec()));
-		Assert.assertTrue(complexPlane.add(im, imMin).equals(complexPlane.nullVec()));
+		Assert.assertTrue(this.complexPlane.add(this.one, this.reMin).equals(this.complexPlane.nullVec()));
+		Assert.assertTrue(this.complexPlane.add(this.im, this.imMin).equals(this.complexPlane.nullVec()));
 	}
 
 	/**
@@ -78,9 +74,10 @@ public class ComplexPlaneTest {
 	 */
 	@Test
 	public void testStretch() {
-		Assert.assertTrue(complexPlane.stretch(one, new Real(5)).equals(new Complex(5, 0)));
-		Assert.assertTrue(complexPlane.stretch(im, new Real(-5)).equals(new Complex(0,-5)));
-		Assert.assertTrue(complexPlane.stretch(one, RealLine.getInstance().getZero()).equals(complexPlane.nullVec()));
+		Assert.assertTrue(this.complexPlane.stretch(this.one, new Real(5)).equals(new Complex(5, 0)));
+		Assert.assertTrue(this.complexPlane.stretch(this.im, new Real(-5)).equals(new Complex(0, -5)));
+		Assert.assertTrue(this.complexPlane.stretch(this.one, RealLine.getInstance().getZero())
+				.equals(this.complexPlane.nullVec()));
 	}
 
 	/**
@@ -89,7 +86,7 @@ public class ComplexPlaneTest {
 	 */
 	@Test
 	public void testInverse() {
-		Assert.assertTrue(complexPlane.inverse(im).equals(imMin));
+		Assert.assertTrue(this.complexPlane.inverse(this.im).equals(this.imMin));
 	}
 
 	/**
@@ -98,7 +95,7 @@ public class ComplexPlaneTest {
 	 */
 	@Test
 	public void testGetOne() {
-Assert.assertTrue(complexPlane.getOne().equals(new Complex(1,0)));
+		Assert.assertTrue(this.complexPlane.getOne().equals(new Complex(1, 0)));
 	}
 
 }

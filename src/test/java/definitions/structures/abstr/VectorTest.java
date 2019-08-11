@@ -9,8 +9,8 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -25,18 +25,18 @@ public class VectorTest {
 
 	final Vector nul = this.space.nullVec();
 
-	final StringBuilder strings = new StringBuilder();
+//	final StringBuilder strings = new StringBuilder();
 
 	/**
 	 * Test method for {@link definitions.structures.abstr.Vector#getDim()}.
 	 */
 	@Test
 	public void testGetDim() {
-		this.strings.append("Dimension test.\r");
-		this.strings.append("getDim()=" + this.nul.getDim() + "\r");
-		this.strings.append("dim=" + this.dim + "\r");
+//		this.strings.append("Dimension test.\r");
+//		this.strings.append("getDim()=" + this.nul.getDim() + "\r");
+//		this.strings.append("dim=" + this.dim + "\r");
 		Assert.assertTrue(this.nul.getDim() == this.dim);
-		System.out.println(this.strings);
+//		System.out.println(this.strings);
 	}
 
 	/**

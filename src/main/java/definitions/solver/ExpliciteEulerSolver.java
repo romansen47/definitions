@@ -2,8 +2,8 @@ package definitions.solver;
 
 import definitions.structures.abstr.Scalar;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
 
 public class ExpliciteEulerSolver implements Solver {
 

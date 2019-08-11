@@ -7,12 +7,11 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.impl.FunctionTuple;
-import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.real.vectors.impl.Monome;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.impl.Monome;
 
 public class PolynomeRegressionTest {
 
@@ -73,7 +72,7 @@ public class PolynomeRegressionTest {
 
 //	//@Test
 	public void sinTest2() throws Throwable {
-		final Function ans =  sin.getProjection(newSpace) ;
+		final Function ans = sin.getProjection(newSpace);
 		ans.plotCompare(left, right, sin);
 	}
 

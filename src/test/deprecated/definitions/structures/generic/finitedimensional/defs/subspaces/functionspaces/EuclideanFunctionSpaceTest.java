@@ -9,12 +9,12 @@ import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.Field;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.LinearFunction;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
+import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class EuclideanFunctionSpaceTest {
@@ -38,8 +38,8 @@ public class EuclideanFunctionSpaceTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree,
-				Math.PI, false);
+		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree, 1,
+				false);
 		polynomialSpaceSobolev = (FunctionSpace) SpaceGenerator.getInstance()
 				.getPolynomialSobolevSpace((Field) realLine, polynomialDegree, Math.PI, sobolevDegree);
 
@@ -72,9 +72,9 @@ public class EuclideanFunctionSpaceTest {
 
 	@Test
 	public void trigonometricSobolev() throws WrongClassException {
-		Vector fun = new LinearFunction(((RealLine) realLine).getOne(), ((RealLine) realLine).getOne());
+		Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne());
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpaceSobolev, fun);
-		exp.getProjection((EuclideanSpace) extendedToSobolev).plotCompare(-1, 1, exp);
+		exp.getProjection((EuclideanSpace) extendedToSobolev).plotCompare(-Math.PI, Math.PI, exp);
 		((EuclideanSpace) extendedToSobolev).show();
 	}
 

@@ -1,6 +1,6 @@
 package definitions.solver;
 
-import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.vectors.Function;
 
 public interface Solver {
 

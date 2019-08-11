@@ -8,12 +8,12 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.mappings.Automorphism;
-import definitions.structures.finitedimensional.real.mappings.FiniteDimensionalHomomorphism;
-import definitions.structures.finitedimensional.real.mappings.Isomorphism;
-import definitions.structures.finitedimensional.real.mappings.impl.MappingGenerator;
-import definitions.structures.finitedimensional.real.vectors.FiniteVector;
-import definitions.structures.finitedimensional.real.vectors.impl.Tuple;
+import definitions.structures.finitedimensional.mappings.Automorphism;
+import definitions.structures.finitedimensional.mappings.FiniteDimensionalHomomorphism;
+import definitions.structures.finitedimensional.mappings.Isomorphism;
+import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
+import definitions.structures.finitedimensional.vectors.FiniteVector;
+import definitions.structures.finitedimensional.vectors.impl.Tuple;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")

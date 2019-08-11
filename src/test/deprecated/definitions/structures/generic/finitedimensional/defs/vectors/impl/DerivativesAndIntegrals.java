@@ -12,12 +12,12 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.impl.Monome;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.mappings.impl.DerivativeOperator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.Monome;
+import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegrals {
 

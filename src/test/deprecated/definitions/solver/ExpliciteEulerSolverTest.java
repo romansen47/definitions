@@ -6,10 +6,10 @@ import org.junit.Test;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 public class ExpliciteEulerSolverTest {
 

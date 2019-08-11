@@ -1,7 +1,7 @@
 package definitions.structures.abstr;
 
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.vectors.Function;
+import definitions.structures.finitedimensional.vectors.Function;
 
 /**
  * 
@@ -37,16 +37,18 @@ public interface FunctionSpace extends VectorSpace {
 	 * @param eps   the correctness parameter..
 	 * @return the integral over vec1*vec2.
 	 */
-	static double getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
-		double ans = 0;
+	default Scalar getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
+		Scalar ans = (Scalar) getField().nullVec();
 		double x = left;
 		Scalar tmp = new Real(x);
+		Scalar epsNew = new Real(eps);
 		while (x < right) {
-			ans += vec1.value(tmp).getValue() * vec2.value(tmp).getValue();
+			ans = (Scalar) getField().add(ans,
+					getField().stretch(getField().getField().product(vec1.value(tmp), vec2.value(tmp)), epsNew));
 			x += eps;
 			tmp = new Real(x);
 		}
-		return ans * eps;
+		return ans;// * eps;
 	}
 
 	/**
@@ -56,7 +58,7 @@ public interface FunctionSpace extends VectorSpace {
 	 * @param vec2 second function.
 	 * @return the integral over vec1*vec2.
 	 */
-	default double integral(final Function vec1, final Function vec2) {
+	default Scalar integral(final Function vec1, final Function vec2) {
 		return getIntegral(vec1, vec2, getInterval()[0], getInterval()[1], getEpsilon());
 	}
 

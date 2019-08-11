@@ -11,14 +11,14 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.vectors.FiniteVector;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectors.FiniteVector;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
  *
  */
-public class Real extends Number implements Scalar,FiniteVector {
+public class Real extends Number implements Scalar, FiniteVector {
 
 	private static final long serialVersionUID = 448447488896787384L;
 
@@ -31,9 +31,9 @@ public class Real extends Number implements Scalar,FiniteVector {
 	}
 
 	public Scalar toComplex() {
-		return new Complex(this,RealLine.getInstance().getZero());
+		return new Complex(this, RealLine.getInstance().getZero());
 	}
-	
+
 	@Override
 	public Integer getDim() {
 		return 1;
@@ -89,7 +89,7 @@ public class Real extends Number implements Scalar,FiniteVector {
 
 	@Override
 	public Scalar getInverse() {
-		if (Math.abs(this.getValue())>1.e-15) {
+		if (Math.abs(this.getValue()) > 1.e-15) {
 			return new Real(1 / this.getValue());
 		}
 		return null;
@@ -120,6 +120,6 @@ public class Real extends Number implements Scalar,FiniteVector {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
-		return getCoordinates();
+		return this.getCoordinates();
 	}
 }

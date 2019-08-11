@@ -5,9 +5,9 @@ import org.junit.Test;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.Field;
 import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.IGenerator;
-import definitions.structures.finitedimensional.real.vectorspaces.ISpaceGenerator;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.IGenerator;
+import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
 
 public class CachingTest {
 
@@ -32,7 +32,7 @@ public class CachingTest {
 		gen.saveCoordinateSpaces();
 		gen.saveFunctionSpaces();
 		final VectorSpace space = spacesGen.getFiniteDimensionalVectorSpace(199);
-		final VectorSpace space2 = spacesGen.getPolynomialFunctionSpace(this.realSpace, 2, -1, true);
+		final VectorSpace space2 = spacesGen.getPolynomialFunctionSpace(this.realSpace, 2, 1, true);
 	}
 
 }

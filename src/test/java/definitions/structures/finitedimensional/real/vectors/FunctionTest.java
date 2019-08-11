@@ -8,16 +8,17 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.real.functionspaces.impl.FiniteDimensionalSobolevSpace;
-import definitions.structures.finitedimensional.real.mappings.impl.DerivativeOperator;
-import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.real.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalSobolevSpace;
+import definitions.structures.finitedimensional.mappings.impl.DerivativeOperator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
+import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -25,9 +26,9 @@ import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGene
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 10;
+	static final int trigonometricDegree = 2;
 	static final int sobolevDegree = 1;
-	static int derivativeDegree = sobolevDegree+5;
+	static int derivativeDegree = 2;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function symExp;
@@ -38,29 +39,25 @@ public class FunctionTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		trigSpace = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(RealLine.getInstance(),
+		ISpaceGenerator spGen = SpaceGenerator.getInstance();
+		EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
+		Function id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
+		trigSpace = (EuclideanFunctionSpace) spGen.extend(tempSpace, id);
 		symExp = new GenericFunction() {
-			final Function exp = new ExponentialFunction();
-
 			@Override
 			public Scalar value(Scalar input) {
-//				return new Real(Math.pow(Math.sin(input.getValue()),1));
-				return new Real(this.exp.value(input).getValue()
-						+ this.exp.value(new Real(input.getValue() * (-1))).getValue());
+				double x = input.getValue();
+				double pi = Math.PI;
+				return new Real(Math.pow(Math.sin(input.getValue()), 2) + 0.1 * input.getValue());
 			}
 		};
-//		Function expProjected = exp.getProjectionOfDerivative(trigSpace);
-//		trigSpace.show();
-//		exp.plotCompare(-Math.PI, Math.PI, expProjected);
-		symExp.plot(-Math.PI, Math.PI);
-		derivative = symExp.getDerivative();
-//		trigSpace.show();
+		derivative = symExp.getProjectionOfDerivative(trigSpace);
 	}
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#plot(double, double)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#plot(double, double)}.
 	 */
 //	@Test
 	public final void testPlot() {
@@ -69,7 +66,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#plotCompare(double, double, definitions.structures.finitedimensional.real.vectors.Function)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#plotCompare(double, double, definitions.structures.finitedimensional.vectors.Function)}.
 	 */
 //	@Test
 	public final void testPlotCompare() {
@@ -78,7 +75,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#value(definitions.structures.abstr.Scalar)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#value(definitions.structures.abstr.Scalar)}.
 	 */
 //	@Test
 	public final void testValue() {
@@ -87,7 +84,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getDerivative(definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#getDerivative(definitions.structures.finitedimensional.vectorspaces.EuclideanSpace)}.
 	 */
 //	@Test
 	public final void testGetDerivativeEuclideanSpace() {
@@ -96,25 +93,22 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getDerivative(int)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
 	public final void testGetDerivativeInt() {
-		final DerivativeOperator derivativeBuilder = 
-				((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
-		
+		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
+		Function highDerivative = ((Function) derivativeBuilder.get(symExp)).getProjection(trigSpace);
 		for (int i = 0; i < derivativeDegree; i++) {
-			Function highDerivative=(Function) derivativeBuilder.get(symExp, i+1 );
-			derivative.plotCompare(-Math.PI, Math.PI,highDerivative);
-//			highDerivative.plot(-Math.PI, Math.PI);
-//			derivative.plot(-Math.PI, Math.PI);
-			derivative = derivative.getDerivative();
+			derivative.plotCompare(-Math.PI, Math.PI, highDerivative);
+			derivative = ((Function) derivativeBuilder.get(derivative));
+			highDerivative = ((Function) derivativeBuilder.get(highDerivative));
 		}
 	}
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getPrimitiveIntegral()}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#getPrimitiveIntegral()}.
 	 */
 //	@Test
 	public final void testGetPrimitiveIntegral() {
@@ -123,7 +117,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getPrimitiveIntegral(int)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#getPrimitiveIntegral(int)}.
 	 */
 //	@Test
 	public final void testGetPrimitiveIntegralInt() {
@@ -132,7 +126,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.real.vectors.Function#getProjectionOfDerivative(definitions.structures.finitedimensional.real.functionspaces.EuclideanFunctionSpace)}.
+	 * {@link definitions.structures.finitedimensional.vectors.Function#getProjectionOfDerivative(definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace)}.
 	 */
 //	@Test
 	public final void testGetProjectionOfDerivative() {

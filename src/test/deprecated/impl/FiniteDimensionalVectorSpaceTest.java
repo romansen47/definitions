@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import definitions.structures.abstr.Vector;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.Generator;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.Generator;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import junit.framework.Assert;
 
 @SuppressWarnings("deprecation")

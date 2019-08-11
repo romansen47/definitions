@@ -15,20 +15,20 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.VectorSpace;
 import definitions.structures.field.impl.RealLine;
 import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.real.vectors.Function;
-import definitions.structures.finitedimensional.real.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.real.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.finitedimensional.vectors.Function;
+import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
 
 public class PolynomialRegressionTest {
 
-	final static int polynomialDegree = 5;
-	final static int trigonometricDegree = 100;
+	final static int polynomialDegree = 3;
+	final static int trigonometricDegree = 5;
 	final static double left = -1;
 	final static double right = 1;
 
 	// @TODO: Derivatives don't work
-	final static int sobolevDegree = 0;
+	final static int sobolevDegree = 1;
 
 	static VectorSpace polynomialSpace;
 	static VectorSpace trigonometricSpace;
@@ -54,21 +54,25 @@ public class PolynomialRegressionTest {
 
 	@BeforeClass
 	public static void before() throws Throwable {
+
 		testValues = readFile(PATH);
 		testValues2 = readFile(PATH2);
+
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialSobolevSpace(RealLine.getInstance(),
 				polynomialDegree, right, sobolevDegree);
+
 		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
+
 		staircaseFunction = new GenericFunction() {
-			int length = (int) testValues2[0][testValues2[0].length - 1];
+			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
 			public Scalar value(Scalar input) {
 				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
-				while (testValues2[0][k] < l) {
+				while (testValues[0][k] < l) {
 					k++;
 				}
 				return new Real(testValues2[1][k]);
@@ -90,7 +94,7 @@ public class PolynomialRegressionTest {
 				return new Real(testValues2[1][k]);
 			}
 		};
-		measures2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
+		measures2 = measures.getProjection((EuclideanSpace) trigonometricSpace);
 	}
 
 //	@Test
@@ -105,7 +109,7 @@ public class PolynomialRegressionTest {
 		coordinates.plotCompare(left, right, staircaseFunction2);
 
 		final Function coordinates2 = measures2.getProjection((EuclideanSpace) polynomialSpace);
-		coordinates2.plotCompare(left, right, staircaseFunction2);
+		coordinates2.plotCompare(left, right, measures2);
 	}
 
 //	@Test

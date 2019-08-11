@@ -2,7 +2,7 @@ package definitions.structures.abstr;
 
 import java.util.Map;
 
-import definitions.structures.finitedimensional.real.vectorspaces.EuclideanSpace;
+import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
 /**
  * Vector interface.
@@ -52,7 +52,6 @@ public interface Vector {
 
 	@Override
 	String toString();
-
 
 	/**
 	 * Setter for coordinates on a base.
