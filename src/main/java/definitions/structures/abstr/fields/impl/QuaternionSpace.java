@@ -133,8 +133,6 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	 */
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
-		final Scalar oneTmp = RealLine.getInstance().getOne();
-		final Scalar zeroTmp = RealLine.getInstance().getZero();
 		if (this.multiplicationMatrix == null) {
 
 			final Scalar realOne = RealLine.getInstance().getOne();

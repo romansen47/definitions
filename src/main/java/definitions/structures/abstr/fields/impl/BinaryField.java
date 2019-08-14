@@ -163,4 +163,9 @@ public final class BinaryField implements FiniteField {
 		return 2;
 	}
 
+	@Override
+	public FiniteField getPrimeField() {
+		return (FiniteField) instance;
+	}
+
 }

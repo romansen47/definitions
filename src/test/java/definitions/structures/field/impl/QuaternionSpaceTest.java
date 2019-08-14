@@ -4,18 +4,20 @@
 package definitions.structures.field.impl;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
 
+import definitions.structures.abstr.VectorSpaceTest;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
-import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Quaternion;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * @author BAU12350
  *
  */
-public class QuaternionSpaceTest {
+public class QuaternionSpaceTest extends VectorSpaceTest {
 
 	/**
 	 * @throws java.lang.Exception
@@ -24,15 +26,24 @@ public class QuaternionSpaceTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	@Test
-	public void test() {
-		final EuclideanSpace space = QuaternionSpace.getInstance();
-		final Vector one = ((QuaternionSpace) space).getOne();
-		final Vector i = ((QuaternionSpace) space).getI();
-		final Vector j = ((QuaternionSpace) space).getJ();
-		final Vector k = ((QuaternionSpace) space).getK();
-		final Vector a = ((EuclideanAlgebra) space).product(i, j);
-		final int m = 0;
+	@Override
+	public VectorSpace getSpace() {
+		return QuaternionSpace.getInstance();
+	}
+
+	@Override
+	public Vector getVec1() {
+		return new Quaternion(1, 0, 2, 0);
+	}
+
+	@Override
+	public Vector getVec2() {
+		return new Quaternion(1, 0, -2, 0);
+	}
+
+	@Override
+	public Scalar getFactor() {
+		return new Real(0.5);
 	}
 
 }

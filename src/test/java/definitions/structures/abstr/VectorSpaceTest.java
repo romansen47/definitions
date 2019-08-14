@@ -3,35 +3,29 @@ package definitions.structures.abstr;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class VectorSpaceTest {
+public abstract class VectorSpaceTest {
 
-	final VectorSpace space = RealLine.getInstance();
+	public abstract VectorSpace getSpace();
 
-	final Vector nul = this.space.nullVec();
+	public abstract Vector getVec1();
 
-	@Test
+	public abstract Vector getVec2();
+
+	public abstract Scalar getFactor();
+
 	public void testContains() {
-		Assert.assertTrue(this.space.contains(this.nul));
+		Assert.assertTrue(this.getSpace().contains(this.getVec1()));
+		Assert.assertTrue(this.getSpace().contains(this.getVec2()));
 	}
 
 	@Test
-	public void testNullVec() {
-		Assert.assertTrue(this.nul.equals(this.nul));
-	}
-
-	@Test
-	public void testAdd() {
-		Assert.assertTrue(this.space.add(this.nul, this.nul).equals(this.nul));
-	}
-
-	@Test
-	public void testStretch() {
-		Assert.assertTrue(this.space.stretch(this.nul, new Real(-11.1)).equals(this.nul));
+	public void show() {
+		((EuclideanSpace) this.getSpace()).show();
 	}
 
 }

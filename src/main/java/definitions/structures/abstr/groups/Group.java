@@ -8,7 +8,7 @@ package definitions.structures.abstr.groups;
  *
  */
 public interface Group {
-	
+
 	Integer getOrder();
 
 	GroupElement operation(GroupElement first, GroupElement second);

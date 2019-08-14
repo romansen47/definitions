@@ -112,15 +112,15 @@ public class FiniteDimensionalSobolevSpaceTest {
 			}
 		};
 
-		ISpaceGenerator generator = Generator.getGenerator().getSpacegenerator();
+		final ISpaceGenerator generator = Generator.getGenerator().getSpacegenerator();
 
 		trigonometricFunctionSpace = generator.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(),
 				dim);
 //				.getTrigonometricSpace(RealLine.getInstance(), dim);
 
-		EuclideanSpace trigonometricSobolevSpace = generator.getTrigonometricSobolevSpace(RealLine.getInstance(), dim,
-				degree);
-		Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
+		final EuclideanSpace trigonometricSobolevSpace = generator.getTrigonometricSobolevSpace(RealLine.getInstance(),
+				dim, degree);
+		final Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
 		sobolevSpace = generator.extend(trigonometricSobolevSpace, id);
 
 		idToSobolevFourierCoordinates = normalizedIdentity.getProjection(sobolevSpace);

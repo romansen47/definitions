@@ -11,12 +11,14 @@ import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.False;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
  *
  */
-public class Modulo2Test {
+public class FiniteFieldTest extends VectorTest {
 
 	static Field modulo2 = (Field) BinaryField.getInstance();
 	static Scalar zero = False.getInstance();
@@ -76,4 +78,13 @@ public class Modulo2Test {
 		yes.getCoordinates();
 	}
 
+	@Override
+	public Vector getVector() {
+		return unit;
+	}
+
+	@Override
+	public EuclideanSpace getSpace() {
+		return modulo2;
+	}
 }

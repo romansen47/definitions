@@ -72,7 +72,7 @@ public class EuclideanFunctionSpaceTest {
 
 	@Test
 	public void trigonometricSobolev() throws WrongClassException {
-		Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne());
+		final Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne());
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpaceSobolev, fun);
 		exp.getProjection((EuclideanSpace) extendedToSobolev).plotCompare(-Math.PI, Math.PI, exp);
 		((EuclideanSpace) extendedToSobolev).show();

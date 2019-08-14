@@ -13,7 +13,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group,VectorSpaceTechnicalProvider {
+public interface VectorSpace extends Group, VectorSpaceTechnicalProvider {
 
 	Field getField();
 
@@ -34,14 +34,15 @@ public interface VectorSpace extends Group,VectorSpaceTechnicalProvider {
 	 * @return the stretched vector.
 	 */
 	Vector stretch(Vector vec1, Scalar r);
-	
+
+	@Override
 	default Integer getOrder() {
 		return null;
-	};
+	}
 
 	@Override
 	default GroupElement operation(GroupElement first, GroupElement second) {
-		return (GroupElement) add((Vector)first,(Vector)second);
+		return add((Vector) first, (Vector) second);
 	}
 
 }

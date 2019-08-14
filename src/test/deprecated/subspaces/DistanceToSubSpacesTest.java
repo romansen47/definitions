@@ -68,9 +68,9 @@
 ////		extendedSpace = new FiniteDimensionalFunctionSpace(list, -Math.PI, Math.PI);
 //
 //		extendedSpace=(EuclideanFunctionSpace) SpaceGenerator.getInstance().extend(space,identity);
-//		
+//
 //		extendedSpace=(EuclideanFunctionSpace) SpaceGenerator.getInstance().extend(extendedSpace,exp);
-//		
+//
 //		final Map<Vector, Map<Vector, Double>> coordinates2 = new HashMap<>();
 //		for (final Vector fun1 : space.genericBaseToList()) {
 //			final Map<Vector, Double> tmp = new HashMap<>();

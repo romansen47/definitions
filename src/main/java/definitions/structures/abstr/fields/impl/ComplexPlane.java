@@ -17,8 +17,6 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 
 public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
-//	static private EuclideanSpace space;
-
 	static private EuclideanSpace instance;
 
 	private final Vector zero;
@@ -51,18 +49,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
-//		if (this.multiplicationMatrix == null) {
-//			Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-//			Scalar re = new Real(((Complex) vec1).getReal().getValue() * ((Complex) vec2).getReal().getValue()
-//					- ((Complex) vec1).getImag().getValue() * ((Complex) vec2).getImag().getValue());
-//			Scalar im = new Real(((Complex) vec1).getReal().getValue() * ((Complex) vec2).getImag().getValue()
-//					+ ((Complex) vec1).getImag().getValue() * ((Complex) vec2).getReal().getValue());
-//			coordinates.put(this.one, re);
-//			coordinates.put(this.i, im);
-//			return this.get(coordinates);
-//		} else {
 		return Field.super.product(vec1, vec2);
-//		}
 	}
 
 	@Override
@@ -130,34 +117,26 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	 */
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
-		final Scalar oneTmp = RealLine.getInstance().getOne();
-		final Scalar zeroTmp = RealLine.getInstance().getZero();
+
 		if (this.multiplicationMatrix == null) {
-			final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
-			final Map<Vector, Scalar> a = new HashMap<>();
-			final Map<Vector, Scalar> b = new HashMap<>();
-			a.put(this.one, oneTmp);
-			a.put(this.i, zeroTmp);
-			b.put(this.one, zeroTmp);
-			b.put(this.i, oneTmp);
-			multiplicationMap.put(this.one, a);
-			multiplicationMap.put(this.i, b);
+
+			final Scalar realOne = RealLine.getInstance().getOne();
+			final Scalar realZero = RealLine.getInstance().getZero();
+			final Scalar neg = new Real(-1);
+
+			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero }, { realZero, realOne } };
+			final Homomorphism oneHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
+					oneMat);
+
+			final Scalar[][] iMat = new Scalar[][] { { realZero, neg }, { realOne, realZero } };
+			final Homomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
+					iMat);
+
 			final Map<Vector, Homomorphism> newMap = new HashMap<>();
-			newMap.put(this.one,
-					MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
 
-			final Map<Vector, Map<Vector, Scalar>> multiplicationMap2 = new HashMap<>();
-			final Map<Vector, Scalar> c = new HashMap<>();
-			final Map<Vector, Scalar> d = new HashMap<>();
-			c.put(this.one, zeroTmp);
-			c.put(this.i, oneTmp);
-			d.put(this.one, new Real(-1));
-			d.put(this.i, zeroTmp);
-			multiplicationMap2.put(this.one, c);
-			multiplicationMap2.put(this.i, d);
+			newMap.put(this.one, oneHom);
+			newMap.put(this.i, iHom);
 
-			newMap.put(this.i,
-					MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap2));
 			this.setMultiplicationMatrix(newMap);
 		}
 		return this.multiplicationMatrix;

@@ -32,8 +32,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 	static Vector fun1;
 	static Vector fun2;
 
-	final static Field field =RealLine.getInstance();
-	
+	final static Field field = RealLine.getInstance();
+
 	/**
 	 * @throws java.lang.Exception
 	 */

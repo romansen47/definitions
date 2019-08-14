@@ -11,7 +11,6 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
@@ -20,11 +19,18 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionalSpaceTest {
 
-	EuclideanSpace space = (EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
-	EuclideanSpace dualSpace = new FunctionalSpace(this.space);
+	final EuclideanSpace space = (EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
+	final EuclideanSpace dualSpace = this.space.getDualSpace();
+	final EuclideanSpace dualDualSpace = this.dualSpace.getDualSpace();
 
-	EuclideanSpace functionSpace = SpaceGenerator.getInstance().getTrigonometricSpace(RealLine.getInstance(), 1);
-	EuclideanSpace dualFunctionSpace = new FunctionalSpace(this.functionSpace);
+	final EuclideanSpace functionSpace = SpaceGenerator.getInstance().getTrigonometricSpace(RealLine.getInstance(), 1);
+	final EuclideanSpace dualFunctionSpace = this.functionSpace.getDualSpace();
+	final EuclideanSpace dualDualFunctionSpace = this.dualFunctionSpace.getDualSpace();
+
+	final EuclideanSpace sobolevSpace = SpaceGenerator.getInstance()
+			.getTrigonometricSobolevSpace(RealLine.getInstance(), 1, 1);
+	final EuclideanSpace dualSobolevSpace = this.sobolevSpace.getDualSpace();
+	final EuclideanSpace dualDualSobolevSpace = this.dualSobolevSpace.getDualSpace();
 
 	/**
 	 * @throws java.lang.Exception
@@ -55,11 +61,8 @@ public class FunctionalSpaceTest {
 
 	@Test
 	public void sobolevSpaceTest() {
-		final EuclideanSpace sobolevSpace = SpaceGenerator.getInstance()
-				.getTrigonometricSobolevSpace(RealLine.getInstance(), 12, 1);
-		final EuclideanSpace dualSobolevSpace = new FunctionalSpace(sobolevSpace);
-		final Vector a = sobolevSpace.genericBaseToList().get(1);
-		final Vector b = dualSobolevSpace.genericBaseToList().get(1);
+		final Vector a = this.sobolevSpace.genericBaseToList().get(1);
+		final Vector b = this.dualSobolevSpace.genericBaseToList().get(1);
 		final Functional x = (Functional) b;
 		final Vector c = x.get(a);
 		Assert.assertTrue(c.equals(RealLine.getInstance().getOne()));

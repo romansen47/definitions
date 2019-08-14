@@ -39,8 +39,8 @@ public class Complex implements FiniteVector, Scalar {
 
 	@Override
 	public Boolean equals(Vector vec) {
-		return vec instanceof Complex && ((Complex) vec).getReal().getValue() == this.getReal().getValue()
-				&& ((Complex) vec).getImag().getValue() == this.getImag().getValue();
+		return vec instanceof Complex && ((Complex) vec).getReal().equals(this.getReal())
+				&& ((Complex) vec).getImag().equals(this.getImag());
 	}
 
 	@Override

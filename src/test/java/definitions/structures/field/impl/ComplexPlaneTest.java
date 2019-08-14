@@ -6,17 +6,20 @@ package definitions.structures.field.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
+import definitions.structures.abstr.VectorSpaceTest;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * @author ro
  *
  */
-public class ComplexPlaneTest {
+public class ComplexPlaneTest extends VectorSpaceTest {
 
 	final ComplexPlane complexPlane = (ComplexPlane) ComplexPlane.getInstance();
 	final Vector one = this.complexPlane.getOne();
@@ -98,6 +101,26 @@ public class ComplexPlaneTest {
 	@Test
 	public void testGetOne() {
 		Assert.assertTrue(this.complexPlane.getOne().equals(new Complex(1, 0)));
+	}
+
+	@Override
+	public VectorSpace getSpace() {
+		return this.complexPlane;
+	}
+
+	@Override
+	public Vector getVec1() {
+		return this.one;
+	}
+
+	@Override
+	public Vector getVec2() {
+		return this.im;
+	}
+
+	@Override
+	public Scalar getFactor() {
+		return new Real(2);
 	}
 
 }

@@ -9,7 +9,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
  * @author ro
  *
  */
-public interface Vector extends GroupElement,VectorTechnicalProvider {
+public interface Vector extends GroupElement, VectorTechnicalProvider {
 
 	/**
 	 * Method to get the dimension of the underlying vector space.
