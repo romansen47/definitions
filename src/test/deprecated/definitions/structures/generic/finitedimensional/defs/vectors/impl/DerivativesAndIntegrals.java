@@ -6,18 +6,18 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Homomorphism;
-import definitions.structures.abstr.InnerProductSpace;
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.mappings.impl.DerivativeOperator;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.Monome;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.vectorspaces.InnerProductSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.vectors.impl.Monome;
+import definitions.structures.euclidean.vectors.specialfunctions.Sine;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegrals {
 

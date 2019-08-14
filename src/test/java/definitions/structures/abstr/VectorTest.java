@@ -9,8 +9,10 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -28,7 +30,8 @@ public class VectorTest {
 //	final StringBuilder strings = new StringBuilder();
 
 	/**
-	 * Test method for {@link definitions.structures.abstr.Vector#getDim()}.
+	 * Test method for
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Vector#getDim()}.
 	 */
 	@Test
 	public void testGetDim() {
@@ -41,7 +44,7 @@ public class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.Vector#elementOf(definitions.structures.abstr.VectorSpace)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Vector#elementOf(definitions.structures.abstr.VectorSpace)}.
 	 */
 	@Test
 	public void testElementOf() {
@@ -59,19 +62,20 @@ public class VectorTest {
 //	}
 
 	/**
-	 * Test method for {@link definitions.structures.abstr.Vector#getCoordinates()}.
+	 * Test method for
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Vector#getCoordinates()}.
 	 */
 	@Test
 	public void testGetCoordinates() {
 		final Map<Vector, Scalar> coordinates = this.nul.getCoordinates();
-		for (Vector vec : this.nul.getCoordinates().keySet()) {
+		for (final Vector vec : this.nul.getCoordinates().keySet()) {
 			Assert.assertTrue(coordinates.get(vec).getValue() == 0.);
 		}
 	}
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.Vector#getGenericCoordinates()}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Vector#getGenericCoordinates()}.
 	 */
 	@Test
 	public void testGetGenericCoordinates() {

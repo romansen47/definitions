@@ -8,17 +8,17 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Scalar;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalSobolevSpace;
-import definitions.structures.finitedimensional.mappings.impl.DerivativeOperator;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
-import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
+import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -39,16 +39,16 @@ public class FunctionTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		ISpaceGenerator spGen = SpaceGenerator.getInstance();
-		EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
+		final ISpaceGenerator spGen = SpaceGenerator.getInstance();
+		final EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
-		Function id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
+		final Function id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
 		trigSpace = (EuclideanFunctionSpace) spGen.extend(tempSpace, id);
 		symExp = new GenericFunction() {
 			@Override
 			public Scalar value(Scalar input) {
-				double x = input.getValue();
-				double pi = Math.PI;
+				final double x = input.getValue();
+				final double pi = Math.PI;
 				return new Real(Math.pow(Math.sin(input.getValue()), 2) + 0.1 * input.getValue());
 			}
 		};
@@ -57,7 +57,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#plot(double, double)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
 	 */
 //	@Test
 	public final void testPlot() {
@@ -66,7 +66,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#plotCompare(double, double, definitions.structures.finitedimensional.vectors.Function)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
 	 */
 //	@Test
 	public final void testPlotCompare() {
@@ -75,7 +75,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#value(definitions.structures.abstr.Scalar)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.fields.scalars.Scalar)}.
 	 */
 //	@Test
 	public final void testValue() {
@@ -84,7 +84,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#getDerivative(definitions.structures.finitedimensional.vectorspaces.EuclideanSpace)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(definitions.structures.euclidean.vectorspaces.EuclideanSpace)}.
 	 */
 //	@Test
 	public final void testGetDerivativeEuclideanSpace() {
@@ -93,7 +93,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#getDerivative(int)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
 	public final void testGetDerivativeInt() {
@@ -108,7 +108,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#getPrimitiveIntegral()}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral()}.
 	 */
 //	@Test
 	public final void testGetPrimitiveIntegral() {
@@ -117,7 +117,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#getPrimitiveIntegral(int)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral(int)}.
 	 */
 //	@Test
 	public final void testGetPrimitiveIntegralInt() {
@@ -126,7 +126,7 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectors.Function#getProjectionOfDerivative(definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace)}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getProjectionOfDerivative(definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace)}.
 	 */
 //	@Test
 	public final void testGetProjectionOfDerivative() {

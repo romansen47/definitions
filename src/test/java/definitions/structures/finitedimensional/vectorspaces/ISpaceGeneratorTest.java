@@ -1,5 +1,5 @@
 ///**
-// * 
+// *
 // */
 //package definitions.structures.finitedimensional.vectorspaces;
 //

@@ -4,11 +4,11 @@
 package definitions.structures.finitedimensional.real.functionspaces.impl;
 
 import definitions.structures.abstr.FunctionSpaceTest;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.Field;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski

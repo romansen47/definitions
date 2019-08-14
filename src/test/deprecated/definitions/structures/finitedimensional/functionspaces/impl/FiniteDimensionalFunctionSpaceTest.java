@@ -9,14 +9,15 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.NormedSpace;
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.NormedSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -31,12 +32,14 @@ public class FiniteDimensionalFunctionSpaceTest {
 	static Vector fun1;
 	static Vector fun2;
 
+	final static Field field =RealLine.getInstance();
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace(RealLine.getInstance(), degree, 1);
+		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace(field, degree, 1);
 		((EuclideanSpace) trigonometricSpace).show();
 		fun1 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(1);
 		fun2 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(2);
@@ -44,7 +47,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
+	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
 	 */
 	@Test
 	public final void testNullVec() {
@@ -54,7 +57,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getOrthonormalBase(java.util.List)}.
+	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#getOrthonormalBase(java.util.List)}.
 	 */
 	@SuppressWarnings({ "unused" })
 	@Test

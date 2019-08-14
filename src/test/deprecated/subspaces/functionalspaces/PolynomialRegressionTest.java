@@ -11,14 +11,14 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class PolynomialRegressionTest {
 

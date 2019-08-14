@@ -3,13 +3,13 @@ package definitions.solver;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class ExpliciteEulerSolverTest {
 

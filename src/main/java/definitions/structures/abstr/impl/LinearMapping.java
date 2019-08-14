@@ -2,10 +2,10 @@ package definitions.structures.abstr.impl;
 
 import java.util.Map;
 
-import definitions.structures.abstr.Homomorphism;
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * Linear Mapping: mapping between two vector spaces preserving addition and

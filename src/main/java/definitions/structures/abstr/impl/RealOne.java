@@ -3,7 +3,7 @@
  */
 package definitions.structures.abstr.impl;
 
-import definitions.structures.field.scalar.impl.Real;
+import definitions.structures.abstr.fields.scalars.impl.Real;
 
 /**
  * @author RoManski
@@ -18,7 +18,7 @@ public final class RealOne extends Real {
 			one = new RealOne();
 		}
 		return one;
-	};
+	}
 
 	private RealOne() {
 		super(1.);

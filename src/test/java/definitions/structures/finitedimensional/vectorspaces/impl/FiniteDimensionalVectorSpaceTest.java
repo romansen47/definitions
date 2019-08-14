@@ -3,9 +3,10 @@ package definitions.structures.finitedimensional.vectorspaces.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.scalar.impl.Real;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -20,7 +21,7 @@ public class FiniteDimensionalVectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.VectorSpace#contains(definitions.structures.abstr.Vector)}.
+	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#contains(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 	public void testContains() {
@@ -28,7 +29,8 @@ public class FiniteDimensionalVectorSpaceTest {
 	}
 
 	/**
-	 * Test method for {@link definitions.structures.abstr.VectorSpace#nullVec()}.
+	 * Test method for
+	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#nullVec()}.
 	 */
 	@Test
 	public void testNullVec() {
@@ -37,7 +39,7 @@ public class FiniteDimensionalVectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.VectorSpace#add(definitions.structures.abstr.Vector, definitions.structures.abstr.Vector)}.
+	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 	public void testAdd() {
@@ -46,7 +48,7 @@ public class FiniteDimensionalVectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.VectorSpace#stretch(definitions.structures.abstr.Vector, double)}.
+	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#stretch(definitions.structures.abstr.vectorspaces.vectors.Vector, double)}.
 	 */
 	@Test
 	public void testStretch() {

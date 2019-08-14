@@ -1,7 +1,7 @@
 package definitions.solver;
 
-import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class NewtonSolver {
 

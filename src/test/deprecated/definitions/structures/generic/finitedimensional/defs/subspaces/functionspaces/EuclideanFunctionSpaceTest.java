@@ -3,18 +3,18 @@ package definitions.structures.generic.finitedimensional.defs.subspaces.function
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.FunctionSpace;
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.Field;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.LinearFunction;
-import definitions.structures.finitedimensional.vectors.specialfunctions.Sine;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.FunctionSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
+import definitions.structures.euclidean.vectors.specialfunctions.Sine;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class EuclideanFunctionSpaceTest {

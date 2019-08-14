@@ -1,0 +1,47 @@
+package definitions.structures.abstr.mappings;
+
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
+
+/**
+ * Automorphism.
+ * 
+ * @author ro
+ *
+ */
+public interface Automorphism extends Endomorphism, Isomorphism {
+
+	@Override
+	default Isomorphism getInverse() throws Throwable {
+		final Scalar[][] matrix = getGenericMatrix();
+		if ((matrix.length == 1) && (matrix[0].length == 1)) {
+			final Scalar in = matrix[0][0];
+			if (in.equals(RealLine.getInstance().getZero())) {
+				throw new Throwable();
+			}
+			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+					.getFiniteDimensionalLinearMapping(new Scalar[][] { { new Real(1. / in.getValue()) } });
+		}
+		final int k = matrix.length;
+		final Scalar[][] inv = new Scalar[k][k];
+		double det;
+		try {
+			det = 1.0 / det(matrix).getValue();
+		} catch (final Exception e) {
+			System.err.println("Division durch 0!");
+			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+					.getFiniteDimensionalLinearMapping(new Scalar[0][0]);
+		}
+		for (int i = 0; i < k; i++) {
+			for (int j = 0; j < k; j++) {
+				inv[i][j] = new Real(
+						Math.pow(-1, (double) i + (double) j) * det(adjointMatrix(matrix, j, i)).getValue() * det);
+			}
+		}
+		return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+				.getFiniteDimensionalLinearMapping(inv);
+	}
+}

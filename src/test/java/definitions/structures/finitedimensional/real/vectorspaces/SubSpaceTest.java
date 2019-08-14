@@ -7,11 +7,11 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Homomorphism;
-import definitions.structures.field.Field;
-import definitions.structures.field.impl.ComplexPlane;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.ComplexPlane;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * @author ro
@@ -31,7 +31,7 @@ public class SubSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectorspaces.SubSpace#getSuperSpace()}.
+	 * {@link definitions.structures.euclidean.vectorspaces.SubSpace#getSuperSpace()}.
 	 */
 	@Test
 	public void testGetSuperSpace() {
@@ -40,11 +40,11 @@ public class SubSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.finitedimensional.vectorspaces.SubSpace#getEmbedding()}.
+	 * {@link definitions.structures.euclidean.vectorspaces.SubSpace#getEmbedding()}.
 	 */
 	@Test
 	public void testGetEmbedding() {
-		Homomorphism embedding = ((RealLine) this.realLine).getEmbedding();
+		final Homomorphism embedding = ((RealLine) this.realLine).getEmbedding();
 		Assert.assertTrue(embedding.get(((Field) this.realLine).getOne()).equals(((Field) this.complexPlane).getOne()));
 	}
 

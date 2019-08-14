@@ -3,10 +3,10 @@ package definitions.structures.abstr.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public final class RealZero extends Real {
 
@@ -17,7 +17,7 @@ public final class RealZero extends Real {
 			zero = new RealZero();
 		}
 		return zero;
-	};
+	}
 
 	private RealZero() {
 		super(0.);
@@ -25,7 +25,7 @@ public final class RealZero extends Real {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		Map<Vector, Scalar> ans = new HashMap<>();
+		final Map<Vector, Scalar> ans = new HashMap<>();
 		ans.put(RealLine.getInstance().getOne(), this);
 		return ans;
 

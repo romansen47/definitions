@@ -12,15 +12,15 @@ import java.util.Map.Entry;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.finitedimensional.vectors.Function;
-import definitions.structures.finitedimensional.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class TrigonometricSpaceWithLinearGrowthTest {

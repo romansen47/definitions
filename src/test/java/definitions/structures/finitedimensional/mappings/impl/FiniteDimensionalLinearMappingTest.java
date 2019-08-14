@@ -6,13 +6,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import definitions.structures.abstr.Homomorphism;
-import definitions.structures.abstr.Scalar;
-import definitions.structures.abstr.Vector;
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
-import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FiniteDimensionalLinearMappingTest {
 

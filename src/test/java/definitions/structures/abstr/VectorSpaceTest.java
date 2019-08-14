@@ -3,8 +3,10 @@ package definitions.structures.abstr;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.field.scalar.impl.Real;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public class VectorSpaceTest {
 

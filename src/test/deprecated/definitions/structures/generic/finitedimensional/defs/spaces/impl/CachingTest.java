@@ -2,12 +2,12 @@ package definitions.structures.generic.finitedimensional.defs.spaces.impl;
 
 import org.junit.Test;
 
-import definitions.structures.abstr.VectorSpace;
-import definitions.structures.field.Field;
-import definitions.structures.field.impl.RealLine;
-import definitions.structures.finitedimensional.Generator;
-import definitions.structures.finitedimensional.IGenerator;
-import definitions.structures.finitedimensional.vectorspaces.ISpaceGenerator;
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.IGenerator;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
 public class CachingTest {
 
