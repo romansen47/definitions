@@ -9,14 +9,14 @@ import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.RealSpace;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.field.EuclideanField;
+import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.Complex;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-public final class ComplexPlane extends FiniteDimensionalVectorSpace implements EuclideanField, RealSpace {
+public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 //	static private EuclideanSpace space;
 
@@ -26,7 +26,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	private final Vector one;
 	private final Vector i;
 
-	private Homomorphism multiplicationMatrix = null;
+	private Map<Vector,Homomorphism> multiplicationMatrix = null;
 
 	public Vector getI() {
 		return this.i;
@@ -52,34 +52,19 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
-		if (this.multiplicationMatrix == null) {
-			Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			Scalar re = new Real(((Complex) vec1).getReal().getValue() * ((Complex) vec2).getReal().getValue()
-					- ((Complex) vec1).getImag().getValue() * ((Complex) vec2).getImag().getValue());
-			Scalar im = new Real(((Complex) vec1).getReal().getValue() * ((Complex) vec2).getImag().getValue()
-					+ ((Complex) vec1).getImag().getValue() * ((Complex) vec2).getReal().getValue());
-			coordinates.put(this.one, re);
-			coordinates.put(this.i, im);
-			return this.get(coordinates);
-		} else {
-			return EuclideanField.super.product(vec1, vec2);
-		}
+//		if (this.multiplicationMatrix == null) {
+//			Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+//			Scalar re = new Real(((Complex) vec1).getReal().getValue() * ((Complex) vec2).getReal().getValue()
+//					- ((Complex) vec1).getImag().getValue() * ((Complex) vec2).getImag().getValue());
+//			Scalar im = new Real(((Complex) vec1).getReal().getValue() * ((Complex) vec2).getImag().getValue()
+//					+ ((Complex) vec1).getImag().getValue() * ((Complex) vec2).getReal().getValue());
+//			coordinates.put(this.one, re);
+//			coordinates.put(this.i, im);
+//			return this.get(coordinates);
+//		} else {
+			return Field.super.product(vec1, vec2);
+//		}
 	}
-
-//	@Override
-//	public Vector get(Scalar[] coordinates) {
-//		return new Tuple(coordinates) {
-//			@Override
-//			public String toString() {
-//				return coordinates[0].getValue() + " + i * ( " + coordinates[1] + ")";
-//			}
-//		};
-//	}
-
-//	@Override
-//	public Field getField() {
-//		return RealLine.getInstance();
-//	}
 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) {
@@ -130,10 +115,6 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public Integer getDim() {
 		return this.dim;
 	}
-//	@Override
-//	public Field getField() {
-//		return RealLine.getInstance();
-//	}
 
 	@Override
 	public Vector projection(Vector w, Vector v) {
@@ -149,19 +130,34 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	 * @return the multiplicationMatrix
 	 */
 	@Override
-	public Homomorphism getMultiplicationMatrix() {
+	public Map<Vector,Homomorphism> getMultiplicationMatrix() {
+		final Scalar oneTmp=RealLine.getInstance().getOne();
+		final Scalar zeroTmp=RealLine.getInstance().getZero();
 		if (this.multiplicationMatrix == null) {
 			Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 			Map<Vector, Scalar> a = new HashMap<>();
-			a.put(this.one, (Scalar) this.one);
-			a.put(this.i, (Scalar) this.i);
-			multiplicationMap.put(this.one, a);
 			Map<Vector, Scalar> b = new HashMap<>();
-			b.put(this.one, (Scalar) this.i);
-			b.put(this.i, new Complex(-1, 0));
-			multiplicationMap.put(this.i, b);
-			this.setMultiplicationMatrix(
-					MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+			a.put(one, oneTmp);
+			a.put(i, zeroTmp);
+			b.put(one, zeroTmp);
+			b.put(i, oneTmp);
+			multiplicationMap.put(one, a);
+			multiplicationMap.put(i, b);
+			Map<Vector,Homomorphism> newMap=new HashMap<>();
+			newMap.put(one, MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+			
+			Map<Vector, Map<Vector, Scalar>> multiplicationMap2 = new HashMap<>();
+			Map<Vector, Scalar> c = new HashMap<>();
+			Map<Vector, Scalar> d = new HashMap<>();
+			c.put(one, zeroTmp);
+			c.put(i, oneTmp);
+			d.put(one, new Real(-1));
+			d.put(i, zeroTmp);
+			multiplicationMap2.put(one, c);
+			multiplicationMap2.put(i, d);
+
+			newMap.put(i, MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap2));
+			this.setMultiplicationMatrix(newMap);
 		}
 		return this.multiplicationMatrix;
 	}
@@ -170,7 +166,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	 * @param multiplicationMatrix the multiplicationMatrix to set
 	 */
 	@Override
-	public void setMultiplicationMatrix(Homomorphism multiplicationMatrix) {
+	public void setMultiplicationMatrix(Map<Vector,Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 	}
 

@@ -1,9 +1,9 @@
 package definitions.structures.field;
 
-import definitions.structures.abstr.Algebra;
+import definitions.structures.abstr.EuclideanAlgebra;
 import definitions.structures.abstr.Vector;
 
-public interface Field extends Algebra {
+public interface Field extends EuclideanAlgebra {
 
 	Vector inverse(Vector factor);
 

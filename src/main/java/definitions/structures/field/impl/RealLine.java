@@ -12,7 +12,6 @@ import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
 import definitions.structures.abstr.impl.RealOne;
 import definitions.structures.abstr.impl.RealZero;
-import definitions.structures.field.EuclideanField;
 import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.Real;
 import definitions.structures.finitedimensional.mappings.FiniteDimensionalEmbedding;
@@ -21,7 +20,7 @@ import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 import definitions.structures.finitedimensional.vectorspaces.SubField;
 
-public class RealLine implements SubField, EuclideanField, RealSpace {
+public class RealLine implements SubField, RealSpace {
 
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
@@ -30,7 +29,7 @@ public class RealLine implements SubField, EuclideanField, RealSpace {
 
 	private final List<Vector> base;
 
-	private Homomorphism multiplicationMatrix;
+	private Map<Vector,Homomorphism> multiplicationMatrix;
 
 	private RealLine() {
 		this.base = new ArrayList<>();
@@ -39,8 +38,9 @@ public class RealLine implements SubField, EuclideanField, RealSpace {
 		Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
 		multiplicationMap.put(RealLine.one, a);
-		this.setMultiplicationMatrix(
-				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+		Map<Vector,Homomorphism> newMap=new HashMap<>();
+		newMap.put(one, MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+		this.setMultiplicationMatrix(newMap);
 
 	}
 
@@ -163,12 +163,12 @@ public class RealLine implements SubField, EuclideanField, RealSpace {
 	}
 
 	@Override
-	public Homomorphism getMultiplicationMatrix() {
+	public Map<Vector,Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
 	}
 
 	@Override
-	public void setMultiplicationMatrix(Homomorphism multiplicationMatrix) {
+	public void setMultiplicationMatrix(Map<Vector,Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 	}
 

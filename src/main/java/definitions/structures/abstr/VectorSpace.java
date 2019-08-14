@@ -9,24 +9,9 @@ import definitions.structures.field.Field;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace {
+public interface VectorSpace extends VectorSpaceTechnicalProvider{
 
 	Field getField();
-
-	/**
-	 * Not yet implemented.
-	 * 
-	 * @param vec the vector to check for.
-	 * @return whether vec is an element of the space.
-	 */
-	boolean contains(Vector vec);
-
-	/**
-	 * Vector space is not empty.
-	 * 
-	 * @return the zero vector.
-	 */
-	Vector nullVec();
 
 	/**
 	 * Addition of vectors.
@@ -45,17 +30,5 @@ public interface VectorSpace {
 	 * @return the stretched vector.
 	 */
 	Vector stretch(Vector vec1, Scalar r);
-
-	/**
-	 * For debugging purposes.
-	 * 
-	 * @return The string.
-	 */
-	@Override
-	String toString();
-
-	default Integer getDim() {
-		return null;
-	}
 
 }

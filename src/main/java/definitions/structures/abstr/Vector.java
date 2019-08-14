@@ -10,7 +10,7 @@ import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public interface Vector {
+public interface Vector extends VectorTechnicalProvider{
 
 	/**
 	 * Method to get the dimension of the underlying vector space.
@@ -18,7 +18,9 @@ public interface Vector {
 	 * @return the dimension of the underlying vector space, if finite dimensional.
 	 *         Otherwise null.
 	 */
-	Integer getDim();
+	default Integer getDim() {
+		return null;
+	};
 
 	/**
 	 * Method to verify that the vector is contained by a specific vector space.
@@ -26,7 +28,9 @@ public interface Vector {
 	 * @param space
 	 * @return
 	 */
-	boolean elementOf(VectorSpace space);
+	default boolean elementOf(VectorSpace space) {
+		return true;
+	};
 
 	/**
 	 * Method to verify, the vector is "essentially" the same as another.
@@ -34,32 +38,8 @@ public interface Vector {
 	 * @param vec the vector to checl equality for.
 	 * @return true if vec is essentially the same as this one.
 	 */
-	Boolean equals(Vector vec);
-
-	/**
-	 * Method to get the coordinates on the underlying vector space.
-	 * 
-	 * @return the coordinates.
-	 */
-	Map<Vector, Scalar> getCoordinates();
-
-	/**
-	 * Coordinates as double[].
-	 * 
-	 * @return the coordinates as double[].
-	 */
-//	Scalar[] getGenericCoordinates();
-
-	@Override
-	String toString();
-
-	/**
-	 * Setter for coordinates on a base.
-	 * 
-	 * @param coordinates the coordinates.
-	 */
-	void setCoordinates(Map<Vector, Scalar> coordinates);
-
-	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
-
+	default Boolean equals(Vector vec) {
+		return true;
+	};
+	
 }

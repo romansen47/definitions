@@ -8,7 +8,7 @@ import java.util.Map;
  * @author ro
  *
  */
-public interface Homomorphism {
+public interface Homomorphism extends Vector{
 
 	/**
 	 * Method to apply the homomorphism on a vector.

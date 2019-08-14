@@ -9,14 +9,13 @@ import java.util.Set;
 import definitions.structures.abstr.Homomorphism;
 import definitions.structures.abstr.Scalar;
 import definitions.structures.abstr.Vector;
-import definitions.structures.field.EuclideanField;
 import definitions.structures.field.Field;
 import definitions.structures.field.scalar.impl.False;
 import definitions.structures.field.scalar.impl.True;
 import definitions.structures.finitedimensional.mappings.impl.MappingGenerator;
 import definitions.structures.finitedimensional.vectorspaces.EuclideanSpace;
 
-public final class Modulo2 implements EuclideanSpace, EuclideanField {
+public final class Modulo2 implements Field {
 
 	private static EuclideanSpace instance;
 
@@ -26,7 +25,7 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 
 	private final List<Vector> base = new ArrayList<>();
 
-	private Homomorphism multiplicationMatrix;
+	private Map<Vector,Homomorphism> multiplicationMatrix;
 
 	private Modulo2() {
 //		this.base.add(this.zero);
@@ -35,10 +34,15 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 		Map<Vector, Scalar> a = new HashMap<>();
 		a.put(this.unit, (Scalar) this.unit);
 		multiplicationMap.put(this.unit, a);
-		this.setMultiplicationMatrix(
-				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+		Map<Vector,Homomorphism> newMap=new HashMap<>();
+		newMap.put(this.unit, MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+		this.setMultiplicationMatrix(newMap);
 	}
-
+	
+	@Override
+	public Field getField() {
+		return this;
+	}
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new Modulo2();
@@ -56,11 +60,6 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 			return this.unit;
 		}
 		return this.zero;
-	}
-
-	@Override
-	public Field getField() {
-		return this;
 	}
 
 	@Override
@@ -103,13 +102,14 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 
 	@Override
 	public Vector projection(Vector w, Vector v) {
-		// TODO Auto-generated method stub
-		return null;
+		if (v==False.getInstance()) {
+			return False.getInstance();
+		}
+		return w;
 	}
 
 	@Override
 	public List<Vector> genericBaseToList() {
-		// TODO Auto-generated method stub
 		return this.base;
 	}
 
@@ -130,12 +130,12 @@ public final class Modulo2 implements EuclideanSpace, EuclideanField {
 	}
 
 	@Override
-	public Homomorphism getMultiplicationMatrix() {
+	public Map<Vector,Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
 	}
 
 	@Override
-	public void setMultiplicationMatrix(Homomorphism multiplicationMatrix) {
+	public void setMultiplicationMatrix(Map<Vector,Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 
 	}

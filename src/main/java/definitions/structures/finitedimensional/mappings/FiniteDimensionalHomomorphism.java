@@ -83,9 +83,9 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			for (final Vector vec : target.genericBaseToList()) {
 				tmp.put(vec, getLinearity().get(src).get(vec));
 			}
-			final double coord = coordinates.get(((EuclideanSpace) getSource()).getBaseVec(src)).getValue();
+			final Scalar coord = coordinates.get(((EuclideanSpace) getSource()).getBaseVec(src));
 			final Vector vec = target.get(tmp);
-			final Vector summand = target.stretch(vec, new Real(coord));
+			final Vector summand = target.stretch(vec,coord);
 			ans = target.add(ans, summand);
 		}
 		return ans;
