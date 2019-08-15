@@ -76,4 +76,8 @@ public final class True implements Scalar {
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 
+	@Override 
+	public String toString() {
+		return "true";
+	}
 }

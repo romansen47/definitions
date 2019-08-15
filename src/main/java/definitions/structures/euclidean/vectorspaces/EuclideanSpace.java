@@ -96,7 +96,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	@Override
 	default Vector stretch(final Vector vec, final Scalar r) {
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
-		final Map<Vector, Scalar> coordinates = ((FiniteVector) vec).getCoordinates();
+		final Map<Vector, Scalar> coordinates = vec.getCoordinates();
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
 			stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
@@ -167,7 +167,6 @@ public interface EuclideanSpace extends InnerProductSpace {
 			System.out.println("");
 			i++;
 		}
-
 	}
 
 	default Vector copyVector(final Vector vec) {

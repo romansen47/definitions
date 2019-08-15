@@ -45,10 +45,10 @@ public class Quaternion implements FiniteVector, Scalar {
 
 	@Override
 	public Boolean equals(Vector vec) {
-		return vec instanceof Quaternion && ((Quaternion) vec).getReal().getValue() == this.getReal().getValue()
-				&& ((Quaternion) vec).getI().getValue() == this.getI().getValue()
-				&& ((Quaternion) vec).getJ().getValue() == this.getJ().getValue()
-				&& ((Quaternion) vec).getK().getValue() == this.getK().getValue();
+		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
+				&& ((Quaternion) vec).getI().equals(this.getI())
+				&& ((Quaternion) vec).getJ().equals(this.getJ())
+				&& ((Quaternion) vec).getK().equals(this.getK());
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class Quaternion implements FiniteVector, Scalar {
 
 	@Override
 	public Scalar getInverse() {
-		return (Scalar) ((Field) ComplexPlane.getInstance()).inverse(this);
+		return (Scalar) ((Field) QuaternionSpace.getInstance()).inverse(this);
 	}
 
 	/**
@@ -83,10 +83,16 @@ public class Quaternion implements FiniteVector, Scalar {
 		return this.real;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getI().getValue() + " )" + " + j * ( "
+//				+ this.getJ().getValue() + " ) + " + "k * ( " + this.getK().getValue() + " )";
+//	}
+	
 	@Override
 	public String toString() {
-		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getI().getValue() + " )" + " + j * ( "
-				+ this.getJ().getValue() + " ) + " + "k * ( " + this.getK().getValue() + " )";
+		return "("+this.getReal().getValue() + ", " + this.getI().getValue() + ", "
+				+ this.getJ().getValue() + ", " + this.getK().getValue()+")";
 	}
 
 	@Override

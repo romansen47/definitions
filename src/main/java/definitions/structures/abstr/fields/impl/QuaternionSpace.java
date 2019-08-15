@@ -9,6 +9,7 @@ import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
@@ -79,16 +80,22 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		}
 		return instance;
 	}
+	
+	@Override
+	public Vector add(Vector vec1,Vector vec2) {
+		Vector ans=super.add(vec1,vec2);
+		return new Quaternion(ans.getCoordinates().get(one),ans.getCoordinates().get(i),ans.getCoordinates().get(j),ans.getCoordinates().get(k));
+	}
+	
+	@Override
+	public Vector stretch(Vector vec1,Scalar r) {
+		Vector ans=super.stretch(vec1,r);
+		return new Quaternion(ans.getCoordinates().get(one),ans.getCoordinates().get(i),ans.getCoordinates().get(j),ans.getCoordinates().get(k));
+	}
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
-	}
-
-	@Override
-	public Vector inverse(Vector factor) {
-		return null;// this.stretch(this.conjugate(factor), new
-					// Real(Math.pow(this.norm(factor).getValue(), -2)));
 	}
 
 	@Override
@@ -131,7 +138,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 			final Scalar[][] iMat = new Scalar[][] { { realZero, neg, realZero, realZero },
 					{ realOne, realZero, realZero, realZero }, { realZero, realZero, realZero, realOne },
-					{ realZero, realZero, neg, realOne } };
+					{ realZero, realZero, neg, realZero } };
 
 			final Homomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
 					iMat);

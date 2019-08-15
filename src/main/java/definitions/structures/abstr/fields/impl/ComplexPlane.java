@@ -40,6 +40,18 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		this.base.add(this.i);
 	}
 
+	@Override
+	public Vector add(Vector vec1,Vector vec2) {
+		Vector ans=super.add(vec1,vec2);
+		return new Complex(ans.getCoordinates().get(one),ans.getCoordinates().get(i));
+	}
+	
+	@Override
+	public Vector stretch(Vector vec1,Scalar r) {
+		Vector ans=super.stretch(vec1,r);
+		return new Complex(ans.getCoordinates().get(one),ans.getCoordinates().get(i));
+	}
+	
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new ComplexPlane();
@@ -52,11 +64,6 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		return Field.super.product(vec1, vec2);
 	}
 	
-	@Override
-	public Vector inverse(Vector factor) {
-		return this.stretch(this.conjugate(factor), new Real(Math.pow(this.norm(factor).getValue(), -2)));
-	}
-
 	private Vector conjugate(Vector factor) {
 		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
 		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());

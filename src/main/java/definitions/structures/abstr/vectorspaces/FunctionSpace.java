@@ -3,6 +3,7 @@ package definitions.structures.abstr.vectorspaces;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * 
@@ -44,8 +45,10 @@ public interface FunctionSpace extends VectorSpace {
 		Scalar tmp = new Real(x);
 		final Scalar epsNew = new Real(eps);
 		while (x < right) {
-			ans = (Scalar) getField().add(ans,
-					getField().stretch(getField().getField().product(vec1.value(tmp), vec2.value(tmp)), epsNew));
+			Vector tmp1=vec1.value(tmp);
+			Vector tmp2=vec2.value(tmp);
+			ans = (Scalar) (getField().add(ans,
+					getField().stretch(getField().product(tmp1,tmp2), epsNew)));
 			x += eps;
 			tmp = new Real(x);
 		}

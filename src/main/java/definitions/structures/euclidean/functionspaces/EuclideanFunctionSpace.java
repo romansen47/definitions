@@ -30,8 +30,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 				return new GenericFunction() {
 					@Override
 					public Scalar value(final Scalar input) {
-						return new Real(
-								((Function) vec1).value(input).getValue() + ((Function) vec2).value(input).getValue());
+						return (Scalar) getField().add(((Function) vec1).value(input), ((Function) vec2).value(input));
 					}
 				};
 			}
@@ -97,7 +96,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			return new GenericFunction() {
 				@Override
 				public Scalar value(final Scalar input) {
-					return new Real(r.getValue() * ((Function) vec).value(input).getValue());
+					return (Scalar) getField().stretch(((Function) vec).value(input),r);
 				}
 			};
 		} else {

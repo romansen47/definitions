@@ -18,6 +18,7 @@ public abstract class VectorSpaceTest {
 
 	public abstract Scalar getFactor();
 
+	@Test
 	public void testContains() {
 		Assert.assertTrue(this.getSpace().contains(this.getVec1()));
 		Assert.assertTrue(this.getSpace().contains(this.getVec2()));
