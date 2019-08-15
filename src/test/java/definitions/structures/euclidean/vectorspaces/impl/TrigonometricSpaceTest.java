@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.finitedimensional.vectorspaces.impl;
+package definitions.structures.euclidean.vectorspaces.impl;
 
 import definitions.structures.abstr.FunctionSpaceTest;
 import definitions.structures.abstr.fields.Field;

@@ -22,7 +22,7 @@ public class QuaternionTest extends VectorTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.fields.scalars.impl.Quaternion#getInverse()}.
 	 */
-	@Test
+//	@Test
 	public final void testGetInverse() {
 		fail("Not yet implemented"); // TODO
 	}

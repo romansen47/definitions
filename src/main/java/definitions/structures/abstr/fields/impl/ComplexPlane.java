@@ -51,21 +51,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}
-
-	@Override
-	public Vector add(Vector vec1, Vector vec2) {
-		final Scalar newRe = new Real(((Complex) vec1).getReal().getValue() + ((Complex) vec2).getReal().getValue());
-		final Scalar newIm = new Real(((Complex) vec1).getImag().getValue() + ((Complex) vec2).getImag().getValue());
-		return new Complex(newRe, newIm);
-	}
-
-	@Override
-	public Vector stretch(Vector vec1, Scalar r) {
-		final Scalar newRe = new Real(((Complex) vec1).getReal().getValue() * r.getValue());
-		final Scalar newIm = new Real(((Complex) vec1).getImag().getValue() * r.getValue());
-		return new Complex(newRe, newIm);
-	}
-
+	
 	@Override
 	public Vector inverse(Vector factor) {
 		return this.stretch(this.conjugate(factor), new Real(Math.pow(this.norm(factor).getValue(), -2)));
@@ -95,21 +81,6 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	@Override
 	public Vector nullVec() {
 		return this.zero;
-	}
-
-	@Override
-	public Integer getDim() {
-		return this.dim;
-	}
-
-	@Override
-	public Vector projection(Vector w, Vector v) {
-		return null;
-	}
-
-	@Override
-	public Vector getCoordinates(Vector vec) {
-		return vec;
 	}
 
 	/**

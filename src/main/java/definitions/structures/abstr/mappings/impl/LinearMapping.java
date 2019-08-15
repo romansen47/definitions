@@ -1,4 +1,4 @@
-package definitions.structures.abstr.impl;
+package definitions.structures.abstr.mappings.impl;
 
 import java.util.Map;
 

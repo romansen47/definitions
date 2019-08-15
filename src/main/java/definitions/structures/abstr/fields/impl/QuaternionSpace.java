@@ -34,8 +34,25 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	private Map<Vector, Homomorphism> multiplicationMatrix = null;
 
+	/**
+	 * @return the i
+	 */
+	
 	public Vector getI() {
 		return this.i;
+	}
+	/**
+	 * @return the j
+	 */
+	public Vector getJ() {
+		return this.j;
+	}
+
+	/**
+	 * @return the k
+	 */
+	public Vector getK() {
+		return this.k;
 	}
 
 	private QuaternionSpace() {
@@ -69,25 +86,6 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public Vector add(Vector vec1, Vector vec2) {
-		final Scalar newRe = (Scalar) RealLine.getInstance().add(((Quaternion) vec1).getReal(),
-				((Quaternion) vec2).getReal());
-		final Scalar newI = (Scalar) RealLine.getInstance().add(((Quaternion) vec1).getI(), ((Quaternion) vec2).getI());
-		final Scalar newJ = (Scalar) RealLine.getInstance().add(((Quaternion) vec1).getJ(), ((Quaternion) vec2).getJ());
-		final Scalar newK = (Scalar) RealLine.getInstance().add(((Quaternion) vec1).getK(), ((Quaternion) vec2).getK());
-		return new Quaternion(newRe, newI, newJ, newK);
-	}
-
-	@Override
-	public Vector stretch(Vector vec1, Scalar r) {
-		final Scalar newRe = (Scalar) RealLine.getInstance().product(((Quaternion) vec1).getReal(), r);
-		final Scalar newI = (Scalar) RealLine.getInstance().product(((Quaternion) vec1).getI(), r);
-		final Scalar newJ = (Scalar) RealLine.getInstance().product(((Quaternion) vec1).getJ(), r);
-		final Scalar newK = (Scalar) RealLine.getInstance().product(((Quaternion) vec1).getK(), r);
-		return new Quaternion(newRe, newI, newJ, newK);
-	}
-
-	@Override
 	public Vector inverse(Vector factor) {
 		return null;// this.stretch(this.conjugate(factor), new
 					// Real(Math.pow(this.norm(factor).getValue(), -2)));
@@ -111,21 +109,6 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public Vector nullVec() {
 		return this.zero;
-	}
-
-	@Override
-	public Integer getDim() {
-		return this.dim;
-	}
-
-	@Override
-	public Vector projection(Vector w, Vector v) {
-		return null;
-	}
-
-	@Override
-	public Vector getCoordinates(Vector vec) {
-		return vec;
 	}
 
 	/**
@@ -185,20 +168,6 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
-	}
-
-	/**
-	 * @return the j
-	 */
-	public Vector getJ() {
-		return this.j;
-	}
-
-	/**
-	 * @return the k
-	 */
-	public Vector getK() {
-		return this.k;
 	}
 
 }

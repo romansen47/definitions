@@ -1,3 +1,4 @@
+package definitions.structures.euclidean.vectorspaces;
 ///**
 // *
 // */

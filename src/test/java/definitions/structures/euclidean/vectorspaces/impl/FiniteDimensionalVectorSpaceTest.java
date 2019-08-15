@@ -1,4 +1,4 @@
-package definitions.structures.finitedimensional.vectorspaces.impl;
+package definitions.structures.euclidean.vectorspaces.impl;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -3,7 +3,7 @@ package definitions.structures.euclidean.vectors.specialfunctions;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
-import definitions.structures.abstr.impl.RealZero;
+import definitions.structures.abstr.mappings.impl.RealZero;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**

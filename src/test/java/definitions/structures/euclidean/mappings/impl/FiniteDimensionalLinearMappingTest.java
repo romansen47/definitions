@@ -1,4 +1,4 @@
-package definitions.structures.finitedimensional.mappings.impl;
+package definitions.structures.euclidean.mappings.impl;
 
 import java.util.Map;
 

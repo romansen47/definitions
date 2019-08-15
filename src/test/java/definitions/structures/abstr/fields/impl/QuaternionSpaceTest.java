@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.field.impl;
+package definitions.structures.abstr.fields.impl;
 
 import org.junit.BeforeClass;
 

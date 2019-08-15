@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.finitedimensional.real.vectorspaces;
+package definitions.structures.euclidean.vectorspaces;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;

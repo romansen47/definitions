@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.finitedimensional.real.vectors;
+package definitions.structures.abstr.vectorspaces.vectors;
 
 import static org.junit.Assert.fail;
 
