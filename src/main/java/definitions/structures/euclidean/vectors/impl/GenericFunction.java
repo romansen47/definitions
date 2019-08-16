@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -14,6 +15,8 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public abstract class GenericFunction implements Function {
 
+	protected Field field;
+	
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 	private Map<Vector, Scalar> coordinates;
 

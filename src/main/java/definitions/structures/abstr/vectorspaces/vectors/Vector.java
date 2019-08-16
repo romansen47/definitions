@@ -41,4 +41,5 @@ public interface Vector extends GroupElement, VectorTechnicalProvider {
 		return true;
 	}
 
+
 }

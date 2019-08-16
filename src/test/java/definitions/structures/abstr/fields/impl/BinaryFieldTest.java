@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpaceTest;
-import definitions.structures.abstr.fields.FieldTest;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.False;
 import definitions.structures.abstr.fields.scalars.impl.True;

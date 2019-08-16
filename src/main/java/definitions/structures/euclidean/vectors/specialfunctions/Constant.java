@@ -1,5 +1,6 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
@@ -9,7 +10,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  * @author ro
  *
  */
-public class Constant extends GenericFunction {
+public abstract class Constant extends GenericFunction {
 
 	/**
 	 * The constant value.

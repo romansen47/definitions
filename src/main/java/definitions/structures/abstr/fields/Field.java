@@ -11,10 +11,12 @@ import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectors.FiniteVector;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface Field extends EuclideanAlgebra,FieldTechnicalProvider {
@@ -59,5 +61,24 @@ public interface Field extends EuclideanAlgebra,FieldTechnicalProvider {
 	default Vector getZero() {
 		return nullVec();
 	}
+
+//	default Function conjugate(Function vec2) {
+//		Field f=this;
+//		return new GenericFunction() {
+//
+//			@Override
+//			public Scalar value(Scalar input) {
+//				return f.conjugate(((Function)vec2).value(input));
+//			}
+//
+//			@Override
+//			public Field getField() {
+//				return f;
+//			}
+//			
+//		};
+//	}
+
+	Scalar conjugate(Scalar value);
 	
 }

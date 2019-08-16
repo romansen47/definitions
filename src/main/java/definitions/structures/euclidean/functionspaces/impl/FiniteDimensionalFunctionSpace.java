@@ -1,6 +1,7 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,6 +27,8 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  */
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace implements EuclideanFunctionSpace {
 
+	private Vector nullVec;
+
 	/**
 	 * the interval.
 	 */
@@ -50,24 +53,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		this.interval[0] = left;
 		this.interval[1] = right;
 		final List<Vector> newBase;
+		setBase(genericBase);
 		if (orthonormalize) {
 			newBase = this.getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
 		}
-		for (final Vector vec : newBase) {
-			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
-			for (final Vector otherVec : newBase) {
-				if (vec == otherVec) {
-					tmpCoord.put(otherVec, RealLine.getInstance().getOne());
-				} else {
-					tmpCoord.put(otherVec, RealLine.getInstance().getZero());
-				}
-			}
-			vec.setCoordinates(tmpCoord);
-		}
+		assignOrthonormalCoordinates(newBase,field);
 		this.setBase(newBase);
-
 	}
 
 	@Override
@@ -88,7 +81,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, new Real(-1))));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, getField().get(-1))));
 			newBase.add(ans);
 		}
 		for (final Vector baseVec : newBase) {
@@ -122,20 +115,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Vector nullVec() {
-//		try {
-//			Scalar[] ans = new Scalar[getDim()];
-//			for (int i=0;i<ans.length;i++) {
-//				ans[i]= (Scalar) getField().getZero();
-//			}
-//			return new FunctionTuple(ans);
-//		} catch (Exception e) {
-		return new GenericFunction() {
-			@Override
-			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().getZero();
+		if (nullVec == null) {
+			Map<Vector, Scalar> nul = new HashMap<>();
+			for (Vector vec : genericBaseToList()) {
+				nul.put(vec, (Scalar) getField().getZero());
 			}
-		};
-//		}
+			nullVec = new FunctionTuple(nul, this);
+		}
+		return nullVec;
 	}
 
 	@Override
@@ -157,14 +144,21 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase the list.
+	 * @param tmpBase
+	 *            the list.
 	 */
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
-					new Real(d * i));
+					new Real(d * i)) {
+						@Override
+						public Field getField() {
+							return field;
+						}
+			};
 			tmpBase.add(sin);
 		}
 	}
@@ -172,14 +166,20 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase the list.
+	 * @param tmpBase
+	 *            the list.
 	 */
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector cos = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), new Real(0.5 * Math.PI),
-					new Real(d * i));
+					new Real(d * i)) {
+						@Override
+						public Field getField() {
+							return field;
+						}};
 			tmpBase.add(cos);
 		}
 	}

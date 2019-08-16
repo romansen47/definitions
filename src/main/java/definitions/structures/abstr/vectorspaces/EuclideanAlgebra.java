@@ -18,6 +18,9 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	@Override
 	default Vector product(Vector vec1, Vector vec2) {
 		Vector ans = nullVec();
+		if (vec1==ans || vec2==ans) {
+			return ans;
+		}
 		for (final Vector vec : genericBaseToList()) {
 			ans = add(ans, stretch(getMultiplicationMatrix().get(vec).get(vec2), vec1.getCoordinates().get(vec)));
 		}

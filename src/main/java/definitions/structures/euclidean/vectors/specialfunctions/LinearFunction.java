@@ -4,7 +4,7 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
-public class LinearFunction extends GenericFunction {
+public abstract  class LinearFunction extends GenericFunction {
 
 	final Scalar a;
 	final Scalar b;

@@ -49,6 +49,11 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			public String toString() {
 				return "Normed constant Function: x -> " + this.value.getValue();
 			}
+			
+			@Override
+			public Field getField() {
+				return field;
+			}
 		});
 		this.getSineFunctions(n, tmpBase);
 		this.getCosineFunctions(n, tmpBase);
@@ -110,7 +115,13 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector sin = new Sine(new Real(factor), RealLine.getInstance().getZero(), new Real(i));
+			final Vector sin = new Sine(new Real(factor), RealLine.getInstance().getZero(), new Real(i)) {
+
+				@Override
+				public Field getField() {
+					// TODO Auto-generated method stub
+					return field;
+				}};
 			tmpBase.add(sin);
 		}
 	}
@@ -130,7 +141,13 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector cos = new Sine(new Real(factor), new Real(0.5 * Math.PI), new Real(i));
+			final Vector cos = new Sine(new Real(factor), new Real(0.5 * Math.PI), new Real(i)) {
+
+				@Override
+				public Field getField() {
+					// TODO Auto-generated method stub
+					return field;
+				}};
 			tmpBase.add(cos);
 
 		}

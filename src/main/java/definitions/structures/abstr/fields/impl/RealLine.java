@@ -28,6 +28,8 @@ public class RealLine implements SubField, RealSpace {
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
 
+	final Map<Vector,Scalar> coordinates;
+	
 	private static RealLine instance;
 
 	private final List<Vector> base;
@@ -40,6 +42,7 @@ public class RealLine implements SubField, RealSpace {
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
+		coordinates=a;
 		multiplicationMap.put(RealLine.one, a);
 		final Map<Vector, Homomorphism> newMap = new HashMap<>();
 		newMap.put(one,
@@ -182,6 +185,15 @@ public class RealLine implements SubField, RealSpace {
 			this.dualSpace = new FunctionalSpace(this);
 		}
 		return this.dualSpace;
+	}
+	
+	public Scalar get(double value) {
+		return new Real(value);
+	}
+
+	@Override
+	public Scalar conjugate(Scalar value) {
+		return value;
 	}
 
 }

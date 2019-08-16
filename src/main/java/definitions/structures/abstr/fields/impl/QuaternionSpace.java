@@ -5,6 +5,7 @@ package definitions.structures.abstr.fields.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
@@ -72,6 +73,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		this.base.add(this.i);
 		this.base.add(this.j);
 		this.base.add(this.k);
+		assignOrthonormalCoordinates(base, getField());
 	}
 
 	public static EuclideanSpace getInstance() {
@@ -83,12 +85,27 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	
 	@Override
 	public Vector add(Vector vec1,Vector vec2) {
+		if (vec1==nullVec()) {
+			return vec2;
+		}
+		if (vec2==nullVec()) {
+			return vec1;
+		}
 		Vector ans=super.add(vec1,vec2);
 		return new Quaternion(ans.getCoordinates().get(one),ans.getCoordinates().get(i),ans.getCoordinates().get(j),ans.getCoordinates().get(k));
 	}
 	
 	@Override
 	public Vector stretch(Vector vec1,Scalar r) {
+		if (r instanceof Quaternion) {
+			return product(vec1,r);
+		}
+		if (r==getField().getOne()) {
+			return vec1;
+		}
+		if (r==getField().getZero()) {
+			return nullVec();
+		}
 		Vector ans=super.stretch(vec1,r);
 		return new Quaternion(ans.getCoordinates().get(one),ans.getCoordinates().get(i),ans.getCoordinates().get(j),ans.getCoordinates().get(k));
 	}
@@ -175,6 +192,15 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
+	}
+	
+	public Scalar get(double value) {
+		return new Quaternion(value,0,0,0);
+	}
+	@Override
+	public Scalar conjugate(Scalar value) {
+		Quaternion v=(Quaternion) value;
+		return new Quaternion(v.getReal().getValue(),-v.getI().getValue(),-v.getJ().getValue(),-v.getK().getValue());
 	}
 
 }

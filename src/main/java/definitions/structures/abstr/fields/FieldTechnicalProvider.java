@@ -26,6 +26,9 @@ public interface FieldTechnicalProvider {
 			System.out.println("");
 			i++;
 		}
-
+	}
+	
+	default Scalar get(double value) {
+		return null;
 	}
 }

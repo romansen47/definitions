@@ -6,6 +6,8 @@ package definitions.structures.abstr;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -29,7 +31,7 @@ public abstract class FunctionSpaceTest {
 	static GenericFunction staircaseFunction2;
 
 	static EuclideanFunctionSpace linearSpace;
-
+	final static Field f=RealLine.getInstance();
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -48,7 +50,12 @@ public abstract class FunctionSpaceTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues[1][k]);
+				return getField().get(testValues[1][k]);
+			}
+
+			@Override
+			public Field getField() {
+				return f;
 			}
 		};
 		staircaseFunction2 = new GenericFunction() {
@@ -62,12 +69,18 @@ public abstract class FunctionSpaceTest {
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues2[1][k]);
+				return getField().get(testValues2[1][k]);
 			}
+
+			@Override
+			public Field getField() {
+				return f;
+			}
+
 		};
 	}
 
-	@Test
+//	@Test
 	public void test1() {
 		final Function staircaseFunction1Projection = staircaseFunction.getProjection(this.getLinearSpace());
 		staircaseFunction.plotCompare(-1, 1, staircaseFunction1Projection);

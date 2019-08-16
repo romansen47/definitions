@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -26,9 +27,9 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 2;
+	static final int trigonometricDegree = 3;
 	static final int sobolevDegree = 1;
-	static int derivativeDegree = 2;
+	static int derivativeDegree = 3;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function symExp;
@@ -42,7 +43,12 @@ public class FunctionTest {
 		final ISpaceGenerator spGen = SpaceGenerator.getInstance();
 		final EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
-		final Function id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
+		final Function id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+			@Override
+			public Field getField() {
+				return RealLine.getInstance();
+			}
+		};
 		trigSpace = (EuclideanFunctionSpace) spGen.extend(tempSpace, id);
 		symExp = new GenericFunction() {
 			@Override
@@ -50,6 +56,11 @@ public class FunctionTest {
 				final double x = input.getValue();
 				final double pi = Math.PI;
 				return new Real(Math.pow(Math.sin(input.getValue()), 2) + 0.1 * input.getValue());
+			}
+
+			@Override
+			public Field getField() {
+				return RealLine.getInstance();
 			}
 		};
 		derivative = symExp.getProjectionOfDerivative(trigSpace);

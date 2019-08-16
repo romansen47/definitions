@@ -35,10 +35,16 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 				.getFiniteDimensionalVectorSpace(this.dim);
 		final List<Vector> coordinates = space.genericBaseToList();
 		this.interval = new double[] { left, right };
-		tmpBase.add(new Constant(new Real(1. / Math.sqrt(2 * right))));
+		Field f=field;
+		tmpBase.add(new Constant(new Real(1. / Math.sqrt(2 * right))) {
+			@Override
+			public Field getField() {
+				return f;
+			}});
 		this.getSineFunctions(n, Math.PI / right, tmpBase);
 		this.getCosineFunctions(n, Math.PI / right, tmpBase);
 		this.base = tmpBase;
+		assignOrthonormalCoordinates(base, field);
 	}
 
 }

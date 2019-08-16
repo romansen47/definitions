@@ -168,4 +168,9 @@ public final class BinaryField implements FiniteField {
 		return (FiniteField) instance;
 	}
 
+	@Override
+	public Scalar conjugate(Scalar value) {
+		return value;
+	}
+
 }

@@ -12,7 +12,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  * @author ro
  *
  */
-public class ExponentialFunction extends GenericFunction {
+public abstract  class ExponentialFunction extends GenericFunction {
 
 	/**
 	 * the parameter a.

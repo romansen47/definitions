@@ -17,7 +17,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class TrigonometricSpaceTest extends FunctionSpaceTest {
 
 	final static Field field = RealLine.getInstance();
-	final static EuclideanSpace trigSpace = SpaceGenerator.getInstance().getTrigonometricSpace(field, 30);
+	final static EuclideanSpace trigSpace = SpaceGenerator.getInstance().getTrigonometricSpace(field, 10);
 
 	@Override
 	public EuclideanFunctionSpace getLinearSpace() {

@@ -46,18 +46,19 @@ public class Quaternion implements FiniteVector, Scalar {
 	@Override
 	public Boolean equals(Vector vec) {
 		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
-				&& ((Quaternion) vec).getI().equals(this.getI())
-				&& ((Quaternion) vec).getJ().equals(this.getJ())
+				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
 				&& ((Quaternion) vec).getK().equals(this.getK());
 	}
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		this.coordinates = new HashMap<>();
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
+		if (coordinates == null) {
+			this.coordinates = new HashMap<>();
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
+		}
 		return this.coordinates;
 	}
 
@@ -68,7 +69,7 @@ public class Quaternion implements FiniteVector, Scalar {
 
 	@Override
 	public double getValue() {
-		return 0;
+		return getReal().getValue();
 	}
 
 	@Override
@@ -83,16 +84,18 @@ public class Quaternion implements FiniteVector, Scalar {
 		return this.real;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getI().getValue() + " )" + " + j * ( "
-//				+ this.getJ().getValue() + " ) + " + "k * ( " + this.getK().getValue() + " )";
-//	}
-	
+	// @Override
+	// public String toString() {
+	// return "( " + this.getReal().getValue() + " ) + i * ( " +
+	// this.getI().getValue() + " )" + " + j * ( "
+	// + this.getJ().getValue() + " ) + " + "k * ( " + this.getK().getValue() + "
+	// )";
+	// }
+
 	@Override
 	public String toString() {
-		return "("+this.getReal().getValue() + ", " + this.getI().getValue() + ", "
-				+ this.getJ().getValue() + ", " + this.getK().getValue()+")";
+		return "(" + this.getReal().getValue() + ", " + this.getI().getValue() + ", " + this.getJ().getValue() + ", "
+				+ this.getK().getValue() + ")";
 	}
 
 	@Override

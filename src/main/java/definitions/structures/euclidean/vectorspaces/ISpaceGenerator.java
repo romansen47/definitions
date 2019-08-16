@@ -204,13 +204,21 @@ public interface ISpaceGenerator {
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, final int n)
 			throws WrongClassException {
 		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(field, n),
-				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()));
+				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+					@Override
+					public Field getField() {
+						return field;
+					}});
 	}
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, final int n, double right)
 			throws WrongClassException {
 		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(field, n, right),
-				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()));
+				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()){
+					@Override
+					public Field getField() {
+						return field;
+					}});
 	}
 
 	EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, final int n, double right, boolean ortho);

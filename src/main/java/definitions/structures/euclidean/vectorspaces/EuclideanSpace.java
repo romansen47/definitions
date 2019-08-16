@@ -100,7 +100,6 @@ public interface EuclideanSpace extends InnerProductSpace {
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
 			stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
-//			stretched.put(vec1, (Scalar) RealLine.getInstance().product(coordinates.get(vec1), r));
 		}
 		return new Tuple(stretched);
 	}

@@ -25,7 +25,12 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 		this.interval = new double[] { -right, right };
 		this.base.clear();
 		for (int i = 0; i < (maxDegree + 1); i++) {
-			this.base.add(new Monome(i));
+			this.base.add(new Monome(i) {
+				@Override
+				public Field getField() {
+					return field;
+				}
+			});
 		}
 		this.dim = this.base.size();
 	}

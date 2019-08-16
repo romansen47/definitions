@@ -37,7 +37,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	protected int dim;
 
-	final private Field field;
+	protected final Field field;
 
 	/**
 	 * Plain constructor.

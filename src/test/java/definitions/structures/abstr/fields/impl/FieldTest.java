@@ -1,4 +1,4 @@
-package definitions.structures.abstr.fields;
+package definitions.structures.abstr.fields.impl;
 
 import static org.junit.Assert.*;
 
@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpaceTest;
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.scalars.Scalar;

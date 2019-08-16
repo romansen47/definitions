@@ -42,15 +42,15 @@ public interface FunctionSpace extends VectorSpace {
 	default Scalar getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
 		Scalar ans = (Scalar) getField().nullVec();
 		double x = left;
-		Scalar tmp = new Real(x);
-		final Scalar epsNew = new Real(eps);
+		Scalar tmp = getField().get(x);
+		final Scalar epsNew = getField().get(eps);
 		while (x < right) {
 			Vector tmp1=vec1.value(tmp);
 			Vector tmp2=vec2.value(tmp);
 			ans = (Scalar) (getField().add(ans,
-					getField().stretch(getField().product(tmp1,tmp2), epsNew)));
+					getField().stretch(getField().product(tmp1,getField().conjugate((Scalar) tmp2)), epsNew)));
 			x += eps;
-			tmp = new Real(x);
+			tmp =getField().get(x);
 		}
 		return ans;// * eps;
 	}

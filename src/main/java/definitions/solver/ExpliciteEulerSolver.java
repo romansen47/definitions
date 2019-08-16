@@ -1,5 +1,7 @@
 package definitions.solver;
 
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -7,6 +9,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class ExpliciteEulerSolver implements Solver {
 
+	final Field field=RealLine.getInstance();
 	public Function fun;
 	double initialData;
 	final double eps;
@@ -30,6 +33,10 @@ public class ExpliciteEulerSolver implements Solver {
 					xval += ExpliciteEulerSolver.this.eps;
 				}
 				return new Real(ans);
+			}
+			@Override
+			public Field getField() {
+				return field;
 			}
 		};
 	}
