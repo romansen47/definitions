@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -46,6 +47,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 			public Scalar value(Scalar input) {
 				return input;
 			}
+
 		};
 
 		functionSpace = Generator.getGenerator().getSpacegenerator()

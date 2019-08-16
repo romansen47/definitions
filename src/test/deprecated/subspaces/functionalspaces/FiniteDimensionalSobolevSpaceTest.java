@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -75,12 +76,30 @@ public class FiniteDimensionalSobolevSpaceTest {
 			public Scalar value(Scalar input) {
 				return new Real(input.getValue() / this.norm);
 			}
+
+			@Override
+			public Field getField() {
+				// TODO Auto-generated method stub
+				return (Field)realLine;
+			}
 		};
-		exp = new ExponentialFunction((Scalar) realLine.nullVec(), ((RealLine) realLine).getOne());
+		exp = new ExponentialFunction((Scalar) realLine.nullVec(), ((RealLine) realLine).getOne()) {
+
+			@Override
+			public Field getField() {
+				// TODO Auto-generated method stub
+				return null;
+			}};
 		abs = new GenericFunction() {
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.abs(input.getValue()));
+			}
+
+			@Override
+			public Field getField() {
+				// TODO Auto-generated method stub
+				return null;
 			}
 		};
 		staircaseFunction = new GenericFunction() {
@@ -96,6 +115,12 @@ public class FiniteDimensionalSobolevSpaceTest {
 				}
 				return new Real(testValues[1][k]);
 			}
+
+			@Override
+			public Field getField() {
+				// TODO Auto-generated method stub
+				return (Field)realLine;
+			}
 		};
 		staircaseFunction2 = new GenericFunction() {
 			int length = (int) testValues2[0][testValues2[0].length - 1];
@@ -110,6 +135,12 @@ public class FiniteDimensionalSobolevSpaceTest {
 				}
 				return new Real(testValues2[1][k]);
 			}
+
+			@Override
+			public Field getField() {
+				// TODO Auto-generated method stub
+				return null;
+			}
 		};
 
 		final ISpaceGenerator generator = Generator.getGenerator().getSpacegenerator();
@@ -120,7 +151,13 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		final EuclideanSpace trigonometricSobolevSpace = generator.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				dim, degree);
-		final Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
+		final Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+
+			@Override
+			public Field getField() {
+				// TODO Auto-generated method stub
+				return (Field)realLine;
+			}};
 		sobolevSpace = generator.extend(trigonometricSobolevSpace, id);
 
 		idToSobolevFourierCoordinates = normalizedIdentity.getProjection(sobolevSpace);

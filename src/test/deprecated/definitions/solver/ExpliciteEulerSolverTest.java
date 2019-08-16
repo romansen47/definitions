@@ -3,6 +3,7 @@ package definitions.solver;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -20,7 +21,12 @@ public class ExpliciteEulerSolverTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 		setSpace(Generator.getGenerator().getSpacegenerator().getTrigonometricSpace(RealLine.getInstance(), 1));
-		fun = new ExponentialFunction((Scalar) realLine.nullVec(), (Scalar) realLine.nullVec());// (Function)
+		fun = new ExponentialFunction((Scalar) realLine.nullVec(), (Scalar) realLine.nullVec()) {
+			@Override
+			public Field getField() {
+				return (Field) realLine;
+			}
+		};// (Function)
 																								// getSpace().genericBaseToList().get(0);
 	}
 

@@ -27,9 +27,9 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 3;
+	static final int trigonometricDegree = 2;
 	static final int sobolevDegree = 1;
-	static int derivativeDegree = 3;
+	static int derivativeDegree = 1;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function symExp;

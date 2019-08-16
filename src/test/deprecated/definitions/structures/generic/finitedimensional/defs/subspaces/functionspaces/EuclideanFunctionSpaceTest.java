@@ -28,11 +28,16 @@ public class EuclideanFunctionSpaceTest {
 	private static FunctionSpace trigonometricSpaceSobolev;
 
 	final static int polynomialDegree = 2;
-	final static int trigonometricDegree = 2;
-	final static int sobolevDegree = 2;
+	final static int trigonometricDegree = 15;
+	final static int sobolevDegree = 0;
 
 	final static Function exp = new ExponentialFunction(RealLine.getInstance().getZero(),
-			RealLine.getInstance().getOne());
+			RealLine.getInstance().getOne()) {
+		@Override
+		public Field getField() {
+			return (Field) realLine;
+		}
+	};
 	private static FunctionSpace extendedSpace;
 	private static FunctionSpace extendedToSobolev;
 
@@ -41,7 +46,7 @@ public class EuclideanFunctionSpaceTest {
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree, 1,
 				false);
 		polynomialSpaceSobolev = (FunctionSpace) SpaceGenerator.getInstance()
-				.getPolynomialSobolevSpace((Field) realLine, polynomialDegree, Math.PI, sobolevDegree);
+				.getPolynomialSobolevSpace((Field) realLine, polynomialDegree,1, sobolevDegree);
 
 		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace((Field) realLine, trigonometricDegree);
 		trigonometricSpaceSobolev = SpaceGenerator.getInstance().getTrigonometricSobolevSpace((Field) realLine,
@@ -52,27 +57,43 @@ public class EuclideanFunctionSpaceTest {
 	public void polynomialL2() throws WrongClassException {
 		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpace,
 				new Sine(RealLine.getInstance().getOne(), (Scalar) RealLine.getInstance().nullVec(),
-						RealLine.getInstance().getOne()));
+						RealLine.getInstance().getOne(),RealLine.getInstance()) {
+							@Override
+							public Field getField() {
+								return RealLine.getInstance();
+							}});
 		((EuclideanSpace) extendedSpace).show();
 	}
 
 	@Test
 	public void polynomialSobolev() throws WrongClassException {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpaceSobolev,
-				new Sine(1, 0, 1));
+				new Sine(1, 0, 1) {
+			@Override
+			public Field getField() {
+				return RealLine.getInstance();
+			}});
 		((EuclideanSpace) extendedToSobolev).show();
 	}
 
 	@Test
 	public void trigonometricL2() throws WrongClassException {
 		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpace,
-				new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()));
+				new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()) {
+					@Override
+					public Field getField() {
+						return (Field) realLine;
+					}});
 		((EuclideanSpace) extendedSpace).show();
 	}
 
 	@Test
 	public void trigonometricSobolev() throws WrongClassException {
-		final Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne());
+		final Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()) {
+			@Override
+			public Field getField() {
+				return (Field) realLine;
+			}};
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpaceSobolev, fun);
 		exp.getProjection((EuclideanSpace) extendedToSobolev).plotCompare(-Math.PI, Math.PI, exp);
 		((EuclideanSpace) extendedToSobolev).show();

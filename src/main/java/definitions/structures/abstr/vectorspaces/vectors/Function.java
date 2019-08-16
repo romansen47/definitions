@@ -311,5 +311,7 @@ public interface Function extends Vector, Plotable {
 
 	Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap();
 
-	Field getField();
+	default Field getField() {
+		return RealLine.getInstance();
+	};
 }

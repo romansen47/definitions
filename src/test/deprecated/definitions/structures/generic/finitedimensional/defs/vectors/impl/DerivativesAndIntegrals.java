@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -21,6 +22,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegrals {
 
+	static Field realLine=RealLine.getInstance();
 	static Sine sine;
 	static Function cosine;
 	static Function monome;
@@ -41,12 +43,22 @@ public class DerivativesAndIntegrals {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		sine = new Sine(1, 0, 1);
+		sine = new Sine(1, 0, 1){
+			@Override
+			public Field getField() {
+				return (Field) realLine;
+			}};;
 
 		monome = new Monome(1) {
+
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(1 - super.value(new Real(input.getValue() / Math.PI)).getValue());
+			}
+
+			@Override
+			public Field getField() {
+				return realLine;
 			}
 		};
 
