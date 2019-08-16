@@ -9,7 +9,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class ExpliciteEulerSolver implements Solver {
 
-	final Field field=RealLine.getInstance();
+	final Field f=RealLine.getInstance();
 	public Function fun;
 	double initialData;
 	final double eps;
@@ -36,7 +36,7 @@ public class ExpliciteEulerSolver implements Solver {
 			}
 			@Override
 			public Field getField() {
-				return field;
+				return f;
 			}
 		};
 	}

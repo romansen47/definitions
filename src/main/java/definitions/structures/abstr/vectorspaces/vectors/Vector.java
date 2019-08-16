@@ -34,8 +34,8 @@ public interface Vector extends GroupElement, VectorTechnicalProvider {
 	/**
 	 * Method to verify, the vector is "essentially" the same as another.
 	 * 
-	 * @param vec the vector to checl equality for.
-	 * @return true if vec is essentially the same as this one.
+	 * @param vec the vector to check equality for.
+	 * @return true if vector is essentially the same as this.
 	 */
 	default Boolean equals(Vector vec) {
 		return true;

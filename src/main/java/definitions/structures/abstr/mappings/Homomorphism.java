@@ -12,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author ro
  *
  */
-public interface Homomorphism extends Vector {
+public interface Homomorphism extends Mapping,Vector {
 
 	/**
 	 * Method to apply the homomorphism on a vector.
@@ -20,6 +20,7 @@ public interface Homomorphism extends Vector {
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
+	@Override
 	Vector get(Vector vec);
 
 	/**
@@ -42,18 +43,10 @@ public interface Homomorphism extends Vector {
 	 */
 	Map<Vector, Map<Vector, Scalar>> getLinearity();
 
-	/**
-	 * Getter for the source space.
-	 * 
-	 * @return the source space.
-	 */
+	@Override
 	VectorSpace getSource();
 
-	/**
-	 * Getter for the target space.
-	 * 
-	 * @return the target space.
-	 */
+	@Override
 	VectorSpace getTarget();
 
 	/**

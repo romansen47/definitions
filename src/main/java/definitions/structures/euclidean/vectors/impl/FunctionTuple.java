@@ -34,7 +34,7 @@ public class FunctionTuple extends Tuple implements Function {
 	public Scalar value(final Scalar input) {
 		Scalar ans = (Scalar) getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans = (Scalar) getField().product(((Function) fun).value(input),this.getCoordinates().get(fun));
+			ans = (Scalar) getField().add(ans,(Scalar) getField().product(((Function) fun).value(input),this.getCoordinates().get(fun)));
 		}
 		return ans;
 	}

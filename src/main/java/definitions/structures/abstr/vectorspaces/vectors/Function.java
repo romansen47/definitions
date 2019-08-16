@@ -27,7 +27,7 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
-	double eps = 1.e-7;
+	double eps = 1.e-10;
 
 	/**
 	 * static constant 1-function.
@@ -77,32 +77,10 @@ public interface Function extends Vector, Plotable {
 
 	@Override
 	default void plot(final double left, final double right) {
-
-		final int count = 1000;
-
-		final double delta = (right - left) / count;
-		double x = 0;
-		double min = value(getField().get((right - left) / 2.)).getValue();
-		double max = min;
-		for (double i = 0; i < (count - 1); i += 1) {
-			x = left + (delta * i);
-			final double y = value(getField().get(x)).getValue();
-			if (y > max) {
-				max = y;
-			}
-			if (y < min) {
-				min = y;
-			}
-		}
-		if (delta == 0) {
-			min = min - 100;
-			max = max + 100;
-		}
 		final StdDraw stddraw = new StdDraw();
-		stddraw.setCanvasSize(1000, 700);
-		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(1.5 * min, 1.5 * max);
-
+		final int count = 1000;
+		final double delta = (right - left) / count;
+		preparePlot(left, right, stddraw, count, delta);
 		double z = 0;
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
@@ -115,10 +93,8 @@ public interface Function extends Vector, Plotable {
 		}
 	}
 
-	@Override
-	default void plotCompare(final double left, final double right, final Function fun) {
-		final int count = 1000;
-		final double delta = (right - left) / count;
+	default void preparePlot(final double left, final double right, StdDraw stddraw,
+			int count,double delta) {
 		double x = 0;
 		double min = value(getField().get((right - left) / 2.)).getValue();
 		double max = min;
@@ -140,11 +116,17 @@ public interface Function extends Vector, Plotable {
 			min = min - (0.2 * d);
 			max = max + (0.5 * d);
 		}
-		final StdDraw stddraw = new StdDraw();
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
 		StdDraw.setYscale(min, max);
-
+		
+	}
+	@Override
+	default void plotCompare(final double left, final double right, final Function fun) {
+		final StdDraw stddraw = new StdDraw();
+		final int count = 1000;
+		final double delta = (right - left) / count;
+		preparePlot(left, right,stddraw,count,delta);
 		Scalar tmp = getField().get(left);
 		double alpha = value(tmp).getValue();
 		double beta = fun.value(tmp).getValue();
@@ -174,6 +156,7 @@ public interface Function extends Vector, Plotable {
 	 * @return the derivative.
 	 */
 	default Function getDerivative() {
+		final Field f=getField();
 		if (derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
@@ -187,7 +170,7 @@ public interface Function extends Vector, Plotable {
 
 				@Override
 				public Field getField() {
-					return this.getField();
+					return f;
 				}
 			};
 		} else {
@@ -268,7 +251,7 @@ public interface Function extends Vector, Plotable {
 	 * @return the projection of the derivative.
 	 */
 	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
-		return this.getDerivative(space);
+		return this.getDerivative(space); // return derivative with respact to the base of vector space.
 	}
 
 	/**

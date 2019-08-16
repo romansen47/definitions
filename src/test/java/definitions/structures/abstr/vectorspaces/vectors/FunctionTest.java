@@ -27,9 +27,9 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 2;
+	static final int trigonometricDegree = 3;
 	static final int sobolevDegree = 1;
-	static int derivativeDegree = 1;
+	static int derivativeDegree = 3;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function symExp;
@@ -41,15 +41,19 @@ public class FunctionTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		final ISpaceGenerator spGen = SpaceGenerator.getInstance();
-		final EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
+		final EuclideanFunctionSpace tempSpace = spGen.
+				getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
-		final Function id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
-			@Override
-			public Field getField() {
-				return RealLine.getInstance();
+//						.getTrigonometricSpace(RealLine.getInstance(), trigonometricDegree);
+		final Function abs=new GenericFunction() {
+			public Scalar value(Scalar input) {
+				return new Real(0.5*input.getValue()+Math.abs(input.getValue()));
 			}
+			
 		};
-		trigSpace = (EuclideanFunctionSpace) spGen.extend(tempSpace, id);
+		Function projId=abs.getProjection(tempSpace);
+//		abs.plotCompare(-Math.PI,Math.PI,projId);
+		trigSpace = (EuclideanFunctionSpace) spGen.extend(tempSpace, abs);
 		symExp = new GenericFunction() {
 			@Override
 			public Scalar value(Scalar input) {
@@ -63,7 +67,9 @@ public class FunctionTest {
 				return RealLine.getInstance();
 			}
 		};
-		derivative = symExp.getProjectionOfDerivative(trigSpace);
+//		derivative = symExp.getProjectionOfDerivative(trigSpace);
+
+//		projId.plotCompare(-Math.PI,Math.PI,abs.getProjection(trigSpace));
 	}
 
 	/**

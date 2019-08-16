@@ -16,7 +16,7 @@ public abstract  class LinearFunction extends GenericFunction {
 
 	@Override
 	public Scalar value(Scalar input) {
-		return new Real(this.a.getValue() + (this.b.getValue() * input.getValue()));
+		return getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));
 	}
 
 	@Override

@@ -30,8 +30,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 * @param right  the sup of the interval.
 	 * @param degree the sobolev degree.
 	 */
-	public TrigonometricSobolevSpace(Field field, final int n, final double left, final double right, int degree) {
-		super(field, degree);
+	public TrigonometricSobolevSpace(Field f, final int n, final double left, final double right, int degree) {
+		super(f, degree);
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
 //		final EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getSpacegenerator()
@@ -52,7 +52,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			
 			@Override
 			public Field getField() {
-				return field;
+				return f;
 			}
 		});
 		this.getSineFunctions(n, tmpBase);

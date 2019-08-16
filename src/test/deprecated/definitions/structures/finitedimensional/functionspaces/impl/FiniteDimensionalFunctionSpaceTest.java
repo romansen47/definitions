@@ -27,7 +27,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class FiniteDimensionalFunctionSpaceTest {
 
 	static VectorSpace trigonometricSpace;
-	final static int degree = 2;
+	final static int degree = 1;
 
 	static Vector fun1;
 	static Vector fun2;
