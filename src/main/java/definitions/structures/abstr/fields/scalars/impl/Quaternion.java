@@ -15,6 +15,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class Quaternion implements FiniteVector, Scalar {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7587290161110602891L;
 	private final Scalar real;
 	private final Scalar i;
 	private final Scalar j;
@@ -52,7 +56,7 @@ public class Quaternion implements FiniteVector, Scalar {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		if (coordinates == null) {
+		if (this.coordinates == null) {
 			this.coordinates = new HashMap<>();
 			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
 			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
@@ -69,7 +73,7 @@ public class Quaternion implements FiniteVector, Scalar {
 
 	@Override
 	public double getValue() {
-		return getReal().getValue();
+		return this.getReal().getValue();
 	}
 
 	@Override

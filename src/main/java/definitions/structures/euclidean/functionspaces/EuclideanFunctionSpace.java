@@ -26,14 +26,20 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
-		final Field f=getField();
+		final Field f = getField();
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((vec1 instanceof GenericFunction) || (vec2 instanceof GenericFunction)) {
 				return new GenericFunction() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -2989863516320429371L;
+
 					@Override
 					public Scalar value(final Scalar input) {
 						return (Scalar) getField().add(((Function) vec1).value(input), ((Function) vec2).value(input));
 					}
+
 					@Override
 					public Field getField() {
 						return f;
@@ -98,13 +104,19 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
-		final Field f=getField();
+		final Field f = getField();
 		if (vec instanceof GenericFunction) {
 			return new GenericFunction() {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -3311201318061885649L;
+
 				@Override
 				public Scalar value(final Scalar input) {
-					return (Scalar) getField().stretch(((Function) vec).value(input),r);
+					return (Scalar) getField().stretch(((Function) vec).value(input), r);
 				}
+
 				@Override
 				public Field getField() {
 					return f;

@@ -5,54 +5,56 @@ import java.util.Map;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Endomorphism;
-import definitions.structures.abstr.mappings.Homomorphism;
-import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectors.FiniteVector;
-import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface Field extends EuclideanAlgebra,FieldTechnicalProvider {
+public interface Field extends EuclideanAlgebra, FieldMethods {
 
 	default Vector inverse(Vector factor) {
-		VectorSpace multLinMaps= new LinearMappingsSpace(this,this);
-		FiniteDimensionalHomomorphism hom=new FiniteDimensionalLinearMapping(this,this) {
+		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
+		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4878554588629268392L;
+
 			@Override
 			public Vector get(Vector vec) {
 				return getTarget().nullVec();
 			}
+
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-				Map<Vector,Map<Vector,Scalar>> coord=new HashMap<>();
-				for (Vector vec:((EuclideanSpace) getSource()).genericBaseToList()) {
+				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
+				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
 					coord.put(vec, target.nullVec().getCoordinates());
 				}
 				return coord;
 			}
+
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				Scalar[][] mat=new Scalar[target.getDim()][source.getDim()];
-				for (Scalar[] entry:mat) {
-					for (Scalar scalar:entry){
-						scalar=RealLine.getInstance().getZero();
+				final Scalar[][] mat = new Scalar[target.getDim()][source.getDim()];
+				for (final Scalar[] entry : mat) {
+					for (Scalar scalar : entry) {
+						scalar = RealLine.getInstance().getZero();
 					}
 				}
 				return mat;
 			}
 		};
-		for (Vector vec:genericBaseToList()) {
-			Vector tmp=this.getMultiplicationMatrix().get(vec);
-			hom=(FiniteDimensionalHomomorphism) multLinMaps.add(hom, multLinMaps.stretch(tmp, factor.getCoordinates().get(vec)));
+		for (final Vector vec : genericBaseToList()) {
+			final Vector tmp = this.getMultiplicationMatrix().get(vec);
+			hom = (FiniteDimensionalHomomorphism) multLinMaps.add(hom,
+					multLinMaps.stretch(tmp, factor.getCoordinates().get(vec)));
 		}
 		return hom.solve((FiniteVector) getOne());
-//		return ((Scalar) factor).getInverse();
 	}
 
 	@Override
@@ -62,23 +64,6 @@ public interface Field extends EuclideanAlgebra,FieldTechnicalProvider {
 		return nullVec();
 	}
 
-//	default Function conjugate(Function vec2) {
-//		Field f=this;
-//		return new GenericFunction() {
-//
-//			@Override
-//			public Scalar value(Scalar input) {
-//				return f.conjugate(((Function)vec2).value(input));
-//			}
-//
-//			@Override
-//			public Field getField() {
-//				return f;
-//			}
-//			
-//		};
-//	}
-
 	Scalar conjugate(Scalar value);
-	
+
 }

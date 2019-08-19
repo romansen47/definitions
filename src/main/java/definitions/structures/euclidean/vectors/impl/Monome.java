@@ -3,8 +3,12 @@ package definitions.structures.euclidean.vectors.impl;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 
-public abstract  class Monome extends GenericFunction {
+public abstract class Monome extends GenericFunction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6765574043986345237L;
 	final int degree;
 
 	public Monome(int degree) {

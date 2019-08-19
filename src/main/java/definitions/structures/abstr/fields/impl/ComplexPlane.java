@@ -17,6 +17,11 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 
 public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6528124823296735558L;
+
 	static private EuclideanSpace instance;
 
 	private final Vector zero;
@@ -42,14 +47,14 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) {
-		Vector ans = super.add(vec1, vec2);
-		return new Complex(ans.getCoordinates().get(one), ans.getCoordinates().get(i));
+		final Vector ans = super.add(vec1, vec2);
+		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
 	}
 
 	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
-		Vector ans = super.stretch(vec1, r);
-		return new Complex(ans.getCoordinates().get(one), ans.getCoordinates().get(i));
+		final Vector ans = super.stretch(vec1, r);
+		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
 	}
 
 	public static EuclideanSpace getInstance() {
@@ -64,7 +69,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		return Field.super.product(vec1, vec2);
 	}
 
-	private Vector conjugate(Vector factor) {
+	public Vector conjugate(Vector factor) {
 		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
 		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
 		return new Complex(newRe, newIm);
@@ -121,21 +126,21 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	/**
-	 * @param multiplicationMatrix
-	 *            the multiplicationMatrix to set
+	 * @param multiplicationMatrix the multiplicationMatrix to set
 	 */
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 	}
 
+	@Override
 	public Scalar get(double value) {
 		return new Complex(value, 0);
 	}
 
 	@Override
 	public Scalar conjugate(Scalar value) {
-		Complex v = (Complex) value;
+		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
 	}
 

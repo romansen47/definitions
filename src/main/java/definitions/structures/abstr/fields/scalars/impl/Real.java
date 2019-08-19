@@ -26,7 +26,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 
 	private Map<Vector, Scalar> coordinates;
 
-	private final double eps = 1.e-5;
+	private final double eps = 1.e-3;
 
 	public Real(double value) {
 		this.realValue = value;

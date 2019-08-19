@@ -6,6 +6,11 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public abstract class Identity extends LinearMapping implements Endomorphism {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6209038203547448760L;
+
 	public Identity(VectorSpace source) {
 		super(source, source);
 	}

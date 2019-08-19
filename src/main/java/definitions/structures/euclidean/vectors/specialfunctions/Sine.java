@@ -7,6 +7,10 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class Sine extends GenericFunction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4429300404671715544L;
 	Field field;
 	private final Scalar magnitude;
 	private final Scalar translation;
@@ -17,12 +21,12 @@ public abstract class Sine extends GenericFunction {
 		this.translation = b;
 		this.frequency = c;
 	}
-	
-	public Sine(Scalar a, Scalar b, Scalar c,Field field) {
+
+	public Sine(Scalar a, Scalar b, Scalar c, Field field) {
 		this.magnitude = a;
 		this.translation = b;
 		this.frequency = c;
-		this.field=field;
+		this.field = field;
 	}
 
 	public Sine(double a, double b, double c) {

@@ -17,6 +17,11 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 public abstract class LinearMapping implements Homomorphism {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2515190501525767017L;
+
+	/**
 	 * The source vector space.
 	 */
 	protected final VectorSpace source;
@@ -39,10 +44,8 @@ public abstract class LinearMapping implements Homomorphism {
 	/**
 	 * Constructor. Called by instance of MappingGenerator.
 	 * 
-	 * @param source
-	 *            the source vector space.
-	 * @param target
-	 *            the target vector space.
+	 * @param source the source vector space.
+	 * @param target the target vector space.
 	 */
 	protected LinearMapping(final VectorSpace source, final VectorSpace target) {
 		this.source = source;
@@ -51,19 +54,19 @@ public abstract class LinearMapping implements Homomorphism {
 
 	@Override
 	public VectorSpace getSource() {
-		return source;
+		return this.source;
 	}
 
 	@Override
 	public VectorSpace getTarget() {
-		return target;
+		return this.target;
 	}
 
 //	@Override
 //	public Map<Vector,Map<Vector,Scalar>> getCoordinates(){
 //		Map<Vector,Map<Vector,Scalar>> coord=new HashMap<>();
 //		for (Vector vec1:source.genericBaseToList()) {
-//			
+//
 //		}
 //	}
 }

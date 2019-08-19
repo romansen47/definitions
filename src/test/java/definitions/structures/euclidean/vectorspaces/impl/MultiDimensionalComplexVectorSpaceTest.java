@@ -11,7 +11,6 @@ import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro

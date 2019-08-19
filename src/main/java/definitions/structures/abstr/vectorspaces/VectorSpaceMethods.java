@@ -5,11 +5,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface VectorSpaceTechnicalProvider {
+public interface VectorSpaceMethods {
 
 	/**
 	 * Not yet implemented.
@@ -39,8 +38,8 @@ public interface VectorSpaceTechnicalProvider {
 	default Integer getDim() {
 		return null;
 	}
-	
-	default void assignOrthonormalCoordinates(List<Vector> newBase,Field field) {
+
+	default void assignOrthonormalCoordinates(List<Vector> newBase, Field field) {
 		for (final Vector vec : newBase) {
 			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
 			for (final Vector otherVec : newBase) {
@@ -53,6 +52,5 @@ public interface VectorSpaceTechnicalProvider {
 			vec.setCoordinates(tmpCoord);
 		}
 	}
-
 
 }

@@ -11,21 +11,21 @@ import definitions.IWatcher;
  */
 public class Watcher implements IWatcher {
 
-	private static IWatcher instance=null;
-	
+	private static IWatcher instance = null;
+
 	private Watcher() {
 	}
-	
+
 	public static IWatcher getInstance() {
-		if (instance==null) {
-			instance=new Watcher();
+		if (instance == null) {
+			instance = new Watcher();
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public void removeLast() {
-		list.remove(list.size()-1);
+		list.remove(list.size() - 1);
 	}
 
 }

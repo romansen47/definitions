@@ -6,7 +6,6 @@ package definitions.structures.euclidean.vectorspaces.impl;
 import definitions.structures.abstr.FunctionSpaceTest;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski

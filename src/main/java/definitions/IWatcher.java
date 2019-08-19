@@ -11,21 +11,21 @@ import java.util.List;
  *
  */
 public interface IWatcher {
-	
-	final List<String> list=new ArrayList<>();
-	
+
+	final List<String> list = new ArrayList<>();
+
 	static void add(String str) {
 		getList().add(str);
-	};
+	}
 
 	static List<String> getList() {
 		return list;
 	}
 
 	void removeLast();
-	
+
 	static void show() {
-		for (String string:getList()) {
+		for (final String string : getList()) {
 			System.out.println(string);
 		}
 	}

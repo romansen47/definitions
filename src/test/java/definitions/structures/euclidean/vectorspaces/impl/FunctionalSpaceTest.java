@@ -11,7 +11,6 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -55,8 +54,8 @@ public class FunctionalSpaceTest {
 		final Vector b = this.dualFunctionSpace.genericBaseToList().get(1);
 		final Functional x = (Functional) b;
 		final Vector c = x.get(a);
-		Assert.assertTrue(c.equals(RealLine.getInstance().getOne()));
 		System.out.println(c.toString());
+		Assert.assertTrue(c.equals(RealLine.getInstance().getOne()));
 	}
 
 	@Test
@@ -65,8 +64,8 @@ public class FunctionalSpaceTest {
 		final Vector b = this.dualSobolevSpace.genericBaseToList().get(1);
 		final Functional x = (Functional) b;
 		final Vector c = x.get(a);
-		Assert.assertTrue(c.equals(RealLine.getInstance().getOne()));
 		System.out.println(c.toString());
+		Assert.assertTrue(c.equals(RealLine.getInstance().getOne()));
 	}
 
 }

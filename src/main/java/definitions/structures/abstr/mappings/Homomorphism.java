@@ -12,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author ro
  *
  */
-public interface Homomorphism extends Mapping,Vector {
+public interface Homomorphism extends Mapping, Vector {
 
 	/**
 	 * Method to apply the homomorphism on a vector.

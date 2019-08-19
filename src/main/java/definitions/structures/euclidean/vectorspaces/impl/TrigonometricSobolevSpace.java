@@ -23,6 +23,11 @@ import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6195850038689778521L;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param n      the highest degree of the trigonometric polynomials.
@@ -38,6 +43,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 //				.getFiniteDimensionalVectorSpace(this.dim);
 		this.interval = new double[] { left, right };
 		tmpBase.add(new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -2594116178838181589L;
 			final Scalar value = new Real(1. / Math.sqrt(2 * Math.PI));
 
 			@Override
@@ -49,7 +58,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			public String toString() {
 				return "Normed constant Function: x -> " + this.value.getValue();
 			}
-			
+
 			@Override
 			public Field getField() {
 				return f;
@@ -117,11 +126,17 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			factor = 1 / Math.sqrt(factor * Math.PI);
 			final Vector sin = new Sine(new Real(factor), RealLine.getInstance().getZero(), new Real(i)) {
 
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -3675768767280698458L;
+
 				@Override
 				public Field getField() {
 					// TODO Auto-generated method stub
-					return field;
-				}};
+					return TrigonometricSobolevSpace.this.field;
+				}
+			};
 			tmpBase.add(sin);
 		}
 	}
@@ -143,11 +158,17 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			factor = 1 / Math.sqrt(factor * Math.PI);
 			final Vector cos = new Sine(new Real(factor), new Real(0.5 * Math.PI), new Real(i)) {
 
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -344838499735956273L;
+
 				@Override
 				public Field getField() {
 					// TODO Auto-generated method stub
-					return field;
-				}};
+					return TrigonometricSobolevSpace.this.field;
+				}
+			};
 			tmpBase.add(cos);
 
 		}

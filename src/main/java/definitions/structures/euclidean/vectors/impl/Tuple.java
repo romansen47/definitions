@@ -15,6 +15,11 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 
 public class Tuple implements FiniteVector {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -738201540142933649L;
+
 	final int dim;
 
 	private Map<Vector, Scalar> coordinates;

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -16,31 +15,41 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FunctionTuple extends Tuple implements Function {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3953250098421804886L;
 	final private Field field;
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 
 	public FunctionTuple(final Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 		super(coordinates);
 		this.coordinatesMap.put(space, coordinates);
-		this.field=space.getField();
+		this.field = space.getField();
 	}
 
-	public FunctionTuple(final Scalar[] coordinates,Field field) {
+	public FunctionTuple(final Scalar[] coordinates, Field field) {
 		super(coordinates);
-		this.field=field;
+		this.field = field;
 	}
 
 	@Override
 	public Scalar value(final Scalar input) {
-		Scalar ans = (Scalar) getField().getZero();
+		Scalar ans = (Scalar) this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans = (Scalar) getField().add(ans,(Scalar) getField().product(((Function) fun).value(input),this.getCoordinates().get(fun)));
+			ans = (Scalar) this.getField().add(ans,
+					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
 		}
 		return ans;
 	}
 
 	public LinearMapping getDerivative(VectorSpace space) {
 		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8910643729270807923L;
+
 			@Override
 			public Vector get(Vector vec2) {
 				return ((Function) vec2).getDerivative();
@@ -70,7 +79,7 @@ public class FunctionTuple extends Tuple implements Function {
 
 	@Override
 	public Field getField() {
-		return field;
+		return this.field;
 	}
 
 }

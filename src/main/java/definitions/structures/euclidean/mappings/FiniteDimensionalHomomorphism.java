@@ -40,18 +40,18 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 
 		final Scalar[][] matrix = this.getGenericMatrix();
 		final Scalar[] imageVector = new Scalar[image.getDim()];
-		for (int i=0;i<getTarget().getDim();i++) {
-			imageVector[i]=image.getCoordinates().get(((EuclideanSpace) getTarget()).genericBaseToList().get(i));
+		for (int i = 0; i < getTarget().getDim(); i++) {
+			imageVector[i] = image.getCoordinates().get(((EuclideanSpace) getTarget()).genericBaseToList().get(i));
 		}
 		final double[][] matrixAsDoubles = new double[matrix.length][matrix[0].length];
-		for (int i=0;i<matrix.length;i++) {
-			for (int j=0;j<matrix[0].length;j++) {
-				matrixAsDoubles[i][j]=matrix[i][j].getValue();
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[0].length; j++) {
+				matrixAsDoubles[i][j] = matrix[i][j].getValue();
 			}
 		}
 		final double[] imageVectorAsDoubles = new double[imageVector.length];
-		for (int i=0;i<imageVector.length;i++) {
-			imageVectorAsDoubles[i]=imageVector[i].getValue();
+		for (int i = 0; i < imageVector.length; i++) {
+			imageVectorAsDoubles[i] = imageVector[i].getValue();
 		}
 		try {
 			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(
@@ -59,12 +59,12 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 							.solve(MatrixUtils.createRealVector(imageVectorAsDoubles));
 			final double[] ans = apacheVector.toArray();
 			final Scalar[] ansAsScalars = new Scalar[ans.length];
-			final Map<Vector,Scalar> ansAsCoordinates=new HashMap<>();
+			final Map<Vector, Scalar> ansAsCoordinates = new HashMap<>();
 			for (int i = 0; i < ans.length; i++) {
 				ansAsScalars[i] = new Real(ans[i]);
 				ansAsCoordinates.put(((EuclideanSpace) getTarget()).genericBaseToList().get(i), new Real(ans[i]));
 			}
-			return (FiniteVector) ((EuclideanSpace)getTarget()).get(ansAsCoordinates);//new Tuple(ansAsScalars);
+			return (FiniteVector) ((EuclideanSpace) getTarget()).get(ansAsCoordinates);// new Tuple(ansAsScalars);
 		} catch (final Exception e) {
 			return null;
 		}

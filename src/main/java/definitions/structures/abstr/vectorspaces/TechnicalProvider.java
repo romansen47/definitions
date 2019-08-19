@@ -9,8 +9,6 @@ public interface TechnicalProvider {
 
 	static IWatcher getStringBuilder() {
 		return builder;
-	};
-	
-	
-	
+	}
+
 }

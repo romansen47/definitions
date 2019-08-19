@@ -3,12 +3,9 @@
  */
 package definitions.structures.euclidean.functionspaces.impl;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.fields.Field;
@@ -20,8 +17,8 @@ import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpaceTest;
 
 /**
  * @author BAU12350
@@ -37,54 +34,65 @@ public class QuaternionFunctionSpaceTest {// extends FiniteDimensionalFunctionSp
 	public void test() {
 
 		final Function alpha = new GenericFunction() {
+			private static final long serialVersionUID = 6698998256903151087L;
+
 			@Override
 			public Scalar value(Scalar input) {
-				double val = ((Quaternion) input).getReal().getValue();
-				Quaternion tmp = (Quaternion) f.add(f.getOne(), new Quaternion(val, -val, 0, 0));
-				return (Scalar) f.normalize(tmp);
+				final double val = ((Quaternion) input).getReal().getValue();
+				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
+						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, -val, 0, 0));
+				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 
 			@Override
 			public Field getField() {
-				return f;
+				return QuaternionFunctionSpaceTest.this.f;
 			}
 		};
 		final Function beta = new GenericFunction() {
+			private static final long serialVersionUID = -2624612868740391242L;
+
 			@Override
 			public Scalar value(Scalar input) {
-				double val = ((Quaternion) input).getReal().getValue();
-				Quaternion tmp = (Quaternion) f.add(f.getOne(), new Quaternion(val, val, 0, 0));
-				return (Scalar) f.normalize(tmp);
+				final double val = ((Quaternion) input).getReal().getValue();
+				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
+						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, val, 0, 0));
+				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 
 			@Override
 			public Field getField() {
-				return f;
+				return QuaternionFunctionSpaceTest.this.f;
 			}
 		};
 		final Function gamma = new GenericFunction() {
+			private static final long serialVersionUID = -6598973940477311007L;
+
 			@Override
 			public Scalar value(Scalar input) {
-				double val = ((Quaternion) input).getReal().getValue();
-				Quaternion tmp = (Quaternion) f.add(f.getOne(), new Quaternion(val, -val, val,1- val));
-				if (Math.abs(((Quaternion) input).getReal().getValue())<1.e-5) {
-					return (Scalar) f.stretch(input, new Real(1.e5));
+				final double val = ((Quaternion) input).getReal().getValue();
+				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
+						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, -val, val, 1 - val));
+				if (Math.abs(((Quaternion) input).getReal().getValue()) < 1.e-5) {
+					return (Scalar) QuaternionFunctionSpaceTest.this.f.stretch(input, new Real(1.e5));
 				}
-				return (Scalar) f.normalize(tmp);
+				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 
 			@Override
 			public Field getField() {
-				return f;
+				return QuaternionFunctionSpaceTest.this.f;
 			}
 		};
-		space = new FiniteDimensionalFunctionSpace(f, base, -1, 1, true);
+		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -1, 1, true);
 
-		base.add(alpha);
-		base.add(beta);
-//		alpha.plot(-Math.PI, Math.PI);
-//		beta.plot(-Math.PI, Math.PI);
+		this.base.add(alpha);
+		this.base.add(beta);
+		
+		alpha.plot(-Math.PI, Math.PI);
+		beta.plot(-Math.PI, Math.PI);
 		gamma.plot(-Math.PI, Math.PI);
+		
 	}
 
 }

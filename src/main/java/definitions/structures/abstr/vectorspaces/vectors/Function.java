@@ -4,17 +4,19 @@ import java.awt.Color;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.solver.Plotable;
-import definitions.solver.StdDraw;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.mappings.VectorField;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import solver.Plotable;
+import solver.StdDraw;
 
 /**
  * Function.
@@ -27,27 +29,27 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
-	double eps = 1.e-10;
+	double eps = 1.e-13;
 
+	Function derivative = null;
 	/**
 	 * static constant 1-function.
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
+		private static final long serialVersionUID = 7890164185650800915L;
 		final Field ownfield = field;
 
 		@Override
 		public Field getField() {
 			return ownfield;
 		}
-	};
 
-	Function derivative = null;
+	};
 
 	/**
 	 * Evaluation of the function.
 	 * 
-	 * @param input
-	 *            the input parameter.
+	 * @param input the input parameter.
 	 * @return the image of the input.
 	 */
 	Scalar value(Scalar input);
@@ -55,10 +57,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to determine whether another function produces the same values.
 	 * 
-	 * @param other
-	 *            the other function.
-	 * @param source
-	 *            the source vector space.
+	 * @param other  the other function.
+	 * @param source the source vector space.
 	 * @return the equality.
 	 */
 	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
@@ -75,26 +75,7 @@ public interface Function extends Vector, Plotable {
 		return true;
 	}
 
-	@Override
-	default void plot(final double left, final double right) {
-		final StdDraw stddraw = new StdDraw();
-		final int count = 1000;
-		final double delta = (right - left) / count;
-		preparePlot(left, right, stddraw, count, delta);
-		double z = 0;
-		StdDraw.setPenRadius(0.001);
-		for (double i = 0; i < (count - 1); i += 1) {
-			z = left + (delta * i);
-			StdDraw.setPenColor(Color.blue);
-			for (Vector vec : getField().genericBaseToList()) {
-				StdDraw.line(z, value(getField().get(z)).getCoordinates().get(vec).getValue(), z + delta,
-						value(getField().get(z + delta)).getCoordinates().get(vec).getValue());
-			}
-		}
-	}
-
-	default void preparePlot(final double left, final double right, StdDraw stddraw,
-			int count,double delta) {
+	default void preparePlot(final double left, final double right, StdDraw stddraw, int count, double delta) {
 		double x = 0;
 		double min = value(getField().get((right - left) / 2.)).getValue();
 		double max = min;
@@ -119,14 +100,32 @@ public interface Function extends Vector, Plotable {
 		stddraw.setCanvasSize(1000, 700);
 		StdDraw.setXscale(left, right);
 		StdDraw.setYscale(min, max);
-		
 	}
+
+	@Override
+	default void plot(final double left, final double right) {
+		final StdDraw stddraw = new StdDraw();
+		final int count = 1000;
+		final double delta = (right - left) / count;
+		preparePlot(left, right, stddraw, count, delta);
+		double z = 0;
+		StdDraw.setPenRadius(0.001);
+		for (double i = 0; i < (count - 1); i += 1) {
+			z = left + (delta * i);
+			StdDraw.setPenColor(Color.blue);
+			for (final Vector vec : getField().genericBaseToList()) {
+				StdDraw.line(z, value(getField().get(z)).getCoordinates().get(vec).getValue(), z + delta,
+						value(getField().get(z + delta)).getCoordinates().get(vec).getValue());
+			}
+		}
+	}
+
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		preparePlot(left, right,stddraw,count,delta);
+		preparePlot(left, right, stddraw, count, delta);
 		Scalar tmp = getField().get(left);
 		double alpha = value(tmp).getValue();
 		double beta = fun.value(tmp).getValue();
@@ -145,9 +144,7 @@ public interface Function extends Vector, Plotable {
 			alpha = alphaNext;
 			beta = betaNext;
 		}
-
-		// StdDraw.save(Integer.toString(this.hashCode()) + ".png");
-
+		StdDraw.save("src/test/resources/" + Integer.toString(this.hashCode()) + ".png");
 	}
 
 	/**
@@ -156,10 +153,12 @@ public interface Function extends Vector, Plotable {
 	 * @return the derivative.
 	 */
 	default Function getDerivative() {
-		final Field f=getField();
+		final Field f = getField();
 		if (derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
+				private static final long serialVersionUID = -1492641310343584079L;
+
 				@Override
 				public Scalar value(final Scalar input) {
 					final double dy = fun.value(new Real(input.getValue() + eps)).getValue()
@@ -172,6 +171,7 @@ public interface Function extends Vector, Plotable {
 				public Field getField() {
 					return f;
 				}
+
 			};
 		} else {
 			return derivative;
@@ -190,8 +190,7 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the n-th derivative.
 	 * 
-	 * @param n
-	 *            the derivative degree.
+	 * @param n the derivative degree.
 	 * @return the n-th derivative of the function.
 	 */
 	default Function getDerivative(int n) {
@@ -228,8 +227,7 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to get an n-th primitive integral.
 	 * 
-	 * @param n
-	 *            the degree.
+	 * @param n the degree.
 	 * @return an n-th integral.
 	 */
 	// default Function getPrimitiveIntegral(int n) {
@@ -246,19 +244,17 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the projection of the derivative onto a vector space.
 	 * 
-	 * @param space
-	 *            the vector space.
+	 * @param space the vector space.
 	 * @return the projection of the derivative.
 	 */
 	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
-		return this.getDerivative(space); // return derivative with respact to the base of vector space.
+		return this.getDerivative(space);
 	}
 
 	/**
 	 * Method to compute the coordinates of the projection onto a vector space.
 	 * 
-	 * @param space
-	 *            the vector space.
+	 * @param space the vector space.
 	 * @return the coordinates of the projection.
 	 */
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
@@ -278,8 +274,7 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the projection onto another space.
 	 * 
-	 * @param source
-	 *            the vector space.
+	 * @param source the vector space.
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
@@ -296,5 +291,5 @@ public interface Function extends Vector, Plotable {
 
 	default Field getField() {
 		return RealLine.getInstance();
-	};
+	}
 }

@@ -13,7 +13,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group, VectorSpaceTechnicalProvider {
+public interface VectorSpace extends Group, VectorSpaceMethods {
 
 	Field getField();
 

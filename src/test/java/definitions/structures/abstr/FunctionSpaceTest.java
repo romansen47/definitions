@@ -9,7 +9,6 @@ import org.junit.Test;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -31,7 +30,8 @@ public abstract class FunctionSpaceTest {
 	static GenericFunction staircaseFunction2;
 
 	static EuclideanFunctionSpace linearSpace;
-	final static Field f=RealLine.getInstance();
+	final static Field f = RealLine.getInstance();
+
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -40,6 +40,10 @@ public abstract class FunctionSpaceTest {
 		testValues = Reader.readFile(PATH);
 		testValues2 = Reader.readFile(PATH2);
 		staircaseFunction = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -8361584686661267908L;
 			private final int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -50,7 +54,7 @@ public abstract class FunctionSpaceTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return getField().get(testValues[1][k]);
+				return this.getField().get(testValues[1][k]);
 			}
 
 			@Override
@@ -59,6 +63,10 @@ public abstract class FunctionSpaceTest {
 			}
 		};
 		staircaseFunction2 = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 2729095328251979949L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
@@ -69,7 +77,7 @@ public abstract class FunctionSpaceTest {
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return getField().get(testValues2[1][k]);
+				return this.getField().get(testValues2[1][k]);
 			}
 
 			@Override

@@ -1,11 +1,14 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
-public abstract  class LinearFunction extends GenericFunction {
+public abstract class LinearFunction extends GenericFunction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1217714308801686785L;
 	final Scalar a;
 	final Scalar b;
 
@@ -16,7 +19,7 @@ public abstract  class LinearFunction extends GenericFunction {
 
 	@Override
 	public Scalar value(Scalar input) {
-		return getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));
+		return this.getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));
 	}
 
 	@Override

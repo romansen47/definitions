@@ -22,7 +22,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegrals {
 
-	static Field realLine=RealLine.getInstance();
+	static Field realLine = RealLine.getInstance();
 	static Sine sine;
 	static Function cosine;
 	static Function monome;
@@ -43,11 +43,12 @@ public class DerivativesAndIntegrals {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		sine = new Sine(1, 0, 1){
+		sine = new Sine(1, 0, 1) {
 			@Override
 			public Field getField() {
-				return (Field) realLine;
-			}};;
+				return realLine;
+			}
+		};
 
 		monome = new Monome(1) {
 

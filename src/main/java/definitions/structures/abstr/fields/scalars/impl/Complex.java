@@ -14,6 +14,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class Complex implements FiniteVector, Scalar {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2160805146914088274L;
 	private final Scalar real;
 	private final Scalar imag;
 	private Map<Vector, Scalar> coordinates;

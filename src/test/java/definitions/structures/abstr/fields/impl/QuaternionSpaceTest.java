@@ -6,7 +6,6 @@ package definitions.structures.abstr.fields.impl;
 import org.junit.BeforeClass;
 
 import definitions.structures.abstr.VectorSpaceTest;
-import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.fields.scalars.impl.Real;

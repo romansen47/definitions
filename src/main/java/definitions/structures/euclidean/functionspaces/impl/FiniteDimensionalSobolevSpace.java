@@ -19,6 +19,10 @@ import definitions.structures.euclidean.vectors.impl.FunctionTuple;
  */
 public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpace {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2547484050898391066L;
 	private DerivativeOperator derivativeBuilder;
 	/**
 	 * The sobolev degree.

@@ -6,7 +6,7 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface FieldTechnicalProvider {
+public interface FieldMethods {
 	default void show(Field field) {
 		final List<Vector> base = field.genericBaseToList();
 		final Scalar[][] products = new Scalar[base.size()][base.size()];
@@ -17,9 +17,8 @@ public interface FieldTechnicalProvider {
 				products[i][j] = (Scalar) field.product(vec1, vec2);
 				if (field instanceof RealLine) {
 					System.out.print((products[i][j].getValue() - (products[i][j].getValue() % 0.001)) + ",");
-				}
-				else {
-					System.out.print(products[i][j].toString()+", ");
+				} else {
+					System.out.print(products[i][j].toString() + ", ");
 				}
 				j++;
 			}
@@ -27,7 +26,7 @@ public interface FieldTechnicalProvider {
 			i++;
 		}
 	}
-	
+
 	default Scalar get(double value) {
 		return null;
 	}

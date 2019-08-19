@@ -16,7 +16,9 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
-public final class BinaryField implements FiniteField {
+public final class BinaryField implements PrimeField {
+
+	private static final long serialVersionUID = -7935335390082721765L;
 
 	private static EuclideanSpace instance;
 
@@ -164,8 +166,8 @@ public final class BinaryField implements FiniteField {
 	}
 
 	@Override
-	public FiniteField getPrimeField() {
-		return (FiniteField) instance;
+	public PrimeField getPrimeField() {
+		return (PrimeField) instance;
 	}
 
 	@Override

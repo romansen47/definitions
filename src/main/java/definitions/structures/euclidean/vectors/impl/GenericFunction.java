@@ -15,8 +15,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public abstract class GenericFunction implements Function {
 
+	private static final long serialVersionUID = 1L;
+
 	protected Field field;
-	
+
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 	private Map<Vector, Scalar> coordinates;
 

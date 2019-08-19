@@ -40,6 +40,7 @@ public class PolynomeRegressionTest {
 			public Scalar value(Scalar input) {
 				return new Real(Math.sin(input.getValue() * Math.PI));
 			}
+
 			@Override
 			public Field getField() {
 				return realLine;
@@ -51,7 +52,8 @@ public class PolynomeRegressionTest {
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.exp(input.getValue() * Math.PI));
-				}
+			}
+
 			@Override
 			public Field getField() {
 				return realLine;

@@ -38,7 +38,7 @@ public abstract class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.VectorTechnicalProvider#getCoordinates()}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.VectorMethods#getCoordinates()}.
 	 */
 	@Test
 	public void testGetCoordinates() {

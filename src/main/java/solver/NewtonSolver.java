@@ -1,4 +1,4 @@
-package definitions.solver;
+package solver;
 
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;

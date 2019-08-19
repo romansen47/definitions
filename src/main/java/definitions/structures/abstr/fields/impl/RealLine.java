@@ -23,13 +23,18 @@ import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
 public class RealLine implements SubField, RealSpace {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1444063003774915383L;
+
 	private EuclideanSpace dualSpace;
 
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
 
-	final Map<Vector,Scalar> coordinates;
-	
+	final Map<Vector, Scalar> coordinates;
+
 	private static RealLine instance;
 
 	private final List<Vector> base;
@@ -42,7 +47,7 @@ public class RealLine implements SubField, RealSpace {
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
-		coordinates=a;
+		this.coordinates = a;
 		multiplicationMap.put(RealLine.one, a);
 		final Map<Vector, Homomorphism> newMap = new HashMap<>();
 		newMap.put(one,
@@ -186,7 +191,8 @@ public class RealLine implements SubField, RealSpace {
 		}
 		return this.dualSpace;
 	}
-	
+
+	@Override
 	public Scalar get(double value) {
 		return new Real(value);
 	}

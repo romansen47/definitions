@@ -20,6 +20,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6752082006058465558L;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param n     the highest degree of the trigonometric polynomials.
@@ -35,16 +40,22 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 				.getFiniteDimensionalVectorSpace(this.dim);
 		final List<Vector> coordinates = space.genericBaseToList();
 		this.interval = new double[] { left, right };
-		Field f=field;
+		final Field f = field;
 		tmpBase.add(new Constant(new Real(1. / Math.sqrt(2 * right))) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7393292837814311224L;
+
 			@Override
 			public Field getField() {
 				return f;
-			}});
+			}
+		});
 		this.getSineFunctions(n, Math.PI / right, tmpBase);
 		this.getCosineFunctions(n, Math.PI / right, tmpBase);
 		this.base = tmpBase;
-		assignOrthonormalCoordinates(base, field);
+		this.assignOrthonormalCoordinates(this.base, field);
 	}
 
 }

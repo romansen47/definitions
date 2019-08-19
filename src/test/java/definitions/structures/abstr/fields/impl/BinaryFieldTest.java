@@ -3,12 +3,6 @@
  */
 package definitions.structures.abstr.fields.impl;
 
-import static org.junit.Assert.*;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import definitions.structures.abstr.VectorSpaceTest;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.False;
 import definitions.structures.abstr.fields.scalars.impl.True;
@@ -43,7 +37,7 @@ public class BinaryFieldTest extends FieldTest {
 
 	@Override
 	public Scalar getFactor() {
-		return (Scalar) getVec1();
+		return (Scalar) this.getVec1();
 	}
 
 }

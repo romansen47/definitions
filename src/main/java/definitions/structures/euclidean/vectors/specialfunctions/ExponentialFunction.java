@@ -12,7 +12,12 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  * @author ro
  *
  */
-public abstract  class ExponentialFunction extends GenericFunction {
+public abstract class ExponentialFunction extends GenericFunction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1297369141413774111L;
 
 	/**
 	 * the parameter a.

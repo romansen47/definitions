@@ -11,6 +11,8 @@ import definitions.structures.abstr.fields.scalars.impl.Real;
  */
 public final class RealOne extends Real {
 
+	private static final long serialVersionUID = 1L;
+
 	private static Real one;
 
 	public static Real getOne() {
