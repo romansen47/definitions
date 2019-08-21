@@ -58,7 +58,7 @@ public class PrimeTest {
 
 	@Test
 	public void test() {
-		this.distribution.plot(0, 1.e7);
+		this.distribution.plot(0, 1.e6);
 	}
 
 }
