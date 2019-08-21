@@ -15,11 +15,14 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
+/**
+ * 
+ * @author ro
+ *
+ *         Implementation of the field of complex numbers as a singleton class.
+ */
 public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6528124823296735558L;
 
 	static private EuclideanSpace instance;
@@ -82,7 +85,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public String toString() {
-		return "ComplexPlane as 2-dimensional real vector space";
+		return "the field of complex numbers as a 2-dimensional real vector space.";
 	}
 
 	@Override

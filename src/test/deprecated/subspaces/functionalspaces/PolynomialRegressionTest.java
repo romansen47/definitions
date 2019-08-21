@@ -34,6 +34,11 @@ public class PolynomialRegressionTest {
 	static VectorSpace trigonometricSpace;
 
 	static Function exp = new GenericFunction() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public Scalar value(Scalar input) {
 			return new Real(Math.exp(input.getValue()));
@@ -65,6 +70,10 @@ public class PolynomialRegressionTest {
 				trigonometricDegree, sobolevDegree);
 
 		staircaseFunction = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -81,6 +90,10 @@ public class PolynomialRegressionTest {
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
 
 		measures = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.impl.Integers.Int;
 
 /**
  * @author RoManski
@@ -43,6 +44,9 @@ public class IntegersTest {
 		final GroupElement a = this.group.get(10);
 		final GroupElement b = this.group.get(10);
 		final GroupElement c = this.group.operation(a, b);
+		boolean test = ((Int) c).isPrime();
+		final Int prime = (Int) this.group.get(101);
+		test = prime.isPrime();
 	}
 
 }

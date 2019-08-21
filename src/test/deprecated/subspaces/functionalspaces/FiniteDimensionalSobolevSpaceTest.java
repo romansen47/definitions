@@ -69,6 +69,10 @@ public class FiniteDimensionalSobolevSpaceTest {
 		testValues2 = readFile(PATH2);
 
 		normalizedIdentity = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt((2 * Math.pow(Math.PI, 3)) / 3);
 
 			@Override
@@ -78,14 +82,28 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		};
 		exp = new ExponentialFunction((Scalar) realLine.nullVec(), ((RealLine) realLine).getOne()) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 		};
 		abs = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.abs(input.getValue()));
 			}
 		};
 		staircaseFunction = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -101,6 +119,10 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		};
 		staircaseFunction2 = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
@@ -125,6 +147,11 @@ public class FiniteDimensionalSobolevSpaceTest {
 		final EuclideanSpace trigonometricSobolevSpace = generator.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				dim, degree);
 		final Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 		};
 		sobolevSpace = generator.extend(trigonometricSobolevSpace, id);
 

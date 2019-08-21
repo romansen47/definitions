@@ -44,6 +44,11 @@ public class DerivativesAndIntegrals {
 	public static void setUpBeforeClass() throws Throwable {
 
 		sine = new Sine(1, 0, 1) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Field getField() {
 				return realLine;
@@ -51,6 +56,11 @@ public class DerivativesAndIntegrals {
 		};
 
 		monome = new Monome(1) {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Scalar value(Scalar input) {

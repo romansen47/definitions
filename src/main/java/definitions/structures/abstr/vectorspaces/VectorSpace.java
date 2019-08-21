@@ -4,6 +4,7 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -45,4 +46,14 @@ public interface VectorSpace extends Group, VectorSpaceMethods {
 		return add((Vector) first, (Vector) second);
 	}
 
+	@Override
+	default MonoidElement getIdentityElement() {
+		return nullVec();
+	}
+
+	@Override
+	default GroupElement getInverseElement(GroupElement element) {
+		final Field field = getField();
+		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+	}
 }

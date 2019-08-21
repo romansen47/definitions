@@ -115,16 +115,15 @@ public class Tuple implements FiniteVector {
 		return this.getCoordinates().keySet();
 	}
 
-	@Override
-	public Boolean equals(final Vector vec) {
-		final int i = 0;
-		for (final Vector key : this.getCoordinates().keySet()) {
-			if (!(this.coordinates.get(key).getValue() == vec.getCoordinates().get(key).getValue())) {
-				return false;
-			}
-		}
-		return true;
-	}
+//	@Override
+//	public Boolean equals(final Vector vec) {
+//		for (final Vector key : this.getCoordinates().keySet()) {
+//			if (!(this.coordinates.get(key).getValue() == vec.getCoordinates().get(key).getValue())) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {

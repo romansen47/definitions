@@ -19,8 +19,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
- * @author RoManski
+ * 
+ * @author ro
  *
+ *         Implementation of the field of quaternion numbers as a singleton
+ *         class.
  */
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
@@ -128,7 +131,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public String toString() {
-		return "QuaternionSpace as 4-dimensional real vector space";
+		return "the field of quaternions as a 4-dimensional real vector space.";
 	}
 
 	@Override

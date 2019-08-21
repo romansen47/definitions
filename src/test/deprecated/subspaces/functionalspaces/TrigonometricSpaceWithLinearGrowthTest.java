@@ -56,6 +56,11 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				.getTrigonometricSpace(RealLine.getInstance(), dim);
 
 		identity = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return input;
@@ -65,6 +70,11 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		final Function idToFourier = identity.getProjection(trigonometricFunctionSpace);
 
 		final Function newBaseFunction = new GenericFunction() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
 			private final Function normedIdToFourier = (Function) trigonometricFunctionSpace.normalize(idToFourier);
 
@@ -100,6 +110,10 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		}
 
 		staircaseFunction = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -130,6 +144,10 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		}
 
 		staircaseFunction2 = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
@@ -150,6 +168,11 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		final int length = (int) testValues2[0][testValues2[0].length - 1];
 
 		staircaseFunction3 = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
@@ -158,6 +181,11 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		};
 
 		staircaseFunction3ToFourier = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
@@ -188,6 +216,11 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	public void test4() {
 
 		final Function exp = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.exp(input.getValue()));

@@ -21,16 +21,20 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.SubField;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
+/**
+ * 
+ * @author ro
+ *
+ *         Implementation of the field of real numbers as a singleton class.
+ */
 public class RealLine implements SubField, RealSpace {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1444063003774915383L;
 
 	private EuclideanSpace dualSpace;
 
 	final private static Real one = RealOne.getOne();
+
 	final private static Real zero = RealZero.getZero();
 
 	final Map<Vector, Scalar> coordinates;
@@ -200,6 +204,11 @@ public class RealLine implements SubField, RealSpace {
 	@Override
 	public Scalar conjugate(Scalar value) {
 		return value;
+	}
+
+	@Override
+	public String toString() {
+		return "the field of real numbers.";
 	}
 
 }

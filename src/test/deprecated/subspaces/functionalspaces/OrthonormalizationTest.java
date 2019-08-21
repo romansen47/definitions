@@ -76,6 +76,11 @@ public class OrthonormalizationTest {
 	@Test
 	public void exponential() throws Throwable {
 		final Vector exp = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.exp(input.getValue() + Math.exp(-input.getValue())));

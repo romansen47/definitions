@@ -15,5 +15,5 @@ public interface VectorField extends Mapping {
 	default EuclideanSpace getTarget() {
 		return (EuclideanSpace) getSource();
 	}
-	
+
 }

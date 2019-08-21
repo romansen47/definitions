@@ -5,12 +5,15 @@ package definitions.structures.abstr.groups.impl;
 
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.Monoid;
+import definitions.structures.abstr.groups.MonoidElement;
+import definitions.structures.abstr.vectorspaces.Ring;
 
 /**
  * @author RoManski
  *
  */
-public final class Integers implements DiscreteGroup {
+public final class Integers implements DiscreteGroup, Ring {
 
 	final GroupElement zero;
 	final GroupElement one;
@@ -54,7 +57,7 @@ public final class Integers implements DiscreteGroup {
 			this.value = val;
 		}
 
-		int getValue() {
+		public int getValue() {
 			return this.value;
 		}
 
@@ -70,10 +73,71 @@ public final class Integers implements DiscreteGroup {
 		Int prev() {
 			return new Int(this.getValue() - 1);
 		}
+
+		public boolean isPrime() {
+			if (this.smallestDevisor().getValue() < this.getValue()) {
+				return false;
+			}
+			return true;
+		}
+
+		private Int smallestDevisor() {
+			int index = 1;
+			int smallestDevisor = 2;
+			while (index * smallestDevisor <= this.getValue()) {
+				if (this.getValue() % smallestDevisor == 0) {
+					return new Int(smallestDevisor);
+				} else {
+					index = smallestDevisor;
+					smallestDevisor += 1;
+				}
+			}
+			return this;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (o instanceof Int && ((Int) o).getValue() == this.value) {
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public int hashCode() {
+			return this.value;
+		}
 	}
 
 	@Override
 	public String toString() {
 		return "Custom integers group.";
+	}
+
+	@Override
+	public MonoidElement getIdentityElement() {
+		return this.zero;
+	}
+
+	@Override
+	public GroupElement getInverseElement(GroupElement element) {
+		return new Int(-((Int) element).getValue());
+	}
+
+	@Override
+	public Monoid getMuliplicativeMonoid() {
+		return new Monoid() {
+			private static final long serialVersionUID = 3746187360827667761L;
+
+			@Override
+			public Integer getOrder() {
+				return null;
+			}
+
+			@Override
+			public MonoidElement operation(GroupElement first, GroupElement second) {
+				return new Int(((Int) first).getValue() * ((Int) second).getValue());
+			}
+		};
 	}
 }

@@ -37,8 +37,6 @@ public interface Vector extends GroupElement, VectorMethods {
 	 * @param vec the vector to check equality for.
 	 * @return true if vector is essentially the same as this.
 	 */
-	default Boolean equals(Vector vec) {
-		return true;
-	}
+	boolean equals(Object vec);
 
 }

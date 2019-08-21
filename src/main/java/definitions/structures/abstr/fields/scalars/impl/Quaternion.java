@@ -48,7 +48,7 @@ public class Quaternion implements FiniteVector, Scalar {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
 				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
 				&& ((Quaternion) vec).getK().equals(this.getK());
@@ -88,18 +88,10 @@ public class Quaternion implements FiniteVector, Scalar {
 		return this.real;
 	}
 
-	// @Override
-	// public String toString() {
-	// return "( " + this.getReal().getValue() + " ) + i * ( " +
-	// this.getI().getValue() + " )" + " + j * ( "
-	// + this.getJ().getValue() + " ) + " + "k * ( " + this.getK().getValue() + "
-	// )";
-	// }
-
 	@Override
 	public String toString() {
-		return "(" + this.getReal().getValue() + ", " + this.getI().getValue() + ", " + this.getJ().getValue() + ", "
-				+ this.getK().getValue() + ")";
+		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getI().getValue() + "\r" + "j  ->  "
+				+ this.getJ().getValue() + "\r" + "k  ->  " + this.getK().getValue() + "\r";
 	}
 
 	@Override

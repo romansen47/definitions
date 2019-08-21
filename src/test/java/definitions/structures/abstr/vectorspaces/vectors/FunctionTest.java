@@ -8,7 +8,6 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -43,20 +42,22 @@ public class FunctionTest {
 				trigonometricDegree, sobolevDegree);
 		final Function abs = new GenericFunction() {
 			private static final long serialVersionUID = 9176320860959699923L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(0.5 * input.getValue() + Math.abs(input.getValue()));
 			}
 
 		};
-		trigSpace = tempSpace;//(EuclideanFunctionSpace) spGen.extend(tempSpace, abs);
+		trigSpace = tempSpace;// (EuclideanFunctionSpace) spGen.extend(tempSpace, abs);
 		symExp = new GenericFunction() {
 			private static final long serialVersionUID = 3133556157379438698L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				final double x = input.getValue();
 				final double pi = Math.PI;
-				return new Real(Math.pow(Math.sin(x), 2) +  0.01*x);
+				return new Real(Math.pow(Math.sin(x), 2) + 0.01 * x);
 			}
 		};
 //		symExp.plot(-Math.PI, Math.PI);
@@ -104,15 +105,14 @@ public class FunctionTest {
 	 */
 	@Test
 	public final void testGetDerivativeInt() {
-		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).
-				getDerivativeBuilder();
+		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
 		Function highDerivative = ((Function) derivativeBuilder.get(symExp));
 		derivative = symExp.getDerivative();
 		for (int i = 1; i < derivativeDegree; i++) {
-			System.out.println(i+1+"-th derivative");
+			System.out.println(i + 1 + "-th derivative");
 			derivative.plotCompare(-Math.PI, Math.PI, highDerivative);
 			derivative = derivative.getProjection(trigSpace).getDerivative();
-			highDerivative = ((Function) derivativeBuilder.get(symExp,i));
+			highDerivative = ((Function) derivativeBuilder.get(symExp, i));
 		}
 	}
 

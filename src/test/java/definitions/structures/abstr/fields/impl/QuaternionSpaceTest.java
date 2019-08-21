@@ -3,9 +3,12 @@
  */
 package definitions.structures.abstr.fields.impl;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpaceTest;
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -45,4 +48,9 @@ public class QuaternionSpaceTest extends VectorSpaceTest {
 		return new Real(0.5);
 	}
 
+	@Test
+	public void testAddAndStretch() {
+		Assert.assertTrue(this.getSpace().stretch(this.getSpace().add(this.getVec1(), this.getVec2()), this.getFactor())
+				.equals(((Field) this.getSpace()).getOne()));
+	}
 }

@@ -181,7 +181,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 		double prod = 0;
 		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
 		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
-		final List<Vector> base = this.genericBaseToList();
+//		final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec : vecCoord1.keySet()) {
 			prod += vecCoord1.get(vec).getValue() * vecCoord2.get(vec).getValue();
 		}

@@ -17,8 +17,6 @@ import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * @author BAU12350
@@ -88,11 +86,11 @@ public class QuaternionFunctionSpaceTest {// extends FiniteDimensionalFunctionSp
 
 		this.base.add(alpha);
 		this.base.add(beta);
-		
+
 		alpha.plot(-Math.PI, Math.PI);
 		beta.plot(-Math.PI, Math.PI);
 		gamma.plot(-Math.PI, Math.PI);
-		
+
 	}
 
 }

@@ -22,9 +22,6 @@ public class FiniteDimensionalLinearMappingTest {
 
 	final Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space,
 			(EuclideanSpace) this.space) {
-		/**
-				 * 
-				 */
 		private static final long serialVersionUID = 8542796160933542925L;
 
 		@Override

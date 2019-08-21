@@ -5,6 +5,10 @@ import java.util.Map;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.groups.Group;
+import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.Monoid;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -66,4 +70,44 @@ public interface Field extends EuclideanAlgebra, FieldMethods {
 
 	Scalar conjugate(Scalar value);
 
+	@Override
+	default Monoid getMuliplicativeMonoid() {
+
+		final Vector newOne = getOne();
+		final Integer newOrder = getOrder();
+
+		final Group multiplicaiveGroup = new Group() {
+			private static final long serialVersionUID = 8357435449765655148L;
+
+			@Override
+			public MonoidElement getIdentityElement() {
+				return newOne;
+			}
+
+			@Override
+			public Integer getOrder() {
+				if (newOrder == null) {
+					return newOrder;
+				}
+				return newOrder - 1;
+			}
+
+			@Override
+			public MonoidElement operation(GroupElement first, GroupElement second) {
+				return product((Scalar) first, (Scalar) second);
+			}
+
+			@Override
+			public GroupElement getInverseElement(GroupElement element) {
+				return inverse((Scalar) element);
+			}
+
+			@Override
+			public String toString() {
+				return "Multiplicative group of " + getField().toString();
+			}
+		};
+
+		return multiplicaiveGroup;
+	}
 }

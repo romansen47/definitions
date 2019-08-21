@@ -35,6 +35,11 @@ public class PolynomeRegressionTest {
 	public static void setUpBeforeClass() throws Throwable {
 
 		sin = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			// @Override
 			@Override
 			public Scalar value(Scalar input) {
@@ -48,6 +53,11 @@ public class PolynomeRegressionTest {
 		};
 
 		exp = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			// @Override
 			@Override
 			public Scalar value(Scalar input) {
@@ -62,6 +72,11 @@ public class PolynomeRegressionTest {
 
 		for (int i = 0; i < (maxDegree + 1); i++) {
 			base.add(new Monome(i) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public Field getField() {
 					return realLine;

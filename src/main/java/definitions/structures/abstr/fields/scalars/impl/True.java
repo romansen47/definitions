@@ -48,7 +48,7 @@ public final class True implements Scalar {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return vec instanceof True;
 	}
 

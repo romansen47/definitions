@@ -10,20 +10,20 @@ import definitions.structures.abstr.fields.Field;
  *
  */
 public interface PrimeField extends FiniteField {
-	
+
 	@Override
 	default int getCharacteristic() {
 		return getOrder();
-	};
+	}
 
 	@Override
 	default PrimeField getPrimeField() {
 		return this;
-	};
-	
+	}
+
 	@Override
 	default Field getField() {
 		return this;
-	};
+	}
 
 }

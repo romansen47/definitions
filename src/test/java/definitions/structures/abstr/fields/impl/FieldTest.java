@@ -8,6 +8,7 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -22,6 +23,8 @@ public class FieldTest extends VectorSpaceTest {
 		final Vector test2 = new Quaternion(1, 1, 1, 1);
 		final Vector ans = this.field.inverse(test);
 		final Vector ans2 = this.field2.inverse(test2);
+		final Monoid m = this.field.getMuliplicativeMonoid();
+
 	}
 
 	@Test

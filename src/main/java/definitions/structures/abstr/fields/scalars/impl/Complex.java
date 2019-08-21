@@ -42,7 +42,7 @@ public class Complex implements FiniteVector, Scalar {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return vec instanceof Complex && ((Complex) vec).getReal().equals(this.getReal())
 				&& ((Complex) vec).getImag().equals(this.getImag());
 	}
@@ -84,9 +84,14 @@ public class Complex implements FiniteVector, Scalar {
 		return this.imag;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getImag().getValue() + " )";
+//	}
+
 	@Override
 	public String toString() {
-		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getImag().getValue() + " )";
+		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getImag().getValue() + "\r";
 	}
 
 	@Override

@@ -1,4 +1,5 @@
 package solver;
+
 //package definitions.solver;
 //
 //import definitions.structures.abstr.fields.Field;
@@ -25,7 +26,7 @@ package solver;
 //	public Function solve() {
 //		return new GenericFunction() {
 //			/**
-//			 * 
+//			 *
 //			 */
 //			private static final long serialVersionUID = 3792649640196647131L;
 //
