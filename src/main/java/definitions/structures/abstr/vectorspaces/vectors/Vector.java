@@ -34,8 +34,7 @@ public interface Vector extends GroupElement, VectorMethods {
 	/**
 	 * Method to verify, the vector is "essentially" the same as another.
 	 * 
-	 * @param vec
-	 *            the vector to check equality for.
+	 * @param vec the vector to check equality for.
 	 * @return true if vector is essentially the same as this.
 	 */
 	@Override

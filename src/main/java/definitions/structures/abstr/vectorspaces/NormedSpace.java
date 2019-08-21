@@ -18,8 +18,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	/**
 	 * The defined norm.
 	 * 
-	 * @param vec
-	 *            the vector to compute the norm for.
+	 * @param vec the vector to compute the norm for.
 	 * @return the norm of the vector.
 	 */
 	Real norm(Vector vec);
@@ -33,8 +32,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * Any non-zero vector can be normalized. The normalization of a vector is a
 	 * vector pointing towards the same direction with norm 1.
 	 * 
-	 * @param vec
-	 *            the vector to be normalized.
+	 * @param vec the vector to be normalized.
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {

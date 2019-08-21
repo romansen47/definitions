@@ -38,7 +38,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-1;
+	protected final double eps = 1.e-4;
 
 	/**
 	 * Plain constructor. @
@@ -54,7 +54,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		this.interval[0] = left;
 		this.interval[1] = right;
 		final List<Vector> newBase;
-		this.setBase(genericBase);
+//		this.setBase(genericBase);
 		if (orthonormalize) {
 			newBase = this.getOrthonormalBase(genericBase);
 		} else {
@@ -79,7 +79,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
 			Vector tmp = this.nullVec();
-			for (final Vector vec2 : newBase) {
+			for (final Vector vec2 : base) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
 			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
@@ -89,9 +89,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector otherBaseVec : newBase) {
 				if (baseVec.equals(otherBaseVec)) {
-					coordinates.put(baseVec, new Real(1.));
+					coordinates.put(baseVec, this.getField().get(1.));
 				} else {
-					coordinates.put(otherBaseVec, new Real(0.));
+					coordinates.put(otherBaseVec, this.getField().get(0.));
 				}
 			}
 			baseVec.setCoordinates(coordinates);
@@ -101,7 +101,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Vector normalize(final Vector vec) {
-		return this.stretch(vec, this.norm(vec).getInverse());
+		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
@@ -145,11 +145,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n
-	 *            the highest degree of the trigonometric polynomials.
+	 * @param n       the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase
-	 *            the list.
+	 * @param tmpBase the list.
 	 */
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
@@ -164,11 +162,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n
-	 *            the highest degree of the trigonometric polynomials.
+	 * @param n       the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase
-	 *            the list.
+	 * @param tmpBase the list.
 	 */
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {

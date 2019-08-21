@@ -18,12 +18,9 @@ public class InjectiveFunctionSpaceOperator extends FiniteDimensionalLinearMappi
 	/**
 	 * Constructor
 	 * 
-	 * @param source
-	 *            the source vector space.
-	 * @param target
-	 *            the target vector space.
-	 * @param matrix
-	 *            the matrix.
+	 * @param source the source vector space.
+	 * @param target the target vector space.
+	 * @param matrix the matrix.
 	 */
 	public InjectiveFunctionSpaceOperator(EuclideanFunctionSpace source, EuclideanFunctionSpace target,
 			Map<Vector, Map<Vector, Scalar>> matrix) {

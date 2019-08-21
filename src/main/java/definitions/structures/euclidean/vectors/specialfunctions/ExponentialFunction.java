@@ -32,10 +32,8 @@ public abstract class ExponentialFunction extends GenericFunction {
 	/**
 	 * Constructor.
 	 * 
-	 * @param a
-	 *            the parameter a.
-	 * @param b
-	 *            the parameter b.
+	 * @param a the parameter a.
+	 * @param b the parameter b.
 	 */
 	public ExponentialFunction(Scalar a, Scalar b) {
 		this.a = a;

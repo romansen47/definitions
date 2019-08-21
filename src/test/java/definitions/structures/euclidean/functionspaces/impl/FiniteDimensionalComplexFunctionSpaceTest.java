@@ -12,7 +12,6 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Complex;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -46,7 +45,13 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public Field getField() {
 				return FiniteDimensionalComplexFunctionSpaceTest.this.f;
 			}
+
+			@Override
+			public String toString() {
+				return "alpha";
+			}
 		};
+
 		final Function beta = new GenericFunction() {
 			private static final long serialVersionUID = -2624612868740391242L;
 
@@ -62,20 +67,21 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public Field getField() {
 				return FiniteDimensionalComplexFunctionSpaceTest.this.f;
 			}
+
+			@Override
+			public String toString() {
+				return "beta";
+			}
 		};
+
 		final Function gamma = new GenericFunction() {
 			private static final long serialVersionUID = -6598973940477311007L;
 
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Complex) input).getValue();
-				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f
-						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.stretch(
-								FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(),
-								this.getField().getField().get(1)), new Complex(Math.cos(val), Math.sin(val)));
-				if (Math.abs(((Complex) input).getReal().getValue()) < 1.e-5) {
-					return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.stretch(input, new Real(1.e5));
-				}
+				final Scalar factor = new Complex(Math.cos(val), Math.sin(val));
+				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f.product(factor, factor);
 				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
 			}
 
@@ -83,15 +89,21 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public Field getField() {
 				return FiniteDimensionalComplexFunctionSpaceTest.this.f;
 			}
+
+			@Override
+			public String toString() {
+				return "gamma";
+			}
 		};
-		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -1, 1, true);
 
 		this.base.add(alpha);
 		this.base.add(beta);
 
-		// alpha.plot(-Math.PI, Math.PI);
-		// beta.plot(-Math.PI, Math.PI);
+		alpha.plot(-Math.PI, Math.PI);
+		beta.plot(-Math.PI, Math.PI);
 		gamma.plot(-Math.PI, Math.PI);
+
+		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -1, 1, true);
 
 	}
 

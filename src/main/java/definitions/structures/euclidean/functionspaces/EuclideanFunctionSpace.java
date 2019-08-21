@@ -59,8 +59,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	/**
 	 * Convert generic function to function tuple
 	 * 
-	 * @param vec
-	 *            the function
+	 * @param vec the function
 	 * @return the projection of vec
 	 */
 	default Vector functionTuple(Vector vec) {
@@ -109,7 +108,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 				@Override
 				public Scalar value(final Scalar input) {
-					return (Scalar) getField().stretch(((Function) vec).value(input), r);
+					return (Scalar) getField().product(((Function) vec).value(input), r);
 				}
 
 				@Override

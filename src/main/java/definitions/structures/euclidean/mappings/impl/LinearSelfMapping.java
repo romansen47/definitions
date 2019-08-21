@@ -23,10 +23,8 @@ public class LinearSelfMapping extends FiniteDimensionalLinearMapping implements
 	/**
 	 * Constructor.
 	 * 
-	 * @param source
-	 *            the source and target space.
-	 * @param coordinates
-	 *            the coordinates.
+	 * @param source      the source and target space.
+	 * @param coordinates the coordinates.
 	 */
 	protected LinearSelfMapping(final EuclideanSpace source, final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		super(source, source, coordinates);

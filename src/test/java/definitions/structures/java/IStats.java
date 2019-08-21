@@ -20,8 +20,7 @@ public interface IStats {
 	public int getVectorCount();
 
 	/**
-	 * @param vectorCount
-	 *            the vectorCount to set
+	 * @param vectorCount the vectorCount to set
 	 */
 
 	public void setVectorCount(int vectorCount);

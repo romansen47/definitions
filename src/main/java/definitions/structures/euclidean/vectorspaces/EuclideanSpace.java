@@ -48,8 +48,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
-	 * @param tmp
-	 *            the coordinates with respect to the base
+	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
 	 */
 	default Vector get(final Map<Vector, Scalar> tmp) {
@@ -63,8 +62,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
-	 * @param tmp
-	 *            the coordinates with respect to the base
+	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
 	 */
 	default Vector get(final Scalar[] tmp) {
@@ -120,8 +118,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 * Method to project a vector. Transformes instances of generic functions to
 	 * function tuples in concrete space.
 	 * 
-	 * @param vec
-	 *            the vector to clone.
+	 * @param vec the vector to clone.
 	 * @return copy of vec.
 	 */
 	Vector getCoordinates(Vector vec);
@@ -129,10 +126,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Method to compute the distance between two vectors.
 	 * 
-	 * @param vec1
-	 *            first vector.
-	 * @param vec2
-	 *            second vector.
+	 * @param vec1 first vector.
+	 * @param vec2 second vector.
 	 * @return the distance. @
 	 */
 	@Override
@@ -144,8 +139,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Method to create an orthonormal base.
 	 * 
-	 * @param the
-	 *            original base.
+	 * @param the original base.
 	 * @return an orthonormal base of same span. @
 	 */
 	List<Vector> getOrthonormalBase(List<Vector> base);

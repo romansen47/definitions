@@ -17,8 +17,7 @@ public interface Homomorphism extends Mapping, Vector {
 	/**
 	 * Method to apply the homomorphism on a vector.
 	 * 
-	 * @param vec
-	 *            the vector.
+	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
 	@Override
@@ -28,8 +27,7 @@ public interface Homomorphism extends Mapping, Vector {
 	 * Method to get the image of the restriction of the homomorphism to the base of
 	 * the source vector space.
 	 * 
-	 * @param vec
-	 *            the base vector.
+	 * @param vec the base vector.
 	 * @return the image of the base vector.
 	 */
 

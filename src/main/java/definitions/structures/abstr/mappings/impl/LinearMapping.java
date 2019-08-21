@@ -44,10 +44,8 @@ public abstract class LinearMapping implements Homomorphism {
 	/**
 	 * Constructor. Called by instance of MappingGenerator.
 	 * 
-	 * @param source
-	 *            the source vector space.
-	 * @param target
-	 *            the target vector space.
+	 * @param source the source vector space.
+	 * @param target the target vector space.
 	 */
 	protected LinearMapping(final VectorSpace source, final VectorSpace target) {
 		this.source = source;

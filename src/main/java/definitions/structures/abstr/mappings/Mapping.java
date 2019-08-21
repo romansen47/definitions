@@ -15,8 +15,7 @@ public interface Mapping {
 	/**
 	 * Method to apply the mapping on a vector.
 	 * 
-	 * @param vec
-	 *            the vector.
+	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
 	Vector get(Vector vec);

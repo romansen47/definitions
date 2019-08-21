@@ -31,21 +31,16 @@ public interface FunctionSpace extends VectorSpace {
 	/**
 	 * General static integral method for the product of two functions.
 	 * 
-	 * @param vec1
-	 *            first function.
-	 * @param vec2
-	 *            second function.
-	 * @param left
-	 *            the interval is [left,right].
-	 * @param right
-	 *            the interval is [left,right].
-	 * @param eps
-	 *            the correctness parameter..
+	 * @param vec1  first function.
+	 * @param vec2  second function.
+	 * @param left  the interval is [left,right].
+	 * @param right the interval is [left,right].
+	 * @param eps   the correctness parameter..
 	 * @return the integral over vec1*vec2.
 	 */
 	default Scalar getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
 		Scalar ans = (Scalar) getField().nullVec();
-		Scalar newEps = getField().get(eps);
+		final Scalar newEps = getField().get(eps);
 		Scalar x = getField().get(left);
 		final Scalar epsNew = getField().get(eps);
 		while (x.getValue() < right) {
@@ -61,10 +56,8 @@ public interface FunctionSpace extends VectorSpace {
 	/**
 	 * Concrete scalar product.
 	 * 
-	 * @param vec1
-	 *            first function.
-	 * @param vec2
-	 *            second function.
+	 * @param vec1 first function.
+	 * @param vec2 second function.
 	 * @return the integral over vec1*vec2.
 	 */
 	default Scalar integral(final Function vec1, final Function vec2) {

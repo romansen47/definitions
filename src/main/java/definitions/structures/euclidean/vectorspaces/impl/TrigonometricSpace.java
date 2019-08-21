@@ -25,12 +25,9 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 	/**
 	 * Constructor.
 	 * 
-	 * @param n
-	 *            the highest degree of the trigonometric polynomials.
-	 * @param left
-	 *            the inf of the interval.
-	 * @param right
-	 *            the sup of the interval.
+	 * @param n     the highest degree of the trigonometric polynomials.
+	 * @param left  the inf of the interval.
+	 * @param right the sup of the interval.
 	 */
 	public TrigonometricSpace(Field field, final int n, final double right) {
 		super(field);

@@ -13,8 +13,7 @@ public interface VectorSpaceMethods {
 	/**
 	 * Not yet implemented.
 	 * 
-	 * @param vec
-	 *            the vector to check for.
+	 * @param vec the vector to check for.
 	 * @return whether vec is an element of the space.
 	 */
 	boolean contains(Vector vec);

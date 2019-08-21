@@ -61,6 +61,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
 		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
+
 	}
 
 	public static EuclideanSpace getInstance() {
@@ -133,8 +134,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	/**
-	 * @param multiplicationMatrix
-	 *            the multiplicationMatrix to set
+	 * @param multiplicationMatrix the multiplicationMatrix to set
 	 */
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {

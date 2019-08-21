@@ -29,8 +29,7 @@ public interface VectorMethods {
 	/**
 	 * Setter for coordinates on a base.
 	 * 
-	 * @param coordinates
-	 *            the coordinates.
+	 * @param coordinates the coordinates.
 	 */
 	default void setCoordinates(Map<Vector, Scalar> coordinates) {
 

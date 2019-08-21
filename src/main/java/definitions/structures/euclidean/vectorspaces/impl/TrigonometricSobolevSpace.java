@@ -30,14 +30,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Constructor.
 	 * 
-	 * @param n
-	 *            the highest degree of the trigonometric polynomials.
-	 * @param left
-	 *            the inf of the interval.
-	 * @param right
-	 *            the sup of the interval.
-	 * @param degree
-	 *            the sobolev degree.
+	 * @param n      the highest degree of the trigonometric polynomials.
+	 * @param left   the inf of the interval.
+	 * @param right  the sup of the interval.
+	 * @param degree the sobolev degree.
 	 */
 	public TrigonometricSobolevSpace(Field f, final int n, final double left, final double right, int degree) {
 		super(f, degree);
@@ -120,10 +116,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n
-	 *            the highest degree of the trigonometric polynomials.
-	 * @param tmpBase
-	 *            the list.
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param tmpBase the list.
 	 */
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
@@ -152,11 +146,9 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n
-	 *            the highest degree of the trigonometric polynomials.
+	 * @param n       the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase
-	 *            the list.
+	 * @param tmpBase the list.
 	 */
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
 

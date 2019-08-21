@@ -32,14 +32,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 * 
-	 * @param genericBase
-	 *            the base
-	 * @param left
-	 *            the inf of the interval.
-	 * @param right
-	 *            the sup of the intervall.
-	 * @param degree
-	 *            the sobolev degree.
+	 * @param genericBase the base
+	 * @param left        the inf of the interval.
+	 * @param right       the sup of the intervall.
+	 * @param degree      the sobolev degree.
 	 */
 	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
 			final double right, int degree) {
@@ -51,14 +47,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 * 
-	 * @param genericBase
-	 *            the base
-	 * @param left
-	 *            the inf of the interval.
-	 * @param right
-	 *            the sup of the intervall.
-	 * @param degree
-	 *            the sobolev degree.
+	 * @param genericBase the base
+	 * @param left        the inf of the interval.
+	 * @param right       the sup of the intervall.
+	 * @param degree      the sobolev degree.
 	 */
 	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
 			final double right, int degree, boolean ortho) {
@@ -70,10 +62,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor. Converts function space to sobolev space.
 	 * 
-	 * @param space
-	 *            the function space.
-	 * @param degree
-	 *            the sobolev degree of the converted space.
+	 * @param space  the function space.
+	 * @param degree the sobolev degree of the converted space.
 	 */
 	public FiniteDimensionalSobolevSpace(Field field, final EuclideanFunctionSpace space, int degree, boolean ortho) {
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
@@ -86,8 +76,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 * 
-	 * @param degree
-	 *            the sobolev degree.
+	 * @param degree the sobolev degree.
 	 */
 	protected FiniteDimensionalSobolevSpace(Field field, int degree) {
 		super(field);
