@@ -75,15 +75,11 @@ public interface EuclideanSpace extends InnerProductSpace {
 
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim() == vec2.getDim())
-				&& (vec1.getDim() == getDim())) {
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) 
+				&& (vec1.getDim().equals(getDim()))) {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
-//				coordinates.put(getBaseVec(vec),
-//						new Real(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)).getValue()
-//								+ ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)).getValue()));
-
 				coordinates.put(getBaseVec(vec),
 						(Scalar) getField().add(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)),
 								((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec))));

@@ -32,7 +32,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * the base.
 	 */
-	protected volatile List<Vector> base;
+	protected List<Vector> base;
 
 	/**
 	 * the dimension.
@@ -65,7 +65,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return ((vec instanceof Tuple) && (vec.getDim() == this.getDim()));
+		return ((vec instanceof Tuple) && (vec.getDim().equals(this.getDim())));
 	}
 
 	@Override
