@@ -133,9 +133,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Set the window size to w-by-h pixels
 	 *
-	 * @param w the width as a number of pixels
-	 * @param h the height as a number of pixels
-	 * @throws new Exception if the width or height is 0 or negative.
+	 * @param w
+	 *            the width as a number of pixels
+	 * @param h
+	 *            the height as a number of pixels
+	 * @throws new
+	 *             Exception if the width or height is 0 or negative.
 	 */
 	public void setCanvasSize(final int w, final int h) {
 		if ((w < 1) || (h < 1)) {
@@ -225,8 +228,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Set the X scale (a border is added to the values)
 	 *
-	 * @param min the minimum value of the X scale
-	 * @param max the maximum value of the X scale
+	 * @param min
+	 *            the minimum value of the X scale
+	 * @param max
+	 *            the maximum value of the X scale
 	 */
 	public static void setXscale(final double min, final double max) {
 		final double size = max - min;
@@ -237,8 +242,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Set the Y scale (a border is added to the values)
 	 *
-	 * @param min the minimum value of the Y scale
-	 * @param max the maximum value of the Y scale
+	 * @param min
+	 *            the minimum value of the Y scale
+	 * @param max
+	 *            the maximum value of the Y scale
 	 */
 	public static void setYscale(final double min, final double max) {
 		final double size = max - min;
@@ -282,7 +289,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Clear the screen with the given color.
 	 *
-	 * @param color the Color to make the background
+	 * @param color
+	 *            the Color to make the background
 	 */
 	public static void clear(final Color color) {
 		offscreen.setColor(color);
@@ -301,8 +309,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Set the pen size to the given size
 	 *
-	 * @param r the radius of the pen
-	 * @throws RuntimeException if r is negative
+	 * @param r
+	 *            the radius of the pen
+	 * @throws RuntimeException
+	 *             if r is negative
 	 */
 	public static void setPenRadius(final double r) {
 		if (r < 0) {
@@ -325,7 +335,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * BLUE, CYAN, DARK_GRAY, GRAY, GREEN, LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED,
 	 * WHITE, and YELLOW.
 	 *
-	 * @param color the Color to make the pen
+	 * @param color
+	 *            the Color to make the pen
 	 */
 	public static void setPenColor(final Color color) {
 		penColor = color;
@@ -342,7 +353,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Set the font as given for all string writing
 	 *
-	 * @param f the font to make text
+	 * @param f
+	 *            the font to make text
 	 */
 	public static void setFont(final Font f) {
 		font = f;
@@ -355,10 +367,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw a line from (x0, y0) to (x1, y1)
 	 *
-	 * @param x0 the x-coordinate of the starting point
-	 * @param y0 the y-coordinate of the starting point
-	 * @param x1 the x-coordinate of the destination point
-	 * @param y1 the y-coordinate of the destination point
+	 * @param x0
+	 *            the x-coordinate of the starting point
+	 * @param y0
+	 *            the y-coordinate of the starting point
+	 * @param x1
+	 *            the x-coordinate of the destination point
+	 * @param y1
+	 *            the y-coordinate of the destination point
 	 */
 	public static void line(final double x0, final double y0, final double x1, final double y1) {
 		offscreen.draw(new Line2D.Double(scaleX(x0), scaleY(y0), scaleX(x1), scaleY(y1)));
@@ -368,8 +384,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw one pixel at (x, y)
 	 *
-	 * @param x the x-coordinate of the pixel
-	 * @param y the y-coordinate of the pixel
+	 * @param x
+	 *            the x-coordinate of the pixel
+	 * @param y
+	 *            the y-coordinate of the pixel
 	 */
 	public static void pixel(final double x, final double y) {
 		offscreen.fillRect((int) Math.round(scaleX(x)), (int) Math.round(scaleY(y)), 1, 1);
@@ -378,8 +396,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw a point at (x, y)
 	 *
-	 * @param x the x-coordinate of the point
-	 * @param y the y-coordinate of the point
+	 * @param x
+	 *            the x-coordinate of the point
+	 * @param y
+	 *            the y-coordinate of the point
 	 */
 	public static void point(final double x, final double y) {
 		final double xs = scaleX(x);
@@ -399,10 +419,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw circle of radius r, centered on (x, y); degenerate to pixel if small
 	 *
-	 * @param x the x-coordinate of the center of the circle
-	 * @param y the y-coordinate of the center of the circle
-	 * @param r the radius of the circle
-	 * @throws RuntimeException if the radius of the circle is negative
+	 * @param x
+	 *            the x-coordinate of the center of the circle
+	 * @param y
+	 *            the y-coordinate of the center of the circle
+	 * @param r
+	 *            the radius of the circle
+	 * @throws RuntimeException
+	 *             if the radius of the circle is negative
 	 */
 	public static void circle(final double x, final double y, final double r) {
 		if (r < 0) {
@@ -424,10 +448,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * Draw filled circle of radius r, centered on (x, y); degenerate to pixel if
 	 * small
 	 *
-	 * @param x the x-coordinate of the center of the circle
-	 * @param y the y-coordinate of the center of the circle
-	 * @param r the radius of the circle
-	 * @throws RuntimeException if the radius of the circle is negative
+	 * @param x
+	 *            the x-coordinate of the center of the circle
+	 * @param y
+	 *            the y-coordinate of the center of the circle
+	 * @param r
+	 *            the radius of the circle
+	 * @throws RuntimeException
+	 *             if the radius of the circle is negative
 	 */
 	public static void filledCircle(final double x, final double y, final double r) {
 		if (r < 0) {
@@ -449,13 +477,19 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * Draw an arc of radius r, centered on (x, y), from angle1 to angle2 (in
 	 * degrees).
 	 *
-	 * @param x      the x-coordinate of the center of the circle
-	 * @param y      the y-coordinate of the center of the circle
-	 * @param r      the radius of the circle
-	 * @param angle1 the starting angle. 0 would mean an arc beginning at 3 o'clock.
-	 * @param angle2 the angle at the end of the arc. For example, if you want a 90
-	 *               degree arc, then angle2 should be angle1 + 90.
-	 * @throws RuntimeException if the radius of the circle is negative
+	 * @param x
+	 *            the x-coordinate of the center of the circle
+	 * @param y
+	 *            the y-coordinate of the center of the circle
+	 * @param r
+	 *            the radius of the circle
+	 * @param angle1
+	 *            the starting angle. 0 would mean an arc beginning at 3 o'clock.
+	 * @param angle2
+	 *            the angle at the end of the arc. For example, if you want a 90
+	 *            degree arc, then angle2 should be angle1 + 90.
+	 * @throws RuntimeException
+	 *             if the radius of the circle is negative
 	 */
 	public static void arc(final double x, final double y, final double r, final double angle1, double angle2) {
 		if (r < 0) {
@@ -480,10 +514,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * Draw squared of side length 2r, centered on (x, y); degenerate to pixel if
 	 * small
 	 *
-	 * @param x the x-coordinate of the center of the square
-	 * @param y the y-coordinate of the center of the square
-	 * @param r radius is half the length of any side of the square
-	 * @throws RuntimeException if r is negative
+	 * @param x
+	 *            the x-coordinate of the center of the square
+	 * @param y
+	 *            the y-coordinate of the center of the square
+	 * @param r
+	 *            radius is half the length of any side of the square
+	 * @throws RuntimeException
+	 *             if r is negative
 	 */
 	public static void square(final double x, final double y, final double r) {
 		if (r < 0) {
@@ -505,10 +543,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * Draw a filled square of side length 2r, centered on (x, y); degenerate to
 	 * pixel if small
 	 *
-	 * @param x the x-coordinate of the center of the square
-	 * @param y the y-coordinate of the center of the square
-	 * @param r radius is half the length of any side of the square
-	 * @throws RuntimeException if r is negative
+	 * @param x
+	 *            the x-coordinate of the center of the square
+	 * @param y
+	 *            the y-coordinate of the center of the square
+	 * @param r
+	 *            radius is half the length of any side of the square
+	 * @throws RuntimeException
+	 *             if r is negative
 	 */
 	public static void filledSquare(final double x, final double y, final double r) {
 		if (r < 0) {
@@ -529,8 +571,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw a polygon with the given (x[i], y[i]) coordinates
 	 *
-	 * @param x an array of all the x-coordindates of the polygon
-	 * @param y an array of all the y-coordindates of the polygon
+	 * @param x
+	 *            an array of all the x-coordindates of the polygon
+	 * @param y
+	 *            an array of all the y-coordindates of the polygon
 	 */
 	public static void polygon(final double[] x, final double[] y) {
 		final int N = x.length;
@@ -547,8 +591,10 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw a filled polygon with the given (x[i], y[i]) coordinates
 	 *
-	 * @param x an array of all the x-coordindates of the polygon
-	 * @param y an array of all the y-coordindates of the polygon
+	 * @param x
+	 *            an array of all the x-coordindates of the polygon
+	 * @param y
+	 *            an array of all the y-coordindates of the polygon
 	 */
 	public static void filledPolygon(final double[] x, final double[] y) {
 		final int N = x.length;
@@ -596,10 +642,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw picture (gif, jpg, or png) centered on (x, y).
 	 *
-	 * @param x the center x-coordinate of the image
-	 * @param y the center y-coordinate of the image
-	 * @param s the name of the image/picture, e.g., "ball.gif"
-	 * @throws RuntimeException if the image's width or height are negative
+	 * @param x
+	 *            the center x-coordinate of the image
+	 * @param y
+	 *            the center y-coordinate of the image
+	 * @param s
+	 *            the name of the image/picture, e.g., "ball.gif"
+	 * @throws RuntimeException
+	 *             if the image's width or height are negative
 	 */
 	public static void picture(final double x, final double y, final String s) {
 		final Image image = getImage(s);
@@ -619,11 +669,16 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * Draw picture (gif, jpg, or png) centered on (x, y), rotated given number of
 	 * degrees
 	 *
-	 * @param x       the center x-coordinate of the image
-	 * @param y       the center y-coordinate of the image
-	 * @param s       the name of the image/picture, e.g., "ball.gif"
-	 * @param degrees is the number of degrees to rotate counterclockwise
-	 * @throws RuntimeException if the image's width or height are negative
+	 * @param x
+	 *            the center x-coordinate of the image
+	 * @param y
+	 *            the center y-coordinate of the image
+	 * @param s
+	 *            the name of the image/picture, e.g., "ball.gif"
+	 * @param degrees
+	 *            is the number of degrees to rotate counterclockwise
+	 * @throws RuntimeException
+	 *             if the image's width or height are negative
 	 */
 	public static void picture(final double x, final double y, final String s, final double degrees) {
 		final Image image = getImage(s);
@@ -645,11 +700,16 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Draw picture (gif, jpg, or png) centered on (x, y). Rescaled to w-by-h.
 	 *
-	 * @param x the center x coordinate of the image
-	 * @param y the center y coordinate of the image
-	 * @param s the name of the image/picture, e.g., "ball.gif"
-	 * @param w the width of the image
-	 * @param h the height of the image
+	 * @param x
+	 *            the center x coordinate of the image
+	 * @param y
+	 *            the center y coordinate of the image
+	 * @param s
+	 *            the name of the image/picture, e.g., "ball.gif"
+	 * @param w
+	 *            the width of the image
+	 * @param h
+	 *            the height of the image
 	 */
 	public static void picture(final double x, final double y, final String s, final double w, final double h) {
 		final Image image = getImage(s);
@@ -673,13 +733,20 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * Draw picture (gif, jpg, or png) centered on (x, y), rotated given number of
 	 * degrees, rescaled to w-by-h.
 	 *
-	 * @param x       the center x-coordinate of the image
-	 * @param y       the center y-coordinate of the image
-	 * @param s       the name of the image/picture, e.g., "ball.gif"
-	 * @param w       the width of the image
-	 * @param h       the height of the image
-	 * @param degrees is the number of degrees to rotate counterclockwise
-	 * @throws RuntimeException if the image's width or height are negative
+	 * @param x
+	 *            the center x-coordinate of the image
+	 * @param y
+	 *            the center y-coordinate of the image
+	 * @param s
+	 *            the name of the image/picture, e.g., "ball.gif"
+	 * @param w
+	 *            the width of the image
+	 * @param h
+	 *            the height of the image
+	 * @param degrees
+	 *            is the number of degrees to rotate counterclockwise
+	 * @throws RuntimeException
+	 *             if the image's width or height are negative
 	 */
 	public static void picture(final double x, final double y, final String s, final double w, final double h,
 			final double degrees) {
@@ -710,9 +777,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Write the given text string in the current font, center on (x, y).
 	 *
-	 * @param x the center x coordinate of the text
-	 * @param y the center y coordinate of the text
-	 * @param s the text
+	 * @param x
+	 *            the center x coordinate of the text
+	 * @param y
+	 *            the center y coordinate of the text
+	 * @param s
+	 *            the text
 	 */
 	public static void text(final double x, final double y, final String s) {
 		offscreen.setFont(font);
@@ -731,7 +801,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * This is useful when there are many methods to call to draw a complete
 	 * picture.
 	 *
-	 * @param t number of milliseconds
+	 * @param t
+	 *            number of milliseconds
 	 * @throws InterruptedException
 	 */
 	public static void show(final int t) throws InterruptedException {
@@ -762,7 +833,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	/**
 	 * Save to file - suffix must be png, jpg, or gif.
 	 *
-	 * @param filename the name of the file with one of the required suffixes
+	 * @param filename
+	 *            the name of the file with one of the required suffixes
 	 */
 	public static void save(final String filename) {
 		final File file = new File(filename);

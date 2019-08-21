@@ -1,7 +1,6 @@
 package definitions.structures.euclidean.vectors.impl;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 
 public abstract class Monome extends GenericFunction {
 
@@ -18,7 +17,7 @@ public abstract class Monome extends GenericFunction {
 
 	@Override
 	public Scalar value(Scalar input) {
-		return new Real(Math.pow(input.getValue(), this.degree));
+		return this.getField().get(Math.pow(input.getValue(), this.degree));
 	}
 
 	@Override

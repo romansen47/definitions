@@ -28,9 +28,12 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	/**
 	 * Constructor.
 	 * 
-	 * @param source      the source vector space.
-	 * @param target      the target vector space.
-	 * @param coordinates the coordinates mapping.
+	 * @param source
+	 *            the source vector space.
+	 * @param target
+	 *            the target vector space.
+	 * @param coordinates
+	 *            the coordinates mapping.
 	 */
 	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {

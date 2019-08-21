@@ -28,11 +28,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	default Vector add(final Vector vec1, final Vector vec2) {
 		final Field f = getField();
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1 instanceof GenericFunction) || (vec2 instanceof GenericFunction)) {
+			if ((vec1.getCoordinates() == null) || (vec2.getCoordinates() == null)) {
 				return new GenericFunction() {
-					/**
-					 * 
-					 */
 					private static final long serialVersionUID = -2989863516320429371L;
 
 					@Override
@@ -62,7 +59,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	/**
 	 * Convert generic function to function tuple
 	 * 
-	 * @param vec the function
+	 * @param vec
+	 *            the function
 	 * @return the projection of vec
 	 */
 	default Vector functionTuple(Vector vec) {
@@ -90,26 +88,23 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		return nullFunction();
 	}
 
-//	@Override
-//	default Vector get(final Map<Vector, Scalar> tmp) {
-//		Function vec = nullFunction();
-//		for (final Vector basevec : tmp.keySet()) {
-//			vec = (Function) add(vec, stretch(basevec, tmp.get(basevec)));
-//		}
-//		return vec;
-//	}
+	// @Override
+	// default Vector get(final Map<Vector, Scalar> tmp) {
+	// Function vec = nullFunction();
+	// for (final Vector basevec : tmp.keySet()) {
+	// vec = (Function) add(vec, stretch(basevec, tmp.get(basevec)));
+	// }
+	// return vec;
+	// }
 
-//	@Override
-//	Vector getCoordinates(Vector vec);
+	// @Override
+	// Vector getCoordinates(Vector vec);
 
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
 		final Field f = getField();
 		if (vec instanceof GenericFunction) {
 			return new GenericFunction() {
-				/**
-				 * 
-				 */
 				private static final long serialVersionUID = -3311201318061885649L;
 
 				@Override

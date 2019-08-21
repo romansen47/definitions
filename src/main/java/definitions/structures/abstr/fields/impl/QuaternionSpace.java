@@ -196,7 +196,8 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	/**
-	 * @param multiplicationMatrix the multiplicationMatrix to set
+	 * @param multiplicationMatrix
+	 *            the multiplicationMatrix to set
 	 */
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {

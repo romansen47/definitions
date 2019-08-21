@@ -115,7 +115,7 @@ public class DerivativesAndIntegrals {
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, sine);
 	}
 
-//	//@Test
+	// //@Test
 	public void scalarProducts() throws Throwable {
 		final List<Vector> base = sobolevSpace.genericBaseToList();
 		final double[][] scalarProducts = new double[base.size()][base.size()];

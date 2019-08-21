@@ -16,7 +16,7 @@ import definitions.structures.euclidean.vectors.impl.Monome;
 
 public class PolynomeRegressionTest {
 
-//	Field realLine=RealLine.getInstance();
+	// Field realLine=RealLine.getInstance();
 	final static double left = -1;
 	final static double right = 1;
 
@@ -87,7 +87,9 @@ public class PolynomeRegressionTest {
 		space = (EuclideanFunctionSpace) Generator.getGenerator()
 				.getFiniteDimensionalFunctionSpace(RealLine.getInstance(), base, left, right);
 
-//		newSpace=(IFiniteDimensionalFunctionSpace) Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace) space);
+		// newSpace=(IFiniteDimensionalFunctionSpace)
+		// Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace)
+		// space);
 
 	}
 
@@ -103,13 +105,13 @@ public class PolynomeRegressionTest {
 		ans.plotCompare(left, right, exp);
 	}
 
-//	//@Test
+	// //@Test
 	public void sinTest2() throws Throwable {
 		final Function ans = sin.getProjection(newSpace);
 		ans.plotCompare(left, right, sin);
 	}
 
-//	//@Test
+	// //@Test
 	public void expTest2() throws Throwable {
 		final Function ans = exp.getProjection(newSpace);
 		ans.plotCompare(left, right, exp);

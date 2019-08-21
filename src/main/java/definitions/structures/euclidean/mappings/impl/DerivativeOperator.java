@@ -74,7 +74,7 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 	private void addToCache(Vector vec, int degree, Vector ans) {
 		final Map<Integer, Vector> tmp = this.cachedDerivatives.get(vec);// new ConcurrentHashMap<>();
 		tmp.put(degree, ans);
-//		cachedDerivatives.put(vec, tmp);
+		// cachedDerivatives.put(vec, tmp);
 	}
 
 }

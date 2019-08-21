@@ -60,14 +60,14 @@ public class FunctionTest {
 				return new Real(Math.pow(Math.sin(x), 2) + 0.01 * x);
 			}
 		};
-//		symExp.plot(-Math.PI, Math.PI);
+		// symExp.plot(-Math.PI, Math.PI);
 	}
 
 	/**
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
 	 */
-//	@Test
+	// @Test
 	public final void testPlot() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -76,7 +76,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
 	 */
-//	@Test
+	// @Test
 	public final void testPlotCompare() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -85,7 +85,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.fields.scalars.Scalar)}.
 	 */
-//	@Test
+	// @Test
 	public final void testValue() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -94,7 +94,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(definitions.structures.euclidean.vectorspaces.EuclideanSpace)}.
 	 */
-//	@Test
+	// @Test
 	public final void testGetDerivativeEuclideanSpace() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -120,7 +120,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral()}.
 	 */
-//	@Test
+	// @Test
 	public final void testGetPrimitiveIntegral() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -129,7 +129,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral(int)}.
 	 */
-//	@Test
+	// @Test
 	public final void testGetPrimitiveIntegralInt() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -138,7 +138,7 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getProjectionOfDerivative(definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace)}.
 	 */
-//	@Test
+	// @Test
 	public final void testGetProjectionOfDerivative() {
 		fail("Not yet implemented"); // TODO
 	}

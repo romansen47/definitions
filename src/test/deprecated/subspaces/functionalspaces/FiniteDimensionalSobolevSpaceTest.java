@@ -142,7 +142,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		trigonometricFunctionSpace = generator.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(),
 				dim);
-//				.getTrigonometricSpace(RealLine.getInstance(), dim);
+		// .getTrigonometricSpace(RealLine.getInstance(), dim);
 
 		final EuclideanSpace trigonometricSobolevSpace = generator.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				dim, degree);
@@ -171,7 +171,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 		}
 	}
 
-//	@Test
+	// @Test
 	public void scalarProducts() throws Throwable {
 		sobolevSpace.show();
 	}

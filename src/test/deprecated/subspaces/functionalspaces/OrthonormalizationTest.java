@@ -88,8 +88,8 @@ public class OrthonormalizationTest {
 		};
 		final Vector x = space.getCoordinates(exp);
 		final double y = (Math.exp(Math.PI) - Math.exp(-Math.PI)) / Math.sqrt(2 * Math.PI);
-//		Assert.assertTrue((Math.abs(x.getCoordinates()[0].getValue() - y) < this.eps)
-//				|| (Math.abs(x.getCoordinates()[1].getValue() - y) < this.eps)
-//				|| (Math.abs(x.getCoordinates()[2].getValue() - y) < this.eps));
+		// Assert.assertTrue((Math.abs(x.getCoordinates()[0].getValue() - y) < this.eps)
+		// || (Math.abs(x.getCoordinates()[1].getValue() - y) < this.eps)
+		// || (Math.abs(x.getCoordinates()[2].getValue() - y) < this.eps));
 	}
 }

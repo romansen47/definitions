@@ -21,8 +21,10 @@ public interface VectorSpace extends Group, VectorSpaceMethods {
 	/**
 	 * Addition of vectors.
 	 * 
-	 * @param vec1 summand a.
-	 * @param vec2 summand b.
+	 * @param vec1
+	 *            summand a.
+	 * @param vec2
+	 *            summand b.
 	 * @return the addition of a and b.
 	 */
 	Vector add(Vector vec1, Vector vec2);
@@ -30,8 +32,10 @@ public interface VectorSpace extends Group, VectorSpaceMethods {
 	/**
 	 * Scalar Multiplication by real numbers.
 	 * 
-	 * @param vec1 the vector to stretch.
-	 * @param r    the factor.
+	 * @param vec1
+	 *            the vector to stretch.
+	 * @param r
+	 *            the factor.
 	 * @return the stretched vector.
 	 */
 	Vector stretch(Vector vec1, Scalar r);

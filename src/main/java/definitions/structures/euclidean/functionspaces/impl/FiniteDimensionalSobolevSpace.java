@@ -32,10 +32,14 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 * 
-	 * @param genericBase the base
-	 * @param left        the inf of the interval.
-	 * @param right       the sup of the intervall.
-	 * @param degree      the sobolev degree.
+	 * @param genericBase
+	 *            the base
+	 * @param left
+	 *            the inf of the interval.
+	 * @param right
+	 *            the sup of the intervall.
+	 * @param degree
+	 *            the sobolev degree.
 	 */
 	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
 			final double right, int degree) {
@@ -47,23 +51,29 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 * 
-	 * @param genericBase the base
-	 * @param left        the inf of the interval.
-	 * @param right       the sup of the intervall.
-	 * @param degree      the sobolev degree.
+	 * @param genericBase
+	 *            the base
+	 * @param left
+	 *            the inf of the interval.
+	 * @param right
+	 *            the sup of the intervall.
+	 * @param degree
+	 *            the sobolev degree.
 	 */
 	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
 			final double right, int degree, boolean ortho) {
 		super(field, genericBase, left, right, ortho);
 		this.degree = degree;
-//		this.getDerivativeBuilder();
+		// this.getDerivativeBuilder();
 	}
 
 	/**
 	 * Constructor. Converts function space to sobolev space.
 	 * 
-	 * @param space  the function space.
-	 * @param degree the sobolev degree of the converted space.
+	 * @param space
+	 *            the function space.
+	 * @param degree
+	 *            the sobolev degree of the converted space.
 	 */
 	public FiniteDimensionalSobolevSpace(Field field, final EuclideanFunctionSpace space, int degree, boolean ortho) {
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
@@ -76,7 +86,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 * 
-	 * @param degree the sobolev degree.
+	 * @param degree
+	 *            the sobolev degree.
 	 */
 	protected FiniteDimensionalSobolevSpace(Field field, int degree) {
 		super(field);
@@ -92,26 +103,26 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			} else {
 				double product = 0;
 				Vector tmp1 = vec1;
-//				new GenericFunction() {
-//					@Override
-//					public Scalar value(Scalar input) {
-//						return ((Function) vec1).value(input);
-//					}
-//				};
+				// new GenericFunction() {
+				// @Override
+				// public Scalar value(Scalar input) {
+				// return ((Function) vec1).value(input);
+				// }
+				// };
 				Vector tmp2 = vec2;
-//				new GenericFunction() {
-//					@Override
-//					public Scalar value(Scalar input) {
-//						return ((Function) vec2).value(input);
-//					}
-//				};
-//				try {
-//					tmp1=((Function) tmp1).getProjection(this);
-//					tmp2=((Function) tmp2).getProjection(this);
-//				}
-//				catch (Exception e) {
-//					System.out.println("Base not created yet.");
-//				}
+				// new GenericFunction() {
+				// @Override
+				// public Scalar value(Scalar input) {
+				// return ((Function) vec2).value(input);
+				// }
+				// };
+				// try {
+				// tmp1=((Function) tmp1).getProjection(this);
+				// tmp2=((Function) tmp2).getProjection(this);
+				// }
+				// catch (Exception e) {
+				// System.out.println("Base not created yet.");
+				// }
 				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
 					if (!(tmp1 instanceof FunctionTuple) || this.derivativeBuilder == null) {

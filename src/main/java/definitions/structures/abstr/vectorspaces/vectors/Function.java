@@ -47,7 +47,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Evaluation of the function.
 	 * 
-	 * @param input the input parameter.
+	 * @param input
+	 *            the input parameter.
 	 * @return the image of the input.
 	 */
 	Scalar value(Scalar input);
@@ -55,8 +56,10 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to determine whether another function produces the same values.
 	 * 
-	 * @param other  the other function.
-	 * @param source the source vector space.
+	 * @param other
+	 *            the other function.
+	 * @param source
+	 *            the source vector space.
 	 * @return the equality.
 	 */
 	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
@@ -188,7 +191,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the n-th derivative.
 	 * 
-	 * @param n the derivative degree.
+	 * @param n
+	 *            the derivative degree.
 	 * @return the n-th derivative of the function.
 	 */
 	default Function getDerivative(int n) {
@@ -225,7 +229,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to get an n-th primitive integral.
 	 * 
-	 * @param n the degree.
+	 * @param n
+	 *            the degree.
 	 * @return an n-th integral.
 	 */
 	// default Function getPrimitiveIntegral(int n) {
@@ -242,7 +247,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the projection of the derivative onto a vector space.
 	 * 
-	 * @param space the vector space.
+	 * @param space
+	 *            the vector space.
 	 * @return the projection of the derivative.
 	 */
 	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
@@ -252,7 +258,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the coordinates of the projection onto a vector space.
 	 * 
-	 * @param space the vector space.
+	 * @param space
+	 *            the vector space.
 	 * @return the coordinates of the projection.
 	 */
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
@@ -272,7 +279,8 @@ public interface Function extends Vector, Plotable {
 	/**
 	 * Method to compute the projection onto another space.
 	 * 
-	 * @param source the vector space.
+	 * @param source
+	 *            the vector space.
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {

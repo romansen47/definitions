@@ -55,7 +55,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * Generator using a linear independent set of vectors.
 	 * 
-	 * @param genericBase the set of vectors.
+	 * @param genericBase
+	 *            the set of vectors.
 	 */
 	public FiniteDimensionalVectorSpace(Field field, final List<Vector> genericBase) {
 		this.field = field;
@@ -72,7 +73,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
-			coordinates.put(vec, RealLine.getInstance().getZero());
+			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}
 		return new Tuple(coordinates);
 	}
@@ -100,7 +101,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * setter for the base.
 	 * 
-	 * @param newBase the new base.
+	 * @param newBase
+	 *            the new base.
 	 */
 	public void setBase(final List<Vector> newBase) {
 		this.base = newBase;

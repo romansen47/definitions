@@ -21,7 +21,7 @@ public interface VectorMethods {
 	 * 
 	 * @return the coordinates as double[].
 	 */
-//	Scalar[] getGenericCoordinates();
+	// Scalar[] getGenericCoordinates();
 
 	@Override
 	String toString();
@@ -29,7 +29,8 @@ public interface VectorMethods {
 	/**
 	 * Setter for coordinates on a base.
 	 * 
-	 * @param coordinates the coordinates.
+	 * @param coordinates
+	 *            the coordinates.
 	 */
 	default void setCoordinates(Map<Vector, Scalar> coordinates) {
 

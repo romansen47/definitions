@@ -23,7 +23,8 @@ public abstract class Constant extends GenericFunction {
 	/**
 	 * Constructor
 	 * 
-	 * @param value the constant value.
+	 * @param value
+	 *            the constant value.
 	 */
 	public Constant(final Scalar value) {
 		this.constantValue = value;

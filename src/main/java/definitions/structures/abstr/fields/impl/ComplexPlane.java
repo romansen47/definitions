@@ -46,6 +46,9 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		this.i = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
 		this.base.add(this.one);
 		this.base.add(this.i);
+
+		// this.one.getCoordinates();
+		// this.i.getCoordinates();
 	}
 
 	@Override
@@ -63,6 +66,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new ComplexPlane();
+			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
 		}
 		return instance;
 	}
@@ -129,7 +133,8 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	/**
-	 * @param multiplicationMatrix the multiplicationMatrix to set
+	 * @param multiplicationMatrix
+	 *            the multiplicationMatrix to set
 	 */
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {

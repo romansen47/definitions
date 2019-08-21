@@ -30,17 +30,22 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Constructor.
 	 * 
-	 * @param n      the highest degree of the trigonometric polynomials.
-	 * @param left   the inf of the interval.
-	 * @param right  the sup of the interval.
-	 * @param degree the sobolev degree.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
+	 * @param left
+	 *            the inf of the interval.
+	 * @param right
+	 *            the sup of the interval.
+	 * @param degree
+	 *            the sobolev degree.
 	 */
 	public TrigonometricSobolevSpace(Field f, final int n, final double left, final double right, int degree) {
 		super(f, degree);
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
-//		final EuclideanSpace space = (EuclideanSpace) Generator.getGenerator().getSpacegenerator()
-//				.getFiniteDimensionalVectorSpace(this.dim);
+		// final EuclideanSpace space = (EuclideanSpace)
+		// Generator.getGenerator().getSpacegenerator()
+		// .getFiniteDimensionalVectorSpace(this.dim);
 		this.interval = new double[] { left, right };
 		tmpBase.add(new GenericFunction() {
 			/**
@@ -85,37 +90,40 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		}
 	}
 
-//	/**
-//	 * Method to fill a list with sine functions.
-//	 *
-//	 * @param n       the highest degree of the trigonometric polynomials.
-//	 * @param tmpBase the list.
-//	 */
-//	private void getSineFunctions(final int n, final List<Vector> tmpBase) {
-//		for (int i = 1; i < (n + 1); i++) {
-//			final Vector sin = new Sine(Math.sqrt(Math.PI * (1 + Math.pow(i, 2))), 0, i);
-//			tmpBase.add(sin);
-//		}
-//	}
-//
-//	/**
-//	 * Method to fill a list with cosine functions.
-//	 *
-//	 * @param n       the highest degree of the trigonometric polynomials.
-//	 * @param tmpBase the list.
-//	 */
-//	private void getCosineFunctions(final int n, final List<Vector> tmpBase) {
-//		for (int i = 1; i < (n + 1); i++) {
-//			final Vector cos = new Sine(Math.sqrt(Math.PI * (1 + Math.pow(i, 2))), 0.5 * Math.PI, i);
-//			tmpBase.add(cos);
-//		}
-//	}
+	// /**
+	// * Method to fill a list with sine functions.
+	// *
+	// * @param n the highest degree of the trigonometric polynomials.
+	// * @param tmpBase the list.
+	// */
+	// private void getSineFunctions(final int n, final List<Vector> tmpBase) {
+	// for (int i = 1; i < (n + 1); i++) {
+	// final Vector sin = new Sine(Math.sqrt(Math.PI * (1 + Math.pow(i, 2))), 0, i);
+	// tmpBase.add(sin);
+	// }
+	// }
+	//
+	// /**
+	// * Method to fill a list with cosine functions.
+	// *
+	// * @param n the highest degree of the trigonometric polynomials.
+	// * @param tmpBase the list.
+	// */
+	// private void getCosineFunctions(final int n, final List<Vector> tmpBase) {
+	// for (int i = 1; i < (n + 1); i++) {
+	// final Vector cos = new Sine(Math.sqrt(Math.PI * (1 + Math.pow(i, 2))), 0.5 *
+	// Math.PI, i);
+	// tmpBase.add(cos);
+	// }
+	// }
 
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param tmpBase the list.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
+	 * @param tmpBase
+	 *            the list.
 	 */
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
@@ -144,9 +152,11 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase the list.
+	 * @param tmpBase
+	 *            the list.
 	 */
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
 

@@ -24,7 +24,8 @@ public class InjectiveLinearMapping extends FiniteDimensionalLinearMapping imple
 	/**
 	 * Constructor.
 	 * 
-	 * @param mapping the casted finite dimensional homomorphism.
+	 * @param mapping
+	 *            the casted finite dimensional homomorphism.
 	 */
 	protected InjectiveLinearMapping(final FiniteDimensionalHomomorphism mapping) {
 		super((EuclideanSpace) mapping.getSource(), (EuclideanSpace) mapping.getTarget(), mapping.getLinearity());
@@ -33,9 +34,12 @@ public class InjectiveLinearMapping extends FiniteDimensionalLinearMapping imple
 	/**
 	 * Constructor.
 	 * 
-	 * @param source      the source vector space.
-	 * @param target      the target vector space.
-	 * @param coordinates the coordinates mapping.
+	 * @param source
+	 *            the source vector space.
+	 * @param target
+	 *            the target vector space.
+	 * @param coordinates
+	 *            the coordinates mapping.
 	 */
 	public InjectiveLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {

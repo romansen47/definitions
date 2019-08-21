@@ -3,14 +3,12 @@
  */
 package definitions.structures.euclidean.vectorspaces.impl;
 
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator; 
 
 /**
  * @author ro
@@ -20,34 +18,20 @@ public class MultiDimensionalComplexVectorSpaceTest {
 
 	ISpaceGenerator gen = SpaceGenerator.getInstance();
 
-//	final EuclideanSpace complexSpace=(EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalComplexSpace(500);
-//	EuclideanSpace asRealSpace=gen.convert(complexSpace,RealLine.getInstance());
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
 	@Test
 	public void test() {
 		final int dim = 100;
 
-		final EuclideanSpace modulo2Space = (EuclideanSpace) this.gen
-				.getFiniteDimensionalVectorSpace((Field) BinaryField.getInstance(), dim);
+		final EuclideanSpace complexSpace = (EuclideanSpace) SpaceGenerator.getInstance()
+				.getFiniteDimensionalComplexSpace(dim);
 
-		boolean ans = true;
-//		modulo2Space.show();
+		Vector vec = complexSpace.nullVec();
 		for (int i = 0; i < dim; i++) {
-			final Vector x = modulo2Space.genericBaseToList().get(i);
-			final Vector h = modulo2Space.add(x, x);
-			if (!h.equals(modulo2Space.nullVec())) {
-				ans = false;
-			}
-
+			final Vector x = complexSpace.genericBaseToList().get(i);
+			vec = complexSpace.add(vec, x);
 		}
-		final int i = 0;
+		boolean newAns = Math.abs(complexSpace.norm(vec).doubleValue() - Math.sqrt(dim)) < 0.1;
+		Assert.assertTrue(newAns);
 	}
 
 }

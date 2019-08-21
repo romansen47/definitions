@@ -41,7 +41,7 @@ public interface ISpaceGenerator {
 		if (dim == 1) {
 			return field;
 		}
-		if (!getCachedCoordinateSpaces().containsKey(dim)) {
+		if (!getCachedCoordinateSpaces().containsKey(-dim)) {
 			final List<Vector> basetmp = new ArrayList<>();
 			for (int i = 0; i < dim; i++) {
 				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
@@ -57,7 +57,7 @@ public interface ISpaceGenerator {
 			}
 			getCachedCoordinateSpaces().put(Integer.valueOf(-dim), new FiniteDimensionalVectorSpace(field, basetmp));
 		}
-		return getCachedCoordinateSpaces().get(dim);
+		return getCachedCoordinateSpaces().get(-dim);
 	}
 
 	default VectorSpace getFiniteDimensionalVectorSpace(final int dim) {

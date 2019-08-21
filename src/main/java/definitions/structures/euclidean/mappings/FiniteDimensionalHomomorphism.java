@@ -33,7 +33,8 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 	/**
 	 * Method to solve the equation y=Ax.
 	 * 
-	 * @param image the vector y.
+	 * @param image
+	 *            the vector y.
 	 * @return x, the source image of y with respect to the mapping.
 	 */
 	default FiniteVector solve(final FiniteVector image) {

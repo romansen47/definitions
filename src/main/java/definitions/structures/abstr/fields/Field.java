@@ -23,9 +23,6 @@ public interface Field extends EuclideanAlgebra, FieldMethods {
 	default Vector inverse(Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = -4878554588629268392L;
 
 			@Override

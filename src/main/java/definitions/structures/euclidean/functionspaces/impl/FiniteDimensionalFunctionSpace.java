@@ -38,7 +38,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-3;
+	protected final double eps = 1.e-1;
 
 	/**
 	 * Plain constructor. @
@@ -145,9 +145,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase the list.
+	 * @param tmpBase
+	 *            the list.
 	 */
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
@@ -162,9 +164,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param n
+	 *            the highest degree of the trigonometric polynomials.
 	 * @param d
-	 * @param tmpBase the list.
+	 * @param tmpBase
+	 *            the list.
 	 */
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {

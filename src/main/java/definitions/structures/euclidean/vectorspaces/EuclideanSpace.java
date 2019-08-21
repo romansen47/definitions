@@ -48,7 +48,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
-	 * @param tmp the coordinates with respect to the base
+	 * @param tmp
+	 *            the coordinates with respect to the base
 	 * @return the corresponding vector @
 	 */
 	default Vector get(final Map<Vector, Scalar> tmp) {
@@ -62,7 +63,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> Scalar).
 	 * 
-	 * @param tmp the coordinates with respect to the base
+	 * @param tmp
+	 *            the coordinates with respect to the base
 	 * @return the corresponding vector @
 	 */
 	default Vector get(final Scalar[] tmp) {
@@ -75,8 +77,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) 
-				&& (vec1.getDim().equals(getDim()))) {
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(getDim()))) {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
@@ -119,7 +120,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 * Method to project a vector. Transformes instances of generic functions to
 	 * function tuples in concrete space.
 	 * 
-	 * @param vec the vector to clone.
+	 * @param vec
+	 *            the vector to clone.
 	 * @return copy of vec.
 	 */
 	Vector getCoordinates(Vector vec);
@@ -127,8 +129,10 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Method to compute the distance between two vectors.
 	 * 
-	 * @param vec1 first vector.
-	 * @param vec2 second vector.
+	 * @param vec1
+	 *            first vector.
+	 * @param vec2
+	 *            second vector.
 	 * @return the distance. @
 	 */
 	@Override
@@ -140,7 +144,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	/**
 	 * Method to create an orthonormal base.
 	 * 
-	 * @param the original base.
+	 * @param the
+	 *            original base.
 	 * @return an orthonormal base of same span. @
 	 */
 	List<Vector> getOrthonormalBase(List<Vector> base);
@@ -174,14 +179,14 @@ public interface EuclideanSpace extends InnerProductSpace {
 
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		double prod = 0;
+		Vector prod = getField().nullVec();
 		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
 		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
-//		final List<Vector> base = this.genericBaseToList();
+		// final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec : vecCoord1.keySet()) {
-			prod += vecCoord1.get(vec).getValue() * vecCoord2.get(vec).getValue();
+			prod = getField().add(prod, getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));
 		}
-		return new Real(prod);
+		return (Scalar) prod;
 	}
 
 	public EuclideanSpace getDualSpace();

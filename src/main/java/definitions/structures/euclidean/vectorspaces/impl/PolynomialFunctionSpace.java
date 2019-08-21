@@ -21,24 +21,23 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
 	protected PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
 		this(field, maxDegree, right);
+		// assignOrthonormalCoordinates(this.base, field);
 		if (ortho) {
 			this.base = this.getOrthonormalBase(this.base);
 		}
 	}
 
 	private void prepare(int maxDegree, double right) {
+		final Field f = this.getField();
 		this.interval = new double[] { -right, right };
 		this.base.clear();
 		for (int i = 0; i < (maxDegree + 1); i++) {
 			this.base.add(new Monome(i) {
-				/**
-				 * 
-				 */
 				private static final long serialVersionUID = -3227300408323170816L;
 
 				@Override
 				public Field getField() {
-					return this.field;
+					return f;
 				}
 			});
 		}

@@ -110,7 +110,7 @@ public class PolynomialRegressionTest {
 		measures2 = measures.getProjection((EuclideanSpace) trigonometricSpace);
 	}
 
-//	@Test
+	// @Test
 	public void test1() throws Throwable {
 		final Function coordinates = exp.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, exp);
@@ -125,7 +125,7 @@ public class PolynomialRegressionTest {
 		coordinates2.plotCompare(left, right, measures2);
 	}
 
-//	@Test
+	// @Test
 	public void test() throws Throwable {
 		staircaseFunction2.plotCompare(left, right, staircaseFunction);
 	}
@@ -157,7 +157,7 @@ public class PolynomialRegressionTest {
 		return ans;
 	}
 
-//	@Test
+	// @Test
 	public void test3() {
 		((EuclideanSpace) trigonometricSpace).show();
 	}

@@ -33,7 +33,7 @@ public final class BinaryField implements PrimeField {
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
 	private BinaryField() {
-//		this.base.add(this.zero);
+		// this.base.add(this.zero);
 		this.base.add(this.unit);
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();

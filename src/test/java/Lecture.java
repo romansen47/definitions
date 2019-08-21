@@ -17,7 +17,7 @@ public class Lecture {
 
 	public static void main(String[] args) {
 
-//		Monoid monoid = Naturals.getInstance();
+		// Monoid monoid = Naturals.getInstance();
 
 		final Group group = Integers.getInstance();
 

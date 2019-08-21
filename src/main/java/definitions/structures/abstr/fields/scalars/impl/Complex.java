@@ -62,7 +62,7 @@ public class Complex implements FiniteVector, Scalar {
 
 	@Override
 	public double getValue() {
-		return 0;
+		return this.getReal().getValue();
 	}
 
 	@Override
@@ -84,10 +84,11 @@ public class Complex implements FiniteVector, Scalar {
 		return this.imag;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getImag().getValue() + " )";
-//	}
+	// @Override
+	// public String toString() {
+	// return "( " + this.getReal().getValue() + " ) + i * ( " +
+	// this.getImag().getValue() + " )";
+	// }
 
 	@Override
 	public String toString() {

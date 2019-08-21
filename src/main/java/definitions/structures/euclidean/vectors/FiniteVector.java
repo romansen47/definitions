@@ -31,7 +31,8 @@ public interface FiniteVector extends Vector {
 	 * Method to compute the coordinates of the vector with respect to the base of a
 	 * vector space.
 	 * 
-	 * @param source the vector space.
+	 * @param source
+	 *            the vector space.
 	 * @return the coordinates.
 	 */
 	Map<Vector, Scalar> getCoordinates(EuclideanSpace source);
@@ -39,7 +40,8 @@ public interface FiniteVector extends Vector {
 	/**
 	 * Method to compute the projection of the vector onto a vector space.
 	 * 
-	 * @param source the vector space.
+	 * @param source
+	 *            the vector space.
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
