@@ -30,6 +30,9 @@ public class OrthonormalizationTest {
 	static double ans1;
 	static double ans2;
 	static double ans3;
+	static double ans4;
+	static double ans5;
+	static double ans6;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -56,6 +59,11 @@ public class OrthonormalizationTest {
 		ans1 = space.innerProduct(a, b).getValue();
 		ans2 = space.innerProduct(b, c).getValue();
 		ans3 = space.innerProduct(c, a).getValue();
+		
+
+		ans4 = space.innerProduct(a, a).getValue();
+		ans5 = space.innerProduct(b, b).getValue();
+		ans6 = space.innerProduct(c, c).getValue();
 
 	}
 

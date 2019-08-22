@@ -86,8 +86,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
-					&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+			if ((vec1.getCoordinates()!=null) && (vec2.getCoordinates()!=null)) {
 				return super.innerProduct(vec1, vec2);
 			} else {
 				double product = 0;

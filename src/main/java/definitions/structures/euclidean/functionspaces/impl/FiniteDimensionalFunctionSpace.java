@@ -79,23 +79,24 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
 			Vector tmp = this.nullVec();
-			for (final Vector vec2 : base) {
+			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
 			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
 			newBase.add(ans);
 		}
-		for (final Vector baseVec : newBase) {
-			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			for (final Vector otherBaseVec : newBase) {
-				if (baseVec.equals(otherBaseVec)) {
-					coordinates.put(baseVec, this.getField().get(1.));
-				} else {
-					coordinates.put(otherBaseVec, this.getField().get(0.));
-				}
-			}
-			baseVec.setCoordinates(coordinates);
-		}
+		assignOrthonormalCoordinates(newBase, field);
+//		for (final Vector baseVec : newBase) {
+//			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+//			for (final Vector otherBaseVec : newBase) {
+//				if (baseVec.equals(otherBaseVec)) {
+//					coordinates.put(baseVec, this.getField().get(1.));
+//				} else {
+//					coordinates.put(otherBaseVec, this.getField().get(0.));
+//				}
+//			}
+//			baseVec.setCoordinates(coordinates);
+//		}
 		return newBase;
 	}
 
@@ -106,8 +107,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
-				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+		if ((vec1.getCoordinates()!=null) && (vec2.getCoordinates()!=null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
 			return this.integral((Function) vec1, (Function) vec2);
