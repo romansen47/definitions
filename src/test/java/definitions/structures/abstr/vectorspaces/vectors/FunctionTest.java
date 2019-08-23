@@ -24,7 +24,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 7;
+	static final int trigonometricDegree = 3;
 	static final int sobolevDegree = 1;
 	static int derivativeDegree = 4;
 
@@ -111,8 +111,8 @@ public class FunctionTest {
 		for (int i = 1; i < derivativeDegree; i++) {
 			System.out.println(i + 1 + "-th derivative");
 			derivative.plotCompare(-Math.PI, Math.PI, highDerivative);
-			derivative = derivative.getProjection(trigSpace).getDerivative();
-			highDerivative = ((Function) derivativeBuilder.get(symExp, i));
+			derivative = ((Function) derivative.getProjection(trigSpace)).getDerivative();
+			highDerivative = ((Function) derivativeBuilder.get(highDerivative));
 		}
 	}
 

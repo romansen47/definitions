@@ -12,6 +12,7 @@ import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -28,21 +29,27 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	default Vector add(final Vector vec1, final Vector vec2) {
 		final Field f = getField();
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1.getCoordinates() == null) || (vec2.getCoordinates() == null)) {
-				return new GenericFunction() {
-					private static final long serialVersionUID = -2989863516320429371L;
-
-					@Override
-					public Scalar value(final Scalar input) {
-						return (Scalar) getField().add(((Function) vec1).value(input), ((Function) vec2).value(input));
-					}
-
-					@Override
-					public Field getField() {
-						return f;
-					}
-				};
-			}
+//			if ((vec1.getCoordinates() == null)) {
+//				Vector vec1new=this.get(((Function)vec1).getCoordinates(this));
+//			}
+//			if (vec2.getCoordinates() == null) {
+//				Vector vec2new=this.get(((Function)vec2).getCoordinates(this));
+//			}
+			
+//				return new GenericFunction() {
+//					private static final long serialVersionUID = -2989863516320429371L;
+//
+//					@Override
+//					public Scalar value(final Scalar input) {
+//						return (Scalar) getField().add(((Function) vec1).value(input), ((Function) vec2).value(input));
+//					}
+//
+//					@Override
+//					public Field getField() {
+//						return f;
+//					}
+//				};
+//			}
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new HashMap<>();
 			final Vector newVec1 = functionTuple(vec1);
@@ -52,7 +59,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 						+ newVec2.getCoordinates().get(getBaseVec(vec)).getValue()));
 			}
 			return new FunctionTuple(coordinates, this);
-		}
+	}
 		return null;
 	}
 
@@ -101,6 +108,12 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
+		if (vec.equals(nullVec()) || r.equals(getField().getZero())) {
+			return (Function) nullVec();
+		}
+		if (r.equals(getField().getOne())) {
+			return ((FiniteVector) vec).getProjection(this);
+		}
 		final Field f = getField();
 		if (vec instanceof GenericFunction) {
 			return new GenericFunction() {

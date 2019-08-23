@@ -103,7 +103,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 		beta.plot(-Math.PI, Math.PI);
 		gamma.plot(-Math.PI, Math.PI);
 
-		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -1, 1, true);
+		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -Math.PI, Math.PI, true);
 
 	}
 
