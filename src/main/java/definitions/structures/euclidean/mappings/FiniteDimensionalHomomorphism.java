@@ -76,7 +76,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			return getOnSubSpace(vec2);
 		}
 		Map<Vector, Scalar> coordinates;
-		if (vec2 instanceof GenericFunction) {
+		if (vec2.getCoordinates()==null) {
 			coordinates = ((Function) vec2).getCoordinates((EuclideanSpace) getSource());
 		} else {
 			coordinates = ((FiniteVector) vec2).getCoordinates();

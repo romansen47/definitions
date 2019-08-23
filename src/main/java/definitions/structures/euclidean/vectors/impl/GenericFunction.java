@@ -30,11 +30,9 @@ public abstract class GenericFunction implements Function {
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
 		if (this.coordinatesMap != null) {
-			if (this.coordinatesMap.get(space) != null) {
-				return this.coordinatesMap.get(space);
-			}
+			 
 			final Map<Vector, Scalar> map = new ConcurrentHashMap<>();
-			this.coordinatesMap.put(space, map);
+//			this.coordinatesMap.put(space, map);
 		}
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		for (final Vector baseVec : space.genericBaseToList()) {

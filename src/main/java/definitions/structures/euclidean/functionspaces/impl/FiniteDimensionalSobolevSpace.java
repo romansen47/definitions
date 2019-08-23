@@ -88,41 +88,23 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((vec1.getCoordinates()!=null) && (vec2.getCoordinates()!=null)) {
 				return super.innerProduct(vec1, vec2);
-			} else {
+			} 
+			else {
 				double product = 0;
 				Vector tmp1 = vec1;
-				// new GenericFunction() {
-				// @Override
-				// public Scalar value(Scalar input) {
-				// return ((Function) vec1).value(input);
-				// }
-				// };
 				Vector tmp2 = vec2;
-				// new GenericFunction() {
-				// @Override
-				// public Scalar value(Scalar input) {
-				// return ((Function) vec2).value(input);
-				// }
-				// };
-				// try {
-				// tmp1=((Function) tmp1).getProjection(this);
-				// tmp2=((Function) tmp2).getProjection(this);
-				// }
-				// catch (Exception e) {
-				// System.out.println("Base not created yet.");
-				// }
 				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (!(tmp1 instanceof FunctionTuple) || this.derivativeBuilder == null) {
+					if (tmp1.getCoordinates()==null || tmp2.getCoordinates()==null || this.derivativeBuilder == null) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						tmp1 = this.derivativeBuilder.get(tmp1);
-						tmp2 = this.derivativeBuilder.get(tmp2);
+						tmp1 = this.derivativeBuilder.get(get(tmp1.getCoordinates()));
+						tmp2 = this.derivativeBuilder.get(get(tmp2.getCoordinates()));
 					}
 					product += super.innerProduct(tmp1, tmp2).getValue();
 				}
-				return new Real(product);
+				return getField().get(product);
 			}
 		}
 		return super.innerProduct(vec1, vec2);

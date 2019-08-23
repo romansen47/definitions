@@ -28,7 +28,7 @@ public class EuclideanFunctionSpaceTest {
 	private static FunctionSpace trigonometricSpaceSobolev;
 
 	final static int polynomialDegree = 2;
-	final static int trigonometricDegree = 15;
+	final static int trigonometricDegree = 1;
 	final static int sobolevDegree = 0;
 
 	final static Function exp = new ExponentialFunction(RealLine.getInstance().getZero(),

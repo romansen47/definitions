@@ -15,6 +15,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
@@ -24,12 +25,13 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 3;
-	static final int sobolevDegree = 1;
-	static int derivativeDegree = 4;
+	static final int trigonometricDegree = 2;
+	static final int sobolevDegree = 3;
+	static int derivativeDegree = 5;
 
 	static EuclideanFunctionSpace trigSpace;
-	static Function symExp;
+	static Function sine;
+	static Function cosine;
 	static Function derivative;
 
 	/**
@@ -37,30 +39,16 @@ public class FunctionTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
 		final ISpaceGenerator spGen = SpaceGenerator.getInstance();
 		final EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
-		final Function abs = new GenericFunction() {
-			private static final long serialVersionUID = 9176320860959699923L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				return new Real(0.5 * input.getValue() + Math.abs(input.getValue()));
-			}
-
-		};
+		
 		trigSpace = tempSpace;// (EuclideanFunctionSpace) spGen.extend(tempSpace, abs);
-		symExp = new GenericFunction() {
-			private static final long serialVersionUID = 3133556157379438698L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double x = input.getValue();
-				final double pi = Math.PI;
-				return new Real(Math.pow(Math.sin(x), 2) + 0.01 * x);
-			}
-		};
-		// symExp.plot(-Math.PI, Math.PI);
+		
+		sine = (Function) trigSpace.genericBaseToList().get(1);
+		cosine = (Function) trigSpace.genericBaseToList().get(2);
+		
 	}
 
 	/**
@@ -106,14 +94,25 @@ public class FunctionTest {
 	@Test
 	public final void testGetDerivativeInt() {
 		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
-		Function highDerivative = ((Function) derivativeBuilder.get(symExp));
-		derivative = symExp.getDerivative();
-		for (int i = 1; i < derivativeDegree; i++) {
-			System.out.println(i + 1 + "-th derivative");
-			derivative.plotCompare(-Math.PI, Math.PI, highDerivative);
-			derivative = ((Function) derivative.getProjection(trigSpace)).getDerivative();
-			highDerivative = ((Function) derivativeBuilder.get(highDerivative));
+
+		Function highDerivative;
+		EuclideanSpace space=(EuclideanSpace) trigSpace;
+		Function newSine=sine.getProjection(space);
+		
+		for (int i = 0; 4*i < derivativeDegree; i++) {
+			highDerivative = ((Function) derivativeBuilder.get(newSine, 4*i+1));
+			cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
+
+			highDerivative = ((Function) derivativeBuilder.get(newSine, 4*i+2));
+			trigSpace.stretch(sine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
+
+			highDerivative = ((Function) derivativeBuilder.get(newSine, 4*i+3));
+			trigSpace.stretch(cosine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
+
+			highDerivative = ((Function) derivativeBuilder.get(newSine, 4*i+4));
+			sine.plotCompare(-Math.PI, Math.PI, highDerivative);
 		}
+
 	}
 
 	/**

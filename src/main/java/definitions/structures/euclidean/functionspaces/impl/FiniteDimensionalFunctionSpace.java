@@ -38,7 +38,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-3;
+	protected final double eps = 1.e-1;
 
 	/**
 	 * Plain constructor. @
@@ -82,21 +82,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
+			Function fun=(Function) this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
+			final Vector ans = get(fun.getCoordinates(this));
 			newBase.add(ans);
 		}
 		assignOrthonormalCoordinates(newBase, field);
-//		for (final Vector baseVec : newBase) {
-//			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-//			for (final Vector otherBaseVec : newBase) {
-//				if (baseVec.equals(otherBaseVec)) {
-//					coordinates.put(baseVec, this.getField().get(1.));
-//				} else {
-//					coordinates.put(otherBaseVec, this.getField().get(0.));
-//				}
-//			}
-//			baseVec.setCoordinates(coordinates);
-//		}
 		return newBase;
 	}
 
