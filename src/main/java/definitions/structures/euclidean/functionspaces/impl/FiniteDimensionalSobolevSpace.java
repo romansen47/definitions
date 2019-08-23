@@ -4,12 +4,10 @@ import java.util.List;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
-import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.
@@ -27,7 +25,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * The sobolev degree.
 	 */
-	private Integer degree;
+	private final Integer degree;
 
 	/**
 	 * Constructor.
@@ -86,25 +84,33 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1.getCoordinates()!=null) && (vec2.getCoordinates()!=null)) {
+			if ((vec1.getCoordinates() != null) && (vec2.getCoordinates() != null)) {
 				return super.innerProduct(vec1, vec2);
-			} 
-			else {
+			} else {
 				double product = 0;
 				Vector tmp1 = vec1;
 				Vector tmp2 = vec2;
 				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (tmp1.getCoordinates()==null || tmp2.getCoordinates()==null || this.derivativeBuilder == null) {
+					if ((tmp1.getCoordinates() == null && tmp2.getCoordinates() == null)
+							|| this.derivativeBuilder == null) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						tmp1 = this.derivativeBuilder.get(get(tmp1.getCoordinates()));
-						tmp2 = this.derivativeBuilder.get(get(tmp2.getCoordinates()));
+						if (tmp1.getCoordinates() == null && tmp2.getCoordinates() != null) {
+							tmp2 = this.stretch(this.derivativeBuilder.get(tmp2, 2), this.getField().get(-1.));
+						} else {
+							if (tmp1.getCoordinates() != null && tmp2.getCoordinates() == null) {
+								tmp1 = this.stretch(this.derivativeBuilder.get(tmp1, 2), this.getField().get(-1));
+							} else {
+								tmp1 = this.derivativeBuilder.get(tmp1);
+								tmp2 = this.derivativeBuilder.get(tmp2);
+							}
+						}
 					}
 					product += super.innerProduct(tmp1, tmp2).getValue();
 				}
-				return getField().get(product);
+				return this.getField().get(product);
 			}
 		}
 		return super.innerProduct(vec1, vec2);
@@ -121,9 +127,6 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @return the sobolev degree
 	 */
 	public final Integer getDegree() {
-		if (this.degree == null) {
-			this.degree = this.base.size();
-		}
 		return this.degree;
 	}
 

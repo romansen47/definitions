@@ -18,7 +18,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**
- * @author BAU12350
+ * @author ro
  *
  */
 public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensionalFunctionSpaceTest {

@@ -127,15 +127,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
 			final Vector sin = new Sine(new Real(factor), RealLine.getInstance().getZero(), new Real(i)) {
-
-				/**
-				 * 
-				 */
 				private static final long serialVersionUID = -3675768767280698458L;
 
 				@Override
 				public Field getField() {
-					// TODO Auto-generated method stub
 					return TrigonometricSobolevSpace.this.field;
 				}
 			};
@@ -147,7 +142,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 * Method to fill a list with sine functions.
 	 * 
 	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
 	 * @param tmpBase the list.
 	 */
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
@@ -159,15 +153,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
 			final Vector cos = new Sine(new Real(factor), new Real(0.5 * Math.PI), new Real(i)) {
-
-				/**
-				 * 
-				 */
 				private static final long serialVersionUID = -344838499735956273L;
 
 				@Override
 				public Field getField() {
-					// TODO Auto-generated method stub
 					return TrigonometricSobolevSpace.this.field;
 				}
 			};

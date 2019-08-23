@@ -15,9 +15,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FunctionTuple extends Tuple implements Function {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3953250098421804886L;
 	final private Field field;
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();

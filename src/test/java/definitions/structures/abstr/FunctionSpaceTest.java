@@ -27,7 +27,7 @@ public abstract class FunctionSpaceTest {
 	static double[][] testValues2;
 
 	static GenericFunction staircaseFunction;
-	static GenericFunction staircaseFunction2;
+	protected static GenericFunction staircaseFunction2;
 
 	static EuclideanFunctionSpace linearSpace;
 	final static Field f = RealLine.getInstance();

@@ -52,7 +52,7 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 		}
 
 		if (degree == 1) {
-			if (vec.getCoordinates()==null) {
+			if (vec.getCoordinates() == null) {
 				return (this.get(vec));// .getProjection((EuclideanSpace) getSource());
 			}
 			return ((Function) this.get(vec)).getProjection((EuclideanSpace) this.getSource());

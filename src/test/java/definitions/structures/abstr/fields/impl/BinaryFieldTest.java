@@ -10,15 +10,10 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
- * @author BAU12350
+ * @author romansen
  *
  */
 public class BinaryFieldTest extends FieldTest {
-
-	// @Test
-	// public void test() {
-	// fail("Not yet implemented");
-	// }
 
 	@Override
 	public VectorSpace getSpace() {

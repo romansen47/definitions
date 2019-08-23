@@ -12,7 +12,6 @@ import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -35,7 +34,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			return vec1;
 		}
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1.getCoordinates()==null) || (vec2.getCoordinates()==null)) {
+			if ((vec1.getCoordinates() == null) || (vec2.getCoordinates() == null)) {
 				return new GenericFunction() {
 					private static final long serialVersionUID = -2989863516320429371L;
 
@@ -118,7 +117,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			return ((Function) vec).getProjection(this);
 		}
 		final Field f = getField();
-		if (vec.getCoordinates()==null) {
+		if (vec.getCoordinates() == null) {
 			return new GenericFunction() {
 				private static final long serialVersionUID = -3311201318061885649L;
 

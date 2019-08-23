@@ -1,6 +1,7 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
 import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -11,7 +12,7 @@ public abstract class Sine extends GenericFunction {
 	 * 
 	 */
 	private static final long serialVersionUID = 4429300404671715544L;
-	Field field;
+	Field field = RealLine.getInstance();
 	private final Scalar magnitude;
 	private final Scalar translation;
 	private final Scalar frequency;
