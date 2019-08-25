@@ -16,13 +16,12 @@ import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpaceTest;
 
 /**
- * @author ro
+ * @author BAU12350
  *
  */
-public class FiniteDimensionalComplexFunctionSpaceTest extends FiniteDimensionalFunctionSpaceTest {
+public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensionalFunctionSpaceTest {
 
 	final public Field f = (Field) ComplexPlane.getInstance();
 	List<Vector> base = new ArrayList<>();

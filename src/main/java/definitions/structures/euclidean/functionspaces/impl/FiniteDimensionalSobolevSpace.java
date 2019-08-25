@@ -25,7 +25,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * The sobolev degree.
 	 */
-	private final Integer degree;
+	private Integer degree;
 
 	/**
 	 * Constructor.
@@ -92,21 +92,13 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				Vector tmp2 = vec2;
 				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if ((tmp1.getCoordinates() == null && tmp2.getCoordinates() == null)
+					if (tmp1.getCoordinates() == null || tmp2.getCoordinates() == null
 							|| this.derivativeBuilder == null) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						if (tmp1.getCoordinates() == null && tmp2.getCoordinates() != null) {
-							tmp2 = this.stretch(this.derivativeBuilder.get(tmp2, 2), this.getField().get(-1.));
-						} else {
-							if (tmp1.getCoordinates() != null && tmp2.getCoordinates() == null) {
-								tmp1 = this.stretch(this.derivativeBuilder.get(tmp1, 2), this.getField().get(-1));
-							} else {
-								tmp1 = this.derivativeBuilder.get(tmp1);
-								tmp2 = this.derivativeBuilder.get(tmp2);
-							}
-						}
+						tmp1 = this.derivativeBuilder.get(this.get(tmp1.getCoordinates()));
+						tmp2 = this.derivativeBuilder.get(this.get(tmp2.getCoordinates()));
 					}
 					product += super.innerProduct(tmp1, tmp2).getValue();
 				}
@@ -127,6 +119,9 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @return the sobolev degree
 	 */
 	public final Integer getDegree() {
+		if (this.degree == null) {
+			this.degree = this.base.size();
+		}
 		return this.degree;
 	}
 

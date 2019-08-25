@@ -27,7 +27,7 @@ public abstract class FunctionSpaceTest {
 	static double[][] testValues2;
 
 	static GenericFunction staircaseFunction;
-	protected static GenericFunction staircaseFunction2;
+	static GenericFunction staircaseFunction2;
 
 	static EuclideanFunctionSpace linearSpace;
 	final static Field f = RealLine.getInstance();
@@ -88,7 +88,7 @@ public abstract class FunctionSpaceTest {
 		};
 	}
 
-	@Test
+	// @Test
 	public void test1() {
 		final Function staircaseFunction1Projection = staircaseFunction.getProjection(this.getLinearSpace());
 		staircaseFunction.plotCompare(-1, 1, staircaseFunction1Projection);

@@ -32,6 +32,8 @@ public final class BinaryField implements PrimeField {
 
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
+	private final int characteristic;
+
 	private BinaryField() {
 		// this.base.add(this.zero);
 		this.base.add(this.unit);
@@ -43,6 +45,7 @@ public final class BinaryField implements PrimeField {
 		newMap.put(this.unit,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
 		this.setMultiplicationMatrix(newMap);
+		this.characteristic = 2;
 	}
 
 	@Override
@@ -136,17 +139,28 @@ public final class BinaryField implements PrimeField {
 		return base;
 	}
 
+	/**
+	 * Getter for multiplication matrix.
+	 */
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
 	}
 
+	/**
+	 * Setter for multiplication matrix.
+	 */
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 
 	}
 
+	/**
+	 * @return the dual space.
+	 * 
+	 * @TODO: Should be isomorphic to this... should be tested.
+	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
 		if (this.dualSpace == null) {
@@ -155,24 +169,36 @@ public final class BinaryField implements PrimeField {
 		return this.dualSpace;
 	}
 
+	/**
+	 * @return the order is two
+	 */
 	@Override
 	public Integer getOrder() {
 		return 2;
 	}
 
-	@Override
-	public int getCharacteristic() {
-		return 2;
-	}
-
+	/**
+	 * @return the main field
+	 */
 	@Override
 	public PrimeField getPrimeField() {
 		return (PrimeField) instance;
 	}
 
+	/**
+	 * @return the conjugated
+	 */
 	@Override
 	public Scalar conjugate(Scalar value) {
 		return value;
+	}
+
+	/**
+	 * @return the characteristic
+	 */
+	@Override
+	public int getCharacteristic() {
+		return this.characteristic;
 	}
 
 }

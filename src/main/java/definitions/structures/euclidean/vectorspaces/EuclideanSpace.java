@@ -132,7 +132,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 */
 	@Override
 	default Real getDistance(final Vector vec1, final Vector vec2) {
-		final Vector diff = add(vec1, stretch(vec2, getField().get(-1.)));
+		final Vector diff = add(vec1, (stretch(vec2, new Real(-1))));
 		return norm(diff);
 	}
 

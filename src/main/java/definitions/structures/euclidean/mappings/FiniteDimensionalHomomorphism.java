@@ -78,7 +78,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 		if (vec2.getCoordinates() == null) {
 			coordinates = ((Function) vec2).getCoordinates((EuclideanSpace) getSource());
 		} else {
-			coordinates = vec2.getCoordinates();
+			coordinates = ((FiniteVector) vec2).getCoordinates();
 		}
 		Vector ans;
 		EuclideanSpace target;

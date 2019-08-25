@@ -42,11 +42,16 @@ public class FiniteDimensionalFunctionSpaceTest {
 	public static void setUpBeforeClass() throws Throwable {
 
 		final Function fun = new GenericFunction() {
+			/**
+			 * 
+			 */
 			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return input;
 			}
+
 		};
 
 		functionSpace = Generator.getGenerator().getSpacegenerator()
