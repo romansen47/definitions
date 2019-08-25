@@ -8,11 +8,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class Sine extends GenericFunction {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4429300404671715544L;
-	Field field = RealLine.getInstance();
 	private final Scalar magnitude;
 	private final Scalar translation;
 	private final Scalar frequency;

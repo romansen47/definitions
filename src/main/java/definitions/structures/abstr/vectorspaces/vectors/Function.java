@@ -290,4 +290,15 @@ public interface Function extends Vector, Plotable {
 	default Field getField() {
 		return RealLine.getInstance();
 	}
+
+	default Function toGenericFunction() {
+		final Function fun=this;
+		return new GenericFunction() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Scalar value(Scalar input) {
+				return fun.value(input);
+			}
+		};
+	};
 }
