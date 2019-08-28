@@ -16,6 +16,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class LinearSelfMapping extends FiniteDimensionalLinearMapping implements Endomorphism {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7251024926340400921L;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param source      the source and target space.

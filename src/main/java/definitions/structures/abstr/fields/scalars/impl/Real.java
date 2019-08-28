@@ -47,7 +47,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return (vec instanceof Real && Math.abs(((Real) vec).getValue() - this.getValue()) < this.eps);
 	}
 
@@ -94,6 +94,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 		if (Math.abs(this.getValue()) > 1.e-15) {
 			return new Real(1 / this.getValue());
 		}
+		System.out.println("Devision by 0.0!");
 		return null;
 	}
 
@@ -102,13 +103,13 @@ public class Real extends Number implements Scalar, FiniteVector {
 		return "" + this.getValue();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj.equals(this)) {
-			return true;
-		}
-		return obj instanceof Real && ((Real) obj).getValue() == this.getValue();
-	}
+	// @Override
+	// public boolean equals(Object obj) {
+	// if (obj.equals(this)) {
+	// return true;
+	// }
+	// return obj instanceof Real && ((Real) obj).getValue() == this.getValue();
+	// }
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {

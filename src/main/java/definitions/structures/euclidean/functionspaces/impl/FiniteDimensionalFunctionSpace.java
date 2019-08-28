@@ -1,11 +1,10 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.solver.Plotable;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -14,9 +13,9 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
-import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import solver.Plotable;
 
 /**
  * 
@@ -26,6 +25,10 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  */
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace implements EuclideanFunctionSpace {
 
+	private static final long serialVersionUID = -8669475459309858828L;
+
+	private Vector nullVec;
+
 	/**
 	 * the interval.
 	 */
@@ -34,7 +37,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-4;
+	protected final double eps = 1.e-3;
 
 	/**
 	 * Plain constructor. @
@@ -50,24 +53,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		this.interval[0] = left;
 		this.interval[1] = right;
 		final List<Vector> newBase;
+//		this.setBase(genericBase);
 		if (orthonormalize) {
 			newBase = this.getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
 		}
-		for (final Vector vec : newBase) {
-			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
-			for (final Vector otherVec : newBase) {
-				if (vec == otherVec) {
-					tmpCoord.put(otherVec, RealLine.getInstance().getOne());
-				} else {
-					tmpCoord.put(otherVec, RealLine.getInstance().getZero());
-				}
-			}
-			vec.setCoordinates(tmpCoord);
-		}
+//		this.assignOrthonormalCoordinates(newBase, field);
 		this.setBase(newBase);
-
 	}
 
 	@Override
@@ -88,32 +81,22 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, new Real(-1))));
+			final Function fun = (Function) this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
+			final Vector ans = this.get(fun.getCoordinates(this));
 			newBase.add(ans);
 		}
-		for (final Vector baseVec : newBase) {
-			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			for (final Vector otherBaseVec : newBase) {
-				if (baseVec.equals(otherBaseVec)) {
-					coordinates.put(baseVec, new Real(1.));
-				} else {
-					coordinates.put(otherBaseVec, new Real(0.));
-				}
-			}
-			baseVec.setCoordinates(coordinates);
-		}
+		this.assignOrthonormalCoordinates(newBase, this.field);
 		return newBase;
 	}
 
 	@Override
 	public Vector normalize(final Vector vec) {
-		return this.stretch(vec, this.norm(vec).getInverse());
+		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
-				&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+		if ((vec1.getCoordinates() != null) && (vec2.getCoordinates() != null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
 			return this.integral((Function) vec1, (Function) vec2);
@@ -122,20 +105,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Vector nullVec() {
-//		try {
-//			Scalar[] ans = new Scalar[getDim()];
-//			for (int i=0;i<ans.length;i++) {
-//				ans[i]= (Scalar) getField().getZero();
-//			}
-//			return new FunctionTuple(ans);
-//		} catch (Exception e) {
-		return new GenericFunction() {
-			@Override
-			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().getZero();
+		if (this.nullVec == null) {
+			final Map<Vector, Scalar> nul = new HashMap<>();
+			for (final Vector vec : this.genericBaseToList()) {
+				nul.put(vec, (Scalar) this.getField().getZero());
 			}
-		};
-//		}
+			this.nullVec = new FunctionTuple(nul, this);
+		}
+		return this.nullVec;
 	}
 
 	@Override
@@ -164,7 +141,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
-					new Real(d * i));
+					new Real(d * i)) {
+				private static final long serialVersionUID = -6683701759680058862L;
+			};
 			tmpBase.add(sin);
 		}
 	}
@@ -179,7 +158,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector cos = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), new Real(0.5 * Math.PI),
-					new Real(d * i));
+					new Real(d * i)) {
+				private static final long serialVersionUID = 7151322718389633337L;
+			};
 			tmpBase.add(cos);
 		}
 	}

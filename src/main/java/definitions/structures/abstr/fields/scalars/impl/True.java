@@ -18,6 +18,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public final class True implements Scalar {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9013421650270376537L;
+
 	static private Scalar instance;
 
 	private Map<Vector, Scalar> coordinates;
@@ -43,7 +48,7 @@ public final class True implements Scalar {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return vec instanceof True;
 	}
 
@@ -76,7 +81,7 @@ public final class True implements Scalar {
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 
-	@Override 
+	@Override
 	public String toString() {
 		return "true";
 	}

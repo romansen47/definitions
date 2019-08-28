@@ -30,6 +30,9 @@ public class OrthonormalizationTest {
 	static double ans1;
 	static double ans2;
 	static double ans3;
+	static double ans4;
+	static double ans5;
+	static double ans6;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -56,6 +59,11 @@ public class OrthonormalizationTest {
 		ans1 = space.innerProduct(a, b).getValue();
 		ans2 = space.innerProduct(b, c).getValue();
 		ans3 = space.innerProduct(c, a).getValue();
+		
+
+		ans4 = space.innerProduct(a, a).getValue();
+		ans5 = space.innerProduct(b, b).getValue();
+		ans6 = space.innerProduct(c, c).getValue();
 
 	}
 
@@ -76,6 +84,11 @@ public class OrthonormalizationTest {
 	@Test
 	public void exponential() throws Throwable {
 		final Vector exp = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				return new Real(Math.exp(input.getValue() + Math.exp(-input.getValue())));
@@ -83,8 +96,8 @@ public class OrthonormalizationTest {
 		};
 		final Vector x = space.getCoordinates(exp);
 		final double y = (Math.exp(Math.PI) - Math.exp(-Math.PI)) / Math.sqrt(2 * Math.PI);
-//		Assert.assertTrue((Math.abs(x.getCoordinates()[0].getValue() - y) < this.eps)
-//				|| (Math.abs(x.getCoordinates()[1].getValue() - y) < this.eps)
-//				|| (Math.abs(x.getCoordinates()[2].getValue() - y) < this.eps));
+		// Assert.assertTrue((Math.abs(x.getCoordinates()[0].getValue() - y) < this.eps)
+		// || (Math.abs(x.getCoordinates()[1].getValue() - y) < this.eps)
+		// || (Math.abs(x.getCoordinates()[2].getValue() - y) < this.eps));
 	}
 }

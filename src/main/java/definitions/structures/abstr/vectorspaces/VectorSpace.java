@@ -4,7 +4,9 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import exceptions.WrongFieldException;
 
 /**
  * 
@@ -13,7 +15,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group, VectorSpaceTechnicalProvider {
+public interface VectorSpace extends Group, VectorSpaceMethods {
 
 	Field getField();
 
@@ -32,6 +34,7 @@ public interface VectorSpace extends Group, VectorSpaceTechnicalProvider {
 	 * @param vec1 the vector to stretch.
 	 * @param r    the factor.
 	 * @return the stretched vector.
+	 * @throws WrongFieldException
 	 */
 	Vector stretch(Vector vec1, Scalar r);
 
@@ -45,4 +48,14 @@ public interface VectorSpace extends Group, VectorSpaceTechnicalProvider {
 		return add((Vector) first, (Vector) second);
 	}
 
+	@Override
+	default MonoidElement getIdentityElement() {
+		return nullVec();
+	}
+
+	@Override
+	default GroupElement getInverseElement(GroupElement element) {
+		final Field field = getField();
+		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+	}
 }

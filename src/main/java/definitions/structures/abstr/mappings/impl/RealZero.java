@@ -10,6 +10,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public final class RealZero extends Real {
 
+	private static final long serialVersionUID = 4784581571935827482L;
 	private static Real zero;
 
 	public static Real getZero() {

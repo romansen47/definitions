@@ -25,19 +25,21 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
+	private static final long serialVersionUID = -7678979021442720279L;
+
 	private EuclideanSpace dualSpace;
 
 	/**
 	 * the base.
 	 */
-	protected volatile List<Vector> base;
+	protected List<Vector> base;
 
 	/**
 	 * the dimension.
 	 */
 	protected int dim;
 
-	final private Field field;
+	protected final Field field;
 
 	/**
 	 * Plain constructor.
@@ -63,14 +65,14 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return ((vec instanceof Tuple) && (vec.getDim() == this.getDim()));
+		return ((vec instanceof Tuple) && (vec.getDim().equals(this.getDim())));
 	}
 
 	@Override
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
-			coordinates.put(vec, RealLine.getInstance().getZero());
+			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}
 		return new Tuple(coordinates);
 	}

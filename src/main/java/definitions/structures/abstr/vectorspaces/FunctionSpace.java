@@ -1,7 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -41,16 +40,15 @@ public interface FunctionSpace extends VectorSpace {
 	 */
 	default Scalar getIntegral(final Function vec1, final Function vec2, double left, double right, double eps) {
 		Scalar ans = (Scalar) getField().nullVec();
-		double x = left;
-		Scalar tmp = new Real(x);
-		final Scalar epsNew = new Real(eps);
-		while (x < right) {
-			Vector tmp1=vec1.value(tmp);
-			Vector tmp2=vec2.value(tmp);
+		final Scalar newEps = getField().get(eps);
+		Scalar x = getField().get(left);
+		final Scalar epsNew = getField().get(eps);
+		while (x.getValue() < right) {
+			final Vector tmp1 = vec1.value(x);
+			final Vector tmp2 = vec2.value(x);
 			ans = (Scalar) (getField().add(ans,
-					getField().stretch(getField().product(tmp1,tmp2), epsNew)));
-			x += eps;
-			tmp = new Real(x);
+					getField().product(getField().product(tmp1, getField().conjugate((Scalar) tmp2)), epsNew)));
+			x = (Scalar) getField().add(x, newEps);
 		}
 		return ans;// * eps;
 	}

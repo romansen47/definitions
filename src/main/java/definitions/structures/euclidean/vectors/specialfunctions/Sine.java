@@ -1,11 +1,17 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
-public class Sine extends GenericFunction {
+public abstract class Sine extends GenericFunction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4429300404671715544L;
+	Field field;
 	private final Scalar magnitude;
 	private final Scalar translation;
 	private final Scalar frequency;
@@ -14,6 +20,13 @@ public class Sine extends GenericFunction {
 		this.magnitude = a;
 		this.translation = b;
 		this.frequency = c;
+	}
+
+	public Sine(Scalar a, Scalar b, Scalar c, Field field) {
+		this.magnitude = a;
+		this.translation = b;
+		this.frequency = c;
+		this.field = field;
 	}
 
 	public Sine(double a, double b, double c) {

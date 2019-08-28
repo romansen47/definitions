@@ -17,8 +17,8 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class FiniteDimensionalSobolevSpaceTestDepr extends FunctionSpaceTest {
 
 	final static Field realSpace = RealLine.getInstance();
-	final static int sobolevDegree = 1;
-	final static int fourierDegree = 1;
+	final static int sobolevDegree = 0;
+	final static int fourierDegree = 4;
 	final static VectorSpace trigonometricSobolevSpace = SpaceGenerator.getInstance()
 			.getTrigonometricSobolevSpace(realSpace, fourierDegree, sobolevDegree);
 

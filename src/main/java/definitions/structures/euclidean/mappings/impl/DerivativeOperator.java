@@ -13,6 +13,8 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public final class DerivativeOperator extends FiniteDimensionalLinearMapping implements Homomorphism {
 
+	private static final long serialVersionUID = -5103583236895270490L;
+
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		super(source, target, coordinates);
@@ -50,13 +52,13 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 		}
 
 		if (degree == 1) {
-			if (vec instanceof FunctionTuple) {
+			if (vec.getCoordinates() == null) {
 				return (this.get(vec));// .getProjection((EuclideanSpace) getSource());
 			}
 			return ((Function) this.get(vec)).getProjection((EuclideanSpace) this.getSource());
 		}
 		if (vec instanceof FunctionTuple) {
-			return this.get(vec, degree - 1);
+			return this.get(this.get(vec), degree - 1);
 		}
 		Scalar[][] tmp = this.getGenericMatrix().clone();
 		for (int i = 1; i < degree; i++) {
@@ -72,7 +74,7 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 	private void addToCache(Vector vec, int degree, Vector ans) {
 		final Map<Integer, Vector> tmp = this.cachedDerivatives.get(vec);// new ConcurrentHashMap<>();
 		tmp.put(degree, ans);
-//		cachedDerivatives.put(vec, tmp);
+		// cachedDerivatives.put(vec, tmp);
 	}
 
 }

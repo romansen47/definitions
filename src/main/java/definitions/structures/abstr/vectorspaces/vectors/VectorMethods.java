@@ -5,7 +5,7 @@ import java.util.Map;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface VectorTechnicalProvider {
+public interface VectorMethods {
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.
@@ -21,7 +21,7 @@ public interface VectorTechnicalProvider {
 	 * 
 	 * @return the coordinates as double[].
 	 */
-//	Scalar[] getGenericCoordinates();
+	// Scalar[] getGenericCoordinates();
 
 	@Override
 	String toString();

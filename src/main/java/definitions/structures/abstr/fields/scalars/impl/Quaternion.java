@@ -15,6 +15,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class Quaternion implements FiniteVector, Scalar {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7587290161110602891L;
 	private final Scalar real;
 	private final Scalar i;
 	private final Scalar j;
@@ -44,20 +48,21 @@ public class Quaternion implements FiniteVector, Scalar {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
-				&& ((Quaternion) vec).getI().equals(this.getI())
-				&& ((Quaternion) vec).getJ().equals(this.getJ())
+				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
 				&& ((Quaternion) vec).getK().equals(this.getK());
 	}
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		this.coordinates = new HashMap<>();
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
-		this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
+		if (this.coordinates == null) {
+			this.coordinates = new HashMap<>();
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
+			this.coordinates.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
+		}
 		return this.coordinates;
 	}
 
@@ -68,7 +73,7 @@ public class Quaternion implements FiniteVector, Scalar {
 
 	@Override
 	public double getValue() {
-		return 0;
+		return this.getReal().getValue();
 	}
 
 	@Override
@@ -83,16 +88,10 @@ public class Quaternion implements FiniteVector, Scalar {
 		return this.real;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getI().getValue() + " )" + " + j * ( "
-//				+ this.getJ().getValue() + " ) + " + "k * ( " + this.getK().getValue() + " )";
-//	}
-	
 	@Override
 	public String toString() {
-		return "("+this.getReal().getValue() + ", " + this.getI().getValue() + ", "
-				+ this.getJ().getValue() + ", " + this.getK().getValue()+")";
+		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getI().getValue() + "\r" + "j  ->  "
+				+ this.getJ().getValue() + "\r" + "k  ->  " + this.getK().getValue() + "\r";
 	}
 
 	@Override

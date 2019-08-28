@@ -19,12 +19,12 @@ public class CachingTest {
 	@Test
 	public void test() throws Throwable {
 
-//		gen.loadCoordinateSpaces();
+		// gen.loadCoordinateSpaces();
 		for (int i = 0; i < 100; i++) {
 			spacesGen.getFiniteDimensionalVectorSpace(i);
 		}
 
-//		gen.loadFunctionSpaces();
+		// gen.loadFunctionSpaces();
 		for (int i = 0; i < 5; i++) {
 			spacesGen.getPolynomialFunctionSpace(this.realSpace, i, 1, true);
 		}

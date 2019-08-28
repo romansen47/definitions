@@ -9,7 +9,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
  * @author ro
  *
  */
-public interface Vector extends GroupElement, VectorTechnicalProvider {
+public interface Vector extends GroupElement, VectorMethods {
 
 	/**
 	 * Method to get the dimension of the underlying vector space.
@@ -34,11 +34,10 @@ public interface Vector extends GroupElement, VectorTechnicalProvider {
 	/**
 	 * Method to verify, the vector is "essentially" the same as another.
 	 * 
-	 * @param vec the vector to checl equality for.
-	 * @return true if vec is essentially the same as this one.
+	 * @param vec the vector to check equality for.
+	 * @return true if vector is essentially the same as this.
 	 */
-	default Boolean equals(Vector vec) {
-		return true;
-	}
+	@Override
+	boolean equals(Object vec);
 
 }

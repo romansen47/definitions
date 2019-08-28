@@ -9,7 +9,6 @@ import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
@@ -20,10 +19,18 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
- * @author RoManski
+ * 
+ * @author ro
  *
+ *         Implementation of the field of quaternion numbers as a singleton
+ *         class.
  */
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5960215336667005490L;
 
 	static private EuclideanSpace instance;
 
@@ -38,10 +45,11 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	/**
 	 * @return the i
 	 */
-	
+
 	public Vector getI() {
 		return this.i;
 	}
+
 	/**
 	 * @return the j
 	 */
@@ -72,6 +80,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		this.base.add(this.i);
 		this.base.add(this.j);
 		this.base.add(this.k);
+		this.assignOrthonormalCoordinates(this.base, this.getField());
 	}
 
 	public static EuclideanSpace getInstance() {
@@ -80,17 +89,34 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		}
 		return instance;
 	}
-	
+
 	@Override
-	public Vector add(Vector vec1,Vector vec2) {
-		Vector ans=super.add(vec1,vec2);
-		return new Quaternion(ans.getCoordinates().get(one),ans.getCoordinates().get(i),ans.getCoordinates().get(j),ans.getCoordinates().get(k));
+	public Vector add(Vector vec1, Vector vec2) {
+		if (vec1 == this.nullVec()) {
+			return vec2;
+		}
+		if (vec2 == this.nullVec()) {
+			return vec1;
+		}
+		final Vector ans = super.add(vec1, vec2);
+		return new Quaternion(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i),
+				ans.getCoordinates().get(this.j), ans.getCoordinates().get(this.k));
 	}
-	
+
 	@Override
-	public Vector stretch(Vector vec1,Scalar r) {
-		Vector ans=super.stretch(vec1,r);
-		return new Quaternion(ans.getCoordinates().get(one),ans.getCoordinates().get(i),ans.getCoordinates().get(j),ans.getCoordinates().get(k));
+	public Vector stretch(Vector vec1, Scalar r) {
+		if (r instanceof Quaternion) {
+			return this.product(vec1, r);
+		}
+		if (r == this.getField().getOne()) {
+			return vec1;
+		}
+		if (r == this.getField().getZero()) {
+			return this.nullVec();
+		}
+		final Vector ans = super.stretch(vec1, r);
+		return new Quaternion(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i),
+				ans.getCoordinates().get(this.j), ans.getCoordinates().get(this.k));
 	}
 
 	@Override
@@ -105,7 +131,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public String toString() {
-		return "QuaternionSpace as 4-dimensional real vector space";
+		return "the field of quaternions as a 4-dimensional real vector space.";
 	}
 
 	@Override
@@ -175,6 +201,17 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
+	}
+
+	@Override
+	public Scalar get(double value) {
+		return new Quaternion(value, 0, 0, 0);
+	}
+
+	@Override
+	public Scalar conjugate(Scalar value) {
+		final Quaternion v = (Quaternion) value;
+		return new Quaternion(v.getReal().getValue(), -v.getI().getValue(), -v.getJ().getValue(), -v.getK().getValue());
 	}
 
 }

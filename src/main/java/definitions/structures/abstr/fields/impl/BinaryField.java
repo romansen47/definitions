@@ -16,7 +16,9 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
-public final class BinaryField implements FiniteField {
+public final class BinaryField implements PrimeField {
+
+	private static final long serialVersionUID = -7935335390082721765L;
 
 	private static EuclideanSpace instance;
 
@@ -30,8 +32,10 @@ public final class BinaryField implements FiniteField {
 
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
+	private final int characteristic;
+
 	private BinaryField() {
-//		this.base.add(this.zero);
+		// this.base.add(this.zero);
 		this.base.add(this.unit);
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
@@ -41,6 +45,7 @@ public final class BinaryField implements FiniteField {
 		newMap.put(this.unit,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
 		this.setMultiplicationMatrix(newMap);
+		this.characteristic = 2;
 	}
 
 	@Override
@@ -57,7 +62,7 @@ public final class BinaryField implements FiniteField {
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
-		return this.get(vec1.equals(vec2));
+		return this.get(vec1.equals(getOne()) &&  vec2.equals(getOne()));
 	}
 
 	public Vector get(Boolean val) {
@@ -134,17 +139,28 @@ public final class BinaryField implements FiniteField {
 		return base;
 	}
 
+	/**
+	 * Getter for multiplication matrix.
+	 */
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
 	}
 
+	/**
+	 * Setter for multiplication matrix.
+	 */
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 
 	}
 
+	/**
+	 * @return the dual space.
+	 * 
+	 * @TODO: Should be isomorphic to this... should be tested.
+	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
 		if (this.dualSpace == null) {
@@ -153,19 +169,36 @@ public final class BinaryField implements FiniteField {
 		return this.dualSpace;
 	}
 
+	/**
+	 * @return the order is two
+	 */
 	@Override
 	public Integer getOrder() {
 		return 2;
 	}
 
+	/**
+	 * @return the main field
+	 */
 	@Override
-	public int getCharacteristic() {
-		return 2;
+	public PrimeField getPrimeField() {
+		return (PrimeField) instance;
 	}
 
+	/**
+	 * @return the conjugated
+	 */
 	@Override
-	public FiniteField getPrimeField() {
-		return (FiniteField) instance;
+	public Scalar conjugate(Scalar value) {
+		return value;
+	}
+
+	/**
+	 * @return the characteristic
+	 */
+	@Override
+	public int getCharacteristic() {
+		return this.characteristic;
 	}
 
 }

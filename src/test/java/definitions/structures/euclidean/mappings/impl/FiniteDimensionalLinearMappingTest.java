@@ -12,7 +12,6 @@ import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FiniteDimensionalLinearMappingTest {
@@ -23,6 +22,8 @@ public class FiniteDimensionalLinearMappingTest {
 
 	final Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space,
 			(EuclideanSpace) this.space) {
+		private static final long serialVersionUID = 8542796160933542925L;
+
 		@Override
 		public Vector get(Vector vec) {
 			return ((EuclideanSpace) FiniteDimensionalLinearMappingTest.this.space).stretch(vec, new Real(5));

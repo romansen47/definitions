@@ -14,6 +14,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class Complex implements FiniteVector, Scalar {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2160805146914088274L;
 	private final Scalar real;
 	private final Scalar imag;
 	private Map<Vector, Scalar> coordinates;
@@ -38,7 +42,7 @@ public class Complex implements FiniteVector, Scalar {
 	}
 
 	@Override
-	public Boolean equals(Vector vec) {
+	public boolean equals(Object vec) {
 		return vec instanceof Complex && ((Complex) vec).getReal().equals(this.getReal())
 				&& ((Complex) vec).getImag().equals(this.getImag());
 	}
@@ -58,7 +62,7 @@ public class Complex implements FiniteVector, Scalar {
 
 	@Override
 	public double getValue() {
-		return 0;
+		return this.getReal().getValue();
 	}
 
 	@Override
@@ -80,9 +84,15 @@ public class Complex implements FiniteVector, Scalar {
 		return this.imag;
 	}
 
+	// @Override
+	// public String toString() {
+	// return "( " + this.getReal().getValue() + " ) + i * ( " +
+	// this.getImag().getValue() + " )";
+	// }
+
 	@Override
 	public String toString() {
-		return "( " + this.getReal().getValue() + " ) + i * ( " + this.getImag().getValue() + " )";
+		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getImag().getValue() + "\r";
 	}
 
 	@Override

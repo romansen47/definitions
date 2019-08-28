@@ -3,8 +3,8 @@ package definitions.structures.euclidean.vectors.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -15,28 +15,38 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FunctionTuple extends Tuple implements Function {
 
+	private static final long serialVersionUID = -3953250098421804886L;
+	final private Field field;
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 
 	public FunctionTuple(final Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 		super(coordinates);
 		this.coordinatesMap.put(space, coordinates);
+		this.field = space.getField();
 	}
 
-	public FunctionTuple(final Scalar[] coordinates) {
+	public FunctionTuple(final Scalar[] coordinates, Field field) {
 		super(coordinates);
+		this.field = field;
 	}
 
 	@Override
 	public Scalar value(final Scalar input) {
-		double ans = 0;
+		Scalar ans = (Scalar) this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans += ((Function) fun).value(input).getValue() * this.getCoordinates().get(fun).getValue();
+			ans = (Scalar) this.getField().add(ans,
+					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
 		}
-		return new Real(ans);
+		return ans;
 	}
 
 	public LinearMapping getDerivative(VectorSpace space) {
 		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8910643729270807923L;
+
 			@Override
 			public Vector get(Vector vec2) {
 				return ((Function) vec2).getDerivative();
@@ -62,6 +72,11 @@ public class FunctionTuple extends Tuple implements Function {
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
 		return this.coordinatesMap;
+	}
+
+	@Override
+	public Field getField() {
+		return this.field;
 	}
 
 }

@@ -6,7 +6,6 @@ package definitions.structures.euclidean.vectorspaces.impl;
 import definitions.structures.abstr.FunctionSpaceTest;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author RoManski
@@ -15,7 +14,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class PolynomialFunctionSpaceTest extends FunctionSpaceTest {
 
 	static final int sobolevDegree = 0;
-	private static final int polynomialDegree = 2;
+	private static final int polynomialDegree = 1;
 
 	@Override
 	public EuclideanFunctionSpace getLinearSpace() {

@@ -27,7 +27,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class FiniteDimensionalFunctionSpaceTest {
 
 	static VectorSpace trigonometricSpace;
-	final static int degree = 2;
+	final static int degree = 1;
 
 	static Vector fun1;
 	static Vector fun2;
@@ -67,68 +67,79 @@ public class FiniteDimensionalFunctionSpaceTest {
 		Assert.assertTrue(true);
 	}
 
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#FiniteDimensionalFunctionSpace()}.
-//	 */
-//	@Test
-//	public final void testFiniteDimensionalFunctionSpace() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#FiniteDimensionalFunctionSpace(java.util.List, double, double)}.
-//	 */
-//	@Test
-//	public final void testFiniteDimensionalFunctionSpaceListOfVectorDoubleDouble() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getInterval()}.
-//	 */
-//	@Test
-//	public final void testGetInterval() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getEpsilon()}.
-//	 */
-//	@Test
-//	public final void testGetEpsilon() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#stretch(definitions.structures.abstr.Vector, double)}.
-//	 */
-//	@Test
-//	public final void testStretch() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#normalize(definitions.structures.abstr.Vector)}.
-//	 */
-//	@Test
-//	public final void testNormalize() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getLeft()}.
-//	 */
-//	@Test
-//	public final void testGetLeft() {
-//		fail("Not yet implemented"); // TODO
-//	}
-//
-//	/**
-//	 * Test method for {@link definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getRight()}.
-//	 */
-//	@Test
-//	public final void testGetRight() {
-//		fail("Not yet implemented"); // TODO
-//	}
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#FiniteDimensionalFunctionSpace()}.
+	// */
+	// @Test
+	// public final void testFiniteDimensionalFunctionSpace() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#FiniteDimensionalFunctionSpace(java.util.List,
+	// double, double)}.
+	// */
+	// @Test
+	// public final void
+	// testFiniteDimensionalFunctionSpaceListOfVectorDoubleDouble() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getInterval()}.
+	// */
+	// @Test
+	// public final void testGetInterval() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getEpsilon()}.
+	// */
+	// @Test
+	// public final void testGetEpsilon() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#stretch(definitions.structures.abstr.Vector,
+	// double)}.
+	// */
+	// @Test
+	// public final void testStretch() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#normalize(definitions.structures.abstr.Vector)}.
+	// */
+	// @Test
+	// public final void testNormalize() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getLeft()}.
+	// */
+	// @Test
+	// public final void testGetLeft() {
+	// fail("Not yet implemented"); // TODO
+	// }
+	//
+	// /**
+	// * Test method for {@link
+	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getRight()}.
+	// */
+	// @Test
+	// public final void testGetRight() {
+	// fail("Not yet implemented"); // TODO
+	// }
 
 }

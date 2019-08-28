@@ -9,8 +9,12 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  * @author ro
  *
  */
-public class Constant extends GenericFunction {
+public abstract class Constant extends GenericFunction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8572553792866612998L;
 	/**
 	 * The constant value.
 	 */

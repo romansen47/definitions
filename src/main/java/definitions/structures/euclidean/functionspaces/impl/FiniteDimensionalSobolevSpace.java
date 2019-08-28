@@ -4,12 +4,10 @@ import java.util.List;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
-import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.
@@ -19,6 +17,10 @@ import definitions.structures.euclidean.vectors.impl.FunctionTuple;
  */
 public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpace {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2547484050898391066L;
 	private DerivativeOperator derivativeBuilder;
 	/**
 	 * The sobolev degree.
@@ -52,7 +54,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			final double right, int degree, boolean ortho) {
 		super(field, genericBase, left, right, ortho);
 		this.degree = degree;
-//		this.getDerivativeBuilder();
+		// this.getDerivativeBuilder();
 	}
 
 	/**
@@ -82,44 +84,25 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1 instanceof FunctionTuple) && (vec2 instanceof FunctionTuple)
-					&& (((FunctionTuple) vec1).getGenericBase() == ((FunctionTuple) vec2).getGenericBase())) {
+			if ((vec1.getCoordinates() != null) && (vec2.getCoordinates() != null)) {
 				return super.innerProduct(vec1, vec2);
 			} else {
 				double product = 0;
 				Vector tmp1 = vec1;
-//				new GenericFunction() {
-//					@Override
-//					public Scalar value(Scalar input) {
-//						return ((Function) vec1).value(input);
-//					}
-//				};
 				Vector tmp2 = vec2;
-//				new GenericFunction() {
-//					@Override
-//					public Scalar value(Scalar input) {
-//						return ((Function) vec2).value(input);
-//					}
-//				};
-//				try {
-//					tmp1=((Function) tmp1).getProjection(this);
-//					tmp2=((Function) tmp2).getProjection(this);
-//				}
-//				catch (Exception e) {
-//					System.out.println("Base not created yet.");
-//				}
 				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (!(tmp1 instanceof FunctionTuple) || this.derivativeBuilder == null) {
+					if (tmp1.getCoordinates() == null || tmp2.getCoordinates() == null
+							|| this.derivativeBuilder == null) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						tmp1 = this.derivativeBuilder.get(tmp1);
-						tmp2 = this.derivativeBuilder.get(tmp2);
+						tmp1 = this.derivativeBuilder.get(this.get(tmp1.getCoordinates()));
+						tmp2 = this.derivativeBuilder.get(this.get(tmp2.getCoordinates()));
 					}
 					product += super.innerProduct(tmp1, tmp2).getValue();
 				}
-				return new Real(product);
+				return this.getField().get(product);
 			}
 		}
 		return super.innerProduct(vec1, vec2);

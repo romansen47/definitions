@@ -7,7 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.False;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;

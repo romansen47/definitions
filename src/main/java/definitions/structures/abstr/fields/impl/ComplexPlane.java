@@ -15,7 +15,15 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
+/**
+ * 
+ * @author ro
+ *
+ *         Implementation of the field of complex numbers as a singleton class.
+ */
 public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
+
+	private static final long serialVersionUID = -6528124823296735558L;
 
 	static private EuclideanSpace instance;
 
@@ -38,23 +46,28 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		this.i = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
 		this.base.add(this.one);
 		this.base.add(this.i);
+
+		// this.one.getCoordinates();
+		// this.i.getCoordinates();
 	}
 
 	@Override
-	public Vector add(Vector vec1,Vector vec2) {
-		Vector ans=super.add(vec1,vec2);
-		return new Complex(ans.getCoordinates().get(one),ans.getCoordinates().get(i));
+	public Vector add(Vector vec1, Vector vec2) {
+		final Vector ans = super.add(vec1, vec2);
+		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
 	}
-	
+
 	@Override
-	public Vector stretch(Vector vec1,Scalar r) {
-		Vector ans=super.stretch(vec1,r);
-		return new Complex(ans.getCoordinates().get(one),ans.getCoordinates().get(i));
+	public Vector stretch(Vector vec1, Scalar r) {
+		final Vector ans = super.stretch(vec1, r);
+		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
+
 	}
-	
+
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new ComplexPlane();
+			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
 		}
 		return instance;
 	}
@@ -63,8 +76,8 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}
-	
-	private Vector conjugate(Vector factor) {
+
+	public Vector conjugate(Vector factor) {
 		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
 		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
 		return new Complex(newRe, newIm);
@@ -77,7 +90,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public String toString() {
-		return "ComplexPlane as 2-dimensional real vector space";
+		return "the field of complex numbers as a 2-dimensional real vector space.";
 	}
 
 	@Override
@@ -126,6 +139,17 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
+	}
+
+	@Override
+	public Scalar get(double value) {
+		return new Complex(value, 0);
+	}
+
+	@Override
+	public Scalar conjugate(Scalar value) {
+		final Complex v = (Complex) value;
+		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
 	}
 
 }

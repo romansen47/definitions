@@ -14,13 +14,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public interface IMappingGenerator {
 
 	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) {
-		final Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
-		final double tmp;
-//		for (final Vector vec : ((EuclideanSpace) b.getSource()).genericBaseToList()) {
-//			linearity.put(vec,((Function)a.get(b.get(vec))).getCoordinates((EuclideanSpace) a.getTarget()));
-//		}
-//		return getFiniteDimensionalLinearMapping(((EuclideanSpace) a.getSource()), ((EuclideanSpace) b.getTarget()),
-//				linearity);
 		final Scalar[][] genericMatrix = MappingGenerator.getInstance().composition(a.getGenericMatrix(),
 				b.getGenericMatrix());
 		return getFiniteDimensionalLinearMapping(((EuclideanSpace) b.getSource()), ((EuclideanSpace) a.getSource()),

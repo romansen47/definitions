@@ -41,7 +41,7 @@ public interface ISpaceGenerator {
 		if (dim == 1) {
 			return field;
 		}
-		if (!getCachedCoordinateSpaces().containsKey(dim)) {
+		if (!getCachedCoordinateSpaces().containsKey(-dim)) {
 			final List<Vector> basetmp = new ArrayList<>();
 			for (int i = 0; i < dim; i++) {
 				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
@@ -57,7 +57,7 @@ public interface ISpaceGenerator {
 			}
 			getCachedCoordinateSpaces().put(Integer.valueOf(-dim), new FiniteDimensionalVectorSpace(field, basetmp));
 		}
-		return getCachedCoordinateSpaces().get(dim);
+		return getCachedCoordinateSpaces().get(-dim);
 	}
 
 	default VectorSpace getFiniteDimensionalVectorSpace(final int dim) {
@@ -115,7 +115,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right) {
-		return getFiniteDimensionalFunctionSpace(field, genericBase, right, right, true);
+		return getFiniteDimensionalFunctionSpace(field, genericBase, left, right, true);
 	}
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase,
@@ -201,16 +201,34 @@ public interface ISpaceGenerator {
 		return ans;
 	}
 
-	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, final int n)
+	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(field, n),
-				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()));
+		EuclideanSpace ans=(EuclideanFunctionSpace) extend(getTrigonometricSpace(f, n),
+				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+			private static final long serialVersionUID = 8254610780535405982L;
+			@Override
+			public Field getField() {
+				return f;
+			}
+		});
+		ans.assignOrthonormalCoordinates(ans.genericBaseToList(), f);
+		return (EuclideanFunctionSpace) ans;
 	}
 
-	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, final int n, double right)
+	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n, double right)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(field, n, right),
-				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()));
+		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(f, n, right),
+				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -3586909911186595426L;
+
+					@Override
+					public Field getField() {
+						return f;
+					}
+				});
 	}
 
 	EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, final int n, double right, boolean ortho);
@@ -236,7 +254,7 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.add(fun, space.stretch(projection, new Real(-1.)));
+			final Function diff = (Function) space.add(fun, space.stretch(projection,space.getField().get(-1.)));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {
@@ -248,6 +266,7 @@ public interface ISpaceGenerator {
 				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
 						((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
 			}
+			space.assignOrthonormalCoordinates(newBase, space.getField());
 			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
 			throw new WrongClassException("Input should be a function, not a vector.");

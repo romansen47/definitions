@@ -105,9 +105,10 @@ public class MappingGenerator implements IMappingGenerator {
 		return this.getFiniteDimensionalLinearMapping(source, target, map);
 	}
 
-//	@Override
-//	public Homomorphism getComposition(Homomorphism map2, Homomorphism map)  {
-//		return (Homomorphism) getComposition((IFiniteDimensionalLinearMapping)map2,(IFiniteDimensionalLinearMapping)map);
-//	}
+	// @Override
+	// public Homomorphism getComposition(Homomorphism map2, Homomorphism map) {
+	// return (Homomorphism)
+	// getComposition((IFiniteDimensionalLinearMapping)map2,(IFiniteDimensionalLinearMapping)map);
+	// }
 
 }

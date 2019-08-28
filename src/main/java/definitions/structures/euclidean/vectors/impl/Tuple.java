@@ -15,6 +15,11 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 
 public class Tuple implements FiniteVector {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -738201540142933649L;
+
 	final int dim;
 
 	private Map<Vector, Scalar> coordinates;
@@ -61,9 +66,9 @@ public class Tuple implements FiniteVector {
 			if (ans == false) {
 				return false;
 			}
-//			if (!base.contains(vec)) {
-//				return false;
-//			}
+			// if (!base.contains(vec)) {
+			// return false;
+			// }
 		}
 		return true;
 	}
@@ -78,22 +83,23 @@ public class Tuple implements FiniteVector {
 		return false;
 	}
 
-//	@Override
-//	public String toString() {
-//		String str = "";
-//		try {
-//			for (int i = 0; i < this.dim; i++) {
-//				str += this.getCoordinates()
-//						.get(((EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim))
-//								.genericBaseToList().get(i))
-//						+ "\r";
-//			}
-//			return str;
-//		} catch (final Throwable e) {
-//			e.printStackTrace();
-//			return "Problems occured...";
-//		}
-//	}
+	// @Override
+	// public String toString() {
+	// String str = "";
+	// try {
+	// for (int i = 0; i < this.dim; i++) {
+	// str += this.getCoordinates()
+	// .get(((EuclideanSpace)
+	// SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim))
+	// .genericBaseToList().get(i))
+	// + "\r";
+	// }
+	// return str;
+	// } catch (final Throwable e) {
+	// e.printStackTrace();
+	// return "Problems occured...";
+	// }
+	// }
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
@@ -110,16 +116,16 @@ public class Tuple implements FiniteVector {
 		return this.getCoordinates().keySet();
 	}
 
-	@Override
-	public Boolean equals(final Vector vec) {
-		final int i = 0;
-		for (final Vector key : this.getCoordinates().keySet()) {
-			if (!(this.coordinates.get(key).getValue() == vec.getCoordinates().get(key).getValue())) {
-				return false;
-			}
-		}
-		return true;
-	}
+	// @Override
+	// public Boolean equals(final Vector vec) {
+	// for (final Vector key : this.getCoordinates().keySet()) {
+	// if (!(this.coordinates.get(key).getValue() ==
+	// vec.getCoordinates().get(key).getValue())) {
+	// return false;
+	// }
+	// }
+	// return true;
+	// }
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {

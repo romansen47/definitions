@@ -75,15 +75,10 @@ public interface EuclideanSpace extends InnerProductSpace {
 
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim() == vec2.getDim())
-				&& (vec1.getDim() == getDim())) {
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(getDim()))) {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
-//				coordinates.put(getBaseVec(vec),
-//						new Real(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)).getValue()
-//								+ ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)).getValue()));
-
 				coordinates.put(getBaseVec(vec),
 						(Scalar) getField().add(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)),
 								((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec))));
@@ -100,7 +95,6 @@ public interface EuclideanSpace extends InnerProductSpace {
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
 			stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
-//			stretched.put(vec1, (Scalar) RealLine.getInstance().product(coordinates.get(vec1), r));
 		}
 		return new Tuple(stretched);
 	}
@@ -138,7 +132,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 */
 	@Override
 	default Real getDistance(final Vector vec1, final Vector vec2) {
-		final Vector diff = add(vec1, (stretch(vec2, new Real(-1))));
+		final Vector diff = add(vec1, (stretch(vec2, getField().get(-1))));
 		return norm(diff);
 	}
 
@@ -179,14 +173,14 @@ public interface EuclideanSpace extends InnerProductSpace {
 
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		double prod = 0;
+		Vector prod = getField().nullVec();
 		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
 		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
-		final List<Vector> base = this.genericBaseToList();
+		// final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec : vecCoord1.keySet()) {
-			prod += vecCoord1.get(vec).getValue() * vecCoord2.get(vec).getValue();
+			prod = getField().add(prod, getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));
 		}
-		return new Real(prod);
+		return (Scalar) prod;
 	}
 
 	public EuclideanSpace getDualSpace();
