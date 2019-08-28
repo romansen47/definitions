@@ -20,7 +20,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest {
 
 	@Test
 	public void test() {
-		final int dim = 100;
+		final int dim = 10;
 
 		final EuclideanSpace modulo2Space = (EuclideanSpace) this.gen
 				.getFiniteDimensionalVectorSpace((Field) BinaryField.getInstance(), dim);

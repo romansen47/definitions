@@ -21,7 +21,6 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
 	protected PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
 		this(field, maxDegree, right);
-		// assignOrthonormalCoordinates(this.base, field);
 		if (ortho) {
 			this.base = this.getOrthonormalBase(this.base);
 		}

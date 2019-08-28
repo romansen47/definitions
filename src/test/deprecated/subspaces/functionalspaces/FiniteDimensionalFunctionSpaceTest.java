@@ -42,9 +42,6 @@ public class FiniteDimensionalFunctionSpaceTest {
 	public static void setUpBeforeClass() throws Throwable {
 
 		final Function fun = new GenericFunction() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override

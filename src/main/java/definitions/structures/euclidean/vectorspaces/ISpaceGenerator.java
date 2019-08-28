@@ -115,7 +115,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right) {
-		return getFiniteDimensionalFunctionSpace(field, genericBase, right, right, true);
+		return getFiniteDimensionalFunctionSpace(field, genericBase, left, right, true);
 	}
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase,
@@ -203,18 +203,16 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n)
 			throws WrongClassException {
-		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(f, n),
+		EuclideanSpace ans=(EuclideanFunctionSpace) extend(getTrigonometricSpace(f, n),
 				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 8254610780535405982L;
-
-					@Override
-					public Field getField() {
-						return f;
-					}
-				});
+			private static final long serialVersionUID = 8254610780535405982L;
+			@Override
+			public Field getField() {
+				return f;
+			}
+		});
+		ans.assignOrthonormalCoordinates(ans.genericBaseToList(), f);
+		return (EuclideanFunctionSpace) ans;
 	}
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n, double right)
@@ -256,7 +254,7 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.add(fun, space.stretch(projection, new Real(-1.)));
+			final Function diff = (Function) space.add(fun, space.stretch(projection,space.getField().get(-1.)));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {

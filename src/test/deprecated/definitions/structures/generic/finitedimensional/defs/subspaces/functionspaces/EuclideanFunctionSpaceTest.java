@@ -27,9 +27,9 @@ public class EuclideanFunctionSpaceTest {
 	private static FunctionSpace trigonometricSpace;
 	private static FunctionSpace trigonometricSpaceSobolev;
 
-	final static int polynomialDegree = 2;
+	final static int polynomialDegree = 1;
 	final static int trigonometricDegree = 1;
-	final static int sobolevDegree = 0;
+	final static int sobolevDegree = 1;
 
 	final static Function exp = new ExponentialFunction(RealLine.getInstance().getZero(),
 			RealLine.getInstance().getOne()) {
@@ -92,11 +92,6 @@ public class EuclideanFunctionSpaceTest {
 	public void trigonometricSobolev() throws WrongClassException {
 		final Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()) {
 			private static final long serialVersionUID = -6657519463985748027L;
-
-			@Override
-			public Field getField() {
-				return (Field) realLine;
-			}
 		};
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpaceSobolev, fun);
 		exp.getProjection((EuclideanSpace) extendedToSobolev).plotCompare(-Math.PI, Math.PI, exp);

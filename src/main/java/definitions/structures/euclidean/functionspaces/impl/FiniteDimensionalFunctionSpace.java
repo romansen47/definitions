@@ -37,7 +37,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-1;
+	protected final double eps = 1.e-3;
 
 	/**
 	 * Plain constructor. @
@@ -59,7 +59,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		} else {
 			newBase = genericBase;
 		}
-		this.assignOrthonormalCoordinates(newBase, field);
+//		this.assignOrthonormalCoordinates(newBase, field);
 		this.setBase(newBase);
 	}
 
