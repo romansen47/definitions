@@ -14,12 +14,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class Complex implements FiniteVector, Scalar {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2160805146914088274L;
-	private final Scalar real;
-	private final Scalar imag;
+	private Scalar real;
+	private Scalar imag;
 	private Map<Vector, Scalar> coordinates;
 
 	public Complex(Scalar re, Scalar im) {
@@ -58,6 +55,7 @@ public class Complex implements FiniteVector, Scalar {
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
 		this.coordinates = coordinates;
+		this.real=this.coordinates.get(((Field) ComplexPlane.getInstance()).getOne());
 	}
 
 	@Override

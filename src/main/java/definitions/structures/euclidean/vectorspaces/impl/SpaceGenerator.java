@@ -4,6 +4,12 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ehcache.Cache;
+import org.ehcache.CacheManager;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -11,6 +17,8 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.SubField;
 
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
+
+	private CacheManager cacheManager;
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,13 +41,22 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	public static ISpaceGenerator getInstance() {
 		if (generator == null) {
 			generator = new SpaceGenerator();
-		}
+				}
 		return generator;
 	}
 
+	private Cache<Long, EuclideanSpace> myCache ;
+	
 	private SpaceGenerator() {
 		cachedCoordinateSpaces = new ConcurrentHashMap<>();
 		cachedFunctionSpaces = new ConcurrentHashMap<>();
+		setCacheManager(CacheManagerBuilder.newCacheManagerBuilder()
+				.withCache("myCache",
+						CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class,
+								EuclideanSpace.class, ResourcePoolsBuilder.heap(100)).build())
+				.build(true));
+		setMyCache(cacheManager.getCache("myCache", Long.class, EuclideanSpace.class));
+
 	}
 
 	@Override
@@ -71,6 +88,39 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		final int ratio = complexSpace.getDim() / subField.getDim();
 
 		return null;
+	}
+
+	/**
+	 * @return the cacheManager
+	 */
+	@Override
+	public CacheManager getCacheManager() {
+		return cacheManager;
+	}
+
+	/**
+	 * @param cacheManager the cacheManager to set
+	 */
+	@Override
+	public void setCacheManager(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
+	}
+
+
+	/**
+	 * @return the myCache
+	 */
+	@Override
+	public Cache<Long, EuclideanSpace> getMyCache() {
+		return myCache;
+	}
+
+	/**
+	 * @param myCache the myCache to set
+	 */
+	@Override
+	public void setMyCache(Cache<Long, EuclideanSpace> myCache) {
+		this.myCache = myCache;
 	}
 
 }

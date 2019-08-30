@@ -53,13 +53,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		this.interval[0] = left;
 		this.interval[1] = right;
 		final List<Vector> newBase;
-//		this.setBase(genericBase);
 		if (orthonormalize) {
 			newBase = this.getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
+			this.assignOrthonormalCoordinates(newBase, field);
 		}
-//		this.assignOrthonormalCoordinates(newBase, field);
 		this.setBase(newBase);
 	}
 
