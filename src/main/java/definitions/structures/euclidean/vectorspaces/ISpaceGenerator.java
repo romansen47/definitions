@@ -26,6 +26,7 @@ import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import definitions.structures.euclidean.vectorspaces.impl.PolynomialFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
@@ -64,9 +65,9 @@ public interface ISpaceGenerator {
 	}
 
 	@SuppressWarnings("deprecation")
-	default VectorSpace getFiniteDimensionalVectorSpace(final int dim) {
+	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
 		final Field field = RealLine.getInstance();
-		if (!getCachedCoordinateSpaces().containsKey(dim) && !getMyCache().containsKey(new Long(dim))) {
+		if (!getMyCache().containsKey(new Long(dim))) {
 			final List<Vector> basetmp = new ArrayList<>();
 			for (int i = 0; i < dim; i++) {
 				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
@@ -103,7 +104,8 @@ public interface ISpaceGenerator {
 					"Successfully restored from ehcache! " + dim + "-dimensional euclidean space " + ans.toString());
 			return ans;
 		} catch (final Exception e) {
-			System.out.println("Restore from ehcache failed!+\r");
+			System.out.println("Restore from ehcache failed!\r");
+			
 			return getCachedCoordinateSpaces().get(dim);
 		}
 	}
@@ -236,19 +238,16 @@ public interface ISpaceGenerator {
 						return f;
 					}
 				});
-		ans.assignOrthonormalCoordinates(ans.genericBaseToList(), f);
+//		ans.assignOrthonormalCoordinates(ans.genericBaseToList(), f);
 		return (EuclideanFunctionSpace) ans;
 	}
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n, double right)
 			throws WrongClassException {
+			
 		return (EuclideanFunctionSpace) extend(getTrigonometricSpace(f, n, right),
 				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
-					/**
-					 * 
-					 */
 					private static final long serialVersionUID = -3586909911186595426L;
-
 					@Override
 					public Field getField() {
 						return f;
@@ -256,9 +255,11 @@ public interface ISpaceGenerator {
 				});
 	}
 
-	EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, final int n, double right, boolean ortho);
+	default EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, int n, double right, boolean ortho) {
+		return new PolynomialFunctionSpace(field, n, right, ortho);
+	}
 
-	void setCachedCoordinateSpaces(ISpaceGenerator readObject);
+	void setCachedCoordinateSpaces(Map<Integer, EuclideanSpace> readObject);
 
 	void setCachedFunctionSpaces(ISpaceGenerator gen);
 

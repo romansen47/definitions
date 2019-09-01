@@ -21,8 +21,8 @@ public class Generator implements IGenerator {
 	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
 	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
 	private final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
-	private final String PATH = "coordinateSpaces.data";
-	private final String PATH2 = "functionSapces.data";
+	private final String PATH = "src/main/resources/coordinateSpaces.data";
+	private final String PATH2 = "src/main/resources/functionSpaces.data";
 
 	private static Generator generator = null;
 
@@ -60,7 +60,7 @@ public class Generator implements IGenerator {
 	public void saveCoordinateSpaces() throws IOException {
 		final FileOutputStream f_out = new FileOutputStream(this.PATH);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(this.spaceGenerator);
+		obj_out.writeObject(this.spaceGenerator.getCachedCoordinateSpaces());
 		obj_out.close();
 	}
 
@@ -68,7 +68,7 @@ public class Generator implements IGenerator {
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
 		final FileInputStream f_in = new FileInputStream(this.PATH);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		this.spaceGenerator.setCachedCoordinateSpaces((SpaceGenerator) obj_in.readObject());
+		this.spaceGenerator.setCachedCoordinateSpaces((Map<Integer, EuclideanSpace>) obj_in.readObject());
 		obj_in.close();
 	}
 
@@ -76,7 +76,7 @@ public class Generator implements IGenerator {
 	public void saveFunctionSpaces() throws IOException {
 		final FileOutputStream f_out = new FileOutputStream(this.PATH2);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(this.spaceGenerator);
+		obj_out.writeObject(this.spaceGenerator.getCachedFunctionSpaces());
 		obj_out.close();
 	}
 
@@ -84,7 +84,7 @@ public class Generator implements IGenerator {
 	public void loadFunctionSpaces() throws IOException, ClassNotFoundException {
 		final FileInputStream f_in = new FileInputStream(this.PATH2);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		this.spaceGenerator.setCachedCoordinateSpaces((SpaceGenerator) obj_in.readObject());
+		this.spaceGenerator.setCachedCoordinateSpaces((Map<Integer, EuclideanSpace>) obj_in.readObject());
 		obj_in.close();
 	}
 }

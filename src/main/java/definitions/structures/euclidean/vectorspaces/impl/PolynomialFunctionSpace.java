@@ -1,6 +1,7 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
@@ -19,7 +20,7 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 		this.prepare(maxDegree, right);
 	}
 
-	protected PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
+	public PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
 		this(field, maxDegree, right);
 		if (ortho) {
 			this.base = this.getOrthonormalBase(this.base);

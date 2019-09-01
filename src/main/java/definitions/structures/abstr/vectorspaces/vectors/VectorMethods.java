@@ -1,11 +1,12 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface VectorMethods {
+public interface VectorMethods extends Serializable {
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.

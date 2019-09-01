@@ -67,8 +67,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
-	public void setCachedCoordinateSpaces(ISpaceGenerator gen) {
-		cachedCoordinateSpaces = gen.getCachedCoordinateSpaces();
+	public void setCachedCoordinateSpaces(Map<Integer, EuclideanSpace> gen) {
+		cachedCoordinateSpaces = gen;
 	}
 
 	@Override
@@ -77,14 +77,9 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
-	public EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, int n, double right, boolean ortho) {
-		return new PolynomialFunctionSpace(field, n, right, ortho);
-	}
-
-	@Override
+	// TODO!
 	public EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField) {
 		final int ratio = complexSpace.getDim() / subField.getDim();
-
 		return null;
 	}
 

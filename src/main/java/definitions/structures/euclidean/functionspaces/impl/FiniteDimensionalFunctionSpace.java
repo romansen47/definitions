@@ -1,9 +1,11 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -163,4 +165,29 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			tmpBase.add(cos);
 		}
 	}
+
+	@Override
+	public int hashCode() {
+		int result = 1;
+		result = Objects.hash(field,base,interval);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof FiniteDimensionalFunctionSpace)) {
+			return false;
+		}
+		FiniteDimensionalFunctionSpace other = (FiniteDimensionalFunctionSpace) obj;
+		return Double.doubleToLongBits(eps) == Double.doubleToLongBits(other.eps)
+				&& Arrays.equals(interval, other.interval) && Objects.equals(nullVec, other.nullVec);
+	}
+	
+	
 }

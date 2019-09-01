@@ -67,7 +67,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new ComplexPlane();
-			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
+//			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
 		}
 		return instance;
 	}
@@ -85,6 +85,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Vector getOne() {
+//		this.one.toString();
 		return this.one;
 	}
 
@@ -143,7 +144,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Scalar get(double value) {
-		return new Complex(value, 0);
+		return new Complex(getField().get(value),(Scalar) getField().getZero());
 	}
 
 	@Override

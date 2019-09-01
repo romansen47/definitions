@@ -33,7 +33,7 @@ public interface IGenerator {
 		return getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
-	default VectorSpace getFiniteDimensionalVectorSpace(int dim) {
+	default EuclideanSpace getFiniteDimensionalVectorSpace(int dim) {
 		return getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
