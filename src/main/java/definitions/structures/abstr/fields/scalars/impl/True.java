@@ -23,7 +23,7 @@ public final class True implements Scalar {
 	private static final long serialVersionUID = 9013421650270376537L;
 
 	static private Scalar instance;
-	
+
 	@javax.xml.bind.annotation.XmlElement
 	private Map<Vector, Scalar> coordinates;
 
@@ -66,7 +66,7 @@ public final class True implements Scalar {
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
 		this.coordinates = coordinates;
 	}
-	
+
 	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public double getValue() {

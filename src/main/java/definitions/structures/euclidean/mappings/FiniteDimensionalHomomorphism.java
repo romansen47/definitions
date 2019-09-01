@@ -81,7 +81,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			if (vec2 instanceof FiniteVector) {
 				coordinates = ((FiniteVector) vec2).getCoordinates();
 			} else {
-				EuclideanSpace source = (EuclideanSpace) getSource();
+				final EuclideanSpace source = (EuclideanSpace) getSource();
 				if (vec2 instanceof FiniteVector) {
 					coordinates = ((FiniteVector) vec2).getCoordinates(source);
 				} else {

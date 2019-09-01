@@ -114,7 +114,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			return (Function) nullVec();
 		}
 		if (r.equals(getField().getOne())) {
-			return (Function) vec;//((Function) vec).getProjection(this);
+			return (Function) vec;// ((Function) vec).getProjection(this);
 		}
 		final Field f = getField();
 		if (vec.getCoordinates() == null) {

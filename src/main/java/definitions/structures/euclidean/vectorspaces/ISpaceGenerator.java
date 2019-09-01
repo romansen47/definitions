@@ -10,7 +10,6 @@ import org.ehcache.CacheManager;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
-import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -83,15 +82,15 @@ public interface ISpaceGenerator {
 			}
 			EuclideanSpace space;
 			switch (dim) {
-			case 1:
-				space = RealLine.getInstance();
-				break;
-			case 2:
-				space = ComplexPlane.getInstance();
-				break;
-			case 4:
-				space = QuaternionSpace.getInstance();
-				break;
+//			case 1:
+//				space = RealLine.getInstance();
+//				break;
+//			case 2:
+//				space = ComplexPlane.getInstance();
+//				break;
+//			case 4:
+//				space = QuaternionSpace.getInstance();
+//				break;
 			default:
 				space = new FiniteDimensionalVectorSpace(field, basetmp);
 			}
@@ -99,11 +98,11 @@ public interface ISpaceGenerator {
 			this.getMyCache().put(Integer.valueOf(dim).longValue(), space);
 		}
 		try {
-			EuclideanSpace ans = this.getMyCache().get(new Long(dim));
+			final EuclideanSpace ans = this.getMyCache().get(new Long(dim));
 			System.out.println(
 					"Successfully restored from ehcache! " + dim + "-dimensional euclidean space " + ans.toString());
 			return ans;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			System.out.println("Restore from ehcache failed!+\r");
 			return getCachedCoordinateSpaces().get(dim);
 		}
@@ -228,7 +227,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n)
 			throws WrongClassException {
-		EuclideanSpace ans = (EuclideanFunctionSpace) extend(getTrigonometricSpace(f, n),
+		final EuclideanSpace ans = extend(getTrigonometricSpace(f, n),
 				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
 					private static final long serialVersionUID = 8254610780535405982L;
 

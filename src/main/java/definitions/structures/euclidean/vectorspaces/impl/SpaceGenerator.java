@@ -41,21 +41,19 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	public static ISpaceGenerator getInstance() {
 		if (generator == null) {
 			generator = new SpaceGenerator();
-				}
+		}
 		return generator;
 	}
 
-	private Cache<Long, EuclideanSpace> myCache ;
-	
+	private Cache<Long, EuclideanSpace> myCache;
+
 	private SpaceGenerator() {
 		cachedCoordinateSpaces = new ConcurrentHashMap<>();
 		cachedFunctionSpaces = new ConcurrentHashMap<>();
-		setCacheManager(CacheManagerBuilder.newCacheManagerBuilder()
-				.withCache("myCache",
-						CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class,
-								EuclideanSpace.class, ResourcePoolsBuilder.heap(100)).build())
+		this.setCacheManager(CacheManagerBuilder.newCacheManagerBuilder().withCache("myCache", CacheConfigurationBuilder
+				.newCacheConfigurationBuilder(Long.class, EuclideanSpace.class, ResourcePoolsBuilder.heap(100)).build())
 				.build(true));
-		setMyCache(cacheManager.getCache("myCache", Long.class, EuclideanSpace.class));
+		this.setMyCache(this.cacheManager.getCache("myCache", Long.class, EuclideanSpace.class));
 
 	}
 
@@ -95,7 +93,7 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	 */
 	@Override
 	public CacheManager getCacheManager() {
-		return cacheManager;
+		return this.cacheManager;
 	}
 
 	/**
@@ -106,13 +104,12 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		this.cacheManager = cacheManager;
 	}
 
-
 	/**
 	 * @return the myCache
 	 */
 	@Override
 	public Cache<Long, EuclideanSpace> getMyCache() {
-		return myCache;
+		return this.myCache;
 	}
 
 	/**

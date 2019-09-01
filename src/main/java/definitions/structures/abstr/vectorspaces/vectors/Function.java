@@ -279,11 +279,11 @@ public interface Function extends Vector, Plotable {
 		if (this instanceof FunctionTuple) {// && source.contains(this)) {
 			return this;
 		}
-		if (getCoordinates()!=null) {
+		if (getCoordinates() != null) {
 			return (Function) source.get(getCoordinates());
 		}
 		return new FunctionTuple(getCoordinates(source), source);
-		
+
 	}
 
 	@Override

@@ -62,7 +62,7 @@ public final class BinaryField implements PrimeField {
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
-		return this.get(vec1.equals(getOne()) &&  vec2.equals(getOne()));
+		return this.get(vec1.equals(this.getOne()) && vec2.equals(this.getOne()));
 	}
 
 	public Vector get(Boolean val) {
