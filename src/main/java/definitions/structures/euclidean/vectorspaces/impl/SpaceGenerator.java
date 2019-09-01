@@ -72,8 +72,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
-	public void setCachedFunctionSpaces(ISpaceGenerator gen) {
-		cachedFunctionSpaces = gen.getCachedFunctionSpaces();
+	public void setCachedFunctionSpaces(Map<Integer, EuclideanFunctionSpace> gen) {
+		cachedFunctionSpaces = gen;
 	}
 
 	@Override

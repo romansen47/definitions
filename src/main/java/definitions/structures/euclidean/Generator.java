@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Map;
 
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectors.IVectorGenerator;
@@ -68,7 +69,11 @@ public class Generator implements IGenerator {
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
 		final FileInputStream f_in = new FileInputStream(this.PATH);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		this.spaceGenerator.setCachedCoordinateSpaces((Map<Integer, EuclideanSpace>) obj_in.readObject());
+		Map<Integer, EuclideanSpace> ans=(Map<Integer, EuclideanSpace>) obj_in.readObject();
+		this.spaceGenerator.setCachedCoordinateSpaces(ans);
+		for (Integer i:this.spaceGenerator.getCachedCoordinateSpaces().keySet()) {
+			this.spaceGenerator.getMyCache().put(new Long(i), this.spaceGenerator.getCachedCoordinateSpaces().get(i));
+		}
 		obj_in.close();
 	}
 
@@ -84,7 +89,7 @@ public class Generator implements IGenerator {
 	public void loadFunctionSpaces() throws IOException, ClassNotFoundException {
 		final FileInputStream f_in = new FileInputStream(this.PATH2);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		this.spaceGenerator.setCachedCoordinateSpaces((Map<Integer, EuclideanSpace>) obj_in.readObject());
+		this.spaceGenerator.setCachedFunctionSpaces((Map<Integer, EuclideanFunctionSpace>) obj_in.readObject());
 		obj_in.close();
 	}
 }

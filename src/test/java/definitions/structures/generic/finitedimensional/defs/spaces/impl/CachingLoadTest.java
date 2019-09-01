@@ -16,18 +16,23 @@ public class CachingLoadTest {
 	
 	final static Field realSpace = RealLine.getInstance();
 
-	@Test
+//	@Test
 	public void loadCoordinateSpacesTest() throws Throwable {
+		int k=0;
 		IGenerator gen = Generator.getGenerator();
 		gen.loadCoordinateSpaces();
+		int i=0;
 		EuclideanSpace plane=gen.getFiniteDimensionalVectorSpace(dimC);
+		int j=0;
 	}
 	
 	@Test
 	public void loadFunctionSpacesTest() throws Throwable {
 		IGenerator gen = Generator.getGenerator();
 		gen.loadFunctionSpaces();
+		int j=0;
 		EuclideanFunctionSpace trig=gen.getSpacegenerator().getPolynomialFunctionSpace(realSpace, dimF, 1, true);
+		int i=0;
 	}
 
 }

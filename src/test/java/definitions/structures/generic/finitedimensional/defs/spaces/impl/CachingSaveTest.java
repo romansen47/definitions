@@ -12,8 +12,8 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
 public class CachingSaveTest {
 
-	final static int coordSpaces=200;
-	final static int funcSpaces=5;
+	final static int coordSpaces=100;
+	final static int funcSpaces=10;
 	
 	final static IGenerator gen = Generator.getGenerator();
 	final static ISpaceGenerator spacesGen = gen.getSpacegenerator();

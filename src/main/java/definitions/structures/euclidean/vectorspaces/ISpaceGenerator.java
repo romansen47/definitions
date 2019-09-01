@@ -67,7 +67,7 @@ public interface ISpaceGenerator {
 	@SuppressWarnings("deprecation")
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
 		final Field field = RealLine.getInstance();
-		if (!getMyCache().containsKey(new Long(dim))) {
+		if (getMyCache().get(new Long(dim))==null) {
 			final List<Vector> basetmp = new ArrayList<>();
 			for (int i = 0; i < dim; i++) {
 				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
@@ -261,7 +261,7 @@ public interface ISpaceGenerator {
 
 	void setCachedCoordinateSpaces(Map<Integer, EuclideanSpace> readObject);
 
-	void setCachedFunctionSpaces(ISpaceGenerator gen);
+	void setCachedFunctionSpaces(Map<Integer, EuclideanFunctionSpace> gen);
 
 	default VectorSpace getPolynomialSobolevSpace(Field field, int maxDegree, double right, int degree) {
 		final EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
