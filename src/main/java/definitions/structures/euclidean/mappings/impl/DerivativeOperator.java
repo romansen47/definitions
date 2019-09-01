@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
@@ -52,7 +53,7 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 		}
 
 		if (degree == 1) {
-			if (vec.getCoordinates() == null) {
+			if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 				return (this.get(vec));// .getProjection((EuclideanSpace) getSource());
 			}
 			return ((Function) this.get(vec)).getProjection((EuclideanSpace) this.getSource());

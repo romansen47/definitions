@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
@@ -15,8 +16,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public interface FiniteVector extends Vector {
+public interface FiniteVector extends Vector, FiniteVectorMethods {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	Map<Vector, Scalar> getCoordinates();
 

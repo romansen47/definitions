@@ -13,13 +13,13 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
  */
 public class PolynomialFunctionSpaceTest extends FunctionSpaceTest {
 
-	static final int sobolevDegree = 0;
-	private static final int polynomialDegree = 1;
+	static final int sobolevDegree = 3;
+	private static final int polynomialDegree = 7;
 
 	@Override
 	public EuclideanFunctionSpace getLinearSpace() {
-		return (EuclideanFunctionSpace) SpaceGenerator.getInstance().getPolynomialSobolevSpace(RealLine.getInstance(),
-				polynomialDegree, 1, sobolevDegree);
+		return (EuclideanFunctionSpace) SpaceGenerator.getInstance().
+				getPolynomialFunctionSpace(RealLine.getInstance(),polynomialDegree, Math.PI, true);
 	}
 
 }

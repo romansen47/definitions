@@ -22,7 +22,7 @@ import solver.StdDraw;
  * @author ro
  *
  */
-public interface Function extends Vector, Plotable {
+public interface Function extends Vector, Plotable, FiniteVectorMethods {
 
 	/**
 	 * Functions carry around a correctness parameter.
@@ -100,6 +100,9 @@ public interface Function extends Vector, Plotable {
 		StdDraw.setYscale(min, max);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default void plot(final double left, final double right) {
 		final StdDraw stddraw = new StdDraw();
@@ -117,7 +120,9 @@ public interface Function extends Vector, Plotable {
 			}
 		}
 	}
-
+	/**
+	    * {@inheritDoc}
+	    */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
 		final StdDraw stddraw = new StdDraw();
@@ -285,7 +290,9 @@ public interface Function extends Vector, Plotable {
 		return new FunctionTuple(getCoordinates(source), source);
 
 	}
-
+	/**
+	    * {@inheritDoc}
+	    */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 

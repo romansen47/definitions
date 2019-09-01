@@ -69,9 +69,9 @@ public class Generator implements IGenerator {
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
 		final FileInputStream f_in = new FileInputStream(this.PATH);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		Map<Integer, EuclideanSpace> ans=(Map<Integer, EuclideanSpace>) obj_in.readObject();
+		final Map<Integer, EuclideanSpace> ans = (Map<Integer, EuclideanSpace>) obj_in.readObject();
 		this.spaceGenerator.setCachedCoordinateSpaces(ans);
-		for (Integer i:this.spaceGenerator.getCachedCoordinateSpaces().keySet()) {
+		for (final Integer i : this.spaceGenerator.getCachedCoordinateSpaces().keySet()) {
 			this.spaceGenerator.getMyCache().put(new Long(i), this.spaceGenerator.getCachedCoordinateSpaces().get(i));
 		}
 		obj_in.close();

@@ -16,6 +16,11 @@ package definitions.structures.abstr.groups;
  */
 public interface SemiGroup extends Monoid {
 
+	/**
+	 * Getter for the identity element
+	 * 
+	 * @return the identity element of the semi group
+	 */
 	MonoidElement getIdentityElement();
 
 }

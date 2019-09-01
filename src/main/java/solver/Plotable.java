@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 
-public interface Plotable extends Serializable{
+public interface Plotable extends Serializable {
 
 	/**
 	 * Method to plot the function.

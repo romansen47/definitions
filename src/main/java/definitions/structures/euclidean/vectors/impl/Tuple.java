@@ -33,8 +33,8 @@ public class Tuple implements FiniteVector {
 		this.dim = coordinates.length;
 		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : ((EuclideanSpace) Generator.getGenerator().getSpacegenerator()
-				.getFiniteDimensionalVectorSpace(this.dim)).genericBaseToList()) {
+		for (final Vector vec : Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(this.dim)
+				.genericBaseToList()) {
 			this.getCoordinates().put(vec, coordinates[i++]);
 		}
 	}

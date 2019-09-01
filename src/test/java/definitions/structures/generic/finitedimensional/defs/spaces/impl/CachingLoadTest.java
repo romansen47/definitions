@@ -16,7 +16,7 @@ public class CachingLoadTest {
 	
 	final static Field realSpace = RealLine.getInstance();
 
-//	@Test
+	@Test
 	public void loadCoordinateSpacesTest() throws Throwable {
 		int k=0;
 		IGenerator gen = Generator.getGenerator();

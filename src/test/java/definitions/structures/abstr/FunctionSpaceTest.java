@@ -63,9 +63,6 @@ public abstract class FunctionSpaceTest {
 			}
 		};
 		staircaseFunction2 = new GenericFunction() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 2729095328251979949L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 

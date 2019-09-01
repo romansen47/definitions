@@ -1,16 +1,15 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -97,7 +96,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		if ((vec1.getCoordinates() != null) && (vec2.getCoordinates() != null)) {
+		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
+				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
 			return this.integral((Function) vec1, (Function) vec2);
@@ -166,28 +166,29 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
-	@Override
-	public int hashCode() {
-		int result = 1;
-		result = Objects.hash(field,base,interval);
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		int result = 1;
+//		result = Objects.hash(field,base,interval);
+//		return result;
+//	}
+//
+//
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj) {
+//			return true;
+//		}
+//		if (obj == null) {
+//			return false;
+//		}
+//		if (!(obj instanceof FiniteDimensionalFunctionSpace)) {
+//			return false;
+//		}
+//		FiniteDimensionalFunctionSpace other = (FiniteDimensionalFunctionSpace) obj;
+//		return Double.doubleToLongBits(eps) == Double.doubleToLongBits(other.eps)
+//				&& Arrays.equals(interval, other.interval) && Objects.equals(nullVec, other.nullVec);
+//	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof FiniteDimensionalFunctionSpace)) {
-			return false;
-		}
-		FiniteDimensionalFunctionSpace other = (FiniteDimensionalFunctionSpace) obj;
-		return Double.doubleToLongBits(eps) == Double.doubleToLongBits(other.eps)
-				&& Arrays.equals(interval, other.interval) && Objects.equals(nullVec, other.nullVec);
-	}
-	
-	
 }

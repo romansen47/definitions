@@ -13,7 +13,9 @@ import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
  *
  */
 public interface Automorphism extends Endomorphism, Isomorphism {
-
+	/**
+	    * {@inheritDoc}
+	    */
 	@Override
 	default Isomorphism getInverse() throws Throwable {
 		final Scalar[][] matrix = getGenericMatrix();

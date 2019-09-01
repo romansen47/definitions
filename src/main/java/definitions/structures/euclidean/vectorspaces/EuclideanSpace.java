@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
@@ -91,7 +92,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	@Override
 	default Vector stretch(final Vector vec, final Scalar r) {
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
-		final Map<Vector, Scalar> coordinates = vec.getCoordinates();
+		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
 			stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
@@ -174,8 +175,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		Vector prod = getField().nullVec();
-		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
-		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
+		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
+		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
 		// final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec : vecCoord1.keySet()) {
 			prod = getField().add(prod, getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -32,8 +33,8 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 	public Vector add(Vector vec1, Vector vec2) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
 		for (final Vector vec : this.source.genericBaseToList()) {
-			coordinates.put(vec,
-					(this.target.add(((Homomorphism) vec1).get(vec), ((Homomorphism) vec2).get(vec))).getCoordinates());
+			coordinates.put(vec, ((FiniteVectorMethods) this.target.add(((Homomorphism) vec1).get(vec),
+					((Homomorphism) vec2).get(vec))).getCoordinates());
 		}
 		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}
@@ -42,7 +43,8 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
 		for (final Vector vec : this.source.genericBaseToList()) {
-			coordinates.put(vec, (this.target.stretch(((Homomorphism) vec1).get(vec), r)).getCoordinates());
+			coordinates.put(vec,
+					((FiniteVectorMethods) this.target.stretch(((Homomorphism) vec1).get(vec), r)).getCoordinates());
 		}
 		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}

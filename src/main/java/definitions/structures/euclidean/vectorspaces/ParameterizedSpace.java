@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
@@ -45,7 +46,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 
 	default Map<Vector, Scalar> getInverseCoordinates(final Vector vec2) {
 		final Vector ans = getNearestVector(vec2);
-		return ans.getCoordinates();
+		return ((FiniteVectorMethods) ans).getCoordinates();
 	}
 
 	Map<Vector, Vector> getParametrizationBaseVectorMapping();

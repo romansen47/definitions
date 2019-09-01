@@ -10,6 +10,7 @@ import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -54,13 +55,15 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
-		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
 	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
-		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 
 	}
 
@@ -144,7 +147,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Scalar get(double value) {
-		return new Complex(getField().get(value),(Scalar) getField().getZero());
+		return new Complex(this.getField().get(value), (Scalar) this.getField().getZero());
 	}
 
 	@Override

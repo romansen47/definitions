@@ -6,7 +6,7 @@ import java.util.Map;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface VectorMethods extends Serializable {
+public interface FiniteVectorMethods extends Serializable {
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.

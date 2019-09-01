@@ -4,6 +4,7 @@ import java.util.List;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -84,7 +85,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1.getCoordinates() != null) && (vec2.getCoordinates() != null)) {
+			if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
+					&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
 				return super.innerProduct(vec1, vec2);
 			} else {
 				double product = 0;
@@ -92,13 +94,14 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				Vector tmp2 = vec2;
 				product += super.innerProduct(tmp1, tmp2).getValue();
 				for (int i = 0; i < this.getDegree(); i++) {
-					if (tmp1.getCoordinates() == null || tmp2.getCoordinates() == null
+					if (((FiniteVectorMethods) tmp1).getCoordinates() == null
+							|| ((FiniteVectorMethods) tmp2).getCoordinates() == null
 							|| this.derivativeBuilder == null) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						tmp1 = this.derivativeBuilder.get(this.get(tmp1.getCoordinates()));
-						tmp2 = this.derivativeBuilder.get(this.get(tmp2.getCoordinates()));
+						tmp1 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
+						tmp2 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
 					}
 					product += super.innerProduct(tmp1, tmp2).getValue();
 				}

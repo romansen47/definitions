@@ -38,11 +38,11 @@ public abstract class VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.VectorMethods#getCoordinates()}.
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods#getCoordinates()}.
 	 */
 	@Test
 	public void testGetCoordinates() {
-		Assert.assertTrue(this.getVector().getCoordinates() != null);
+		Assert.assertTrue(((FiniteVectorMethods) this.getVector()).getCoordinates() != null);
 	}
 
 }

@@ -9,6 +9,7 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -82,7 +83,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 					map.put(vec2, zero);
 				}
 			}
-			vec1.setCoordinates(map);
+			((FiniteVectorMethods) vec1).setCoordinates(map);
 		}
 	}
 

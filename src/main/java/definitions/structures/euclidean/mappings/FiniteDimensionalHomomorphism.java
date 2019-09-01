@@ -11,6 +11,7 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
@@ -75,7 +76,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			return getOnSubSpace(vec2);
 		}
 		Map<Vector, Scalar> coordinates;
-		if (vec2.getCoordinates() == null) {
+		if (((FiniteVectorMethods) vec2).getCoordinates() == null) {
 			coordinates = ((Function) vec2).getCoordinates((EuclideanSpace) getSource());
 		} else {
 			if (vec2 instanceof FiniteVector) {

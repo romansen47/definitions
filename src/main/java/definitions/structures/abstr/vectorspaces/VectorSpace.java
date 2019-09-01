@@ -38,21 +38,33 @@ public interface VectorSpace extends Group, VectorSpaceMethods {
 	 */
 	Vector stretch(Vector vec1, Scalar r);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Integer getOrder() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default GroupElement operation(GroupElement first, GroupElement second) {
 		return add((Vector) first, (Vector) second);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default MonoidElement getIdentityElement() {
 		return nullVec();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default GroupElement getInverseElement(GroupElement element) {
 		final Field field = getField();
