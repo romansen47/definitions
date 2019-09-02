@@ -126,7 +126,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, new Real(-1))));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, getField().get(-1))));
 			newBase.add(ans);
 		}
 		return newBase;
