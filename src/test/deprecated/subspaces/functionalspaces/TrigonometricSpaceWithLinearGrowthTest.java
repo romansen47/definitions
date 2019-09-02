@@ -198,7 +198,8 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		String ans = "";
 
-		for (final Entry<Vector, Scalar> entry : ((FiniteVectorMethods) staircaseFunction2ToFourier).getCoordinates().entrySet()) {
+		for (final Entry<Vector, Scalar> entry : ((FiniteVectorMethods) staircaseFunction2ToFourier).getCoordinates()
+				.entrySet()) {
 			ans += entry.toString() + "\r";
 		}
 

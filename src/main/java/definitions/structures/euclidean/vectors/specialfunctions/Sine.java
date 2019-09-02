@@ -2,7 +2,6 @@ package definitions.structures.euclidean.vectors.specialfunctions;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class Sine extends GenericFunction {
@@ -30,14 +29,14 @@ public abstract class Sine extends GenericFunction {
 	}
 
 	public Sine(double a, double b, double c) {
-		this.magnitude = new Real(a);
-		this.translation = new Real(b);
-		this.frequency = new Real(c);
+		this.magnitude = this.getField().get(a);
+		this.translation = this.getField().get(b);
+		this.frequency = this.getField().get(c);
 	}
 
 	@Override
 	public Scalar value(Scalar input) {
-		return new Real(this.magnitude.getValue()
+		return this.getField().get(this.magnitude.getValue()
 				* Math.sin(this.getTranslation().getValue() + (this.getFrequency().getValue() * input.getValue())));
 	}
 

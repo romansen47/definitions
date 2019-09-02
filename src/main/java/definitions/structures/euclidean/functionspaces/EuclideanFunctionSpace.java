@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -25,8 +24,8 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
 		final Field f = getField();
@@ -59,7 +58,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			final Vector newVec2 = functionTuple(vec2);
 			for (final Vector vec : base) {
 				coordinates.put(vec,
-						new Real(((FiniteVectorMethods) newVec1).getCoordinates().get(getBaseVec(vec)).getValue()
+						getField().get(((FiniteVectorMethods) newVec1).getCoordinates().get(getBaseVec(vec)).getValue()
 								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(getBaseVec(vec)).getValue()));
 			}
 			return new FunctionTuple(coordinates, this);
@@ -96,9 +95,10 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		}
 		return new FunctionTuple(nul, this);
 	}
+
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Vector nullVec() {
 		return nullFunction();
@@ -116,8 +116,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	// @Override
 	// Vector getCoordinates(Vector vec);
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
 		if (vec.equals(nullVec()) || r.equals(getField().getZero())) {

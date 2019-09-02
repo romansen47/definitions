@@ -5,16 +5,15 @@ import org.junit.Test;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
 public class CachingSaveTest {
 
-	final static int coordSpaces=100;
-	final static int funcSpaces=10;
-	
+	final static int coordSpaces = 100;
+	final static int funcSpaces = 10;
+
 	final static IGenerator gen = Generator.getGenerator();
 	final static ISpaceGenerator spacesGen = gen.getSpacegenerator();
 
@@ -37,7 +36,7 @@ public class CachingSaveTest {
 	public void saveCoordinateSpacesTest() throws Throwable {
 		gen.saveCoordinateSpaces();
 	}
-	
+
 	@Test
 	public void saveFunctionSpacesTest() throws Throwable {
 		gen.saveFunctionSpaces();

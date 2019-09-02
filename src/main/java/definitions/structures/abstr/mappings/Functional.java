@@ -13,16 +13,18 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public interface Functional extends Homomorphism {
 
 	Vector getSourceVec();
+
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default EuclideanSpace getTarget() {
 		return getSource().getField();
 	}
+
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	public default Vector get(Vector vec) {
 		return ((EuclideanSpace) getSource()).innerProduct(getSourceVec(), vec);

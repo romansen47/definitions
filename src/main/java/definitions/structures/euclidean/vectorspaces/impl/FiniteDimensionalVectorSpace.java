@@ -10,7 +10,6 @@ import java.util.Set;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -126,7 +125,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, getField().get(-1))));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
 			newBase.add(ans);
 		}
 		return newBase;

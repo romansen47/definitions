@@ -49,7 +49,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			 * 
 			 */
 			private static final long serialVersionUID = -2594116178838181589L;
-			final Scalar value = new Real(1. / Math.sqrt(2 * Math.PI));
+			final Scalar value = this.getField().get(1. / Math.sqrt(2 * Math.PI));
 
 			@Override
 			public Scalar value(final Scalar input) {
@@ -127,7 +127,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector sin = new Sine(new Real(factor), RealLine.getInstance().getZero(), new Real(i)) {
+			final Vector sin = new Sine(this.getField().get(factor), RealLine.getInstance().getZero(), new Real(i)) {
 
 				/**
 				 * 
@@ -159,7 +159,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector cos = new Sine(new Real(factor), new Real(0.5 * Math.PI), new Real(i)) {
+			final Vector cos = new Sine(this.getField().get(factor), new Real(0.5 * Math.PI), new Real(i)) {
 
 				/**
 				 * 

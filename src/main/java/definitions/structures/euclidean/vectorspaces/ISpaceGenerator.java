@@ -14,7 +14,6 @@ import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.NormedSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -212,7 +211,7 @@ public interface ISpaceGenerator {
 						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getValue() == 0.;
 						if (freq.getValue() == otherFreq.getValue()) {
 							if (!isSine && otherIsSine) {
-								tmp.put(otherVec, new Real(-freq.getValue()));
+								tmp.put(otherVec, realLine.get(-freq.getValue()));
 							}
 							if (isSine && !otherIsSine) {
 								tmp.put(otherVec, freq);

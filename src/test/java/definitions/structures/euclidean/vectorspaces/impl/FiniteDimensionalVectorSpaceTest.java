@@ -3,7 +3,6 @@ package definitions.structures.euclidean.vectorspaces.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -51,7 +50,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 */
 	@Test
 	public void testStretch() {
-		Assert.assertTrue(this.space.stretch(this.nul, new Real(this.factor)).equals(this.nul));
+		Assert.assertTrue(this.space.stretch(this.nul, this.space.getField().get(this.factor)).equals(this.nul));
 	}
 
 }

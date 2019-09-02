@@ -13,8 +13,8 @@ import definitions.structures.abstr.groups.ContinuousGroup;
  */
 public interface RealSpace extends VectorSpace, ContinuousGroup {
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Field getField() {
 		return RealLine.getInstance();

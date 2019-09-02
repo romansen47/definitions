@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
@@ -36,7 +35,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 				final double summand1 = ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)).getValue();
 				final double summand2 = ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)).getValue();
 				final double sumOnCoordinate = summand1 + summand2;
-				coordinates.put(vec, new Real(sumOnCoordinate));
+				coordinates.put(vec, getField().get(sumOnCoordinate));
 			}
 			return get(coordinates);
 		} else {

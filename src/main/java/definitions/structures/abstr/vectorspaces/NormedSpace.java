@@ -12,8 +12,8 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  */
 public interface NormedSpace extends VectorSpace, MetricSpace {
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	Field getField();
 
@@ -24,12 +24,13 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the norm of the vector.
 	 */
 	Real norm(Vector vec);
+
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Real getDistance(Vector vec1, Vector vec2) {
-		return norm(add(vec1, stretch(vec2, new Real(-1))));
+		return norm(add(vec1, stretch(vec2, getField().get(-1))));
 	}
 
 	/**

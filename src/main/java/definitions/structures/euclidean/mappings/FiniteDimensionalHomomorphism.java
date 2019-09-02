@@ -8,7 +8,6 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -61,8 +60,9 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			final Scalar[] ansAsScalars = new Scalar[ans.length];
 			final Map<Vector, Scalar> ansAsCoordinates = new HashMap<>();
 			for (int i = 0; i < ans.length; i++) {
-				ansAsScalars[i] = new Real(ans[i]);
-				ansAsCoordinates.put(((EuclideanSpace) getTarget()).genericBaseToList().get(i), new Real(ans[i]));
+				ansAsScalars[i] = getSource().getField().get(ans[i]);
+				ansAsCoordinates.put(((EuclideanSpace) getTarget()).genericBaseToList().get(i),
+						getSource().getField().get(ans[i]));
 			}
 			return (FiniteVector) ((EuclideanSpace) getTarget()).get(ansAsCoordinates);// new Tuple(ansAsScalars);
 		} catch (final Exception e) {

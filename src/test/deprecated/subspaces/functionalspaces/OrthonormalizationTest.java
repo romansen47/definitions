@@ -59,7 +59,6 @@ public class OrthonormalizationTest {
 		ans1 = space.innerProduct(a, b).getValue();
 		ans2 = space.innerProduct(b, c).getValue();
 		ans3 = space.innerProduct(c, a).getValue();
-		
 
 		ans4 = space.innerProduct(a, a).getValue();
 		ans5 = space.innerProduct(b, b).getValue();

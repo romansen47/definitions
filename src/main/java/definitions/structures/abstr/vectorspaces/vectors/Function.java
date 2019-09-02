@@ -66,7 +66,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(value(new Real(x)).getValue() - other.value(new Real(x)).getValue()) > eps) {
+			if (Math.abs(value(getField().get(x)).getValue() - other.value(new Real(x)).getValue()) > eps) {
 				return false;
 			}
 		}
@@ -120,9 +120,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 			}
 		}
 	}
+
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
 		final StdDraw stddraw = new StdDraw();
@@ -164,10 +165,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = fun.value(new Real(input.getValue() + eps)).getValue()
+					final double dy = fun.value(getField().get(input.getValue() + eps)).getValue()
 							- fun.value(input).getValue();
 					final double dx = eps;
-					return new Real(dy / dx);
+					return getField().get(dy / dx);
 				}
 
 				@Override
@@ -290,9 +291,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 		return new FunctionTuple(getCoordinates(source), source);
 
 	}
+
 	/**
-	    * {@inheritDoc}
-	    */
+	 * {@inheritDoc}
+	 */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 

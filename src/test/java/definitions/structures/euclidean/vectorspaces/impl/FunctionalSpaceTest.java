@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FunctionalSpaceTest {
 
-	final EuclideanSpace space = (EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
+	final EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
 	final EuclideanSpace dualSpace = this.space.getDualSpace();
 	final EuclideanSpace dualDualSpace = this.dualSpace.getDualSpace();
 

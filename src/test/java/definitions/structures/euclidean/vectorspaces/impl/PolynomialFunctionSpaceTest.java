@@ -18,8 +18,8 @@ public class PolynomialFunctionSpaceTest extends FunctionSpaceTest {
 
 	@Override
 	public EuclideanFunctionSpace getLinearSpace() {
-		return (EuclideanFunctionSpace) SpaceGenerator.getInstance().
-				getPolynomialFunctionSpace(RealLine.getInstance(),polynomialDegree, Math.PI, true);
+		return SpaceGenerator.getInstance().getPolynomialFunctionSpace(RealLine.getInstance(), polynomialDegree,
+				Math.PI, true);
 	}
 
 }
