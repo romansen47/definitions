@@ -11,6 +11,7 @@ import org.ehcache.CacheManager;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
+import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -89,15 +90,15 @@ public interface ISpaceGenerator {
 			}
 			EuclideanSpace space;
 			switch (dim) {
-//			case 1:
-//				space = RealLine.getInstance();
-//				break;
-//			case 2:
-//				space = ComplexPlane.getInstance();
-//				break;
-//			case 4:
-//				space = QuaternionSpace.getInstance();
-//				break;
+			case 1:
+				space = RealLine.getInstance();
+				break;
+			case 2:
+				space = ComplexPlane.getInstance();
+				break;
+			case 4:
+				space = QuaternionSpace.getInstance();
+				break;
 			default:
 				space = new FiniteDimensionalVectorSpace(field, basetmp);
 			}

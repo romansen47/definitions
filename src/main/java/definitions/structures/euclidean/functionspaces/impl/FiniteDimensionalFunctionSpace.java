@@ -73,21 +73,21 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		return this.eps;
 	}
 
-	@Override
-	public List<Vector> getOrthonormalBase(final List<Vector> base) {
-		final List<Vector> newBase = new ArrayList<>();
-		for (final Vector vec : base) {
-			Vector tmp = this.nullVec();
-			for (final Vector vec2 : newBase) {
-				tmp = this.add(tmp, this.projection(vec, vec2));
-			}
-			final Function fun = (Function) this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
-			final Vector ans = this.get(fun.getCoordinates(this));
-			newBase.add(ans);
-		}
-		this.assignOrthonormalCoordinates(newBase, this.field);
-		return newBase;
-	}
+//	@Override
+//	public List<Vector> getOrthonormalBase(final List<Vector> base) {
+//		final List<Vector> newBase = new ArrayList<>();
+//		for (final Vector vec : base) {
+//			Vector tmp = this.nullVec();
+//			for (final Vector vec2 : newBase) {
+//				tmp = this.add(tmp, this.projection(vec, vec2));
+//			}
+//			final Function fun = (Function) this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
+//			final Vector ans = this.get(fun.getCoordinates(this));
+//			newBase.add(ans);
+//		}
+//		this.assignOrthonormalCoordinates(newBase, this.field);
+//		return newBase;
+//	}
 
 	@Override
 	public Vector normalize(final Vector vec) {
