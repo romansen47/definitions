@@ -6,7 +6,6 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
-import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class CachingLoadTest {
@@ -18,22 +17,12 @@ public class CachingLoadTest {
 
 	@Test
 	public void loadCoordinateSpacesTest() throws Throwable {
-		final int k = 0;
 		final IGenerator gen = Generator.getGenerator();
 		gen.loadCoordinateSpaces();
-		final int i = 0;
-		final EuclideanSpace plane = gen.getFiniteDimensionalVectorSpace(dimC);
-		final int j = 0;
-	}
-
-	@Test
-	public void loadFunctionSpacesTest() throws Throwable {
-		final IGenerator gen = Generator.getGenerator();
-		gen.loadFunctionSpaces();
-		final int j = 0;
-		final EuclideanFunctionSpace trig = gen.getSpacegenerator().getPolynomialFunctionSpace(realSpace, dimF, 1,
-				true);
-		final int i = 0;
+//		final EuclideanSpace plane = gen.getFiniteDimensionalVectorSpace(dimC);
+		final EuclideanSpace space2 = (EuclideanSpace) gen.getTrigonometricFunctionSpaceWithLinearGrowth(realSpace,
+				dimF);
+		final int ans = 0;
 	}
 
 }

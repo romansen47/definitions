@@ -3,6 +3,8 @@
  */
 package definitions.structures.abstr.mappings;
 
+import java.io.Serializable;
+
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -10,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author ro
  *
  */
-public interface Mapping {
+public interface Mapping extends Serializable {
 
 	/**
 	 * Method to apply the mapping on a vector.

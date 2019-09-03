@@ -27,7 +27,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	private static final long serialVersionUID = -8669475459309858828L;
 
-	private Vector nullVec;
+	private Vector nullVec = null;
 
 	/**
 	 * the interval.
@@ -37,7 +37,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-3;
+	protected final double eps = 1.e-4;
 
 	/**
 	 * Plain constructor. @
@@ -71,22 +71,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public double getEpsilon() {
 		return this.eps;
 	}
-
-//	@Override
-//	public List<Vector> getOrthonormalBase(final List<Vector> base) {
-//		final List<Vector> newBase = new ArrayList<>();
-//		for (final Vector vec : base) {
-//			Vector tmp = this.nullVec();
-//			for (final Vector vec2 : newBase) {
-//				tmp = this.add(tmp, this.projection(vec, vec2));
-//			}
-//			final Function fun = (Function) this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
-//			final Vector ans = this.get(fun.getCoordinates(this));
-//			newBase.add(ans);
-//		}
-//		this.assignOrthonormalCoordinates(newBase, this.field);
-//		return newBase;
-//	}
 
 	@Override
 	public Vector normalize(final Vector vec) {
@@ -164,30 +148,5 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			tmpBase.add(cos);
 		}
 	}
-
-//	@Override
-//	public int hashCode() {
-//		int result = 1;
-//		result = Objects.hash(field,base,interval);
-//		return result;
-//	}
-//
-//
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj) {
-//			return true;
-//		}
-//		if (obj == null) {
-//			return false;
-//		}
-//		if (!(obj instanceof FiniteDimensionalFunctionSpace)) {
-//			return false;
-//		}
-//		FiniteDimensionalFunctionSpace other = (FiniteDimensionalFunctionSpace) obj;
-//		return Double.doubleToLongBits(eps) == Double.doubleToLongBits(other.eps)
-//				&& Arrays.equals(interval, other.interval) && Objects.equals(nullVec, other.nullVec);
-//	}
 
 }

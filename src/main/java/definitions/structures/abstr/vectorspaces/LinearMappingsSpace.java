@@ -24,10 +24,10 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 		this.target = target;
 	}
 
-	@Override
-	public boolean contains(Vector vec) {
-		return vec instanceof Homomorphism && vec.elementOf(this.source);
-	}
+//	@Override
+//	public boolean contains(Vector vec) {
+//		return vec instanceof Homomorphism && vec.elementOf(this.source);
+//	}
 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) {

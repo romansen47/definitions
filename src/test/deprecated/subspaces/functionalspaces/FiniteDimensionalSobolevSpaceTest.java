@@ -18,7 +18,6 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
@@ -28,7 +27,7 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 public class FiniteDimensionalSobolevSpaceTest {
 
 	final static VectorSpace realLine = RealLine.getInstance();
-	static EuclideanFunctionSpace trigonometricFunctionSpace;
+	static EuclideanSpace trigonometricFunctionSpace;
 	static EuclideanSpace sobolevSpace;
 	final static ISpaceGenerator spaceGen = Generator.getGenerator().getSpacegenerator();
 
@@ -81,7 +80,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 			}
 
 		};
-		exp = new ExponentialFunction((Scalar) realLine.nullVec(), ((RealLine) realLine).getOne()) {
+		exp = new ExponentialFunction((Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne()) {
 
 			/**
 			 * 

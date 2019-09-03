@@ -33,10 +33,6 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		final double left = -right;
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
-		// final EuclideanSpace space = (EuclideanSpace)
-		// Generator.getGenerator().getSpacegenerator()
-		// .getFiniteDimensionalVectorSpace(this.dim);
-		// final List<Vector> coordinates = space.genericBaseToList();
 		this.interval = new double[] { left, right };
 		final Field f = field;
 		tmpBase.add(new Constant(this.getField().get(1. / Math.sqrt(2 * right))) {

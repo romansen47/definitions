@@ -15,7 +15,7 @@ import exceptions.WrongFieldException;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group, VectorSpaceMethods {
+public interface VectorSpace extends Group {
 
 	Field getField();
 
@@ -59,7 +59,7 @@ public interface VectorSpace extends Group, VectorSpaceMethods {
 	 */
 	@Override
 	default MonoidElement getIdentityElement() {
-		return nullVec();
+		return ((VectorSpaceMethods) this).nullVec();
 	}
 
 	/**

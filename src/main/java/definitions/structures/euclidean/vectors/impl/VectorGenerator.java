@@ -5,6 +5,10 @@ import definitions.structures.euclidean.vectors.IVectorGenerator;
 
 public class VectorGenerator implements IVectorGenerator {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static VectorGenerator generator = null;
 
 	public static IVectorGenerator getInstance() {

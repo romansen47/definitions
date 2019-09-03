@@ -28,21 +28,21 @@ public interface Field extends EuclideanAlgebra, FieldMethods {
 
 			@Override
 			public Vector get(Vector vec) {
-				return getTarget().nullVec();
+				return ((Field) getTarget()).nullVec();
 			}
 
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
 				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
-					coord.put(vec, ((FiniteVectorMethods) target.nullVec()).getCoordinates());
+					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
 				}
 				return coord;
 			}
 
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				final Scalar[][] mat = new Scalar[target.getDim()][source.getDim()];
+				final Scalar[][] mat = new Scalar[((Field) target).getDim()][((Field) source).getDim()];
 				for (final Scalar[] entry : mat) {
 					for (Scalar scalar : entry) {
 						scalar = RealLine.getInstance().getZero();

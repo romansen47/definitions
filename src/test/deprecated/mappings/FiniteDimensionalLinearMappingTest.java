@@ -28,21 +28,23 @@ public class FiniteDimensionalLinearMappingTest {
 	static Homomorphism composition;
 
 	static Scalar[][] matrix = new Scalar[][] {
-			{ ((RealLine) realLine).getOne(), (Scalar) realLine.nullVec(), ((RealLine) realLine).getOne() },
-			{ (Scalar) realLine.nullVec(), ((RealLine) realLine).getOne(), (Scalar) realLine.nullVec() },
-			{ new Real(-1), (Scalar) realLine.nullVec(), ((RealLine) realLine).getOne() } };
+			{ ((RealLine) realLine).getOne(), (Scalar) ((RealLine) realLine).nullVec(),
+					((RealLine) realLine).getOne() },
+			{ (Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne(),
+					(Scalar) ((RealLine) realLine).nullVec() },
+			{ new Real(-1), (Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne() } };
 
 	static FiniteDimensionalHomomorphism product;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		e1 = new Tuple(new Scalar[] { ((RealLine) realLine).getOne(), (Scalar) realLine.nullVec(),
-				(Scalar) realLine.nullVec() });
-		e2 = new Tuple(new Scalar[] { (Scalar) realLine.nullVec(), ((RealLine) realLine).getOne(),
-				(Scalar) realLine.nullVec() });
-		e3 = new Tuple(new Scalar[] { (Scalar) realLine.nullVec(), (Scalar) realLine.nullVec(),
-				((RealLine) realLine).getOne() });
+		e1 = new Tuple(new Scalar[] { ((RealLine) realLine).getOne(), (Scalar) ((RealLine) realLine).nullVec(),
+				(Scalar) ((RealLine) realLine).nullVec() });
+		e2 = new Tuple(new Scalar[] { (Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne(),
+				(Scalar) ((RealLine) realLine).nullVec() });
+		e3 = new Tuple(new Scalar[] { (Scalar) ((RealLine) realLine).nullVec(),
+				(Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne() });
 
 		map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
 		inv = ((Automorphism) map).getInverse();

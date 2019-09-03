@@ -3,6 +3,7 @@
  */
 package definitions;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @author ro
  *
  */
-public interface IWatcher {
+public interface IWatcher extends Serializable {
 
 	final List<String> list = new ArrayList<>();
 

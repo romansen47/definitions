@@ -19,15 +19,15 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
 public class TrigonometricSpaceWithLinearGrowthTest {
 
-	static EuclideanFunctionSpace trigonometricFunctionSpace;
-	static EuclideanFunctionSpace extendedTrigonometricFunctionSpace;
+	static EuclideanSpace trigonometricFunctionSpace;
+	static EuclideanSpace extendedTrigonometricFunctionSpace;
 
 	protected static final String PATH = "src/main/resources/test.csv";
 	protected static final String PATH2 = "src/main/resources/test2.csv";

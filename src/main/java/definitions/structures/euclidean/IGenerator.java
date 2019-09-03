@@ -1,6 +1,7 @@
 package definitions.structures.euclidean;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import exceptions.WrongClassException;
 
-public interface IGenerator {
+public interface IGenerator extends Serializable {
 
-	Map<Integer, EuclideanSpace> getCachedSpaces();
+//	Map<Integer, EuclideanSpace> getCachedSpaces();
 
 	default Vector getFiniteVector(int dim) {
 		return getVectorgenerator().getFiniteVector(dim);
@@ -74,9 +75,5 @@ public interface IGenerator {
 	void saveCoordinateSpaces() throws IOException;
 
 	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;
-
-	void saveFunctionSpaces() throws IOException;
-
-	void loadFunctionSpaces() throws IOException, ClassNotFoundException;
 
 }

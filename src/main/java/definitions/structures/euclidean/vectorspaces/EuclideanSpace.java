@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
@@ -22,7 +23,7 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
  *         is equipped with a base. The norm can be used to normalize vectors,
  *         compute distances between vectors and generate an orthonormal base.
  */
-public interface EuclideanSpace extends InnerProductSpace {
+public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 
 	/**
 	 * A base is an ordered set of linearly independent vectors.

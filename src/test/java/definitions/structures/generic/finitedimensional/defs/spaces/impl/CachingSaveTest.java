@@ -8,11 +8,12 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import exceptions.WrongClassException;
 
 public class CachingSaveTest {
 
-	final static int coordSpaces = 100;
-	final static int funcSpaces = 10;
+	final static int coordSpaces = 500;
+	final static int funcSpaces = 50;
 
 	final static IGenerator gen = Generator.getGenerator();
 	final static ISpaceGenerator spacesGen = gen.getSpacegenerator();
@@ -20,26 +21,17 @@ public class CachingSaveTest {
 	final static Field realSpace = RealLine.getInstance();
 
 	@BeforeClass
-	public static void before() {
-		// gen.loadCoordinateSpaces();
-		for (int i = 0; i < coordSpaces; i++) {
+	public static void before() throws WrongClassException {
+		for (int i = 1; i < coordSpaces; i++) {
 			spacesGen.getFiniteDimensionalVectorSpace(i);
-		}
-
-		// gen.loadFunctionSpaces();
-		for (int i = 0; i < funcSpaces; i++) {
-			spacesGen.getPolynomialFunctionSpace(realSpace, i, 1, true);
+			spacesGen.getTrigonometricFunctionSpaceWithLinearGrowth(realSpace, i);
 		}
 	}
 
 	@Test
 	public void saveCoordinateSpacesTest() throws Throwable {
 		gen.saveCoordinateSpaces();
-	}
-
-	@Test
-	public void saveFunctionSpacesTest() throws Throwable {
-		gen.saveFunctionSpaces();
+		final int i = 0;
 	}
 
 }

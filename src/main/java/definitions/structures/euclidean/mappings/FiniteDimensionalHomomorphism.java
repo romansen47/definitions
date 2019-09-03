@@ -10,6 +10,7 @@ import org.apache.commons.math3.linear.MatrixUtils;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -39,7 +40,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 
 		final Scalar[][] matrix = this.getGenericMatrix();
 		final Scalar[] imageVector = new Scalar[image.getDim()];
-		for (int i = 0; i < getTarget().getDim(); i++) {
+		for (int i = 0; i < ((VectorSpaceMethods) getTarget()).getDim(); i++) {
 			imageVector[i] = image.getCoordinates().get(((EuclideanSpace) getTarget()).genericBaseToList().get(i));
 		}
 		final double[][] matrixAsDoubles = new double[matrix.length][matrix[0].length];

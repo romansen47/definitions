@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -20,8 +21,8 @@ public abstract class VectorSpaceTest {
 
 	@Test
 	public void testContains() {
-		Assert.assertTrue(this.getSpace().contains(this.getVec1()));
-		Assert.assertTrue(this.getSpace().contains(this.getVec2()));
+		Assert.assertTrue(((VectorSpaceMethods) this.getSpace()).contains(this.getVec1()));
+		Assert.assertTrue(((VectorSpaceMethods) this.getSpace()).contains(this.getVec2()));
 	}
 
 	@Test

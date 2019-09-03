@@ -14,6 +14,7 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.NormedSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -51,7 +52,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@Test
 	public final void testNullVec() {
-		final Scalar d = ((NormedSpace) trigonometricSpace).norm(trigonometricSpace.nullVec());
+		final Scalar d = ((NormedSpace) trigonometricSpace).norm(((VectorSpaceMethods) trigonometricSpace).nullVec());
 		Assert.assertTrue(Math.abs(d.getValue()) < 1.e-3);
 	}
 
