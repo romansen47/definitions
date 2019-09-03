@@ -37,7 +37,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-4;
+	protected final double eps = 1.e-6;
 
 	/**
 	 * Plain constructor. @

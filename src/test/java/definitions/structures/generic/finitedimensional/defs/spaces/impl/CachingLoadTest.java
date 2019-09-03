@@ -19,10 +19,8 @@ public class CachingLoadTest {
 	public void loadCoordinateSpacesTest() throws Throwable {
 		final IGenerator gen = Generator.getGenerator();
 		gen.loadCoordinateSpaces();
-//		final EuclideanSpace plane = gen.getFiniteDimensionalVectorSpace(dimC);
-		final EuclideanSpace space2 = (EuclideanSpace) gen.getTrigonometricFunctionSpaceWithLinearGrowth(realSpace,
-				dimF);
-		final int ans = 0;
+		EuclideanSpace space2= (EuclideanSpace) gen.getTrigonometricFunctionSpaceWithLinearGrowth(realSpace,dimF);
+		int ans=0;
 	}
 
 }
