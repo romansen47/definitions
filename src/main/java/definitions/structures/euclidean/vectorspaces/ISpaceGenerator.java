@@ -36,6 +36,8 @@ public interface ISpaceGenerator {
 
 	final EuclideanSpace realSpace = RealLine.getInstance();
 
+	final Map<Integer,EuclideanSpace> coordinatesSpaces = new HashMap<>();
+	
 	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {
 		final Field field = (Field) ComplexPlane.getInstance();
 		if (dim == 1) {
@@ -59,51 +61,25 @@ public interface ISpaceGenerator {
 		return new FiniteDimensionalVectorSpace(field, basetmp);// getCachedCoordinateSpaces().get(-dim);
 	}
 
-	@SuppressWarnings("deprecation")
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
-		EuclideanSpace ans = getCache().getConcreteCache().get(dim);
+		RealLine.getInstance();
+		return  (EuclideanSpace) getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
+	}
+
+	default VectorSpace getFiniteDimensionalVectorSpace(Field field, final int dim) {
+		EuclideanSpace ans = coordinatesSpaces.get(dim);
 		if (ans != null) {
 			System.out.println("Successfully restored from cache! " + dim + "-dimensional euclidean space "
 					+ ans.toString());
 			return ans;
 		}
-		RealLine.getInstance();
-		if (getCache().getConcreteCache().get(dim) == null) {
-//			final List<Vector> basetmp = new ArrayList<>();
-//			for (int i = 0; i < dim; i++) {
-//				basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
-//			}
-//			for (int i = 0; i < dim; i++) {
-//				for (int j = 0; j < dim; j++) {
-//					if (i == j) {
-//						((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(i),
-//								(Scalar) field.getOne());
-//					} else {
-//						((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(j),
-//								(Scalar) field.getZero());
-//					}
-//				}
-//			}
-			switch (dim) {
-			case 1:
-				ans = RealLine.getInstance();
-				break;
-			case 2:
-				ans = ComplexPlane.getInstance();
-				break;
-			case 4:
-				ans = QuaternionSpace.getInstance();
-				break;
-			}
-			getCache().getConcreteCache().put(dim, ans);
-			System.out.println("Saved "+dim+"-dimensional vector space to cache!");
-		}
-		return ans;
-	}
-
-	default VectorSpace getFiniteDimensionalVectorSpace(Field field, final int dim) {
-		if (field == RealLine.getInstance()) {
-			return getFiniteDimensionalVectorSpace(dim);
+		switch (dim) {
+		case 1:
+			return RealLine.getInstance();
+		case 2:
+			return ComplexPlane.getInstance();
+		case 4:
+			return QuaternionSpace.getInstance();
 		}
 		final List<Vector> basetmp = new ArrayList<>();
 		for (int i = 0; i < dim; i++) {
@@ -120,7 +96,9 @@ public interface ISpaceGenerator {
 				}
 			}
 		}
-		return new FiniteDimensionalVectorSpace(field, basetmp);
+		ans=new FiniteDimensionalVectorSpace(field, basetmp);
+		coordinatesSpaces.put(dim,ans);
+		return ans;
 	}
 
 	default int getHashCode(Field field, List<Vector> base, Double[] interval) {
@@ -131,13 +109,8 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right, final boolean ortho) {
-//		final EuclideanFunctionSpace space = getMyCache().get(new Long(genericBase.hashCode()));
-//		if ((space != null) && (space.getInterval()[0] == left) && (space.getInterval()[1] == right)) {
-//			return space;
-//		}
 		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(field, genericBase, left,
 				right, ortho);
-//		getMyCache().put(new Long(genericBase.hashCode()), newSpace);
 		return newSpace;
 	}
 
@@ -236,11 +209,10 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n, double right)
 			throws WrongClassException {
-		final EuclideanSpace space = getCache().getTrigonometricSpaceswithGowth().get(n);
+		final EuclideanSpace space = getCache().getConcreteCache().get(n);
 		if (space != null) {
-			System.out.println("Successfully restored from cache! " + (2 * n + 1) + "-dimensional trigonometric space "
-					+ space.toString());
-
+			System.out.println("Successfully restored from cache! " + (2 * n + 1)
+					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
 		final EuclideanSpace newSpace = extend(getTrigonometricSpace(f, n, right),
@@ -252,9 +224,10 @@ public interface ISpaceGenerator {
 						return f;
 					}
 				});
-		getCache().getTrigonometricSpaceswithGowth().put(n, newSpace);
-		System.out.println("Saved "+(2*n+1)+"-dimensional trigonometric space equipped with linear functions to cache!");
-		return getCache().getTrigonometricSpaceswithGowth().get(n);
+		getCache().getConcreteCache().put(n, newSpace);
+		System.out.println(
+				"Saved " + (2 * n + 1) + "-dimensional trigonometric space equipped with linear functions to cache!");
+		return getCache().getConcreteCache().get(n);
 
 	}
 

@@ -20,6 +20,8 @@ import junit.framework.Assert;
 public class FiniteDimensionalLinearMappingTest {
 
 	final static Algebra realLine = RealLine.getInstance();
+	final static Scalar one=((RealLine) realLine).getOne();
+	final static Scalar zero=((RealLine) realLine).getZero();
 	static FiniteVector e1;
 	static FiniteVector e2;
 	static FiniteVector e3;
@@ -28,23 +30,18 @@ public class FiniteDimensionalLinearMappingTest {
 	static Homomorphism composition;
 
 	static Scalar[][] matrix = new Scalar[][] {
-			{ ((RealLine) realLine).getOne(), (Scalar) ((RealLine) realLine).nullVec(),
-					((RealLine) realLine).getOne() },
-			{ (Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne(),
-					(Scalar) ((RealLine) realLine).nullVec() },
-			{ new Real(-1), (Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne() } };
+			{one,zero,one},
+			{zero,one,zero},
+			{ new Real(-1), zero,one} };
 
 	static FiniteDimensionalHomomorphism product;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		e1 = new Tuple(new Scalar[] { ((RealLine) realLine).getOne(), (Scalar) ((RealLine) realLine).nullVec(),
-				(Scalar) ((RealLine) realLine).nullVec() });
-		e2 = new Tuple(new Scalar[] { (Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne(),
-				(Scalar) ((RealLine) realLine).nullVec() });
-		e3 = new Tuple(new Scalar[] { (Scalar) ((RealLine) realLine).nullVec(),
-				(Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne() });
+		e1 = new Tuple(new Scalar[] { one,zero,zero });
+		e2 = new Tuple(new Scalar[] { zero,one,zero });
+		e3 = new Tuple(new Scalar[] { zero,zero,one });
 
 		map = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(matrix);
 		inv = ((Automorphism) map).getInverse();

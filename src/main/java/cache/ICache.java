@@ -11,8 +11,4 @@ public interface ICache extends Serializable {
 
 	void setConcreteCache(Map<Integer, EuclideanSpace> cache);
 
-	Map<Integer, EuclideanSpace> getTrigonometricSpaceswithGowth();
-
-	void setTrigonometricSpaceswithGowth(Map<Integer, EuclideanSpace> trigonometricSpaceswithGowth);
-
 }

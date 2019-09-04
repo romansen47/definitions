@@ -96,7 +96,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
-			stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
+			stretched.put(vec1, (Scalar) getField().product(coordinates.get(getBaseVec(vec1)), r));
 		}
 		return new Tuple(stretched);
 	}

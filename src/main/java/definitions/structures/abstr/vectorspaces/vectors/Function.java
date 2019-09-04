@@ -115,7 +115,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : getField().genericBaseToList()) {
-				StdDraw.line(z, value(getField().get(z)).getCoordinates().get(vec).getValue(), z + delta,
+				Scalar sc=value(getField().get(z));
+				StdDraw.line(z, sc.getCoordinates().get(getField().getBaseVec(vec)).getValue(), z + delta,
 						value(getField().get(z + delta)).getCoordinates().get(vec).getValue());
 			}
 		}

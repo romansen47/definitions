@@ -22,7 +22,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  * @author BAU12350
  *
  */
-public class QuaternionFunctionSpaceTest {// extends FiniteDimensionalFunctionSpaceTest {
+public class QuaternionFunctionSpaceTest {
 
 	final public Field f = (Field) QuaternionSpace.getInstance();
 	List<Vector> base = new ArrayList<>();
@@ -38,7 +38,7 @@ public class QuaternionFunctionSpaceTest {// extends FiniteDimensionalFunctionSp
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
 				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
-						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, -val, 0, 0));
+						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, -val, 0.1*Math.cos(val), 0.1*Math.sin(val)));
 				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 
@@ -54,7 +54,7 @@ public class QuaternionFunctionSpaceTest {// extends FiniteDimensionalFunctionSp
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
 				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
-						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, val, 0, 0));
+						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val/2, val/2, 0.1*Math.sin(val), 0.1*Math.cos(val)));
 				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 

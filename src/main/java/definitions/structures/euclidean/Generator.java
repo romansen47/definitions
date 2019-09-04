@@ -17,6 +17,8 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 @SuppressWarnings("unused")
 public class Generator implements IGenerator {
 
+	final private static boolean restoreFromCached=true;
+	
 	private static final long serialVersionUID = -5553433829703982950L;
 	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
 	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
@@ -29,6 +31,14 @@ public class Generator implements IGenerator {
 	public static IGenerator getGenerator() {
 		if (generator == null) {
 			generator = new Generator();
+			if (restoreFromCached) {
+			try {
+				generator.loadCoordinateSpaces();
+				System.out.println("Cached spaces loaded");
+			}
+			catch(Exception e) {
+				System.out.println("Cached spaces not loaded");
+			}}
 		}
 		return generator;
 	}
@@ -65,9 +75,6 @@ public class Generator implements IGenerator {
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
 		final ICache ans = (ICache) obj_in.readObject();
 		this.spaceGenerator.setCache(ans);
-//		for (final Integer i : this.spaceGenerator.getCachedCoordinateSpaces().keySet()) {
-//			this.spaceGenerator.getMyCache().put(new Long(i), this.spaceGenerator.getCachedCoordinateSpaces().get(i));
-//		}
 		obj_in.close();
 	}
 

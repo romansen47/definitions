@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -22,6 +25,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  *         Conrete implementation of a finite dimensional vector space.
  */
+//@XmlRootElement
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	private static final long serialVersionUID = -7678979021442720279L;
@@ -31,6 +35,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * the base.
 	 */
+//	@XmlElement
 	protected List<Vector> base;
 
 	/**

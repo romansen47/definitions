@@ -5,6 +5,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -15,9 +19,10 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 
 public class Tuple implements FiniteVector {
 
-	/**
-	 * 
-	 */
+	public Tuple() {
+		dim = 0;
+	}
+
 	private static final long serialVersionUID = -738201540142933649L;
 
 	final int dim;
@@ -25,7 +30,8 @@ public class Tuple implements FiniteVector {
 	private Map<Vector, Scalar> coordinates;
 
 	@Override
-	public final Integer getDim() {
+
+	public Integer getDim() {
 		return this.dim;
 	}
 
@@ -44,7 +50,7 @@ public class Tuple implements FiniteVector {
 		this.dim = coordinates.keySet().size();
 	}
 
-	Tuple(final int dim) {
+	protected Tuple(final int dim) {
 		this.dim = dim;
 		this.coordinates = new ConcurrentHashMap<>();
 	}
@@ -102,6 +108,7 @@ public class Tuple implements FiniteVector {
 	// }
 
 	@Override
+//	@XmlAttribute
 	public Map<Vector, Scalar> getCoordinates() {
 		return this.coordinates;
 	}
@@ -128,6 +135,7 @@ public class Tuple implements FiniteVector {
 	// }
 
 	@Override
+//	@XmlAttribute
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		if (this.elementOf(source)) {

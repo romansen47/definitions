@@ -19,8 +19,10 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
@@ -48,56 +50,18 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static int dim = 1;
+	static int dim = 49;
 
 	@BeforeClass
-	public static void setUpBeforeClass() {
+	public static void setUpBeforeClass() throws WrongClassException {
 
-		trigonometricFunctionSpace = Generator.getGenerator().getSpacegenerator()
+		IGenerator gen=Generator.getGenerator();
+		ISpaceGenerator spaceGen = gen.getSpacegenerator();
+
+		trigonometricFunctionSpace  = spaceGen
 				.getTrigonometricSpace(RealLine.getInstance(), dim);
-
-		identity = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				return input;
-			}
-		};
-
-		final Function idToFourier = identity.getProjection(trigonometricFunctionSpace);
-
-		final Function newBaseFunction = new GenericFunction() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			private final Function normedIdToFourier = (Function) trigonometricFunctionSpace.normalize(idToFourier);
-
-			private final Scalar factor = trigonometricFunctionSpace.innerProduct(identity, this.normedIdToFourier);
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double ans = identity.value(input).getValue()
-						- (this.factor.getValue() * this.normedIdToFourier.value(input).getValue());
-				return new Real(ans);
-			}
-		};
-
-		final double[] baseVec = new double[(2 * dim) + 2];
-		baseVec[(2 * dim) + 1] = 1;
-
-		try {
-			extendedTrigonometricFunctionSpace = SpaceGenerator.getInstance()
-					.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
-		} catch (final WrongClassException e) {
-			e.printStackTrace();
-		}
+		extendedTrigonometricFunctionSpace = spaceGen
+				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
 
 	}
 
@@ -111,12 +75,8 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		}
 
 		staircaseFunction = new GenericFunction() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 			int length = (int) testValues[0][testValues[0].length - 1];
-
 			@Override
 			public Scalar value(Scalar input) {
 				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
@@ -205,14 +165,14 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 	}
 
-	@Test
-	public void test3() {
-
-		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
-
-		identity.plotCompare(left, right, (Function) identityToFourier);
-
-	}
+//	@Test
+//	public void test3() {
+//TODO!
+//		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
+//
+//		identity.plotCompare(left, right, (Function) identityToFourier);
+//
+//	}
 
 	@Test
 	public void test4() {

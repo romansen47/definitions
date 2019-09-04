@@ -18,6 +18,8 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.IGenerator;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
@@ -26,17 +28,18 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
 public class FiniteDimensionalSobolevSpaceTest {
 
+	static IGenerator gen=Generator.getGenerator();
 	final static VectorSpace realLine = RealLine.getInstance();
 	static EuclideanSpace trigonometricFunctionSpace;
 	static EuclideanSpace sobolevSpace;
-	final static ISpaceGenerator spaceGen = Generator.getGenerator().getSpacegenerator();
+	final static ISpaceGenerator spaceGen = gen.getSpacegenerator();
 
 	static double left = -Math.PI;
 	static double right = Math.PI;
 
-	static final int dim = 3;
+	static final int dim = 49;
 
-	static final int degree = 1;
+	static final int degree = 0;
 
 	static Function normalizedIdentity;
 	static Function exp;
@@ -137,22 +140,18 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		};
 
-		final ISpaceGenerator generator = Generator.getGenerator().getSpacegenerator();
+		final ISpaceGenerator generator = gen.getSpacegenerator();
 
 		trigonometricFunctionSpace = generator.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(),
 				dim);
-		// .getTrigonometricSpace(RealLine.getInstance(), dim);
 
-		final EuclideanSpace trigonometricSobolevSpace = generator.getTrigonometricSobolevSpace(RealLine.getInstance(),
-				dim, degree);
+		final EuclideanSpace trigonometricSobolevSpace = generator.getFiniteDimensionalSobolevSpace(RealLine.getInstance(), (EuclideanFunctionSpace) trigonometricFunctionSpace, degree);
+		
 		final Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
-
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 1L;
 		};
-		sobolevSpace = generator.extend(trigonometricSobolevSpace, id);
+		
+		sobolevSpace = trigonometricSobolevSpace;
 
 		idToSobolevFourierCoordinates = normalizedIdentity.getProjection(sobolevSpace);
 
@@ -160,14 +159,6 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		newAbs = sobolevSpace.getCoordinates(abs);
 
-	}
-
-	@Test
-	public void test1() throws Throwable {
-		for (final Vector vec : sobolevSpace.genericBaseToList()) {
-			((Function) vec).plot(left, right);
-			((Function) vec).getDerivative().plot(left, right);
-		}
 	}
 
 	// @Test

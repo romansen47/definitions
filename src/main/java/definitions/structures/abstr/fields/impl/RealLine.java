@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -80,7 +82,7 @@ public class RealLine implements SubField, RealSpace {
 		return vec instanceof Real;
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+	@XmlAttribute
 	@Override
 	public Vector nullVec() {
 		return this.getZero();
@@ -122,7 +124,7 @@ public class RealLine implements SubField, RealSpace {
 		return (Set<Vector>) this.base;
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+	@XmlAttribute
 	@Override
 	public Integer getDim() {
 		return 1;
@@ -147,7 +149,7 @@ public class RealLine implements SubField, RealSpace {
 		return new Real(ans);
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+	@XmlAttribute
 	@Override
 	public Vector inverse(Vector factor) {
 		if (factor == null) {
@@ -160,13 +162,15 @@ public class RealLine implements SubField, RealSpace {
 		return new Real(1 / num.getValue());
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+
+	@XmlAttribute
 	@Override
 	public final Real getOne() {
 		return one;
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+
+	@XmlAttribute
 	@Override
 	public final Real getZero() {
 		return zero;
@@ -192,7 +196,7 @@ public class RealLine implements SubField, RealSpace {
 		return new InjectiveLinearMapping(this, ComplexPlane.getInstance(), coord);
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+//	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
@@ -221,7 +225,8 @@ public class RealLine implements SubField, RealSpace {
 		return value;
 	}
 
-	@javax.xml.bind.annotation.XmlElement
+
+	@XmlAttribute
 	@Override
 	public String toString() {
 		return "the field of real numbers.";

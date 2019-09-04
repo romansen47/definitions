@@ -10,10 +10,13 @@ import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import exceptions.WrongClassException;
 
@@ -28,7 +31,7 @@ public class EuclideanFunctionSpaceTest {
 	private static FunctionSpace trigonometricSpaceSobolev;
 
 	final static int polynomialDegree = 1;
-	final static int trigonometricDegree = 1;
+	final static int trigonometricDegree = 3;
 	final static int sobolevDegree = 1;
 
 	final static Function exp = new ExponentialFunction(RealLine.getInstance().getZero(),
@@ -96,6 +99,20 @@ public class EuclideanFunctionSpaceTest {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpaceSobolev, fun);
 		exp.getProjection((EuclideanSpace) extendedToSobolev).plotCompare(-Math.PI, Math.PI, exp);
 		((EuclideanSpace) extendedToSobolev).show();
+	}
+	
+	@Test
+	public void trigonometric2() throws WrongClassException {
+		EuclideanSpace ans =  Generator.getGenerator().getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine,49);
+		exp.getProjection(ans).plotCompare(-Math.PI, Math.PI, exp);
+	}
+	
+	@Test
+	public void trigonometricSobolev2() throws WrongClassException {
+		ISpaceGenerator sp=Generator.getGenerator().getSpacegenerator();
+		EuclideanSpace ans =  sp.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine,7);
+		EuclideanSpace sobolev=sp.getFiniteDimensionalSobolevSpace(RealLine.getInstance(), (EuclideanFunctionSpace) ans, sobolevDegree);
+		exp.getProjection(sobolev).plotCompare(-Math.PI, Math.PI, exp);
 	}
 
 }

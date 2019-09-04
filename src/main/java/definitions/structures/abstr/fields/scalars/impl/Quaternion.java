@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
@@ -11,22 +15,32 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
+import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class Quaternion implements FiniteVector, Scalar {
+@XmlRootElement
+public class Quaternion extends Tuple implements Scalar {
 
-	/**
-	 * 
-	 */
+	@XmlElement
 	private static final long serialVersionUID = -7587290161110602891L;
+	
+	@XmlElement
 	private final Scalar real;
+	
+	@XmlElement
 	private final Scalar i;
+	
+	@XmlElement
 	private final Scalar j;
+	
+	@XmlElement
 	private final Scalar k;
 
+	@XmlElement
 	private Map<Vector, Scalar> coordinates;
 
 	public Quaternion(Scalar re, Scalar i, Scalar j, Scalar k) {
+		super(4);
 		this.real = re;
 		this.i = i;
 		this.j = j;
@@ -71,11 +85,13 @@ public class Quaternion implements FiniteVector, Scalar {
 		this.coordinates = coordinates;
 	}
 
+	@XmlAttribute
 	@Override
 	public double getValue() {
 		return this.getReal().getValue();
 	}
 
+	@XmlAttribute
 	@Override
 	public Scalar getInverse() {
 		return (Scalar) ((Field) QuaternionSpace.getInstance()).inverse(this);
@@ -84,11 +100,13 @@ public class Quaternion implements FiniteVector, Scalar {
 	/**
 	 * @return the real
 	 */
+	@XmlAttribute
 	public Scalar getReal() {
 		return this.real;
 	}
 
 	@Override
+	@XmlAttribute
 	public String toString() {
 		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getI().getValue() + "\r" + "j  ->  "
 				+ this.getJ().getValue() + "\r" + "k  ->  " + this.getK().getValue() + "\r";
@@ -103,6 +121,7 @@ public class Quaternion implements FiniteVector, Scalar {
 		return ComplexPlane.getInstance().getGenericBase();
 	}
 
+	@XmlAttribute
 	@Override
 	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
 		return this.getCoordinates();
@@ -111,6 +130,7 @@ public class Quaternion implements FiniteVector, Scalar {
 	/**
 	 * @return the i
 	 */
+	@XmlAttribute
 	public Scalar getI() {
 		return this.i;
 	}
@@ -118,6 +138,7 @@ public class Quaternion implements FiniteVector, Scalar {
 	/**
 	 * @return the j
 	 */
+	@XmlAttribute
 	public Scalar getJ() {
 		return this.j;
 	}
@@ -125,7 +146,9 @@ public class Quaternion implements FiniteVector, Scalar {
 	/**
 	 * @return the k
 	 */
+	@XmlAttribute
 	public Scalar getK() {
 		return this.k;
 	}
+
 }
