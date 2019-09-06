@@ -13,6 +13,7 @@ import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.GlobalSettings;
 import solver.Plotable;
 import solver.StdDraw;
 
@@ -27,7 +28,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
-	double eps = 1.e-13;
+	double eps = GlobalSettings.INTEGRAL_FEINHEIT;
 
 	Function derivative = null;
 	/**
@@ -60,7 +61,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @return the equality.
 	 */
 	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
-		final int n = 100;
+		final int n = GlobalSettings.FUNCTION_EQUALITY_FEINHEIT;
 		final double a = source.getInterval()[0];
 		final double b = source.getInterval()[1];
 		double x;

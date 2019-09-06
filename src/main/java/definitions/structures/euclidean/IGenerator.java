@@ -15,7 +15,6 @@ import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectors.IVectorGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import exceptions.WrongClassException;
 
 public interface IGenerator extends Serializable {
 
@@ -59,8 +58,7 @@ public interface IGenerator extends Serializable {
 	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, int n) {
 		try {
 			return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
-		} catch (final WrongClassException e) {
-			// TODO Auto-generated catch block
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;

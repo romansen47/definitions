@@ -17,6 +17,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.GlobalSettings;
 
 /**
  * @author RoManski
@@ -34,7 +35,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 	private Map<Vector, Scalar> coordinates;
 
 	@XmlElement
-	private final double eps = 1.e-5;
+	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
 	public Real(double value) {
 		this.realValue = value;

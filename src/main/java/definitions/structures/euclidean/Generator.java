@@ -13,11 +13,12 @@ import definitions.structures.euclidean.vectors.IVectorGenerator;
 import definitions.structures.euclidean.vectors.impl.VectorGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import settings.GlobalSettings;
 
 @SuppressWarnings("unused")
 public class Generator implements IGenerator {
 
-	final private static boolean restoreFromCached=true;
+	final private static boolean restoreFromCached=GlobalSettings.RESTORE_FROM_CACHED;
 	
 	private static final long serialVersionUID = -5553433829703982950L;
 	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();

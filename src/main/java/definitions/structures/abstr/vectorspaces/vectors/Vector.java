@@ -1,8 +1,5 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 

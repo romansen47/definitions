@@ -15,6 +15,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import settings.GlobalSettings;
 import solver.Plotable;
 
 /**
@@ -37,7 +38,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-7;
+	protected final double eps = GlobalSettings.INTEGRAL_FEINHEIT;
 
 	/**
 	 * Plain constructor. @

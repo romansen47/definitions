@@ -30,7 +30,6 @@ import definitions.structures.euclidean.vectorspaces.impl.PolynomialFunctionSpac
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
-import exceptions.WrongClassException;
 
 public interface ISpaceGenerator {
 
@@ -203,12 +202,12 @@ public interface ISpaceGenerator {
 	}
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n)
-			throws WrongClassException {
+			throws Exception {
 		return getTrigonometricFunctionSpaceWithLinearGrowth(f, n, Math.PI);
 	}
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n, double right)
-			throws WrongClassException {
+			throws Exception {
 		final EuclideanSpace space = getCache().getConcreteCache().get(n);
 		if (space != null) {
 			System.out.println("Successfully restored from cache! " + (2 * n + 1)
@@ -243,7 +242,7 @@ public interface ISpaceGenerator {
 		return ans;
 	}
 
-	default EuclideanSpace extend(VectorSpace space, Vector fun) throws WrongClassException {
+	default EuclideanSpace extend(VectorSpace space, Vector fun) throws Exception {
 		final EuclideanSpace asEuclidean = (EuclideanSpace) space;
 		if (fun instanceof Function) {
 			final List<Vector> base = asEuclidean.genericBaseToList();
@@ -267,7 +266,7 @@ public interface ISpaceGenerator {
 			((EuclideanSpace) space).assignOrthonormalCoordinates(newBase, space.getField());
 			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
-			throw new WrongClassException("Input should be a function, not a vector.");
+			throw new Exception("Input should be a function, not a vector.");
 		}
 	}
 

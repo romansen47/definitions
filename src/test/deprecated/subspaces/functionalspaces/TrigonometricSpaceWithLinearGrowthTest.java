@@ -23,8 +23,6 @@ import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
-import exceptions.WrongClassException;
 
 public class TrigonometricSpaceWithLinearGrowthTest {
 
@@ -53,13 +51,15 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	static int dim = 49;
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws WrongClassException {
+	public static void setUpBeforeClass() throws Exception {
 
 		IGenerator gen=Generator.getGenerator();
+		
 		ISpaceGenerator spaceGen = gen.getSpacegenerator();
 
 		trigonometricFunctionSpace  = spaceGen
 				.getTrigonometricSpace(RealLine.getInstance(), dim);
+		
 		extendedTrigonometricFunctionSpace = spaceGen
 				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
 

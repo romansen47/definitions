@@ -6,7 +6,6 @@ import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import exceptions.WrongFieldException;
 
 /**
  * 
