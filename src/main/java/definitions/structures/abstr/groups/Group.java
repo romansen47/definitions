@@ -19,6 +19,13 @@ package definitions.structures.abstr.groups;
  */
 public interface Group extends SemiGroup {
 
+	/**
+	 * Getter for the (by definition existing) inverse of an element within the
+	 * group.
+	 * 
+	 * @param element the input
+	 * @return the inverse element of the input within the group.
+	 */
 	GroupElement getInverseElement(GroupElement element);
 
 }

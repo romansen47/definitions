@@ -42,7 +42,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
 			for (final Vector vec2 : target.genericBaseToList()) {
-				this.genericMatrix[j][i] = this.getLinearity(vec1).get(vec2);
+				this.genericMatrix[j][i] = this.getLinearity(source.getBaseVec(vec1)).get(target.getBaseVec(vec2));
 				j++;
 			}
 			i++;

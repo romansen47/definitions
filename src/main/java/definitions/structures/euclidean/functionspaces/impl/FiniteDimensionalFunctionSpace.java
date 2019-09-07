@@ -1,6 +1,5 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,12 +8,14 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import settings.GlobalSettings;
 import solver.Plotable;
 
 /**
@@ -27,7 +28,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	private static final long serialVersionUID = -8669475459309858828L;
 
-	private Vector nullVec;
+	private Vector nullVec = null;
 
 	/**
 	 * the interval.
@@ -37,7 +38,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = 1.e-3;
+	protected final double eps = GlobalSettings.INTEGRAL_FEINHEIT;
 
 	/**
 	 * Plain constructor. @
@@ -53,13 +54,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		this.interval[0] = left;
 		this.interval[1] = right;
 		final List<Vector> newBase;
-//		this.setBase(genericBase);
 		if (orthonormalize) {
 			newBase = this.getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
+			this.assignOrthonormalCoordinates(newBase, field);
 		}
-//		this.assignOrthonormalCoordinates(newBase, field);
 		this.setBase(newBase);
 	}
 
@@ -74,29 +74,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public List<Vector> getOrthonormalBase(final List<Vector> base) {
-		final List<Vector> newBase = new ArrayList<>();
-		for (final Vector vec : base) {
-			Vector tmp = this.nullVec();
-			for (final Vector vec2 : newBase) {
-				tmp = this.add(tmp, this.projection(vec, vec2));
-			}
-			final Function fun = (Function) this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
-			final Vector ans = this.get(fun.getCoordinates(this));
-			newBase.add(ans);
-		}
-		this.assignOrthonormalCoordinates(newBase, this.field);
-		return newBase;
-	}
-
-	@Override
 	public Vector normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		if ((vec1.getCoordinates() != null) && (vec2.getCoordinates() != null)) {
+		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
+				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
 			return this.integral((Function) vec1, (Function) vec2);
@@ -164,4 +149,5 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			tmpBase.add(cos);
 		}
 	}
+
 }

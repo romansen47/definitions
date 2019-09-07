@@ -14,10 +14,11 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.NormedSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -27,7 +28,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class FiniteDimensionalFunctionSpaceTest {
 
 	static VectorSpace trigonometricSpace;
-	final static int degree = 1;
+	final static int degree = 45;
 
 	static Vector fun1;
 	static Vector fun2;
@@ -39,7 +40,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace(field, degree, 1);
+		trigonometricSpace = Generator.getGenerator().getSpacegenerator()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), degree);
 		((EuclideanSpace) trigonometricSpace).show();
 		fun1 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(1);
 		fun2 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(2);
@@ -51,7 +53,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@Test
 	public final void testNullVec() {
-		final Scalar d = ((NormedSpace) trigonometricSpace).norm(trigonometricSpace.nullVec());
+		final Scalar d = ((NormedSpace) trigonometricSpace).norm(((VectorSpaceMethods) trigonometricSpace).nullVec());
 		Assert.assertTrue(Math.abs(d.getValue()) < 1.e-3);
 	}
 

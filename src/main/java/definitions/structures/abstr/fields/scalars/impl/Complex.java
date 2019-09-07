@@ -2,27 +2,33 @@ package definitions.structures.abstr.fields.scalars.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
+import javax.xml.bind.annotation.XmlElement;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectors.FiniteVector;
+import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class Complex implements FiniteVector, Scalar {
+public class Complex extends Tuple implements Scalar {
 
-	/**
-	 * 
-	 */
+	@XmlElement
 	private static final long serialVersionUID = 2160805146914088274L;
-	private final Scalar real;
+
+	@XmlElement
+	private Scalar real;
+
+	@XmlElement
 	private final Scalar imag;
+
+	@XmlElement
 	private Map<Vector, Scalar> coordinates;
 
 	public Complex(Scalar re, Scalar im) {
+		super(2);
 		this.real = re;
 		this.imag = im;
 	}
@@ -58,6 +64,7 @@ public class Complex implements FiniteVector, Scalar {
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates) {
 		this.coordinates = coordinates;
+		this.real = this.coordinates.get(((Field) ComplexPlane.getInstance()).getOne());
 	}
 
 	@Override
@@ -99,10 +106,10 @@ public class Complex implements FiniteVector, Scalar {
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 
-	@Override
-	public Set<Vector> getGenericBase() {
-		return ComplexPlane.getInstance().getGenericBase();
-	}
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return ComplexPlane.getInstance().getGenericBase();
+//	}
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {

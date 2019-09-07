@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FunctionalSpaceTest {
 
-	final EuclideanSpace space = (EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
+	final EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
 	final EuclideanSpace dualSpace = this.space.getDualSpace();
 	final EuclideanSpace dualDualSpace = this.dualSpace.getDualSpace();
 
@@ -27,7 +27,7 @@ public class FunctionalSpaceTest {
 	final EuclideanSpace dualDualFunctionSpace = this.dualFunctionSpace.getDualSpace();
 
 	final EuclideanSpace sobolevSpace = SpaceGenerator.getInstance()
-			.getTrigonometricSobolevSpace(RealLine.getInstance(), 1, 1);
+			.getTrigonometricSobolevSpace(RealLine.getInstance(), 10, 10);
 	final EuclideanSpace dualSobolevSpace = this.sobolevSpace.getDualSpace();
 	final EuclideanSpace dualDualSobolevSpace = this.dualSobolevSpace.getDualSpace();
 

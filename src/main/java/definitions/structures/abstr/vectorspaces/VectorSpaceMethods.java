@@ -1,14 +1,16 @@
 package definitions.structures.abstr.vectorspaces;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface VectorSpaceMethods {
+public interface VectorSpaceMethods extends Serializable {
 
 	/**
 	 * Not yet implemented.
@@ -49,7 +51,7 @@ public interface VectorSpaceMethods {
 					tmpCoord.put(otherVec, (Scalar) field.getZero());
 				}
 			}
-			vec.setCoordinates(tmpCoord);
+			((FiniteVectorMethods) vec).setCoordinates(tmpCoord);
 		}
 	}
 

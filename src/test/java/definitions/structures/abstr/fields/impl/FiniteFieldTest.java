@@ -9,6 +9,7 @@ import org.junit.Test;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.False;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -46,7 +47,7 @@ public class FiniteFieldTest extends VectorTest {
 	@Test
 	public void nullVecTest() {
 		final Vector no = modulo2.nullVec();
-		no.getCoordinates();
+		((FiniteVectorMethods) no).getCoordinates();
 	}
 
 	@Test
@@ -74,7 +75,7 @@ public class FiniteFieldTest extends VectorTest {
 	@Test
 	public void getOneTest() {
 		final Vector yes = modulo2.getOne();
-		yes.getCoordinates();
+		((FiniteVectorMethods) yes).getCoordinates();
 	}
 
 	@Override

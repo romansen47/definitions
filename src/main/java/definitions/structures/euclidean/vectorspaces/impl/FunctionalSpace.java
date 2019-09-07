@@ -76,9 +76,10 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Scalar[][] getGenericMatrix() {
-					final Scalar[][] mat = new Scalar[this.getSource().getDim()][this.getSource().getDim()];
-					for (int i = 0; i < this.getSource().getDim(); i++) {
-						for (int j = 0; j < this.getSource().getDim(); j++) {
+					final Scalar[][] mat = new Scalar[((EuclideanSpace) this.getSource())
+							.getDim()][((EuclideanSpace) this.getSource()).getDim()];
+					for (int i = 0; i < ((EuclideanSpace) this.getSource()).getDim(); i++) {
+						for (int j = 0; j < ((EuclideanSpace) this.getSource()).getDim(); j++) {
 							if (i != j) {
 								mat[i][j] = (Scalar) this.getTarget().nullVec();
 							} else {

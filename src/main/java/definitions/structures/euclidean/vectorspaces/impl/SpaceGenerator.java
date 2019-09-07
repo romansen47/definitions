@@ -1,34 +1,20 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.io.Serializable;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
+import cache.ICache;
+import cache.MyCache;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.SubField;
 
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
+	private ICache cache = new MyCache();
+
 	private static final long serialVersionUID = 1L;
 
 	private static ISpaceGenerator generator = null;
-
-	private static Map<Integer, EuclideanSpace> cachedCoordinateSpaces;
-
-	private static Map<Integer, EuclideanFunctionSpace> cachedFunctionSpaces;
-
-	@Override
-	public Map<Integer, EuclideanSpace> getCachedCoordinateSpaces() {
-		return cachedCoordinateSpaces;
-	}
-
-	@Override
-	public Map<Integer, EuclideanFunctionSpace> getCachedFunctionSpaces() {
-		return cachedFunctionSpaces;
-	}
 
 	public static ISpaceGenerator getInstance() {
 		if (generator == null) {
@@ -38,39 +24,28 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	private SpaceGenerator() {
-		cachedCoordinateSpaces = new ConcurrentHashMap<>();
-		cachedFunctionSpaces = new ConcurrentHashMap<>();
 	}
 
 	@Override
 	public String toString() {
-		String ans = "";
-		for (final int i : cachedCoordinateSpaces.keySet()) {
-			ans += cachedCoordinateSpaces.get(i).toString() + "\r";
-		}
-		return ans;
+		return this.getCache().toString();
 	}
 
 	@Override
-	public void setCachedCoordinateSpaces(ISpaceGenerator gen) {
-		cachedCoordinateSpaces = gen.getCachedCoordinateSpaces();
-	}
-
-	@Override
-	public void setCachedFunctionSpaces(ISpaceGenerator gen) {
-		cachedFunctionSpaces = gen.getCachedFunctionSpaces();
-	}
-
-	@Override
-	public EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, int n, double right, boolean ortho) {
-		return new PolynomialFunctionSpace(field, n, right, ortho);
-	}
-
-	@Override
+	// TODO!
 	public EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField) {
 		final int ratio = complexSpace.getDim() / subField.getDim();
-
 		return null;
+	}
+
+	@Override
+	public ICache getCache() {
+		return this.cache;
+	}
+
+	@Override
+	public void setCache(ICache ans) {
+		this.cache = ans;
 	}
 
 }

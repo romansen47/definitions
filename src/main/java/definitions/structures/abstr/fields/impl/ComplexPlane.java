@@ -10,6 +10,7 @@ import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -54,20 +55,22 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
-		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
 	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
-		return new Complex(ans.getCoordinates().get(this.one), ans.getCoordinates().get(this.i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 
 	}
 
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new ComplexPlane();
-			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
+//			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
 		}
 		return instance;
 	}
@@ -85,6 +88,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Vector getOne() {
+//		this.one.toString();
 		return this.one;
 	}
 
@@ -143,7 +147,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 	@Override
 	public Scalar get(double value) {
-		return new Complex(value, 0);
+		return new Complex(this.getField().get(value), (Scalar) this.getField().getZero());
 	}
 
 	@Override

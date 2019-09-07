@@ -1,9 +1,11 @@
 package definitions.structures.abstr.vectorspaces;
 
+import java.io.Serializable;
+
 import definitions.IWatcher;
 import definitions.structures.euclidean.vectorspaces.impl.Watcher;
 
-public interface TechnicalProvider {
+public interface TechnicalProvider extends Serializable {
 
 	final static IWatcher builder = Watcher.getInstance();
 

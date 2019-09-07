@@ -22,9 +22,9 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class FunctionTest {
 
-	static final int trigonometricDegree = 1;
-	static final int sobolevDegree = 3;
-	static int derivativeDegree = 5;
+	static final int trigonometricDegree = 20;
+	static final int sobolevDegree = 20;
+	static int derivativeDegree = 4;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function sine;
@@ -44,7 +44,7 @@ public class FunctionTest {
 		trigSpace = tempSpace;// (EuclideanFunctionSpace) spGen.extend(tempSpace, abs);
 
 		sine = (Function) trigSpace.genericBaseToList().get(1);
-		cosine = (Function) trigSpace.genericBaseToList().get(2);
+		cosine = (Function) trigSpace.genericBaseToList().get(1 + trigonometricDegree);
 
 	}
 

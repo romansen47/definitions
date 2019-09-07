@@ -16,6 +16,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class MappingGenerator implements IMappingGenerator {
 
+	private static final long serialVersionUID = 1L;
 	private static IMappingGenerator generator = null;
 
 	public static IMappingGenerator getInstance() {
@@ -32,9 +33,9 @@ public class MappingGenerator implements IMappingGenerator {
 	public Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
-		final EuclideanSpace source = (EuclideanSpace) Generator.getGenerator().getSpacegenerator()
+		final EuclideanSpace source = Generator.getGenerator().getSpacegenerator()
 				.getFiniteDimensionalVectorSpace(dimSource);
-		final EuclideanSpace target = (EuclideanSpace) Generator.getGenerator().getSpacegenerator()
+		final EuclideanSpace target = Generator.getGenerator().getSpacegenerator()
 				.getFiniteDimensionalVectorSpace(dimTarget);
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
 		int i = 0;

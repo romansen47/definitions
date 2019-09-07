@@ -30,7 +30,6 @@ public interface Homomorphism extends Mapping, Vector {
 	 * @param vec the base vector.
 	 * @return the image of the base vector.
 	 */
-
 	default Map<Vector, Scalar> getLinearity(final Vector vec1) {
 		return getLinearity().get(vec1);
 	}

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
@@ -35,7 +35,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 				final double summand1 = ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)).getValue();
 				final double summand2 = ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)).getValue();
 				final double sumOnCoordinate = summand1 + summand2;
-				coordinates.put(vec, new Real(sumOnCoordinate));
+				coordinates.put(vec, getField().get(sumOnCoordinate));
 			}
 			return get(coordinates);
 		} else {
@@ -45,7 +45,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 
 	default Map<Vector, Scalar> getInverseCoordinates(final Vector vec2) {
 		final Vector ans = getNearestVector(vec2);
-		return ans.getCoordinates();
+		return ((FiniteVectorMethods) ans).getCoordinates();
 	}
 
 	Map<Vector, Vector> getParametrizationBaseVectorMapping();
@@ -56,6 +56,10 @@ public interface ParameterizedSpace extends EuclideanSpace {
 		final FiniteDimensionalHomomorphism quadratic = (FiniteDimensionalHomomorphism) Generator.getGenerator()
 				.getMappinggenerator().getComposition(transposed, getParametrization());
 		final Vector transformed = transposed.get(vec2);
+		/*
+		 * Direct usage of constructor instead of get method in order to avoid cycles.
+		 * Don't touch this
+		 */
 		return new Tuple(quadratic.solve((FiniteVector) transformed).getCoordinates());
 	}
 

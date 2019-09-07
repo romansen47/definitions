@@ -10,6 +10,8 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.java.Reader;
@@ -20,17 +22,19 @@ import definitions.structures.java.Reader;
  */
 public abstract class FunctionSpaceTest {
 
-	static final String PATH = "src/main/resources/test.csv";
-	static final String PATH2 = "src/main/resources/test2.csv";
+	IGenerator gen = Generator.getGenerator();
 
-	static double[][] testValues;
-	static double[][] testValues2;
+	protected static final String PATH = "src/main/resources/test.csv";
+	protected static final String PATH2 = "src/main/resources/test2.csv";
 
-	static GenericFunction staircaseFunction;
-	static GenericFunction staircaseFunction2;
+	public static double[][] testValues;
+	public static double[][] testValues2;
+
+	protected static GenericFunction staircaseFunction;
+	protected static GenericFunction staircaseFunction2;
 
 	static EuclideanFunctionSpace linearSpace;
-	final static Field f = RealLine.getInstance();
+	public final static Field f = RealLine.getInstance();
 
 	/**
 	 * @throws java.lang.Exception
@@ -63,9 +67,6 @@ public abstract class FunctionSpaceTest {
 			}
 		};
 		staircaseFunction2 = new GenericFunction() {
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = 2729095328251979949L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
@@ -88,7 +89,7 @@ public abstract class FunctionSpaceTest {
 		};
 	}
 
-	// @Test
+	@Test
 	public void test1() {
 		final Function staircaseFunction1Projection = staircaseFunction.getProjection(this.getLinearSpace());
 		staircaseFunction.plotCompare(-1, 1, staircaseFunction1Projection);

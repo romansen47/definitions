@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -62,7 +61,7 @@ public final class BinaryField implements PrimeField {
 
 	@Override
 	public Vector product(Vector vec1, Vector vec2) {
-		return this.get(vec1.equals(getOne()) &&  vec2.equals(getOne()));
+		return this.get(vec1.equals(this.getOne()) && vec2.equals(this.getOne()));
 	}
 
 	public Vector get(Boolean val) {
@@ -123,11 +122,11 @@ public final class BinaryField implements PrimeField {
 		return this.base;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Set<Vector> getGenericBase() {
-		return (Set<Vector>) this.base;
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return (Set<Vector>) this.base;
+//	}
 
 	@Override
 	public Vector getCoordinates(Vector vec) {

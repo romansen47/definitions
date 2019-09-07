@@ -19,7 +19,7 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 		this.prepare(maxDegree, right);
 	}
 
-	protected PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
+	public PolynomialFunctionSpace(Field field, int maxDegree, double right, boolean ortho) {
 		this(field, maxDegree, right);
 		if (ortho) {
 			this.base = this.getOrthonormalBase(this.base);

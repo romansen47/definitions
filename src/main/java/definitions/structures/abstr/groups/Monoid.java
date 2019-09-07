@@ -13,8 +13,20 @@ import java.io.Serializable;
  */
 public interface Monoid extends Serializable {
 
+	/**
+	 * Getter for the order of the monoid - the amount of elements.
+	 * 
+	 * @return null, if infinitely many, order otherwise.
+	 */
 	Integer getOrder();
 
+	/**
+	 * the operation on the monoid.
+	 * 
+	 * @param first  first monoid element
+	 * @param second second monoid element
+	 * @return product of both of them
+	 */
 	MonoidElement operation(GroupElement first, GroupElement second);
 
 }

@@ -7,26 +7,35 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.GlobalSettings;
 
 /**
  * @author RoManski
  *
  */
+@XmlRootElement
 public class Real extends Number implements Scalar, FiniteVector {
 
+	@XmlElement
 	private static final long serialVersionUID = 448447488896787384L;
 
+	@XmlElement
 	final private double realValue;
 
 	private Map<Vector, Scalar> coordinates;
 
-	private final double eps = 1.e-5;
+	@XmlElement
+	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
 	public Real(double value) {
 		this.realValue = value;
@@ -37,6 +46,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
+	@XmlAttribute
 	public Integer getDim() {
 		return 1;
 	}
@@ -65,6 +75,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
+	@XmlAttribute
 	public double getValue() {
 		return this.realValue;
 	}
@@ -90,6 +101,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
+	@XmlAttribute
 	public Scalar getInverse() {
 		if (Math.abs(this.getValue()) > 1.e-15) {
 			return new Real(1 / this.getValue());
@@ -99,6 +111,7 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
+	@XmlAttribute
 	public String toString() {
 		return "" + this.getValue();
 	}

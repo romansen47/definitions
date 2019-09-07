@@ -29,7 +29,6 @@ public final class RealZero extends Real {
 		final Map<Vector, Scalar> ans = new HashMap<>();
 		ans.put(RealLine.getInstance().getOne(), this);
 		return ans;
-
 	}
 
 }

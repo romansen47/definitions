@@ -2,12 +2,13 @@ package definitions.structures.euclidean.vectorspaces;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
@@ -21,7 +22,7 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
  *         is equipped with a base. The norm can be used to normalize vectors,
  *         compute distances between vectors and generate an orthonormal base.
  */
-public interface EuclideanSpace extends InnerProductSpace {
+public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 
 	/**
 	 * A base is an ordered set of linearly independent vectors.
@@ -35,7 +36,7 @@ public interface EuclideanSpace extends InnerProductSpace {
 	 * 
 	 * @return the base as a set. @
 	 */
-	Set<Vector> getGenericBase();
+//	Set<Vector> getGenericBase();
 
 	/**
 	 * The dimension of the space. This is the size of the base.
@@ -83,6 +84,10 @@ public interface EuclideanSpace extends InnerProductSpace {
 						(Scalar) getField().add(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)),
 								((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec))));
 			}
+			/*
+			 * Direct usage of constructor instead of get method in order to avoid cycles.
+			 * Don't touch this
+			 */
 			return new Tuple(coordinates);
 		}
 		return null;
@@ -91,10 +96,10 @@ public interface EuclideanSpace extends InnerProductSpace {
 	@Override
 	default Vector stretch(final Vector vec, final Scalar r) {
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
-		final Map<Vector, Scalar> coordinates = vec.getCoordinates();
+		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 		final List<Vector> base = genericBaseToList();
 		for (final Vector vec1 : base) {
-			stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
+			stretched.put(vec1, (Scalar) getField().product(coordinates.get(getBaseVec(vec1)), r));
 		}
 		return new Tuple(stretched);
 	}
@@ -174,8 +179,8 @@ public interface EuclideanSpace extends InnerProductSpace {
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		Vector prod = getField().nullVec();
-		final Map<Vector, Scalar> vecCoord1 = vec1.getCoordinates();
-		final Map<Vector, Scalar> vecCoord2 = vec2.getCoordinates();
+		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
+		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
 		// final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec : vecCoord1.keySet()) {
 			prod = getField().add(prod, getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));

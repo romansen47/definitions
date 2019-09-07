@@ -2,15 +2,12 @@ package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -23,6 +20,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  *         Conrete implementation of a finite dimensional vector space.
  */
+//@XmlRootElement
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	private static final long serialVersionUID = -7678979021442720279L;
@@ -32,6 +30,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * the base.
 	 */
+//	@XmlElement
 	protected List<Vector> base;
 
 	/**
@@ -61,6 +60,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.field = field;
 		this.dim = genericBase.size();
 		this.base = genericBase;
+		System.out.println("Created new " + genericBase.size() + "-dimensional euclidean space.");
 	}
 
 	@Override
@@ -74,6 +74,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		for (final Vector vec : this.genericBaseToList()) {
 			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}
+		/*
+		 * Direct usage of constructor instead of get method in order to avoid cycles.
+		 * Don't touch this
+		 */
 		return new Tuple(coordinates);
 	}
 
@@ -92,10 +96,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.dim;
 	}
 
-	@Override
-	public Set<Vector> getGenericBase() {
-		return new HashSet<>(this.genericBaseToList());
-	}
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return new HashSet<>(this.genericBaseToList());
+//	}
 
 	/**
 	 * setter for the base.
@@ -126,7 +130,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			for (final Vector vec2 : newBase) {
 				tmp = this.add(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, new Real(-1))));
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
 			newBase.add(ans);
 		}
 		return newBase;

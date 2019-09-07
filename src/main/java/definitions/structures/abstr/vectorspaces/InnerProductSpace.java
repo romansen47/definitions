@@ -31,6 +31,9 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	Vector projection(Vector w, Vector v);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Real norm(final Vector vec) {
 		return new Real(Math.sqrt(innerProduct(vec, vec).getValue()));

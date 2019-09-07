@@ -13,6 +13,7 @@ import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.GlobalSettings;
 import solver.Plotable;
 import solver.StdDraw;
 
@@ -22,12 +23,12 @@ import solver.StdDraw;
  * @author ro
  *
  */
-public interface Function extends Vector, Plotable {
+public interface Function extends Vector, Plotable, FiniteVectorMethods {
 
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
-	double eps = 1.e-13;
+	double eps = GlobalSettings.INTEGRAL_FEINHEIT;
 
 	Function derivative = null;
 	/**
@@ -60,13 +61,13 @@ public interface Function extends Vector, Plotable {
 	 * @return the equality.
 	 */
 	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
-		final int n = 100;
+		final int n = GlobalSettings.FUNCTION_EQUALITY_FEINHEIT;
 		final double a = source.getInterval()[0];
 		final double b = source.getInterval()[1];
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(value(new Real(x)).getValue() - other.value(new Real(x)).getValue()) > eps) {
+			if (Math.abs(value(getField().get(x)).getValue() - other.value(new Real(x)).getValue()) > eps) {
 				return false;
 			}
 		}
@@ -100,6 +101,9 @@ public interface Function extends Vector, Plotable {
 		StdDraw.setYscale(min, max);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default void plot(final double left, final double right) {
 		final StdDraw stddraw = new StdDraw();
@@ -112,12 +116,16 @@ public interface Function extends Vector, Plotable {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : getField().genericBaseToList()) {
-				StdDraw.line(z, value(getField().get(z)).getCoordinates().get(vec).getValue(), z + delta,
+				Scalar sc = value(getField().get(z));
+				StdDraw.line(z, sc.getCoordinates().get(getField().getBaseVec(vec)).getValue(), z + delta,
 						value(getField().get(z + delta)).getCoordinates().get(vec).getValue());
 			}
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
 		final StdDraw stddraw = new StdDraw();
@@ -142,7 +150,7 @@ public interface Function extends Vector, Plotable {
 			alpha = alphaNext;
 			beta = betaNext;
 		}
-		StdDraw.save("src/test/resources/" + Integer.toString(this.hashCode()) + ".png");
+		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(this.hashCode()) + ".png");
 	}
 
 	/**
@@ -159,10 +167,10 @@ public interface Function extends Vector, Plotable {
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = fun.value(new Real(input.getValue() + eps)).getValue()
+					final double dy = fun.value(getField().get(input.getValue() + eps)).getValue()
 							- fun.value(input).getValue();
 					final double dx = eps;
-					return new Real(dy / dx);
+					return getField().get(dy / dx);
 				}
 
 				@Override
@@ -276,16 +284,21 @@ public interface Function extends Vector, Plotable {
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
-		if (this instanceof FunctionTuple) {// && source.contains(this)) {
+		if (this instanceof FunctionTuple) {
 			return this;
 		}
-		if (getCoordinates()!=null) {
-			return (Function) source.get(getCoordinates());
+		Map<Vector, Scalar> coord = getCoordinates(source);
+		if (coord != null) {
+//			return (Function) source.get(getCoordinates());
+			return (Function) source.get(coord);
 		}
-		return new FunctionTuple(getCoordinates(source), source);
-		
+		return new FunctionTuple(coord, source);
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 

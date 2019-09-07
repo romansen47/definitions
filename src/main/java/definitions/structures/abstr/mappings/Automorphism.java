@@ -2,7 +2,6 @@ package definitions.structures.abstr.mappings;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
 
@@ -13,7 +12,9 @@ import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
  *
  */
 public interface Automorphism extends Endomorphism, Isomorphism {
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Isomorphism getInverse() throws Throwable {
 		final Scalar[][] matrix = getGenericMatrix();
@@ -23,7 +24,8 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 				throw new Throwable();
 			}
 			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
-					.getFiniteDimensionalLinearMapping(new Scalar[][] { { new Real(1. / in.getValue()) } });
+					.getFiniteDimensionalLinearMapping(
+							new Scalar[][] { { getSource().getField().get(1. / in.getValue()) } });
 		}
 		final int k = matrix.length;
 		final Scalar[][] inv = new Scalar[k][k];
@@ -37,8 +39,8 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 		}
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {
-				inv[i][j] = new Real(
-						Math.pow(-1, (double) i + (double) j) * det(adjointMatrix(matrix, j, i)).getValue() * det);
+				inv[i][j] = getSource().getField()
+						.get(Math.pow(-1, (double) i + (double) j) * det(adjointMatrix(matrix, j, i)).getValue() * det);
 			}
 		}
 		return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()

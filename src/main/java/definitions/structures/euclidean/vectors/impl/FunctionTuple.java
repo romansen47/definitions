@@ -13,6 +13,11 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
+/**
+ * 
+ * @author RoManski
+ *
+ */
 public class FunctionTuple extends Tuple implements Function {
 
 	private static final long serialVersionUID = -3953250098421804886L;

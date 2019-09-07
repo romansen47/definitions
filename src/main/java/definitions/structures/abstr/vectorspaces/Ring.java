@@ -22,6 +22,11 @@ import definitions.structures.abstr.groups.Monoid;
  */
 public interface Ring extends Group {
 
+	/**
+	 * Getter for the multiplicative monoid of the ring.
+	 * 
+	 * @return the multiplicative monoid of the ring
+	 */
 	Monoid getMuliplicativeMonoid();
 
 }

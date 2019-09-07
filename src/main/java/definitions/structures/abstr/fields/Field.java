@@ -12,6 +12,7 @@ import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
@@ -27,21 +28,21 @@ public interface Field extends EuclideanAlgebra, FieldMethods {
 
 			@Override
 			public Vector get(Vector vec) {
-				return getTarget().nullVec();
+				return ((Field) getTarget()).nullVec();
 			}
 
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
 				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
-					coord.put(vec, target.nullVec().getCoordinates());
+					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
 				}
 				return coord;
 			}
 
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				final Scalar[][] mat = new Scalar[target.getDim()][source.getDim()];
+				final Scalar[][] mat = new Scalar[((Field) target).getDim()][((Field) source).getDim()];
 				for (final Scalar[] entry : mat) {
 					for (Scalar scalar : entry) {
 						scalar = RealLine.getInstance().getZero();
@@ -53,11 +54,14 @@ public interface Field extends EuclideanAlgebra, FieldMethods {
 		for (final Vector vec : genericBaseToList()) {
 			final Vector tmp = this.getMultiplicationMatrix().get(vec);
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.add(hom,
-					multLinMaps.stretch(tmp, factor.getCoordinates().get(vec)));
+					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
 		return hom.solve((FiniteVector) getOne());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	Vector getOne();
 
@@ -67,6 +71,9 @@ public interface Field extends EuclideanAlgebra, FieldMethods {
 
 	Scalar conjugate(Scalar value);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Monoid getMuliplicativeMonoid() {
 

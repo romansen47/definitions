@@ -8,8 +8,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
@@ -23,7 +23,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *         A finite dimensional function space is an euclidean function space.
  */
 public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
 		final Field f = getField();
@@ -34,7 +36,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			return vec1;
 		}
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
-			if ((vec1.getCoordinates() == null) || (vec2.getCoordinates() == null)) {
+			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
+					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
 				return new GenericFunction() {
 					private static final long serialVersionUID = -2989863516320429371L;
 
@@ -54,8 +57,9 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			final Vector newVec1 = functionTuple(vec1);
 			final Vector newVec2 = functionTuple(vec2);
 			for (final Vector vec : base) {
-				coordinates.put(vec, new Real(newVec1.getCoordinates().get(getBaseVec(vec)).getValue()
-						+ newVec2.getCoordinates().get(getBaseVec(vec)).getValue()));
+				coordinates.put(vec,
+						getField().get(((FiniteVectorMethods) newVec1).getCoordinates().get(getBaseVec(vec)).getValue()
+								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(getBaseVec(vec)).getValue()));
 			}
 			return new FunctionTuple(coordinates, this);
 		}
@@ -72,10 +76,11 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		if (vec instanceof FunctionTuple) {
 			return vec;
 		}
-		if (vec.getCoordinates() == null || vec.getCoordinates().isEmpty()) {
+		if (((FiniteVectorMethods) vec).getCoordinates() == null
+				|| ((FiniteVectorMethods) vec).getCoordinates().isEmpty()) {
 			return ((Function) vec).getProjection(this);
 		}
-		return this.get(vec.getCoordinates());
+		return this.get(((FiniteVectorMethods) vec).getCoordinates());
 	}
 
 	/**
@@ -91,6 +96,9 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		return new FunctionTuple(nul, this);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Vector nullVec() {
 		return nullFunction();
@@ -107,17 +115,19 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	// @Override
 	// Vector getCoordinates(Vector vec);
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
 		if (vec.equals(nullVec()) || r.equals(getField().getZero())) {
 			return (Function) nullVec();
 		}
 		if (r.equals(getField().getOne())) {
-			return (Function) vec;//((Function) vec).getProjection(this);
+			return (Function) vec;// ((Function) vec).getProjection(this);
 		}
 		final Field f = getField();
-		if (vec.getCoordinates() == null) {
+		if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 			return new GenericFunction() {
 				private static final long serialVersionUID = -3311201318061885649L;
 
@@ -132,7 +142,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 				}
 			};
 		} else {
-			final Map<Vector, Scalar> coordinates = vec.getCoordinates();
+			final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 			final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 			for (final Vector vec1 : coordinates.keySet()) {
 				stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));

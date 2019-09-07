@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.xml.bind.annotation.XmlAttribute;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -27,22 +28,30 @@ import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
  *
  *         Implementation of the field of real numbers as a singleton class.
  */
+@SuppressWarnings("unused")
+@javax.xml.bind.annotation.XmlRootElement
 public class RealLine implements SubField, RealSpace {
 
+	@javax.xml.bind.annotation.XmlElement
 	private static final long serialVersionUID = -1444063003774915383L;
 
 	private EuclideanSpace dualSpace;
 
+	@javax.xml.bind.annotation.XmlElement
 	final private static Real one = RealOne.getOne();
 
+	@javax.xml.bind.annotation.XmlElement
 	final private static Real zero = RealZero.getZero();
 
+	@javax.xml.bind.annotation.XmlElement
 	final Map<Vector, Scalar> coordinates;
 
 	private static RealLine instance;
 
+	@javax.xml.bind.annotation.XmlElement
 	private final List<Vector> base;
 
+	@javax.xml.bind.annotation.XmlElement
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
 	private RealLine() {
@@ -72,6 +81,7 @@ public class RealLine implements SubField, RealSpace {
 		return vec instanceof Real;
 	}
 
+	@XmlAttribute
 	@Override
 	public Vector nullVec() {
 		return this.getZero();
@@ -107,12 +117,13 @@ public class RealLine implements SubField, RealSpace {
 		return this.base;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Set<Vector> getGenericBase() {
-		return (Set<Vector>) this.base;
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return (Set<Vector>) this.base;
+//	}
 
+	@XmlAttribute
 	@Override
 	public Integer getDim() {
 		return 1;
@@ -123,6 +134,7 @@ public class RealLine implements SubField, RealSpace {
 		return vec;
 	}
 
+	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public List<Vector> getOrthonormalBase(List<Vector> base) {
 		return this.base;
@@ -136,6 +148,7 @@ public class RealLine implements SubField, RealSpace {
 		return new Real(ans);
 	}
 
+	@XmlAttribute
 	@Override
 	public Vector inverse(Vector factor) {
 		if (factor == null) {
@@ -148,11 +161,13 @@ public class RealLine implements SubField, RealSpace {
 		return new Real(1 / num.getValue());
 	}
 
+	@XmlAttribute
 	@Override
 	public final Real getOne() {
 		return one;
 	}
 
+	@XmlAttribute
 	@Override
 	public final Real getZero() {
 		return zero;
@@ -178,6 +193,7 @@ public class RealLine implements SubField, RealSpace {
 		return new InjectiveLinearMapping(this, ComplexPlane.getInstance(), coord);
 	}
 
+//	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
@@ -206,6 +222,7 @@ public class RealLine implements SubField, RealSpace {
 		return value;
 	}
 
+	@XmlAttribute
 	@Override
 	public String toString() {
 		return "the field of real numbers.";

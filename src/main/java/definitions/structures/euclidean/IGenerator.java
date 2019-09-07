@@ -1,6 +1,7 @@
 package definitions.structures.euclidean;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -11,18 +12,16 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
-import definitions.structures.euclidean.vectors.IVectorGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import exceptions.WrongClassException;
 
-public interface IGenerator {
+public interface IGenerator extends Serializable {
 
-	Map<Integer, EuclideanSpace> getCachedSpaces();
+//	Map<Integer, EuclideanSpace> getCachedSpaces();
 
-	default Vector getFiniteVector(int dim) {
-		return getVectorgenerator().getFiniteVector(dim);
-	}
+//	default Vector getFiniteVector(int dim) {
+//		return getVectorgenerator().getFiniteVector(dim);
+//	}
 
 	default Homomorphism getFiniteDimensionalLinearMapping(Scalar[][] genericMatrix) {
 		return getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
@@ -33,7 +32,7 @@ public interface IGenerator {
 		return getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
-	default VectorSpace getFiniteDimensionalVectorSpace(int dim) {
+	default EuclideanSpace getFiniteDimensionalVectorSpace(int dim) {
 		return getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
@@ -58,14 +57,13 @@ public interface IGenerator {
 	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, int n) {
 		try {
 			return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
-		} catch (final WrongClassException e) {
-			// TODO Auto-generated catch block
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	IVectorGenerator getVectorgenerator();
+//	IVectorGenerator getVectorgenerator();
 
 	IMappingGenerator getMappinggenerator();
 
@@ -74,9 +72,5 @@ public interface IGenerator {
 	void saveCoordinateSpaces() throws IOException;
 
 	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;
-
-	void saveFunctionSpaces() throws IOException;
-
-	void loadFunctionSpaces() throws IOException, ClassNotFoundException;
 
 }

@@ -14,11 +14,17 @@ public interface Functional extends Homomorphism {
 
 	Vector getSourceVec();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default EuclideanSpace getTarget() {
 		return getSource().getField();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public default Vector get(Vector vec) {
 		return ((EuclideanSpace) getSource()).innerProduct(getSourceVec(), vec);

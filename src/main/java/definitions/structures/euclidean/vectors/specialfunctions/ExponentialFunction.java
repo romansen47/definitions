@@ -2,7 +2,6 @@ package definitions.structures.euclidean.vectors.specialfunctions;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.impl.RealZero;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
@@ -47,7 +46,7 @@ public abstract class ExponentialFunction extends GenericFunction {
 
 	@Override
 	public Scalar value(Scalar input) {
-		return new Real(Math.exp(this.a.getValue() + (this.b.getValue() * input.getValue())));
+		return this.getField().get(Math.exp(this.a.getValue() + (this.b.getValue() * input.getValue())));
 	}
 
 	@Override

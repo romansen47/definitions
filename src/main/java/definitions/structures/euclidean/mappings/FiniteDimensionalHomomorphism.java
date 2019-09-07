@@ -8,9 +8,10 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
@@ -39,7 +40,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 
 		final Scalar[][] matrix = this.getGenericMatrix();
 		final Scalar[] imageVector = new Scalar[image.getDim()];
-		for (int i = 0; i < getTarget().getDim(); i++) {
+		for (int i = 0; i < ((VectorSpaceMethods) getTarget()).getDim(); i++) {
 			imageVector[i] = image.getCoordinates().get(((EuclideanSpace) getTarget()).genericBaseToList().get(i));
 		}
 		final double[][] matrixAsDoubles = new double[matrix.length][matrix[0].length];
@@ -60,10 +61,11 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			final Scalar[] ansAsScalars = new Scalar[ans.length];
 			final Map<Vector, Scalar> ansAsCoordinates = new HashMap<>();
 			for (int i = 0; i < ans.length; i++) {
-				ansAsScalars[i] = new Real(ans[i]);
-				ansAsCoordinates.put(((EuclideanSpace) getTarget()).genericBaseToList().get(i), new Real(ans[i]));
+				ansAsScalars[i] = getSource().getField().get(ans[i]);
+				ansAsCoordinates.put(((EuclideanSpace) getTarget()).genericBaseToList().get(i),
+						getSource().getField().get(ans[i]));
 			}
-			return (FiniteVector) ((EuclideanSpace) getTarget()).get(ansAsCoordinates);// new Tuple(ansAsScalars);
+			return (FiniteVector) ((EuclideanSpace) getTarget()).get(ansAsCoordinates);
 		} catch (final Exception e) {
 			return null;
 		}
@@ -75,18 +77,14 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			return getOnSubSpace(vec2);
 		}
 		Map<Vector, Scalar> coordinates;
-		if (vec2.getCoordinates() == null) {
+		if (((FiniteVectorMethods) vec2).getCoordinates() == null) {
 			coordinates = ((Function) vec2).getCoordinates((EuclideanSpace) getSource());
 		} else {
 			if (vec2 instanceof FiniteVector) {
 				coordinates = ((FiniteVector) vec2).getCoordinates();
 			} else {
-				EuclideanSpace source = (EuclideanSpace) getSource();
-				if (vec2 instanceof FiniteVector) {
-					coordinates = ((FiniteVector) vec2).getCoordinates(source);
-				} else {
-					coordinates = ((Function) vec2).getCoordinates(source);
-				}
+				final EuclideanSpace source = (EuclideanSpace) getSource();
+				coordinates = ((Function) vec2).getCoordinates(source);
 			}
 		}
 		Vector ans;
@@ -114,6 +112,10 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 
 	default FiniteVector getOnSubSpace(final Vector vec2) {
 		final ParameterizedSpace space = (ParameterizedSpace) getSource();
+		/*
+		 * Direct usage of constructor instead of get method in order to avoid cycles.
+		 * Don't touch this
+		 */
 		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
 		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) Generator.getGenerator()
 				.getMappinggenerator().getFiniteDimensionalLinearMapping(this.getGenericMatrix());

@@ -13,7 +13,6 @@ import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -25,7 +24,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	static Function orthonormalConstant;
 
 	static EuclideanSpace genericSpace;
-	static EuclideanFunctionSpace functionSpace;
+	static EuclideanSpace functionSpace;
 
 	static double integral1;
 	static double integral2;

@@ -16,15 +16,15 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author RoManski
  *
  */
+@javax.xml.bind.annotation.XmlRootElement
 public final class True implements Scalar {
 
-	/**
-	 * 
-	 */
+	@javax.xml.bind.annotation.XmlElement
 	private static final long serialVersionUID = 9013421650270376537L;
 
 	static private Scalar instance;
 
+	@javax.xml.bind.annotation.XmlElement
 	private Map<Vector, Scalar> coordinates;
 
 	private True() {
@@ -67,11 +67,13 @@ public final class True implements Scalar {
 		this.coordinates = coordinates;
 	}
 
+	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public double getValue() {
 		return 1;
 	}
 
+	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public Scalar getInverse() {
 		return False.getInstance();
@@ -81,6 +83,7 @@ public final class True implements Scalar {
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 
+	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public String toString() {
 		return "true";

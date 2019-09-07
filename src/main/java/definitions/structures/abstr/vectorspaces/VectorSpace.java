@@ -6,7 +6,6 @@ import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import exceptions.WrongFieldException;
 
 /**
  * 
@@ -15,7 +14,7 @@ import exceptions.WrongFieldException;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group, VectorSpaceMethods {
+public interface VectorSpace extends Group {
 
 	Field getField();
 
@@ -38,21 +37,33 @@ public interface VectorSpace extends Group, VectorSpaceMethods {
 	 */
 	Vector stretch(Vector vec1, Scalar r);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Integer getOrder() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default GroupElement operation(GroupElement first, GroupElement second) {
 		return add((Vector) first, (Vector) second);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default MonoidElement getIdentityElement() {
-		return nullVec();
+		return ((VectorSpaceMethods) this).nullVec();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default GroupElement getInverseElement(GroupElement element) {
 		final Field field = getField();
