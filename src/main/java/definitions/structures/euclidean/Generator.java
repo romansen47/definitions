@@ -11,10 +11,13 @@ import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import plotter.Plotter;
 import settings.GlobalSettings;
+import solver.Plotable;
+import solver.StdDraw;
 
 @SuppressWarnings("unused")
-public class Generator implements IGenerator {
+public class Generator implements IGenerator,Plotter {
 
 	final private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
