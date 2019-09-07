@@ -2,10 +2,8 @@ package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -62,6 +60,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.field = field;
 		this.dim = genericBase.size();
 		this.base = genericBase;
+		System.out.println("Created new " + genericBase.size() + "-dimensional euclidean space.");
 	}
 
 	@Override
@@ -75,6 +74,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		for (final Vector vec : this.genericBaseToList()) {
 			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}
+		/*
+		 * Direct usage of constructor instead of get method in order to avoid cycles.
+		 * Don't touch this
+		 */
 		return new Tuple(coordinates);
 	}
 
@@ -93,10 +96,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.dim;
 	}
 
-	@Override
-	public Set<Vector> getGenericBase() {
-		return new HashSet<>(this.genericBaseToList());
-	}
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return new HashSet<>(this.genericBaseToList());
+//	}
 
 	/**
 	 * setter for the base.

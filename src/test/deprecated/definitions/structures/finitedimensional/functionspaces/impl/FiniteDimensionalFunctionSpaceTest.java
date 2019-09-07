@@ -19,7 +19,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -41,7 +40,8 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		trigonometricSpace = Generator.getGenerator().getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), degree);
+		trigonometricSpace = Generator.getGenerator().getSpacegenerator()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), degree);
 		((EuclideanSpace) trigonometricSpace).show();
 		fun1 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(1);
 		fun2 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(2);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
@@ -118,11 +117,11 @@ public class RealLine implements SubField, RealSpace {
 		return this.base;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Set<Vector> getGenericBase() {
-		return (Set<Vector>) this.base;
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return (Set<Vector>) this.base;
+//	}
 
 	@XmlAttribute
 	@Override
@@ -162,13 +161,11 @@ public class RealLine implements SubField, RealSpace {
 		return new Real(1 / num.getValue());
 	}
 
-
 	@XmlAttribute
 	@Override
 	public final Real getOne() {
 		return one;
 	}
-
 
 	@XmlAttribute
 	@Override
@@ -224,7 +221,6 @@ public class RealLine implements SubField, RealSpace {
 	public Scalar conjugate(Scalar value) {
 		return value;
 	}
-
 
 	@XmlAttribute
 	@Override

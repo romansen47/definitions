@@ -37,8 +37,9 @@ public class QuaternionFunctionSpaceTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
-						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, -val, 0.1*Math.cos(val), 0.1*Math.sin(val)));
+				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f.add(
+						QuaternionFunctionSpaceTest.this.f.getOne(),
+						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
 				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 
@@ -53,8 +54,9 @@ public class QuaternionFunctionSpaceTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f
-						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val/2, val/2, 0.1*Math.sin(val), 0.1*Math.cos(val)));
+				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f.add(
+						QuaternionFunctionSpaceTest.this.f.getOne(),
+						new Quaternion(val / 2, val / 2, 0.1 * Math.sin(val), 0.1 * Math.cos(val)));
 				return (Scalar) QuaternionFunctionSpaceTest.this.f.normalize(tmp);
 			}
 

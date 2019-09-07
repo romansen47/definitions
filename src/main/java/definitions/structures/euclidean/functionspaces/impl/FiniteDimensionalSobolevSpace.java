@@ -69,6 +69,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		this.degree = degree;
 		if (ortho) {
 			this.setBase(this.getOrthonormalBase(this.base));
+			this.assignOrthonormalCoordinates(this.base, field);
 		}
 	}
 

@@ -116,7 +116,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : getField().genericBaseToList()) {
-				Scalar sc=value(getField().get(z));
+				Scalar sc = value(getField().get(z));
 				StdDraw.line(z, sc.getCoordinates().get(getField().getBaseVec(vec)).getValue(), z + delta,
 						value(getField().get(z + delta)).getCoordinates().get(vec).getValue());
 			}
@@ -150,7 +150,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 			alpha = alphaNext;
 			beta = betaNext;
 		}
-		StdDraw.save("src/test/resources/" + Integer.toString(this.hashCode()) + ".png");
+		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(this.hashCode()) + ".png");
 	}
 
 	/**
@@ -284,13 +284,15 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @return the projection.
 	 */
 	default Function getProjection(EuclideanSpace source) {
-		if (this instanceof FunctionTuple) {// && source.contains(this)) {
+		if (this instanceof FunctionTuple) {
 			return this;
 		}
-		if (getCoordinates() != null) {
-			return (Function) source.get(getCoordinates());
+		Map<Vector, Scalar> coord = getCoordinates(source);
+		if (coord != null) {
+//			return (Function) source.get(getCoordinates());
+			return (Function) source.get(coord);
 		}
-		return new FunctionTuple(getCoordinates(source), source);
+		return new FunctionTuple(coord, source);
 
 	}
 

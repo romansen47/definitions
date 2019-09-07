@@ -2,7 +2,6 @@ package definitions.structures.euclidean.vectorspaces;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -37,7 +36,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * 
 	 * @return the base as a set. @
 	 */
-	Set<Vector> getGenericBase();
+//	Set<Vector> getGenericBase();
 
 	/**
 	 * The dimension of the space. This is the size of the base.
@@ -85,6 +84,10 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 						(Scalar) getField().add(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)),
 								((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec))));
 			}
+			/*
+			 * Direct usage of constructor instead of get method in order to avoid cycles.
+			 * Don't touch this
+			 */
 			return new Tuple(coordinates);
 		}
 		return null;

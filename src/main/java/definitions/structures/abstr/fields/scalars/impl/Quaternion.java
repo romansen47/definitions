@@ -2,14 +2,12 @@ package definitions.structures.abstr.fields.scalars.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -22,16 +20,16 @@ public class Quaternion extends Tuple implements Scalar {
 
 	@XmlElement
 	private static final long serialVersionUID = -7587290161110602891L;
-	
+
 	@XmlElement
 	private final Scalar real;
-	
+
 	@XmlElement
 	private final Scalar i;
-	
+
 	@XmlElement
 	private final Scalar j;
-	
+
 	@XmlElement
 	private final Scalar k;
 
@@ -115,10 +113,10 @@ public class Quaternion extends Tuple implements Scalar {
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 	}
 
-	@Override
-	public Set<Vector> getGenericBase() {
-		return ComplexPlane.getInstance().getGenericBase();
-	}
+//	@Override
+//	public Set<Vector> getGenericBase() {
+//		return ComplexPlane.getInstance().getGenericBase();
+//	}
 
 	@XmlAttribute
 	@Override

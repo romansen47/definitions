@@ -23,6 +23,8 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -35,8 +37,8 @@ public interface ISpaceGenerator {
 
 	final EuclideanSpace realSpace = RealLine.getInstance();
 
-	final Map<Integer,EuclideanSpace> coordinatesSpaces = new HashMap<>();
-	
+	final Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
+
 	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {
 		final Field field = (Field) ComplexPlane.getInstance();
 		if (dim == 1) {
@@ -44,7 +46,11 @@ public interface ISpaceGenerator {
 		}
 		final List<Vector> basetmp = new ArrayList<>();
 		for (int i = 0; i < dim; i++) {
-			basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
+			/*
+			 * Direct usage of constructor instead of get method in order to avoid cycles.
+			 * Don't touch this
+			 */
+			basetmp.add(new Tuple(dim));
 		}
 		for (int i = 0; i < dim; i++) {
 			for (int j = 0; j < dim; j++) {
@@ -62,14 +68,14 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
 		RealLine.getInstance();
-		return  (EuclideanSpace) getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
+		return (EuclideanSpace) getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
 	}
 
 	default VectorSpace getFiniteDimensionalVectorSpace(Field field, final int dim) {
 		EuclideanSpace ans = coordinatesSpaces.get(dim);
 		if (ans != null) {
-			System.out.println("Successfully restored from cache! " + dim + "-dimensional euclidean space "
-					+ ans.toString());
+			System.out.println(
+					"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
 			return ans;
 		}
 		switch (dim) {
@@ -82,7 +88,11 @@ public interface ISpaceGenerator {
 		}
 		final List<Vector> basetmp = new ArrayList<>();
 		for (int i = 0; i < dim; i++) {
-			basetmp.add(Generator.getGenerator().getVectorgenerator().getFiniteVector(dim));
+			/*
+			 * Direct usage of constructor instead of get method in order to avoid cycles.
+			 * Don't touch this
+			 */
+			basetmp.add(new Tuple(dim));
 		}
 		for (int i = 0; i < dim; i++) {
 			for (int j = 0; j < dim; j++) {
@@ -95,8 +105,8 @@ public interface ISpaceGenerator {
 				}
 			}
 		}
-		ans=new FiniteDimensionalVectorSpace(field, basetmp);
-		coordinatesSpaces.put(dim,ans);
+		ans = new FiniteDimensionalVectorSpace(field, basetmp);
+		coordinatesSpaces.put(dim, ans);
 		return ans;
 	}
 
@@ -201,8 +211,7 @@ public interface ISpaceGenerator {
 		return ans;
 	}
 
-	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n)
-			throws Exception {
+	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n) throws Exception {
 		return getTrigonometricFunctionSpaceWithLinearGrowth(f, n, Math.PI);
 	}
 
@@ -215,7 +224,7 @@ public interface ISpaceGenerator {
 			return space;
 		}
 		final EuclideanSpace newSpace = extend(getTrigonometricSpace(f, n, right),
-				new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
+				new LinearFunction(RealLine.getInstance().getZero(), f.get(1. / Math.sqrt(2 * Math.PI))) {
 					private static final long serialVersionUID = 8254610780535405982L;
 
 					@Override
@@ -228,6 +237,21 @@ public interface ISpaceGenerator {
 				"Saved " + (2 * n + 1) + "-dimensional trigonometric space equipped with linear functions to cache!");
 		return getCache().getConcreteCache().get(n);
 
+	}
+
+	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(Field f, int sobolevDegree, double right,
+			int fourierDegree) throws Exception {
+
+		return extend(getTrigonometricSobolevSpace((Field) realSpace, fourierDegree, sobolevDegree),
+				new GenericFunction() {
+					private static final long serialVersionUID = 5812927097511303688L;
+
+					@Override
+					public Scalar value(Scalar input) {
+						return input;
+					}
+
+				});
 	}
 
 	default EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, int n, double right, boolean ortho) {

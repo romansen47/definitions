@@ -53,13 +53,12 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
-		IGenerator gen=Generator.getGenerator();
-		
+		IGenerator gen = Generator.getGenerator();
+
 		ISpaceGenerator spaceGen = gen.getSpacegenerator();
 
-		trigonometricFunctionSpace  = spaceGen
-				.getTrigonometricSpace(RealLine.getInstance(), dim);
-		
+		trigonometricFunctionSpace = spaceGen.getTrigonometricSpace(RealLine.getInstance(), dim);
+
 		extendedTrigonometricFunctionSpace = spaceGen
 				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
 
@@ -77,6 +76,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		staircaseFunction = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 			int length = (int) testValues[0][testValues[0].length - 1];
+
 			@Override
 			public Scalar value(Scalar input) {
 				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);

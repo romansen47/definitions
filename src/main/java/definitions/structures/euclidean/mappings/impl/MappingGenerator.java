@@ -16,9 +16,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class MappingGenerator implements IMappingGenerator {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static IMappingGenerator generator = null;
 

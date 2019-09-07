@@ -16,7 +16,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 public class Tuple implements FiniteVector {
 
 	public Tuple() {
-		dim = 0;
+		this.dim = 0;
 	}
 
 	private static final long serialVersionUID = -738201540142933649L;
@@ -46,7 +46,7 @@ public class Tuple implements FiniteVector {
 		this.dim = coordinates.keySet().size();
 	}
 
-	protected Tuple(final int dim) {
+	public Tuple(final int dim) {
 		this.dim = dim;
 		this.coordinates = new ConcurrentHashMap<>();
 	}

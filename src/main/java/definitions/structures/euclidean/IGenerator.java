@@ -12,7 +12,6 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
-import definitions.structures.euclidean.vectors.IVectorGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
@@ -20,9 +19,9 @@ public interface IGenerator extends Serializable {
 
 //	Map<Integer, EuclideanSpace> getCachedSpaces();
 
-	default Vector getFiniteVector(int dim) {
-		return getVectorgenerator().getFiniteVector(dim);
-	}
+//	default Vector getFiniteVector(int dim) {
+//		return getVectorgenerator().getFiniteVector(dim);
+//	}
 
 	default Homomorphism getFiniteDimensionalLinearMapping(Scalar[][] genericMatrix) {
 		return getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
@@ -64,7 +63,7 @@ public interface IGenerator extends Serializable {
 		return null;
 	}
 
-	IVectorGenerator getVectorgenerator();
+//	IVectorGenerator getVectorgenerator();
 
 	IMappingGenerator getMappinggenerator();
 

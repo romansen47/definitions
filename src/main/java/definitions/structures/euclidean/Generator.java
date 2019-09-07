@@ -9,8 +9,6 @@ import java.io.ObjectOutputStream;
 import cache.ICache;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
-import definitions.structures.euclidean.vectors.IVectorGenerator;
-import definitions.structures.euclidean.vectors.impl.VectorGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import settings.GlobalSettings;
@@ -18,14 +16,13 @@ import settings.GlobalSettings;
 @SuppressWarnings("unused")
 public class Generator implements IGenerator {
 
-	final private static boolean restoreFromCached=GlobalSettings.RESTORE_FROM_CACHED;
-	
+	final private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
+
 	private static final long serialVersionUID = -5553433829703982950L;
-	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
+//	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
 	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
 	private final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
-	private final String PATH = "src/main/resources/coordinateSpaces.data";
-	private final String PATH2 = "src/main/resources/functionSpaces.data";
+	private final String PATH = GlobalSettings.CACHEDSPACES;
 
 	private static Generator generator = null;
 
@@ -33,13 +30,13 @@ public class Generator implements IGenerator {
 		if (generator == null) {
 			generator = new Generator();
 			if (restoreFromCached) {
-			try {
-				generator.loadCoordinateSpaces();
-				System.out.println("Cached spaces loaded");
+				try {
+					generator.loadCoordinateSpaces();
+					System.out.println("Cached spaces loaded");
+				} catch (final Exception e) {
+					System.out.println("Cached spaces not loaded");
+				}
 			}
-			catch(Exception e) {
-				System.out.println("Cached spaces not loaded");
-			}}
 		}
 		return generator;
 	}
@@ -47,10 +44,10 @@ public class Generator implements IGenerator {
 	private Generator() {
 	}
 
-	@Override
-	public IVectorGenerator getVectorgenerator() {
-		return generator.vectorGenerator;
-	}
+//	@Override
+//	public IVectorGenerator getVectorgenerator() {
+//		return generator.vectorGenerator;
+//	}
 
 	@Override
 	public IMappingGenerator getMappinggenerator() {

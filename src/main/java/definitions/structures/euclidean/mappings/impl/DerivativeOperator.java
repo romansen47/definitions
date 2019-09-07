@@ -35,16 +35,16 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
 
 	public Vector get(Vector vec, int degree) {
-		if (this.cachedDerivatives.get(vec) == null) {
-			final Map<Integer, Vector> map = new ConcurrentHashMap<>();
-			this.cachedDerivatives.put(vec, map);
-		} else {
-			final Vector cached = this.cachedDerivatives.get(vec).get(degree);
-			if (cached != null) {
-				System.out.println("hit!");
-				return cached;
-			}
-		}
+//		if (this.cachedDerivatives.get(vec) == null) {
+//			final Map<Integer, Vector> map = new ConcurrentHashMap<>();
+//			this.cachedDerivatives.put(vec, map);
+//		} else {
+//			final Vector cached = this.cachedDerivatives.get(vec).get(degree);
+//			if (cached != null) {
+//				System.out.println("hit!");
+//				return cached;
+//			}
+//		}
 		if (degree < 0) {
 			return null;
 		}
@@ -61,15 +61,17 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 		if (vec instanceof FunctionTuple) {
 			return this.get(this.get(vec), degree - 1);
 		}
-		Scalar[][] tmp = this.getGenericMatrix().clone();
-		for (int i = 1; i < degree; i++) {
-			tmp = MappingGenerator.getInstance().composition(this.getGenericMatrix().clone(), tmp);
+//		Scalar[][] tmp = this.getGenericMatrix().clone();
+		Vector test = ((Function) vec).getProjection((EuclideanSpace) this.getSource());
+		for (int i = 0; i < degree; i++) {
+			test = this.get(test);
+//			tmp = MappingGenerator.getInstance().composition(this.getGenericMatrix().clone(), tmp);
 		}
-		final Vector ans = ((Function) MappingGenerator.getInstance()
-				.getFiniteDimensionalLinearMapping((EuclideanSpace) this.source, (EuclideanSpace) this.target, tmp)
-				.get(vec)).getProjection((EuclideanSpace) this.getSource());
-		this.addToCache(vec, degree, ans);
-		return ans;
+//		final Vector ans = ((Function) MappingGenerator.getInstance()
+//				.getFiniteDimensionalLinearMapping((EuclideanSpace) this.source, (EuclideanSpace) this.target, tmp)
+//				.get(vec)).getProjection((EuclideanSpace) this.getSource());
+//		this.addToCache(vec, degree, ans);
+		return test;// ans;
 	}
 
 	private void addToCache(Vector vec, int degree, Vector ans) {

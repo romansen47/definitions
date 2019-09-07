@@ -13,8 +13,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
  */
 public class PolynomialFunctionSpaceTest extends FunctionSpaceTest {
 
-	static final int sobolevDegree = 3;
-	private static final int polynomialDegree = 7;
+	private static final int polynomialDegree = 5;
 
 	@Override
 	public EuclideanFunctionSpace getLinearSpace() {
