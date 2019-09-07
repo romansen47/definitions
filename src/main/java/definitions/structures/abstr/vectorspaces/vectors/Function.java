@@ -8,6 +8,8 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -17,6 +19,7 @@ import settings.GlobalSettings;
 import solver.Plotable;
 import solver.StdDraw;
 
+import plotter.Plotter;
 /**
  * Function.
  * 
@@ -25,6 +28,7 @@ import solver.StdDraw;
  */
 public interface Function extends Vector, Plotable, FiniteVectorMethods {
 
+	final static IGenerator gen=Generator.getGenerator();
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
@@ -75,30 +79,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	}
 
 	default void preparePlot(final double left, final double right, StdDraw stddraw, int count, double delta) {
-		double x = 0;
-		double min = value(getField().get((right - left) / 2.)).getValue();
-		double max = min;
-		for (double i = 0; i < (count - 1); i += 1) {
-			x = left + (delta * i);
-			final double y = value(getField().get(x)).getValue();
-			if (y > max) {
-				max = y;
-			}
-			if (y < min) {
-				min = y;
-			}
-		}
-		final double d = max - min;
-		if (d == 0) {
-			min = min - 50;
-			max = max + 50;
-		} else {
-			min = min - (0.2 * d);
-			max = max + (0.5 * d);
-		}
-		stddraw.setCanvasSize(1000, 700);
-		StdDraw.setXscale(left, right);
-		StdDraw.setYscale(min, max);
+		((Plotter)gen).preparePlot(this, left, right, stddraw, count, delta);
 	}
 
 	/**
@@ -106,21 +87,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 */
 	@Override
 	default void plot(final double left, final double right) {
-		final StdDraw stddraw = new StdDraw();
-		final int count = 1000;
-		final double delta = (right - left) / count;
-		preparePlot(left, right, stddraw, count, delta);
-		double z = 0;
-		StdDraw.setPenRadius(0.001);
-		for (double i = 0; i < (count - 1); i += 1) {
-			z = left + (delta * i);
-			StdDraw.setPenColor(Color.blue);
-			for (final Vector vec : getField().genericBaseToList()) {
-				Scalar sc = value(getField().get(z));
-				StdDraw.line(z, sc.getCoordinates().get(getField().getBaseVec(vec)).getValue(), z + delta,
-						value(getField().get(z + delta)).getCoordinates().get(vec).getValue());
-			}
-		}
+		((Plotter)gen).plot(this, left, right);
 	}
 
 	/**
@@ -128,30 +95,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
-		final StdDraw stddraw = new StdDraw();
-		final int count = 1000;
-		final double delta = (right - left) / count;
-		preparePlot(left, right, stddraw, count, delta);
-		Scalar tmp = getField().get(left);
-		double alpha = value(tmp).getValue();
-		double beta = fun.value(tmp).getValue();
-		double z = 0;
-		for (double i = 0; i < (count - 1); i += 1) {
-			z = left + (delta * i);
-			tmp = getField().get(z + delta);
-			final double alphaNext = value(tmp).getValue();
-			final double betaNext = fun.value(tmp).getValue();
-			StdDraw.setPenRadius(0.0035);
-			StdDraw.setPenColor(Color.blue);
-			StdDraw.line(z, alpha, z + delta, alphaNext);
-			StdDraw.setPenRadius(0.0025);
-			StdDraw.setPenColor(Color.red);
-			StdDraw.line(z, beta, z + delta, betaNext);
-			alpha = alphaNext;
-			beta = betaNext;
+		((Plotter)gen).plotCompare(this, fun, left, right);
 		}
-		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(this.hashCode()) + ".png");
-	}
 
 	/**
 	 * Method to compute the derivative of the function.
@@ -307,4 +252,5 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	default Field getField() {
 		return RealLine.getInstance();
 	}
+	
 }
