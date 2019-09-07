@@ -165,14 +165,19 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 	}
 
-//	@Test
-//	public void test3() {
-//TODO!
-//		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
-//
-//		identity.plotCompare(left, right, (Function) identityToFourier);
-//
-//	}
+	@Test
+	public void test3() {
+		identity = new GenericFunction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Scalar value(Scalar input) {
+				return input;
+			}
+		};
+		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
+		identity.plotCompare(left, right, (Function) identityToFourier);
+	}
 
 	@Test
 	public void test4() {

@@ -13,8 +13,13 @@ public class GlobalSettings {
 	/**
 	 * fineness parameter for aequidistant summation for integration
 	 */
-	public final static double INTEGRAL_FEINHEIT = 1.e-3;
+	public final static double INTEGRAL_FEINHEIT = 1.e-4;
 
+	/**
+	 * fineness parameter for differentiation
+	 */
+	public final static double DERIVATIVE_FEINHEIT=1.e-2;
+	
 	/**
 	 * fineness on real line
 	 */
@@ -39,4 +44,5 @@ public class GlobalSettings {
 	 * path to output
 	 */
 	public final static String PLOTS = "src/test/resources/";
+
 }

@@ -32,7 +32,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
-	double eps = GlobalSettings.INTEGRAL_FEINHEIT;
+	double eps = GlobalSettings.DERIVATIVE_FEINHEIT;
 
 	Function derivative = null;
 	/**

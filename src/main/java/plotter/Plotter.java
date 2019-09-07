@@ -71,16 +71,16 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		preparePlot(fun2, left, right, stddraw, count, delta);
+		preparePlot(fun1, left, right, stddraw, count, delta);
 		Scalar tmp = ((Function) fun1).getField().get(left);
 		double alpha = ((Function) fun1).value(tmp).getValue();
-		double beta = ((Function) fun1).value(tmp).getValue();
+		double beta = ((Function) fun2).value(tmp).getValue();
 		double z = 0;
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
 			tmp = ((Function) fun1).getField().get(z + delta);
 			final double alphaNext = ((Function) fun1).value(tmp).getValue();
-			final double betaNext = ((Function) fun1).value(tmp).getValue();
+			final double betaNext = ((Function) fun2).value(tmp).getValue();
 			StdDraw.setPenRadius(0.0035);
 			StdDraw.setPenColor(Color.blue);
 			StdDraw.line(z, alpha, z + delta, alphaNext);
