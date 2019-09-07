@@ -15,8 +15,8 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import plotter.Plotable;
 import settings.GlobalSettings;
-import solver.Plotable;
 
 /**
  * 

@@ -11,9 +11,9 @@ import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import plotter.Plotable;
 import plotter.Plotter;
 import settings.GlobalSettings;
-import solver.Plotable;
 import solver.StdDraw;
 
 @SuppressWarnings("unused")

@@ -16,9 +16,8 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import settings.GlobalSettings;
-import solver.Plotable;
 import solver.StdDraw;
-
+import plotter.Plotable;
 import plotter.Plotter;
 /**
  * Function.

@@ -1,4 +1,4 @@
-package solver;
+package plotter;
 
 import java.io.Serializable;
 

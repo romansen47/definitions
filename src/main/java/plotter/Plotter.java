@@ -3,7 +3,6 @@
  */
 package plotter;
 
-import solver.Plotable;
 import solver.StdDraw;
 
 import java.awt.Color;
