@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.aop.lib.Wrap;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Tuple;
@@ -20,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  *         Conrete implementation of a finite dimensional vector space.
  */
-//@XmlRootElement
+@Wrap
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	private static final long serialVersionUID = -7678979021442720279L;
@@ -30,7 +35,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * the base.
 	 */
-//	@XmlElement
 	protected List<Vector> base;
 
 	/**
@@ -123,6 +127,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
+	@Wrap
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
@@ -137,6 +142,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
+	@Wrap
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
@@ -166,6 +172,22 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			this.dualSpace = new FunctionalSpace(this);
 		}
 		return this.dualSpace;
+	}
+
+	/*
+	 * These overrides are for tracing purposes only
+	 */
+
+	@Override
+	@Wrap
+	public Vector add(final Vector vec1, final Vector vec2) {
+		return EuclideanSpace.super.add(vec1, vec2);
+	}
+
+	@Override
+	@Wrap
+	public Vector stretch(final Vector vec, final Scalar r) {
+		return EuclideanSpace.super.stretch(vec, r);
 	}
 
 }

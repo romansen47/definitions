@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.aop.lib.Wrap;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -12,6 +14,7 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -74,11 +77,13 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
+	@Wrap
 	public Vector normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
+	@Wrap
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
@@ -148,6 +153,24 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			};
 			tmpBase.add(cos);
 		}
+	}
+
+
+	
+	/*
+	 * These overrides are for tracing purposes only
+	 */
+
+	@Override
+	@Wrap
+	public Vector add(final Vector vec1, final Vector vec2) {
+		return EuclideanFunctionSpace.super.add(vec1, vec2);
+	}
+
+	@Override
+	@Wrap
+	public Function stretch(final Vector vec, final Scalar r) {
+		return EuclideanFunctionSpace.super.stretch(vec, r);
 	}
 
 }
