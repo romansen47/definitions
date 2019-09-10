@@ -6,6 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aop.lib.Trace;
+import com.aop.lib.Operation;
+
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -18,9 +21,9 @@ public class FiniteDimensionalLinearMappingTest {
 
 	Map<Vector, Map<Vector, Scalar>> ans1;
 	Scalar[][] ans2;
-	final VectorSpace space = RealLine.getInstance();
+	VectorSpace space = RealLine.getInstance();
 
-	final Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space,
+	Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space,
 			(EuclideanSpace) this.space) {
 		private static final long serialVersionUID = 8542796160933542925L;
 
@@ -36,14 +39,24 @@ public class FiniteDimensionalLinearMappingTest {
 		this.ans2 = this.lin.getGenericMatrix();
 	}
 
+	public static void main(String[] args) {
+		FiniteDimensionalLinearMappingTest test=new FiniteDimensionalLinearMappingTest();
+		test.beforeClass();
+		test.testGetLinearity();
+		test.testGetGenericMatrix();
+	}
+	
 	@Test
 	public void testGetLinearity() {
+//		Traced.show();
 		Assert.assertTrue(
 				this.ans1.get(((RealLine) this.space).getOne()).get(((RealLine) this.space).getOne()).getValue() == 5.);
 	}
 
 	@Test
 	public void testGetGenericMatrix() {
+//		Traced.show();
 		Assert.assertTrue(this.ans2[0][0].getValue() == 5.);
+//		Traced.show();
 	}
 }

@@ -11,6 +11,16 @@ package settings;
 public class GlobalSettings {
 
 	/**
+	 * Logging
+	 */
+	public static final boolean LOGGING=true;
+	
+	/**
+	 * Default depth
+	 */
+	public final static int LOGGING_DEPTH=5;
+	
+	/**
 	 * fineness parameter for aequidistant summation for integration
 	 */
 	public final static double INTEGRAL_FEINHEIT = 1.e-4;

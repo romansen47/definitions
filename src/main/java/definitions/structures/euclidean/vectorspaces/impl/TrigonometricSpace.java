@@ -14,6 +14,7 @@ import definitions.structures.euclidean.vectors.specialfunctions.Constant;
  * @author ro
  *
  */
+@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
 public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
 	/**

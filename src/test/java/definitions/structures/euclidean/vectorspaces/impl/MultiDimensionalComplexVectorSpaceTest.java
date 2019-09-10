@@ -18,9 +18,14 @@ public class MultiDimensionalComplexVectorSpaceTest {
 
 	ISpaceGenerator gen = SpaceGenerator.getInstance();
 
+	public static void main(String[] args) {
+		new MultiDimensionalComplexVectorSpaceTest().test();
+	}
+	
 	@Test
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
 	public void test() {
-		final int dim = 100;
+		final int dim = 10;
 
 		final EuclideanSpace complexSpace = (EuclideanSpace) SpaceGenerator.getInstance()
 				.getFiniteDimensionalComplexSpace(dim);
