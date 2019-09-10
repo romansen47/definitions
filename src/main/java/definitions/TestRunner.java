@@ -3,40 +3,38 @@ package definitions;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aop.lib.Wrap;
-import com.aop.lib.WrapDef;
+import com.aop.lib.Operation;
 
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.GlobalSettings;
 
 public class TestRunner {
 
 	static EuclideanSpace space;
 	static  List<Vector> base = new ArrayList<>();
+	
 	public static void main(String[] args) throws Exception {
-		int dim = 3;
+		int dim = 15;
 		space = Generator.getGenerator().getSpacegenerator()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
-//				.getFiniteDimensionalVectorSpace(10);
+				.getTrigonometricFunctionSpaceWithLinearGrowth((Field) RealLine.getInstance(), dim);
+//				.getFiniteDimensionalVectorSpace(3);
 		final Vector baseVector1 = space.genericBaseToList().get(2);
-		final Vector baseVector2 = space.add(baseVector1, space.genericBaseToList().get(3));
+		final Vector baseVector2 = space.add(baseVector1, space.genericBaseToList().get(1));
 		base.add(baseVector1);
 		base.add(baseVector2);
-		WrapDef.getLoglist().clear();
-		WrapDef.getLog().clear();
-		testRun();
-		WrapDef.getLoglist().add(WrapDef.getLog());
-		for (List<String> list : WrapDef.getLoglist()) {
-			for (String str : list) {
-				System.out.println(str);
-			}
-		}
+//		Traced.getLoglist().clear();
+//		Traced.getLog().clear();
+		new TestRunner().testRun();
+//		Traced.show();
 	}
 
-	@Wrap
-	public static void testRun() throws Exception {
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
+	public void testRun() throws Exception {
 		space.getOrthonormalBase(base);
 	}
 }

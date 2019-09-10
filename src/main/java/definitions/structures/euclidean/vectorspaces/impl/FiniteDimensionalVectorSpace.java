@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.aop.lib.Wrap;
+import com.aop.lib.Trace;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -25,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  *         Conrete implementation of a finite dimensional vector space.
  */
-@Wrap
+@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	private static final long serialVersionUID = -7678979021442720279L;
@@ -100,11 +100,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.dim;
 	}
 
-//	@Override
-//	public Set<Vector> getGenericBase() {
-//		return new HashSet<>(this.genericBaseToList());
-//	}
-
 	/**
 	 * setter for the base.
 	 * 
@@ -127,7 +122,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	@Wrap
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
@@ -142,7 +137,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	@Wrap
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
@@ -178,16 +173,16 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * These overrides are for tracing purposes only
 	 */
 
-	@Override
-	@Wrap
-	public Vector add(final Vector vec1, final Vector vec2) {
-		return EuclideanSpace.super.add(vec1, vec2);
-	}
-
-	@Override
-	@Wrap
-	public Vector stretch(final Vector vec, final Scalar r) {
-		return EuclideanSpace.super.stretch(vec, r);
-	}
+//	@Override
+//	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+//	public Vector add(final Vector vec1, final Vector vec2) {
+//		return EuclideanSpace.super.add(vec1, vec2);
+//	}
+//
+//	@Override
+//	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+//	public Vector stretch(final Vector vec, final Scalar r) {
+//		return EuclideanSpace.super.stretch(vec, r);
+//	}
 
 }

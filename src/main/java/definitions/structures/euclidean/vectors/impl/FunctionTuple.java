@@ -3,7 +3,7 @@ package definitions.structures.euclidean.vectors.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.aop.lib.Wrap;
+import com.aop.lib.Trace;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -67,7 +67,7 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	@Override
-	@Wrap
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
 	public Function getProjection(EuclideanSpace source) {
 		return Function.super.getProjection(source);
 	}
