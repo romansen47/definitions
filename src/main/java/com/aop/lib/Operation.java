@@ -20,7 +20,7 @@ public class Operation{
 
 	@Around("@annotation( wrapAnnotation ) && execution(* *(..))")
 	public Object processSystemRequest(final ProceedingJoinPoint pjp, Trace wrapAnnotation) throws Throwable {
-		System.out.println(i++);
+//		System.out.println(i++);
 		if (wrapAnnotation.initial()) {
 			tracing = true;
 		}

@@ -46,7 +46,7 @@ public class QuaternionFunctionSpaceTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion) QuaternionFunctionSpaceTest.this.f.add(
+				final Quaternion tmp = (Quaternion) f.add(
 						f.getOne(),
 						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
 				return (Scalar) f.normalize(tmp);
@@ -64,7 +64,7 @@ public class QuaternionFunctionSpaceTest {
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
 				final Quaternion tmp = (Quaternion) f.add(
-						QuaternionFunctionSpaceTest.this.f.getOne(),
+						f.getOne(),
 						new Quaternion(val / 2, val / 2, 0.1 * Math.sin(val), 0.1 * Math.cos(val)));
 				return (Scalar) f.normalize(tmp);
 			}
@@ -81,7 +81,7 @@ public class QuaternionFunctionSpaceTest {
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
 				final Quaternion tmp = (Quaternion) f
-						.add(QuaternionFunctionSpaceTest.this.f.getOne(), new Quaternion(val, -val, val, 1 - val));
+						.add(f.getOne(), new Quaternion(val, -val, val, 1 - val));
 				if (Math.abs(((Quaternion) input).getReal().getValue()) < 1.e-5) {
 					return (Scalar) f.stretch(input, new Real(1.e5));
 				}
@@ -99,7 +99,7 @@ public class QuaternionFunctionSpaceTest {
 	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
 	@Test
 	public void test() {
-		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -1, 1, true);
+		this.space = new FiniteDimensionalFunctionSpace(f, this.base, -1, 1, true);
 
 		this.base.add(alpha);
 		this.base.add(beta);

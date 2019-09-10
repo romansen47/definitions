@@ -45,6 +45,11 @@ public class EuclideanFunctionSpaceTest {
 	private static FunctionSpace extendedSpace;
 	private static FunctionSpace extendedToSobolev;
 
+	public static void main(String[] args) throws Exception {
+		setUpBeforeClass();
+		new EuclideanFunctionSpaceTest().polynomialSobolev();
+	}
+	
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree, 1,
@@ -73,6 +78,7 @@ public class EuclideanFunctionSpaceTest {
 	}
 
 	@Test
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
 	public void polynomialSobolev() throws java.lang.Exception {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpaceSobolev,
 				new Sine(1, 0, 1) {
