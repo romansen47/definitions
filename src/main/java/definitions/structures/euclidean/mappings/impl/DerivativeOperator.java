@@ -14,7 +14,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public final class DerivativeOperator extends FiniteDimensionalLinearMapping implements Homomorphism {
 
 	private static final long serialVersionUID = -5103583236895270490L;
@@ -37,7 +37,7 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 
 	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
 
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Vector get(Vector vec, int degree) {
 //		if (this.cachedDerivatives.get(vec) == null) {
 //			final Map<Integer, Vector> map = new ConcurrentHashMap<>();

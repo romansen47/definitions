@@ -32,7 +32,7 @@ public class QuaternionFunctionSpaceTest {
 	static Function alpha;
 	static Function beta;
 	static Function gamma;
-	
+
 	public static void main(String[] args) {
 		prepare();
 		new QuaternionFunctionSpaceTest().test();
@@ -46,8 +46,7 @@ public class QuaternionFunctionSpaceTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion) f.add(
-						f.getOne(),
+				final Quaternion tmp = (Quaternion) f.add(f.getOne(),
 						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
 				return (Scalar) f.normalize(tmp);
 			}
@@ -63,8 +62,7 @@ public class QuaternionFunctionSpaceTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion) f.add(
-						f.getOne(),
+				final Quaternion tmp = (Quaternion) f.add(f.getOne(),
 						new Quaternion(val / 2, val / 2, 0.1 * Math.sin(val), 0.1 * Math.cos(val)));
 				return (Scalar) f.normalize(tmp);
 			}
@@ -80,8 +78,7 @@ public class QuaternionFunctionSpaceTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion) f
-						.add(f.getOne(), new Quaternion(val, -val, val, 1 - val));
+				final Quaternion tmp = (Quaternion) f.add(f.getOne(), new Quaternion(val, -val, val, 1 - val));
 				if (Math.abs(((Quaternion) input).getReal().getValue()) < 1.e-5) {
 					return (Scalar) f.stretch(input, new Real(1.e5));
 				}
@@ -95,8 +92,8 @@ public class QuaternionFunctionSpaceTest {
 		};
 
 	}
-	
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
+
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	@Test
 	public void test() {
 		this.space = new FiniteDimensionalFunctionSpace(f, this.base, -1, 1, true);

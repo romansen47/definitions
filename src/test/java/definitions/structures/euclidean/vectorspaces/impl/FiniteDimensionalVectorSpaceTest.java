@@ -14,7 +14,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author RoManski
  *
  */
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public class FiniteDimensionalVectorSpaceTest {
 
 	final int dim = 2;
@@ -38,7 +38,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#contains(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public void testContains() {
 		Assert.assertTrue(((VectorSpaceMethods) this.space).contains(this.nul));
 	}
@@ -48,7 +48,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#nullVec()}.
 	 */
 	@Test
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public void testNullVec() {
 		Assert.assertTrue(((VectorSpaceMethods) this.space).nullVec().equals(this.nul));
 	}
@@ -58,7 +58,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public void testAdd() {
 		Assert.assertTrue(this.space.add(((VectorSpaceMethods) this.space).nullVec(), this.nul).equals(this.nul));
 	}
@@ -68,7 +68,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#stretch(definitions.structures.abstr.vectorspaces.vectors.Vector, double)}.
 	 */
 	@Test
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public void testStretch() {
 		Assert.assertTrue(this.space.stretch(this.nul, this.space.getField().get(this.factor)).equals(this.nul));
 	}

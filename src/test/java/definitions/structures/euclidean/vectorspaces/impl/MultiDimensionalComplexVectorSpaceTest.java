@@ -23,7 +23,7 @@ public class MultiDimensionalComplexVectorSpaceTest {
 	}
 	
 	@Test
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test() {
 		final int dim = 10;
 

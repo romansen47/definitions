@@ -20,12 +20,15 @@ public class Operation{
 
 	@Around("@annotation( wrapAnnotation ) && execution(* *(..))")
 	public Object processSystemRequest(final ProceedingJoinPoint pjp, Trace wrapAnnotation) throws Throwable {
-//		System.out.println(i++);
+		System.out.println(i++);
 		if (wrapAnnotation.initial()) {
 			tracing = true;
 		}
 		if (!tracing || !wrapAnnotation.trace()) {
 			return pjp.proceed();
+		}
+		if (!wrapAnnotation.transit()) {
+			tracing=false;
 		}
 		if (w == null) {
 			w = new FileWriter("C:/tmp/TestRun.xml");
@@ -50,6 +53,7 @@ public class Operation{
 			bw.write(tmp1 + "\r");
 		}
 		Object o = pjp.proceed();
+		bw.write("<value>\r"+pjp.getTarget().toString()+"\r</value>\r");
 		bw.write("</" + ans + ">\r");
 		bw.flush();
 		return o;

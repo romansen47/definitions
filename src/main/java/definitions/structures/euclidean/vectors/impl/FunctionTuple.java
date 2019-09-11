@@ -67,7 +67,7 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Function getProjection(EuclideanSpace source) {
 		return Function.super.getProjection(source);
 	}

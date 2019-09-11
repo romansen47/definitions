@@ -15,4 +15,5 @@ public @interface Trace {
 	
 	boolean initial();
 	
+	boolean transit();
 }

@@ -101,10 +101,10 @@ public class FunctionTest {
 			cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 2));
-			trigSpace.stretch(sine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
+			((Function) trigSpace.stretch(sine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 3));
-			trigSpace.stretch(cosine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
+			((Function) trigSpace.stretch(cosine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 4));
 			sine.plotCompare(-Math.PI, Math.PI, highDerivative);

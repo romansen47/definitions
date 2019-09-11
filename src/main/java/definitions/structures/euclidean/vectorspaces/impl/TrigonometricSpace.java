@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
@@ -14,7 +16,7 @@ import definitions.structures.euclidean.vectors.specialfunctions.Constant;
  * @author ro
  *
  */
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
 	/**
@@ -48,6 +50,19 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		this.getCosineFunctions(n, Math.PI / right, tmpBase);
 		this.base = tmpBase;
 		this.assignOrthonormalCoordinates(this.base, field);
+	}
+	
+
+	@Override
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	public Vector stretch(final Vector vec, final Scalar r) {
+		return super.stretch(vec, r);
+	}
+
+	@Override
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	public Vector projection(final Vector w, final Vector v) {
+		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 }

@@ -78,7 +78,7 @@ public class EuclideanFunctionSpaceTest {
 	}
 
 	@Test
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void polynomialSobolev() throws java.lang.Exception {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpaceSobolev,
 				new Sine(1, 0, 1) {

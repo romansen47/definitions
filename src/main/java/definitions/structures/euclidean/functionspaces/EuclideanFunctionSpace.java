@@ -119,7 +119,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Function stretch(final Vector vec, final Scalar r) {
+	default Vector stretch(final Vector vec, final Scalar r) {
 		if (vec.equals(nullVec()) || r.equals(getField().getZero())) {
 			return (Function) nullVec();
 		}

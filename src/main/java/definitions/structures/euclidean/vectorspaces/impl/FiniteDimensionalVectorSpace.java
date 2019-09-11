@@ -25,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  *         Conrete implementation of a finite dimensional vector space.
  */
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	private static final long serialVersionUID = -7678979021442720279L;
@@ -122,7 +122,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
@@ -137,7 +137,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
@@ -174,13 +174,13 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 
 //	@Override
-//	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+//	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 //	public Vector add(final Vector vec1, final Vector vec2) {
 //		return EuclideanSpace.super.add(vec1, vec2);
 //	}
 //
 //	@Override
-//	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false)
+//	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 //	public Vector stretch(final Vector vec, final Scalar r) {
 //		return EuclideanSpace.super.stretch(vec, r);
 //	}
