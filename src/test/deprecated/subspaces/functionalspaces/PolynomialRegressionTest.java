@@ -70,7 +70,7 @@ public class PolynomialRegressionTest {
 				trigonometricDegree, sobolevDegree);
 
 		staircaseFunction = new GenericFunction() {
-			/**
+			/** 
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
@@ -110,13 +110,13 @@ public class PolynomialRegressionTest {
 		measures2 = measures.getProjection((EuclideanSpace) trigonometricSpace);
 	}
 
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test1() throws Throwable {
 		final Function coordinates = exp.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, exp);
 	}
 
-	@Test
+	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test2() throws Throwable {
 		final Function coordinates = staircaseFunction2.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, staircaseFunction2);
@@ -125,7 +125,7 @@ public class PolynomialRegressionTest {
 		coordinates2.plotCompare(left, right, measures2);
 	}
 
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test() throws Throwable {
 		staircaseFunction2.plotCompare(left, right, staircaseFunction);
 	}
@@ -157,7 +157,7 @@ public class PolynomialRegressionTest {
 		return ans;
 	}
 
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test3() {
 		((EuclideanSpace) trigonometricSpace).show();
 	}

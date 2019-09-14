@@ -6,9 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.aop.lib.Trace;
-import com.aop.lib.Operation;
-
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -23,8 +20,7 @@ public class FiniteDimensionalLinearMappingTest {
 	Scalar[][] ans2;
 	VectorSpace space = RealLine.getInstance();
 
-	Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space,
-			(EuclideanSpace) this.space) {
+	Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space, (EuclideanSpace) this.space) {
 		private static final long serialVersionUID = 8542796160933542925L;
 
 		@Override
@@ -40,13 +36,14 @@ public class FiniteDimensionalLinearMappingTest {
 	}
 
 	public static void main(String[] args) {
-		FiniteDimensionalLinearMappingTest test=new FiniteDimensionalLinearMappingTest();
+		FiniteDimensionalLinearMappingTest test = new FiniteDimensionalLinearMappingTest();
 		test.beforeClass();
 		test.testGetLinearity();
 		test.testGetGenericMatrix();
 	}
-	
+
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void testGetLinearity() {
 //		Traced.show();
 		Assert.assertTrue(
@@ -54,6 +51,7 @@ public class FiniteDimensionalLinearMappingTest {
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void testGetGenericMatrix() {
 //		Traced.show();
 		Assert.assertTrue(this.ans2[0][0].getValue() == 5.);

@@ -66,21 +66,21 @@ public class OrthonormalizationTest {
 
 	}
 
-	@Test
+	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void orthogonal() throws Throwable {
 		Assert.assertTrue(Math.abs(ans1) < this.eps);
 		Assert.assertTrue(Math.abs(ans2) < this.eps);
 		Assert.assertTrue(Math.abs(ans3) < this.eps);
 	}
 
-	@Test
+	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void normalized() throws Throwable {
 		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < this.eps);
 		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < this.eps);
 		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < this.eps);
 	}
 
-	@Test
+	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void exponential() throws Throwable {
 		final Vector exp = new GenericFunction() {
 			/**

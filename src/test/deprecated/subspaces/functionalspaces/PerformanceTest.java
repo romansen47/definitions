@@ -63,7 +63,7 @@
 // };
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void identity() throws Throwable {
 // final Vector toFourier = space.getCoordinates(parabel);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -72,7 +72,7 @@
 // Assert.assertTrue(ans < 0.1);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void abs() throws Throwable {
 // final Vector toFourier = space.getCoordinates(abs);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -81,7 +81,7 @@
 // Assert.assertTrue(ans < 0.1);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void exp() throws Throwable {
 // final Vector toFourier = space.getCoordinates(exp);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -90,7 +90,7 @@
 // Assert.assertTrue(ans < 5);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void symExp() throws Throwable {
 // final Vector toFourier = space.getCoordinates(symExp);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -99,7 +99,7 @@
 // Assert.assertTrue(ans < 0.1);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void circle() throws Throwable {
 // final Vector toFourier = space.getCoordinates(circle);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);

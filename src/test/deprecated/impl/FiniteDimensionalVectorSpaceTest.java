@@ -59,7 +59,7 @@ public class FiniteDimensionalVectorSpaceTest {
 
 	}
 
-	@Test
+	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void orthogonal() throws Throwable {
 		Assert.assertTrue(Math.abs(ans1) < 1.e-5);
 		Assert.assertTrue(Math.abs(ans2) < 1.e-5);
@@ -67,7 +67,7 @@ public class FiniteDimensionalVectorSpaceTest {
 		Assert.assertTrue(Math.abs(ans4) < 1.e-5);
 	}
 
-	@Test
+	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void normalized() throws Throwable {
 		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < 1.e-5);
 		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < 1.e-5);

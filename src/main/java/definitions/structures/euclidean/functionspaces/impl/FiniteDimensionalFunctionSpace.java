@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.aop.lib.Trace;
-
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -20,6 +18,7 @@ import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import plotter.Plotable;
 import settings.GlobalSettings;
+import settings.Trace;
 
 /**
  * 
@@ -27,7 +26,7 @@ import settings.GlobalSettings;
  *
  *         Concrete implementation of a finite dimensional function space.
  */
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace implements EuclideanFunctionSpace {
 
 	private static final long serialVersionUID = -8669475459309858828L;
@@ -78,13 +77,13 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Vector normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
@@ -156,27 +155,32 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
-
-	
 	/*
 	 * These overrides are for tracing purposes only
 	 */
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector add(final Vector vec1, final Vector vec2) {
 		return EuclideanFunctionSpace.super.add(vec1, vec2);
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector stretch(final Vector vec, final Scalar r) {
 		return EuclideanFunctionSpace.super.stretch(vec, r);
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
+
+	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	public void show() {
+		super.show();
+	}
+
 }

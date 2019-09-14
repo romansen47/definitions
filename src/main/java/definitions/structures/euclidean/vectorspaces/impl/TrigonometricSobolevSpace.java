@@ -120,6 +120,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 * @param n       the highest degree of the trigonometric polynomials.
 	 * @param tmpBase the list.
 	 */
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
@@ -151,6 +152,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 * @param d
 	 * @param tmpBase the list.
 	 */
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
 
 		for (int i = 1; i < (n + 1); i++) {

@@ -52,7 +52,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testPlot() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -61,7 +62,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testPlotCompare() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -70,7 +72,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.fields.scalars.Scalar)}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testValue() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -79,7 +82,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(definitions.structures.euclidean.vectorspaces.EuclideanSpace)}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetDerivativeEuclideanSpace() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -89,6 +93,7 @@ public class FunctionTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetDerivativeInt() {
 		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
 
@@ -101,10 +106,12 @@ public class FunctionTest {
 			cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 2));
-			((Function) trigSpace.stretch(sine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI, highDerivative);
+			((Function) trigSpace.stretch(sine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI,
+					highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 3));
-			((Function) trigSpace.stretch(cosine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI, highDerivative);
+			((Function) trigSpace.stretch(cosine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI,
+					highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 4));
 			sine.plotCompare(-Math.PI, Math.PI, highDerivative);
@@ -116,7 +123,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral()}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetPrimitiveIntegral() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -125,7 +133,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral(int)}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetPrimitiveIntegralInt() {
 		fail("Not yet implemented"); // TODO
 	}
@@ -134,7 +143,8 @@ public class FunctionTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getProjectionOfDerivative(definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace)}.
 	 */
-	// @Test
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetProjectionOfDerivative() {
 		fail("Not yet implemented"); // TODO
 	}

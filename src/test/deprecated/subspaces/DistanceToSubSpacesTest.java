@@ -109,7 +109,7 @@
 //
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void first1() throws Throwable {
 // System.out.println("answer: "+answer);
 // System.out.println("difference: "+(answer - 2 * Math.sqrt(Math.PI)));

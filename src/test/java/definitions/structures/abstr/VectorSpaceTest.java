@@ -20,12 +20,14 @@ public abstract class VectorSpaceTest {
 	public abstract Scalar getFactor();
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void testContains() {
 		Assert.assertTrue(((VectorSpaceMethods) this.getSpace()).contains(this.getVec1()));
 		Assert.assertTrue(((VectorSpaceMethods) this.getSpace()).contains(this.getVec2()));
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void show() {
 		((EuclideanSpace) this.getSpace()).show();
 	}

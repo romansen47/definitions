@@ -16,6 +16,8 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+
 /**
  * 
  * @author ro
@@ -53,6 +55,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector add(Vector vec1, Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
@@ -60,6 +63,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
@@ -76,15 +80,17 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}
 
-	public Vector conjugate(Vector factor) {
-		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
-		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
-		return new Complex(newRe, newIm);
-	}
+//	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+//	public Vector conjugate(Vector factor) {
+//		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
+//		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
+//		return new Complex(newRe, newIm);
+//	}
 
 	@Override
 	public Vector getOne() {
@@ -146,11 +152,18 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	public Scalar inverse(Vector factor) {
+		return (Scalar) Field.super.inverse(factor);
+	}
+
+	@Override
 	public Scalar get(double value) {
 		return new Complex(this.getField().get(value), (Scalar) this.getField().getZero());
 	}
 
 	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Scalar conjugate(Scalar value) {
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());

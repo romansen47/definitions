@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.aop.lib.Trace;
-
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -13,8 +11,9 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.Trace;
 
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public final class DerivativeOperator extends FiniteDimensionalLinearMapping implements Homomorphism {
 
 	private static final long serialVersionUID = -5103583236895270490L;
@@ -37,7 +36,7 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 
 	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
 
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector get(Vector vec, int degree) {
 //		if (this.cachedDerivatives.get(vec) == null) {
 //			final Map<Integer, Vector> map = new ConcurrentHashMap<>();

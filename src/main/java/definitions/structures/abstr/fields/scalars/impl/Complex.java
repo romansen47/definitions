@@ -99,7 +99,8 @@ public class Complex extends Tuple implements Scalar {
 
 	@Override
 	public String toString() {
-		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getImag().getValue() + "\r";
+		return "<real>"+ this.getReal().getValue()+"</real>\r"
+				+"<imag>"+ this.getImag().getValue()+"</imag>\r";
 	}
 
 	@Override

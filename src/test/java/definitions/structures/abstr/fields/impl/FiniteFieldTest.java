@@ -34,23 +34,27 @@ public class FiniteFieldTest extends VectorTest {
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void getFieldTest() {
 		final Field field = modulo2.getField();
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void containsTest() {
 		final boolean x = modulo2.contains(zero);
 		final boolean y = modulo2.contains(unit);
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void nullVecTest() {
 		final Vector no = modulo2.nullVec();
 		((FiniteVectorMethods) no).getCoordinates();
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void addTest() {
 		final Vector sum1 = modulo2.add(modulo2.getOne(), modulo2.getOne());
 		final Vector sum2 = modulo2.add(modulo2.getOne(), modulo2.getZero());
@@ -59,6 +63,7 @@ public class FiniteFieldTest extends VectorTest {
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void stretchTest() {
 		final Vector stretch1 = modulo2.stretch(modulo2.getOne(), (Scalar) modulo2.getOne());
 		final Vector stretch2 = modulo2.stretch(modulo2.getOne(), (Scalar) modulo2.getZero());
@@ -67,12 +72,14 @@ public class FiniteFieldTest extends VectorTest {
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void inverseTest() {
 		final Vector inv1 = modulo2.inverse(modulo2.getOne());
 		final Vector inv2 = modulo2.inverse(modulo2.getZero());
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void getOneTest() {
 		final Vector yes = modulo2.getOne();
 		((FiniteVectorMethods) yes).getCoordinates();

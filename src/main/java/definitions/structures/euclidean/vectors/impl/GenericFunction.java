@@ -12,6 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import plotter.Plotter;
 
 public abstract class GenericFunction implements Function {
 
@@ -71,6 +72,24 @@ public abstract class GenericFunction implements Function {
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
 		return this.coordinatesMap;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	public void plot(final double left, final double right) {
+		((Plotter) gen).plot(this, left, right);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	public void plotCompare(final double left, final double right, final Function fun) {
+		((Plotter) gen).plotCompare(this, fun, left, right);
 	}
 
 }

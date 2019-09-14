@@ -23,6 +23,7 @@ import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import plotter.Plotter;
 
 public class TrigonometricSpaceWithLinearGrowthTest {
 
@@ -65,6 +66,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test() {
 
 		try {
@@ -87,15 +89,17 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				}
 				return new Real(testValues[1][k]);
 			}
+
 		};
 
 		staircaseFunctionToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction);
 
-		staircaseFunction.plotCompare(left, right, (Function) staircaseFunctionToFourier);
+		((GenericFunction) staircaseFunction).plotCompare(left, right, (Function) staircaseFunctionToFourier);
 
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test2() {
 
 		try {
@@ -139,6 +143,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
 				return staircaseFunction2.value(new Real(newx));
 			}
+
 		};
 
 		staircaseFunction3ToFourier = new GenericFunction() {
@@ -152,9 +157,10 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
 				return ((Function) staircaseFunction2ToFourier).value(new Real(newx));
 			}
+
 		};
 
-		staircaseFunction3.plotCompare(0, length, (Function) staircaseFunction3ToFourier);
+		((GenericFunction) staircaseFunction3).plotCompare(0, length, (Function) staircaseFunction3ToFourier);
 
 		String ans = "";
 
@@ -166,6 +172,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test3() {
 		identity = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
@@ -174,12 +181,14 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			public Scalar value(Scalar input) {
 				return input;
 			}
+
 		};
 		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
-		identity.plotCompare(left, right, (Function) identityToFourier);
+		((GenericFunction) identity).plotCompare(left, right, (Function) identityToFourier);
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test4() {
 
 		final Function exp = new GenericFunction() {
@@ -192,30 +201,33 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			public Scalar value(Scalar input) {
 				return new Real(Math.exp(input.getValue()));
 			}
+
 		};
 		final Function ans = (Function) extendedTrigonometricFunctionSpace.getCoordinates(exp);
-		exp.plotCompare(left, right, ans);
+		((GenericFunction) exp).plotCompare(left, right, ans);
 
 	}
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test5() {
 
-		final List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();
-		final double[][] scalarProducts = new double[base.size()][base.size()];
-		int i = 0;
-		String str = "";
-		for (final Vector vec1 : base) {
-			int j = 0;
-			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2).getValue();
-				str += (scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",";
-				j++;
-			}
-			str += "\r";
-			i++;
-		}
-		System.out.println(str);
+//		final List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();
+//		final double[][] scalarProducts = new double[base.size()][base.size()];
+//		int i = 0;
+//		String str = "";
+//		for (final Vector vec1 : base) {
+//			int j = 0;
+//			for (final Vector vec2 : base) {
+//				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2).getValue();
+//				str += (scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",";
+//				j++;
+//			}
+//			str += "\r";
+//			i++;
+//		}
+//		System.out.println(str);
+		extendedTrigonometricFunctionSpace.show();
 	}
 
 	protected static double[][] readFile(String string) throws IOException {

@@ -33,7 +33,7 @@
 // // getSpace().genericBaseToList().get(0);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void testSolve() throws Throwable {
 // final Solver solver = new ExpliciteEulerSolver(fun, 0, 1.e-3);
 // final Function solution = solver.solve();

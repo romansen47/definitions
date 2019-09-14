@@ -22,6 +22,7 @@ public class IntegersTest {
 	 * {@link definitions.structures.abstr.groups.impl.Integers#getInstance()}.
 	 */
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetInstance() {
 		final Group ans = this.group;
 	}
@@ -31,6 +32,7 @@ public class IntegersTest {
 	 * {@link definitions.structures.abstr.groups.impl.Integers#getOrder()}.
 	 */
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetOrder() {
 		final Integer ans = this.group.getOrder();
 	}
@@ -40,6 +42,7 @@ public class IntegersTest {
 	 * {@link definitions.structures.abstr.groups.impl.Integers#operation(definitions.structures.abstr.groups.GroupElement, definitions.structures.abstr.groups.GroupElement)}.
 	 */
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testOperation() {
 		final GroupElement a = this.group.get(10);
 		final GroupElement b = this.group.get(10);

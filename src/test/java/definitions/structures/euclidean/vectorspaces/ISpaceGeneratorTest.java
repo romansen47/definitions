@@ -43,7 +43,7 @@ package definitions.structures.euclidean.vectorspaces;
 //
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public final void test() {
 // fail("Not yet implemented"); // TODO
 // }

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.aop.lib.Trace;
-
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Endomorphism;
 import definitions.structures.abstr.mappings.Homomorphism;
@@ -15,6 +13,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.Trace;
 
 public class MappingGenerator implements IMappingGenerator {
 
@@ -32,7 +31,7 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;

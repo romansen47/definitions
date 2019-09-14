@@ -3,8 +3,6 @@ package definitions.structures.euclidean.vectors.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.aop.lib.Trace;
-
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
@@ -14,6 +12,8 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import plotter.Plotter;
+import settings.Trace;
 
 /**
  * 
@@ -38,6 +38,7 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Scalar value(final Scalar input) {
 		Scalar ans = (Scalar) this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
@@ -47,6 +48,7 @@ public class FunctionTuple extends Tuple implements Function {
 		return ans;
 	}
 
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public LinearMapping getDerivative(VectorSpace space) {
 		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
 			/**
@@ -67,7 +69,7 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Function getProjection(EuclideanSpace source) {
 		return Function.super.getProjection(source);
 	}
@@ -85,6 +87,24 @@ public class FunctionTuple extends Tuple implements Function {
 	@Override
 	public Field getField() {
 		return this.field;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	public void plot(final double left, final double right) {
+		((Plotter) gen).plot(this, left, right);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	public void plotCompare(final double left, final double right, final Function fun) {
+		((Plotter) gen).plotCompare(this, fun, left, right);
 	}
 
 }

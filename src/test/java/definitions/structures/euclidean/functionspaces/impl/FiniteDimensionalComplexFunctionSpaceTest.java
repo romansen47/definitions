@@ -28,6 +28,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 	FunctionSpace space;
 
 	@Test
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test() {
 
 		final Function alpha = new GenericFunction() {

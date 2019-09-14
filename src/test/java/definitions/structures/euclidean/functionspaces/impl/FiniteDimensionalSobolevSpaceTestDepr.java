@@ -25,8 +25,8 @@ import definitions.structures.java.Reader;
 public class FiniteDimensionalSobolevSpaceTestDepr extends FunctionSpaceTest {
 
 	final static Field realSpace = RealLine.getInstance();
-	final static int sobolevDegree = 5;
-	final static int fourierDegree = 20;
+	final static int sobolevDegree = 3;
+	final static int fourierDegree = 10;
 	static VectorSpace trigonometricSobolevSpace;
 
 	@Override
@@ -48,7 +48,7 @@ public class FiniteDimensionalSobolevSpaceTestDepr extends FunctionSpaceTest {
 
 					@Override
 					public Scalar value(Scalar input) {
-						return (Scalar) getField().stretch(input,new Real(10.));
+						return (Scalar) this.getField().stretch(input, new Real(10.));
 					}
 
 				});
@@ -66,7 +66,7 @@ public class FiniteDimensionalSobolevSpaceTestDepr extends FunctionSpaceTest {
 				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
-				while (k+1<testValues[0].length && testValues[0][k] < l) {
+				while (k + 1 < testValues[0].length && testValues[0][k] < l) {
 					k++;
 				}
 				return this.getField().get(testValues[1][k]);

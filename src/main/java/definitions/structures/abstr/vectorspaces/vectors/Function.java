@@ -86,7 +86,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 */
 	@Override
 	default void plot(final double left, final double right) {
-		((Plotter)gen).plot(this, left, right);
+		((Plotter) gen).plot(this, left, right);
 	}
 
 	/**
@@ -94,8 +94,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter)gen).plotCompare(this, fun, left, right);
-		}
+		((Plotter) gen).plotCompare(this, fun, left, right);
+	}
 
 	/**
 	 * Method to compute the derivative of the function.

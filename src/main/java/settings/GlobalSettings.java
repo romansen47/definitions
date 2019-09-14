@@ -53,6 +53,6 @@ public class GlobalSettings {
 	/**
 	 * path to output
 	 */
-	public final static String PLOTS = "src/test/resources/";
+	public final static String PLOTS = "target/";
 
 }

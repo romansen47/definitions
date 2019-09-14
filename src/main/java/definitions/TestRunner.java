@@ -3,8 +3,6 @@ package definitions;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.aop.lib.Operation;
-
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -12,6 +10,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import settings.GlobalSettings;
+import settings.Operation;
 
 public class TestRunner {
 
@@ -33,7 +32,7 @@ public class TestRunner {
 //		Traced.show();
 	}
 
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public void testRun() throws Exception {
 		space.getOrthonormalBase(base);
 	}

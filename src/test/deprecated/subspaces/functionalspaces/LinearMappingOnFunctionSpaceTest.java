@@ -79,17 +79,17 @@
 //
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void test() throws Throwable {
 // runTest(cos, sin);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void test2() throws Throwable {
 // runTest(sin2, sin);
 // }
 //
-// @Test
+// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 // public void test3() throws Throwable {
 // runTest(fun, cos);
 // }

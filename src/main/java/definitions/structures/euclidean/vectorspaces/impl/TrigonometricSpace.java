@@ -16,7 +16,7 @@ import definitions.structures.euclidean.vectors.specialfunctions.Constant;
  * @author ro
  *
  */
-@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
 	/**
@@ -54,13 +54,13 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 	
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector stretch(final Vector vec, final Scalar r) {
 		return super.stretch(vec, r);
 	}
 
 	@Override
-	@com.aop.lib.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
