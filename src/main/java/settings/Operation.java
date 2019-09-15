@@ -12,7 +12,7 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 @Aspect
 public class Operation {
 
-	final static private String PATH = "target/tests/results/";
+	final static private String PATH = "target/";
 
 	private static FileWriter w;
 

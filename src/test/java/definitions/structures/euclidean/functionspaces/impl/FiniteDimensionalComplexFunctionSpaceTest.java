@@ -27,6 +27,10 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 	List<Vector> base = new ArrayList<>();
 	FunctionSpace space;
 
+	public static void main(String[] args) {
+		new FiniteDimensionalComplexFunctionSpaceTest().test();
+	}
+	
 	@Test
 	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test() {
