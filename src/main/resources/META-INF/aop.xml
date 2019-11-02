@@ -1,0 +1,15 @@
+<!DOCTYPE aspectj PUBLIC
+        "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<weaver
+		options="-Xset:weaveJavaxPackages=true -verbose -showWeaveInfo -debug">
+		<include within="definitions..*" />
+		<include within="settings..*" />
+		<include within="cache..*" />
+	</weaver>
+	<aspects>
+		<aspect name="settings.Operation" />
+		<aspect name="settings.TestAspect" />
+		<aspect name="cache.CachingAspect" />
+	</aspects>
+</aspectj>

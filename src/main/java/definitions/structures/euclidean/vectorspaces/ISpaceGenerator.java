@@ -37,8 +37,6 @@ public interface ISpaceGenerator {
 
 	final EuclideanSpace realSpace = RealLine.getInstance();
 
-	final Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
-
 	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {
 		final Field field = (Field) ComplexPlane.getInstance();
 		if (dim == 1) {
@@ -72,42 +70,7 @@ public interface ISpaceGenerator {
 	}
 
 	default VectorSpace getFiniteDimensionalVectorSpace(Field field, final int dim) {
-		EuclideanSpace ans = coordinatesSpaces.get(dim);
-		if (ans != null) {
-			System.out.println(
-					"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
-			return ans;
-		}
-		switch (dim) {
-		case 1:
-			return RealLine.getInstance();
-		case 2:
-			return ComplexPlane.getInstance();
-		case 4:
-			return QuaternionSpace.getInstance();
-		}
-		final List<Vector> basetmp = new ArrayList<>();
-		for (int i = 0; i < dim; i++) {
-			/*
-			 * Direct usage of constructor instead of get method in order to avoid cycles.
-			 * Don't touch this
-			 */
-			basetmp.add(new Tuple(dim));
-		}
-		for (int i = 0; i < dim; i++) {
-			for (int j = 0; j < dim; j++) {
-				if (i == j) {
-					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(i),
-							(Scalar) field.getOne());
-				} else {
-					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(j),
-							(Scalar) field.getZero());
-				}
-			}
-		}
-		ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		coordinatesSpaces.put(dim, ans);
-		return ans;
+		return null;
 	}
 
 	default int getHashCode(Field field, List<Vector> base, Double[] interval) {

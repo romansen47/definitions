@@ -3,6 +3,9 @@ package definitions.structures.generic.finitedimensional.defs.vectors.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -31,7 +34,7 @@ public class PolynomeRegressionTest {
 	private static int maxDegree = 3;
 	protected static Field realLine;
 
-	// @BeforeClass
+	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
 		sin = new GenericFunction() {
@@ -93,7 +96,8 @@ public class PolynomeRegressionTest {
 
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
+//	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void sinTest1() throws Throwable {
 		final Function ans = sin.getProjection(space);
 		ans.plotCompare(left, right, sin);

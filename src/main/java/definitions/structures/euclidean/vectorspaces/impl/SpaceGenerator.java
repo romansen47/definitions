@@ -2,20 +2,29 @@ package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import cache.ICache;
 import cache.MyCache;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.SubField;
 
+@Configuration
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
+	@Autowired
 	private ICache cache = new MyCache();
 
 	private static final long serialVersionUID = 1L;
 
-	private static ISpaceGenerator generator = null;
+	@Autowired
+	private static ISpaceGenerator generator;
 
+	@Bean
+	@Autowired
 	public static ISpaceGenerator getInstance() {
 		if (generator == null) {
 			generator = new SpaceGenerator();
@@ -23,6 +32,7 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		return generator;
 	}
 
+	@Autowired
 	private SpaceGenerator() {
 	}
 
@@ -44,6 +54,7 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
+	@Bean
 	public void setCache(ICache ans) {
 		this.cache = ans;
 	}

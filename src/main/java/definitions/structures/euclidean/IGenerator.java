@@ -42,7 +42,7 @@ public interface IGenerator extends Serializable {
 	}
 
 	default VectorSpace getFiniteDimensionalSobolevSpace(Field field, List<Vector> genericBase, double left,
-			double right, final int degree) {
+			double right, final int degree) throws Exception {
 		return getSpacegenerator().getFiniteDimensionalSobolevSpace(field, genericBase, left, right, degree);
 	}
 

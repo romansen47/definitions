@@ -92,7 +92,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector add(Vector vec1, Vector vec2) {
 		if (vec1 == this.nullVec()) {
 			return vec2;
@@ -108,7 +108,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector stretch(Vector vec1, Scalar r) {
 		if (r instanceof Quaternion) {
 			return this.product(vec1, r);
@@ -127,7 +127,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}
@@ -217,7 +217,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Scalar conjugate(Scalar value) {
 		final Quaternion v = (Quaternion) value;
 		return new Quaternion(v.getReal().getValue(), -v.getI().getValue(), -v.getJ().getValue(), -v.getK().getValue());

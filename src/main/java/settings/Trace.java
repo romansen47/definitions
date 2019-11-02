@@ -5,15 +5,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ ElementType.METHOD, ElementType.TYPE, ElementType.CONSTRUCTOR })
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface Trace {
 	
-	boolean trace();
+	boolean trace() default true;
 	
 	int depth();
 	
 	boolean initial();
 	
-	boolean transit();
+	boolean transit() default true;
 }

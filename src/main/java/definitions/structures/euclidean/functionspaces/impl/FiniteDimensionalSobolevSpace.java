@@ -85,7 +85,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
@@ -115,7 +115,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
@@ -132,7 +132,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		return this.degree;
 	}
 
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public DerivativeOperator getDerivativeBuilder() {
 		if (this.derivativeBuilder == null) {
 			this.setDerivativeBuilder(new DerivativeOperator(this, this));

@@ -55,7 +55,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector add(Vector vec1, Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
@@ -63,7 +63,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
@@ -80,12 +80,12 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}
 
-//	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+//	
 //	public Vector conjugate(Vector factor) {
 //		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
 //		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
@@ -152,7 +152,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Scalar inverse(Vector factor) {
 		return (Scalar) Field.super.inverse(factor);
 	}
@@ -163,7 +163,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Scalar conjugate(Scalar value) {
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());

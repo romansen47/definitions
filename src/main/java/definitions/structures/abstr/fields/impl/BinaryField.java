@@ -60,7 +60,7 @@ public final class BinaryField implements PrimeField {
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector product(Vector vec1, Vector vec2) {
 		return this.get(vec1.equals(this.getOne()) && vec2.equals(this.getOne()));
 	}
@@ -84,19 +84,19 @@ public final class BinaryField implements PrimeField {
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector add(Vector vec1, Vector vec2) {
 		return this.get(!vec1.equals(vec2));
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector stretch(Vector vec1, Scalar r) {
 		return this.get(vec1.equals(this.unit) && r.equals(this.unit));
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector inverse(Vector factor) {
 		if (factor instanceof True) {
 			return this.unit;
@@ -115,7 +115,7 @@ public final class BinaryField implements PrimeField {
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector projection(Vector w, Vector v) {
 		if (v == False.getInstance()) {
 			return False.getInstance();
@@ -194,7 +194,7 @@ public final class BinaryField implements PrimeField {
 	 * @return the conjugated
 	 */
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Scalar conjugate(Scalar value) {
 		return value;
 	}

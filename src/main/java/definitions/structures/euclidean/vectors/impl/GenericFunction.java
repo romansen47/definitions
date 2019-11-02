@@ -78,7 +78,7 @@ public abstract class GenericFunction implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public void plot(final double left, final double right) {
 		((Plotter) gen).plot(this, left, right);
 	}
@@ -87,7 +87,7 @@ public abstract class GenericFunction implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public void plotCompare(final double left, final double right, final Function fun) {
 		((Plotter) gen).plotCompare(this, fun, left, right);
 	}

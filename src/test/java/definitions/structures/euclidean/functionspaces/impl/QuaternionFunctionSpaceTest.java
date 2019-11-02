@@ -36,6 +36,7 @@ public class QuaternionFunctionSpaceTest {
 	public static void main(String[] args) {
 		prepare();
 		new QuaternionFunctionSpaceTest().test();
+		System.exit(0);
 	}
 
 	@BeforeClass

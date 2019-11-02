@@ -18,6 +18,7 @@ import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import plotter.Plotable;
 import settings.GlobalSettings;
+import settings.Measurable;
 import settings.Trace;
 
 /**
@@ -26,7 +27,7 @@ import settings.Trace;
  *
  *         Concrete implementation of a finite dimensional function space.
  */
-@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace implements EuclideanFunctionSpace {
 
 	private static final long serialVersionUID = -8669475459309858828L;
@@ -77,13 +78,13 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
+	
 	public Vector normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
@@ -106,15 +107,18 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
+	@Measurable
 	public double getLeft() {
 		return this.getInterval()[0];
 	}
 
 	@Override
+	@Measurable
 	public double getRight() {
 		return this.getInterval()[1];
 	}
 
+	@Measurable
 	public void plotBase() {
 		for (final Vector vec : this.genericBaseToList()) {
 			((Plotable) vec).plot(this.getLeft(), this.getRight());
@@ -128,6 +132,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param d
 	 * @param tmpBase the list.
 	 */
+	@Measurable
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
@@ -145,6 +150,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param d
 	 * @param tmpBase the list.
 	 */
+	@Measurable
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector cos = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), new Real(0.5 * Math.PI),
@@ -160,25 +166,25 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector add(final Vector vec1, final Vector vec2) {
 		return EuclideanFunctionSpace.super.add(vec1, vec2);
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector stretch(final Vector vec, final Scalar r) {
 		return EuclideanFunctionSpace.super.stretch(vec, r);
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	@Override
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = false)
+	
 	public void show() {
 		super.show();
 	}

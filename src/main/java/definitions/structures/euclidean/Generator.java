@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import cache.ICache;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
@@ -17,18 +21,28 @@ import settings.GlobalSettings;
 import solver.StdDraw;
 
 @SuppressWarnings("unused")
+@Configuration
 public class Generator implements IGenerator,Plotter {
 
+	@Autowired
 	final private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
 	private static final long serialVersionUID = -5553433829703982950L;
 //	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
+	
+	@Autowired
 	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
+	
+	@Autowired
 	private final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
+	
+	@Autowired
 	private final String PATH = GlobalSettings.CACHEDSPACES;
 
-	private static Generator generator = null;
+	@Autowired
+	private static Generator generator;
 
+	@Bean
 	public static IGenerator getGenerator() {
 		if (generator == null) {
 			generator = new Generator();
@@ -53,11 +67,13 @@ public class Generator implements IGenerator,Plotter {
 //	}
 
 	@Override
+	@Bean
 	public IMappingGenerator getMappinggenerator() {
 		return generator.mappingGenerator;
 	}
 
 	@Override
+	@Bean
 	public ISpaceGenerator getSpacegenerator() {
 		return generator.spaceGenerator;
 	}

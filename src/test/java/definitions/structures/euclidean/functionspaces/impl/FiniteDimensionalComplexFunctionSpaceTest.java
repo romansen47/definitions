@@ -29,6 +29,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 
 	public static void main(String[] args) {
 		new FiniteDimensionalComplexFunctionSpaceTest().test();
+		System.exit(0);
 	}
 	
 	@Test
