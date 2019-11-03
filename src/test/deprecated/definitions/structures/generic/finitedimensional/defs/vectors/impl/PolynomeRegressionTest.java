@@ -97,25 +97,25 @@ public class PolynomeRegressionTest {
 	}
 
 	@Test
-//	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+//	
 	public void sinTest1() throws Throwable {
 		final Function ans = sin.getProjection(space);
 		ans.plotCompare(left, right, sin);
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	public void expTest1() throws Throwable {
 		final Function ans = exp.getProjection(space);
 		ans.plotCompare(left, right, exp);
 	}
 
-	// //@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// //@Test
 	public void sinTest2() throws Throwable {
 		final Function ans = sin.getProjection(newSpace);
 		ans.plotCompare(left, right, sin);
 	}
 
-	// //@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// //@Test
 	public void expTest2() throws Throwable {
 		final Function ans = exp.getProjection(newSpace);
 		ans.plotCompare(left, right, exp);

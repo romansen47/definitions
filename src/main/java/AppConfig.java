@@ -1,7 +1,9 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cache.CachingAspect;
+import aspects.CachingAspect;
+import aspects.GoDeep;
+import aspects.Operation;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -29,36 +33,35 @@ public class AppConfig {
 
 	@Autowired
 	private ISpaceGenerator spaceGenerator;
-	
+
 	@Bean("spaceGenerator")
 	public ISpaceGenerator getSpaceGenerator() {
-		if(spaceGenerator==null) {
+		if (spaceGenerator == null) {
 			setSpaceGenerator((SpaceGenerator) context.getBean("spaceGenerator"));
 		}
 		return spaceGenerator;
 	}
-	
+
 	@Bean("spaceGenerator")
 	public void setSpaceGenerator(ISpaceGenerator gen) {
-		spaceGenerator=gen;
+		spaceGenerator = gen;
 	}
 
 	@Autowired
 	private CachingAspect cachingAspect;
-	
+
 	@Bean("cachingAspect")
 	public CachingAspect getCachingAspect() {
-		if(cachingAspect==null) {
+		if (cachingAspect == null) {
 			setCachingAspect((CachingAspect) context.getBean("cachingAspect"));
 		}
 		return cachingAspect;
 	}
-	
+
 	@Bean("cachingAspect")
 	public void setCachingAspect(CachingAspect accessorAspect) {
 		this.cachingAspect = accessorAspect;
 	}
-
 
 	final public Field f = (Field) QuaternionSpace.getInstance();
 	List<Vector> base = new ArrayList<>();
@@ -68,17 +71,23 @@ public class AppConfig {
 	Function beta;
 	Function gamma;
 
-	final ApplicationContext context;
-	
-	private AppConfig() {
-		context=new ClassPathXmlApplicationContext("classpath:META-INF/aspectj.xml");
-	}
-	
-	public static void main(String[] args) {
-		AppConfig application=new AppConfig();
+	static ApplicationContext context;
+
+	public static void main(String[] args) throws IOException {
+		context = new ClassPathXmlApplicationContext("classpath:META-INF/aspectj.xml");
+		GoDeep.print();
+		Operation.print();
+		AppConfig application = new AppConfig();
 		application.prepare();
 		application.test();
 		System.exit(0);
+	}
+
+	@Test
+	public void testRun() throws IOException {
+		context = new ClassPathXmlApplicationContext("classpath:META-INF/aspectj.xml");
+		prepare();
+		test();
 	}
 
 	public void prepare() {

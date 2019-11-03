@@ -33,7 +33,7 @@ public class SubSpaceTest {
 	 * {@link definitions.structures.euclidean.vectorspaces.SubSpace#getSuperSpace()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetSuperSpace() {
 		Assert.assertTrue(((RealLine) this.realLine).getSuperSpace().equals(this.complexPlane));
 	}
@@ -43,7 +43,7 @@ public class SubSpaceTest {
 	 * {@link definitions.structures.euclidean.vectorspaces.SubSpace#getEmbedding()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetEmbedding() {
 		final Homomorphism embedding = ((RealLine) this.realLine).getEmbedding();
 		Assert.assertTrue(embedding.get(((Field) this.realLine).getOne()).equals(((Field) this.complexPlane).getOne()));

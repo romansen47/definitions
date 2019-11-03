@@ -25,9 +25,9 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
 	@Bean
 	public static ISpaceGenerator getInstance() {
-//		if (generator == null) {
-//			generator = new SpaceGenerator();
-//		}
+		if (generator == null) {
+			generator = new SpaceGenerator();
+		}
 		return generator;
 	}
 	
@@ -42,12 +42,12 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		return this.getCache().toString();
 	}
 
-	@Override
+//	@Override
 	// TODO!
-	public EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField) {
-		final int ratio = complexSpace.getDim() / subField.getDim();
-		return null;
-	}
+//	public EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField) {
+//		final int ratio = complexSpace.getDim() / subField.getDim();
+//		return null;
+//	}
 
 	@Override
 	public ICache getCache() {

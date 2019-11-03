@@ -85,52 +85,52 @@ public class FiniteDimensionalFunctionSpaceTest {
 		return Math.abs(a - b) < 1.e-2;
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test1() {
 		Assert.assertTrue(this.almostEqual(integral1, 2));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test2() {
 		Assert.assertTrue(this.almostEqual(integral2, 1));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test3() {
 		Assert.assertTrue(this.almostEqual(integral3, 1));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test4() {
 		Assert.assertTrue(this.almostEqual(integral4, 0));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test5() {
 		Assert.assertTrue(this.almostEqual(integral5, 0));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test6() {
 		Assert.assertTrue(this.almostEqual(integral6, 0));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test7() {
 		Assert.assertTrue(this.almostEqual(integral7, 0));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test8() {
 		Assert.assertTrue(this.almostEqual(integral8, 0));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test9() {
 		Assert.assertTrue(this.almostEqual(integral9, 0));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test10() {
 		Assert.assertTrue(this.almostEqual(integral10, 1));
 	}

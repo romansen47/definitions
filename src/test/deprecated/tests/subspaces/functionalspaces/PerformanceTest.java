@@ -64,7 +64,7 @@ package tests.subspaces.functionalspaces;
 // };
 // }
 //
-// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+// @Test
 // public void identity() throws Throwable {
 // final Vector toFourier = space.getCoordinates(parabel);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -73,7 +73,7 @@ package tests.subspaces.functionalspaces;
 // Assert.assertTrue(ans < 0.1);
 // }
 //
-// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+// @Test
 // public void abs() throws Throwable {
 // final Vector toFourier = space.getCoordinates(abs);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -82,7 +82,7 @@ package tests.subspaces.functionalspaces;
 // Assert.assertTrue(ans < 0.1);
 // }
 //
-// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+// @Test
 // public void exp() throws Throwable {
 // final Vector toFourier = space.getCoordinates(exp);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -91,7 +91,7 @@ package tests.subspaces.functionalspaces;
 // Assert.assertTrue(ans < 5);
 // }
 //
-// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+// @Test
 // public void symExp() throws Throwable {
 // final Vector toFourier = space.getCoordinates(symExp);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);
@@ -100,7 +100,7 @@ package tests.subspaces.functionalspaces;
 // Assert.assertTrue(ans < 0.1);
 // }
 //
-// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+// @Test
 // public void circle() throws Throwable {
 // final Vector toFourier = space.getCoordinates(circle);
 // // ((Function)toFourier).plot(-Math.PI,Math.PI);

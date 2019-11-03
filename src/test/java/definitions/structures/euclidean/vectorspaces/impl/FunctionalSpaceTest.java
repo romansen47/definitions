@@ -39,7 +39,7 @@ public class FunctionalSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void spaceTest() {
 		final Vector a = this.space.genericBaseToList().get(0);
 		final Vector b = this.dualSpace.genericBaseToList().get(0);
@@ -50,7 +50,7 @@ public class FunctionalSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void functionSpaceTest() {
 		final Vector a = this.functionSpace.genericBaseToList().get(1);
 		final Vector b = this.dualFunctionSpace.genericBaseToList().get(1);
@@ -61,7 +61,7 @@ public class FunctionalSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void sobolevSpaceTest() {
 		final Vector a = this.sobolevSpace.genericBaseToList().get(1);
 		final Vector b = this.dualSobolevSpace.genericBaseToList().get(1);

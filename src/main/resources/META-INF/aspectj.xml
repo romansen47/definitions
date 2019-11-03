@@ -12,10 +12,13 @@
 
 	<!-- Enable @AspectJ annotation support -->
 	<context:load-time-weaver aspectj-weaving="on" />
-	<aop:aspectj-autoproxy proxy-target-class="false"
+	<aop:aspectj-autoproxy proxy-target-class="true"
 		expose-proxy="false" />
-	<bean
+		<bean
 		class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
-	<bean id="cache.cachingAspect" name="cachingAspect" class="cache.CachingAspect" />
+	<bean id="aspects.cachingAspect" name="cachingAspect" class="aspects.CachingAspect" />
+	<bean id="aspects.GoDeep" name="goDeep" class="aspects.GoDeep" />
+	<bean id="aspects.Operation" name="operation" class="aspects.Operation" />
+	<bean id="aspects.TestAspect" name="testAspect" class="aspects.TestAspect" />
 	
 </beans>

@@ -39,7 +39,7 @@
 //		}
 //	}
 //
-//	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+//	@Test
 //	public final void test() {
 //		Assert.assertTrue(true);
 //	}

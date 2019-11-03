@@ -23,7 +23,7 @@ public class ComplexTest extends VectorTest {
 	 * {@link definitions.structures.abstr.fields.scalars.impl.Complex#getInverse()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public final void testGetInverse() {
 		Assert.assertTrue(((Scalar) this.getVector()).getInverse().equals(new Complex(0.5, -0.5)));
 	}

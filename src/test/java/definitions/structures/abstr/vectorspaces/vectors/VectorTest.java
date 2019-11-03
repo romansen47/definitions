@@ -23,7 +23,7 @@ public abstract class VectorTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Vector#getDim()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetDim() {
 		Assert.assertTrue(this.getVector().getDim().intValue() == this.getSpace().getDim());
 	}
@@ -33,7 +33,7 @@ public abstract class VectorTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Vector#elementOf(definitions.structures.abstr.vectorspaces.VectorSpace)}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testElementOf() {
 		Assert.assertTrue(this.getVector().elementOf(this.getSpace()));
 	}
@@ -43,7 +43,7 @@ public abstract class VectorTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods#getCoordinates()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetCoordinates() {
 		Assert.assertTrue(((FiniteVectorMethods) this.getVector()).getCoordinates() != null);
 	}

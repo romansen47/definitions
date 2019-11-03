@@ -43,7 +43,7 @@ public class FiniteDimensionalLinearMappingTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetLinearity() {
 //		Traced.show();
 		Assert.assertTrue(
@@ -51,7 +51,7 @@ public class FiniteDimensionalLinearMappingTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetGenericMatrix() {
 //		Traced.show();
 		Assert.assertTrue(this.ans2[0][0].getValue() == 5.);

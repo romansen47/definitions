@@ -164,33 +164,33 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void scalarProducts() throws Throwable {
 		sobolevSpace.show();
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void identity() throws Throwable {
 		normalizedIdentity.plotCompare(left, right, (Function) idToSobolevFourierCoordinates);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void exp() throws Throwable {
 		exp.plotCompare(left, right, (Function) expToSobolevFourierCoordinates);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void niceone() throws Throwable {
 		((Function) niceOne).plotCompare(left, right, (Function) newAbs);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void staircaseFunction() throws Throwable {
 		staircaseFunctionToFourier = sobolevSpace.getCoordinates(staircaseFunction);
 		((Function) staircaseFunction).plotCompare(left, right, (Function) staircaseFunctionToFourier);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void staircaseFunction2() throws Throwable {
 		staircaseFunction2ToFourier = ((Function) staircaseFunction2).getProjection(sobolevSpace);
 		((Function) staircaseFunction2).plotCompare(left, right, (Function) staircaseFunction2ToFourier);

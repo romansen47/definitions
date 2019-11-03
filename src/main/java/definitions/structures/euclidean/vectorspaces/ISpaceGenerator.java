@@ -264,7 +264,7 @@ public interface ISpaceGenerator {
 		return new FiniteDimensionalVectorSpace(field, newBase);
 	}
 
-	EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField);
+//	EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField);
 
 	ICache getCache();
 

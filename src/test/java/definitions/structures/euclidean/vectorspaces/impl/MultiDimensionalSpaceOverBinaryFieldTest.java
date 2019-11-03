@@ -19,7 +19,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest {
 	// EuclideanSpace asRealSpace=gen.convert(complexSpace,RealLine.getInstance());
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test() {
 		final int dim = 10;
 

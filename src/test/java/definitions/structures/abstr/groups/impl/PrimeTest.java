@@ -57,7 +57,7 @@ public class PrimeTest {
 	};
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test() {
 		this.distribution.plot(0, 1.e6);
 	}

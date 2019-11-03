@@ -27,7 +27,7 @@ public class FieldTest extends VectorSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 
 	public void test() {
 		final Vector test = new Complex(1, 1);
@@ -39,7 +39,7 @@ public class FieldTest extends VectorSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 
 	public void multiplicationTest() {
 		((Field) this.getSpace()).show((Field) this.getSpace());

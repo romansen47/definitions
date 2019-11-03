@@ -95,7 +95,7 @@ public class QuaternionFunctionSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test() {
 		this.space = new FiniteDimensionalFunctionSpace(f, this.base, -1, 1, true);
 

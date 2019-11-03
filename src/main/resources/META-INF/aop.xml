@@ -3,11 +3,15 @@
 <aspectj>
 	<weaver
 		options="-Xset:weaveJavaxPackages=true -verbose -showWeaveInfo -debug">
-		<include within="definitions..*" />
-		<include within="settings..*" />
-		<include within="cache..*" />
+		<!-- <include within="AppConfig" /> <include within="definitions..*" /> 
+			<include within="settings..*" /> <include within="cache..*" /> <exclude within="plotter..*" 
+			/> <exclude within="definitions.structures.euclidean.vectors.impl.*" /> <include 
+			within="aspects.*" /> -->
 	</weaver>
 	<aspects>
-		<aspect name="cachingAspect" />
+		<aspect name="aspects.CachingAspect" />
+		<aspect name="aspects.GoDeep" />
+		<aspect name="aspects.Operation" />
+		<aspect name="aspects.TestAspect" />
 	</aspects>
 </aspectj>

@@ -1,4 +1,4 @@
-package cache;
+package aspects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +32,6 @@ public class CachingAspect {
 	
 	@Bean(name="cachingAspect")
 	public static CachingAspect getAspect() {
-//		if (aspect==null) {
-//			aspect=new CachingAspect();
-//		}
 		return aspect;
 	}
 	

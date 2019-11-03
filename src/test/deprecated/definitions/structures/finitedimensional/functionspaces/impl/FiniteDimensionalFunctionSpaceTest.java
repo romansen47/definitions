@@ -51,7 +51,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 * Test method for
 	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
 	 */
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public final void testNullVec() {
 		final Scalar d = ((NormedSpace) trigonometricSpace).norm(((VectorSpaceMethods) trigonometricSpace).nullVec());
 		Assert.assertTrue(Math.abs(d.getValue()) < 1.e-3);
@@ -62,7 +62,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#getOrthonormalBase(java.util.List)}.
 	 */
 	@SuppressWarnings({ "unused" })
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public final void testGetOrthonormalBase() {
 		final List<Vector> ortho = ((EuclideanFunctionSpace) trigonometricSpace)
 				.getOrthonormalBase(((EuclideanFunctionSpace) trigonometricSpace).genericBaseToList());
@@ -73,7 +73,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// * Test method for {@link
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#FiniteDimensionalFunctionSpace()}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testFiniteDimensionalFunctionSpace() {
 	// fail("Not yet implemented"); // TODO
 	// }
@@ -83,7 +83,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#FiniteDimensionalFunctionSpace(java.util.List,
 	// double, double)}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void
 	// testFiniteDimensionalFunctionSpaceListOfVectorDoubleDouble() {
 	// fail("Not yet implemented"); // TODO
@@ -93,7 +93,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// * Test method for {@link
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getInterval()}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testGetInterval() {
 	// fail("Not yet implemented"); // TODO
 	// }
@@ -102,7 +102,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// * Test method for {@link
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getEpsilon()}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testGetEpsilon() {
 	// fail("Not yet implemented"); // TODO
 	// }
@@ -112,7 +112,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#stretch(definitions.structures.abstr.Vector,
 	// double)}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testStretch() {
 	// fail("Not yet implemented"); // TODO
 	// }
@@ -121,7 +121,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// * Test method for {@link
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#normalize(definitions.structures.abstr.Vector)}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testNormalize() {
 	// fail("Not yet implemented"); // TODO
 	// }
@@ -130,7 +130,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// * Test method for {@link
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getLeft()}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testGetLeft() {
 	// fail("Not yet implemented"); // TODO
 	// }
@@ -139,7 +139,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	// * Test method for {@link
 	// definitions.structures.finitedimensional.functionspaces.impl.FiniteDimensionalFunctionSpace#getRight()}.
 	// */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test
 	// public final void testGetRight() {
 	// fail("Not yet implemented"); // TODO
 	// }

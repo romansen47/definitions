@@ -50,32 +50,32 @@ public class FiniteDimensionalLinearMappingTest {
 
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void first() throws Throwable {
 		Assert.assertTrue(composition.get(e1).equals(e1));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void second() throws Throwable {
 		Assert.assertTrue(composition.get(e2).equals(e2));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void third() throws Throwable {
 		Assert.assertTrue(composition.get(e3).equals(e3));
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void iso1() throws Throwable {
 		Assert.assertTrue(map instanceof Isomorphism);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void iso2() throws Throwable {
 		Assert.assertTrue(inv instanceof Isomorphism);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void iso3() throws Throwable {
 		Assert.assertTrue(composition instanceof Isomorphism);
 	}

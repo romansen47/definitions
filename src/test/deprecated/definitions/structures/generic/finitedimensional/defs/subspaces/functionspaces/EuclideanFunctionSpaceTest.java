@@ -62,7 +62,7 @@ public class EuclideanFunctionSpaceTest {
 				trigonometricDegree, sobolevDegree);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void polynomialL2() throws java.lang.Exception {
 		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpace,
 				new Sine(RealLine.getInstance().getOne(), (Scalar) RealLine.getInstance().nullVec(),
@@ -77,7 +77,7 @@ public class EuclideanFunctionSpaceTest {
 		((EuclideanSpace) extendedSpace).show();
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	
 	public void polynomialSobolev() throws java.lang.Exception {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpaceSobolev,
@@ -87,7 +87,7 @@ public class EuclideanFunctionSpaceTest {
 		((EuclideanSpace) extendedToSobolev).show();
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void trigonometricL2() throws java.lang.Exception {
 		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpace,
 				new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()) {
@@ -96,7 +96,7 @@ public class EuclideanFunctionSpaceTest {
 		((EuclideanSpace) extendedSpace).show();
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void trigonometricSobolev() throws java.lang.Exception {
 		final Vector fun = new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()) {
 			private static final long serialVersionUID = -6657519463985748027L;
@@ -106,14 +106,14 @@ public class EuclideanFunctionSpaceTest {
 		((EuclideanSpace) extendedToSobolev).show();
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void trigonometric2() throws java.lang.Exception {
 		EuclideanSpace ans = Generator.getGenerator().getSpacegenerator()
 				.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 49);
 		exp.getProjection(ans).plotCompare(-Math.PI, Math.PI, exp);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void trigonometricSobolev2() throws java.lang.Exception {
 		ISpaceGenerator sp = Generator.getGenerator().getSpacegenerator();
 		EuclideanSpace ans = sp.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 7);

@@ -93,7 +93,7 @@ public class FunctionTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public final void testGetDerivativeInt() {
 		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
 

@@ -49,7 +49,7 @@ public class QuaternionSpaceTest extends VectorSpaceTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testAddAndStretch() {
 		Assert.assertTrue(this.getSpace().stretch(this.getSpace().add(this.getVec1(), this.getVec2()), this.getFactor())
 				.equals(((Field) this.getSpace()).getOne()));

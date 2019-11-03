@@ -66,7 +66,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test() {
 
 		try {
@@ -99,7 +99,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test2() {
 
 		try {
@@ -172,7 +172,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test3() {
 		identity = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
@@ -188,7 +188,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test4() {
 
 		final Function exp = new GenericFunction() {
@@ -209,7 +209,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void test5() {
 
 //		final List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();

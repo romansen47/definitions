@@ -1,8 +1,11 @@
-package settings;
+package aspects;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,37 +16,18 @@ import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 
-
 @Aspect
 public class Operation {
 
-	final static private String PATH = "C:\\Users\\roman\\";
-
+	final private static List<String> LIST = new ArrayList<>();
+	final static private String PATH = "target/";
 	private static FileWriter w;
-
 	private static BufferedWriter bw;
-
-	boolean tracing = false;
-
 	static int actualDepth = 0;
 
-	@Around("@annotation(anno) && execution(public !final * donothing.definitions..*(..))")
-	public Object processSystemRequest(final ProceedingJoinPoint pjp, Trace anno) throws Throwable {
-		if (anno.initial()) {
-			System.out.println("OperationAspect enabled");
-			tracing = true;
-		}
-		if (!tracing ) {
-			return pjp.proceed();
-		}
-		boolean tmpTracing = tracing;
-		tracing = anno.transit();
-		if (w == null) {
-			String name = PATH + pjp.getThis().getClass().getSimpleName();
-			w = new FileWriter(PATH + "test-results.xml");
-			bw = new BufferedWriter(w);
-			bw.write("");
-		}
+//	@Around("execution(public * nothing.definitions.structures.abstr.vectorspaces..*(..))")
+	@Around("execution(!final !static !abstract definitions..* definitions..*(..))")
+	public Object processSystemRequest(final ProceedingJoinPoint pjp) throws Throwable {
 		String ans = pjp.toShortString();
 		int k = ans.length();
 		ans = ans.substring(10, k).split("@")[0];
@@ -53,24 +37,14 @@ public class Operation {
 		} else {
 			ans = ans.substring(0, k - 3);
 		}
-		bw.write("<" + ans + ">\r");
-		bw.flush();
+		LIST.add("<" + ans + ">\r");
 		writeArgs(pjp);
 		actualDepth += 1;
 		Object o = pjp.proceed();
 		actualDepth -= 1;
-		if (actualDepth < anno.depth()) {
-			writeObject(o, ans);
-		}
-		if (o != null) {
-			bw.write("</" + ans + ">\r");
-			bw.flush();
-		}
-		if (actualDepth > 0) {
-			tracing = tmpTracing;
-		} else {
-			tracing = false;
-		}
+		writeObject(o, ans);
+		LIST.add("</" + ans + ">\r");
+
 		return o;
 	}
 
@@ -84,18 +58,16 @@ public class Operation {
 				p = p.split("@")[0];
 			}
 			if (o.getClass().getSimpleName() != null && o.getClass().getSimpleName() != "") {
-				bw.write("<" + o.getClass().getTypeName() + ">" + p + "</" + o.getClass().getTypeName() + ">\r");
+				LIST.add("<" + o.getClass().getTypeName() + ">" + p + "</" + o.getClass().getTypeName() + ">\r");
 			} else {
-				bw.write("<" + o.getClass().getSimpleName() + ">" + p + "</" + o.getClass().getSimpleName() + ">\r");
+				LIST.add("<" + o.getClass().getSimpleName() + ">" + p + "</" + o.getClass().getSimpleName() + ">\r");
 			}
-			bw.flush();
 		}
 	}
 
 	private void writeArgs(ProceedingJoinPoint pjp) throws IOException {
 		if (pjp.getArgs().length > 0) {
-			bw.write("<arguments>\r");
-			bw.flush();
+			LIST.add("<arguments>\r");
 			for (Object u : pjp.getArgs()) {
 				String p = u.toString();
 				if (p.contains(" ")) {
@@ -105,15 +77,27 @@ public class Operation {
 					p = p.split("@")[0];
 				}
 				if (u.getClass().getSimpleName() != null && u.getClass().getSimpleName() != "") {
-					bw.write("<" + u.getClass().getTypeName() + ">" + p + "</" + u.getClass().getTypeName() + ">\r");
+					LIST.add("<" + u.getClass().getTypeName() + ">" + p + "</" + u.getClass().getTypeName() + ">\r");
 				} else {
-					bw.write(
+					LIST.add(
 							"<" + u.getClass().getSimpleName() + ">" + p + "</" + u.getClass().getSimpleName() + ">\r");
 				}
+			}
+			LIST.add("</arguments>\r");
+		}
+	}
+
+	public static void print() throws IOException {
+		if (w == null) {
+			w = new FileWriter(PATH + "operation-test-results.xml");
+			bw = new BufferedWriter(w);
+			for (String str : LIST) {
+				bw.write(str);
 				bw.flush();
 			}
-			bw.write("</arguments>\r");
-			bw.flush();
+			w.close();
+			bw.close();
+			LIST.clear();
 		}
 	}
 

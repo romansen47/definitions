@@ -31,7 +31,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#nullVec()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testNullVec() {
 		boolean ans = true;
 		final Complex nul = (Complex) this.complexPlane.nullVec();
@@ -46,7 +46,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#getI()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetI() {
 		Assert.assertTrue(this.complexPlane.getI().equals(new Complex(0, 1)));
 	}
@@ -56,7 +56,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#product(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testProduct() {
 		Assert.assertTrue(this.complexPlane.product(this.one, this.one).equals(this.one));
 		Assert.assertTrue(this.complexPlane.product(this.one, this.im).equals(this.im));
@@ -69,7 +69,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testAdd() {
 		Assert.assertTrue(this.complexPlane.add(this.one, this.reMin).equals(this.complexPlane.nullVec()));
 		Assert.assertTrue(this.complexPlane.add(this.im, this.imMin).equals(this.complexPlane.nullVec()));
@@ -80,7 +80,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#stretch(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.Scalar)}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testStretch() {
 		Assert.assertTrue(this.complexPlane.stretch(this.one, new Real(5)).equals(new Complex(5, 0)));
 		Assert.assertTrue(this.complexPlane.stretch(this.im, new Real(-5)).equals(new Complex(0, -5)));
@@ -93,7 +93,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#inverse(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testInverse() {
 		Assert.assertTrue(this.complexPlane.inverse(this.im).equals(this.imMin));
 	}
@@ -103,7 +103,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#getOne()}.
 	 */
 	@Test
-	@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	
 	public void testGetOne() {
 		Assert.assertTrue(this.complexPlane.getOne().equals(new Complex(1, 0)));
 	}
