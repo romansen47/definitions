@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -19,15 +22,23 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 @Aspect
 public class Operation {
 
-	final private static List<String> LIST = new ArrayList<>();
+	final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
+	final static Map<Thread, String> tests = new ConcurrentHashMap<>();
 	final static private String PATH = "target/";
 	private static FileWriter w;
 	private static BufferedWriter bw;
 	static int actualDepth = 0;
 
 //	@Around("execution(public * nothing.definitions.structures.abstr.vectorspaces..*(..))")
-	@Around("execution(!final !static !abstract definitions..* definitions..*(..))")
+	@Around("execution(!final !abstract definitions.structures.euclidean..* definitions.structures..*.*(..))"
+			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
+			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
 	public Object processSystemRequest(final ProceedingJoinPoint pjp) throws Throwable {
+		List<String> LIST = map.get(Thread.currentThread());
+		if (LIST == null) {
+			LIST = new ArrayList<>();
+			map.put(Thread.currentThread(),LIST);
+		}
 		String ans = pjp.toShortString();
 		int k = ans.length();
 		ans = ans.substring(10, k).split("@")[0];
@@ -38,17 +49,16 @@ public class Operation {
 			ans = ans.substring(0, k - 3);
 		}
 		LIST.add("<" + ans + ">\r");
-		writeArgs(pjp);
+		writeArgs(pjp, LIST);
 		actualDepth += 1;
 		Object o = pjp.proceed();
 		actualDepth -= 1;
-		writeObject(o, ans);
+		writeObject(o, ans, LIST);
 		LIST.add("</" + ans + ">\r");
-
 		return o;
 	}
 
-	private void writeObject(Object o, String ans) throws IOException {
+	private void writeObject(Object o, String ans, List<String> LIST) throws IOException {
 		if (o != null) {
 			String p = o.toString();
 			if (p.contains(" ")) {
@@ -65,11 +75,16 @@ public class Operation {
 		}
 	}
 
-	private void writeArgs(ProceedingJoinPoint pjp) throws IOException {
+	private void writeArgs(ProceedingJoinPoint pjp, List<String> LIST) throws IOException {
 		if (pjp.getArgs().length > 0) {
 			LIST.add("<arguments>\r");
 			for (Object u : pjp.getArgs()) {
-				String p = u.toString();
+				String p;
+				if (u != null && u.toString() != null) {
+					p = u.toString();
+				} else {
+					p = "null";
+				}
 				if (p.contains(" ")) {
 					p = p.split(" ")[1];
 				}
@@ -87,18 +102,22 @@ public class Operation {
 		}
 	}
 
-	public static void print() throws IOException {
-		if (w == null) {
-			w = new FileWriter(PATH + "operation-test-results.xml");
-			bw = new BufferedWriter(w);
-			for (String str : LIST) {
-				bw.write(str);
-				bw.flush();
-			}
-			w.close();
-			bw.close();
-			LIST.clear();
+	public static void print(Thread thread) throws IOException {
+		String testcase = tests.get(thread);
+		String path = PATH + testcase + "/" + "operation-test-results.xml";
+		new File(PATH + testcase).mkdirs();
+		w = new FileWriter(path);
+		bw = new BufferedWriter(w);
+		bw.write("<" + testcase + ">");
+		bw.flush();
+		for (String str : map.get(thread)) {
+			bw.write(str);
+			bw.flush();
 		}
+		bw.write("</" + testcase + ">");
+		bw.flush();
+		bw.close();
+		w.close();
 	}
 
 }

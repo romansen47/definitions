@@ -75,8 +75,8 @@ public class AppConfig {
 
 	public static void main(String[] args) throws IOException {
 		context = new ClassPathXmlApplicationContext("classpath:META-INF/aspectj.xml");
-		GoDeep.print();
-		Operation.print();
+		GoDeep.print(Thread.currentThread());
+		Operation.print(Thread.currentThread());
 		AppConfig application = new AppConfig();
 		application.prepare();
 		application.test();

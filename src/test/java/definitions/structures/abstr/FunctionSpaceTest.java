@@ -90,14 +90,12 @@ public abstract class FunctionSpaceTest {
 	}
 
 	@Test
-	
 	public void test1() {
 		final Function staircaseFunction1Projection = staircaseFunction.getProjection(this.getLinearSpace());
 		staircaseFunction.plotCompare(-1, 1, staircaseFunction1Projection);
 	}
 
 	@Test
-	
 	public void test2() {
 		final Function staircaseFunction2Projection = staircaseFunction2.getProjection(this.getLinearSpace());
 		staircaseFunction2.plotCompare(-1, 1, staircaseFunction2Projection);

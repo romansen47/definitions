@@ -6,6 +6,7 @@ package definitions.structures.euclidean.functionspaces.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import definitions.structures.abstr.fields.Field;
@@ -27,16 +28,18 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 	List<Vector> base = new ArrayList<>();
 	FunctionSpace space;
 
+	Function alpha;
+	Function beta;
+	Function gamma;
+
 	public static void main(String[] args) {
 		new FiniteDimensionalComplexFunctionSpaceTest().test();
 		System.exit(0);
 	}
-	
-	@Test
-	
-	public void test() {
 
-		final Function alpha = new GenericFunction() {
+	@Before
+	public void before() {
+		alpha = new GenericFunction() {
 			private static final long serialVersionUID = 6698998256903151087L;
 
 			@Override
@@ -58,7 +61,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			}
 		};
 
-		final Function beta = new GenericFunction() {
+		beta = new GenericFunction() {
 			private static final long serialVersionUID = -2624612868740391242L;
 
 			@Override
@@ -80,7 +83,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			}
 		};
 
-		final Function gamma = new GenericFunction() {
+		gamma = new GenericFunction() {
 			private static final long serialVersionUID = -6598973940477311007L;
 
 			@Override
@@ -104,13 +107,26 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 
 		this.base.add(alpha);
 		this.base.add(beta);
+	}
 
+	@Test
+	public void test1() {
 		alpha.plot(-Math.PI, Math.PI);
+	}
+
+	@Test
+	public void test2() {
 		beta.plot(-Math.PI, Math.PI);
+	}
+
+	@Test
+	public void test3() {
 		gamma.plot(-Math.PI, Math.PI);
+	}
 
+//	@Test
+	public void test() {
 		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -Math.PI, Math.PI, true);
-
 	}
 
 }

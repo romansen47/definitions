@@ -7,6 +7,8 @@
 			<include within="settings..*" /> <include within="cache..*" /> <exclude within="plotter..*" 
 			/> <exclude within="definitions.structures.euclidean.vectors.impl.*" /> <include 
 			within="aspects.*" /> -->
+
+		<exclude within="plotter..*" />
 	</weaver>
 	<aspects>
 		<aspect name="aspects.CachingAspect" />

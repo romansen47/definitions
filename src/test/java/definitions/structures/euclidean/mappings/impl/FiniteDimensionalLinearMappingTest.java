@@ -29,32 +29,26 @@ public class FiniteDimensionalLinearMappingTest {
 		}
 	};
 
-	@Before
-	public void beforeClass() {
-		this.ans1 = this.lin.getLinearity();
-		this.ans2 = this.lin.getGenericMatrix();
-	}
-
 	public static void main(String[] args) {
 		FiniteDimensionalLinearMappingTest test = new FiniteDimensionalLinearMappingTest();
-		test.beforeClass();
 		test.testGetLinearity();
 		test.testGetGenericMatrix();
 	}
 
 	@Test
-	
 	public void testGetLinearity() {
-//		Traced.show();
+		ans1 = lin.getLinearity();
+		ans2 = lin.getGenericMatrix();
 		Assert.assertTrue(
 				this.ans1.get(((RealLine) this.space).getOne()).get(((RealLine) this.space).getOne()).getValue() == 5.);
 	}
 
 	@Test
-	
 	public void testGetGenericMatrix() {
-//		Traced.show();
+		if (ans1 == null || ans2 == null) {
+			ans1 = lin.getLinearity();
+			ans2 = lin.getGenericMatrix();
+		}
 		Assert.assertTrue(this.ans2[0][0].getValue() == 5.);
-//		Traced.show();
 	}
 }
