@@ -8,8 +8,6 @@
 		<include within="cache..*" />
 	</weaver>
 	<aspects>
-		<aspect name="settings.Operation" />
-		<aspect name="settings.TestAspect" />
-		<aspect name="cache.CachingAspect" />
+		<aspect name="cachingAspect" />
 	</aspects>
 </aspectj>

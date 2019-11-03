@@ -8,15 +8,14 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
+	<import resource="generators.xml"/>
+
 	<!-- Enable @AspectJ annotation support -->
 	<context:load-time-weaver aspectj-weaving="on" />
 	<aop:aspectj-autoproxy proxy-target-class="false"
 		expose-proxy="false" />
 	<bean
 		class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
-
-	<bean id="settings.Operation" class="settings.Operation" />
-	<bean id="cache.CachingAspect" class="cache.CachingAspect" />
-	<bean id="settings.TestAspect" class="settings.TestAspect" />
-
+	<bean id="cache.cachingAspect" name="cachingAspect" class="cache.CachingAspect" />
+	
 </beans>

@@ -1,4 +1,4 @@
-package subspaces.functionalspaces;
+package tests.subspaces.functionalspaces;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

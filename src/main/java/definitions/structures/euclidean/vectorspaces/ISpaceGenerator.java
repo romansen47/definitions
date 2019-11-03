@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.springframework.context.annotation.Bean;
+
 import cache.ICache;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
@@ -86,6 +88,7 @@ public interface ISpaceGenerator {
 		return newSpace;
 	}
 
+	@Bean
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right) {
 		return getFiniteDimensionalFunctionSpace(field, genericBase, left, right, true);

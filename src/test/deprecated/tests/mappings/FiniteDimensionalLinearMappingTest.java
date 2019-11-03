@@ -1,4 +1,4 @@
-package mappings;
+package tests.mappings;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -30,12 +30,17 @@ public class CachingAspect {
 	@Autowired
 	public static CachingAspect aspect;
 	
-	@Bean
-	public static CachingAspect getInstance() {
-		if (aspect==null) {
-		aspect=new CachingAspect();
-		}
+	@Bean(name="cachingAspect")
+	public static CachingAspect getAspect() {
+//		if (aspect==null) {
+//			aspect=new CachingAspect();
+//		}
 		return aspect;
+	}
+	
+	@Bean(name="cachingAspect")
+	public static void setAspect(CachingAspect aspect) {
+		CachingAspect.aspect= aspect;
 	}
 	
 	@Autowired

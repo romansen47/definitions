@@ -1,3 +1,4 @@
+package tests.subspaces.functionalspaces;
 // package subspaces.functionalspaces;
 //
 // import org.junit.BeforeClass;

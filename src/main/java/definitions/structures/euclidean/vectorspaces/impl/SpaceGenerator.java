@@ -24,17 +24,18 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	private static ISpaceGenerator generator;
 
 	@Bean
-	@Autowired
 	public static ISpaceGenerator getInstance() {
-		if (generator == null) {
-			generator = new SpaceGenerator();
-		}
+//		if (generator == null) {
+//			generator = new SpaceGenerator();
+//		}
 		return generator;
 	}
-
-	@Autowired
-	private SpaceGenerator() {
+	
+	@Bean
+	public static void setInstance(SpaceGenerator gen) {
+		generator=gen;
 	}
+
 
 	@Override
 	public String toString() {

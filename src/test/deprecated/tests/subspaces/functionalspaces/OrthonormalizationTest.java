@@ -1,4 +1,4 @@
-package subspaces.functionalspaces;
+package tests.subspaces.functionalspaces;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package subspaces.functionalspaces;
+package tests.subspaces.functionalspaces;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -98,7 +98,7 @@ public class PolynomialRegressionTest {
 
 			@Override
 			public Scalar value(Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2.)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
@@ -110,14 +110,16 @@ public class PolynomialRegressionTest {
 		measures2 = measures.getProjection((EuclideanSpace) trigonometricSpace);
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test1() throws Throwable {
 		final Function coordinates = exp.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, exp);
 	}
 
-	@Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
-	public void test2() throws Throwable {
+	@Test
+	public
+	void test2() throws Throwable {
 		final Function coordinates = staircaseFunction2.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, staircaseFunction2);
 
@@ -125,7 +127,8 @@ public class PolynomialRegressionTest {
 		coordinates2.plotCompare(left, right, measures2);
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test() throws Throwable {
 		staircaseFunction2.plotCompare(left, right, staircaseFunction);
 	}
@@ -157,7 +160,8 @@ public class PolynomialRegressionTest {
 		return ans;
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public void test3() {
 		((EuclideanSpace) trigonometricSpace).show();
 	}
