@@ -41,25 +41,25 @@ public class TestAspect {
 
 	@Around("@annotation(test) && execution(* definitions.structures..*.*(..))")
 	public void syncAround(ProceedingJoinPoint jp, Test test) throws Throwable {
-		sync(jp,test);
+		sync(jp, test);
 	}
 
 	private void sync(ProceedingJoinPoint jp, Test test) throws Throwable {
 		final Thread thread = Thread.currentThread();
 		synchronized (thread) {
-		String testCaseName = jp.toShortString().split(Pattern.quote("@"))[0].split(Pattern.quote("("))[1];
-		GoDeep.tests.put(thread, testCaseName);
-		Operation.tests.put(thread, testCaseName);
-		logger.info("note testcasename: " + testCaseName);
-		jp.proceed();
-		logger.info("writing data to disk");
-		GoDeep.print(thread);
-		Operation.print(thread);
-		GoDeep.map.get(thread).clear();
-		GoDeep.tests.remove(thread);
-		Operation.map.get(thread).clear();
-		Operation.tests.remove(thread);
-		};
+			String testCaseName = jp.toShortString().split(Pattern.quote("@"))[0].split(Pattern.quote("("))[1];
+			GoDeep.tests.put(thread, testCaseName);
+			Operation.tests.put(thread, testCaseName);
+			logger.info("note testcasename: " + testCaseName);
+			jp.proceed();
+			logger.info("writing data to disk");
+			GoDeep.print(thread);
+			Operation.print(thread);
+			GoDeep.map.get(thread).clear();
+			GoDeep.tests.remove(thread);
+			Operation.map.get(thread).clear();
+			Operation.tests.remove(thread);
+		}
 	}
 
 //	@After("execution(* definitions.structures..*.*(..)) && !execution(* aspects..*.*(..))")

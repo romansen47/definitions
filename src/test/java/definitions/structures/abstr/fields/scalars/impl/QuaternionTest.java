@@ -12,6 +12,7 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.Trace;
 
 /**
  * @author RoManski
@@ -27,7 +28,7 @@ public class QuaternionTest extends VectorTest {
 	 * {@link definitions.structures.abstr.fields.scalars.impl.Quaternion#getInverse()}.
 	 */
 	@Test
-	
+	@Trace
 	public final void testGetInverse() {
 		Scalar potency = (Scalar) ((Field) this.space).getOne();
 		Scalar inverse;

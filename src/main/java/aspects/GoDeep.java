@@ -10,9 +10,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+
+import settings.Trace;
 
 @Aspect
 public class GoDeep {
@@ -23,12 +27,30 @@ public class GoDeep {
 	private static FileWriter w;
 	private static BufferedWriter bw;
 
+	static Boolean active = null;
+	static int maxDepth;
+	static int depth;
 
-	@Around("execution(definitions.structures..* definitions.structures.euclidean..*(..)) "
-			+ " && !execution(* definitions.structures.euclidean.Generator.*(..))"
-			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
-			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
-	public Object lookup(ProceedingJoinPoint pjp) throws Throwable {
+	@Around("execution(!final !static * definitions..*.*(..))")
+	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
+		if (active != null && active) {
+			return getLookUp(pjp);
+		} else {
+			return pjp.proceed();
+		}
+	}
+
+	@Before("@annotation(trace)")
+	public void beforeLookup(JoinPoint jp, Trace trace) throws Throwable {
+		if (active == null) {
+			active = true;
+		}
+		else if (active) {
+			active=false;
+		}
+	}
+
+	private Object getLookUp(ProceedingJoinPoint pjp) throws Throwable {
 		List<String> LIST = map.get(Thread.currentThread());
 		if (LIST == null) {
 			LIST = new ArrayList<>();
@@ -37,12 +59,14 @@ public class GoDeep {
 		String invocator = tests.get(Thread.currentThread());
 		if (invocator == null) {
 			invocator = pjp.getSignature().toShortString().split(Pattern.quote("@"))[0];
-			invocator = invocator.split(Pattern.quote("("))[1];
+			invocator = invocator.replace("execution(", Pattern.quote("(")).split(Pattern.quote("("))[1];
 			tests.put(Thread.currentThread(), invocator);
 		}
 		LIST.add("<" + pjp.toShortString() + ">\r");
 		Object o = pjp.proceed();
-		LIST.add("<answer>" + o.toString().split(Pattern.quote("@"))[0] + "</answer>\r");
+		if (o != null) {
+			LIST.add("<returnValue>" + o.toString().split(Pattern.quote("@"))[0] + "</returnValue>\r");
+		}
 		LIST.add("</" + pjp.toShortString() + ">\r");
 		return o;
 	}

@@ -16,7 +16,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 public class BinaryFieldTest extends FieldTest {
 
 	@Override
-	@settings.Trace(trace = false, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public void test() {
 	}
 

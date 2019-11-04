@@ -30,7 +30,7 @@ public class Operation {
 	static int actualDepth = 0;
 
 //	@Around("execution(public * nothing.definitions.structures.abstr.vectorspaces..*(..))")
-	@Around("execution(!final !abstract definitions.structures.euclidean..* definitions.structures..*.*(..))"
+	@Around("execution(!final !abstract !static definitions.structures.euclidean..* definitions.structures..*.*(..))"
 			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
 			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
 	public Object processSystemRequest(final ProceedingJoinPoint pjp) throws Throwable {

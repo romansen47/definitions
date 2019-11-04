@@ -60,12 +60,10 @@ public final class BinaryField implements PrimeField {
 	}
 
 	@Override
-	
 	public Vector product(Vector vec1, Vector vec2) {
 		return this.get(vec1.equals(this.getOne()) && vec2.equals(this.getOne()));
 	}
 
-	@settings.Trace(trace = false, depth = settings.GlobalSettings.LOGGING_DEPTH, initial = false, transit = true)
 	public Vector get(Boolean val) {
 		if (val) {
 			return this.unit;
