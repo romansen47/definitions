@@ -5,7 +5,6 @@ import java.util.List;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;

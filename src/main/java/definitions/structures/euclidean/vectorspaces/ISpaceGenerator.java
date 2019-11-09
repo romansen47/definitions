@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import cache.ICache;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
-import definitions.structures.abstr.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;

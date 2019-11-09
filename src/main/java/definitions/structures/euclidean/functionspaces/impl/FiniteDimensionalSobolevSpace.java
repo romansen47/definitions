@@ -9,7 +9,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
-import settings.Trace;
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.

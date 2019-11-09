@@ -16,8 +16,6 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
-
 /**
  * 
  * @author ro

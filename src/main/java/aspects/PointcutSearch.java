@@ -13,14 +13,10 @@ import java.util.regex.Pattern;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
-import org.springframework.stereotype.Component;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
 
 @Aspect
-public class Operation {
+public class PointcutSearch {
 
 	final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -29,11 +25,14 @@ public class Operation {
 	private static BufferedWriter bw;
 	static int actualDepth = 0;
 
-//	@Around("execution(public * nothing.definitions.structures.abstr.vectorspaces..*(..))")
 	@Around("execution(!final !abstract !static definitions.structures.euclidean..* definitions.structures..*.*(..))"
 			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
 			+" && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
-	public Object processSystemRequest(final ProceedingJoinPoint pjp) throws Throwable {
+	public Object run(final ProceedingJoinPoint pjp) throws Throwable {
+		return log(pjp);
+	}
+	
+	public Object log(final ProceedingJoinPoint pjp) throws Throwable {
 		List<String> LIST = map.get(Thread.currentThread());
 		if (LIST == null) {
 			LIST = new ArrayList<>();
@@ -104,15 +103,21 @@ public class Operation {
 
 	public static void print(Thread thread) throws IOException {
 		String testcase = tests.get(thread);
-		String path = PATH + testcase + "/" + "operation-test-results.xml";
+		String path = PATH + testcase.replace(Pattern.quote("."),"/") + "/" + "pointcut-search.xml";
 		new File(PATH + testcase).mkdirs();
 		w = new FileWriter(path);
 		bw = new BufferedWriter(w);
 		bw.write("<" + testcase + ">");
 		bw.flush();
-		for (String str : map.get(thread)) {
-			bw.write(str);
-			bw.flush();
+		List<String> list=map.get(thread);
+		if (list==null) {
+			java.util.logging.Logger.getLogger("PointcutSearch").info("list empty");
+		}
+		else {
+			for (String str : list) {
+				bw.write(str);
+				bw.flush();
+			}
 		}
 		bw.write("</" + testcase + ">");
 		bw.flush();

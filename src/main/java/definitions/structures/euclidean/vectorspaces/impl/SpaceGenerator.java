@@ -8,9 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import cache.ICache;
 import cache.MyCache;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import definitions.structures.euclidean.vectorspaces.SubField;
 
 @Configuration
 public class SpaceGenerator implements ISpaceGenerator, Serializable {

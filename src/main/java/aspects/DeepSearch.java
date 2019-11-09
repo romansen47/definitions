@@ -10,16 +10,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-
-import settings.Trace;
 
 @Aspect
-public class GoDeep {
+public class DeepSearch {
 
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -31,7 +27,7 @@ public class GoDeep {
 	static int maxDepth;
 	static int depth;
 
-	@Around("execution(!final !static * definitions..*.*(..))")
+	@Around("execution(!final !static * definitions..*.*(..)) && !execution(* definitions..*Test.*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return getLookUp(pjp);
@@ -40,14 +36,17 @@ public class GoDeep {
 		}
 	}
 
-	@Before("@annotation(trace)")
-	public void beforeLookup(JoinPoint jp, Trace trace) throws Throwable {
+	@Around("@annotation(trace)")
+	public Object aroundAnnotated(ProceedingJoinPoint jp, org.junit.Test trace) throws Throwable {
 		if (active == null) {
 			active = true;
-		}
-		else if (active) {
-			active=false;
-		}
+		} 
+		Object o= jp.proceed();
+		active=false;
+		return o;
+//		else if (active) {
+//			active = false;
+//		}
 	}
 
 	private Object getLookUp(ProceedingJoinPoint pjp) throws Throwable {
@@ -62,26 +61,32 @@ public class GoDeep {
 			invocator = invocator.replace("execution(", Pattern.quote("(")).split(Pattern.quote("("))[1];
 			tests.put(Thread.currentThread(), invocator);
 		}
-		LIST.add("<" + pjp.toShortString() + ">\r");
+		String str=pjp.toShortString().split(Pattern.quote("("))[1];
+		LIST.add("<" + str + ">\r");
 		Object o = pjp.proceed();
 		if (o != null) {
 			LIST.add("<returnValue>" + o.toString().split(Pattern.quote("@"))[0] + "</returnValue>\r");
 		}
-		LIST.add("</" + pjp.toShortString() + ">\r");
+		LIST.add("</" + str + ">\r");
 		return o;
 	}
 
 	public static void print(Thread thread) throws IOException {
 		String testcase = tests.get(thread);
-		String path = PATH + testcase + "/" + "goDeep-test-results.xml";
+		String path = PATH + testcase.replace(Pattern.quote("."),"/") + "/" + "deep-search.xml";
 		new File(PATH + testcase).mkdirs();
 		w = new FileWriter(path);
 		bw = new BufferedWriter(w);
 		bw.write("<" + testcase + ">");
 		bw.flush();
-		for (String str : map.get(thread)) {
-			bw.write(str);
-			bw.flush();
+		List<String> list = map.get(thread);
+		if (list == null) {
+			java.util.logging.Logger.getLogger("DeepSearch").info("list empty");
+		} else {
+			for (String str : list) {
+				bw.write(str);
+				bw.flush();
+			}
 		}
 		bw.write("</" + testcase + ">");
 		bw.flush();

@@ -13,7 +13,6 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import settings.Trace;
 
 public class MappingGenerator implements IMappingGenerator {
 

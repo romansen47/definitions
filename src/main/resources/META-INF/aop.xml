@@ -7,13 +7,13 @@
 			<include within="settings..*" /> <include within="cache..*" /> <exclude within="plotter..*" 
 			/> <exclude within="definitions.structures.euclidean.vectors.impl.*" /> <include 
 			within="aspects.*" /> -->
-
+			<exclude within="definitions.structures.abstr.fields.scalars..*" />
 		<exclude within="plotter..*" />
 	</weaver>
 	<aspects>
 		<aspect name="aspects.CachingAspect" />
-		<aspect name="aspects.GoDeep" />
-		<aspect name="aspects.Operation" />
+		<aspect name="aspects.DeepSearch" />
+		<aspect name="aspects.PointcutSearch" />
 		<aspect name="aspects.TestAspect" />
 	</aspects>
 </aspectj>

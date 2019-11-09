@@ -11,7 +11,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import settings.Trace;
 
 
 public final class DerivativeOperator extends FiniteDimensionalLinearMapping implements Homomorphism {

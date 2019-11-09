@@ -3,18 +3,13 @@
  */
 package aspects;
 
-import java.io.IOException;
-import java.time.Clock;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -48,17 +43,19 @@ public class TestAspect {
 		final Thread thread = Thread.currentThread();
 		synchronized (thread) {
 			String testCaseName = jp.toShortString().split(Pattern.quote("@"))[0].split(Pattern.quote("("))[1];
-			GoDeep.tests.put(thread, testCaseName);
-			Operation.tests.put(thread, testCaseName);
+			DeepSearch.map.putIfAbsent(thread,new ArrayList<>());
+			PointcutSearch.map.putIfAbsent(thread,new ArrayList<>());
+			DeepSearch.tests.put(thread, testCaseName);
+			PointcutSearch.tests.put(thread, testCaseName);
 			logger.info("note testcasename: " + testCaseName);
 			jp.proceed();
 			logger.info("writing data to disk");
-			GoDeep.print(thread);
-			Operation.print(thread);
-			GoDeep.map.get(thread).clear();
-			GoDeep.tests.remove(thread);
-			Operation.map.get(thread).clear();
-			Operation.tests.remove(thread);
+			DeepSearch.print(thread);
+			PointcutSearch.print(thread);
+			DeepSearch.map.get(thread).clear();
+			DeepSearch.tests.remove(thread);
+			PointcutSearch.map.get(thread).clear();
+			PointcutSearch.tests.remove(thread);
 		}
 	}
 

@@ -17,8 +17,8 @@
 		<bean
 		class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
 	<bean id="aspects.cachingAspect" name="cachingAspect" class="aspects.CachingAspect" />
-	<bean id="aspects.GoDeep" name="goDeep" class="aspects.GoDeep" />
-	<bean id="aspects.Operation" name="operation" class="aspects.Operation" />
+	<bean id="aspects.DeepSearch" name="deepSearch" class="aspects.DeepSearch" />
+	<bean id="apects.PointCutSearch" name="pointcutSearch" class="aspects.PointCutSearch" />
 	<bean id="aspects.TestAspect" name="testAspect" class="aspects.TestAspect" />
 	
 </beans>

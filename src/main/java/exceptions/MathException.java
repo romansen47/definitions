@@ -3,12 +3,11 @@
  */
 package exceptions;
 
-import java.lang.Exception;
 /**
  * @author RoManski
  *
  */
-public class MathException extends Exception implements exceptions.Exception {
+public class MathException extends java.lang.Exception implements exceptions.Exception {
 
 	final private String message;
 	/**

@@ -3,14 +3,13 @@
  */
 package plotter;
 
-import solver.StdDraw;
-
 import java.awt.Color;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import settings.GlobalSettings;
+import solver.StdDraw;
 
 /**
  * @author RoManski
