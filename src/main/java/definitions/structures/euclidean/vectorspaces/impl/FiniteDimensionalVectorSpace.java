@@ -171,6 +171,18 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.dualSpace;
 	}
 
+	@Override
+	public String toXml() {
+		String ans = "<"+this.getClass()+">";
+		ans += "<base>";
+		for (Vector baseVec:genericBaseToList()) {
+			ans+=baseVec.toXml();
+		}
+		ans += "</base>";
+		ans = "</"+this.getClass().toString().split("class ")[1]+">";
+		return ans;
+	}
+
 	/*
 	 * These overrides are for tracing purposes only
 	 */

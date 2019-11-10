@@ -1,4 +1,4 @@
-package definitions.structures.euclidean.vectorspaces.impl;
+package xmltest;
 
 import org.junit.Test;
 
@@ -7,6 +7,7 @@ import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -19,7 +20,6 @@ public class MultiDimensionalSpaceOverBinaryFieldTest {
 	// EuclideanSpace asRealSpace=gen.convert(complexSpace,RealLine.getInstance());
 
 	@Test
-	
 	public void test() {
 		final int dim = 10;
 

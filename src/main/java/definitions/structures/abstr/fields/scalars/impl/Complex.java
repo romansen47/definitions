@@ -116,4 +116,10 @@ public class Complex extends Tuple implements Scalar {
 	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
 		return this.getCoordinates();
 	}
+	
+	@Override
+	public String toXml() {
+		return "<complex>\r"+
+				real.toXml()+imag.toXml()+"</complex>\r";
+	}
 }

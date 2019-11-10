@@ -3,6 +3,7 @@ package definitions.structures.abstr.fields;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.Group;
@@ -19,7 +20,7 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMap
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface Field extends EuclideanAlgebra, FieldMethods {
+public interface Field extends XmlPrintable, EuclideanAlgebra, FieldMethods {
 
 	default Vector inverse(Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);

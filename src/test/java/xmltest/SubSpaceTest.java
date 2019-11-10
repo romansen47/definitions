@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.euclidean.vectorspaces;
+package xmltest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -11,6 +11,7 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * @author ro

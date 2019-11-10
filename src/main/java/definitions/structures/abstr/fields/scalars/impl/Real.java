@@ -41,6 +41,11 @@ public class Real extends Number implements Scalar, FiniteVector {
 		this.realValue = value;
 	}
 
+	@Override
+	public String toXml() {
+		return "<real>\r"+Double.toString(realValue)+"\r</real>\r";
+	}
+	
 	public Scalar toComplex() {
 		return new Complex(this, RealLine.getInstance().getZero());
 	}

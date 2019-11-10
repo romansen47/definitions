@@ -9,6 +9,7 @@ import java.util.Objects;
 import org.springframework.context.annotation.Bean;
 
 import cache.ICache;
+import cache.MyCache;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -265,7 +266,7 @@ public interface ISpaceGenerator {
 
 //	EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField);
 
-	ICache getCache();
+	MyCache getCache();
 
-	void setCache(ICache ans);
+	void setCache(MyCache ans);
 }

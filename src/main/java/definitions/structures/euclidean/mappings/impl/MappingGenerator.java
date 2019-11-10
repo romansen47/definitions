@@ -29,8 +29,7 @@ public class MappingGenerator implements IMappingGenerator {
 	private MappingGenerator() {
 	}
 
-	@Override
-	
+	@Override	
 	public Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;

@@ -3,11 +3,12 @@ package definitions.structures.abstr.fields;
 import java.io.Serializable;
 import java.util.List;
 
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface FieldMethods extends Serializable {
+public interface FieldMethods extends XmlPrintable, Serializable {
 	default void show(Field field) {
 		final List<Vector> base = field.genericBaseToList();
 		final Scalar[][] products = new Scalar[base.size()][base.size()];

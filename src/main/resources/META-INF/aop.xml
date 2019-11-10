@@ -7,7 +7,7 @@
 			<include within="settings..*" /> <include within="cache..*" /> <exclude within="plotter..*" 
 			/> <exclude within="definitions.structures.euclidean.vectors.impl.*" /> <include 
 			within="aspects.*" /> -->
-			<exclude within="definitions.structures.abstr.fields.scalars..*" />
+		<exclude within="definitions.structures.abstr..*" />
 		<exclude within="plotter..*" />
 	</weaver>
 	<aspects>
@@ -15,5 +15,6 @@
 		<aspect name="aspects.DeepSearch" />
 		<aspect name="aspects.PointcutSearch" />
 		<aspect name="aspects.TestAspect" />
+		<aspect name="aspects.DistributionCollector" />
 	</aspects>
 </aspectj>

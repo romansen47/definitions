@@ -107,6 +107,11 @@ public final class Integers implements DiscreteGroup, Ring {
 		public int hashCode() {
 			return this.value;
 		}
+
+		@Override
+		public String toXml() {
+			return "<integer "+Int.this.getValue()+"/>";
+		}
 	}
 
 	@Override

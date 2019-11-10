@@ -8,17 +8,23 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 
-	<import resource="generators.xml"/>
+	<import resource="generators.xml" />
 
 	<!-- Enable @AspectJ annotation support -->
 	<context:load-time-weaver aspectj-weaving="on" />
 	<aop:aspectj-autoproxy proxy-target-class="true"
 		expose-proxy="false" />
-		<bean
+	<bean
 		class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
-	<bean id="aspects.cachingAspect" name="cachingAspect" class="aspects.CachingAspect" />
-	<bean id="aspects.DeepSearch" name="deepSearch" class="aspects.DeepSearch" />
-	<bean id="apects.PointCutSearch" name="pointcutSearch" class="aspects.PointCutSearch" />
-	<bean id="aspects.TestAspect" name="testAspect" class="aspects.TestAspect" />
-	
+	<bean id="aspects.cachingAspect" name="cachingAspect"
+		class="aspects.CachingAspect" />
+	<bean id="aspects.DeepSearch" name="deepSearch"
+		class="aspects.DeepSearch" />
+	<bean id="apects.PointCutSearch" name="pointcutSearch"
+		class="aspects.PointCutSearch" />
+	<bean id="aspects.TestAspect" name="testAspect"
+		class="aspects.TestAspect" />
+	<bean id="aspects.DistributionCollector" name="distributionCollector"
+		class="aspects.DistributionCollector" />
+
 </beans>

@@ -1,11 +1,10 @@
-package definitions.structures.abstr.mappings.impl;
+package definitions.structures.abstr.fields.scalars.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public final class RealZero extends Real {

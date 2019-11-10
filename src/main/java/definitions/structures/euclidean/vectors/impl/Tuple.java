@@ -149,4 +149,15 @@ public class Tuple implements FiniteVector {
 		this.setCoordinates(coordinates);
 	}
 
+	@Override
+	public String toXml() {
+		String ans = "<tuple>";
+		for (Vector x : getGenericBase()) {
+			ans += "<" + x.getClass() + ">\r"; 
+			ans+= getCoordinates().get(x) + "\r</" + x.getClass().toString().split("class ")[1] + ">\r";
+		}
+		ans = "<tuple>";
+		return ans;
+	}
+
 }

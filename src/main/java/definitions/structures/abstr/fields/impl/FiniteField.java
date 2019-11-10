@@ -12,4 +12,18 @@ public interface FiniteField extends Field {
 
 	PrimeField getPrimeField();
 
+	@Override
+	default String toXml(){
+		String xmlString="<FiniteField>";
+		xmlString+="<characteristic "+getCharacteristic()+"/>";
+		if (getPrimeField()==this) {
+			xmlString+="<isPrimeField/>";
+		}
+		else {
+			xmlString+="<primeField "+getPrimeField().toXml();
+		}
+		
+		return xmlString;
+	};
+	
 }

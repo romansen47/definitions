@@ -31,7 +31,7 @@ public final class BinaryField implements PrimeField {
 
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
-	private final int characteristic;
+	private final int characteristic = 2;
 
 	private BinaryField() {
 		// this.base.add(this.zero);
@@ -44,7 +44,7 @@ public final class BinaryField implements PrimeField {
 		newMap.put(this.unit,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
 		this.setMultiplicationMatrix(newMap);
-		this.characteristic = 2;
+
 	}
 
 	@Override
@@ -178,14 +178,6 @@ public final class BinaryField implements PrimeField {
 	@Override
 	public Integer getOrder() {
 		return 2;
-	}
-
-	/**
-	 * @return the main field
-	 */
-	@Override
-	public PrimeField getPrimeField() {
-		return (PrimeField) instance;
 	}
 
 	/**

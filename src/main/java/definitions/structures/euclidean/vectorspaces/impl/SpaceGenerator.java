@@ -9,20 +9,21 @@ import org.springframework.context.annotation.Configuration;
 import cache.ICache;
 import cache.MyCache;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import settings.annotations.Proceed;
 
 @Configuration
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
 	@Autowired
-	private ICache cache = new MyCache();
+	private MyCache cache = new MyCache();
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private static ISpaceGenerator generator;
+	private static SpaceGenerator generator;
 
 	@Bean
-	public static ISpaceGenerator getInstance() {
+	public static SpaceGenerator getInstance() {
 		if (generator == null) {
 			generator = new SpaceGenerator();
 		}
@@ -48,13 +49,13 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 //	}
 
 	@Override
-	public ICache getCache() {
+	public MyCache getCache() {
 		return this.cache;
 	}
 
 	@Override
 	@Bean
-	public void setCache(ICache ans) {
+	public void setCache(MyCache ans) {
 		this.cache = ans;
 	}
 

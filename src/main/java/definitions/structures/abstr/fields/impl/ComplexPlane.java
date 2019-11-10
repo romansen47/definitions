@@ -166,5 +166,10 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
 	}
+	
+	@Override
+	public String toXml() {
+		return "<complexPlane />";
+	}
 
 }

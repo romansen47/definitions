@@ -3,10 +3,12 @@
  */
 package exceptions;
 
+import definitions.settings.XmlPrintable;
+
 /**
  * @author RoManski
  *
  */
-public interface Exception {
+public interface Exception extends XmlPrintable{
 
 }

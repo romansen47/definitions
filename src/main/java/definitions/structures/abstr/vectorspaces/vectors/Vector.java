@@ -1,7 +1,9 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import settings.annotations.Proceed;
 
 /**
  * Vector interface.
@@ -9,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
  * @author ro
  *
  */
-public interface Vector extends GroupElement {
+public interface Vector extends GroupElement,XmlPrintable {
 
 	/**
 	 * Method to get the dimension of the underlying vector space.
@@ -17,6 +19,7 @@ public interface Vector extends GroupElement {
 	 * @return the dimension of the underlying vector space, if finite dimensional.
 	 *         Otherwise null.
 	 */
+	@Proceed
 	default Integer getDim() {
 		return null;
 	}
@@ -27,6 +30,7 @@ public interface Vector extends GroupElement {
 	 * @param space
 	 * @return
 	 */
+	@Proceed
 	default boolean elementOf(VectorSpace space) {
 		return true;
 	}
@@ -38,6 +42,14 @@ public interface Vector extends GroupElement {
 	 * @return true if vector is essentially the same as this.
 	 */
 	@Override
+	@Proceed
 	boolean equals(Object vec);
 
+	@Override
+	@Proceed
+	default String toXml(){
+		String ans="<"+getClass().toString().split("class ")[1]+"/>";
+		return ans;
+	}
+	
 }

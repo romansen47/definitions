@@ -138,4 +138,30 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		return this.linearity.get(vec1);
 	}
 
+	@Override
+	public String toXml() {
+		String ans = "<linearMapping>";
+		ans += "<source>" + source.toXml() + "</source>";
+		ans += "<target>" + target.toXml() + "</target>";
+		ans += "<base>";
+		for (Vector vec1 : ((EuclideanSpace) source).genericBaseToList()) {
+			for (Vector vec2 : ((EuclideanSpace) target).genericBaseToList()) {
+				ans += "<sourceVector>";
+				ans += vec1.toXml();
+				ans += "</sourceVector>";
+
+				ans += "<targetVector>";
+				ans += vec2.toXml();
+				ans += "</targetVector>";
+
+				ans += "<value>";
+				ans += getLinearity(vec1).get(vec2).toXml();
+				ans += "</value>";
+			}
+		}
+		ans += "</base>";
+		ans += "</linearMapping>";
+		return ans;
+	}
+
 }

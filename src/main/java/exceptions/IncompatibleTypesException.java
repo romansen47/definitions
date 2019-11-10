@@ -3,11 +3,13 @@
  */
 package exceptions;
 
+import definitions.settings.XmlPrintable;
+
 /**
  * @author ro
  *
  */
-public class IncompatibleTypesException extends MathException {
+public class IncompatibleTypesException extends MathException implements XmlPrintable{
 
 	/**
 	 * 

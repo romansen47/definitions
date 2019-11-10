@@ -3,16 +3,19 @@ package definitions.structures.abstr.vectorspaces.vectors;
 import java.io.Serializable;
 import java.util.Map;
 
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.annotations.Proceed;
 
-public interface FiniteVectorMethods extends Serializable {
+public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.
 	 * 
 	 * @return the coordinates.
 	 */
+	@Proceed
 	default Map<Vector, Scalar> getCoordinates() {
 		return null;
 	}
@@ -25,6 +28,7 @@ public interface FiniteVectorMethods extends Serializable {
 	// Scalar[] getGenericCoordinates();
 
 	@Override
+	@Proceed
 	String toString();
 
 	/**
@@ -32,10 +36,12 @@ public interface FiniteVectorMethods extends Serializable {
 	 * 
 	 * @param coordinates the coordinates.
 	 */
+	@Proceed
 	default void setCoordinates(Map<Vector, Scalar> coordinates) {
 
 	}
 
+	@Proceed
 	default void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 
 	}

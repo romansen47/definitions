@@ -17,6 +17,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotable;
 import plotter.Plotter;
 import settings.GlobalSettings;
+import settings.annotations.Proceed;
 import solver.StdDraw;
 /**
  * Function.
@@ -62,6 +63,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @param source the source vector space.
 	 * @return the equality.
 	 */
+	@Proceed
 	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
 		final int n = GlobalSettings.FUNCTION_EQUALITY_FEINHEIT;
 		final double a = source.getInterval()[0];
@@ -76,6 +78,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 		return true;
 	}
 
+	@Proceed
 	default void preparePlot(final double left, final double right, StdDraw stddraw, int count, double delta) {
 		((Plotter)gen).preparePlot(this, left, right, stddraw, count, delta);
 	}
@@ -84,6 +87,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Proceed
 	default void plot(final double left, final double right) {
 		((Plotter) gen).plot(this, left, right);
 	}
@@ -92,6 +96,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Proceed
 	default void plotCompare(final double left, final double right, final Function fun) {
 		((Plotter) gen).plotCompare(this, fun, left, right);
 	}
@@ -101,6 +106,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * 
 	 * @return the derivative.
 	 */
+	@Proceed
 	default Function getDerivative() {
 		final Field f = getField();
 		if (derivative == null) {
@@ -132,6 +138,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * 
 	 * @return the derivative.
 	 */
+	@Proceed
 	default Function getDerivative(EuclideanSpace space) {
 		return getDerivative().getProjection(space);
 	}
@@ -142,6 +149,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @param n the derivative degree.
 	 * @return the n-th derivative of the function.
 	 */
+	@Proceed
 	default Function getDerivative(int n) {
 		// if (n < 0) {
 		// return getPrimitiveIntegral(-n);
@@ -196,6 +204,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @param space the vector space.
 	 * @return the projection of the derivative.
 	 */
+	@Proceed
 	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
 		return this.getDerivative(space);
 	}
@@ -206,6 +215,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @param space the vector space.
 	 * @return the coordinates of the projection.
 	 */
+	@Proceed
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
 		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
 		if (coordinatesMap != null) {
@@ -226,6 +236,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * @param source the vector space.
 	 * @return the projection.
 	 */
+	@Proceed
 	default Function getProjection(EuclideanSpace source) {
 		if (this instanceof FunctionTuple) {
 			return this;
@@ -243,10 +254,13 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Proceed
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 
+	@Proceed
 	Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap();
 
+	@Proceed
 	default Field getField() {
 		return RealLine.getInstance();
 	}

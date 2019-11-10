@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import cache.ICache;
+import cache.MyCache;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
@@ -88,7 +89,7 @@ public class Generator implements IGenerator,Plotter {
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
 		final FileInputStream f_in = new FileInputStream(this.PATH);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-		final ICache ans = (ICache) obj_in.readObject();
+		final MyCache ans = (MyCache) obj_in.readObject();
 		this.spaceGenerator.setCache(ans);
 		obj_in.close();
 	}

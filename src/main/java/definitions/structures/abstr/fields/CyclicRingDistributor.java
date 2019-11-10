@@ -3,10 +3,11 @@ package definitions.structures.abstr.fields;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.groups.impl.Integers.Int;
 import definitions.structures.abstr.vectorspaces.Ring;
 
-public interface CyclicRingDistributor {
+public interface CyclicRingDistributor extends XmlPrintable {
 
 	static Map<Integer, Ring> cachedRings = new HashMap<>();
 

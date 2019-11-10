@@ -82,7 +82,7 @@ public class AppConfig {
 		System.exit(0);
 	}
 
-	@Test
+//	@Test
 	public void testRun() throws IOException {
 		context = new ClassPathXmlApplicationContext("classpath:META-INF/aspectj.xml");
 		new FiniteDimensionalLinearMappingTest().testGetGenericMatrix();

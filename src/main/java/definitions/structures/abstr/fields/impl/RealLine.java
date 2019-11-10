@@ -10,9 +10,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.fields.scalars.impl.RealOne;
+import definitions.structures.abstr.fields.scalars.impl.RealZero;
 import definitions.structures.abstr.mappings.Homomorphism;
-import definitions.structures.abstr.mappings.impl.RealOne;
-import definitions.structures.abstr.mappings.impl.RealZero;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalInjection;
@@ -226,6 +226,11 @@ public class RealLine implements SubField, RealSpace {
 	@Override
 	public String toString() {
 		return "the field of real numbers.";
+	}
+
+	@Override
+	public String toXml() {
+		return "<realNumbers/>";
 	}
 
 }
