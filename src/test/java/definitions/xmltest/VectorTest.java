@@ -1,4 +1,4 @@
-package xmltest;
+package definitions.xmltest;
 
 import static org.junit.Assert.*;
 

@@ -8,8 +8,8 @@ import java.util.Objects;
 
 import org.springframework.context.annotation.Bean;
 
-import cache.ICache;
-import cache.MyCache;
+import definitions.cache.ICache;
+import definitions.cache.MyCache;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -88,7 +88,6 @@ public interface ISpaceGenerator {
 		return newSpace;
 	}
 
-	@Bean
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right) {
 		return getFiniteDimensionalFunctionSpace(field, genericBase, left, right, true);
@@ -96,7 +95,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right, final int degree, final boolean ortho) {
-		final EuclideanSpace space = getCache().getConcreteCache().get(genericBase.hashCode());
+		final EuclideanSpace space = getMyCache().getConcreteCache().get(genericBase.hashCode());
 		final EuclideanFunctionSpace funSpace = (EuclideanFunctionSpace) space;
 		if ((space != null) && (funSpace instanceof FiniteDimensionalSobolevSpace)
 				&& (funSpace.getInterval()[0] == left) && (funSpace.getInterval()[1] == right)) {
@@ -183,7 +182,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field f, final int n, double right)
 			throws Exception {
-		final EuclideanSpace space = getCache().getConcreteCache().get(n);
+		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
 		if (space != null) {
 			System.out.println("Successfully restored from cache! " + (2 * n + 1)
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
@@ -198,10 +197,10 @@ public interface ISpaceGenerator {
 						return f;
 					}
 				});
-		getCache().getConcreteCache().put(n, newSpace);
+		getMyCache().getConcreteCache().put(n, newSpace);
 		System.out.println(
 				"Saved " + (2 * n + 1) + "-dimensional trigonometric space equipped with linear functions to cache!");
-		return getCache().getConcreteCache().get(n);
+		return getMyCache().getConcreteCache().get(n);
 
 	}
 
@@ -266,7 +265,7 @@ public interface ISpaceGenerator {
 
 //	EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField);
 
-	MyCache getCache();
+	MyCache getMyCache();
 
-	void setCache(MyCache ans);
+	void setMyCache(MyCache ans);
 }

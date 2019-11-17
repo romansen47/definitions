@@ -1,11 +1,9 @@
-package aspects;
+package definitions.aspects;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
@@ -24,8 +22,8 @@ public class DistributionCollector {
 	final static private String PATH = "target/";
 	private static FileWriter w;
 	private static BufferedWriter bw;
-	
-	@Before(value = "execution(* definitions.structures..*.*(..)) && !execution(* *.print(..))")
+
+	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
 	public void getStats(JoinPoint jp) {
 		String key = jp.getSignature().toShortString().split(Pattern.quote("@"))[0];// jp.toShortString().split(Pattern.quote("@"))[0];
 		Map<String, Integer> STATS = map.getOrDefault(Thread.currentThread(), new ConcurrentHashMap<>());

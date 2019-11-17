@@ -1,4 +1,4 @@
-package aspects;
+package definitions.aspects;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,18 +10,17 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
 
 import definitions.settings.XmlPrintable;
 
 @Aspect
+@Component
 public class DeepSearch {
-
+ 
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
 	final static private String PATH = "target/";
@@ -32,7 +31,7 @@ public class DeepSearch {
 	static int maxDepth;
 	static int depth;
 	 
-	@Around("execution(!static * definitions.structures..*.*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(Field,int)) && !execution(* definitions.structures.abstr..*.*(..))")
+	@Around("execution(!static * definitions.structures..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return this.getLookUp(pjp);
@@ -60,7 +59,7 @@ public class DeepSearch {
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
 
 		String str = pjp.toShortString().split(Pattern.quote("("))[1];
-		String ans = "<" + str + ">\r";
+		String ans = "<" + str + ">\r"; 
 		Object[] args = pjp.getArgs();
 		if (args.length > 0) {
 			ans += "<arguments>\r";

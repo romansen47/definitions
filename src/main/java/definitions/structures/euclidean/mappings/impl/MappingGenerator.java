@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Endomorphism;
 import definitions.structures.abstr.mappings.Homomorphism;
@@ -14,6 +16,7 @@ import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
+@Component
 public class MappingGenerator implements IMappingGenerator {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +29,7 @@ public class MappingGenerator implements IMappingGenerator {
 		return generator;
 	}
 
-	private MappingGenerator() {
+	public MappingGenerator() {
 	}
 
 	@Override	

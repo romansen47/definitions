@@ -8,10 +8,10 @@ import java.io.ObjectOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import cache.ICache;
-import cache.MyCache;
+import definitions.cache.MyCache;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
@@ -21,28 +21,25 @@ import settings.GlobalSettings;
 
 @SuppressWarnings("unused")
 @Configuration
-public class Generator implements IGenerator,Plotter {
+@ComponentScan(basePackages = "definitions..*")
+public class Generator implements IGenerator, Plotter {
 
-	@Autowired
 	final private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
 	private static final long serialVersionUID = -5553433829703982950L;
-//	private final IVectorGenerator vectorGenerator = VectorGenerator.getInstance();
-	
-	@Autowired
-	private final IMappingGenerator mappingGenerator = MappingGenerator.getInstance();
-	
-	@Autowired
-	private final ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
-	
-	@Autowired
+
+	@Autowired(required = true)
+	private MappingGenerator mappingGenerator;// = MappingGenerator.getInstance();
+
+	@Autowired(required = true)
+	private SpaceGenerator spaceGenerator;// = SpaceGenerator.getInstance();
+
 	private final String PATH = GlobalSettings.CACHEDSPACES;
 
-	@Autowired
 	private static Generator generator;
-
-	@Bean
-	public static IGenerator getGenerator() {
+	
+	@Bean	
+	public static Generator getGenerator() {
 		if (generator == null) {
 			generator = new Generator();
 			if (restoreFromCached) {
@@ -57,23 +54,19 @@ public class Generator implements IGenerator,Plotter {
 		return generator;
 	}
 
-	private Generator() {
-	}
-
-//	@Override
-//	public IVectorGenerator getVectorgenerator() {
-//		return generator.vectorGenerator;
-//	}
-
 	@Override
-	@Bean
-	public IMappingGenerator getMappinggenerator() {
+	public MappingGenerator getMappinggenerator() {
+		if (getGenerator().mappingGenerator==null) {
+			generator.mappingGenerator=mappingGenerator();
+		}
 		return generator.mappingGenerator;
 	}
 
 	@Override
-	@Bean
-	public ISpaceGenerator getSpacegenerator() {
+	public SpaceGenerator getSpacegenerator() {
+		if (getGenerator().spaceGenerator==null) {
+			generator.spaceGenerator=spaceGenerator();
+		}
 		return generator.spaceGenerator;
 	}
 
@@ -81,7 +74,7 @@ public class Generator implements IGenerator,Plotter {
 	public void saveCoordinateSpaces() throws IOException {
 		final FileOutputStream f_out = new FileOutputStream(this.PATH);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(this.spaceGenerator.getCache());
+		obj_out.writeObject(this.spaceGenerator.getMyCache());
 		obj_out.close();
 	}
 
@@ -90,8 +83,18 @@ public class Generator implements IGenerator,Plotter {
 		final FileInputStream f_in = new FileInputStream(this.PATH);
 		final ObjectInputStream obj_in = new ObjectInputStream(f_in);
 		final MyCache ans = (MyCache) obj_in.readObject();
-		this.spaceGenerator.setCache(ans);
+		this.spaceGenerator.setMyCache(ans);
 		obj_in.close();
+	}
+
+	@Bean
+	public SpaceGenerator spaceGenerator() {
+		return new SpaceGenerator();
+	}
+
+	@Bean
+	public MappingGenerator mappingGenerator() {
+		return new MappingGenerator();
 	}
 
 }

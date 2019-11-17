@@ -1,7 +1,7 @@
 /**
  * 
  */
-package xmltest;
+package definitions.xmltest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;

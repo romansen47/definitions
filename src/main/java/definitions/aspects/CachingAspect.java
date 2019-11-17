@@ -1,4 +1,4 @@
-package aspects;
+package definitions.aspects;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +9,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+
+import com.sun.istack.logging.Logger;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
@@ -24,33 +25,22 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Aspect
-@Configuration
+@Component
 public class CachingAspect {
 
-	@Autowired
-	public static CachingAspect aspect;
+	@Autowired(required=true)
+	final static private Logger logger = Logger.getLogger(CachingAspect.class);
 	
-	@Bean(name="cachingAspect")
-	public static CachingAspect getAspect() {
-		return aspect;
-	}
-	
-	@Bean(name="cachingAspect")
-	public static void setAspect(CachingAspect aspect) {
-		CachingAspect.aspect= aspect;
-	}
-	
-	@Autowired
-	final Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
+	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
 
-	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(Field,int))")
+	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int))")
 	public Object getCoordinateSpace(ProceedingJoinPoint pjp) {
 		System.out.println(pjp.getArgs());
 		Field field = (Field) (pjp.getArgs()[0]);
 		int dim = (int) (pjp.getArgs()[1]);
 		EuclideanSpace ans = coordinatesSpaces.get(dim);
 		if (ans != null) {
-			System.out.println(
+			logger.info(
 					"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
 			return ans;
 		}
@@ -82,6 +72,7 @@ public class CachingAspect {
 			}
 		}
 		ans = new FiniteDimensionalVectorSpace(field, basetmp);
+		logger.info("Created new space: "+ans.toString());
 		coordinatesSpaces.put(dim, ans);
 		return ans;
 	}

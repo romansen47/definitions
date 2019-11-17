@@ -1,7 +1,7 @@
 /**
  * 
  */
-package aspects;
+package definitions.aspects;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -12,43 +12,31 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * @author ro
  *
  */
 @Aspect
-@Configuration
+@Component
 public class TestAspect {
-	
-	
-	@Autowired
+
 	public final static Logger logger = Logger.getLogger("TestAspect");
 
-	@Autowired
-	private static TestAspect aspect;
-
-	@Bean
-	public static TestAspect getInstance() {
-		return aspect;
-	}
-
-	@Before("@annotation(org.junit.Test) && execution(* xmltest..*.*(..))")
+	@Before("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
 	public void syncBeforeTest(JoinPoint jp) throws Throwable {
-		DeepSearch.active=true;
-		logger.info("DeepLogging activated in "+jp.toShortString().split(Pattern.quote("("))[1]);
+		DeepSearch.active = true;
+		logger.info("DeepLogging activated in " + jp.toShortString().split(Pattern.quote("("))[1]);
 		syncBefore(jp);
 	}
-	
-	@After("@annotation(org.junit.Test) && execution(* xmltest..*.*(..))")
+
+	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
 	public void syncAfterTest(JoinPoint jp) throws Throwable {
 		syncAfter(jp);
-		DeepSearch.active=false;
+		DeepSearch.active = false;
 	}
-	
+
 	private void syncBefore(JoinPoint jp) throws Throwable {
 		final Thread thread = Thread.currentThread();
 		synchronized (thread) {
@@ -66,11 +54,11 @@ public class TestAspect {
 			logger.info("note testcasename: " + testCaseName);
 		}
 	}
-	
+
 	private void syncAfter(JoinPoint jp) throws Throwable {
 		final Thread thread = Thread.currentThread();
 		synchronized (thread) {
-			
+
 			logger.info("writing data to disk");
 
 			DeepSearch.print(thread);

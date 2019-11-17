@@ -1,4 +1,4 @@
-package cache;
+package definitions.cache;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;

@@ -3,26 +3,21 @@ package definitions.structures.euclidean.vectorspaces.impl;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-import cache.ICache;
-import cache.MyCache;
+import definitions.cache.MyCache;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import settings.annotations.Proceed;
 
-@Configuration
+@Component
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
-	@Autowired
-	private MyCache cache = new MyCache();
+	@Autowired(required=true)
+	private MyCache myCache;
 
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
 	private static SpaceGenerator generator;
-
-	@Bean
+	
 	public static SpaceGenerator getInstance() {
 		if (generator == null) {
 			generator = new SpaceGenerator();
@@ -30,33 +25,23 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		return generator;
 	}
 	
-	@Bean
 	public static void setInstance(SpaceGenerator gen) {
 		generator=gen;
 	}
 
-
 	@Override
 	public String toString() {
-		return this.getCache().toString();
+		return this.getMyCache().toString();
+	}
+	
+	@Override
+	public MyCache getMyCache() {
+		return this.myCache;
 	}
 
-//	@Override
-	// TODO!
-//	public EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField) {
-//		final int ratio = complexSpace.getDim() / subField.getDim();
-//		return null;
-//	}
-
-	@Override
-	public MyCache getCache() {
-		return this.cache;
-	}
-
-	@Override
-	@Bean
-	public void setCache(MyCache ans) {
-		this.cache = ans;
+	@Override 
+	public void setMyCache(MyCache ans) {
+		this.myCache = ans;
 	}
 
 }
