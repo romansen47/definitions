@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -45,7 +46,7 @@ public class Quaternion extends Tuple implements Scalar {
 	}
 
 	public Quaternion(double r, double i, double j, double k) {
-		this(new Real(r), new Real(i), new Real(j), new Real(k));
+		this(RealLine.getInstance().get(r), RealLine.getInstance().get(i), RealLine.getInstance().get(j), RealLine.getInstance().get(k));
 	}
 
 	@Override

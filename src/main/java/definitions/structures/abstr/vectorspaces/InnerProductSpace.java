@@ -1,5 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -36,7 +37,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	@Override
 	default Real norm(final Vector vec) {
-		return new Real(Math.sqrt(innerProduct(vec, vec).getValue()));
+		return (Real) RealLine.getInstance().get(Math.sqrt(innerProduct(vec, vec).getValue()));
 	}
 
 }

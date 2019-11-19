@@ -121,7 +121,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 
 			final Scalar realOne = RealLine.getInstance().getOne();
 			final Scalar realZero = RealLine.getInstance().getZero();
-			final Scalar neg = new Real(-1);
+			final Scalar neg = RealLine.getInstance().get(-1);
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero }, { realZero, realOne } };
 			final Homomorphism oneHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,

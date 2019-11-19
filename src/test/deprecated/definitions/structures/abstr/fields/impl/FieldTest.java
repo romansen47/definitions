@@ -27,46 +27,37 @@ public class FieldTest extends VectorSpaceTest {
 	}
 
 	@Test
-	
-
 	public void test() {
 		final Vector test = new Complex(1, 1);
 		final Vector test2 = new Quaternion(1, 1, 1, 1);
 		final Vector ans = this.field.inverse(test);
 		final Vector ans2 = this.field2.inverse(test2);
 		final Monoid m = this.field.getMuliplicativeMonoid();
-
 	}
 
 	@Test
-	
-
 	public void multiplicationTest() {
 		((Field) this.getSpace()).show((Field) this.getSpace());
 	}
 
 	@Override
-
 	public VectorSpace getSpace() {
 		return QuaternionSpace.getInstance();
 	}
 
 	@Override
-
 	public Vector getVec1() {
 		return new Quaternion(1, 1, 1, 1);
 	}
 
 	@Override
-
 	public Vector getVec2() {
 		return new Quaternion(1, 1, 1, 1).getInverse();
 	}
 
 	@Override
-
 	public Scalar getFactor() {
-		return new Real(0);
+		return RealLine.getInstance().get(0);
 	}
 
 }

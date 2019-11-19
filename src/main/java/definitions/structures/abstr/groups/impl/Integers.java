@@ -3,6 +3,8 @@
  */
 package definitions.structures.abstr.groups.impl;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
@@ -13,6 +15,7 @@ import definitions.structures.abstr.vectorspaces.Ring;
  * @author RoManski
  *
  */
+@Component
 public final class Integers implements DiscreteGroup, Ring {
 
 	final GroupElement zero;

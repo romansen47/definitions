@@ -1,7 +1,8 @@
+package definitions.aspects;
 /**
  * 
  */
-package definitions.aspects;
+
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class TestAspect {
+public class TestAspect implements CustomAspect{
 
 	public final static Logger logger = Logger.getLogger("TestAspect");
 

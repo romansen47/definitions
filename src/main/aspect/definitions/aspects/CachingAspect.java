@@ -1,5 +1,4 @@
 package definitions.aspects;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 
 @Aspect
 @Component
-public class CachingAspect {
+public class CachingAspect implements CustomAspect{
 
 	@Autowired(required=true)
 	final static private Logger logger = Logger.getLogger(CachingAspect.class);
@@ -42,7 +41,7 @@ public class CachingAspect {
 		if (ans != null) {
 			logger.info(
 					"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
-			return ans;
+			return ans; 
 		}
 		switch (dim) {
 		case 1:

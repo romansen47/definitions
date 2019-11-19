@@ -133,8 +133,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Measurable
 	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
-			final Vector sin = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
-					new Real(d * i)) {
+			final Vector sin = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
+					RealLine.getInstance().get(d * i)) {
 				private static final long serialVersionUID = -6683701759680058862L;
 			};
 			tmpBase.add(sin);
@@ -151,8 +151,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Measurable
 	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
-			final Vector cos = new Sine(new Real(Math.sqrt(Math.abs(d) / Math.PI)), new Real(0.5 * Math.PI),
-					new Real(d * i)) {
+			final Vector cos = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().get(0.5 * Math.PI),
+					RealLine.getInstance().get(d * i)) {
 				private static final long serialVersionUID = 7151322718389633337L;
 			};
 			tmpBase.add(cos);

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
@@ -26,6 +28,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *         Implementation of the field of quaternion numbers as a singleton
  *         class.
  */
+@Component
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 	/**
@@ -161,7 +164,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 			final Scalar realOne = RealLine.getInstance().getOne();
 			final Scalar realZero = RealLine.getInstance().getZero();
-			final Scalar neg = new Real(-1);
+			final Scalar neg = RealLine.getInstance().get(-1);
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero, realZero, realZero },
 					{ realZero, realOne, realZero, realZero }, { realZero, realZero, realOne, realZero },

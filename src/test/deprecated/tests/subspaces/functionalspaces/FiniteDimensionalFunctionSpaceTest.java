@@ -64,7 +64,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 		list.add(orthonormalIdentity);
 		list.add(orthonormalConstant);
 
-		integral1 = functionSpace.innerProduct((functionSpace.stretch(orthonormalSine, new Real(2))), orthonormalSine)
+		integral1 = functionSpace.innerProduct((functionSpace.stretch(orthonormalSine, RealLine.getInstance().get(2))), orthonormalSine)
 				.getValue();
 		integral2 = functionSpace.innerProduct(orthonormalCosine, orthonormalCosine).getValue();
 		integral3 = functionSpace.innerProduct(orthonormalIdentity, orthonormalIdentity).getValue();

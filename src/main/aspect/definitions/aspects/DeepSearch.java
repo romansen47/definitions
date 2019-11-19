@@ -1,5 +1,6 @@
 package definitions.aspects;
 
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,7 +20,7 @@ import definitions.settings.XmlPrintable;
 
 @Aspect
 @Component
-public class DeepSearch {
+public class DeepSearch implements CustomAspect{
  
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();

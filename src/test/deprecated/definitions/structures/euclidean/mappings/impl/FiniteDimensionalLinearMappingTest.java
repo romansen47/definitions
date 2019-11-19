@@ -25,7 +25,7 @@ public class FiniteDimensionalLinearMappingTest {
 
 		@Override
 		public Vector get(Vector vec) {
-			return ((EuclideanSpace) FiniteDimensionalLinearMappingTest.this.space).stretch(vec, new Real(5));
+			return ((EuclideanSpace) FiniteDimensionalLinearMappingTest.this.space).stretch(vec, RealLine.getInstance().get(5));
 		}
 	};
 

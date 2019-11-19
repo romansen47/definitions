@@ -28,11 +28,6 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	public static void setInstance(SpaceGenerator gen) {
 		generator=gen;
 	}
-
-	@Override
-	public String toString() {
-		return this.getMyCache().toString();
-	}
 	
 	@Override
 	public MyCache getMyCache() {

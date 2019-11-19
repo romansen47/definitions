@@ -128,7 +128,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector sin = new Sine(this.getField().get(factor), RealLine.getInstance().getZero(), new Real(i)) {
+			final Vector sin = new Sine(this.getField().get(factor), RealLine.getInstance().getZero(), RealLine.getInstance().get(i)) {
 
 				/**
 				 * 
@@ -161,7 +161,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector cos = new Sine(this.getField().get(factor), new Real(0.5 * Math.PI), new Real(i)) {
+			final Vector cos = new Sine(this.getField().get(factor), RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(i)) {
 
 				/**
 				 * 

@@ -45,7 +45,7 @@ public class QuaternionSpaceTest extends VectorSpaceTest {
 
 	@Override
 	public Scalar getFactor() {
-		return new Real(0.5);
+		return RealLine.getInstance().get(0.5);
 	}
 
 	@Test

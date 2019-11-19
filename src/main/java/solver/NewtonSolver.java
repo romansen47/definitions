@@ -1,5 +1,6 @@
 package solver;
 
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
@@ -26,7 +27,7 @@ public class NewtonSolver {
 	}
 
 	private double doStep(double lastVal) throws Throwable {
-		return lastVal - (this.function.value(new Real(lastVal)).getValue()
-				/ this.function.getDerivative().value(new Real(lastVal)).getValue());
+		return lastVal - (this.function.value(RealLine.getInstance().get(lastVal)).getValue()
+				/ this.function.getDerivative().value(RealLine.getInstance().get(lastVal)).getValue());
 	}
 }

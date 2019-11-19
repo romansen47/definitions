@@ -41,7 +41,7 @@ public class PolynomialRegressionTest {
 
 		@Override
 		public Scalar value(Scalar input) {
-			return new Real(Math.exp(input.getValue()));
+			return RealLine.getInstance().get(Math.exp(input.getValue()));
 		}
 	};
 
@@ -84,7 +84,7 @@ public class PolynomialRegressionTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues2[1][k]);
+				return RealLine.getInstance().get(testValues2[1][k]);
 			}
 		};
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
@@ -104,7 +104,7 @@ public class PolynomialRegressionTest {
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues2[1][k]);
+				return RealLine.getInstance().get(testValues2[1][k]);
 			}
 		};
 		measures2 = measures.getProjection((EuclideanSpace) trigonometricSpace);

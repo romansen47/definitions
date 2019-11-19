@@ -32,7 +32,7 @@ public class FiniteDimensionalLinearMappingTest {
 	static Homomorphism inv;
 	static Homomorphism composition;
 
-	static Scalar[][] matrix = new Scalar[][] { { one, zero, one }, { zero, one, zero }, { new Real(-1), zero, one } };
+	static Scalar[][] matrix = new Scalar[][] { { one, zero, one }, { zero, one, zero }, { RealLine.getInstance().get(-1), zero, one } };
 
 	static FiniteDimensionalHomomorphism product;
 

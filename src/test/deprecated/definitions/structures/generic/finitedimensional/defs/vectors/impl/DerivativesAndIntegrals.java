@@ -64,7 +64,7 @@ public class DerivativesAndIntegrals {
 
 			@Override
 			public Scalar value(Scalar input) {
-				return new Real(1 - super.value(new Real(input.getValue() / Math.PI)).getValue());
+				return RealLine.getInstance().get(1 - super.value(RealLine.getInstance().get(input.getValue() / Math.PI)).getValue());
 			}
 
 			@Override

@@ -71,7 +71,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(value(getField().get(x)).getValue() - other.value(new Real(x)).getValue()) > eps) {
+			if (Math.abs(value(getField().get(x)).getValue() - other.value(RealLine.getInstance().get(x)).getValue()) > eps) {
 				return false;
 			}
 		}

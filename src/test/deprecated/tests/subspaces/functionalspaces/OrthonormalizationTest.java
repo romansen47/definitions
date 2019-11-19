@@ -44,7 +44,7 @@ public class OrthonormalizationTest {
 
 		final Vector x1 = space.add(genericBase.get(0), genericBase.get(1));
 		final Vector x2 = space.add(genericBase.get(1), genericBase.get(2));
-		final Vector x3 = space.add(genericBase.get(2), space.stretch(genericBase.get(0), new Real(2)));
+		final Vector x3 = space.add(genericBase.get(2), space.stretch(genericBase.get(0), RealLine.getInstance().get(2)));
 
 		system.add(x1);
 		system.add(x2);
@@ -90,7 +90,7 @@ public class OrthonormalizationTest {
 
 			@Override
 			public Scalar value(Scalar input) {
-				return new Real(Math.exp(input.getValue() + Math.exp(-input.getValue())));
+				return RealLine.getInstance().get(Math.exp(input.getValue() + Math.exp(-input.getValue())));
 			}
 		};
 		final Vector x = space.getCoordinates(exp);

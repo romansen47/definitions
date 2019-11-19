@@ -79,7 +79,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 			@Override
 			public Scalar value(Scalar input) {
-				return new Real(input.getValue() / this.norm);
+				return RealLine.getInstance().get(input.getValue() / this.norm);
 			}
 
 		};
@@ -100,7 +100,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 			public Scalar value(Scalar input) {
 				double ans = input.getValue();
 				double newAns = Math.sqrt(1 + Math.pow(ans, 2));
-				return new Real(newAns);
+				return RealLine.getInstance().get(newAns);
 			}
 		};
 		staircaseFunction = new GenericFunction() {
@@ -118,7 +118,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues[1][k]);
+				return RealLine.getInstance().get(testValues[1][k]);
 			}
 
 		};
@@ -137,7 +137,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 				while (k < testValues2[0].length - 1 && testValues2[0][k + 1] < l) {
 					k++;
 				}
-				return new Real(testValues2[1][k]);
+				return RealLine.getInstance().get(testValues2[1][k]);
 			}
 
 		};

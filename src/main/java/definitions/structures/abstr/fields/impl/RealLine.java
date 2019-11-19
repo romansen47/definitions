@@ -7,6 +7,11 @@ import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -30,8 +35,15 @@ import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
  */
 @SuppressWarnings("unused")
 @javax.xml.bind.annotation.XmlRootElement
+@Configuration
 public class RealLine implements SubField, RealSpace {
 
+	@Bean
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public Real real() {
+		return new Real();
+	}
+	
 	@javax.xml.bind.annotation.XmlElement
 	private static final long serialVersionUID = -1444063003774915383L;
 
@@ -54,7 +66,7 @@ public class RealLine implements SubField, RealSpace {
 	@javax.xml.bind.annotation.XmlElement
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
-	private RealLine() {
+	public  RealLine() {
 		this.base = new ArrayList<>();
 		this.base.add(this.getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
@@ -89,17 +101,17 @@ public class RealLine implements SubField, RealSpace {
 
 	@Override
 	public Vector add(Vector vec1, Vector vec2) {
-		return new Real(((Real) vec1).getValue() + ((Real) vec2).getValue());
+		return get(((Real) vec1).getValue() + ((Real) vec2).getValue());
 	}
 
 	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
-		return new Real(((Real) vec1).getValue() * r.getValue());
+		return get(((Real) vec1).getValue() * r.getValue());
 	}
 
 	@Override
 	public Real innerProduct(Vector vec1, Vector vec2) {
-		return new Real(((Real) vec1).getValue() * ((Real) vec2).getValue());
+		return (Real) get(((Real) vec1).getValue() * ((Real) vec2).getValue());
 	}
 
 	@Override
@@ -107,7 +119,7 @@ public class RealLine implements SubField, RealSpace {
 		final Real a = ((Real) v);
 		final Real b = ((Real) w);
 		if (b.getValue() != 0) {
-			return this.stretch(w, new Real(a.getValue() / b.getValue()));
+			return this.stretch(w, get(a.getValue() / b.getValue()));
 		}
 		return this.nullVec();
 	}
@@ -145,7 +157,7 @@ public class RealLine implements SubField, RealSpace {
 		final double val1 = ((Real) vec1).getValue();
 		final double val2 = ((Real) vec2).getValue();
 		final double ans = val1 * val2;
-		return new Real(ans);
+		return get(ans);
 	}
 
 	@XmlAttribute
@@ -158,7 +170,7 @@ public class RealLine implements SubField, RealSpace {
 		if (num.getValue() == 0.0) {
 			return null;
 		}
-		return new Real(1 / num.getValue());
+		return get(1 / num.getValue());
 	}
 
 	@XmlAttribute
@@ -214,7 +226,9 @@ public class RealLine implements SubField, RealSpace {
 
 	@Override
 	public Scalar get(double value) {
-		return new Real(value);
+		Real newReal=real();
+		newReal.setValue(value);
+		return newReal;
 	}
 
 	@Override

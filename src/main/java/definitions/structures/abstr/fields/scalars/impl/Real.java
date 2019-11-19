@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -24,22 +26,31 @@ import settings.GlobalSettings;
  *
  */
 @XmlRootElement
+@Component
 public class Real extends Number implements Scalar, FiniteVector {
-
+	
 	@XmlElement
 	private static final long serialVersionUID = 448447488896787384L;
 
 	@XmlElement
-	final private double realValue;
+	private double realValue;
+	
+	public void setValue(double value) {
+		this.realValue=value;
+	}
 
 	private Map<Vector, Scalar> coordinates;
 
 	@XmlElement
 	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
-	public Real(double value) {
-		this.realValue = value;
+	public Real() {
+		this.realValue=0d;
 	}
+	
+//	public Real(double value) {
+//		this.realValue = value;
+//	}
 
 	@Override
 	public String toXml() {
@@ -109,7 +120,9 @@ public class Real extends Number implements Scalar, FiniteVector {
 	@XmlAttribute
 	public Scalar getInverse() {
 		if (Math.abs(this.getValue()) > 1.e-15) {
-			return new Real(1 / this.getValue());
+			Real ans= new Real();
+			ans.setValue(1 / this.getValue());
+			return ans;
 		}
 		System.out.println("Devision by 0.0!");
 		return null;

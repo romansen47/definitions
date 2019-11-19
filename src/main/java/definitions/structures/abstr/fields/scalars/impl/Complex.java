@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -34,7 +35,7 @@ public class Complex extends Tuple implements Scalar {
 	}
 
 	public Complex(double x, double y) {
-		this(new Real(x), new Real(y));
+		this(RealLine.getInstance().get(x),RealLine.getInstance().get(y));
 	}
 
 	@Override

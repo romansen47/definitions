@@ -82,8 +82,8 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	@Test
 	
 	public void testStretch() {
-		Assert.assertTrue(this.complexPlane.stretch(this.one, new Real(5)).equals(new Complex(5, 0)));
-		Assert.assertTrue(this.complexPlane.stretch(this.im, new Real(-5)).equals(new Complex(0, -5)));
+		Assert.assertTrue(this.complexPlane.stretch(this.one, RealLine.getInstance().get(5)).equals(new Complex(5, 0)));
+		Assert.assertTrue(this.complexPlane.stretch(this.im, RealLine.getInstance().get(-5)).equals(new Complex(0, -5)));
 		Assert.assertTrue(this.complexPlane.stretch(this.one, RealLine.getInstance().getZero())
 				.equals(this.complexPlane.nullVec()));
 	}
@@ -125,7 +125,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	@Override
 	public Scalar getFactor() {
-		return new Real(2);
+		return RealLine.getInstance().get(2);
 	}
 
 }

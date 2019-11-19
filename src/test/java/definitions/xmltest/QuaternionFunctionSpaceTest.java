@@ -1,31 +1,53 @@
 /**
  * 
  */
-package definitions.structures.euclidean.functionspaces.impl;
+package definitions.xmltest;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
+import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author BAU12350
  *
  */
 public class QuaternionFunctionSpaceTest {
-
-	static final public Field f = (Field) QuaternionSpace.getInstance();
+	
+	public QuaternionFunctionSpaceTest() {
+		generator = (Generator) springConfiguration.getApplicationContext().getBean("generator");
+		setSpaceGenerator(generator.getSpacegenerator());
+	}
+	
+	private Generator generator;
+	
+	private SpaceGenerator spaceGenerator;
+	
+	private BinaryField binaryField;
+	
+	private SpringConfiguration springConfiguration = new SpringConfiguration();
+	
+	private Field f = (Field) QuaternionSpace.getInstance();
+	
 	List<Vector> base = new ArrayList<>();
 	FunctionSpace space;
 
@@ -34,13 +56,14 @@ public class QuaternionFunctionSpaceTest {
 	static Function gamma;
 
 	public static void main(String[] args) {
-		prepare();
-		new QuaternionFunctionSpaceTest().test();
+		QuaternionFunctionSpaceTest test=new QuaternionFunctionSpaceTest();
+		test.prepare();
+		test.test();
 		System.exit(0);
 	}
 
-	@BeforeClass
-	public static void prepare() {
+	@Before
+	public void prepare() {
 		alpha = new GenericFunction() {
 			private static final long serialVersionUID = 6698998256903151087L;
 
@@ -81,7 +104,7 @@ public class QuaternionFunctionSpaceTest {
 				final double val = ((Quaternion) input).getReal().getValue();
 				final Quaternion tmp = (Quaternion) f.add(f.getOne(), new Quaternion(val, -val, val, 1 - val));
 				if (Math.abs(((Quaternion) input).getReal().getValue()) < 1.e-5) {
-					return (Scalar) f.stretch(input, new Real(1.e5));
+					return (Scalar) f.stretch(input, RealLine.getInstance().get(1.e5));
 				}
 				return (Scalar) f.normalize(tmp);
 			}
@@ -95,7 +118,6 @@ public class QuaternionFunctionSpaceTest {
 	}
 
 	@Test
-	
 	public void test() {
 		this.space = new FiniteDimensionalFunctionSpace(f, this.base, -1, 1, true);
 
@@ -105,6 +127,22 @@ public class QuaternionFunctionSpaceTest {
 		alpha.plot(-Math.PI, Math.PI);
 //		beta.plot(-Math.PI, Math.PI);
 //		gamma.plot(-Math.PI, Math.PI);
+	}
+
+	public SpaceGenerator getSpaceGenerator() {
+		return spaceGenerator;
+	}
+
+	public void setSpaceGenerator(SpaceGenerator spaceGenerator) {
+		this.spaceGenerator = spaceGenerator;
+	}
+
+	public BinaryField getBinaryField() {
+		return binaryField;
+	}
+
+	public void setBinaryField(BinaryField binaryField) {
+		this.binaryField = binaryField;
 	}
 
 }

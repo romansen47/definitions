@@ -3,11 +3,14 @@ package definitions.structures.abstr.fields.scalars.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public final class RealZero extends Real {
+@Component
+public class RealZero extends Real {
 
 	private static final long serialVersionUID = 4784581571935827482L;
 	private static Real zero;
@@ -19,8 +22,8 @@ public final class RealZero extends Real {
 		return zero;
 	}
 
-	private RealZero() {
-		super(0.);
+	public RealZero() {
+		super();
 	}
 
 	@Override

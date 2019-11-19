@@ -87,7 +87,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues[1][k]);
+				return RealLine.getInstance().get(testValues[1][k]);
 			}
 
 		};
@@ -123,7 +123,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return new Real(testValues2[1][k]);
+				return RealLine.getInstance().get(testValues2[1][k]);
 			}
 
 		};
@@ -141,7 +141,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
-				return staircaseFunction2.value(new Real(newx));
+				return staircaseFunction2.value(RealLine.getInstance().get(newx));
 			}
 
 		};
@@ -155,7 +155,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
-				return ((Function) staircaseFunction2ToFourier).value(new Real(newx));
+				return ((Function) staircaseFunction2ToFourier).value(RealLine.getInstance().get(newx));
 			}
 
 		};
@@ -199,7 +199,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 			@Override
 			public Scalar value(Scalar input) {
-				return new Real(Math.exp(input.getValue()));
+				return RealLine.getInstance().get(Math.exp(input.getValue()));
 			}
 
 		};
