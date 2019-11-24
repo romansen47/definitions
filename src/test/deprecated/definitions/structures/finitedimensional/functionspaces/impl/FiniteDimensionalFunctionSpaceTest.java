@@ -40,7 +40,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		trigonometricSpace = Generator.getGenerator().getSpacegenerator()
+		trigonometricSpace = Generator.getInstance().getSpacegenerator()
 				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), degree);
 		((EuclideanSpace) trigonometricSpace).show();
 		fun1 = ((EuclideanSpace) trigonometricSpace).genericBaseToList().get(1);

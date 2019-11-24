@@ -43,7 +43,7 @@ public class RealLine implements SubField, RealSpace {
 	public Real real() {
 		return new Real();
 	}
-	
+
 	@javax.xml.bind.annotation.XmlElement
 	private static final long serialVersionUID = -1444063003774915383L;
 
@@ -66,7 +66,7 @@ public class RealLine implements SubField, RealSpace {
 	@javax.xml.bind.annotation.XmlElement
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
-	public  RealLine() {
+	public RealLine() {
 		this.base = new ArrayList<>();
 		this.base.add(this.getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
@@ -82,9 +82,6 @@ public class RealLine implements SubField, RealSpace {
 	}
 
 	public static RealLine getInstance() {
-		if (instance == null) {
-			instance = new RealLine();
-		}
 		return instance;
 	}
 
@@ -204,8 +201,7 @@ public class RealLine implements SubField, RealSpace {
 		coord.put(this.getOne(), tmp);
 		return new InjectiveLinearMapping(this, ComplexPlane.getInstance(), coord);
 	}
-
-//	@javax.xml.bind.annotation.XmlElement
+ 
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
@@ -226,7 +222,7 @@ public class RealLine implements SubField, RealSpace {
 
 	@Override
 	public Scalar get(double value) {
-		Real newReal=real();
+		Real newReal = real();
 		newReal.setValue(value);
 		return newReal;
 	}
@@ -245,6 +241,10 @@ public class RealLine implements SubField, RealSpace {
 	@Override
 	public String toXml() {
 		return "<realNumbers/>";
+	}
+
+	public static void setInstance(RealLine realLine) {
+		instance = realLine;
 	}
 
 }

@@ -10,7 +10,7 @@ public class PersistentDataManager {
 
 	final static int funcSpaces = 100;
 
-	final static IGenerator gen = Generator.getGenerator();
+	final static IGenerator gen = Generator.getInstance();
 
 	final static ISpaceGenerator spacesGen = gen.getSpacegenerator();
 

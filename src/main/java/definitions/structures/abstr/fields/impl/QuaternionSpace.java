@@ -28,12 +28,9 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *         Implementation of the field of quaternion numbers as a singleton
  *         class.
  */
-@Component
+//@Component(value="quaternionSpace")
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
-
-	/**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = -5960215336667005490L;
 
 	static private EuclideanSpace instance;
@@ -49,7 +46,6 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	/**
 	 * @return the i
 	 */
-
 	public Vector getI() {
 		return this.i;
 	}
@@ -68,7 +64,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		return this.k;
 	}
 
-	private QuaternionSpace() {
+	public QuaternionSpace() {
 		super(RealLine.getInstance());
 
 		final Scalar realOne = RealLine.getInstance().getOne();
@@ -87,15 +83,15 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		this.assignOrthonormalCoordinates(this.base, this.getField());
 	}
 
-	public static EuclideanSpace getInstance() {
-		if (instance == null) {
-			instance = new QuaternionSpace();
-		}
+	public static EuclideanSpace getInstance() { 
 		return instance;
 	}
-
-	@Override
 	
+	public static void setInstance(EuclideanSpace space) { 
+		instance=space;
+	}
+
+	@Override	
 	public Vector add(Vector vec1, Vector vec2) {
 		if (vec1 == this.nullVec()) {
 			return vec2;
@@ -110,8 +106,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
 	}
 
-	@Override
-	
+	@Override	
 	public Vector stretch(Vector vec1, Scalar r) {
 		if (r instanceof Quaternion) {
 			return this.product(vec1, r);
@@ -129,8 +124,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
 	}
 
-	@Override
-	
+	@Override	
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}

@@ -54,7 +54,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
-		IGenerator gen = Generator.getGenerator();
+		IGenerator gen = Generator.getInstance();
 
 		ISpaceGenerator spaceGen = gen.getSpacegenerator();
 

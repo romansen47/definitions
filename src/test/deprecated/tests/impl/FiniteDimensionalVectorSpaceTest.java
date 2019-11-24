@@ -31,7 +31,7 @@ public class FiniteDimensionalVectorSpaceTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		space = Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(4);
+		space = Generator.getInstance().getSpacegenerator().getFiniteDimensionalVectorSpace(4);
 
 		final List<Vector> genericBase = space.genericBaseToList();
 		final List<Vector> system = new ArrayList<>();

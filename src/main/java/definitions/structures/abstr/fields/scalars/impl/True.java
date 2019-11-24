@@ -6,6 +6,8 @@ package definitions.structures.abstr.fields.scalars.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -17,6 +19,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  */
 @javax.xml.bind.annotation.XmlRootElement
+@Component("true")
 public final class True implements Scalar {
 
 	@javax.xml.bind.annotation.XmlElement

@@ -15,30 +15,30 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 @Component
 public class MappingGenerator implements IMappingGenerator {
 
 	private static final long serialVersionUID = 1L;
-	private static IMappingGenerator generator = null;
+	private static IMappingGenerator instance;
 
 	public static IMappingGenerator getInstance() {
-		if (generator == null) {
-			generator = new MappingGenerator();
+		if (instance == null) {
+			instance = new MappingGenerator();
 		}
-		return generator;
+		return instance;
 	}
 
 	public MappingGenerator() {
 	}
 
-	@Override	
+	@Override
 	public Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
-		final EuclideanSpace source = Generator.getGenerator().getSpacegenerator()
-				.getFiniteDimensionalVectorSpace(dimSource);
-		final EuclideanSpace target = Generator.getGenerator().getSpacegenerator()
+		final EuclideanSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);
+		final EuclideanSpace target = Generator.getInstance().getSpacegenerator()
 				.getFiniteDimensionalVectorSpace(dimTarget);
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
 		int i = 0;
@@ -107,6 +107,10 @@ public class MappingGenerator implements IMappingGenerator {
 			i++;
 		}
 		return this.getFiniteDimensionalLinearMapping(source, target, map);
+	}
+
+	public static void setInstance(MappingGenerator mappingGenerator) {
+		MappingGenerator.instance = mappingGenerator;
 	}
 
 	// @Override

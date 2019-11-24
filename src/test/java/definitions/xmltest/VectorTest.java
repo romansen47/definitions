@@ -29,6 +29,6 @@ public class VectorTest{
 
 	public void setSpringConfiguration(SpringConfiguration springConfiguration) {
 		this.springConfiguration = springConfiguration;
-	}
+	} 
 
 }

@@ -12,6 +12,7 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class Tuple implements FiniteVector {
 
@@ -26,7 +27,6 @@ public class Tuple implements FiniteVector {
 	private Map<Vector, Scalar> coordinates;
 
 	@Override
-
 	public Integer getDim() {
 		return this.dim;
 	}
@@ -35,7 +35,7 @@ public class Tuple implements FiniteVector {
 		this.dim = coordinates.length;
 		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : Generator.getGenerator().getSpacegenerator().getFiniteDimensionalVectorSpace(this.dim)
+		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
 				.genericBaseToList()) {
 			this.getCoordinates().put(vec, coordinates[i++]);
 		}

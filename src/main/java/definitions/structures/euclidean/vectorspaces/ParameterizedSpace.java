@@ -9,6 +9,7 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
+import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 
@@ -51,10 +52,8 @@ public interface ParameterizedSpace extends EuclideanSpace {
 	Map<Vector, Vector> getParametrizationBaseVectorMapping();
 
 	default FiniteVector getNearestVector(final Vector vec2) {
-		final FiniteDimensionalHomomorphism transposed = (FiniteDimensionalHomomorphism) Generator.getGenerator()
-				.getMappinggenerator().getTransposedMapping(getParametrization());
-		final FiniteDimensionalHomomorphism quadratic = (FiniteDimensionalHomomorphism) Generator.getGenerator()
-				.getMappinggenerator().getComposition(transposed, getParametrization());
+		final FiniteDimensionalHomomorphism transposed = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance().getTransposedMapping(getParametrization());
+		final FiniteDimensionalHomomorphism quadratic = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance().getComposition(transposed, getParametrization());
 		final Vector transformed = transposed.get(vec2);
 		/*
 		 * Direct usage of constructor instead of get method in order to avoid cycles.

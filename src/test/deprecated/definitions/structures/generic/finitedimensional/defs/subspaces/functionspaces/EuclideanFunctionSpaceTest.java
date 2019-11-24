@@ -3,6 +3,7 @@ package definitions.structures.generic.finitedimensional.defs.subspaces.function
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -10,7 +11,6 @@ import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
@@ -19,7 +19,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
+//@ContextConfiguration("definitions.SpringConfiguration.annotationConfigApplicationContext")
 public class EuclideanFunctionSpaceTest {
+
+	static private SpringConfiguration springConfiguration;
 
 	final static VectorSpace realLine = RealLine.getInstance();
 
@@ -33,15 +36,8 @@ public class EuclideanFunctionSpaceTest {
 	final static int trigonometricDegree = 3;
 	final static int sobolevDegree = 1;
 
-	final static Function exp = new ExponentialFunction(RealLine.getInstance().getZero(),
-			RealLine.getInstance().getOne()) {
-		private static final long serialVersionUID = 1172031978682722462L;
-
-		@Override
-		public Field getField() {
-			return (Field) realLine;
-		}
-	};
+	private static Function exp;
+	
 	private static FunctionSpace extendedSpace;
 	private static FunctionSpace extendedToSobolev;
 
@@ -49,9 +45,10 @@ public class EuclideanFunctionSpaceTest {
 		setUpBeforeClass();
 		new EuclideanFunctionSpaceTest().polynomialSobolev();
 	}
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() {
+		springConfiguration=SpringConfiguration.getSpringConfiguration();
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree, 1,
 				false);
 		polynomialSpaceSobolev = (FunctionSpace) SpaceGenerator.getInstance()
@@ -60,6 +57,15 @@ public class EuclideanFunctionSpaceTest {
 		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace((Field) realLine, trigonometricDegree);
 		trigonometricSpaceSobolev = SpaceGenerator.getInstance().getTrigonometricSobolevSpace((Field) realLine,
 				trigonometricDegree, sobolevDegree);
+		exp = new ExponentialFunction(RealLine.getInstance().getZero(),
+				RealLine.getInstance().getOne()) {
+			private static final long serialVersionUID = 1172031978682722462L;
+
+			@Override
+			public Field getField() {
+				return (Field) realLine;
+			}
+		};
 	}
 
 	@Test
@@ -78,7 +84,7 @@ public class EuclideanFunctionSpaceTest {
 	}
 
 	@Test
-	
+
 	public void polynomialSobolev() throws java.lang.Exception {
 		extendedToSobolev = (FunctionSpace) SpaceGenerator.getInstance().extend(polynomialSpaceSobolev,
 				new Sine(1, 0, 1) {
@@ -108,18 +114,22 @@ public class EuclideanFunctionSpaceTest {
 
 	@Test
 	public void trigonometric2() throws java.lang.Exception {
-		EuclideanSpace ans = Generator.getGenerator().getSpacegenerator()
+		EuclideanSpace ans = SpaceGenerator.getInstance()
 				.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 49);
 		exp.getProjection(ans).plotCompare(-Math.PI, Math.PI, exp);
 	}
 
 	@Test
 	public void trigonometricSobolev2() throws java.lang.Exception {
-		ISpaceGenerator sp = Generator.getGenerator().getSpacegenerator();
+		ISpaceGenerator sp = SpaceGenerator.getInstance();
 		EuclideanSpace ans = sp.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 7);
 		EuclideanSpace sobolev = sp.getFiniteDimensionalSobolevSpace(RealLine.getInstance(),
 				(EuclideanFunctionSpace) ans, sobolevDegree);
 		exp.getProjection(sobolev).plotCompare(-Math.PI, Math.PI, exp);
+	}
+
+	public SpringConfiguration getSpringConfiguration() {
+		return springConfiguration;
 	}
 
 }

@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -18,7 +19,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FunctionalSpaceTest {
 
-	final EuclideanSpace space = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(3);
+	final EuclideanSpace space = SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(SpaceGenerator.class).getFiniteDimensionalVectorSpace(3);
 	final EuclideanSpace dualSpace = this.space.getDualSpace();
 	final EuclideanSpace dualDualSpace = this.dualSpace.getDualSpace();
 

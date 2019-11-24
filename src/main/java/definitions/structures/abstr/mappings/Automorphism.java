@@ -4,6 +4,7 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
+import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 
 /**
  * Automorphism.
@@ -23,7 +24,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 			if (in.equals(RealLine.getInstance().getZero())) {
 				throw new Throwable();
 			}
-			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+			return (InvertibleSelfMapping) MappingGenerator.getInstance()
 					.getFiniteDimensionalLinearMapping(
 							new Scalar[][] { { getSource().getField().get(1. / in.getValue()) } });
 		}
@@ -34,7 +35,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 			det = 1.0 / det(matrix).getValue();
 		} catch (final Exception e) {
 			System.err.println("Division durch 0!");
-			return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+			return (InvertibleSelfMapping) MappingGenerator.getInstance()
 					.getFiniteDimensionalLinearMapping(new Scalar[0][0]);
 		}
 		for (int i = 0; i < k; i++) {
@@ -43,7 +44,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 						.get(Math.pow(-1, (double) i + (double) j) * det(adjointMatrix(matrix, j, i)).getValue() * det);
 			}
 		}
-		return (InvertibleSelfMapping) Generator.getGenerator().getMappinggenerator()
+		return (InvertibleSelfMapping) Generator.getInstance().getMappinggenerator()
 				.getFiniteDimensionalLinearMapping(inv);
 	}
 }

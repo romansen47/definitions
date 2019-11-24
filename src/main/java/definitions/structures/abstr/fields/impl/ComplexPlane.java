@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Complex;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -22,7 +26,9 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *
  *         Implementation of the field of complex numbers as a singleton class.
  */
-public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
+//@Configurable
+//@Component("complexPlane")
+public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace{
 
 	private static final long serialVersionUID = -6528124823296735558L;
 
@@ -38,30 +44,28 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		return this.i;
 	}
 
-	private ComplexPlane() {
-		super(RealLine.getInstance());
+//	@Autowired 
+	private static RealLine realLine=RealLine.getInstance();
+	
+	public ComplexPlane() {
+		field=realLine;
 		this.dim = 2;
 		this.base = new ArrayList<>();
 		this.one = new Complex(RealLine.getInstance().getOne(), RealLine.getInstance().getZero());
 		this.zero = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getZero());
 		this.i = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
 		this.base.add(this.one);
-		this.base.add(this.i);
-
-		// this.one.getCoordinates();
-		// this.i.getCoordinates();
+		this.base.add(this.i); 
 	}
 
 	@Override
-	
 	public Vector add(Vector vec1, Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
-	@Override
-	
+	@Override	
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
@@ -78,7 +82,6 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	
 	public Vector product(Vector vec1, Vector vec2) {
 		return Field.super.product(vec1, vec2);
 	}
@@ -110,10 +113,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public Vector nullVec() {
 		return this.zero;
 	}
-
-	/**
-	 * @return the multiplicationMatrix
-	 */
+	
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 
@@ -155,13 +155,26 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		return (Scalar) Field.super.inverse(factor);
 	}
 
-	@Override
-	public Scalar get(double value) {
-		return new Complex(this.getField().get(value), (Scalar) this.getField().getZero());
+	
+	@Bean
+	public Complex complex() {
+		return new Complex(0,0);
+	}
+	 
+	public Scalar get(double realValue,double imValue) { 
+		Complex newComplex=complex();
+		newComplex.setValue(realValue,imValue);
+		return newComplex;
 	}
 
 	@Override
+	public Scalar get(double realValue) { 
+		Complex newComplex=complex();
+		newComplex.setValue(realValue,0);
+		return newComplex;
+	}
 	
+	@Override
 	public Scalar conjugate(Scalar value) {
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
@@ -170,6 +183,10 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	@Override
 	public String toXml() {
 		return "<complexPlane />";
+	}
+
+	public static void setRealLine(RealLine realLine) {
+		ComplexPlane.realLine=realLine;
 	}
 
 }

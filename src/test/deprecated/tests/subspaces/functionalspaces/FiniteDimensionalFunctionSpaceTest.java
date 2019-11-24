@@ -50,7 +50,7 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 		};
 
-		functionSpace = Generator.getGenerator().getSpacegenerator()
+		functionSpace = Generator.getInstance().getSpacegenerator()
 				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), 1);
 
 		orthonormalConstant = (Function) functionSpace.genericBaseToList().get(0);

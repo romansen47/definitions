@@ -11,9 +11,9 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -22,28 +22,19 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class PolynomialRegressionTest {
 
-	final static int polynomialDegree = 3;
-	final static int trigonometricDegree = 5;
+	final static int polynomialDegree = 2;
+	final static int trigonometricDegree = 2;
 	final static double left = -1;
 	final static double right = 1;
 
 	// @TODO: Derivatives don't work
-	final static int sobolevDegree = 1;
+	final static int sobolevDegree = 0;
 
 	static VectorSpace polynomialSpace;
 	static VectorSpace trigonometricSpace;
 
-	static Function exp = new GenericFunction() {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		public Scalar value(Scalar input) {
-			return RealLine.getInstance().get(Math.exp(input.getValue()));
-		}
-	};
+	static RealLine realLine;
+	static Function exp;
 
 	static Function staircaseFunction;
 	static Function staircaseFunction2;
@@ -59,20 +50,27 @@ public class PolynomialRegressionTest {
 
 	@BeforeClass
 	public static void before() throws Throwable {
-
+		SpringConfiguration springConfiguration=SpringConfiguration.getSpringConfiguration();
+		realLine = springConfiguration.getApplicationContext()
+					.getBean(RealLine.class);
 		testValues = readFile(PATH);
 		testValues2 = readFile(PATH2);
 
+		exp  = new GenericFunction() { 
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Scalar value(Scalar input) {
+				return realLine.get(Math.exp(input.getValue()));
+			}
+		};
+		
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialSobolevSpace(RealLine.getInstance(),
 				polynomialDegree, right, sobolevDegree);
 
 		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSobolevSpace(RealLine.getInstance(),
 				trigonometricDegree, sobolevDegree);
 
-		staircaseFunction = new GenericFunction() {
-			/** 
-			 * 
-			 */
+		staircaseFunction = new GenericFunction() { 
 			private static final long serialVersionUID = 1L;
 			int length = (int) testValues[0][testValues[0].length - 1];
 
@@ -84,42 +82,38 @@ public class PolynomialRegressionTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return RealLine.getInstance().get(testValues2[1][k]);
+				return realLine.get(testValues[1][k]);
 			}
 		};
+		
 		staircaseFunction2 = staircaseFunction.getProjection((EuclideanSpace) trigonometricSpace);
 
-		measures = new GenericFunction() {
-			/**
-			 * 
-			 */
+		measures = new GenericFunction() { 
 			private static final long serialVersionUID = 1L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
 			public Scalar value(Scalar input) {
-				final double newInput = ((this.length / (2.)) * input.getValue()) + (this.length / 2.);
-				int k = 0;
+				final double newInput = (input.getValue()+Math.PI)/(2*Math.PI)*length;
+				int k = 1;
 				final int l = (int) (newInput - (newInput % 1));
-				while (testValues2[0][k] < l) {
+				while (k<testValues2[0].length-1 && testValues2[0][k-1] < l ) {
 					k++;
 				}
-				return RealLine.getInstance().get(testValues2[1][k]);
+				return realLine.get(testValues2[1][k-1]);
 			}
 		};
 		measures2 = measures.getProjection((EuclideanSpace) trigonometricSpace);
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test1() throws Throwable {
 		final Function coordinates = exp.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, exp);
 	}
 
 	@Test
-	public
-	void test2() throws Throwable {
+	public void test2() throws Throwable {
 		final Function coordinates = staircaseFunction2.getProjection((EuclideanSpace) polynomialSpace);
 		coordinates.plotCompare(left, right, staircaseFunction2);
 
@@ -127,8 +121,7 @@ public class PolynomialRegressionTest {
 		coordinates2.plotCompare(left, right, measures2);
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test() throws Throwable {
 		staircaseFunction2.plotCompare(left, right, staircaseFunction);
 	}
@@ -160,8 +153,7 @@ public class PolynomialRegressionTest {
 		return ans;
 	}
 
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	@Test
 	public void test3() {
 		((EuclideanSpace) trigonometricSpace).show();
 	}

@@ -27,7 +27,7 @@ import solver.StdDraw;
  */
 public interface Function extends Vector, Plotable, FiniteVectorMethods {
 
-	final static IGenerator gen=Generator.getGenerator();
+	final static IGenerator gen=Generator.getInstance();
 	/**
 	 * Functions carry around a correctness parameter.
 	 */

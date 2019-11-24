@@ -24,7 +24,7 @@ public class FieldTest extends VectorSpaceTest {
 		this.getVec1();
 		this.getVec2();
 		this.getFactor();
-	}
+	} 
 
 	@Test
 	public void test() {

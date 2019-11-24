@@ -33,7 +33,7 @@ public interface Plotter {
 						z + delta, ((Function) fun).value(((Function) fun).getField().get(z + delta)).getCoordinates()
 								.get(vec).getValue());
 			}
-		}
+		} 
 
 	}
 

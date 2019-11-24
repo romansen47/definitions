@@ -117,8 +117,8 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 		 * Don't touch this
 		 */
 		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
-		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) Generator.getGenerator()
-				.getMappinggenerator().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
+		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) MappingGenerator
+				.getInstance().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
 		FiniteDimensionalHomomorphism composedMapping;
 		if (getTarget() instanceof ParameterizedSpace) {
 			composedMapping = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance()

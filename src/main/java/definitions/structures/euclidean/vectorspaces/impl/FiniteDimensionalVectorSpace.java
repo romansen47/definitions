@@ -36,8 +36,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * the dimension.
 	 */
 	protected int dim;
-
-	protected final Field field;
+ 
+	protected Field field;
 
 	/**
 	 * Plain constructor.
@@ -46,7 +46,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.field = field;
 	}
 
-	protected FiniteDimensionalVectorSpace() {
+	public FiniteDimensionalVectorSpace() {
 		this.field = RealLine.getInstance();
 	}
 

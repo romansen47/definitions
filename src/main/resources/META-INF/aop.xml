@@ -3,7 +3,10 @@
 <aspectj>
 	<weaver
 		options="-Xset:weaveJavaxPackages=true -verbose -showWeaveInfo -debug">
-		<include within="definitions..*" /> 
+		<include within="definitions..*" />
 		<exclude within="plotter..*" />
 	</weaver>
+	<aspects>
+		<aspect name="definitions.ccache.CachingAspect" />
+	</aspects>
 </aspectj>

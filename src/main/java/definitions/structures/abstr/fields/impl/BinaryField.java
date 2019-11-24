@@ -84,20 +84,17 @@ public final class BinaryField implements PrimeField {
 		return this.zero;
 	}
 
-	@Override
-	
+	@Override	
 	public Vector add(Vector vec1, Vector vec2) {
 		return this.get(!vec1.equals(vec2));
 	}
-
-	@Override
 	
+	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
 		return this.get(vec1.equals(this.unit) && r.equals(this.unit));
 	}
 
-	@Override
-	
+	@Override	
 	public Vector inverse(Vector factor) {
 		if (factor instanceof True) {
 			return this.unit;
@@ -129,12 +126,6 @@ public final class BinaryField implements PrimeField {
 		return this.base;
 	}
 
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public Set<Vector> getGenericBase() {
-//		return (Set<Vector>) this.base;
-//	}
-
 	@Override
 	public Vector getCoordinates(Vector vec) {
 		return vec;
@@ -159,7 +150,6 @@ public final class BinaryField implements PrimeField {
 	@Override
 	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
-
 	}
 
 	/**
@@ -187,7 +177,6 @@ public final class BinaryField implements PrimeField {
 	 * @return the conjugated
 	 */
 	@Override
-	
 	public Scalar conjugate(Scalar value) {
 		return value;
 	}
@@ -198,6 +187,11 @@ public final class BinaryField implements PrimeField {
 	@Override
 	public int getCharacteristic() {
 		return this.characteristic;
+	}
+	
+	@Override
+	public String toString() {
+		return "the binary field";
 	}
 
 }

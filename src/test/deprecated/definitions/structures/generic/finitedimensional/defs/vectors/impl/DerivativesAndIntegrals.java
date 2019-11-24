@@ -19,6 +19,7 @@ import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.Monome;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class DerivativesAndIntegrals {
 
@@ -33,9 +34,9 @@ public class DerivativesAndIntegrals {
 	final static int degree = 2;
 	final static int sobolevDegree = 1;
 
-	static EuclideanSpace space = (EuclideanSpace) Generator.getGenerator()
+	static EuclideanSpace space = (EuclideanSpace) Generator.getInstance()
 			.getTrigonometricSpace(RealLine.getInstance(), degree);
-	static EuclideanSpace sobolevSpace = Generator.getGenerator().getSpacegenerator()
+	static EuclideanSpace sobolevSpace =  SpaceGenerator.getInstance()
 			.getTrigonometricSobolevSpace(RealLine.getInstance(), degree, sobolevDegree);
 
 	static final Homomorphism derivativeOperator = new DerivativeOperator(space, space);
@@ -43,23 +44,15 @@ public class DerivativesAndIntegrals {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		sine = new Sine(1, 0, 1) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+		sine = new Sine(1, 0, 1) { 
+			private static final long serialVersionUID = 1L; 
 			@Override
 			public Field getField() {
 				return realLine;
 			}
 		};
 
-		monome = new Monome(1) {
-
-			/**
-			 * 
-			 */
+		monome = new Monome(1) { 
 			private static final long serialVersionUID = 1L;
 
 			@Override

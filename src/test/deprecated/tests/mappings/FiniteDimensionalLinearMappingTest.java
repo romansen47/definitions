@@ -3,6 +3,7 @@ package tests.mappings;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -13,6 +14,7 @@ import definitions.structures.abstr.vectorspaces.Algebra;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
+import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import junit.framework.Assert;
@@ -20,7 +22,7 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class FiniteDimensionalLinearMappingTest {
 
-	final static IMappingGenerator mapGen = Generator.getGenerator().getMappinggenerator();
+	final static IMappingGenerator mapGen = SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(MappingGenerator.class);
 
 	final static Algebra realLine = RealLine.getInstance();
 	final static Scalar one = ((RealLine) realLine).getOne();
@@ -30,7 +32,7 @@ public class FiniteDimensionalLinearMappingTest {
 	static FiniteVector e3;
 	static Homomorphism map;
 	static Homomorphism inv;
-	static Homomorphism composition;
+	static Homomorphism composition; 
 
 	static Scalar[][] matrix = new Scalar[][] { { one, zero, one }, { zero, one, zero }, { RealLine.getInstance().get(-1), zero, one } };
 

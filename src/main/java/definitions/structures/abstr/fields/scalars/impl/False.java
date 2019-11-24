@@ -6,6 +6,8 @@ package definitions.structures.abstr.fields.scalars.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -16,11 +18,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author RoManski
  *
  */
+@Component("false")
 public final class False implements Scalar {
-
-	/**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = 4824547668535611023L;
 
 	static private Scalar instance;
@@ -29,7 +29,7 @@ public final class False implements Scalar {
 
 	private False() {
 	}
-
+ 
 	static public Scalar getInstance() {
 		if (instance == null) {
 			instance = new False();

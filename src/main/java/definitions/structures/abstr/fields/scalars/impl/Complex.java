@@ -23,7 +23,7 @@ public class Complex extends Tuple implements Scalar {
 	private Scalar real;
 
 	@XmlElement
-	private final Scalar imag;
+	private Scalar imag;
 
 	@XmlElement
 	private Map<Vector, Scalar> coordinates;
@@ -122,5 +122,11 @@ public class Complex extends Tuple implements Scalar {
 	public String toXml() {
 		return "<complex>\r"+
 				real.toXml()+imag.toXml()+"</complex>\r";
+	}
+
+	public void setValue(double realValue, double imValue) {
+		real=RealLine.getInstance().get(realValue);
+		imag=RealLine.getInstance().get(realValue);
+		
 	}
 }

@@ -1,5 +1,3 @@
-package definitions.aspects;
-
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,17 +9,18 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
+import org.aspectj.lang.annotation.Before;
 
 import definitions.settings.XmlPrintable;
 
 @Aspect
-@Component
-public class DeepSearch implements CustomAspect{
- 
+public class DeepSearch {
+
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
 	final static private String PATH = "target/";
@@ -31,8 +30,8 @@ public class DeepSearch implements CustomAspect{
 	public static Boolean active = null;
 	static int maxDepth;
 	static int depth;
-	 
-	@Around("execution(!static * definitions.structures..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
+
+//	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return this.getLookUp(pjp);
@@ -40,16 +39,16 @@ public class DeepSearch implements CustomAspect{
 			return pjp.proceed();
 		}
 	}
-	
-//	@Before("@annotation(anno)")
-//	public synchronized void avoidDeeperSearchBefore(JoinPoint jp,settings.annotations.Proceed anno) throws Throwable {
-//		active=false;
-//	}
-//	
-//	@After("@annotation(anno)")
-//	public synchronized void avoidDeeperSearchAfter(JoinPoint jp,settings.annotations.Proceed anno) throws Throwable {
-//		active=true;
-//	}
+
+//	@Before("@annotation(settings.annotations.Proceed)")
+	public synchronized void avoidDeeperSearchBefore(JoinPoint jp) throws Throwable {
+		active = false;
+	}
+
+//	@After("@annotation(settings.annotations.Proceed)")
+	public synchronized void avoidDeeperSearchAfter(JoinPoint jp) throws Throwable {
+		active = true;
+	}
 
 	private Object getLookUp(ProceedingJoinPoint pjp) throws Throwable {
 		this.createEnries(pjp);
@@ -60,7 +59,7 @@ public class DeepSearch implements CustomAspect{
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
 
 		String str = pjp.toShortString().split(Pattern.quote("("))[1];
-		String ans = "<" + str + ">\r"; 
+		String ans = "<" + str + ">\r";
 		Object[] args = pjp.getArgs();
 		if (args.length > 0) {
 			ans += "<arguments>\r";
@@ -68,14 +67,13 @@ public class DeepSearch implements CustomAspect{
 				if (arg instanceof XmlPrintable) {
 					ans += ((XmlPrintable) arg).toXml();
 				} else {
-					ans += "<unknownNonXmlPrintableElement " + arg.toString().
-							split(Pattern.quote("$"))[0]+ "/>\r";
+					ans += "<unknownNonXmlPrintableElement " + arg.toString().split(Pattern.quote("$"))[0] + "/>\r";
 				}
 			}
 			ans += "</arguments>\r";
 		}
 		list.add(ans);
-		ans="";
+		ans = "";
 		Object o = pjp.proceed();
 		if (o != null) {
 			ans += "<return>\r";
@@ -85,8 +83,7 @@ public class DeepSearch implements CustomAspect{
 				ans += "<unknownXmlObject " + o.getClass().toString().split("class ")[1] + "/>\r";
 			}
 			ans += "</return>\r";
-		}
-		else {
+		} else {
 			ans += "<return void/>\r";
 		}
 		ans += "</" + str + ">\r";

@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -32,7 +33,7 @@ public class PolynomeRegressionTest {
 	static EuclideanFunctionSpace newSpace = null;
 
 	private static int maxDegree = 3;
-	protected static Field realLine;
+	protected static Field realLine=SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(RealLine.class);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -60,8 +61,7 @@ public class PolynomeRegressionTest {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-
-			// @Override
+ 
 			@Override
 			public Scalar value(Scalar input) {
 				return RealLine.getInstance().get(Math.exp(input.getValue() * Math.PI));
@@ -87,14 +87,14 @@ public class PolynomeRegressionTest {
 			});
 		}
 
-		space = (EuclideanFunctionSpace) Generator.getGenerator()
+		space = (EuclideanFunctionSpace) Generator.getInstance()
 				.getFiniteDimensionalFunctionSpace(RealLine.getInstance(), base, left, right);
 
 		// newSpace=(IFiniteDimensionalFunctionSpace)
 		// Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace)
 		// space);
 
-	}
+	} 
 
 	@Test
 //	

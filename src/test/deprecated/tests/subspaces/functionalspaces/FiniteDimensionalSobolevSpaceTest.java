@@ -25,14 +25,14 @@ import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunc
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class FiniteDimensionalSobolevSpaceTest {
-
-	static IGenerator gen = Generator.getGenerator();
+ 
 	final static VectorSpace realLine = RealLine.getInstance();
 	static EuclideanSpace trigonometricFunctionSpace;
 	static EuclideanSpace sobolevSpace;
-	final static ISpaceGenerator spaceGen = gen.getSpacegenerator();
+	final static ISpaceGenerator spaceGen =  SpaceGenerator.getInstance();
 
 	static double left = -Math.PI;
 	static double right = Math.PI;
@@ -70,10 +70,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		testValues2 = readFile(PATH2);
 
-		normalizedIdentity = new GenericFunction() {
-			/**
-			 * 
-			 */
+		normalizedIdentity = new GenericFunction() { 
 			private static final long serialVersionUID = 1L;
 			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt((2 * Math.pow(Math.PI, 3)) / 3);
 
@@ -84,10 +81,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		};
 		exp = new ExponentialFunction((Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne()) {
-
-			/**
-			 * 
-			 */
+ 
 			private static final long serialVersionUID = 1L;
 		};
 		niceOne = new GenericFunction() {
@@ -122,10 +116,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 			}
 
 		};
-		staircaseFunction2 = new GenericFunction() {
-			/**
-			 * 
-			 */
+		staircaseFunction2 = new GenericFunction() { 
 			private static final long serialVersionUID = 1L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
@@ -142,12 +133,10 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		};
 
-		final ISpaceGenerator generator = gen.getSpacegenerator();
-
-		trigonometricFunctionSpace = generator.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(),
+		trigonometricFunctionSpace = spaceGen.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(),
 				dim);
 
-		final EuclideanSpace trigonometricSobolevSpace = generator.getFiniteDimensionalSobolevSpace(
+		final EuclideanSpace trigonometricSobolevSpace = spaceGen.getFiniteDimensionalSobolevSpace(
 				RealLine.getInstance(), (EuclideanFunctionSpace) trigonometricFunctionSpace, degree);
 
 		final Vector id = new LinearFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {

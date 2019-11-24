@@ -2,6 +2,7 @@ package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,30 +12,29 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 @Component
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
-	@Autowired(required=true)
+	final static Logger logger = Logger.getLogger(SpaceGenerator.class);
+	
+	@Autowired(required = true)
 	private MyCache myCache;
 
 	private static final long serialVersionUID = 1L;
+ 
+	private static SpaceGenerator instance;
 
-	private static SpaceGenerator generator;
-	
-	public static SpaceGenerator getInstance() {
-		if (generator == null) {
-			generator = new SpaceGenerator();
-		}
-		return generator;
+	public static SpaceGenerator getInstance() { 
+		return instance;
 	}
-	
+
 	public static void setInstance(SpaceGenerator gen) {
-		generator=gen;
+		instance = gen;
 	}
-	
+
 	@Override
 	public MyCache getMyCache() {
 		return this.myCache;
 	}
 
-	@Override 
+	@Override
 	public void setMyCache(MyCache ans) {
 		this.myCache = ans;
 	}

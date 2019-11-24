@@ -21,7 +21,7 @@ public abstract class TestBegin {
 
 	@Test
 	public void testGenerators() {
-		this.spGen = Generator.getGenerator().getSpacegenerator();
+		this.spGen = Generator.getInstance().getSpacegenerator();
 	}
 
 }

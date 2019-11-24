@@ -7,7 +7,9 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class TestRunner {
 
@@ -16,7 +18,7 @@ public class TestRunner {
 	
 	public static void main(String[] args) throws Exception {
 		int dim = 15;
-		space = Generator.getGenerator().getSpacegenerator()
+		space = SpaceGenerator.getInstance()
 				.getTrigonometricFunctionSpaceWithLinearGrowth((Field) RealLine.getInstance(), dim);
 //				.getFiniteDimensionalVectorSpace(3);
 		final Vector baseVector1 = space.genericBaseToList().get(2);

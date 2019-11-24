@@ -3,6 +3,7 @@
  */
 package definitions.xmltest;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,22 +33,11 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  *
  */
 public class QuaternionFunctionSpaceTest {
-	
-	public QuaternionFunctionSpaceTest() {
-		generator = (Generator) springConfiguration.getApplicationContext().getBean("generator");
-		setSpaceGenerator(generator.getSpacegenerator());
-	}
-	
-	private Generator generator;
-	
-	private SpaceGenerator spaceGenerator;
-	
-	private BinaryField binaryField;
-	
-	private SpringConfiguration springConfiguration = new SpringConfiguration();
-	
-	private Field f = (Field) QuaternionSpace.getInstance();
-	
+
+	private SpringConfiguration springConfiguration;
+
+	private Field f;
+
 	List<Vector> base = new ArrayList<>();
 	FunctionSpace space;
 
@@ -55,15 +45,14 @@ public class QuaternionFunctionSpaceTest {
 	static Function beta;
 	static Function gamma;
 
-	public static void main(String[] args) {
-		QuaternionFunctionSpaceTest test=new QuaternionFunctionSpaceTest();
-		test.prepare();
-		test.test();
-		System.exit(0);
-	}
-
 	@Before
 	public void prepare() {
+		springConfiguration = new SpringConfiguration();
+		f = (Field) QuaternionSpace.getInstance();
+//		springConfiguration.getApplicationContext();//
+//				.getBean("definitions.structures.abstr.fields.impl.QuaternionSpace");// (Field)
+																						// 
+
 		alpha = new GenericFunction() {
 			private static final long serialVersionUID = 6698998256903151087L;
 
@@ -118,7 +107,8 @@ public class QuaternionFunctionSpaceTest {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws IOException {
+
 		this.space = new FiniteDimensionalFunctionSpace(f, this.base, -1, 1, true);
 
 		this.base.add(alpha);
@@ -127,22 +117,8 @@ public class QuaternionFunctionSpaceTest {
 		alpha.plot(-Math.PI, Math.PI);
 //		beta.plot(-Math.PI, Math.PI);
 //		gamma.plot(-Math.PI, Math.PI);
+		Generator.getInstance().saveCoordinateSpaces();
 	}
-
-	public SpaceGenerator getSpaceGenerator() {
-		return spaceGenerator;
-	}
-
-	public void setSpaceGenerator(SpaceGenerator spaceGenerator) {
-		this.spaceGenerator = spaceGenerator;
-	}
-
-	public BinaryField getBinaryField() {
-		return binaryField;
-	}
-
-	public void setBinaryField(BinaryField binaryField) {
-		this.binaryField = binaryField;
-	}
+ 
 
 }

@@ -1,4 +1,4 @@
-package definitions.aspects;
+
 
 
 import java.io.BufferedWriter;
@@ -16,9 +16,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-@Aspect
-@Component
-public class PointcutSearch implements CustomAspect{
+@Aspect 
+public class PointcutSearch {
   
 	final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -32,7 +31,7 @@ public class PointcutSearch implements CustomAspect{
 //			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
 	public Object run(final ProceedingJoinPoint pjp) throws Throwable {
 		return log(pjp);
-	}
+	} 
 
 	public Object log(final ProceedingJoinPoint pjp) throws Throwable {
 		List<String> LIST = map.get(Thread.currentThread());

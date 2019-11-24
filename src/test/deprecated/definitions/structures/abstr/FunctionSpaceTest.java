@@ -22,7 +22,7 @@ import definitions.structures.java.Reader;
  */
 public abstract class FunctionSpaceTest {
 
-	IGenerator gen = Generator.getGenerator();
+	IGenerator gen = Generator.getInstance();
 
 	protected static final String PATH = "src/main/resources/test.csv";
 	protected static final String PATH2 = "src/main/resources/test2.csv";
