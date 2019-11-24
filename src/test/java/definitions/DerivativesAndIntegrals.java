@@ -1,4 +1,4 @@
-package definitions.structures.generic.finitedimensional.defs.vectors.impl;
+package definitions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,9 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class DerivativesAndIntegrals {
 
-	static Field realLine = RealLine.getInstance();
+	
+	
+	static Field realLine;
 	static Sine sine;
 	static Function cosine;
 	static Function monome;
@@ -44,6 +46,8 @@ public class DerivativesAndIntegrals {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
+		SpringConfiguration.getSpringConfiguration();
+		realLine = RealLine.getInstance();
 		sine = new Sine(1, 0, 1) { 
 			private static final long serialVersionUID = 1L; 
 			@Override

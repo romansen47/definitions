@@ -6,6 +6,7 @@ package definitions.structures.euclidean.vectorspaces.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
@@ -16,7 +17,7 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
  */
 public class MultiDimensionalComplexVectorSpaceTest {
 
-	ISpaceGenerator gen = SpaceGenerator.getInstance();
+	ISpaceGenerator gen = SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(SpaceGenerator.class);
 
 	public static void main(String[] args) {
 		new MultiDimensionalComplexVectorSpaceTest().test();

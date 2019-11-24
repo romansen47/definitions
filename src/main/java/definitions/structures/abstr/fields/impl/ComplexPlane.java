@@ -28,15 +28,20 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  */
 //@Configurable
 //@Component("complexPlane")
-public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace{
+public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 	private static final long serialVersionUID = -6528124823296735558L;
 
 	static private EuclideanSpace instance;
 
-	private final Vector zero;
-	private final Vector one;
-	private final Vector i;
+//	@Autowired
+	private Vector zero;
+	
+//	@Autowired
+	private Vector one;
+	
+//	@Autowired
+	private Vector i;
 
 	private Map<Vector, Homomorphism> multiplicationMatrix = null;
 
@@ -45,17 +50,17 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 //	@Autowired 
-	private static RealLine realLine=RealLine.getInstance();
-	
+	private static RealLine realLine = RealLine.getInstance();
+
 	public ComplexPlane() {
-		field=realLine;
+		field = realLine;
 		this.dim = 2;
 		this.base = new ArrayList<>();
 		this.one = new Complex(RealLine.getInstance().getOne(), RealLine.getInstance().getZero());
 		this.zero = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getZero());
 		this.i = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
 		this.base.add(this.one);
-		this.base.add(this.i); 
+		this.base.add(this.i);
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
-	@Override	
+	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
@@ -94,8 +99,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 //	}
 
 	@Override
-	public Vector getOne() {
-//		this.one.toString();
+	public Vector getOne() { 
 		return this.one;
 	}
 
@@ -113,7 +117,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	public Vector nullVec() {
 		return this.zero;
 	}
-	
+
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
 
@@ -150,43 +154,42 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 	}
 
 	@Override
-	
+
 	public Scalar inverse(Vector factor) {
 		return (Scalar) Field.super.inverse(factor);
 	}
 
-	
 	@Bean
 	public Complex complex() {
-		return new Complex(0,0);
+		return new Complex(0, 0);
 	}
-	 
-	public Scalar get(double realValue,double imValue) { 
-		Complex newComplex=complex();
-		newComplex.setValue(realValue,imValue);
+
+	public Scalar get(double realValue, double imValue) {
+		Complex newComplex = complex();
+		newComplex.setValue(realValue, imValue);
 		return newComplex;
 	}
 
 	@Override
-	public Scalar get(double realValue) { 
-		Complex newComplex=complex();
-		newComplex.setValue(realValue,0);
+	public Scalar get(double realValue) {
+		Complex newComplex = complex();
+		newComplex.setValue(realValue, 0);
 		return newComplex;
 	}
-	
+
 	@Override
 	public Scalar conjugate(Scalar value) {
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
 	}
-	
+
 	@Override
 	public String toXml() {
 		return "<complexPlane />";
 	}
 
 	public static void setRealLine(RealLine realLine) {
-		ComplexPlane.realLine=realLine;
+		ComplexPlane.realLine = realLine;
 	}
 
 }
