@@ -6,12 +6,17 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
+import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import definitions.structures.euclidean.Generator;
- 
+import settings.SpringBeanLogging;
+
 @Configurable
-public class SpringConfiguration implements ApplicationContextAware,Configuration {
+@EnableSpringConfigured
+@EnableLoadTimeWeaving
+public class SpringConfiguration implements ApplicationContextAware, Configuration {
 
 	private static SpringConfiguration springConfiguration;
 
@@ -24,21 +29,30 @@ public class SpringConfiguration implements ApplicationContextAware,Configuratio
 	}
 
 	private ApplicationContext applicationContext = annotationConfigApplicationContext();
- 
+
 	public SpringConfiguration() {
 		this.setApplicationContext(applicationContext);
+		((AnnotationConfigApplicationContext) this.applicationContext)
+				.scan("java.lang.Object org.springframework.beans.factory.config.*");
+		((AnnotationConfigApplicationContext) this.applicationContext).scan("settings.*");
 		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
-		((AbstractApplicationContext) this.applicationContext).refresh(); 
+		((AbstractApplicationContext) this.applicationContext).refresh();
 		Generator.setInstance((Generator) applicationContext.getBean("generator"));
+		SpringBeanLogging springBeanLogging = (SpringBeanLogging) applicationContext.getBean(SpringBeanLogging.class);
 	}
 
+	@Bean
+	public SpringBeanLogging getSpringBeanLogging() {
+		return new SpringBeanLogging();
+	}
+	
 	@Bean(name = "annotationConfigApplicationContext")
 	public ApplicationContext annotationConfigApplicationContext() {
 		applicationContext = new AnnotationConfigApplicationContext();
 		return applicationContext;
 	}
 
-	public ApplicationContext getApplicationContext() { 
+	public ApplicationContext getApplicationContext() {
 		return this.applicationContext;
 	}
 
@@ -46,5 +60,5 @@ public class SpringConfiguration implements ApplicationContextAware,Configuratio
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = new AnnotationConfigApplicationContext();
 	}
- 
+
 }

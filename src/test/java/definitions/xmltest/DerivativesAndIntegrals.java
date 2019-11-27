@@ -1,4 +1,4 @@
-package definitions;
+package definitions.xmltest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
