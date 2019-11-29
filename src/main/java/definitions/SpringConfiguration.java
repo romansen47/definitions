@@ -11,12 +11,11 @@ import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import definitions.structures.euclidean.Generator;
-import settings.SpringBeanLogging;
 
 @Configurable
 @EnableSpringConfigured
 @EnableLoadTimeWeaving
-public class SpringConfiguration implements ApplicationContextAware, Configuration {
+public class SpringConfiguration implements ApplicationContextAware {
 
 	private static SpringConfiguration springConfiguration;
 
@@ -32,20 +31,12 @@ public class SpringConfiguration implements ApplicationContextAware, Configurati
 
 	public SpringConfiguration() {
 		this.setApplicationContext(applicationContext);
-		((AnnotationConfigApplicationContext) this.applicationContext)
-				.scan("java.lang.Object org.springframework.beans.factory.config.*");
 		((AnnotationConfigApplicationContext) this.applicationContext).scan("settings.*");
 		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
 		((AbstractApplicationContext) this.applicationContext).refresh();
-		Generator.setInstance((Generator) applicationContext.getBean("generator"));
-		SpringBeanLogging springBeanLogging = (SpringBeanLogging) applicationContext.getBean(SpringBeanLogging.class);
+//		Generator.setInstance((Generator) applicationContext.getBean("generator"));
 	}
 
-	@Bean
-	public SpringBeanLogging getSpringBeanLogging() {
-		return new SpringBeanLogging();
-	}
-	
 	@Bean(name = "annotationConfigApplicationContext")
 	public ApplicationContext annotationConfigApplicationContext() {
 		applicationContext = new AnnotationConfigApplicationContext();

@@ -3,14 +3,13 @@ package definitions.xmltest;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
-import definitions.SpringConfiguration;
+import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -22,52 +21,53 @@ import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
-public class DerivativesAndIntegrals {
+public class DerivativesAndIntegrals extends AspectJTest {
 
-	
-	
-	static Field realLine;
-	static Sine sine;
-	static Function cosine;
-	static Function monome;
+	private Sine sine;
+	private Function cosine;
+	private Function monome;
 
-	static EuclideanSpace newSpace;
-	final List<Function> testfunctions = new ArrayList<>();
+	private EuclideanSpace space;
+	private EuclideanSpace newSpace;
 
-	final static int degree = 2;
-	final static int sobolevDegree = 1;
+	private final List<Function> testfunctions = new ArrayList<>();
 
-	static EuclideanSpace space = (EuclideanSpace) Generator.getInstance()
-			.getTrigonometricSpace(RealLine.getInstance(), degree);
-	static EuclideanSpace sobolevSpace =  SpaceGenerator.getInstance()
-			.getTrigonometricSobolevSpace(RealLine.getInstance(), degree, sobolevDegree);
+	private final int degree = 4;
+	private final int sobolevDegree = 2;
 
-	static final Homomorphism derivativeOperator = new DerivativeOperator(space, space);
+	private EuclideanSpace sobolevSpace;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Throwable {
+	private Homomorphism derivativeOperator;
 
-		SpringConfiguration.getSpringConfiguration();
-		realLine = RealLine.getInstance();
-		sine = new Sine(1, 0, 1) { 
-			private static final long serialVersionUID = 1L; 
+	@Before
+	public void setUp() throws Throwable {
+
+		space = (EuclideanSpace) getGenerator().getTrigonometricSpace(getRealLine(), degree);
+		derivativeOperator = new DerivativeOperator(space, space);
+
+		sobolevSpace = getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(), degree, sobolevDegree);
+
+		sine = new Sine(1, 0, 1) {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public Field getField() {
-				return realLine;
+				return getRealLine();
 			}
 		};
 
-		monome = new Monome(1) { 
+		monome = new Monome(1) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Scalar value(Scalar input) {
-				return RealLine.getInstance().get(1 - super.value(RealLine.getInstance().get(input.getValue() / Math.PI)).getValue());
+				return RealLine.getInstance()
+						.get(1 - super.value(RealLine.getInstance().get(input.getValue() / Math.PI)).getValue());
 			}
 
 			@Override
 			public Field getField() {
-				return realLine;
+				return getRealLine();
 			}
 		};
 
@@ -80,17 +80,15 @@ public class DerivativesAndIntegrals {
 				.get(((DerivativeOperator) derivativeOperator).get(monome));
 
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, (Function) derivative2);
-		final Vector sourceFun = null;
-
 	}
 
-	// @Test
+	@Test
 	public void test2() throws Throwable {
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(sine, 1000);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, sine);
 	}
 
-	// @Test
+//	 @Test
 	public void test3() throws Throwable {
 		final Homomorphism derivativeOperatorSobToL2 = new DerivativeOperator(sobolevSpace, space);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToL2).get(sine, 4000);
@@ -98,7 +96,7 @@ public class DerivativesAndIntegrals {
 
 	}
 
-	// @Test
+//	 @Test
 	public void test4() throws Throwable {
 		final Homomorphism derivativeOperatorL2ToSob = new DerivativeOperator(space, sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorL2ToSob).get(sine, 4000);
@@ -106,14 +104,14 @@ public class DerivativesAndIntegrals {
 
 	}
 
-	// @Test
+//	@Test
 	public void test5() throws Throwable {
 		final Homomorphism derivativeOperatorSobToSob = new DerivativeOperator(sobolevSpace, sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(sine, 4000);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, sine);
 	}
 
-	// //@Test
+	 @Test
 	public void scalarProducts() throws Throwable {
 		final List<Vector> base = sobolevSpace.genericBaseToList();
 		final double[][] scalarProducts = new double[base.size()][base.size()];
@@ -128,5 +126,25 @@ public class DerivativesAndIntegrals {
 			System.out.println("");
 			i++;
 		}
+	}
+
+	public Function getCosine() {
+		return cosine;
+	}
+
+	public void setCosine(Function cosine) {
+		this.cosine = cosine;
+	}
+
+	public EuclideanSpace getNewSpace() {
+		return newSpace;
+	}
+
+	public void setNewSpace(EuclideanSpace newSpace) {
+		this.newSpace = newSpace;
+	}
+
+	public List<Function> getTestfunctions() {
+		return testfunctions;
 	}
 }

@@ -7,20 +7,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.fields.impl.FieldGenerator;
-import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
-import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;
 import settings.GlobalSettings;
 
 @SuppressWarnings("unused")
+@Configurable
 @Configuration
 @ComponentScan(basePackages = "definitions..*")
 public class Generator implements IGenerator, Plotter {

@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -17,10 +18,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public class SubSpaceTest {
-
-	final EuclideanSpace realLine = RealLine.getInstance();
-	final EuclideanSpace complexPlane = ComplexPlane.getInstance();
+public class SubSpaceTest extends AspectJTest{
 
 	/**
 	 * @throws java.lang.Exception
@@ -36,7 +34,7 @@ public class SubSpaceTest {
 	@Test
 	
 	public void testGetSuperSpace() {
-		Assert.assertTrue(((RealLine) this.realLine).getSuperSpace().equals(this.complexPlane));
+		Assert.assertTrue(getRealLine().getSuperSpace().equals(getComplexPlane()));
 	}
 
 	/**
@@ -46,8 +44,8 @@ public class SubSpaceTest {
 	@Test
 	
 	public void testGetEmbedding() {
-		final Homomorphism embedding = ((RealLine) this.realLine).getEmbedding();
-		Assert.assertTrue(embedding.get(((Field) this.realLine).getOne()).equals(((Field) this.complexPlane).getOne()));
+		final Homomorphism embedding = getRealLine().getEmbedding();
+		Assert.assertTrue(embedding.get(getRealLine().getOne()).equals(getComplexPlane().getOne()));
 	}
 
 }
