@@ -78,7 +78,7 @@ public class RealLine implements SubField, RealSpace {
 		newMap.put(one,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
 		this.setMultiplicationMatrix(newMap);
-
+		ComplexPlane.setRealLine(this);
 	}
 
 	public static RealLine getInstance() {

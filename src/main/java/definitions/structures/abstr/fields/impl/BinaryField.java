@@ -17,7 +17,7 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
-@Component
+@Component(value="binaryField")
 public final class BinaryField implements PrimeField {
 
 	private static final long serialVersionUID = -7935335390082721765L;

@@ -7,7 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -27,20 +28,16 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *         Implementation of the field of complex numbers as a singleton class.
  */
 //@Configurable
-//@Component("complexPlane")
-public final class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
+//@Configuration("complexPlane")
+//@ComponentScan(value="definitions..*")
+public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 	private static final long serialVersionUID = -6528124823296735558L;
 
 	static private EuclideanSpace instance;
 
-//	@Autowired
 	private Vector zero;
-	
-//	@Autowired
 	private Vector one;
-	
-//	@Autowired
 	private Vector i;
 
 	private Map<Vector, Homomorphism> multiplicationMatrix = null;
@@ -49,16 +46,15 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		return this.i;
 	}
 
-//	@Autowired 
-	private static RealLine realLine = RealLine.getInstance();
+//	@Autowired(required=true)
+	private static RealLine realLine=RealLine.getInstance();
 
-	public ComplexPlane() {
-		field = realLine;
+	public ComplexPlane() { 
 		this.dim = 2;
 		this.base = new ArrayList<>();
-		this.one = new Complex(RealLine.getInstance().getOne(), RealLine.getInstance().getZero());
-		this.zero = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getZero());
-		this.i = new Complex(RealLine.getInstance().getZero(), RealLine.getInstance().getOne());
+		this.one = new Complex(realLine.getOne(), realLine.getZero());
+		this.zero = new Complex(realLine.getZero(), realLine.getZero());
+		this.i = new Complex(realLine.getZero(), realLine.getOne());
 		this.base.add(this.one);
 		this.base.add(this.i);
 	}
@@ -159,7 +155,7 @@ public final class ComplexPlane extends FiniteDimensionalVectorSpace implements 
 		return (Scalar) Field.super.inverse(factor);
 	}
 
-	@Bean
+//	@Bean
 	public Complex complex() {
 		return new Complex(0, 0);
 	}

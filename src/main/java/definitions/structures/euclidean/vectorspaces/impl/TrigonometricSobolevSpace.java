@@ -136,9 +136,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				private static final long serialVersionUID = -3675768767280698458L;
 
 				@Override
-				public Field getField() {
-					// TODO Auto-generated method stub
-					return TrigonometricSobolevSpace.this.field;
+				public Field getField() { 
+					return TrigonometricSobolevSpace.this.getField();
 				}
 			};
 			tmpBase.add(sin);
@@ -169,9 +168,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				private static final long serialVersionUID = -344838499735956273L;
 
 				@Override
-				public Field getField() {
-					// TODO Auto-generated method stub
-					return TrigonometricSobolevSpace.this.field;
+				public Field getField() { 
+					return TrigonometricSobolevSpace.this.getField();
 				}
 			};
 			tmpBase.add(cos);

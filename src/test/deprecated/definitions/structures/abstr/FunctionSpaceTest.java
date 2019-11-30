@@ -14,7 +14,7 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.java.Reader;
+import definitions.xmltest.Reader;
 
 /**
  * @author RoManski

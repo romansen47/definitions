@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.fields.IFieldGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Component
 public class FieldGenerator implements IFieldGenerator {
@@ -28,7 +29,7 @@ public class FieldGenerator implements IFieldGenerator {
 		this.realLine = realLine;
 		RealLine.setInstance(realLine);
 		ComplexPlane.setRealLine(realLine);
-		QuaternionSpace.setInstance(realLine);
+		((FiniteDimensionalVectorSpace)QuaternionSpace.getInstance()).setField(realLine);
 	}
 
 	public static void setInstance(FieldGenerator fieldGenerator) {

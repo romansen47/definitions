@@ -8,7 +8,7 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.java.Reader;
+import definitions.xmltest.Reader;
 
 public class GenericTrigonometricSpaceTest extends AspectJTest {
 
@@ -23,7 +23,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 	public void setUp() throws Exception {
 		
 		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSpace(getRealLine(), getTrigonometricDegree()));
-		testValues = Reader.readFile(getPath());
+		testValues = definitions.xmltest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() { 
 			
 			private static final long serialVersionUID = -8361584686661267908L;

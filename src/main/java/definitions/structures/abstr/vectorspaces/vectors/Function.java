@@ -39,7 +39,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
 		private static final long serialVersionUID = 7890164185650800915L;
-		final Field ownfield = field;
+		final Field ownfield = getField();
 
 		@Override
 		public Field getField() {

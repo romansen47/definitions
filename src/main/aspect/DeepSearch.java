@@ -31,7 +31,7 @@ public class DeepSearch {
 	static int maxDepth;
 	static int depth;
 
-	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
+//	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return this.getLookUp(pjp);
@@ -40,12 +40,12 @@ public class DeepSearch {
 		}
 	}
 
-	@Before("@annotation(settings.annotations.Proceed)")
+//	@Before("@annotation(settings.annotations.Proceed)")
 	public synchronized void avoidDeeperSearchBefore(JoinPoint jp) throws Throwable {
 		active = false;
 	}
 
-	@After("@annotation(settings.annotations.Proceed)")
+//	@After("@annotation(settings.annotations.Proceed)")
 	public synchronized void avoidDeeperSearchAfter(JoinPoint jp) throws Throwable {
 		active = true;
 	}

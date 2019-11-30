@@ -1,8 +1,10 @@
 package definitions.prototypes;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.BinaryField;
@@ -11,9 +13,13 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
+@Configurable
 public class AspectJTest {
 
+	private static final Logger logger = Logger.getLogger(AspectJTest.class);
+	
 	private static SpringConfiguration springConfiguration;
+	
 	private static Generator generator;
 	private static SpaceGenerator spaceGenerator;
 	private static RealLine realLine;
@@ -22,12 +28,13 @@ public class AspectJTest {
 	 
 	@BeforeClass
 	public static void prepare() {
-		springConfiguration = SpringConfiguration.getSpringConfiguration();
+		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
 		setSpaceGenerator(getGenerator().getSpacegenerator());
 		setRealLine(RealLine.getInstance());
 		setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
 		setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));
+		getLogger().setLevel(Level.INFO);
 	}
 
 	public static SpringConfiguration getSpringConfiguration() {
@@ -76,6 +83,10 @@ public class AspectJTest {
 
 	public static void setBinaryField(BinaryField binaryField) {
 		AspectJTest.binaryField = binaryField;
+	}
+
+	public static Logger getLogger() {
+		return logger;
 	}
 
 }

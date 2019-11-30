@@ -1,4 +1,4 @@
-package definitions.structures.java;
+package definitions.xmltest;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

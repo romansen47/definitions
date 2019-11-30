@@ -1,34 +1,16 @@
 package definitions.xmltest;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import definitions.SpringConfiguration;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
+import definitions.prototypes.AspectJTest;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 // 
-public class VectorTest{
+public class VectorTest extends AspectJTest{
  
-	private SpringConfiguration springConfiguration = SpringConfiguration.getSpringConfiguration();
-	private Generator gen=(Generator) springConfiguration.getApplicationContext().getBean("generator");
-	private SpaceGenerator spaceGen=(SpaceGenerator) springConfiguration.getApplicationContext().getBean("spaceGenerator");
-	
 	@Test
 	public void test() {
-		EuclideanSpace space =(EuclideanSpace) spaceGen.getFiniteDimensionalComplexSpace(1);
-		Vector vec=space.genericBaseToList().get(0);
+		EuclideanSpace space =(EuclideanSpace) getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
+		getLogger().info(space.genericBaseToList().get(0).toString());
 	}
-
-	public SpringConfiguration getSpringConfiguration() {
-		return springConfiguration;
-	}
-
-	public void setSpringConfiguration(SpringConfiguration springConfiguration) {
-		this.springConfiguration = springConfiguration;
-	} 
 
 }

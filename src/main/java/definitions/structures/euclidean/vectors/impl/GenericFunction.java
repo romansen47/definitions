@@ -18,7 +18,7 @@ public abstract class GenericFunction implements Function {
 
 	private static final long serialVersionUID = 1L;
 
-	protected Field field;
+	private Field field;
 
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 	private Map<Vector, Scalar> coordinates;
@@ -90,6 +90,15 @@ public abstract class GenericFunction implements Function {
 	
 	public void plotCompare(final double left, final double right, final Function fun) {
 		((Plotter) gen).plotCompare(this, fun, left, right);
+	}
+
+	@Override
+	public Field getField() {
+		return field;
+	}
+ 
+	public void setField(Field field) {
+		this.field = field;
 	}
 
 }

@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -28,12 +29,13 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *         Implementation of the field of quaternion numbers as a singleton
  *         class.
  */
-//@Component(value="quaternionSpace")
+//@Configurable
+//@Component 
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
  
 	private static final long serialVersionUID = -5960215336667005490L;
 
-	static private EuclideanSpace instance;
+	private static EuclideanSpace instance;
 
 	private final Vector zero;
 	private final Vector one;
@@ -64,6 +66,11 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		return this.k;
 	}
 
+	@Bean(value="quaternionSpace")
+	public QuaternionSpace quaternionSpace() {
+		return new QuaternionSpace();
+	}
+	
 	public QuaternionSpace() {
 		super(RealLine.getInstance());
 
@@ -84,6 +91,9 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	public static EuclideanSpace getInstance() { 
+		if (instance==null) {
+			instance=new QuaternionSpace();
+		}
 		return instance;
 	}
 	

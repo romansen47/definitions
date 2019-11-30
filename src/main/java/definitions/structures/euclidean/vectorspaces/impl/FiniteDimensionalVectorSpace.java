@@ -37,17 +37,17 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	protected int dim;
  
-	protected Field field;
+	private Field field;
 
 	/**
 	 * Plain constructor.
 	 */
 	protected FiniteDimensionalVectorSpace(Field field) {
-		this.field = field;
+		this.setField(field);
 	}
 
 	public FiniteDimensionalVectorSpace() {
-		this.field = RealLine.getInstance();
+		this.setField(RealLine.getInstance());
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * @param genericBase the set of vectors.
 	 */
 	public FiniteDimensionalVectorSpace(Field field, final List<Vector> genericBase) {
-		this.field = field;
+		this.setField(field);
 		this.dim = genericBase.size();
 		this.base = genericBase;
 		System.out.println("Created new " + genericBase.size() + "-dimensional euclidean space.");
@@ -160,7 +160,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	
 	@Override
 	public Field getField() {
-		return this.field;
+		return field;
 	}
 
 	@Override
@@ -181,6 +181,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		ans += "</base>";
 		ans = "</"+this.getClass().toString().split("class ")[1]+">";
 		return ans;
+	}
+
+	public void setField(Field field) {
+		this.field = field;
 	}
 
 	/*
