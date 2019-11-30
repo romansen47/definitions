@@ -116,10 +116,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods {
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = fun.value(getField().get(input.getValue() + eps)).getValue()
+					final double dy = fun.value(f.get(input.getValue() + eps)).getValue()
 							- fun.value(input).getValue();
 					final double dx = eps;
-					return getField().get(dy / dx);
+					return f.get(dy / dx);
 				}
 
 				@Override

@@ -22,6 +22,8 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 	@Before
 	public void setUp() throws Exception {
 		
+		f=getRealLine();
+		
 		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSpace(getRealLine(), getTrigonometricDegree()));
 		testValues = definitions.xmltest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() { 

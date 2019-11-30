@@ -27,9 +27,9 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 @Aspect
 @Component
 public class CachingAspect {
- 
+
 	final static private Logger logger = Logger.getLogger(CachingAspect.class);
-	
+
 	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int))")
@@ -39,17 +39,18 @@ public class CachingAspect {
 		int dim = (int) (pjp.getArgs()[1]);
 		EuclideanSpace ans = coordinatesSpaces.get(dim);
 		if (ans != null) {
-			logger.info(
-					"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
-			return ans; 
+			logger.info("Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
+			return ans;
 		}
-		switch (dim) {
-		case 1:
-			return RealLine.getInstance();
-		case 2:
-			return ComplexPlane.getInstance();
-		case 4:
-			return QuaternionSpace.getInstance();
+		if (field == RealLine.getInstance()) {
+			switch (dim) {
+			case 1:
+				return RealLine.getInstance();
+			case 2:
+				return ComplexPlane.getInstance();
+			case 4:
+				return QuaternionSpace.getInstance();
+			}
 		}
 		final List<Vector> basetmp = new ArrayList<>();
 		for (int i = 0; i < dim; i++) {
@@ -71,7 +72,7 @@ public class CachingAspect {
 			}
 		}
 		ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		logger.info("Created new space: "+ans.toString());
+		logger.info("Created new space: " + ans.toString());
 		coordinatesSpaces.put(dim, ans);
 		return ans;
 	}

@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.springframework.context.annotation.Bean;
-
-import definitions.cache.ICache;
 import definitions.cache.MyCache;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
@@ -20,12 +17,10 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
@@ -169,7 +164,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(Field field, final EuclideanFunctionSpace space,
 			final int degree) {
-		if (degree == 0) { 
+		if (degree == 0) {
 			return space;
 		}
 		final FiniteDimensionalSobolevSpace ans = new FiniteDimensionalSobolevSpace(field, space, degree, true);
@@ -185,7 +180,7 @@ public interface ISpaceGenerator {
 			throws Exception {
 		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
 		if (space != null) {
-			System.out.println("Successfully restored from cache! " + (2 * n + 1)
+			getLogger().info("Successfully restored from cache! " + (2 * n + 1)
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
@@ -208,16 +203,20 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(Field f, int sobolevDegree, double right,
 			int fourierDegree) throws Exception {
 
-		return extend(getTrigonometricSobolevSpace((Field) realSpace, fourierDegree, sobolevDegree),
-				new GenericFunction() {
-					private static final long serialVersionUID = 5812927097511303688L;
+		return extend(getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
+			private static final long serialVersionUID = 5812927097511303688L;
 
-					@Override
-					public Scalar value(Scalar input) {
-						return input;
-					}
+			@Override
+			public Scalar value(Scalar input) {
+				return input;
+			}
 
-				});
+			@Override
+			public Field getField() {
+				return f;
+			}
+
+		});
 	}
 
 	default EuclideanFunctionSpace getPolynomialFunctionSpace(Field field, int n, double right, boolean ortho) {
@@ -269,4 +268,6 @@ public interface ISpaceGenerator {
 	MyCache getMyCache();
 
 	void setMyCache(MyCache ans);
+public org.apache.log4j.Logger getLogger();
 }
+

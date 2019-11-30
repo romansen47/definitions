@@ -12,7 +12,7 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 @Component
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
-	final static Logger logger = Logger.getLogger(SpaceGenerator.class);
+	private final Logger logger = Logger.getLogger(SpaceGenerator.class);
 	
 	@Autowired(required = true)
 	private MyCache myCache;
@@ -37,6 +37,11 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	@Override
 	public void setMyCache(MyCache ans) {
 		this.myCache = ans;
+	}
+
+	@Override
+	public Logger getLogger() {
+		return logger;
 	}
 
 }

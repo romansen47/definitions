@@ -46,10 +46,11 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 
 		alpha = new GenericFunction() {
 			private static final long serialVersionUID = 6698998256903151087L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion)getField().add(f.getOne(),
+				final Quaternion tmp = (Quaternion) getField().add(f.getOne(),
 						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
 				return (Scalar) getField().normalize(tmp);
 			}
@@ -81,7 +82,8 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = ((Quaternion) input).getReal().getValue();
-				final Quaternion tmp = (Quaternion)getField().add(getField().getOne(), new Quaternion(val, -val, val, 1 - val));
+				final Quaternion tmp = (Quaternion) getField().add(getField().getOne(),
+						new Quaternion(val, -val, val, 1 - val));
 				if (Math.abs(((Quaternion) input).getReal().getValue()) < 1.e-5) {
 					return (Scalar) getField().stretch(input, RealLine.getInstance().get(1.e5));
 				}
@@ -94,12 +96,12 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			}
 		};
 
-
 		this.base.add(alpha);
 		this.base.add(beta);
-		
 
-		this.setSpace(new FiniteDimensionalFunctionSpace( f, this.base, -1, 1, true));
+		if (this.getSpace() == null) {
+			this.setSpace(new FiniteDimensionalFunctionSpace(f, this.base, -1, 1, true));
+		}
 	}
 
 	@Test

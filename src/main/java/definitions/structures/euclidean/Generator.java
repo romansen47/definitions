@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,6 +25,8 @@ import settings.GlobalSettings;
 @ComponentScan(basePackages = "definitions..*")
 public class Generator implements IGenerator, Plotter {
 
+	final private Logger logger=Logger.getLogger(Generator.class);
+	
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
 	private static final long serialVersionUID = -5553433829703982950L;
@@ -79,6 +82,7 @@ public class Generator implements IGenerator, Plotter {
 		final FileOutputStream f_out = new FileOutputStream(this.PATH);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
 		obj_out.writeObject(spaceGenerator.getMyCache());
+		getLogger().info("saved coordinates spaces to disk");
 		obj_out.close();
 	}
 
@@ -101,6 +105,10 @@ public class Generator implements IGenerator, Plotter {
 		MappingGenerator.setInstance(instance.mappingGenerator);
 		SpaceGenerator.setInstance(instance.spaceGenerator);
 		FieldGenerator.setInstance(instance.fieldGenerator);
+	}
+
+	private Logger getLogger() {
+		return logger;
 	}
 
 }

@@ -122,13 +122,14 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 	
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
+		Field f=getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
 			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector sin = new Sine(this.getField().get(factor), RealLine.getInstance().getZero(), RealLine.getInstance().get(i)) {
+			final Vector sin = new Sine(f.get(factor), (Scalar)f.getZero(), f.get(i)) {
 
 				/**
 				 * 
@@ -137,7 +138,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 				@Override
 				public Field getField() { 
-					return TrigonometricSobolevSpace.this.getField();
+					return f;
 				}
 			};
 			tmpBase.add(sin);
@@ -153,14 +154,14 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 	
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
-
+		Field f=getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
 			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector cos = new Sine(this.getField().get(factor), RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(i)) {
+			final Vector cos = new Sine(f.get(factor), f.get(0.5 * Math.PI), f.get(i)) {
 
 				/**
 				 * 

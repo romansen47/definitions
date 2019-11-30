@@ -59,7 +59,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.setField(field);
 		this.dim = genericBase.size();
 		this.base = genericBase;
-		System.out.println("Created new " + genericBase.size() + "-dimensional euclidean space.");
 	}
 
 	@Override
