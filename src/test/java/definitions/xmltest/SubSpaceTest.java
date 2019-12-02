@@ -21,28 +21,19 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class SubSpaceTest extends AspectJTest{
 
 	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
 	 * Test method for
 	 * {@link definitions.structures.euclidean.vectorspaces.SubSpace#getSuperSpace()}.
 	 */
 	@Test
-	
 	public void testGetSuperSpace() {
 		Assert.assertTrue(getRealLine().getSuperSpace().equals(getComplexPlane()));
 	}
-
+	
 	/**
 	 * Test method for
 	 * {@link definitions.structures.euclidean.vectorspaces.SubSpace#getEmbedding()}.
 	 */
-	@Test
-	
+	@Test	
 	public void testGetEmbedding() {
 		final Homomorphism embedding = getRealLine().getEmbedding();
 		Assert.assertTrue(embedding.get(getRealLine().getOne()).equals(getComplexPlane().getOne()));

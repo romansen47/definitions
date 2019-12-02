@@ -2,8 +2,7 @@ package definitions.prototypes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.BeforeClass; 
 import org.springframework.beans.factory.annotation.Configurable;
 
 import definitions.SpringConfiguration;

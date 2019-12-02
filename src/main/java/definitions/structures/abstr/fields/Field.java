@@ -12,6 +12,7 @@ import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
+import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -20,7 +21,7 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMap
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface Field extends XmlPrintable, EuclideanAlgebra, FieldMethods {
+public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethods {
 
 	default Vector inverse(Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);

@@ -11,14 +11,17 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.False;
 import definitions.structures.abstr.fields.scalars.impl.True;
+import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
+import definitions.structures.abstr.groups.impl.BinaryGroup;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
-@Component(value="binaryField")
-public final class BinaryField implements PrimeField {
+@Component(value = "binaryField")
+public final class BinaryField implements BinaryGroup, PrimeField {
 
 	private static final long serialVersionUID = -7935335390082721765L;
 
@@ -84,17 +87,17 @@ public final class BinaryField implements PrimeField {
 		return this.zero;
 	}
 
-	@Override	
+	@Override
 	public Vector add(Vector vec1, Vector vec2) {
 		return this.get(!vec1.equals(vec2));
 	}
-	
+
 	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
 		return this.get(vec1.equals(this.unit) && r.equals(this.unit));
 	}
 
-	@Override	
+	@Override
 	public Vector inverse(Vector factor) {
 		if (factor instanceof True) {
 			return this.unit;
@@ -113,7 +116,7 @@ public final class BinaryField implements PrimeField {
 	}
 
 	@Override
-	
+
 	public Vector projection(Vector w, Vector v) {
 		if (v == False.getInstance()) {
 			return False.getInstance();
@@ -188,10 +191,36 @@ public final class BinaryField implements PrimeField {
 	public int getCharacteristic() {
 		return this.characteristic;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "the binary field";
 	}
+
+	@Override
+	public GroupElement getGenerator() {
+		return unit;
+	}
+
+	@Override
+	public MonoidElement getIdentityElement() {
+		return zero;
+	}
+
+	@Override
+	public GroupElement getInverseElement(GroupElement element) {
+		return BinaryGroup.super.getInverseElement(element);
+	}
+
+	@Override
+	public GroupElement operation(GroupElement first, GroupElement second) {
+		return (GroupElement) BinaryGroup.super.operation(first, second);
+	}
+
+//	
+//	@Override
+//	public GroupElement operation(GroupElement first, GroupElement second) {
+//		return (GroupElement) super.operation((Vector) first, (Vector) second);
+//	}
 
 }
