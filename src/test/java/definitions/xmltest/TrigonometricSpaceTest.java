@@ -12,7 +12,7 @@ public class TrigonometricSpaceTest extends GenericTrigonometricSpaceTest{
 	@Before
 	public void setUp() throws Exception {
 		setField(getRealLine());
-		setTrigonometricDegree(5);
+		setTrigonometricDegree(25);
 		super.setUp();
 	}
 	

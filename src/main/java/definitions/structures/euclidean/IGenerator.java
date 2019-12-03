@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.FieldGenerator;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -72,5 +73,9 @@ public interface IGenerator extends Serializable {
 	void saveCoordinateSpaces() throws IOException;
 
 	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;
+
+	FieldGenerator getFieldGenerator();
+
+	void setFieldGenerator(FieldGenerator fieldGenerator);
 
 }

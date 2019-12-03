@@ -1,4 +1,4 @@
-package definitions.structures.abstr.groups.impl;
+package definitions.xmltest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;

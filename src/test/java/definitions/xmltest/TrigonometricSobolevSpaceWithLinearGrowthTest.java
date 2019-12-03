@@ -8,7 +8,11 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
-	private int sobolevDegree=1;
+	/*
+	 * correct derivative computing algo here due to identity
+	 */
+	
+	private int sobolevDegree=3;
 	private int trigDegree=20;
 	
 	@Override

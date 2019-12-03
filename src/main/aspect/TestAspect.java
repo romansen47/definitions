@@ -20,7 +20,7 @@ public class TestAspect {
 
 	public final static Logger logger = Logger.getLogger("TestAspect");
 
-//	@Before("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
+	@Before("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
 	public void syncBeforeTest(JoinPoint jp) throws Throwable {
 		DeepSearch.active = true;
 		logger.info("DeepLogging activated in " + jp.toShortString().split(Pattern.quote("("))[1]);

@@ -3,65 +3,92 @@
  */
 package definitions.structures.abstr.groups.impl;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.Ring;
+import definitions.structures.abstr.vectorspaces.RingElement;
 
 /**
  * @author RoManski
  *
  */
-@Component
-public final class Integers implements DiscreteGroup, Ring {
+
+@Configurable
+@Configuration
+@ComponentScan
+public class Integers implements DiscreteGroup, Ring {
 
 	final GroupElement zero;
 	final GroupElement one;
 
-	private static Integers instance = null;
+	private static Integers instance;
 
 	public static Integers getInstance() {
 		if (instance == null) {
-			instance = new Integers();
+			instance = integers();
 		}
 		return instance;
 	}
 
-	private Integers() {
+	@Bean
+	public static Integers integers() {
+		return new Integers();
+	}
+
+	public Integers() {
 		this.one = this.get(1);
 		this.zero = this.get(0);
 	}
 
 	private static final long serialVersionUID = 321971307361565421L;
 
-	final
-
-	@Override public Integer getOrder() {
+	@Override
+	final public Integer getOrder() {
 		return null;
 	}
 
 	@Override
-	public GroupElement operation(GroupElement first, GroupElement second) {
-		return this.get(((Int) first).getValue() + ((Int) second).getValue());
+	public RingElement operation(GroupElement first, GroupElement second) {
+		return (RingElement) this.get(((Int) first).getValue() + ((Int) second).getValue());
+	}
+
+	@Bean
+	public Int integer() {
+		return new Int();
 	}
 
 	public GroupElement get(int int1) {
-		return new Int(int1);
+		Int i= integer();
+		i.setValue(int1);
+		return i;
 	}
 
-	public class Int implements GroupElement {
+	public class Int implements RingElement {
 		private static final long serialVersionUID = -1727262864036395099L;
-		final int value;
+		private int value;
 
 		Int(int val) {
+			this();
 			this.value = val;
+		}
+
+		Int() {
+			this.value = 0;
 		}
 
 		public int getValue() {
 			return this.value;
+		}
+		
+		public void setValue(int value) {
+			this.value=value;
 		}
 
 		@Override
@@ -113,7 +140,7 @@ public final class Integers implements DiscreteGroup, Ring {
 
 		@Override
 		public String toXml() {
-			return "<integer "+Int.this.getValue()+"/>";
+			return "<integer " + Int.this.getValue() + "/>";
 		}
 	}
 

@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.fields.impl.FieldGenerator;
+import definitions.structures.abstr.groups.impl.GroupGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;
@@ -25,7 +26,7 @@ import settings.GlobalSettings;
 @ComponentScan(basePackages = "definitions..*")
 public class Generator implements IGenerator, Plotter {
 
-	final private Logger logger=Logger.getLogger(Generator.class);
+	final private  java.util.logging.Logger logger=Logger.getLogger(Generator.class.toString());
 	
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
@@ -42,6 +43,9 @@ public class Generator implements IGenerator, Plotter {
 	
 	@Autowired
 	private FieldGenerator fieldGenerator;
+	
+	@Autowired
+	private GroupGenerator groupGenerator;
 
 	public static synchronized Generator getInstance() {
 		if (instance==null) {
@@ -69,11 +73,13 @@ public class Generator implements IGenerator, Plotter {
 		return spaceGenerator;
 	}
 
-	private FieldGenerator getFieldGenerator() {
+	@Override
+	public FieldGenerator getFieldGenerator() {
 		return fieldGenerator;
 	}
 
-	private void setFieldGenerator(FieldGenerator fieldGenerator) {
+	@Override
+	public void setFieldGenerator(FieldGenerator fieldGenerator) {
 		this.fieldGenerator = fieldGenerator;
 	}
 
@@ -109,6 +115,14 @@ public class Generator implements IGenerator, Plotter {
 
 	private Logger getLogger() {
 		return logger;
+	}
+
+	public GroupGenerator getGroupGenerator() {
+		return groupGenerator;
+	}
+
+	public void setGroupGenerator(GroupGenerator groupGenerator) {
+		this.groupGenerator = groupGenerator;
 	}
 
 }

@@ -1,9 +1,10 @@
-package definitions.structures.abstr.groups.impl;
+package definitions.xmltest;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
+import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
 import definitions.structures.abstr.vectorspaces.Ring;
 
 public class FiniteCyclicGroupTest extends AspectJTest{
@@ -15,12 +16,12 @@ public class FiniteCyclicGroupTest extends AspectJTest{
 	@BeforeClass 
 	public static void prepare() {
 		AspectJTest.prepare();
-		finiteCyclicGroup = new FiniteCyclicGroup(index);
+		finiteCyclicGroup = new FiniteCyclicRing(index);
 	}
 	
 	@Test
 	public void test() {
-		((FiniteCyclicGroup) finiteCyclicGroup).print();
+		((FiniteCyclicRing) finiteCyclicGroup).print();
 	}
 
 }
