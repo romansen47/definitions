@@ -83,8 +83,8 @@ public class TestAspect {
 	}
 
 //	@After("execution(* definitions.structures..*.*(..)) && !execution(* aspects..*.*(..))")
-//	public void message(JoinPoint jp) {
-//		logger.info("done with "+jp.toShortString());
-//	}
+	public void message(JoinPoint jp) {
+		logger.info("done with "+jp.toShortString());
+	}
 
 }

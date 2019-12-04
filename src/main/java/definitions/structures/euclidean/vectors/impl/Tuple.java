@@ -156,7 +156,7 @@ public class Tuple implements FiniteVector {
 			ans += "<" + x.getClass() + ">\r"; 
 			ans+= getCoordinates().get(x) + "\r</" + x.getClass().toString().split("class ")[1] + ">\r";
 		}
-		ans = "<tuple>";
+		ans += "</tuple>";
 		return ans;
 	}
 

@@ -15,12 +15,12 @@ public interface FiniteField extends Field {
 	@Override
 	default String toXml(){
 		String xmlString="<FiniteField>";
-		xmlString+="<characteristic "+getCharacteristic()+"/>";
+		xmlString+="<characteristic>"+getCharacteristic()+"</characteristic>";
 		if (getPrimeField()==this) {
-			xmlString+="<isPrimeField/>";
+			xmlString+="<isPrimeField>yes</isPrimeField>";
 		}
 		else {
-			xmlString+="<primeField "+getPrimeField().toXml();
+			xmlString+="<primeField>"+getPrimeField().toXml()+"</primeField>";
 		}
 		
 		return xmlString;

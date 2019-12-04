@@ -31,7 +31,7 @@ public class DeepSearch {
 	static int maxDepth;
 	static int depth;
 
-	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test)")
+	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return this.getLookUp(pjp);
@@ -40,12 +40,12 @@ public class DeepSearch {
 		}
 	}
 
-	@Before("@annotation(org.junit.Test)")
+	@Before("@annotation(settings.annotations.Proceed)")
 	public synchronized void avoidDeeperSearchBefore(JoinPoint jp) throws Throwable {
 		active = false;
 	}
 
-	@After("@annotation(org.junit.Test)")
+	@After("@annotation(settings.annotations.Proceed)")
 	public synchronized void avoidDeeperSearchAfter(JoinPoint jp) throws Throwable {
 		active = true;
 	}
@@ -55,6 +55,35 @@ public class DeepSearch {
 		return this.createXmlEntry(pjp);
 	}
 
+	public String xmlString(Object o) {
+		String ans="";
+		if (o != null) {
+			ans += "<return>\r";
+			if (o instanceof XmlPrintable) {
+				ans += ((XmlPrintable) o).toXml();
+			} else {
+				if (o instanceof Integer) {
+					ans+="<integer>"+o.toString()+"</integer>";
+				}
+				if (o instanceof List<?>) {
+					for (Object x:(List<?>)o) {
+						if (x instanceof XmlPrintable) {
+							ans+=((XmlPrintable)x).toXml();
+						}
+						else {
+							ans += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+						}
+					}
+				}
+				ans += "<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r";
+			}
+			ans += "</return>\r";
+		} else {
+			ans += "<return void/>\r";
+		}
+		return ans;
+	}
+	
 	private Object createXmlEntry(ProceedingJoinPoint pjp) throws Throwable {
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
 
@@ -64,28 +93,14 @@ public class DeepSearch {
 		if (args.length > 0) {
 			ans += "<arguments>\r";
 			for (Object arg : args) {
-				if (arg instanceof XmlPrintable) {
-					ans += ((XmlPrintable) arg).toXml();
-				} else {
-					ans += "<unknownNonXmlPrintableElement " + arg.toString().split(Pattern.quote("$"))[0] + "/>\r";
-				}
+				ans+=xmlString(arg);
 			}
 			ans += "</arguments>\r";
 		}
 		list.add(ans);
 		ans = "";
 		Object o = pjp.proceed();
-		if (o != null) {
-			ans += "<return>\r";
-			if (o instanceof XmlPrintable) {
-				ans += ((XmlPrintable) o).toXml();
-			} else {
-				ans += "<unknownXmlObject " + o.getClass().toString().split("class ")[1] + "/>\r";
-			}
-			ans += "</return>\r";
-		} else {
-			ans += "<return void/>\r";
-		}
+		ans+=xmlString(o);
 		ans += "</" + str + ">\r";
 		list.add(ans);
 		return o;

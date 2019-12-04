@@ -1,12 +1,11 @@
 package definitions.structures.abstr.fields.scalars;
 
-import java.util.List;
-
 import definitions.settings.XmlPrintable;
+import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface Scalar extends Vector, FiniteVectorMethods, XmlPrintable {
+public interface Scalar extends RingElement,Vector, FiniteVectorMethods, XmlPrintable {
 
 	/**
 	 * This has practical reasons. Gives double value, if possible.
