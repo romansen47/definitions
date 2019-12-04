@@ -7,7 +7,6 @@ import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Complex;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
-import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;

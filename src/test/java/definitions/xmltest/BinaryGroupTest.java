@@ -43,8 +43,8 @@ public class BinaryGroupTest extends AspectJTest{
 
 	@Test
 	public void testGetInverseElement() {
-		Assert.assertTrue(binaryGroup.getInverseElement((GroupElement) binaryGroup.getIdentityElement())==binaryGroup.getIdentityElement());
-		Assert.assertTrue(binaryGroup.getInverseElement((GroupElement) ((CyclicGroup) binaryGroup).getGenerator())==((CyclicGroup)binaryGroup).getGenerator());
+		Assert.assertTrue(binaryGroup.getInverseElement((GroupElement) binaryGroup.getIdentityElement()).equals(binaryGroup.getIdentityElement()));
+		Assert.assertTrue(binaryGroup.getInverseElement((GroupElement) ((CyclicGroup) binaryGroup).getGenerator()).equals(((CyclicGroup)binaryGroup).getGenerator()));
 	}
 
 }

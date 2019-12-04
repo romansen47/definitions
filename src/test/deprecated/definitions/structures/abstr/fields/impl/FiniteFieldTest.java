@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.False;
+import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
@@ -21,8 +21,8 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class FiniteFieldTest extends VectorTest {
 
 	static Field modulo2 = (Field) BinaryField.getInstance();
-	static Scalar zero = False.getInstance();
-	static Scalar unit = False.getInstance();
+	static Scalar zero = (Scalar) modulo2.nullVec();
+	static Scalar unit = (Scalar) ((FiniteCyclicRing) modulo2).getGenerator();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -34,13 +34,11 @@ public class FiniteFieldTest extends VectorTest {
 	}
 
 	@Test
-	
 	public void getFieldTest() {
 		final Field field = modulo2.getField();
 	}
 
 	@Test
-	
 	public void containsTest() {
 		final boolean x = modulo2.contains(zero);
 		final boolean y = modulo2.contains(unit);

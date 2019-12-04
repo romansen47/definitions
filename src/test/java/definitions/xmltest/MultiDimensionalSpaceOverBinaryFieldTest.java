@@ -2,16 +2,12 @@ package definitions.xmltest;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
 
-import definitions.SpringConfiguration;
 import definitions.prototypes.AspectJTest;
-import definitions.structures.abstr.fields.impl.BinaryField;
+import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.groups.impl.GroupGenerator;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -25,11 +21,12 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 	public void test() {
 
 		boolean ans = true;
-		
-		final EuclideanSpace modulo2Space = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalVectorSpace(getBinaryField(),
+
+		Field f = (Field) GroupGenerator.getInstance().getFiniteCyclicRing(2);
+		final EuclideanSpace modulo2Space = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalVectorSpace(f,
 				dim);
 		modulo2Space.show();
-		
+
 		for (int i = 0; i < dim; i++) {
 			final Vector x = modulo2Space.genericBaseToList().get(i);
 			final Vector h = modulo2Space.add(x, x);
@@ -37,7 +34,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 				ans = false;
 			}
 		}
-		
+
 		Assert.assertTrue(ans);
 	}
 

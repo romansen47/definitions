@@ -1,7 +1,6 @@
 package definitions.structures.abstr.fields.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,48 +8,35 @@ import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.False;
-import definitions.structures.abstr.fields.scalars.impl.True;
 import definitions.structures.abstr.groups.GroupElement;
-import definitions.structures.abstr.groups.MonoidElement;
-import definitions.structures.abstr.groups.impl.BinaryGroup;
+import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
 @Component(value = "binaryField")
-public final class BinaryField implements BinaryGroup, PrimeField {
+public final class BinaryField extends FiniteCyclicRing implements PrimeField {
 
 	private static final long serialVersionUID = -7935335390082721765L;
 
 	private static EuclideanSpace instance;
 
-	private EuclideanSpace dualSpace;
-
-	final Vector zero = False.getInstance();
-
-	final Vector unit = True.getInstance();
-
-	private final List<Vector> base = new ArrayList<>();
-
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
 	private final int characteristic = 2;
 
-	private BinaryField() {
-		// this.base.add(this.zero);
-		this.base.add(this.unit);
-		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
-		final Map<Vector, Scalar> a = new HashMap<>();
-		a.put(this.unit, (Scalar) this.unit);
-		multiplicationMap.put(this.unit, a);
-		final Map<Vector, Homomorphism> newMap = new HashMap<>();
-		newMap.put(this.unit,
-				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
-		this.setMultiplicationMatrix(newMap);
+	private List<Vector> base;
 
+	private EuclideanSpace dualSpace;
+ 
+	private BinaryField() {
+		super(2);
+		base=new ArrayList<>();
+		base.add(new Bit(0));
+		base.add(new Bit(1));
+		elements.put(0,base.get(0));
+		elements.put(1,base.get(1)); 
 	}
 
 	@Override
@@ -59,9 +45,6 @@ public final class BinaryField implements BinaryGroup, PrimeField {
 	}
 
 	public static EuclideanSpace getInstance() {
-		if (instance == null) {
-			instance = new BinaryField();
-		}
 		return instance;
 	}
 
@@ -72,19 +55,19 @@ public final class BinaryField implements BinaryGroup, PrimeField {
 
 	public Vector get(Boolean val) {
 		if (val) {
-			return this.unit;
+			return (Vector) this.getGenerator();
 		}
-		return this.zero;
+		return (Vector) this.getIdentityElement();
 	}
 
 	@Override
 	public boolean contains(Vector vec) {
-		return vec instanceof True || vec instanceof False;
+		return vec == (Vector) this.getGenerator() || vec==this.getIdentityElement();
 	}
 
 	@Override
 	public Vector nullVec() {
-		return this.zero;
+		return (Vector) this.getIdentityElement();
 	}
 
 	@Override
@@ -94,20 +77,12 @@ public final class BinaryField implements BinaryGroup, PrimeField {
 
 	@Override
 	public Vector stretch(Vector vec1, Scalar r) {
-		return this.get(vec1.equals(this.unit) && r.equals(this.unit));
-	}
-
-	@Override
-	public Vector inverse(Vector factor) {
-		if (factor instanceof True) {
-			return this.unit;
-		}
-		return null;
+		return this.get(vec1.equals((Vector) this.getGenerator()) && r.equals((Vector) this.getGenerator()));
 	}
 
 	@Override
 	public Vector getOne() {
-		return this.unit;
+		return (Vector) this.getGenerator();
 	}
 
 	@Override
@@ -116,10 +91,9 @@ public final class BinaryField implements BinaryGroup, PrimeField {
 	}
 
 	@Override
-
 	public Vector projection(Vector w, Vector v) {
-		if (v == False.getInstance()) {
-			return False.getInstance();
+		if (v == (Vector) this.getIdentityElement()) {
+			return (Vector) this.getIdentityElement();
 		}
 		return w;
 	}
@@ -198,29 +172,23 @@ public final class BinaryField implements BinaryGroup, PrimeField {
 	}
 
 	@Override
-	public GroupElement getGenerator() {
-		return unit;
-	}
-
-	@Override
-	public MonoidElement getIdentityElement() {
-		return zero;
-	}
-
-	@Override
 	public GroupElement getInverseElement(GroupElement element) {
-		return BinaryGroup.super.getInverseElement(element);
+		return super.getInverseElement(element);
 	}
 
 	@Override
 	public GroupElement operation(GroupElement first, GroupElement second) {
-		return (GroupElement) BinaryGroup.super.operation(first, second);
+		return (GroupElement) super.operation(first, second);
 	}
 
-//	
-//	@Override
-//	public GroupElement operation(GroupElement first, GroupElement second) {
-//		return (GroupElement) super.operation((Vector) first, (Vector) second);
-//	}
-
+	@Override
+	public PrimeField getPrimeField() {
+		return this;
+	}
+	
+	class Bit extends Element implements Vector{
+		protected Bit(int r) {
+			super(r);
+		}
+	}
 }

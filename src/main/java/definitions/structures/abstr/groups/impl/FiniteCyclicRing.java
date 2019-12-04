@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
@@ -27,7 +28,10 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		private static final long serialVersionUID = 1L;
 		int representant;
 
-		Element(int r) {
+//		Element( ) { 
+//		}
+		
+		protected Element(int r) {
 			representant = r;
 		}
 
@@ -50,13 +54,17 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		}
 	}
 
+	protected FiniteCyclicRing() { 
+	}
+
 	private int order;
 
-	private Map<Integer, GroupElement> elements;
+	protected Map<Integer, GroupElement> elements=new HashMap<>();
 
 	public GroupElement get(Integer index) {
 		GroupElement ans = elements.get(index);
 		if (ans == null) {
+			if (this instanceof Field)
 			ans = new Element(index);
 			elements.put(index, ans);
 		}
@@ -80,7 +88,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	@Override
 	public MonoidElement operation(GroupElement first, GroupElement second) {
-		return elements.get((((Element) first).getRepresentant() + ((Element) second).getRepresentant()) % order);
+		return elements.get((((Element) first).getRepresentant() + ((Element) second).getRepresentant()) % getOrder());
 	}
 
 	@Override
