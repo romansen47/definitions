@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import java.util.regex.Pattern;
 
 import org.aspectj.lang.JoinPoint;
@@ -30,7 +30,7 @@ public class TestAspect {
 	private boolean testStarted = false;
 	private SpringConfiguration springConfiguration;
 
-	@Before("@annotation(org.junit.Test)")
+//	@Before("@annotation(org.junit.Test)")
 	public void createContext() {
 		if (!testStarted) {
 			springConfiguration = SpringConfiguration.getSpringConfiguration();
@@ -38,7 +38,7 @@ public class TestAspect {
 		}
 	}
 
-	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
+//	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
 	public void syncAfterTest(JoinPoint jp) throws Throwable {
 		syncAfter(jp);
 		DeepSearch.active = false;

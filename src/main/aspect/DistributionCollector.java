@@ -46,12 +46,12 @@ public class DistributionCollector {
 		bw.flush();
 		Map<String, Integer> STATS = map.get(Thread.currentThread());
 		if (STATS.isEmpty()) {
-			java.util.logging.Logger.getLogger("Statistics empty").info("list empty");
+			org.apache.log4j.Logger.getLogger("Statistics empty").info("list empty");
 		} else {
 			for (String str : STATS.keySet()) {
 				Integer times = STATS.get(str);
 				if (times != 0) {
-					java.util.logging.Logger.getLogger("statistics").info(str + " " + times.toString() + " times");
+					org.apache.log4j.Logger.getLogger("statistics").info(str + " " + times.toString() + " times");
 					bw.write("<" + str + ">" + STATS.get(str).toString() + "</" + str + ">\r");
 					bw.flush();
 				}

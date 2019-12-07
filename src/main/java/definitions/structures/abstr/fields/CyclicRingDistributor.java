@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.groups.impl.Integers.Int;
+import definitions.structures.abstr.groups.impl.Int;
 import definitions.structures.abstr.vectorspaces.Ring;
 
 public interface CyclicRingDistributor extends XmlPrintable {

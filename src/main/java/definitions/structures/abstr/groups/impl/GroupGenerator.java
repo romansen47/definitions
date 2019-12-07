@@ -2,38 +2,46 @@ package definitions.structures.abstr.groups.impl;
 
 import java.util.HashMap;
 import java.util.Map;
- 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import definitions.structures.abstr.groups.IGroupGenerator;
-import definitions.structures.abstr.groups.impl.Integers.Int;
-import definitions.structures.euclidean.Generator;
 
 @Configuration
-@ComponentScan
+//@Component
 public class GroupGenerator implements IGroupGenerator {
 
 	Map<Integer, FiniteCyclicRing> map = new HashMap<>();
-	
+
+	public static GroupGenerator instance;
+
+	@Autowired
+	private Integers integers;
+
 	public static GroupGenerator getInstance() {
-		return Generator.getInstance().getGroupGenerator();
+		return instance;
 	}
-	
+
 	@Override
 	public FiniteCyclicRing getFiniteCyclicRing(int order) {
 		FiniteCyclicRing ring = map.get(order);
 		if (ring == null) {
-			ring = finiteCyclicRing((Int) Integers.getInstance().get(order));
+			ring = FiniteCyclicRing.getFiniteCyclicRing(order);
 			map.put(order, ring);
 		}
 		return ring;
 	}
 
-	@Bean
-	public FiniteCyclicRing finiteCyclicRing(Integers.Int i) {
-		return new FiniteCyclicRing(i.getValue());
+	public static void setInstance(GroupGenerator groupGenerator) {
+		instance = groupGenerator;
+	}
+
+	public Integers getIntegers() {
+		if (Integers.getInstance() == null) {
+			Integers.setInstance(integers);
+		}
+		return integers;
 	}
 
 }

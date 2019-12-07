@@ -5,13 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -33,37 +29,23 @@ import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
  *
  *         Implementation of the field of real numbers as a singleton class.
  */
-@SuppressWarnings("unused")
-@javax.xml.bind.annotation.XmlRootElement
 @Configuration
 public class RealLine implements SubField, RealSpace {
 
-	@Bean
-	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-	public Real real() {
-		return new Real();
-	}
-
-	@javax.xml.bind.annotation.XmlElement
 	private static final long serialVersionUID = -1444063003774915383L;
 
 	private EuclideanSpace dualSpace;
 
-	@javax.xml.bind.annotation.XmlElement
 	final private static Real one = RealOne.getOne();
 
-	@javax.xml.bind.annotation.XmlElement
 	final private static Real zero = RealZero.getZero();
 
-	@javax.xml.bind.annotation.XmlElement
 	final Map<Vector, Scalar> coordinates;
 
 	private static RealLine instance;
 
-	@javax.xml.bind.annotation.XmlElement
 	private final List<Vector> base;
 
-	@javax.xml.bind.annotation.XmlElement
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
 	public RealLine() {
@@ -90,7 +72,6 @@ public class RealLine implements SubField, RealSpace {
 		return vec instanceof Real;
 	}
 
-	@XmlAttribute
 	@Override
 	public Vector nullVec() {
 		return this.getZero();
@@ -125,14 +106,7 @@ public class RealLine implements SubField, RealSpace {
 	public List<Vector> genericBaseToList() {
 		return this.base;
 	}
-
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public Set<Vector> getGenericBase() {
-//		return (Set<Vector>) this.base;
-//	}
-
-	@XmlAttribute
+ 
 	@Override
 	public Integer getDim() {
 		return 1;
@@ -143,7 +117,6 @@ public class RealLine implements SubField, RealSpace {
 		return vec;
 	}
 
-	@javax.xml.bind.annotation.XmlElement
 	@Override
 	public List<Vector> getOrthonormalBase(List<Vector> base) {
 		return this.base;
@@ -157,7 +130,6 @@ public class RealLine implements SubField, RealSpace {
 		return get(ans);
 	}
 
-	@XmlAttribute
 	@Override
 	public Vector inverse(Vector factor) {
 		if (factor == null) {
@@ -170,13 +142,11 @@ public class RealLine implements SubField, RealSpace {
 		return get(1 / num.getValue());
 	}
 
-	@XmlAttribute
 	@Override
 	public final Real getOne() {
 		return one;
 	}
 
-	@XmlAttribute
 	@Override
 	public final Real getZero() {
 		return zero;
@@ -222,7 +192,7 @@ public class RealLine implements SubField, RealSpace {
 
 	@Override
 	public Scalar get(double value) {
-		Real newReal = real();
+		Real newReal = SpringConfiguration.getSpringConfiguration().real();
 		newReal.setValue(value);
 		return newReal;
 	}
@@ -232,7 +202,6 @@ public class RealLine implements SubField, RealSpace {
 		return value;
 	}
 
-	@XmlAttribute
 	@Override
 	public String toString() {
 		return "the field of real numbers.";

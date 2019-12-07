@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
@@ -29,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *         Implementation of the field of quaternion numbers as a singleton
  *         class.
  */
-//@Configurable
+//@Configuration
 //@Component 
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
  
@@ -66,7 +62,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		return this.k;
 	}
 
-	@Bean(value="quaternionSpace")
+//	@Bean(value="quaternionSpace")
 	public QuaternionSpace quaternionSpace() {
 		return new QuaternionSpace();
 	}

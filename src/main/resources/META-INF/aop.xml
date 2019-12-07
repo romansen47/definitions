@@ -2,10 +2,12 @@
         "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
 	<weaver
-		options="-Xset:weaveJavaxPackages=true -verbose -showWeaveInfo -debug -Xreweavable">
+		options="-Xset:weaveJavaxPackages=true -verbose">
+		<!--  -showWeaveInfo -debug -Xreweavable -->
 		<include
 			within="java.lang.Object org.springframework.beans.factory.config.*" />
 		<include within="org.springframework" />
+		<include within="org.apache.log4j.spi.*" />
 		<include within="definitions..*" />
 		<exclude within="settings.SpringBeanLogging" />
 		<exclude within="plotter..*" />

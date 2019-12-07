@@ -5,11 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.logging.Logger;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import definitions.cache.MyCache;
@@ -20,36 +20,37 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;
 import settings.GlobalSettings;
 
-@SuppressWarnings("unused")
-@Configurable
 @Configuration
-@ComponentScan(basePackages = "definitions..*")
 public class Generator implements IGenerator, Plotter {
 
-	final private  java.util.logging.Logger logger=Logger.getLogger(Generator.class.toString());
-	
+	private Logger logger;
+
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
 	private static final long serialVersionUID = -5553433829703982950L;
 	private final String PATH = GlobalSettings.CACHEDSPACES;
 
 	private static Generator instance;
- 
+
 	@Autowired(required = true)
 	private MappingGenerator mappingGenerator;
 
 	@Autowired(required = true)
 	private SpaceGenerator spaceGenerator;
-	
+
 	@Autowired
 	private FieldGenerator fieldGenerator;
-	
+
 	@Autowired
 	private GroupGenerator groupGenerator;
 
 	public static synchronized Generator getInstance() {
-		if (instance==null) {
+		if (instance == null) {
 			instance = new Generator();
+			if (instance.logger == null) {
+				instance.logger = LogManager.getLogger(SpaceGenerator.class);
+				BasicConfigurator.configure();
+			}
 		}
 		if (restoreFromCached) {
 			try {
@@ -58,7 +59,7 @@ public class Generator implements IGenerator, Plotter {
 			} catch (final Exception e) {
 				System.out.println("Cached spaces not loaded");
 			}
-			restoreFromCached=false;
+			restoreFromCached = false;
 		}
 		return instance;
 	}
@@ -105,15 +106,19 @@ public class Generator implements IGenerator, Plotter {
 			e.printStackTrace();
 		}
 	}
- 
+
 	public static void setInstance(Generator instance) {
-		Generator.instance=instance;
+		Generator.instance = instance;
 		MappingGenerator.setInstance(instance.mappingGenerator);
 		SpaceGenerator.setInstance(instance.spaceGenerator);
 		FieldGenerator.setInstance(instance.fieldGenerator);
+		GroupGenerator.setInstance(instance.groupGenerator);
 	}
 
-	private Logger getLogger() {
+	public Logger getLogger() {
+		if (logger==null) {
+			logger=Logger.getLogger(this.getClass());
+		}
 		return logger;
 	}
 
@@ -122,6 +127,7 @@ public class Generator implements IGenerator, Plotter {
 	}
 
 	public void setGroupGenerator(GroupGenerator groupGenerator) {
+		GroupGenerator.setInstance(groupGenerator);
 		this.groupGenerator = groupGenerator;
 	}
 

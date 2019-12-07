@@ -1,7 +1,5 @@
 package definitions.structures.abstr.groups;
 
-import java.util.Map;
-
 import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
 import definitions.structures.abstr.vectorspaces.RingElement;
 

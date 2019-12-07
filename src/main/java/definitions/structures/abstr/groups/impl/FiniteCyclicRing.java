@@ -3,10 +3,6 @@ package definitions.structures.abstr.groups.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
@@ -15,10 +11,7 @@ import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
-
-@Configurable
-@Configuration
-@ComponentScan
+ 
 public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	private static final long serialVersionUID = 1L;
@@ -45,7 +38,18 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		}
 
 	}
+	
+	private final static Map<Integer,FiniteCyclicRing> finiteCyclicGroupMap=new HashMap<>();
 
+	public static FiniteCyclicRing getFiniteCyclicRing(int n) {
+		FiniteCyclicRing ring=finiteCyclicGroupMap.get(n);
+		if (ring==null) {
+			ring=new FiniteCyclicRing(n);
+			finiteCyclicGroupMap.put(n,ring);
+		}
+		return ring;
+	}
+	
 	public FiniteCyclicRing(int n) {
 		setOrder(n);
 		elements = new HashMap<>();
@@ -63,8 +67,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	public GroupElement get(Integer index) {
 		GroupElement ans = elements.get(index);
-		if (ans == null) {
-			if (this instanceof Field)
+		if (ans == null) { 
 			ans = new Element(index);
 			elements.put(index, ans);
 		}

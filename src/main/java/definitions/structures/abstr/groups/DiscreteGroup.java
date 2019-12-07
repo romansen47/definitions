@@ -3,8 +3,6 @@
  */
 package definitions.structures.abstr.groups;
 
-import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
-
 /**
  * @author RoManski
  *

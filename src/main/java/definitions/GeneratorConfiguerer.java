@@ -1,20 +1,17 @@
 package definitions;
 
-import java.util.logging.Logger;
-
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.euclidean.Generator;
-
-@Configurable
+ 
 @Configuration 
 public class GeneratorConfiguerer {
 
-	final static private Logger logger = java.util.logging.Logger.getLogger(GeneratorConfiguerer.class.getCanonicalName());
+	final static private Logger logger = LogManager.getLogger(GeneratorConfiguerer.class.getCanonicalName());
 
 	@Autowired(required = true)
 	private Generator generator;
@@ -22,10 +19,10 @@ public class GeneratorConfiguerer {
 	@Autowired
 	private RealLine realLine;
 		
-	@Bean(name = "realLine")
-	public RealLine realLine() {
-		return RealLine.getInstance();
-	}
+//	@Bean(name = "realLine")
+//	public RealLine realLine() {
+//		return RealLine.getInstance();
+//	}
 
 	public static Logger getLogger() {
 		return logger;

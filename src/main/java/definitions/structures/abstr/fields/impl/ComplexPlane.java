@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Complex;
@@ -27,7 +21,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *
  *         Implementation of the field of complex numbers as a singleton class.
  */
-//@Configurable
+//@Configuration
 //@Configuration("complexPlane")
 //@ComponentScan(value="definitions..*")
 public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {

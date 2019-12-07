@@ -1,12 +1,12 @@
 package definitions.structures.abstr.fields.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 import definitions.structures.abstr.fields.IFieldGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-@Component
+@Configuration
 public class FieldGenerator implements IFieldGenerator {
 
 	private static IFieldGenerator instance;

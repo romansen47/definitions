@@ -1,4 +1,4 @@
-package definitions;
+package definitions.xmltest;
 
 import static org.junit.Assert.fail;
 
