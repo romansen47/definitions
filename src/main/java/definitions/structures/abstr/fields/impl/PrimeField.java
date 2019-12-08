@@ -9,7 +9,7 @@ import definitions.structures.abstr.fields.Field;
  * @author RoManski
  *
  */
-public interface PrimeField extends FiniteField {
+public interface PrimeField extends Field {
 	/**
 	 * {@inheritDoc}
 	 */

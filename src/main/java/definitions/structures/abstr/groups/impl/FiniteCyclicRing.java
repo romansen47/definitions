@@ -3,63 +3,25 @@ package definitions.structures.abstr.groups.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.Ring;
-import definitions.structures.abstr.vectorspaces.RingElement;
 
 public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	private static final long serialVersionUID = 1L;
 
-	public class Element implements RingElement {
-
-		private static final long serialVersionUID = 1L;
-		int representant;
-
-//		Element( ) { 
-//		}
-
-		protected Element(int r) {
-			representant = r;
-		}
-
-		@Override
-		public String toXml() {
-			return "<representant>" + representant + " </representant>";
-		}
-
-		public int getRepresentant() {
-			return representant;
-		}
-
-	}
-
 	private final static Map<Integer, FiniteCyclicRing> finiteCyclicGroupMap = new HashMap<>();
 
 	public static FiniteCyclicRing getFiniteCyclicRing(int n) {
 		FiniteCyclicRing ring = finiteCyclicGroupMap.get(n);
-		if (isPrime(n)) {
-			return (FiniteCyclicRing) BinaryField.getInstance();
-		} else {
-			if (ring == null) {
-				ring = new FiniteCyclicRing(n);
-			}
-			finiteCyclicGroupMap.put(n, ring);
+		if (ring == null) {
+			return new FiniteCyclicRing(n); 
 		}
 		return ring;
-	}
-
-	private static boolean isPrime(int n) {
-		if (n == 2) {
-			return true;
-		}
-		return false;
 	}
 
 	public FiniteCyclicRing(int n) {
@@ -68,6 +30,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		for (int i = 0; i < n; i++) {
 			get(i);
 		}
+		finiteCyclicGroupMap.put(n, this);
 	}
 
 	public FiniteCyclicRing() {
@@ -80,7 +43,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 	public GroupElement get(Integer index) {
 		GroupElement ans = elements.get(index);
 		if (ans == null) {
-			ans = new Element(index);
+			ans = new CyclicRingElement(index);
 			elements.put(index, ans);
 		}
 		return ans;
@@ -88,7 +51,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	@Override
 	public GroupElement getInverseElement(GroupElement element) {
-		return elements.get(getOrder() - ((Element) element).getRepresentant());
+		return elements.get(getOrder() - ((CyclicRingElement) element).getRepresentant());
 	}
 
 	@Override
@@ -103,7 +66,9 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	@Override
 	public MonoidElement operation(GroupElement first, GroupElement second) {
-		return elements.get((((Element) first).getRepresentant() + ((Element) second).getRepresentant()) % getOrder());
+		return elements
+				.get((((CyclicRingElement) first).getRepresentant() + ((CyclicRingElement) second).getRepresentant())
+						% getOrder());
 	}
 
 	@Override
@@ -117,7 +82,8 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		for (int i = 0; i < getOrder(); i++) {
 			System.out.print(i + ": ");
 			for (int j = 0; j < getOrder(); j++) {
-				System.out.print(((FiniteCyclicRing.Element) operation(get(i), get(j))).getRepresentant() + " ");
+				System.out.print(
+						((CyclicRingElement) operation(get(i), get(j))).getRepresentant() + " ");
 			}
 			System.out.println();
 		}
@@ -126,8 +92,9 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		for (int i = 0; i < getOrder(); i++) {
 			System.out.print(i + ": ");
 			for (int j = 0; j < getOrder(); j++) {
-				System.out.print(((FiniteCyclicRing.Element) getMuliplicativeMonoid().operation(get(i), get(j)))
-						.getRepresentant() + " ");
+				System.out
+						.print(((CyclicRingElement) getMuliplicativeMonoid().operation(get(i), get(j)))
+								.getRepresentant() + " ");
 			}
 			System.out.println();
 		}
@@ -152,8 +119,8 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 					if (first == elements.get(0) || second == elements.get(0)) {
 						return elements.get(0);
 					} else {
-						return elements.get(
-								(((Element) first).getRepresentant() * ((Element) second).getRepresentant()) % order);
+						return elements.get((((CyclicRingElement) first).getRepresentant()
+								* ((CyclicRingElement) second).getRepresentant()) % order);
 					}
 				}
 

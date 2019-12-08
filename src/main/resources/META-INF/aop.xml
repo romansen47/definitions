@@ -6,10 +6,8 @@
 		<!--  -showWeaveInfo -debug -Xreweavable -->
 		<include
 			within="java.lang.Object org.springframework.beans.factory.config.*" />
-		<include within="org.springframework" />
-		<include within="org.apache.log4j.spi.*" />
-		<include within="definitions..*" />
-		<exclude within="settings.SpringBeanLogging" />
+		<include within="org.springframework" /> 
+		<include within="definitions..*" /> 
 		<exclude within="plotter..*" />
 	</weaver>
 	<aspects>

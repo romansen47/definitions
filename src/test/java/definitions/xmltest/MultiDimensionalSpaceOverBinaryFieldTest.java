@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.abstr.groups.impl.GroupGenerator;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -22,7 +23,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 
 		boolean ans = true;
 
-		Field f = (Field) GroupGenerator.getInstance().getFiniteCyclicRing(2);
+		Field f = (Field) BinaryField.getInstance();
 		final EuclideanSpace modulo2Space = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalVectorSpace(f,
 				dim);
 		modulo2Space.show();

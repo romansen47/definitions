@@ -1,6 +1,6 @@
 package definitions;
-
-import org.apache.log4j.Logger;
+ 
+import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +24,7 @@ import definitions.structures.euclidean.Generator;
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
 @Configuration
 public class SpringConfiguration implements ApplicationContextAware {
-
+ 
 	private static SpringConfiguration springConfiguration;
 
 	private ApplicationContext applicationContext = annotationConfigApplicationContext();

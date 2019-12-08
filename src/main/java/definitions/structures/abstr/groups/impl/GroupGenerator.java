@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.groups.IGroupGenerator;
 
 @Configuration

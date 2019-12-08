@@ -8,8 +8,10 @@ import definitions.structures.abstr.fields.Field;
  */
 public interface FiniteField extends Field {
 
+	@Override
 	int getCharacteristic();
 
+	@Override
 	PrimeField getPrimeField();
 
 	@Override

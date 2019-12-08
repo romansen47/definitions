@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.settings.XmlPrintable;
+import definitions.structures.abstr.fields.impl.PrimeField;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.Group;
@@ -22,7 +23,7 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethods {
-
+	
 	default Vector inverse(Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
@@ -115,5 +116,17 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 		};
 
 		return multiplicaiveGroup;
+	}
+
+	default int getCharacteristic() {
+		return 0;
+	}
+
+	/**
+	 * Should return field of rational numbers in infinite case by default.
+	 * @return
+	 */
+	default PrimeField getPrimeField() {
+		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package definitions.structures.abstr.groups;
 
+import definitions.structures.abstr.groups.impl.CyclicRingElement;
 import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
@@ -9,11 +10,11 @@ public interface IGroupGenerator {
 	
 	default FiniteCyclicRing getSubRing(FiniteCyclicRing ring,RingElement element) {
 		int characteristic=0;
-		int index=((FiniteCyclicRing.Element) element).getRepresentant();
+		int index=((CyclicRingElement) element).getRepresentant();
 		int tmp=index;
-		RingElement e=(FiniteCyclicRing.Element) ring.get(tmp);
+		RingElement e=(CyclicRingElement) ring.get(tmp);
 		while(e!=ring.getIdentityElement()) {
-			e=(FiniteCyclicRing.Element) ring.get(tmp+index);
+			e=(CyclicRingElement) ring.get(tmp+index);
 			characteristic+=1;
 		}
 		return getFiniteCyclicRing(characteristic);
