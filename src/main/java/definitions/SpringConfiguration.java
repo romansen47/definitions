@@ -14,8 +14,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.context.support.AbstractApplicationContext;
 
+import definitions.cache.CachingAspect;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.groups.impl.Int;
 import definitions.structures.euclidean.Generator;
 
 @EnableSpringConfigured
@@ -62,6 +64,11 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return applicationContext;
 	}
 
+	@Bean(name="aspects.CachingAspect")
+	public CachingAspect cachingAspect(){
+		return new CachingAspect();
+	}
+	
 	@Bean(name = "realLine")
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public RealLine realLine() {
@@ -74,8 +81,15 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return new Real();
 	}
 
-	@Bean(value="logger")
+	@Bean(name = "int")
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public Int integer() {
+		return new Int();
+	}
+
+	@Bean(name = "logger")
 	public Logger logger() {
 		return Logger.getLogger("DEFINITIONS:");
 	}
+
 }

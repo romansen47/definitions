@@ -13,7 +13,6 @@
 		<exclude within="plotter..*" />
 	</weaver>
 	<aspects>
-		<!-- <aspect name="definitions.cache.CachingAspect" /> <aspect name="settings.SpringBeanLogging" 
-			/> -->
+		 <aspect name="definitions.cache.CachingAspect" />
 	</aspects>
 </aspectj>

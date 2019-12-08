@@ -45,6 +45,9 @@ public final class BinaryField extends FiniteCyclicRing implements PrimeField {
 	}
 
 	public static EuclideanSpace getInstance() {
+		if (instance==null) {
+			instance = new BinaryField();
+		}
 		return instance;
 	}
 
@@ -186,9 +189,22 @@ public final class BinaryField extends FiniteCyclicRing implements PrimeField {
 		return this;
 	}
 	
-	class Bit extends Element implements Vector{
+	class Bit extends Element implements Scalar,Vector{
 		protected Bit(int r) {
 			super(r);
+		}
+
+		@Override
+		public double getValue() { 
+			return getRepresentant();
+		}
+
+		@Override
+		public Scalar getInverse() {
+			if (getRepresentant()==0) {
+				return null;
+			}
+			return get(1);
 		}
 	}
 }

@@ -1,7 +1,10 @@
 package definitions.structures.abstr.groups.impl;
  
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.vectorspaces.RingElement;
 
+@Component(value="int")
 public class Int implements RingElement {
 	private static final long serialVersionUID = -1727262864036395099L;
 	private int value;
@@ -11,7 +14,7 @@ public class Int implements RingElement {
 		this.value = val;
 	}
 
-	Int() {
+	public Int() {
 		this.value = 0;
 	}
 

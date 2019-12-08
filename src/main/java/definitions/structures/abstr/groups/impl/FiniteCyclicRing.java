@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
@@ -11,7 +12,7 @@ import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
- 
+
 public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	private static final long serialVersionUID = 1L;
@@ -23,7 +24,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 //		Element( ) { 
 //		}
-		
+
 		protected Element(int r) {
 			representant = r;
 		}
@@ -38,18 +39,29 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		}
 
 	}
-	
-	private final static Map<Integer,FiniteCyclicRing> finiteCyclicGroupMap=new HashMap<>();
+
+	private final static Map<Integer, FiniteCyclicRing> finiteCyclicGroupMap = new HashMap<>();
 
 	public static FiniteCyclicRing getFiniteCyclicRing(int n) {
-		FiniteCyclicRing ring=finiteCyclicGroupMap.get(n);
-		if (ring==null) {
-			ring=new FiniteCyclicRing(n);
-			finiteCyclicGroupMap.put(n,ring);
+		FiniteCyclicRing ring = finiteCyclicGroupMap.get(n);
+		if (isPrime(n)) {
+			return (FiniteCyclicRing) BinaryField.getInstance();
+		} else {
+			if (ring == null) {
+				ring = new FiniteCyclicRing(n);
+			}
+			finiteCyclicGroupMap.put(n, ring);
 		}
 		return ring;
 	}
-	
+
+	private static boolean isPrime(int n) {
+		if (n == 2) {
+			return true;
+		}
+		return false;
+	}
+
 	public FiniteCyclicRing(int n) {
 		setOrder(n);
 		elements = new HashMap<>();
@@ -58,16 +70,16 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		}
 	}
 
-	protected FiniteCyclicRing() { 
+	public FiniteCyclicRing() {
 	}
 
 	private int order;
 
-	protected Map<Integer, GroupElement> elements=new HashMap<>();
+	protected Map<Integer, GroupElement> elements = new HashMap<>();
 
 	public GroupElement get(Integer index) {
 		GroupElement ans = elements.get(index);
-		if (ans == null) { 
+		if (ans == null) {
 			ans = new Element(index);
 			elements.put(index, ans);
 		}
@@ -98,7 +110,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 	public GroupElement getGenerator() {
 		return elements.get(1);
 	}
- 
+
 	public void print() {
 
 		System.out.println("Addition:");

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import definitions.structures.abstr.fields.impl.BinaryField;
 import definitions.structures.abstr.groups.IGroupGenerator;
 
 @Configuration
@@ -27,6 +28,9 @@ public class GroupGenerator implements IGroupGenerator {
 	public FiniteCyclicRing getFiniteCyclicRing(int order) {
 		FiniteCyclicRing ring = map.get(order);
 		if (ring == null) {
+			if (order==2){
+				ring = (FiniteCyclicRing) BinaryField.getInstance();
+			}
 			ring = FiniteCyclicRing.getFiniteCyclicRing(order);
 			map.put(order, ring);
 		}
