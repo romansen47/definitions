@@ -7,10 +7,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+
+import com.sun.istack.logging.Logger;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.fields.impl.FieldGenerator;
@@ -48,7 +48,7 @@ public class Generator implements IGenerator, Plotter {
 		if (instance == null) {
 			instance = new Generator();
 			if (instance.logger == null) {
-				instance.logger = LogManager.getLogger(SpaceGenerator.class);
+				instance.logger = Logger.getLogger(SpaceGenerator.class);
 				BasicConfigurator.configure();
 			}
 		}

@@ -83,7 +83,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 		final Vector newOne = getOne();
 		final Integer newOrder = getOrder();
 
-		final Group multiplicaiveGroup = new Group() {
+		final Group multiplicativeGroup = new Group() {
 			private static final long serialVersionUID = 8357435449765655148L;
 
 			@Override
@@ -115,7 +115,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 			}
 		};
 
-		return multiplicaiveGroup;
+		return multiplicativeGroup;
 	}
 
 	default int getCharacteristic() {

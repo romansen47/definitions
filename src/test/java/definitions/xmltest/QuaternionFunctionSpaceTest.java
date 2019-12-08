@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import definitions.SpringConfiguration;
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.QuaternionSpace;
@@ -20,7 +19,6 @@ import definitions.structures.abstr.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 

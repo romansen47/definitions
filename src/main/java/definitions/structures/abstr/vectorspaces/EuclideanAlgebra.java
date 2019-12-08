@@ -26,7 +26,7 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 		}
 		for (final Vector vec : genericBaseToList()) {
 			ans = add(ans, stretch(getMultiplicationMatrix().get(vec).get(vec2),
-					((FiniteVectorMethods) vec1).getCoordinates().get(vec)));
+				 ((FiniteVectorMethods) vec1).getCoordinates().get(vec)));
 		}
 		return ans;
 	}

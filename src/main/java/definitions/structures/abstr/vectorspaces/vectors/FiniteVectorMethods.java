@@ -16,9 +16,7 @@ public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 	 * @return the coordinates.
 	 */
 	@Proceed
-	default Map<Vector, Scalar> getCoordinates() {
-		return null;
-	}
+	Map<Vector, Scalar> getCoordinates();
 
 	/**
 	 * Coordinates as double[].

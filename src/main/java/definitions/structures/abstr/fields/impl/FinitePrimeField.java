@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
 import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
+import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
@@ -18,7 +22,7 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 
 	private static final long serialVersionUID = -7935335390082721765L;
 
-	private static Map<Integer,EuclideanSpace> instances=new HashMap<>();
+	private static Map<Integer, EuclideanSpace> instances = new HashMap<>();
 
 	private Map<Vector, Homomorphism> multiplicationMatrix;
 
@@ -30,13 +34,13 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 
 	protected FinitePrimeField(int prime) {
 		super(prime);
-		characteristic=prime;
+		characteristic = prime;
 		base = new ArrayList<>();
 		for (int i = 0; i < prime; i++) {
-			PrimeFieldElement element=new PrimeFieldElement(i,this);
-			base.add(element);
+			PrimeFieldElement element = new PrimeFieldElement(i, this);
 			elements.put(i, element);
 		}
+		base.add((Vector) elements.get(1));
 	}
 
 	@Override
@@ -45,10 +49,10 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 	}
 
 	public static EuclideanSpace getInstance(int prime) {
-		EuclideanSpace instance=instances.get(prime);
+		EuclideanSpace instance = instances.get(prime);
 		if (instance == null) {
 			instance = new FinitePrimeField(prime);
-			instances.put(prime,instance);
+			instances.put(prime, instance);
 		}
 		return instance;
 	}
@@ -101,9 +105,44 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 	 */
 	@Override
 	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
+		Scalar one = (Scalar) getOne();
+		if (this.multiplicationMatrix == null) {
+			this.multiplicationMatrix = new HashMap<>();
+			Homomorphism identity = new LinearMapping(this, this) {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public Vector get(Vector vec) {
+					return vec;
+				}
+
+				@Override
+				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
+					Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
+					Map<Vector, Scalar> tmp = new HashMap<>();
+					tmp.put(getOne(), (Scalar) getOne());
+					map.put(getOne(), tmp);
+					return map;
+				}
+
+				@Override
+				public Scalar[][] getGenericMatrix() {
+					Scalar[][] mat = new Scalar[1][1];
+					mat[0][0] = (Scalar) getOne();
+					return mat;
+				}
+			};
+			this.multiplicationMatrix.put(getOne(), identity);
+		}
 		return this.multiplicationMatrix;
 	}
 
+	@Override
+	public Vector add(final Vector vec1, final Vector vec2) {
+		return (Vector) operation(vec1,vec2);
+	}
+	
 	/**
 	 * Setter for multiplication matrix.
 	 */

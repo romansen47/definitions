@@ -81,7 +81,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {

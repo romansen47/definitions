@@ -4,6 +4,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 import definitions.SpringConfiguration;
@@ -11,9 +13,10 @@ import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator; 
 
 @EnableSpringConfigured
+@SpringBootTest
 public class AspectJTest {
 
 	private static final Logger logger = LogManager.getLogger(AspectJTest.class);

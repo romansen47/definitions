@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
+org.eclipse.ajdt.aopxml=/definitions/src/main/resources/META-INF/aop.xml
 settings.TestAspect=SAMPLE_12

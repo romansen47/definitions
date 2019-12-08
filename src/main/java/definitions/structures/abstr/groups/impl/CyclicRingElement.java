@@ -12,8 +12,13 @@ public class CyclicRingElement implements RingElement {
 	}
 
 	@Override
+	public String toString() {
+		return toXml();
+	}
+	
+	@Override
 	public String toXml() {
-		return "<representant>" + representant + " </representant>";
+		return "<representant>" + representant + "</representant>";
 	}
 
 	public int getRepresentant() {

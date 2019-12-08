@@ -106,18 +106,12 @@ public class Quaternion extends Tuple implements Scalar {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "1  ->  " + this.getReal().getValue() + "\r" + "i  ->  " + this.getI().getValue() + "\r" + "j  ->  "
-				+ this.getJ().getValue() + "\r" + "k  ->  " + this.getK().getValue() + "\r";
+		return "(" + this.getReal().getValue() + ","+ this.getI().getValue()+ ","+this.getJ().getValue()+"," + this.getK().getValue() + ")";
 	}
 
 	@Override
 	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-	}
-
-//	@Override
-//	public Set<Vector> getGenericBase() {
-//		return ComplexPlane.getInstance().getGenericBase();
-//	}
+	} 
 
 	@XmlAttribute
 	@Override

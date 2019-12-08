@@ -1,6 +1,5 @@
 package definitions;
- 
-import org.slf4j.Logger;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +13,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.context.support.AbstractApplicationContext;
 
+import com.sun.istack.logging.Logger;
+
 import definitions.cache.CachingAspect;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -24,7 +25,7 @@ import definitions.structures.euclidean.Generator;
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
 @Configuration
 public class SpringConfiguration implements ApplicationContextAware {
- 
+
 	private static SpringConfiguration springConfiguration;
 
 	private ApplicationContext applicationContext = annotationConfigApplicationContext();
@@ -64,11 +65,11 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return applicationContext;
 	}
 
-	@Bean(name="aspects.CachingAspect")
-	public CachingAspect cachingAspect(){
+	@Bean(name = "aspects.CachingAspect")
+	public CachingAspect cachingAspect() {
 		return new CachingAspect();
 	}
-	
+
 	@Bean(name = "realLine")
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public RealLine realLine() {
@@ -89,7 +90,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 
 	@Bean(name = "logger")
 	public Logger logger() {
-		return Logger.getLogger("DEFINITIONS:");
+		return Logger.getLogger(Generator.class);
 	}
 
 }
