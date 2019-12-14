@@ -4,8 +4,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
+import org.springframework.context.annotation.EnableLoadTimeWeaving.AspectJWeaving;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 import definitions.SpringConfiguration;
@@ -16,7 +16,7 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator; 
 
 @EnableSpringConfigured
-@SpringBootTest
+@EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
 public class AspectJTest {
 
 	private static final Logger logger = LogManager.getLogger(AspectJTest.class);

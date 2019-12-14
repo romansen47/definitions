@@ -150,12 +150,13 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public String toXml() {
-		String ans = "<tuple>";
-		for (Vector x : getGenericBase()) {
-			ans += "<" + x.getClass() + ">\r"; 
-			ans+= getCoordinates().get(x) + "\r</" + x.getClass().toString().split("class ")[1] + ">\r";
+		String ans = "<tuple>\r";
+		int i=0;
+		for (Vector x : getGenericBase()) { 
+//			String name=x.getClass().toString().split("class ")[1];
+			ans+=getCoordinates().get(x).toXml();
 		}
-		ans += "</tuple>";
+		ans += "</tuple>\r";
 		return ans;
 	}
 

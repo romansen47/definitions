@@ -1,3 +1,4 @@
+package definitions;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,9 +15,11 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
 
 import definitions.settings.XmlPrintable;
 
+@Component
 @Aspect
 public class DeepSearch {
 
@@ -30,7 +33,7 @@ public class DeepSearch {
 	static int maxDepth;
 	static int depth;
 
-	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed) && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr..*(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
+	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed))")// && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr.fields.scalars..*(..)) && !execution(* definitions.structures.abstr.fields.impl.RealLine.*(..)) && !execution(* definitions.structures.abstr.groups.impl..*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return this.getLookUp(pjp);
@@ -54,35 +57,43 @@ public class DeepSearch {
 		return this.createXmlEntry(pjp);
 	}
 
-	public String xmlString(Object o) {
-		String ans="";
+	public String xmlString(Object o, boolean isArg) {
+		List<String> ans = new ArrayList<>();
 		if (o != null) {
-			ans += "<return>\r";
 			if (o instanceof XmlPrintable) {
-				ans += ((XmlPrintable) o).toXml();
+				ans.add(((XmlPrintable) o).toXml());
 			} else {
 				if (o instanceof Integer) {
-					ans+="<integer>"+o.toString()+"</integer>";
+					ans.add("<integer>" + o.toString() + "</integer>\r");
 				}
 				if (o instanceof List<?>) {
-					for (Object x:(List<?>)o) {
+					ans.add("<list>");
+					for (Object x : (List<?>) o) {
 						if (x instanceof XmlPrintable) {
-							ans+=((XmlPrintable)x).toXml();
-						}
-						else {
-							ans += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+							ans.add(((XmlPrintable) x).toXml());
+						} else {
+							ans.add("<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r");
 						}
 					}
+					ans.add("</list>");
+				} else {
+					ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
 				}
-				ans += "<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r";
 			}
-			ans += "</return>\r";
-		} else {
-			ans += "<return void/>\r";
 		}
-		return ans;
+		if (!isArg) {
+			if (ans.isEmpty()) {
+				ans.add("void");
+			}
+			ans.add("<return>" + ans + "</return>\r");
+		}
+		String realAns = "";
+		for (String str:ans) {
+			realAns.concat(str);
+		}
+		return realAns;
 	}
-	
+
 	private Object createXmlEntry(ProceedingJoinPoint pjp) throws Throwable {
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
 
@@ -92,14 +103,12 @@ public class DeepSearch {
 		if (args.length > 0) {
 			ans += "<arguments>\r";
 			for (Object arg : args) {
-				ans+=xmlString(arg);
+				ans += xmlString(arg, true);
 			}
 			ans += "</arguments>\r";
 		}
-		list.add(ans);
-		ans = "";
 		Object o = pjp.proceed();
-		ans+=xmlString(o);
+		ans += xmlString(o, false);
 		ans += "</" + str + ">\r";
 		list.add(ans);
 		return o;

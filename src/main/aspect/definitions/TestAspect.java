@@ -1,3 +1,4 @@
+package definitions;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import org.apache.log4j.Logger;
@@ -16,6 +17,7 @@ import definitions.SpringConfiguration;
  *
  */
 @Aspect
+@Component
 public class TestAspect {
 
 	public final static Logger logger = Logger.getLogger("TestAspect");
@@ -30,7 +32,7 @@ public class TestAspect {
 	private boolean testStarted = false;
 	private SpringConfiguration springConfiguration;
 
-//	@Before("@annotation(org.junit.Test)")
+	@Before("@annotation(org.junit.Test)")
 	public void createContext() {
 		if (!testStarted) {
 			springConfiguration = SpringConfiguration.getSpringConfiguration();
@@ -38,7 +40,7 @@ public class TestAspect {
 		}
 	}
 
-//	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
+	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
 	public void syncAfterTest(JoinPoint jp) throws Throwable {
 		syncAfter(jp);
 		DeepSearch.active = false;

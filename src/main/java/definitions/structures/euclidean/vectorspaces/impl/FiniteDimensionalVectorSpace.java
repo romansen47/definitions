@@ -175,7 +175,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		String ans = "<"+this.getClass()+">";
 		ans += "<base>";
 		for (Vector baseVec:genericBaseToList()) {
-			ans+=baseVec.toXml();
+			ans+="<baseVec>"+genericBaseToList().indexOf(baseVec)+"</baseVec>\r";
 		}
 		ans += "</base>";
 		ans = "</"+this.getClass().toString().split("class ")[1]+">";

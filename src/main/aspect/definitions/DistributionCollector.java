@@ -1,6 +1,4 @@
-
-
-
+package definitions;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,6 +12,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
+@Component
 @Aspect 
 public class DistributionCollector {
 
@@ -50,7 +49,7 @@ public class DistributionCollector {
 		} else {
 			for (String str : STATS.keySet()) {
 				Integer times = STATS.get(str);
-				if (times != 0) {
+				if (times != 0) { 
 					org.apache.log4j.Logger.getLogger("statistics").info(str + " " + times.toString() + " times");
 					bw.write("<" + str + ">" + STATS.get(str).toString() + "</" + str + ">\r");
 					bw.flush();

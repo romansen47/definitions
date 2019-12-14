@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.context.annotation.EnableLoadTimeWeaving.AspectJWeaving;
@@ -13,7 +14,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.context.support.AbstractApplicationContext;
 
-import com.sun.istack.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import definitions.cache.CachingAspect;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -24,6 +26,7 @@ import definitions.structures.euclidean.Generator;
 @EnableSpringConfigured
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
 @Configuration
+@ComponentScan
 public class SpringConfiguration implements ApplicationContextAware {
 
 	private static SpringConfiguration springConfiguration;
@@ -90,7 +93,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 
 	@Bean(name = "logger")
 	public Logger logger() {
-		return Logger.getLogger(Generator.class);
+		return LogManager.getLogger(Generator.class);
 	}
 
 }

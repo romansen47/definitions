@@ -1,6 +1,4 @@
-
-
-
+package definitions;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -16,9 +14,10 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-@Aspect 
+@Component
+@Aspect
 public class PointcutSearch {
-  
+
 	final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	final static Map<Thread, String> tests = new ConcurrentHashMap<>();
 	final static private String PATH = "target/";
@@ -26,12 +25,12 @@ public class PointcutSearch {
 	private static BufferedWriter bw;
 	static int actualDepth = 0;
 
-//	@Around("execution(!final !abstract !static definitions.structures.euclidean..* definitions.structures.abstr..*(..))"
-//			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
-//			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
+	@Around("execution(!final !abstract !static definitions.structures.euclidean..* definitions.structures.abstr..*(..))"
+			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
+			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
 	public Object run(final ProceedingJoinPoint pjp) throws Throwable {
 		return log(pjp);
-	} 
+	}
 
 	public Object log(final ProceedingJoinPoint pjp) throws Throwable {
 		List<String> LIST = map.get(Thread.currentThread());

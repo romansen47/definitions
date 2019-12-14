@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-
-import com.sun.istack.logging.Logger;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
@@ -27,7 +27,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 @Component
 public class CachingAspect {
 
-	final static private Logger logger = Logger.getLogger(CachingAspect.class);
+	final static private Logger logger = LogManager.getLogger(CachingAspect.class);
 
 	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
 
