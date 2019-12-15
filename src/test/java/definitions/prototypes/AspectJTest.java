@@ -13,7 +13,8 @@ import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator; 
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import settings.annotations.Proceed; 
 
 @EnableSpringConfigured
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
@@ -29,7 +30,7 @@ public class AspectJTest {
 	private static ComplexPlane complexPlane;
 	private static definitions.structures.abstr.groups.impl.BinaryField binaryField;
 
-	@BeforeClass
+	@BeforeClass 
 	public static void prepare() {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));

@@ -14,6 +14,7 @@ import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.annotations.Proceed;
 
 /**
  * @author ro
@@ -102,6 +103,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 	}
 
 	@Override
+	@Proceed
 	public EuclideanSpace getDualSpace() {
 		return this.source;
 	}

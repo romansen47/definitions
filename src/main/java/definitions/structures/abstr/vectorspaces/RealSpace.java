@@ -16,8 +16,7 @@ public interface RealSpace extends VectorSpace, ContinuousGroup {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	@Proceed
+	@Override 
 	default Field getField() {
 		return RealLine.getInstance();
 	}

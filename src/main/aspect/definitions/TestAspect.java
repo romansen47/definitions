@@ -1,16 +1,16 @@
 package definitions;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.log4j.Logger;
 import java.util.regex.Pattern;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import definitions.SpringConfiguration;
+ 
 
 /**
  * @author ro
@@ -20,7 +20,7 @@ import definitions.SpringConfiguration;
 @Component
 public class TestAspect {
 
-	public final static Logger logger = Logger.getLogger("TestAspect");
+	public final static Logger logger = LoggerFactory.getLogger(TestAspect.class);
 
 	@Before("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
 	public void syncBeforeTest(JoinPoint jp) throws Throwable {
@@ -30,17 +30,8 @@ public class TestAspect {
 	}
 
 	private boolean testStarted = false;
-	private SpringConfiguration springConfiguration;
 
-	@Before("@annotation(org.junit.Test)")
-	public void createContext() {
-		if (!testStarted) {
-			springConfiguration = SpringConfiguration.getSpringConfiguration();
-			testStarted = true;
-		}
-	}
-
-	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
+	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*(..))")
 	public void syncAfterTest(JoinPoint jp) throws Throwable {
 		syncAfter(jp);
 		DeepSearch.active = false;

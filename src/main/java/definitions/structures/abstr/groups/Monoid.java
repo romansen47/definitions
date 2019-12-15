@@ -2,6 +2,8 @@ package definitions.structures.abstr.groups;
 
 import java.io.Serializable;
 
+import settings.annotations.Proceed;
+
 /**
  * 
  * @author ro
@@ -11,6 +13,7 @@ import java.io.Serializable;
  *         In detail, we have a method
  *         (MonoidElement,MonoidElement,)->MonoidElement.
  */
+
 public interface Monoid extends Serializable {
 
 	/**
@@ -18,6 +21,7 @@ public interface Monoid extends Serializable {
 	 * 
 	 * @return null, if infinitely many, order otherwise.
 	 */
+	@Proceed
 	Integer getOrder();
 
 	/**
@@ -26,7 +30,7 @@ public interface Monoid extends Serializable {
 	 * @param first  first monoid element
 	 * @param second second monoid element
 	 * @return product of both of them
-	 */
+	 */ 
 	MonoidElement operation(GroupElement first, GroupElement second);
 
 }

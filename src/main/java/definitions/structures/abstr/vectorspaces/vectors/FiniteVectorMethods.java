@@ -15,7 +15,6 @@ public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 	 * 
 	 * @return the coordinates.
 	 */
-	@Proceed
 	Map<Vector, Scalar> getCoordinates();
 
 	/**
@@ -26,7 +25,6 @@ public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 	// Scalar[] getGenericCoordinates();
 
 	@Override
-	@Proceed
 	String toString();
 
 	/**
@@ -34,12 +32,11 @@ public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 	 * 
 	 * @param coordinates the coordinates.
 	 */
-	@Proceed
 	default void setCoordinates(Map<Vector, Scalar> coordinates) {
 
 	}
 
-	@Proceed
+	
 	default void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
 
 	}

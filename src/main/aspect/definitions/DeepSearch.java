@@ -1,4 +1,5 @@
 package definitions;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,13 +16,17 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import definitions.settings.XmlPrintable;
 
 @Component
 @Aspect
-public class DeepSearch {
+public class DeepSearch implements Unweavable {
+
+	public final static Logger logger = LoggerFactory.getLogger(DeepSearch.class);
 
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -29,69 +34,103 @@ public class DeepSearch {
 	private static FileWriter w;
 	private static BufferedWriter bw;
 
-	public static Boolean active = null;
+	public static Boolean active = true;
 	static int maxDepth;
 	static int depth;
 
-	@Around("execution(* definitions..*(..)) && !execution(* *.toXml(..)) && !execution(* aspects.*.*(..)) && !@annotation(org.junit.Test) && !@annotation(settings.annotations.Proceed))")// && !execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int)) && !execution(* definitions.structures.abstr.fields.scalars..*(..)) && !execution(* definitions.structures.abstr.fields.impl.RealLine.*(..)) && !execution(* definitions.structures.abstr.groups.impl..*(..))")
+	@Around("@annotation(settings.annotations.Proceed)")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
+		return aroundLookupDebug(pjp);
+	}
+
+	public Object aroundLookupDebug(ProceedingJoinPoint pjp) throws Throwable {
 		if (active != null && active) {
 			return this.getLookUp(pjp);
 		} else {
 			return pjp.proceed();
 		}
 	}
-
-	@Before("@annotation(settings.annotations.Proceed)")
-	public synchronized void avoidDeeperSearchBefore(JoinPoint jp) throws Throwable {
-		active = false;
-	}
-
-	@After("@annotation(settings.annotations.Proceed)")
-	public synchronized void avoidDeeperSearchAfter(JoinPoint jp) throws Throwable {
-		active = true;
-	}
-
+ 
 	private Object getLookUp(ProceedingJoinPoint pjp) throws Throwable {
-		this.createEnries(pjp);
+		logger.info(pjp.getThis().getClass().getSimpleName() + ": " + pjp.toShortString());
+		this.createEntries(pjp);
 		return this.createXmlEntry(pjp);
 	}
-
-	public String xmlString(Object o, boolean isArg) {
+	
+	public String xmlString(Object o) {
 		List<String> ans = new ArrayList<>();
 		if (o != null) {
+			if (o instanceof Integer || o instanceof String || o instanceof Boolean) {
+				ans.add(getEntry(o,ans));
+			}
+			else {
 			if (o instanceof XmlPrintable) {
 				ans.add(((XmlPrintable) o).toXml());
 			} else {
-				if (o instanceof Integer) {
-					ans.add("<integer>" + o.toString() + "</integer>\r");
-				}
 				if (o instanceof List<?>) {
 					ans.add("<list>");
 					for (Object x : (List<?>) o) {
+						String str=getEntry(o,ans);
+						if (str=="") {
 						if (x instanceof XmlPrintable) {
 							ans.add(((XmlPrintable) x).toXml());
 						} else {
 							ans.add("<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r");
 						}
+						}
+						else {
+							ans.add(str);
+						}
 					}
 					ans.add("</list>");
-				} else {
-					ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
 				}
+//				if (o instanceof Map<?,?>) {
+//					ans.add("<map>");
+//					for (Object x : ((Map<?,?>) o).keySet()) {
+//						String strX="";
+//						String strY="";
+//						if (x instanceof XmlPrintable) {
+//							strX+=((XmlPrintable) x).toXml();
+//						} else {
+//							strX+="<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+//						}
+//						Object y=((Map<?,?>) o).get(x);
+//						if (y instanceof XmlPrintable) {
+//							strY+=((XmlPrintable) y).toXml();
+//						} else {
+//							strY+="<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+//						}
+//						String entry="<key>\r"+strX+"\r</key>\r";
+//						entry+="<value>\r"+strY+"\r</value>\r";
+//						ans.add(entry);
+//					}
+//					ans.add("</map>");
+//				}
+				else {
+					ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
+				}}
 			}
-		}
-		if (!isArg) {
-			if (ans.isEmpty()) {
-				ans.add("void");
-			}
-			ans.add("<return>" + ans + "</return>\r");
 		}
 		String realAns = "";
-		for (String str:ans) {
-			realAns.concat(str);
+		for (String str : ans) {
+			realAns+=str;
 		}
+		
 		return realAns;
+	}
+
+	private String getEntry(Object o, List<String> ans) {
+		String str="";
+		if (o instanceof Integer ) { //|| o instanceof String || o instanceof Boolean) {
+			str="<integer>" + o.toString() + "</integer>\r";
+		}
+		if (o instanceof Boolean) {
+			str= "<boolean>" + o.toString() + "</boolean>\r";
+		}
+		if (o instanceof String) {
+			str= "<string>" + o.toString() + "</string>\r";
+		}
+		return str;
 	}
 
 	private Object createXmlEntry(ProceedingJoinPoint pjp) throws Throwable {
@@ -103,12 +142,16 @@ public class DeepSearch {
 		if (args.length > 0) {
 			ans += "<arguments>\r";
 			for (Object arg : args) {
-				ans += xmlString(arg, true);
+				ans += xmlString(arg);
 			}
 			ans += "</arguments>\r";
 		}
+		ans+="<executions>\r";
 		Object o = pjp.proceed();
-		ans += xmlString(o, false);
+		ans+="</executions>\r";
+		ans+="<return>";
+		ans += xmlString(o);
+		ans+="</return>";
 		ans += "</" + str + ">\r";
 		list.add(ans);
 		return o;
@@ -137,17 +180,25 @@ public class DeepSearch {
 //		return o;
 //	}
 
-	private void createEnries(ProceedingJoinPoint pjp) {
+	private void createEntries(ProceedingJoinPoint pjp) {
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
-		if (list == null) {
-			list = new ArrayList<>();
-			map.put(Thread.currentThread(), list);
-		}
-		String invocator = tests.get(Thread.currentThread());
-		if (invocator == null) {
-			invocator = pjp.getSignature().toShortString().split(Pattern.quote("@"))[0];
-			invocator = invocator.replace("execution(", Pattern.quote("(")).split(Pattern.quote("("))[1];
-			tests.put(Thread.currentThread(), invocator);
+		try {
+			if (list == null) {
+				list = new ArrayList<>();
+				map.put(Thread.currentThread(), list);
+			}
+			String invocator = tests.get(Thread.currentThread());
+			if (invocator == null) {
+				invocator = pjp.getSignature().toShortString().split(Pattern.quote("@"))[0];
+				if (invocator.startsWith("execution(")) {
+					invocator = invocator.replace("execution(", Pattern.quote("(")).split(Pattern.quote("("))[1];
+				} else {
+					invocator = invocator.split(Pattern.quote("("))[1];
+				}
+				tests.put(Thread.currentThread(), invocator);
+			}
+		} catch (Exception e) {
+			logger.error(e.getStackTrace()[e.getStackTrace().length - 1].toString());
 		}
 	}
 

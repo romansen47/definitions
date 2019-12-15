@@ -16,9 +16,8 @@ import settings.annotations.Proceed;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group,XmlPrintable {
+public interface VectorSpace extends Group, XmlPrintable {
 
-	@Proceed
 	Field getField();
 
 	/**
@@ -28,6 +27,7 @@ public interface VectorSpace extends Group,XmlPrintable {
 	 * @param vec2 summand b.
 	 * @return the addition of a and b.
 	 */
+
 	@Proceed
 	Vector add(Vector vec1, Vector vec2);
 
@@ -39,6 +39,7 @@ public interface VectorSpace extends Group,XmlPrintable {
 	 * @return the stretched vector.
 	 * @throws WrongFieldException
 	 */
+
 	@Proceed
 	Vector stretch(Vector vec1, Scalar r);
 
@@ -46,7 +47,6 @@ public interface VectorSpace extends Group,XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Proceed
 	default Integer getOrder() {
 		return null;
 	}
@@ -55,6 +55,7 @@ public interface VectorSpace extends Group,XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
+
 	default GroupElement operation(GroupElement first, GroupElement second) {
 		return add((Vector) first, (Vector) second);
 	}
@@ -71,6 +72,7 @@ public interface VectorSpace extends Group,XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Proceed
 	default GroupElement getInverseElement(GroupElement element) {
 		final Field field = getField();
 		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));

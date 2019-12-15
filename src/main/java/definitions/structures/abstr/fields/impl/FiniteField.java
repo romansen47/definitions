@@ -2,6 +2,7 @@ package definitions.structures.abstr.fields.impl;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import settings.annotations.Proceed;
 
 /**
  * @author RoManski
@@ -10,9 +11,11 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 public interface FiniteField extends Field {
 
 	@Override
+	@Proceed
 	int getCharacteristic();
 
 	@Override
+	@Proceed
 	PrimeField getPrimeField();
 
 	@Override
@@ -29,6 +32,7 @@ public interface FiniteField extends Field {
 	};
 
 	@Override
+	@Proceed
 	default Vector product(Vector vec1, Vector vec2) {
 		return (Vector) getMuliplicativeMonoid().operation(vec1, vec2);
 	}

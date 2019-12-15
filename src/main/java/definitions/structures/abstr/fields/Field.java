@@ -3,6 +3,7 @@ package definitions.structures.abstr.fields;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.Unweavable;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.impl.PrimeField;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -21,9 +22,11 @@ import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.annotations.Proceed;
 
 public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethods {
-	
+
+	@Proceed
 	default Vector inverse(Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
@@ -66,18 +69,22 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Proceed
 	Vector getOne();
 
+	@Proceed
 	default Vector getZero() {
 		return nullVec();
 	}
 
+	@Proceed
 	Scalar conjugate(Scalar value);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Proceed
 	default Monoid getMuliplicativeMonoid() {
 
 		final Vector newOne = getOne();
@@ -118,6 +125,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 		return multiplicativeGroup;
 	}
 
+	@Proceed
 	default int getCharacteristic() {
 		return 0;
 	}
@@ -126,6 +134,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 	 * Should return field of rational numbers in infinite case by default.
 	 * @return
 	 */
+	@Proceed
 	default PrimeField getPrimeField() {
 		return null;
 	}

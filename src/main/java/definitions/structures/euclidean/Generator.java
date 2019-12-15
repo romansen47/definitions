@@ -7,12 +7,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import definitions.Unweavable;
 import definitions.cache.MyCache;
 import definitions.structures.abstr.fields.impl.FieldGenerator;
 import definitions.structures.abstr.groups.impl.GroupGenerator;
@@ -22,7 +22,7 @@ import plotter.Plotter;
 import settings.GlobalSettings;
 
 @Configuration
-public class Generator implements IGenerator, Plotter {
+public class Generator implements IGenerator, Unweavable, Plotter {
 
 	private Logger logger;
 

@@ -11,7 +11,7 @@ import settings.annotations.Proceed;
  * @author ro
  *
  */
-public interface Vector extends GroupElement,XmlPrintable {
+public interface Vector extends GroupElement, XmlPrintable {
 
 	/**
 	 * Method to get the dimension of the underlying vector space.
@@ -30,7 +30,6 @@ public interface Vector extends GroupElement,XmlPrintable {
 	 * @param space
 	 * @return
 	 */
-	@Proceed
 	default boolean elementOf(VectorSpace space) {
 		return true;
 	}
@@ -42,14 +41,12 @@ public interface Vector extends GroupElement,XmlPrintable {
 	 * @return true if vector is essentially the same as this.
 	 */
 	@Override
-	@Proceed
 	boolean equals(Object vec);
 
 	@Override
-	@Proceed
-	default String toXml(){
-		String ans="<"+getClass().toString().split("class ")[1]+"/>";
+	default String toXml() {
+		String ans = "<" + getClass().toString().split("class ")[1] + "/>";
 		return ans;
 	}
-	
+
 }

@@ -9,6 +9,7 @@ import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.abstr.groups.impl.GroupGenerator;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import settings.annotations.Proceed;
 
 /**
  * @author ro
@@ -19,6 +20,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 	final int dim = 4;
 
 	@Test
+	@Proceed
 	public void test() {
 
 		boolean ans = true;

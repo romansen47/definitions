@@ -30,11 +30,13 @@ import definitions.structures.euclidean.vectorspaces.impl.PolynomialFunctionSpac
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
+import settings.annotations.Proceed;
 
 public interface ISpaceGenerator {
 
 	final EuclideanSpace realSpace = RealLine.getInstance();
 
+	@Proceed
 	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {
 		final Field field = (Field) ComplexPlane.getInstance();
 		if (dim == 1) {
@@ -62,11 +64,12 @@ public interface ISpaceGenerator {
 		return new FiniteDimensionalVectorSpace(field, basetmp);// getCachedCoordinateSpaces().get(-dim);
 	}
 
+	@Proceed
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
 		RealLine.getInstance();
 		return (EuclideanSpace) getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
 	}
-
+ 
 	default VectorSpace getFiniteDimensionalVectorSpace(Field field, final int dim) {
 		return null;
 	}
@@ -77,6 +80,7 @@ public interface ISpaceGenerator {
 		return result;
 	}
 
+	@Proceed
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right, final boolean ortho) {
 		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalFunctionSpace(field, genericBase, left,
@@ -84,6 +88,7 @@ public interface ISpaceGenerator {
 		return newSpace;
 	}
 
+	@Proceed
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase,
 			final double left, final double right) {
 		return getFiniteDimensionalFunctionSpace(field, genericBase, left, right, true);

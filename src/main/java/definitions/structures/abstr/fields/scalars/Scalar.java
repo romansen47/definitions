@@ -4,6 +4,7 @@ import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import settings.annotations.Proceed;
 
 public interface Scalar extends RingElement,Vector, FiniteVectorMethods, XmlPrintable {
 
@@ -11,9 +12,9 @@ public interface Scalar extends RingElement,Vector, FiniteVectorMethods, XmlPrin
 	 * This has practical reasons. Gives double value, if possible.
 	 * 
 	 * @return the double value
-	 */
+	 */ 
 	double getValue();
-
+ 
 	Scalar getInverse();
 
 }

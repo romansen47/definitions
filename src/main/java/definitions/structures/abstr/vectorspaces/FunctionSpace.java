@@ -3,6 +3,7 @@ package definitions.structures.abstr.vectorspaces;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import settings.annotations.Proceed;
 
 /**
  * 
@@ -25,7 +26,7 @@ public interface FunctionSpace extends VectorSpace {
 	 * Function spaces use finite dimensional approximations.
 	 * 
 	 * @return the correctness parameter.
-	 */
+	 */ 
 	double getEpsilon();
 
 	/**

@@ -3,11 +3,12 @@ package definitions.structures.abstr.fields.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import definitions.Unweavable;
 import definitions.structures.abstr.fields.IFieldGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Configuration
-public class FieldGenerator implements IFieldGenerator {
+public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	private static IFieldGenerator instance;
 
