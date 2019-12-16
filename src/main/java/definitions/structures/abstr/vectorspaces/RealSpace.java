@@ -3,10 +3,10 @@
  */
 package definitions.structures.abstr.vectorspaces;
 
+import definitions.Proceed;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.groups.ContinuousGroup;
-import settings.annotations.Proceed;
 
 /**
  * @author RoManski

@@ -3,6 +3,7 @@ package definitions.structures.abstr.vectorspaces.vectors;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.Proceed;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -16,7 +17,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotable;
 import plotter.Plotter;
 import settings.GlobalSettings;
-import settings.annotations.Proceed;
 import solver.StdDraw;
 
 /**

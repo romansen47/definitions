@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.Proceed;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
@@ -66,6 +67,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
 	 */
+	@Proceed
 	default Vector get(final Scalar[] tmp) {
 		Vector vec = nullVec();
 		for (int i = 0; i < getDim(); i++) {
@@ -75,6 +77,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	}
 
 	@Override
+	@Proceed
 	default Vector add(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(getDim()))) {
 			final List<Vector> base = genericBaseToList();
@@ -94,6 +97,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	}
 
 	@Override
+	@Proceed
 	default Vector stretch(final Vector vec, final Scalar r) {
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
@@ -126,6 +130,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @param vec the vector to clone.
 	 * @return copy of vec.
 	 */
+	@Proceed
 	Vector getCoordinates(Vector vec);
 
 	/**

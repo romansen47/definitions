@@ -3,6 +3,7 @@ package definitions.structures.abstr.groups.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.Proceed;
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
@@ -64,7 +65,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		return order;
 	}
 
-	@Override
+	@Override 
 	public MonoidElement operation(GroupElement first, GroupElement second) {
 		return elements
 				.get((((CyclicRingElement) first).getRepresentant() + ((CyclicRingElement) second).getRepresentant())
@@ -76,20 +77,20 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		return elements.get(1);
 	}
 
-	public void print() {
-
+	public void print() { 
 		System.out.println("Addition:");
 		for (int i = 0; i < getOrder(); i++) {
 			System.out.print(i + ": ");
-			for (int j = 0; j < getOrder(); j++) {
-				System.out.print(
-						((CyclicRingElement) operation(get(i), get(j))).getRepresentant() + " ");
+			for (int j = 0; j < order; j++) {
+				System.out
+				.print(((CyclicRingElement) operation(get(i), get(j)))
+						.getRepresentant() + " ");
 			}
 			System.out.println();
 		}
 
 		System.out.println("Multiplication:");
-		for (int i = 0; i < getOrder(); i++) {
+		for (int i = 0; i < order; i++) {
 			System.out.print(i + ": ");
 			for (int j = 0; j < getOrder(); j++) {
 				System.out

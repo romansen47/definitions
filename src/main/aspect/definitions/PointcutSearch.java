@@ -110,7 +110,7 @@ public class PointcutSearch {
 		bw.write("<" + testcase + ">");
 		bw.flush();
 		List<String> list = map.get(thread);
-		if (list == null) {
+		if (list == null || !list.isEmpty()) {
 			org.apache.log4j.Logger.getLogger("PointcutSearch").info("list empty");
 		} else {
 			for (String str : list) {

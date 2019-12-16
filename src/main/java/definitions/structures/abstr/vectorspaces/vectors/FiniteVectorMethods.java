@@ -3,10 +3,10 @@ package definitions.structures.abstr.vectorspaces.vectors;
 import java.io.Serializable;
 import java.util.Map;
 
+import definitions.Proceed;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import settings.annotations.Proceed;
 
 public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 

@@ -8,13 +8,13 @@ import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.context.annotation.EnableLoadTimeWeaving.AspectJWeaving;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
+import definitions.Proceed;
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
-import settings.annotations.Proceed; 
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator; 
 
 @EnableSpringConfigured
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)

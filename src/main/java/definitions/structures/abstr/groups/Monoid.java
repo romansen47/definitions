@@ -2,7 +2,7 @@ package definitions.structures.abstr.groups;
 
 import java.io.Serializable;
 
-import settings.annotations.Proceed;
+import definitions.Proceed;
 
 /**
  * 
@@ -20,8 +20,7 @@ public interface Monoid extends Serializable {
 	 * Getter for the order of the monoid - the amount of elements.
 	 * 
 	 * @return null, if infinitely many, order otherwise.
-	 */
-	@Proceed
+	 */ 
 	Integer getOrder();
 
 	/**
@@ -31,6 +30,7 @@ public interface Monoid extends Serializable {
 	 * @param second second monoid element
 	 * @return product of both of them
 	 */ 
+	@Proceed
 	MonoidElement operation(GroupElement first, GroupElement second);
 
 }

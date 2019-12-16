@@ -10,11 +10,12 @@ import java.util.regex.Pattern;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect 
-public class DistributionCollector {
+public class DistributionCollector implements Unweavable{
 
 	public final static Map<Thread, Map<String, Integer>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -50,7 +51,7 @@ public class DistributionCollector {
 			for (String str : STATS.keySet()) {
 				Integer times = STATS.get(str);
 				if (times != 0) { 
-					org.apache.log4j.Logger.getLogger("statistics").info(str + " " + times.toString() + " times");
+					LoggerFactory.getLogger(DistributionCollector.class).info(str + " " + times.toString() + " times");
 					bw.write("<" + str + ">" + STATS.get(str).toString() + "</" + str + ">\r");
 					bw.flush();
 				}

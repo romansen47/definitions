@@ -1,5 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
+import definitions.Proceed;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -7,7 +8,6 @@ import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import settings.annotations.Proceed;
 
 /**
  * 
@@ -28,7 +28,6 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @return the addition of a and b.
 	 */
 
-	@Proceed
 	Vector add(Vector vec1, Vector vec2);
 
 	/**
@@ -40,7 +39,6 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @throws WrongFieldException
 	 */
 
-	@Proceed
 	Vector stretch(Vector vec1, Scalar r);
 
 	/**
@@ -54,8 +52,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-
+	@Override 
 	default GroupElement operation(GroupElement first, GroupElement second) {
 		return add((Vector) first, (Vector) second);
 	}
@@ -72,7 +69,6 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Proceed
 	default GroupElement getInverseElement(GroupElement element) {
 		final Field field = getField();
 		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));

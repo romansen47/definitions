@@ -1,8 +1,8 @@
 package definitions.structures.abstr.vectorspaces;
 
+import definitions.Proceed;
 import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.Monoid;
-import settings.annotations.Proceed;
 
 /**
  * 
@@ -27,8 +27,7 @@ public interface Ring extends Group {
 	 * Getter for the multiplicative monoid of the ring.
 	 * 
 	 * @return the multiplicative monoid of the ring
-	 */
-	@Proceed
+	 */  
 	Monoid getMuliplicativeMonoid();
 
 }

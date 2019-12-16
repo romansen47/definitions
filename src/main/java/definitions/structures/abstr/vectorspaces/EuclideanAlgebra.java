@@ -5,11 +5,11 @@ package definitions.structures.abstr.vectorspaces;
 
 import java.util.Map;
 
+import definitions.Proceed;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import settings.annotations.Proceed;
 
 /**
  * @author RoManski
@@ -19,7 +19,7 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override 
+	@Override  
 	default Vector product(Vector vec1, Vector vec2) {
 		Vector ans = nullVec();
 		if (vec1 == ans || vec2 == ans) {

@@ -38,97 +38,95 @@ public class DeepSearch implements Unweavable {
 	static int maxDepth;
 	static int depth;
 
-	@Around("@annotation(settings.annotations.Proceed)")
+	boolean loggingToConsole=false;
+	boolean running = false;
+
+	@Around("@annotation(definitions.Proceed) && !within(definitions.Unweavable)")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
-		return aroundLookupDebug(pjp);
+		return this.getLookUp(pjp);
 	}
 
-	public Object aroundLookupDebug(ProceedingJoinPoint pjp) throws Throwable {
-		if (active != null && active) {
-			return this.getLookUp(pjp);
-		} else {
-			return pjp.proceed();
-		}
-	}
- 
 	private Object getLookUp(ProceedingJoinPoint pjp) throws Throwable {
-		logger.info(pjp.getThis().getClass().getSimpleName() + ": " + pjp.toShortString());
+		if (!running) {
+			running = true;
+		}
+		if (loggingToConsole) {
+			logger.info(pjp.getThis().getClass().getSimpleName() + ": " + pjp.toShortString());
+		}
 		this.createEntries(pjp);
 		return this.createXmlEntry(pjp);
 	}
-	
+
 	public String xmlString(Object o) {
 		List<String> ans = new ArrayList<>();
 		if (o != null) {
 			if (o instanceof Integer || o instanceof String || o instanceof Boolean) {
-				ans.add(getEntry(o,ans));
-			}
-			else {
-			if (o instanceof XmlPrintable) {
-				ans.add(((XmlPrintable) o).toXml());
+				ans.add(getEntry(o, ans));
 			} else {
-				if (o instanceof List<?>) {
-					ans.add("<list>");
-					for (Object x : (List<?>) o) {
-						String str=getEntry(o,ans);
-						if (str=="") {
-						if (x instanceof XmlPrintable) {
-							ans.add(((XmlPrintable) x).toXml());
-						} else {
-							ans.add("<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r");
+				if (o instanceof XmlPrintable) {
+					ans.add(((XmlPrintable) o).toXml());
+				} else {
+					if (o instanceof List<?>) {
+						ans.add("<list>");
+						for (Object x : (List<?>) o) {
+							String str = getEntry(o, ans);
+							if (str == "") {
+								if (x instanceof XmlPrintable) {
+									ans.add(((XmlPrintable) x).toXml());
+								} else {
+									ans.add("<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r");
+								}
+							} else {
+								ans.add(str);
+							}
 						}
-						}
-						else {
-							ans.add(str);
-						}
+						ans.add("</list>");
 					}
-					ans.add("</list>");
+					if (o instanceof Map<?, ?>) {
+						ans.add("<map>");
+						for (Object x : ((Map<?, ?>) o).keySet()) {
+							String strX = "";
+							String strY = "";
+							if (x instanceof XmlPrintable) {
+								strX += ((XmlPrintable) x).toXml();
+							} else {
+								strX += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+							}
+							Object y = ((Map<?, ?>) o).get(x);
+							if (y instanceof XmlPrintable) {
+								strY += ((XmlPrintable) y).toXml();
+							} else {
+								strY += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+							}
+							String entry = "<key>\r" + strX + "\r</key>\r";
+							entry += "<value>\r" + strY + "\r</value>\r";
+							ans.add(entry);
+						}
+						ans.add("</map>");
+					} else {
+						ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
+					}
 				}
-//				if (o instanceof Map<?,?>) {
-//					ans.add("<map>");
-//					for (Object x : ((Map<?,?>) o).keySet()) {
-//						String strX="";
-//						String strY="";
-//						if (x instanceof XmlPrintable) {
-//							strX+=((XmlPrintable) x).toXml();
-//						} else {
-//							strX+="<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
-//						}
-//						Object y=((Map<?,?>) o).get(x);
-//						if (y instanceof XmlPrintable) {
-//							strY+=((XmlPrintable) y).toXml();
-//						} else {
-//							strY+="<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
-//						}
-//						String entry="<key>\r"+strX+"\r</key>\r";
-//						entry+="<value>\r"+strY+"\r</value>\r";
-//						ans.add(entry);
-//					}
-//					ans.add("</map>");
-//				}
-				else {
-					ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
-				}}
 			}
 		}
 		String realAns = "";
 		for (String str : ans) {
-			realAns+=str;
+			realAns += str;
 		}
-		
+
 		return realAns;
 	}
 
 	private String getEntry(Object o, List<String> ans) {
-		String str="";
-		if (o instanceof Integer ) { //|| o instanceof String || o instanceof Boolean) {
-			str="<integer>" + o.toString() + "</integer>\r";
+		String str = "";
+		if (o instanceof Integer) { // || o instanceof String || o instanceof Boolean) {
+			str = "<integer>" + o.toString() + "</integer>\r";
 		}
 		if (o instanceof Boolean) {
-			str= "<boolean>" + o.toString() + "</boolean>\r";
+			str = "<boolean>" + o.toString() + "</boolean>\r";
 		}
 		if (o instanceof String) {
-			str= "<string>" + o.toString() + "</string>\r";
+			str = "<string>" + o.toString() + "</string>\r";
 		}
 		return str;
 	}
@@ -146,60 +144,39 @@ public class DeepSearch implements Unweavable {
 			}
 			ans += "</arguments>\r";
 		}
-		ans+="<executions>\r";
-		Object o = pjp.proceed();
-		ans+="</executions>\r";
-		ans+="<return>";
-		ans += xmlString(o);
-		ans+="</return>";
-		ans += "</" + str + ">\r";
+		ans += "<executions>\r";
 		list.add(ans);
+		String ans2 = "";
+		Object o = pjp.proceed();
+		ans2 += "</executions>\r";
+		ans2 += "<return>";
+		ans2 += xmlString(o);
+		ans2 += "</return>";
+		ans2 += "</" + str + ">\r";
+		list.add(ans2);
 		return o;
 	}
 
-//	private Object createXmlEntry(ProceedingJoinPoint pjp) throws Throwable {
-//		
-//		List<String> list = map.getOrDefault(Thread.currentThread(),new ArrayList<>());
-//		
-//		String str = pjp.toShortString().split(Pattern.quote("("))[1];
-//		
-//		list.add("<" + str + ">\r");
-//		XmlPrintable[] args = (XmlPrintable[]) pjp.getArgs();
-//		if (args.length > 0) {
-//			list.add("<arguments>");
-//			for (Object arg : args) {
-//				list.add(args.toString());
-//			}
-//			list.add("</arguments>");
-//		}
-//		Object o = pjp.proceed();
-//		if (o != null) {
-//			list.add("<returnValue>" + o.toString().split(Pattern.quote("@"))[0] + "</returnValue>\r");
-//		}
-//		list.add("</" + str + ">\r");
-//		return o;
-//	}
-
 	private void createEntries(ProceedingJoinPoint pjp) {
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
-		try {
-			if (list == null) {
-				list = new ArrayList<>();
-				map.put(Thread.currentThread(), list);
-			}
-			String invocator = tests.get(Thread.currentThread());
-			if (invocator == null) {
-				invocator = pjp.getSignature().toShortString().split(Pattern.quote("@"))[0];
-				if (invocator.startsWith("execution(")) {
-					invocator = invocator.replace("execution(", Pattern.quote("(")).split(Pattern.quote("("))[1];
-				} else {
-					invocator = invocator.split(Pattern.quote("("))[1];
-				}
-				tests.put(Thread.currentThread(), invocator);
-			}
-		} catch (Exception e) {
-			logger.error(e.getStackTrace()[e.getStackTrace().length - 1].toString());
+//		try {
+		if (list == null) {
+			list = new ArrayList<>();
+			map.put(Thread.currentThread(), list);
 		}
+		String invocator = tests.get(Thread.currentThread());
+		if (invocator == null) {
+			invocator = pjp.getSignature().toShortString().split(Pattern.quote("@"))[0];
+			if (invocator.startsWith("execution(")) {
+				invocator = invocator.replace("execution(", Pattern.quote("(")).split(Pattern.quote("("))[1];
+			} else {
+				invocator = invocator.split(Pattern.quote("("))[1];
+			}
+			tests.put(Thread.currentThread(), invocator);
+		}
+//		} catch (Exception e) {
+//			logger.error(e.getStackTrace()[0].toString());
+//		}
 	}
 
 	public static void print(Thread thread) throws IOException {

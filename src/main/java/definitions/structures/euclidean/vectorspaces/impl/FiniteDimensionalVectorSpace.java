@@ -103,8 +103,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.base = newBase;
 	}
 
-	@Override
-	
+	@Override 
 	public Vector getCoordinates(final Vector vec) {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
@@ -116,8 +115,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.get(coordinates);
 	}
 
-	@Override
-	
+	@Override 
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
@@ -131,8 +129,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return newBase;
 	}
 
-	@Override
-	
+	@Override 
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
@@ -151,8 +148,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return super.toString();
 	}
 
-	@Override
-	
+	@Override 
 	public void show() {
 		EuclideanSpace.super.show();
 	}

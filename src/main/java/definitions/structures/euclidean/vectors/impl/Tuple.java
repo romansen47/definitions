@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.Proceed;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -103,7 +104,7 @@ public class Tuple implements FiniteVector {
 	// }
 
 	@Override
-//	@XmlAttribute
+//	@XmlAttribute 
 	public Map<Vector, Scalar> getCoordinates() {
 		return this.coordinates;
 	}
@@ -112,7 +113,7 @@ public class Tuple implements FiniteVector {
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 		this.coordinates = coordinates;
 	}
-
+ 
 	@Override
 	public Set<Vector> getGenericBase() {
 		return this.getCoordinates().keySet();
@@ -130,7 +131,7 @@ public class Tuple implements FiniteVector {
 	// }
 
 	@Override
-//	@XmlAttribute
+//	@XmlAttribute 
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		if (this.elementOf(source)) {
@@ -151,10 +152,10 @@ public class Tuple implements FiniteVector {
 	@Override
 	public String toXml() {
 		String ans = "<tuple>\r";
-		int i=0;
-		for (Vector x : getGenericBase()) { 
+		int i = 0;
+		for (Vector x : getGenericBase()) {
 //			String name=x.getClass().toString().split("class ")[1];
-			ans+=getCoordinates().get(x).toXml();
+			ans += getCoordinates().get(x).toXml();
 		}
 		ans += "</tuple>\r";
 		return ans;
