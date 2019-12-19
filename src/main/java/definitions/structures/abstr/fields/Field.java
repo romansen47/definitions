@@ -16,6 +16,7 @@ import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.Ring;
+import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -25,7 +26,27 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethods {
- 
+	
+	@Override
+	default boolean isIrreducible(RingElement element) {
+		return true;
+	}
+	
+	@Override
+	default boolean isUnit(RingElement element) {
+		return !element.equals(getZero());
+	}
+	
+	@Override
+	default boolean isPrimeElement(RingElement element) {
+		return !isUnit(element);
+	}
+	
+	@Override
+	default boolean divides(RingElement devisor, RingElement devident) {
+		return isUnit(devisor);
+	}
+	
 	default Vector inverse(Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
@@ -63,10 +84,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 		}
 		return hom.solve((FiniteVector) getOne());
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
+ 
 	@Override 
 	Vector getOne();
  

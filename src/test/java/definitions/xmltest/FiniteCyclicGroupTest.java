@@ -9,7 +9,7 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public class FiniteCyclicGroupTest extends AspectJTest{
 
-	final static int index=5;
+	final static int index=8;
 	
 	static Ring finiteCyclicGroup;
 	

@@ -51,8 +51,8 @@ public class Integers implements DiscreteGroup, Ring {
 		return new Int();
 	}
 
-	public synchronized GroupElement get(int int1) {
-		Int i= integer();
+	public synchronized GroupElement get(Integer int1) {
+		Int i = integer();
 		i.setValue(int1);
 		return i;
 	}
@@ -90,6 +90,27 @@ public class Integers implements DiscreteGroup, Ring {
 	}
 
 	public static void setInstance(Integers integers) {
-		Integers.instance=integers;
+		Integers.instance = integers;
+	}
+
+	@Override
+	public boolean isIrreducible(RingElement element) {
+		return isPrimeElement(element);
+	}
+
+	@Override
+	public boolean isPrimeElement(RingElement element) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isUnit(RingElement element) {
+		return element.equals(get(-1)) || element.equals(get(1));
+	}
+
+	@Override
+	public boolean divides(RingElement devisor, RingElement devident) {
+		return !devisor.equals(getIdentityElement()) && ((Int) devident).getValue() % ((Int) devisor).getValue() == 0;
 	}
 }

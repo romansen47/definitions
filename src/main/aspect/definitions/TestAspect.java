@@ -44,12 +44,13 @@ public class TestAspect {
 					.replace(Pattern.quote("."), Pattern.quote("/"));
 
 			DeepSearch.map.putIfAbsent(thread, new ArrayList<>());
-			PointcutSearch.map.putIfAbsent(thread, new ArrayList<>());
-			DistributionCollector.map.putIfAbsent(thread, new ConcurrentHashMap<>());
-
 			DeepSearch.tests.put(thread, testCaseName);
+			
+			PointcutSearch.map.putIfAbsent(thread, new ArrayList<>());
 			PointcutSearch.tests.put(thread, testCaseName);
+
 			DistributionCollector.tests.put(thread, testCaseName);
+			DistributionCollector.map.putIfAbsent(thread, new ConcurrentHashMap<>());
 
 			logger.info("note testcasename: " + testCaseName);
 		}

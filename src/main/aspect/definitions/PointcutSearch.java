@@ -27,7 +27,8 @@ public class PointcutSearch {
 
 	@Around("execution(!final !abstract !static definitions.structures.euclidean..* definitions.structures.abstr..*(..))"
 			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.add(..))"
-			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))")
+			+ " && !execution(* definitions.structures.euclidean.vectorspaces.*.stretch(..))"
+			+ " && !execution(* definitions.structures.abstr.groups.Monoid.operation(..))")
 	public Object run(final ProceedingJoinPoint pjp) throws Throwable {
 		return log(pjp);
 	}

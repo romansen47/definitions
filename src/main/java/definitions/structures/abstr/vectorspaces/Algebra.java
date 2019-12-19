@@ -13,12 +13,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  */
 public interface Algebra extends VectorSpace, Ring {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	Monoid getMuliplicativeMonoid();
-
 	Vector product(Vector vec1, Vector vec2);
 
 	Vector getOne();

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.Proceed;
+import definitions.Unweavable;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -25,7 +26,7 @@ import solver.StdDraw;
  * @author ro
  *
  */
-public interface Function extends Vector, Plotable, FiniteVectorMethods {
+public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweavable {
 
 	final static IGenerator gen = Generator.getInstance();
 	/**

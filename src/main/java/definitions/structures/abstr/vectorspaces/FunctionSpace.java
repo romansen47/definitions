@@ -1,6 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.Proceed;
+import definitions.Unweavable;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -13,7 +13,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *         intervall and carries an small parameter eps due to approximative
  *         methods.
  */
-public interface FunctionSpace extends VectorSpace {
+public interface FunctionSpace extends VectorSpace, Unweavable {
 
 	/**
 	 * Function spaces are defined on finite intervalls.
@@ -26,7 +26,7 @@ public interface FunctionSpace extends VectorSpace {
 	 * Function spaces use finite dimensional approximations.
 	 * 
 	 * @return the correctness parameter.
-	 */ 
+	 */
 	double getEpsilon();
 
 	/**

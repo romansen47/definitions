@@ -41,7 +41,7 @@ public class DeepSearch implements Unweavable {
 	boolean loggingToConsole=false;
 	boolean running = false;
 
-	@Around("@annotation(definitions.Proceed) && !within(definitions.Unweavable)")
+	@Around("@annotation(definitions.Proceed) && !execution(* definitions.Unweavable.*(..))")
 	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
 		return this.getLookUp(pjp);
 	}

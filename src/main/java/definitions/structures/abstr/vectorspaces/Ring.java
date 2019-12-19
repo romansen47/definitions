@@ -1,6 +1,5 @@
 package definitions.structures.abstr.vectorspaces;
-
-import definitions.Proceed;
+ 
 import definitions.structures.abstr.groups.Group;
 import definitions.structures.abstr.groups.Monoid;
 
@@ -29,5 +28,13 @@ public interface Ring extends Group {
 	 * @return the multiplicative monoid of the ring
 	 */  
 	Monoid getMuliplicativeMonoid();
+	
+	boolean isIrreducible(RingElement element);
+	
+	boolean isPrimeElement(RingElement element);
+	
+	boolean isUnit(RingElement element);
+	
+	boolean divides(RingElement devisor, RingElement devident);
 
 }

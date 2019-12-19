@@ -3,15 +3,14 @@ package definitions.structures.abstr.groups.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.Proceed;
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
-import definitions.structures.abstr.vectorspaces.Ring;
+import definitions.structures.abstr.vectorspaces.RingElement;
 
-public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
+public class FiniteCyclicRing implements FiniteRing, DiscreteGroup, CyclicGroup {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +21,7 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 		if (ring == null) {
 			return new FiniteCyclicRing(n); 
 		}
-		return ring;
+		return ring; 
 	}
 
 	public FiniteCyclicRing(int n) {
@@ -39,10 +38,10 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 
 	private int order;
 
-	protected Map<Integer, GroupElement> elements = new HashMap<>();
+	protected Map<Integer, RingElement> elements = new HashMap<>();
 
-	public GroupElement get(Integer index) {
-		GroupElement ans = elements.get(index);
+	public RingElement get(Integer index) {
+		RingElement ans = elements.get(index);
 		if (ans == null) {
 			ans = new CyclicRingElement(index);
 			elements.put(index, ans);
@@ -99,6 +98,30 @@ public class FiniteCyclicRing implements Ring, DiscreteGroup, CyclicGroup {
 			}
 			System.out.println();
 		}
+		
+		for (int i = 0; i < order; i++) {
+			System.out.print(i + ": is reducible: "+!isIrreducible(get(i)));		
+			System.out.println();
+		}
+		
+		for (int i = 0; i < order; i++) {
+			System.out.print(i + ": is prime: "+!isPrimeElement(get(i)));		
+			System.out.println();
+		}
+		
+		for (int i = 0; i < order; i++) {
+			System.out.print(i + ": is unit: "+!isUnit(get(i)));		
+			System.out.println();
+		}
+		
+		for (int i = 0; i < order; i++) {
+			System.out.print(i + ": ");
+			for (int j = i; j < getOrder(); j++) {
+				System.out
+						.println(i + " devides "+j+" = "+divides(get(i),get(j)));
+			} 
+		}
+		
 	}
 
 	private Monoid multiplicativeMonoid;

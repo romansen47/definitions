@@ -15,6 +15,7 @@ import definitions.structures.abstr.fields.scalars.impl.RealOne;
 import definitions.structures.abstr.fields.scalars.impl.RealZero;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
+import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalInjection;
 import definitions.structures.euclidean.mappings.impl.InjectiveLinearMapping;
@@ -214,6 +215,11 @@ public class RealLine implements SubField, RealSpace {
 
 	public static void setInstance(RealLine realLine) {
 		instance = realLine;
+	}
+
+	@Override
+	public boolean isIrreducible(RingElement element) {
+		return true;
 	}
 
 }

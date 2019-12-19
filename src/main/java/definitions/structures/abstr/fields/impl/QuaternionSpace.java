@@ -10,8 +10,11 @@ import java.util.Map;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Quaternion;
+import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
+import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
@@ -219,11 +222,30 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		return new Quaternion(value, 0, 0, 0);
 	}
 
-	@Override
-	
+	@Override 
 	public Scalar conjugate(Scalar value) {
 		final Quaternion v = (Quaternion) value;
 		return new Quaternion(v.getReal().getValue(), -v.getI().getValue(), -v.getJ().getValue(), -v.getK().getValue());
+	}
+
+	@Override
+	public boolean isIrreducible(RingElement element) { 
+		return Field.super.isIrreducible(element);
+	}
+
+	@Override
+	public GroupElement getInverseElement(GroupElement element) {
+		return super.getInverseElement(element);
+	}
+
+	@Override
+	public MonoidElement getIdentityElement() { 
+		return super.getIdentityElement();
+	}
+
+	@Override
+	public Integer getOrder() {
+		return null;
 	}
 
 }
