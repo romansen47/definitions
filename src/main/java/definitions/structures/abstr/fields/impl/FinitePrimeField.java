@@ -35,14 +35,18 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 	protected FinitePrimeField(int prime) {
 		super(prime);
 		characteristic = prime;
+	}
+
+	@Override
+	protected void createElements(int n) {
 		base = new ArrayList<>();
-		for (int i = 0; i < prime; i++) {
+		for (int i = 0; i < n; i++) {
 			PrimeFieldElement element = new PrimeFieldElement(i, this);
 			elements.put(i, element);
 		}
 		base.add((Vector) elements.get(1));
 	}
-
+	
 	@Override
 	public Field getField() {
 		return this;

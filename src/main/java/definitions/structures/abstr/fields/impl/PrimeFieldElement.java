@@ -12,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class PrimeFieldElement extends CyclicRingElement implements FiniteVector,Scalar {
+public class PrimeFieldElement extends CyclicRingElement implements FiniteVector,FieldElement {
 	
 	private static final long serialVersionUID = 1L;
 

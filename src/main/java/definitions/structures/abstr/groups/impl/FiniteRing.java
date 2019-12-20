@@ -11,6 +11,9 @@ public interface FiniteRing extends DiscreteGroup, Ring {
 	@Override
 	default 
 	boolean isIrreducible(RingElement element) {
+		if(isPrimeElement(element)) {
+			return true;
+		}
 		for (int i=2;i<getOrder();i++) {
 			for (int j=2;j<getOrder();j++) {
 				if (getMuliplicativeMonoid().operation(get(i), get(j)).equals(element)){

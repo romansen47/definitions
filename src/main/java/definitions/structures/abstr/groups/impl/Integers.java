@@ -25,6 +25,9 @@ public class Integers implements DiscreteGroup, Ring {
 	private static Integers instance;
 
 	public static Integers getInstance() {
+		if (instance==null) {
+			instance=GroupGenerator.getInstance().getIntegers();
+		}
 		return instance;
 	}
 
@@ -51,7 +54,7 @@ public class Integers implements DiscreteGroup, Ring {
 		return new Int();
 	}
 
-	public synchronized GroupElement get(Integer int1) {
+	public synchronized RingElement get(Integer int1) {
 		Int i = integer();
 		i.setValue(int1);
 		return i;
@@ -69,7 +72,7 @@ public class Integers implements DiscreteGroup, Ring {
 
 	@Override
 	public GroupElement getInverseElement(GroupElement element) {
-		return new Int(-((Int) element).getValue());
+		return get(-((Int) element).getValue());
 	}
 
 	@Override
@@ -100,8 +103,18 @@ public class Integers implements DiscreteGroup, Ring {
 
 	@Override
 	public boolean isPrimeElement(RingElement element) {
-		// TODO Auto-generated method stub
-		return false;
+		int n=((Int) element).getValue();
+		if(element.equals(this.getIdentityElement()) || isUnit(element)) {
+			return false;
+		}
+		for(int i=2;i<n;i++) {
+			for(int j=2;j<n;j++) {
+				if (i*j==n) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	@Override

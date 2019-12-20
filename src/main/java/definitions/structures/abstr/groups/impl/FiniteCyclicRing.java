@@ -27,6 +27,11 @@ public class FiniteCyclicRing implements FiniteRing, DiscreteGroup, CyclicGroup 
 	public FiniteCyclicRing(int n) {
 		setOrder(n);
 		elements = new HashMap<>();
+		createElements(n);
+		
+	}
+
+	protected void createElements(int n) {
 		for (int i = 0; i < n; i++) {
 			get(i);
 		}
@@ -105,12 +110,12 @@ public class FiniteCyclicRing implements FiniteRing, DiscreteGroup, CyclicGroup 
 		}
 		
 		for (int i = 0; i < order; i++) {
-			System.out.print(i + ": is prime: "+!isPrimeElement(get(i)));		
+			System.out.print(i + ": is prime: "+isPrimeElement(get(i)));		
 			System.out.println();
 		}
 		
 		for (int i = 0; i < order; i++) {
-			System.out.print(i + ": is unit: "+!isUnit(get(i)));		
+			System.out.print(i + ": is unit: "+isUnit(get(i)));		
 			System.out.println();
 		}
 		

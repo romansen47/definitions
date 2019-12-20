@@ -7,8 +7,7 @@ import org.junit.BeforeClass;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 import org.springframework.context.annotation.EnableLoadTimeWeaving.AspectJWeaving;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
-
-import definitions.Proceed;
+ 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
 import definitions.structures.abstr.fields.impl.RealLine;

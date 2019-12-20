@@ -6,7 +6,9 @@ import definitions.structures.abstr.vectorspaces.RingElement;
 
 @Component(value="int")
 public class Int implements RingElement {
+	
 	private static final long serialVersionUID = -1727262864036395099L;
+	
 	private int value;
 
 	Int(int val) {
@@ -28,7 +30,7 @@ public class Int implements RingElement {
 
 	@Override
 	public String toString() {
-		return Integer.toString(this.value);
+		return Integer.toString(this.getValue());
 	}
 
 	Int next() {
@@ -62,7 +64,7 @@ public class Int implements RingElement {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Int && ((Int) o).getValue() == this.value) {
+		if (o instanceof Int && ((Int) o).getValue() == this.getValue()) {
 			return true;
 		}
 		return false;
@@ -70,7 +72,7 @@ public class Int implements RingElement {
 
 	@Override
 	public int hashCode() {
-		return this.value;
+		return this.getValue();
 	}
 
 	@Override
