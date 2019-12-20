@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.groups.Group;
-import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
+import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
 
 public class GroupGeneratorTest extends AspectJTest{
 
@@ -22,12 +22,12 @@ public class GroupGeneratorTest extends AspectJTest{
 	
 	@Before
 	public void before() {
-		setGroup(getGenerator().getGroupGenerator().getFiniteCyclicRing(order));
+		setGroup(getGenerator().getGroupGenerator().getFiniteResidueClassRing(order));
 	}
 	
 	@Test
 	public void test() {
-		((FiniteCyclicRing) group).print();
+		((FiniteResidueClassRing) group).print();
 	}
 
 	public Group getGroup() {

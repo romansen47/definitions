@@ -7,12 +7,12 @@ import java.util.Set;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.impl.CyclicRingElement;
+import definitions.structures.abstr.groups.impl.FiniteResidueClassElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class PrimeFieldElement extends CyclicRingElement implements FiniteVector,FieldElement {
+public class PrimeFieldElement extends FiniteResidueClassElement implements FiniteVector,FieldElement {
 	
 	private static final long serialVersionUID = 1L;
 

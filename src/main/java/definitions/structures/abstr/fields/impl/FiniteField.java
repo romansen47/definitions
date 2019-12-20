@@ -20,7 +20,6 @@ public interface FiniteField extends Field, FiniteRing {
 		} else {
 			xmlString += "<primeField>" + getPrimeField().toXml() + "</primeField>";
 		}
-
 		return xmlString;
 	};
 

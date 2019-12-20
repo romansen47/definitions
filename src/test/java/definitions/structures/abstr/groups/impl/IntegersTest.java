@@ -27,7 +27,7 @@ public class IntegersTest extends AspectJTest {
 	private RingElement minusOne;
 	RingElement five;
 	RingElement six;
-	private int maxInt = 100;
+	private int maxInt = 300;
 
 	Function f;
 	
@@ -35,6 +35,7 @@ public class IntegersTest extends AspectJTest {
 	
 	@Before
 	public void before() {
+		
 		integers = Integers.getInstance();
 		zero = (RingElement) integers.getIdentityElement();
 		one = (RingElement) ((Integers) integers).get(1);
@@ -44,16 +45,10 @@ public class IntegersTest extends AspectJTest {
 		six = (RingElement) ((Integers) integers).get(6);
 		f = new Function() { 
 			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Map<Vector, Scalar> getCoordinates() {
-				// TODO Auto-generated method stub
-				return null;
-			}
- 
+			
 			@Override
 			public Scalar value(Scalar input) { 
-				int ans =1;
+				int ans = 1;
 				for (int i=0;i<input.getValue();i++) {
 					if (integers.isPrimeElement((RingElement) ((DiscreteGroup)integers).get(i))) {
 						ans++;
@@ -63,8 +58,12 @@ public class IntegersTest extends AspectJTest {
 			}
 			
 			@Override
-			public void setCoordinates(Map<Vector, Scalar> coordinates) {
-				 
+			public Map<Vector, Scalar> getCoordinates() { 
+				return null;
+			}
+ 
+			@Override
+			public void setCoordinates(Map<Vector, Scalar> coordinates) { 
 			}
 
 			@Override
@@ -73,6 +72,7 @@ public class IntegersTest extends AspectJTest {
 			}
 
 		};
+		
 	}
 
 	@Test

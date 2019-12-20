@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.GroupElement;
-import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
+import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
-public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, PrimeField {
+public class FinitePrimeField extends FiniteResidueClassRing implements FiniteField, PrimeField {
 
 	private static final long serialVersionUID = -7935335390082721765L;
 
@@ -32,7 +32,7 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 
 	private EuclideanSpace dualSpace;
 
-	protected FinitePrimeField(int prime) {
+	public FinitePrimeField(int prime) {
 		super(prime);
 		characteristic = prime;
 	}
@@ -41,7 +41,7 @@ public class FinitePrimeField extends FiniteCyclicRing implements FiniteField, P
 	protected void createElements(int n) {
 		base = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
-			PrimeFieldElement element = new PrimeFieldElement(i, this);
+			FieldElement element = new PrimeFieldElement(i, this);
 			elements.put(i, element);
 		}
 		base.add((Vector) elements.get(1));

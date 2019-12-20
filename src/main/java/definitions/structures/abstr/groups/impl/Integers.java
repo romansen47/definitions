@@ -3,7 +3,10 @@
  */
 package definitions.structures.abstr.groups.impl;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
@@ -48,8 +51,8 @@ public class Integers implements DiscreteGroup, Ring {
 		return (RingElement) this.get(((Int) first).getValue() + ((Int) second).getValue());
 	}
 
-//	@Bean(name="int")
-//	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	//@Bean(name="int")
+	//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public Int integer() {
 		return new Int();
 	}

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import definitions.Unweavable;
 import definitions.structures.abstr.fields.IFieldGenerator;
+import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Configuration
@@ -14,6 +15,9 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	@Autowired
 	private RealLine realLine;
+	
+	@Autowired
+	private BinaryField binaryField;
 
 	public IFieldGenerator getInstance() {
 		return instance;
@@ -36,6 +40,17 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 	public static void setInstance(FieldGenerator fieldGenerator) {
 		instance = fieldGenerator;
 		((FieldGenerator) instance).setRealLine(fieldGenerator.getRealLine());
+	}
+
+	public BinaryField getBinaryField() {
+		if (BinaryField.getInstance()==null) {
+			BinaryField.setInstance(binaryField);
+		}
+		return binaryField;
+	}
+
+	public void setBinaryField(BinaryField binaryField) {
+		this.binaryField = binaryField;
 	}
 
 }

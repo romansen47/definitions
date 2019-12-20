@@ -9,8 +9,7 @@ public interface FiniteRing extends DiscreteGroup, Ring {
 	RingElement get(Integer index);
 
 	@Override
-	default 
-	boolean isIrreducible(RingElement element) {
+	default boolean isIrreducible(RingElement element) {
 		if(isPrimeElement(element)) {
 			return true;
 		}
@@ -31,9 +30,9 @@ public interface FiniteRing extends DiscreteGroup, Ring {
 			return false;
 		}
 		for (int i=2;i<getOrder();i++) {
-			for (int j=0;j<getOrder();j++) {
+			for (int j=2;j<getOrder();j++) {
 				if (divides(element,(RingElement) getMuliplicativeMonoid().operation(get(i), get(j)))){
-					if(!divides(element,get(i)) || !divides(element,get(j))) {
+					if(!divides(element,get(i)) && !divides(element,get(j))) {
 						return false;
 					}
 				}
@@ -43,18 +42,21 @@ public interface FiniteRing extends DiscreteGroup, Ring {
 	};
 
 	@Override
-	default boolean isUnit(RingElement element) {
+	default boolean isUnit(RingElement element) { 
+		if (element.equals(get(1))) {
+			return true;
+		} 
 		for (int i = 1; i < getOrder(); i++) {
 			RingElement other = (RingElement) getMuliplicativeMonoid().operation(element, get(i));
 			if (other.equals(get(1))) {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	default boolean divides(RingElement devisor, RingElement devident) {
-		for (int i = 1; i < getOrder(); i++) {
+		for (int i = 2; i < getOrder(); i++) {
 			RingElement tmp = get(i);
 			if (getMuliplicativeMonoid().operation(devisor, get(i)).equals(devident)) {
 				return true;
