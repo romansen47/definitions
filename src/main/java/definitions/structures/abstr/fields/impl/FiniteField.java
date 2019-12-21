@@ -1,7 +1,7 @@
 package definitions.structures.abstr.fields.impl;
 
 import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.groups.impl.FiniteRing;
+import definitions.structures.abstr.groups.FiniteRing;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 

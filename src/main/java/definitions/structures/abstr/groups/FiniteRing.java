@@ -1,11 +1,12 @@
-package definitions.structures.abstr.groups.impl;
+package definitions.structures.abstr.groups;
 
-import definitions.structures.abstr.groups.DiscreteGroup;
+import definitions.structures.abstr.groups.impl.FiniteGroup;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
-public interface FiniteRing extends DiscreteGroup, Ring {
+public interface FiniteRing extends FiniteGroup, Ring {
 
+	@Override
 	RingElement get(Integer index);
 
 	@Override
@@ -56,7 +57,7 @@ public interface FiniteRing extends DiscreteGroup, Ring {
 	}
 
 	default boolean divides(RingElement devisor, RingElement devident) {
-		for (int i = 2; i < getOrder(); i++) {
+		for (int i = 1; i < getOrder(); i++) {
 			RingElement tmp = get(i);
 			if (getMuliplicativeMonoid().operation(devisor, get(i)).equals(devident)) {
 				return true;

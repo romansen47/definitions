@@ -10,25 +10,20 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public class FiniteResidueClassRingTest extends AspectJTest{
 
-	final static int index=15;
+	final static int index=25;
 	
-	static Ring finiteCyclicGroup;
+	static Ring finiteResidueClassRing;
 	
 	@BeforeClass 
 	public static void prepare() {
 		AspectJTest.prepare();
-		finiteCyclicGroup = new FiniteResidueClassRing(index);
+		finiteResidueClassRing = new FiniteResidueClassRing(index);
 	}
-
-	private int highestOrder=10;
 	
 	@Test
 	public void test() {
-		((FiniteResidueClassRing) finiteCyclicGroup).print();
-//		for (int i=0;i<highestOrder;i++) {
-//			GroupGenerator.getInstance().getFiniteResidueClassRing(i).draw();
-//		}
-		GroupGenerator.getInstance().getFiniteResidueClassRing(highestOrder).draw();
+		((FiniteResidueClassRing) finiteResidueClassRing).print(); 
+		((FiniteResidueClassRing) finiteResidueClassRing).draw();
 	}
 
 }

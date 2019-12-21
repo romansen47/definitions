@@ -6,10 +6,12 @@ import java.util.Map;
 
 import definitions.structures.abstr.groups.CyclicGroup;
 import definitions.structures.abstr.groups.DiscreteGroup;
+import definitions.structures.abstr.groups.FiniteRing;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
+import settings.GlobalSettings;
 import solver.StdDraw;
 
 public class FiniteResidueClassRing implements FiniteRing, DiscreteGroup, CyclicGroup {
@@ -172,6 +174,7 @@ public class FiniteResidueClassRing implements FiniteRing, DiscreteGroup, Cyclic
 			((FiniteResidueClassElement) element).setIsUnit(ans);
 			if (ans) {
 				((FiniteResidueClassElement) element).setPrime(false);
+				((FiniteResidueClassElement) element).setIrreducible(false);
 			}
 		}
 		return ans;
@@ -184,6 +187,7 @@ public class FiniteResidueClassRing implements FiniteRing, DiscreteGroup, Cyclic
 			ans = FiniteRing.super.isPrimeElement(element);
 			((FiniteResidueClassElement) element).setPrime(ans);
 			if (ans) {
+				((FiniteResidueClassElement) element).setIsUnit(false);
 				((FiniteResidueClassElement) element).setIrreducible(true);
 			}
 		}
@@ -215,10 +219,10 @@ public class FiniteResidueClassRing implements FiniteRing, DiscreteGroup, Cyclic
 		if (stddraw == null) {
 			stddraw = new StdDraw();
 		}
-		stddraw.setCanvasSize(1000, 1000);
+		stddraw.setCanvasSize(700, 700);
 		StdDraw.setXscale(-100, 100);
 		StdDraw.setYscale(-100, 100);
-		StdDraw.setPenRadius(0.01);
+		StdDraw.setPenRadius(0.005);
 		int radius = 5;
 		for (int i = 0; i < getOrder(); i++) {
 			if (isUnit(get(i))) {
@@ -230,11 +234,12 @@ public class FiniteResidueClassRing implements FiniteRing, DiscreteGroup, Cyclic
 					StdDraw.setPenColor(Color.green);
 				}
 			}
-			StdDraw.circle(size * Math.cos(2 * Math.PI * i / getOrder()), size * Math.sin(2 * Math.PI * i / getOrder()),
+			StdDraw.circle(-size * Math.cos(2 * Math.PI * i / getOrder()), size * Math.sin(2 * Math.PI * i / getOrder()),
 					radius);
-			StdDraw.text(size * Math.cos(2 * Math.PI * i / getOrder()), size * Math.sin(2 * Math.PI * i / getOrder()),
+			StdDraw.text(-size * Math.cos(2 * Math.PI * i / getOrder()), size * Math.sin(2 * Math.PI * i / getOrder()),
 					String.valueOf(((FiniteResidueClassElement) get(i)).getRepresentant()));
 		}
+		StdDraw.save(GlobalSettings.PLOTS + "Group.png");
 	}
 
 }

@@ -78,7 +78,6 @@ public abstract class GenericFunction implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-	
 	public void plot(final double left, final double right) {
 		((Plotter) gen).plot(this, left, right);
 	}
@@ -87,7 +86,7 @@ public abstract class GenericFunction implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-	
+
 	public void plotCompare(final double left, final double right, final Function fun) {
 		((Plotter) gen).plotCompare(this, fun, left, right);
 	}
