@@ -25,6 +25,10 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	 */
 	private static final long serialVersionUID = -261334109954833773L;
 
+	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target) {
+		super(source, target);
+	}
+
 	/**
 	 * Constructor.
 	 * 
@@ -50,49 +54,9 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	}
 
 	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates, Scalar[][] matrix) {
+			final Map<Vector, Map<Vector, Scalar>> coordinates, final Scalar[][] matrix) {
 		this(source, target, coordinates);
 		this.genericMatrix = matrix;
-	}
-
-	public FiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target) {
-		super(source, target);
-	}
-
-	@Override
-	public String toString() {
-		String str = "";
-		Scalar[][] matrix;
-		try {
-			matrix = this.getGenericMatrix();
-			double x;
-			for (int i = 0; i < matrix.length; i++) {
-				for (int j = 0; j < matrix[i].length; j++) {
-					x = matrix[i][j].getValue();
-					str += " " + (x - (x % 0.001)) + " ";
-				}
-				str += " \r";
-			}
-		} catch (final Throwable e) {
-			e.printStackTrace();
-		}
-		return str;
-	}
-
-	@Override
-	public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-		if (this.linearity == null) {
-			this.linearity = new ConcurrentHashMap<>();
-			for (final Vector vec1 : ((EuclideanSpace) this.source).genericBaseToList()) {
-				final Vector tmp = this.get(vec1);
-				final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
-				for (final Vector vec2 : ((EuclideanSpace) this.target).genericBaseToList()) {
-					tmpCoord.put(vec2, ((EuclideanSpace) this.target).innerProduct(vec2, tmp));
-				}
-				this.linearity.put(vec1, tmpCoord);
-			}
-		}
-		return this.linearity;
 	}
 
 	@Override
@@ -124,6 +88,27 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	}
 
 	@Override
+	public Map<Vector, Map<Vector, Scalar>> getLinearity() {
+		if (this.linearity == null) {
+			this.linearity = new ConcurrentHashMap<>();
+			for (final Vector vec1 : ((EuclideanSpace) this.source).genericBaseToList()) {
+				final Vector tmp = this.get(vec1);
+				final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
+				for (final Vector vec2 : ((EuclideanSpace) this.target).genericBaseToList()) {
+					tmpCoord.put(vec2, ((EuclideanSpace) this.target).innerProduct(vec2, tmp));
+				}
+				this.linearity.put(vec1, tmpCoord);
+			}
+		}
+		return this.linearity;
+	}
+
+	@Override
+	public Map<Vector, Scalar> getLinearity(final Vector vec1) {
+		return this.linearity.get(vec1);
+	}
+
+	@Override
 	public VectorSpace getSource() {
 		return this.source;
 	}
@@ -134,18 +119,33 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	}
 
 	@Override
-	public Map<Vector, Scalar> getLinearity(Vector vec1) {
-		return this.linearity.get(vec1);
+	public String toString() {
+		String str = "";
+		Scalar[][] matrix;
+		try {
+			matrix = this.getGenericMatrix();
+			double x;
+			for (int i = 0; i < matrix.length; i++) {
+				for (int j = 0; j < matrix[i].length; j++) {
+					x = matrix[i][j].getValue();
+					str += " " + (x - (x % 0.001)) + " ";
+				}
+				str += " \r";
+			}
+		} catch (final Throwable e) {
+			e.printStackTrace();
+		}
+		return str;
 	}
 
 	@Override
 	public String toXml() {
 		String ans = "<linearMapping>";
-		ans += "<source>" + source.toXml() + "</source>";
-		ans += "<target>" + target.toXml() + "</target>";
+		ans += "<source>" + this.source.toXml() + "</source>";
+		ans += "<target>" + this.target.toXml() + "</target>";
 		ans += "<base>";
-		for (Vector vec1 : ((EuclideanSpace) source).genericBaseToList()) {
-			for (Vector vec2 : ((EuclideanSpace) target).genericBaseToList()) {
+		for (final Vector vec1 : ((EuclideanSpace) this.source).genericBaseToList()) {
+			for (final Vector vec2 : ((EuclideanSpace) this.target).genericBaseToList()) {
 				ans += "<sourceVector>";
 				ans += vec1.toXml();
 				ans += "</sourceVector>";
@@ -155,7 +155,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 				ans += "</targetVector>";
 
 				ans += "<value>";
-				ans += getLinearity(vec1).get(vec2).toXml();
+				ans += this.getLinearity(vec1).get(vec2).toXml();
 				ans += "</value>";
 			}
 		}

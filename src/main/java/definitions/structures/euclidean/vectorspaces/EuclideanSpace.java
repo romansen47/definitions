@@ -25,12 +25,25 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
  */
 public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 
-	/**
-	 * A base is an ordered set of linearly independent vectors.
-	 * 
-	 * @return the base as ordered base. @
-	 */
-	List<Vector> genericBaseToList();
+	@Override
+	@Proceed
+	default Vector add(final Vector vec1, final Vector vec2) {
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(this.getDim()))) {
+			final List<Vector> base = this.genericBaseToList();
+			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+			for (final Vector vec : base) {
+				coordinates.put(this.getBaseVec(vec),
+						(Scalar) this.getField().add(((FiniteVector) vec1).getCoordinates().get(this.getBaseVec(vec)),
+								((FiniteVector) vec2).getCoordinates().get(this.getBaseVec(vec))));
+			}
+			/*
+			 * Direct usage of constructor instead of get method in order to avoid cycles.
+			 * Don't touch this
+			 */
+			return new Tuple(coordinates);
+		}
+		return null;
+	}
 
 	/**
 	 * The base can be returned as an unordered set.
@@ -39,13 +52,20 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 */
 //	Set<Vector> getGenericBase();
 
+	default Vector copyVector(final Vector vec) {
+		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : this.genericBaseToList()) {
+			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
+		}
+		return new FunctionTuple(coordinates, this);
+	}
+
 	/**
-	 * The dimension of the space. This is the size of the base.
+	 * A base is an ordered set of linearly independent vectors.
 	 * 
-	 * @return the dimension. null if space is infinitely dimensional.
+	 * @return the base as ordered base. @
 	 */
-	@Override
-	Integer getDim();
+	List<Vector> genericBaseToList();
 
 	/**
 	 * Elements of the vector space can be created using a map (Vector -> Scalar).
@@ -54,9 +74,9 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return the corresponding vector @
 	 */
 	default Vector get(final Map<Vector, Scalar> tmp) {
-		Vector vec = nullVec();
-		for (final Vector basevec : genericBaseToList()) {
-			vec = add(vec, stretch(basevec, tmp.get(basevec)));
+		Vector vec = this.nullVec();
+		for (final Vector basevec : this.genericBaseToList()) {
+			vec = this.add(vec, this.stretch(basevec, tmp.get(basevec)));
 		}
 		return vec;
 	}
@@ -69,43 +89,11 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 */
 	@Proceed
 	default Vector get(final Scalar[] tmp) {
-		Vector vec = nullVec();
-		for (int i = 0; i < getDim(); i++) {
-			vec = add(vec, stretch(genericBaseToList().get(i), tmp[i]));
+		Vector vec = this.nullVec();
+		for (int i = 0; i < this.getDim(); i++) {
+			vec = this.add(vec, this.stretch(this.genericBaseToList().get(i), tmp[i]));
 		}
 		return vec;
-	}
-
-	@Override
-	@Proceed
-	default Vector add(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(getDim()))) {
-			final List<Vector> base = genericBaseToList();
-			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			for (final Vector vec : base) {
-				coordinates.put(getBaseVec(vec),
-						(Scalar) getField().add(((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)),
-								((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec))));
-			}
-			/*
-			 * Direct usage of constructor instead of get method in order to avoid cycles.
-			 * Don't touch this
-			 */
-			return new Tuple(coordinates);
-		}
-		return null;
-	}
-
-	@Override
-	@Proceed
-	default Vector stretch(final Vector vec, final Scalar r) {
-		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
-		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
-		final List<Vector> base = genericBaseToList();
-		for (final Vector vec1 : base) {
-			stretched.put(vec1, (Scalar) getField().product(coordinates.get(getBaseVec(vec1)), r));
-		}
-		return new Tuple(stretched);
 	}
 
 	/**
@@ -115,7 +103,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return the base vector, if has same coordinates. Otherwise null.
 	 */
 	default Vector getBaseVec(final Vector vec2) {
-		for (final Vector vec : genericBaseToList()) {
+		for (final Vector vec : this.genericBaseToList()) {
 			if (vec2.equals(vec)) {
 				return vec;
 			}
@@ -134,6 +122,14 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	Vector getCoordinates(Vector vec);
 
 	/**
+	 * The dimension of the space. This is the size of the base.
+	 * 
+	 * @return the dimension. null if space is infinitely dimensional.
+	 */
+	@Override
+	Integer getDim();
+
+	/**
 	 * Method to compute the distance between two vectors.
 	 * 
 	 * @param vec1 first vector.
@@ -142,9 +138,11 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 */
 	@Override
 	default Real getDistance(final Vector vec1, final Vector vec2) {
-		final Vector diff = add(vec1, (stretch(vec2, getField().get(-1))));
-		return norm(diff);
+		final Vector diff = this.add(vec1, (this.stretch(vec2, this.getField().get(-1))));
+		return this.norm(diff);
 	}
+
+	EuclideanSpace getDualSpace();
 
 	/**
 	 * Method to create an orthonormal base.
@@ -153,6 +151,18 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return an orthonormal base of same span. @
 	 */
 	List<Vector> getOrthonormalBase(List<Vector> base);
+
+	@Override
+	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
+		Vector prod = this.getField().nullVec();
+		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
+		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
+		// final List<Vector> base = this.genericBaseToList();
+		for (final Vector vec : vecCoord1.keySet()) {
+			prod = this.getField().add(prod, this.getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));
+		}
+		return (Scalar) prod;
+	}
 
 	/**
 	 * Method to show the matrix of scalar products between the base elements.
@@ -173,26 +183,16 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		}
 	}
 
-	default Vector copyVector(final Vector vec) {
-		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-		for (final Vector baseVec : this.genericBaseToList()) {
-			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
-		}
-		return new FunctionTuple(coordinates, this);
-	}
-
 	@Override
-	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		Vector prod = getField().nullVec();
-		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
-		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
-		// final List<Vector> base = this.genericBaseToList();
-		for (final Vector vec : vecCoord1.keySet()) {
-			prod = getField().add(prod, getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));
+	@Proceed
+	default Vector stretch(final Vector vec, final Scalar r) {
+		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
+		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
+		final List<Vector> base = this.genericBaseToList();
+		for (final Vector vec1 : base) {
+			stretched.put(vec1, (Scalar) this.getField().product(coordinates.get(this.getBaseVec(vec1)), r));
 		}
-		return (Scalar) prod;
+		return new Tuple(stretched);
 	}
-
-	public EuclideanSpace getDualSpace();
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface Reader {
 
-	static double[][] readFile(String string) throws IOException {
+	static double[][] readFile(final String string) throws IOException {
 		final List<double[]> values = new ArrayList<>();
 		final BufferedReader br = new BufferedReader(new FileReader(string));
 		String line = "";

@@ -7,8 +7,8 @@
 //
 //import definitions.structures.abstr.fields.impl.RealLine;
 //import definitions.structures.euclidean.Generator;
-// 
-//@Configuration 
+//
+//@Configuration
 //public class GeneratorConfiguerer {
 //
 //	final static private Logger logger = LogManager.getLogger(GeneratorConfiguerer.class.getCanonicalName());
@@ -18,7 +18,7 @@
 //
 //	@Autowired
 //	private RealLine realLine;
-//		
+//
 ////	@Bean(name = "realLine")
 ////	public RealLine realLine() {
 ////		return RealLine.getInstance();
@@ -42,6 +42,6 @@
 //
 //	public void setRealLine(RealLine realLine) {
 //		this.realLine = realLine;
-//	} 
+//	}
 //
 //}

@@ -2,7 +2,7 @@
         "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
 	<weaver
-		options="-Xset:weaveJavaxPackages=true -Xreweavable">
+		options="-Xset:weaveJavaxPackages=true -verbose -Xreweavable">
 		<!--  -showWeaveInfo -debug  -->
 		<include within="definitions..*" /> 
 	</weaver>

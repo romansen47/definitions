@@ -11,36 +11,37 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 	/*
 	 * correct derivative computing algo here due to identity
 	 */
-	
-	private int sobolevDegree=3;
-	private int trigDegree=20;
-	
+
+	private int sobolevDegree = 3;
+	private final int trigDegree = 20;
+
+	public int getSobolevDegree() {
+		return this.sobolevDegree;
+	}
+
+	private void setSobolevDegree(final int degree) {
+		this.sobolevDegree = degree;
+	}
+
 	@Override
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(trigDegree);
-		setSobolevDegree(sobolevDegree);
+		this.setTrigonometricDegree(this.trigDegree);
+		this.setSobolevDegree(this.sobolevDegree);
 
-		setField(getRealLine());
+		this.setField(getRealLine());
 		super.setUp();
-		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(getRealLine(),
-				getSobolevDegree(), Math.PI, getTrigonometricDegree()));
+		this.setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(getRealLine(),
+				this.getSobolevDegree(), Math.PI, this.getTrigonometricDegree()));
 
 	}
 
 	@Test
 	public void test1() {
-		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
-	}
-
-	public int getSobolevDegree() {
-		return sobolevDegree;
-	}
-
-	private void setSobolevDegree(int degree) {
-		sobolevDegree = degree;
+		final Function staircaseFunction1Projection = this.getStaircaseFunction()
+				.getProjection(this.getTrigonometricSpace());
+		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
 	}
 
 }

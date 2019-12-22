@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -13,8 +12,6 @@ import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectors.FiniteVector;
-import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
@@ -24,35 +21,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 
 	private static Map<Integer, EuclideanSpace> instances = new HashMap<>();
 
-	private Map<Vector, Homomorphism> multiplicationMatrix;
-
-	private final int characteristic;
-
-	private List<Vector> base;
-
-	private EuclideanSpace dualSpace;
-
-	public FinitePrimeField(int prime) {
-		super(prime);
-		characteristic = prime;
-	}
-
-	@Override
-	protected void createElements(int n) {
-		base = new ArrayList<>();
-		for (int i = 0; i < n; i++) {
-			FieldElement element = new PrimeFieldElement(i, this);
-			elements.put(i, element);
-		}
-		base.add((Vector) elements.get(1));
-	}
-	
-	@Override
-	public Field getField() {
-		return this;
-	}
-
-	public static EuclideanSpace getInstance(int prime) {
+	public static EuclideanSpace getInstance(final int prime) {
 		EuclideanSpace instance = instances.get(prime);
 		if (instance == null) {
 			instance = new FinitePrimeField(prime);
@@ -61,32 +30,45 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return instance;
 	}
 
+	private Map<Vector, Homomorphism> multiplicationMatrix;
+
+	private final int characteristic;
+
+	private List<Vector> base;
+
+	private EuclideanSpace dualSpace;
+
+	public FinitePrimeField(final int prime) {
+		super(prime);
+		this.characteristic = prime;
+	}
+
 	@Override
-	public boolean contains(Vector vec) {
+	public Vector add(final Vector vec1, final Vector vec2) {
+		return (Vector) this.operation(vec1, vec2);
+	}
+
+	/**
+	 * @return the conjugated
+	 */
+	@Override
+	public Scalar conjugate(final Scalar value) {
+		return value;
+	}
+
+	@Override
+	public boolean contains(final Vector vec) {
 		return vec == (Vector) this.getGenerator() || vec == this.getIdentityElement();
 	}
 
 	@Override
-	public Vector nullVec() {
-		return (Vector) this.getIdentityElement();
-	}
-
-	@Override
-	public Vector getOne() {
-		return (Vector) this.getGenerator();
-	}
-
-	@Override
-	public Integer getDim() {
-		return 1;
-	}
-
-	@Override
-	public Vector projection(Vector w, Vector v) {
-		if (v == (Vector) this.getIdentityElement()) {
-			return (Vector) this.getIdentityElement();
+	protected void createElements(final int n) {
+		this.base = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			final FieldElement element = new PrimeFieldElement(i, this);
+			this.elements.put(i, element);
 		}
-		return w;
+		this.base.add((Vector) this.elements.get(1));
 	}
 
 	@Override
@@ -94,65 +76,22 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return this.base;
 	}
 
+	/**
+	 * @return the characteristic
+	 */
 	@Override
-	public Vector getCoordinates(Vector vec) {
+	public int getCharacteristic() {
+		return this.characteristic;
+	}
+
+	@Override
+	public Vector getCoordinates(final Vector vec) {
 		return vec;
 	}
 
 	@Override
-	public List<Vector> getOrthonormalBase(List<Vector> base) {
-		return base;
-	}
-
-	/**
-	 * Getter for multiplication matrix.
-	 */
-	@Override
-	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
-		Scalar one = (Scalar) getOne();
-		if (this.multiplicationMatrix == null) {
-			this.multiplicationMatrix = new HashMap<>();
-			Homomorphism identity = new LinearMapping(this, this) {
-
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public Vector get(Vector vec) {
-					return vec;
-				}
-
-				@Override
-				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-					Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
-					Map<Vector, Scalar> tmp = new HashMap<>();
-					tmp.put(getOne(), (Scalar) getOne());
-					map.put(getOne(), tmp);
-					return map;
-				}
-
-				@Override
-				public Scalar[][] getGenericMatrix() {
-					Scalar[][] mat = new Scalar[1][1];
-					mat[0][0] = (Scalar) getOne();
-					return mat;
-				}
-			};
-			this.multiplicationMatrix.put(getOne(), identity);
-		}
-		return this.multiplicationMatrix;
-	}
-
-	@Override
-	public Vector add(final Vector vec1, final Vector vec2) {
-		return (Vector) operation(vec1,vec2);
-	}
-	
-	/**
-	 * Setter for multiplication matrix.
-	 */
-	@Override
-	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
-		this.multiplicationMatrix = multiplicationMatrix;
+	public Integer getDim() {
+		return 1;
 	}
 
 	/**
@@ -168,6 +107,59 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return this.dualSpace;
 	}
 
+	@Override
+	public Field getField() {
+		return this;
+	}
+
+	@Override
+	public GroupElement getInverseElement(final GroupElement element) {
+		return super.getInverseElement(element);
+	}
+
+	/**
+	 * Getter for multiplication matrix.
+	 */
+	@Override
+	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
+		final Scalar one = (Scalar) this.getOne();
+		if (this.multiplicationMatrix == null) {
+			this.multiplicationMatrix = new HashMap<>();
+			final Homomorphism identity = new LinearMapping(this, this) {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public Vector get(final Vector vec) {
+					return vec;
+				}
+
+				@Override
+				public Scalar[][] getGenericMatrix() {
+					final Scalar[][] mat = new Scalar[1][1];
+					mat[0][0] = (Scalar) FinitePrimeField.this.getOne();
+					return mat;
+				}
+
+				@Override
+				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
+					final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
+					final Map<Vector, Scalar> tmp = new HashMap<>();
+					tmp.put(FinitePrimeField.this.getOne(), (Scalar) FinitePrimeField.this.getOne());
+					map.put(FinitePrimeField.this.getOne(), tmp);
+					return map;
+				}
+			};
+			this.multiplicationMatrix.put(this.getOne(), identity);
+		}
+		return this.multiplicationMatrix;
+	}
+
+	@Override
+	public Vector getOne() {
+		return (Vector) this.getGenerator();
+	}
+
 	/**
 	 * @return the order is two
 	 */
@@ -176,40 +168,45 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return 2;
 	}
 
-	/**
-	 * @return the conjugated
-	 */
 	@Override
-	public Scalar conjugate(Scalar value) {
-		return value;
-	}
-
-	/**
-	 * @return the characteristic
-	 */
-	@Override
-	public int getCharacteristic() {
-		return this.characteristic;
-	}
-
-	@Override
-	public String toString() {
-		return "the binary field";
-	}
-
-	@Override
-	public GroupElement getInverseElement(GroupElement element) {
-		return super.getInverseElement(element);
-	}
-
-	@Override
-	public GroupElement operation(GroupElement first, GroupElement second) {
-		return (GroupElement) super.operation(first, second);
+	public List<Vector> getOrthonormalBase(final List<Vector> base) {
+		return base;
 	}
 
 	@Override
 	public PrimeField getPrimeField() {
 		return this;
+	}
+
+	@Override
+	public Vector nullVec() {
+		return (Vector) this.getIdentityElement();
+	}
+
+	@Override
+	public GroupElement operation(final GroupElement first, final GroupElement second) {
+		return (GroupElement) super.operation(first, second);
+	}
+
+	@Override
+	public Vector projection(final Vector w, final Vector v) {
+		if (v == (Vector) this.getIdentityElement()) {
+			return (Vector) this.getIdentityElement();
+		}
+		return w;
+	}
+
+	/**
+	 * Setter for multiplication matrix.
+	 */
+	@Override
+	public void setMultiplicationMatrix(final Map<Vector, Homomorphism> multiplicationMatrix) {
+		this.multiplicationMatrix = multiplicationMatrix;
+	}
+
+	@Override
+	public String toString() {
+		return "the binary field";
 	}
 
 }

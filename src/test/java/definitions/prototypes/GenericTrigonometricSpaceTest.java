@@ -1,14 +1,11 @@
 package definitions.prototypes;
 
-import java.nio.file.Path;
-
 import org.junit.Before;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.xmltest.Reader;
 
 public class GenericTrigonometricSpaceTest extends AspectJTest {
 
@@ -18,74 +15,77 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 	private double[][] testValues;
 	private GenericFunction staircaseFunction;
 	private Field f;
-	
-	@Before
-	public void setUp() throws Exception {
-		
-		f=getRealLine();
-		
-		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSpace(getRealLine(), getTrigonometricDegree()));
-		testValues = definitions.xmltest.Reader.readFile(getPath());
-		setStaircaseFunction(new GenericFunction() { 
-			
-			private static final long serialVersionUID = -8361584686661267908L;
-			private final int length = (int) testValues[0][testValues[0].length - 1];
 
-			@Override
-			public Scalar value(Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
-				int k = 0;
-				final int l = (int) (newInput - (newInput % 1));
-				while (k + 1 < testValues[0].length && testValues[0][k] < l) {
-					k++;
-				}
-				return this.getField().get(testValues[1][k]); 
-			}
-
-			@Override
-			public Field getField() {
-				return f;
-			}
-		});
+	public Field getField() {
+		return this.f;
 	}
 
 	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public EuclideanSpace getTrigonometricSpace() {
-		return trigonometricSpace;
-	}
-
-	public void setTrigonometricSpace(EuclideanSpace trigonometricSpace) {
-		this.trigonometricSpace = trigonometricSpace;
+		return this.path;
 	}
 
 	public GenericFunction getStaircaseFunction() {
-		return staircaseFunction;
-	}
-
-	public void setStaircaseFunction(GenericFunction staircaseFunction) {
-		this.staircaseFunction = staircaseFunction;
-	}
-
-	public Field getField() {
-		return f;
-	}
-
-	public void setField(Field f) {
-		this.f = f;
+		return this.staircaseFunction;
 	}
 
 	public int getTrigonometricDegree() {
-		return trigonometricDegree;
+		return this.trigonometricDegree;
 	}
 
-	public void setTrigonometricDegree(int trigonometricDegree) {
+	public EuclideanSpace getTrigonometricSpace() {
+		return this.trigonometricSpace;
+	}
+
+	public void setField(final Field f) {
+		this.f = f;
+	}
+
+	public void setPath(final String path) {
+		this.path = path;
+	}
+
+	public void setStaircaseFunction(final GenericFunction staircaseFunction) {
+		this.staircaseFunction = staircaseFunction;
+	}
+
+	public void setTrigonometricDegree(final int trigonometricDegree) {
 		this.trigonometricDegree = trigonometricDegree;
+	}
+
+	public void setTrigonometricSpace(final EuclideanSpace trigonometricSpace) {
+		this.trigonometricSpace = trigonometricSpace;
+	}
+
+	@Before
+	public void setUp() throws Exception {
+
+		this.f = getRealLine();
+
+		this.setTrigonometricSpace(
+				getSpaceGenerator().getTrigonometricSpace(getRealLine(), this.getTrigonometricDegree()));
+		this.testValues = definitions.xmltest.Reader.readFile(this.getPath());
+		this.setStaircaseFunction(new GenericFunction() {
+
+			private static final long serialVersionUID = -8361584686661267908L;
+			private final int length = (int) GenericTrigonometricSpaceTest.this.testValues[0][GenericTrigonometricSpaceTest.this.testValues[0].length
+					- 1];
+
+			@Override
+			public Field getField() {
+				return GenericTrigonometricSpaceTest.this.f;
+			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				int k = 0;
+				final int l = (int) (newInput - (newInput % 1));
+				while (k + 1 < GenericTrigonometricSpaceTest.this.testValues[0].length
+						&& GenericTrigonometricSpaceTest.this.testValues[0][k] < l) {
+					k++;
+				}
+				return this.getField().get(GenericTrigonometricSpaceTest.this.testValues[1][k]);
+			}
+		});
 	}
 }

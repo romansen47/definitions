@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface IWatcher extends Serializable {
 
-	final List<String> list = new ArrayList<>();
+	List<String> list = new ArrayList<>();
 
-	static void add(String str) {
+	static void add(final String str) {
 		getList().add(str);
 	}
 
@@ -23,12 +23,12 @@ public interface IWatcher extends Serializable {
 		return list;
 	}
 
-	void removeLast();
-
 	static void show() {
 		for (final String string : getList()) {
 			System.out.println(string);
 		}
 	}
+
+	void removeLast();
 
 }

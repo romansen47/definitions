@@ -12,6 +12,20 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public interface VectorSpaceMethods extends Serializable {
 
+	default void assignOrthonormalCoordinates(final List<Vector> newBase, final Field field) {
+		for (final Vector vec : newBase) {
+			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
+			for (final Vector otherVec : newBase) {
+				if (vec == otherVec) {
+					tmpCoord.put(otherVec, (Scalar) field.getOne());
+				} else {
+					tmpCoord.put(otherVec, (Scalar) field.getZero());
+				}
+			}
+			((FiniteVectorMethods) vec).setCoordinates(tmpCoord);
+		}
+	}
+
 	/**
 	 * Not yet implemented.
 	 * 
@@ -19,6 +33,10 @@ public interface VectorSpaceMethods extends Serializable {
 	 * @return whether vec is an element of the space.
 	 */
 	boolean contains(Vector vec);
+
+	default Integer getDim() {
+		return null;
+	}
 
 	/**
 	 * Vector space is not empty.
@@ -36,23 +54,5 @@ public interface VectorSpaceMethods extends Serializable {
 	 */
 	@Override
 	String toString();
-
-	default Integer getDim() {
-		return null;
-	}
-
-	default void assignOrthonormalCoordinates(List<Vector> newBase, Field field) {
-		for (final Vector vec : newBase) {
-			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
-			for (final Vector otherVec : newBase) {
-				if (vec == otherVec) {
-					tmpCoord.put(otherVec, (Scalar) field.getOne());
-				} else {
-					tmpCoord.put(otherVec, (Scalar) field.getZero());
-				}
-			}
-			((FiniteVectorMethods) vec).setCoordinates(tmpCoord);
-		}
-	}
 
 }

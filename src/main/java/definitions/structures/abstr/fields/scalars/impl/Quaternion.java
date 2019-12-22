@@ -37,7 +37,12 @@ public class Quaternion extends Tuple implements Scalar {
 	@XmlElement
 	private Map<Vector, Scalar> coordinates;
 
-	public Quaternion(Scalar re, Scalar i, Scalar j, Scalar k) {
+	public Quaternion(final double r, final double i, final double j, final double k) {
+		this(RealLine.getInstance().get(r), RealLine.getInstance().get(i), RealLine.getInstance().get(j),
+				RealLine.getInstance().get(k));
+	}
+
+	public Quaternion(final Scalar re, final Scalar i, final Scalar j, final Scalar k) {
 		super(4);
 		this.real = re;
 		this.i = i;
@@ -45,22 +50,13 @@ public class Quaternion extends Tuple implements Scalar {
 		this.k = k;
 	}
 
-	public Quaternion(double r, double i, double j, double k) {
-		this(RealLine.getInstance().get(r), RealLine.getInstance().get(i), RealLine.getInstance().get(j), RealLine.getInstance().get(k));
-	}
-
 	@Override
-	public Integer getDim() {
-		return 4;
-	}
-
-	@Override
-	public boolean elementOf(VectorSpace space) {
+	public boolean elementOf(final VectorSpace space) {
 		return space == QuaternionSpace.getInstance();
 	}
 
 	@Override
-	public boolean equals(Object vec) {
+	public boolean equals(final Object vec) {
 		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
 				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
 				&& ((Quaternion) vec).getK().equals(this.getK());
@@ -78,45 +74,15 @@ public class Quaternion extends Tuple implements Scalar {
 		return this.coordinates;
 	}
 
-	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates) {
-		this.coordinates = coordinates;
-	}
-
 	@XmlAttribute
 	@Override
-	public double getValue() {
-		return this.getReal().getValue();
-	}
-
-	@XmlAttribute
-	@Override
-	public Scalar getInverse() {
-		return (Scalar) ((Field) QuaternionSpace.getInstance()).inverse(this);
-	}
-
-	/**
-	 * @return the real
-	 */
-	@XmlAttribute
-	public Scalar getReal() {
-		return this.real;
-	}
-
-	@Override
-	@XmlAttribute
-	public String toString() {
-		return "(" + this.getReal().getValue() + ","+ this.getI().getValue()+ ","+this.getJ().getValue()+"," + this.getK().getValue() + ")";
-	}
-
-	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-	} 
-
-	@XmlAttribute
-	@Override
-	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
+	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		return this.getCoordinates();
+	}
+
+	@Override
+	public Integer getDim() {
+		return 4;
 	}
 
 	/**
@@ -125,6 +91,12 @@ public class Quaternion extends Tuple implements Scalar {
 	@XmlAttribute
 	public Scalar getI() {
 		return this.i;
+	}
+
+	@XmlAttribute
+	@Override
+	public Scalar getInverse() {
+		return (Scalar) ((Field) QuaternionSpace.getInstance()).inverse(this);
 	}
 
 	/**
@@ -141,6 +113,36 @@ public class Quaternion extends Tuple implements Scalar {
 	@XmlAttribute
 	public Scalar getK() {
 		return this.k;
+	}
+
+	/**
+	 * @return the real
+	 */
+	@XmlAttribute
+	public Scalar getReal() {
+		return this.real;
+	}
+
+	@XmlAttribute
+	@Override
+	public double getValue() {
+		return this.getReal().getValue();
+	}
+
+	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+		this.coordinates = coordinates;
+	}
+
+	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+	}
+
+	@Override
+	@XmlAttribute
+	public String toString() {
+		return "(" + this.getReal().getValue() + "," + this.getI().getValue() + "," + this.getJ().getValue() + ","
+				+ this.getK().getValue() + ")";
 	}
 
 }

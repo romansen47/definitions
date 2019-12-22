@@ -31,7 +31,7 @@ public class RealOne extends Real {
 
 	public RealOne() {
 		super();
-		setValue(1d);
+		this.setValue(1d);
 	}
 
 	@Override

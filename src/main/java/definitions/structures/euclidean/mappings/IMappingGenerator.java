@@ -13,24 +13,25 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface IMappingGenerator extends Serializable {
 
-	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) {
-		final Scalar[][] genericMatrix = MappingGenerator.getInstance().composition(a.getGenericMatrix(),
-				b.getGenericMatrix());
-		return getFiniteDimensionalLinearMapping(((EuclideanSpace) b.getSource()), ((EuclideanSpace) a.getSource()),
-				genericMatrix);
-	}
-
 	default Scalar[][] composition(final Scalar[][] scalars, final Scalar[][] scalars2) {
 		final Scalar[][] matC = new Scalar[scalars.length][scalars2[0].length];
 		for (int i = 0; i < scalars.length; i++) {
 			for (int j = 0; j < scalars2[0].length; j++) {
 				matC[i][j] = RealLine.getInstance().getZero();
 				for (int k = 0; k < scalars[0].length; k++) {
-					matC[i][j] = RealLine.getInstance().get(matC[i][j].getValue() + scalars[i][k].getValue() * scalars2[k][j].getValue());
+					matC[i][j] = RealLine.getInstance()
+							.get(matC[i][j].getValue() + scalars[i][k].getValue() * scalars2[k][j].getValue());
 				}
 			}
 		}
 		return matC;
+	}
+
+	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) {
+		final Scalar[][] genericMatrix = MappingGenerator.getInstance().composition(a.getGenericMatrix(),
+				b.getGenericMatrix());
+		return this.getFiniteDimensionalLinearMapping(((EuclideanSpace) b.getSource()),
+				((EuclideanSpace) a.getSource()), genericMatrix);
 	}
 
 	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
@@ -50,8 +51,8 @@ public interface IMappingGenerator extends Serializable {
 			}
 			transposedMatrix.put(targetVec, entry);
 		}
-		return getFiniteDimensionalLinearMapping((EuclideanSpace) map.getTarget(), (EuclideanSpace) map.getSource(),
-				transposedMatrix);
+		return this.getFiniteDimensionalLinearMapping((EuclideanSpace) map.getTarget(),
+				(EuclideanSpace) map.getSource(), transposedMatrix);
 	}
 
 }

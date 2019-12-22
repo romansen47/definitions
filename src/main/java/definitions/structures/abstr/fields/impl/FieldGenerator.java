@@ -13,44 +13,44 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	private static IFieldGenerator instance;
 
+	public static void setInstance(final FieldGenerator fieldGenerator) {
+		instance = fieldGenerator;
+		((FieldGenerator) instance).setRealLine(fieldGenerator.getRealLine());
+	}
+
 	@Autowired
 	private RealLine realLine;
-	
+
 	@Autowired
 	private BinaryField binaryField;
+
+	public FieldGenerator() {
+	}
+
+	public BinaryField getBinaryField() {
+		if (BinaryField.getInstance() == null) {
+			BinaryField.setInstance(this.binaryField);
+		}
+		return this.binaryField;
+	}
 
 	public IFieldGenerator getInstance() {
 		return instance;
 	}
 
-	public FieldGenerator() {
-	}
-
 	public RealLine getRealLine() {
-		return realLine;
+		return this.realLine;
 	}
 
-	public void setRealLine(RealLine realLine) {
+	public void setBinaryField(final BinaryField binaryField) {
+		this.binaryField = binaryField;
+	}
+
+	public void setRealLine(final RealLine realLine) {
 		this.realLine = realLine;
 		RealLine.setInstance(realLine);
 		ComplexPlane.setRealLine(realLine);
-		((FiniteDimensionalVectorSpace)QuaternionSpace.getInstance()).setField(realLine);
-	}
-
-	public static void setInstance(FieldGenerator fieldGenerator) {
-		instance = fieldGenerator;
-		((FieldGenerator) instance).setRealLine(fieldGenerator.getRealLine());
-	}
-
-	public BinaryField getBinaryField() {
-		if (BinaryField.getInstance()==null) {
-			BinaryField.setInstance(binaryField);
-		}
-		return binaryField;
-	}
-
-	public void setBinaryField(BinaryField binaryField) {
-		this.binaryField = binaryField;
+		((FiniteDimensionalVectorSpace) QuaternionSpace.getInstance()).setField(realLine);
 	}
 
 }

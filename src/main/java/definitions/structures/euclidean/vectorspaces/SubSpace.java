@@ -11,10 +11,10 @@ import definitions.structures.euclidean.mappings.FiniteDimensionalInjection;
  */
 public interface SubSpace extends EuclideanSpace {
 
-	EuclideanSpace getSuperSpace();
+	@Override
+	Integer getDim();
 
 	FiniteDimensionalInjection getEmbedding();
 
-	@Override
-	Integer getDim();
+	EuclideanSpace getSuperSpace();
 }

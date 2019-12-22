@@ -30,7 +30,53 @@ public class MappingGenerator implements IMappingGenerator {
 		return instance;
 	}
 
+	public static void setInstance(final MappingGenerator mappingGenerator) {
+		MappingGenerator.instance = mappingGenerator;
+	}
+
 	public MappingGenerator() {
+	}
+
+	@Override
+	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+			final Map<Vector, Map<Vector, Scalar>> coordinates) {
+		if (source instanceof EuclideanFunctionSpace) {
+			return new InjectiveFunctionSpaceOperator((EuclideanFunctionSpace) source, (EuclideanFunctionSpace) target,
+					coordinates);
+		}
+		final int dimSource = source.getDim();
+		final int dimTarget = target.getDim();
+		if (dimSource < dimTarget) {
+			final FiniteDimensionalHomomorphism tmp = new FiniteDimensionalLinearMapping(source, target, coordinates);
+			if (dimSource == tmp.getRank()) {
+				return new InjectiveLinearMapping(tmp);
+			}
+		} else if (dimSource == dimTarget) {
+			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
+			if (((FiniteDimensionalHomomorphism) ans).getRank() == dimSource) {
+				return new InvertibleSelfMapping(source, coordinates);
+			}
+			return ans;
+		}
+		return new FiniteDimensionalLinearMapping(source, target, coordinates);
+	}
+
+	@Override
+	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+			final Scalar[][] genericMatrix) {
+		final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
+		int i = 0;
+		for (final Vector vec1 : source.genericBaseToList()) {
+			int j = 0;
+			final Map<Vector, Scalar> coordinates = new HashMap<>();
+			for (final Vector vec2 : target.genericBaseToList()) {
+				coordinates.put(vec2, genericMatrix[j][i]);
+				j++;
+			}
+			map.put(vec1, coordinates);
+			i++;
+		}
+		return this.getFiniteDimensionalLinearMapping(source, target, map);
 	}
 
 	@Override
@@ -65,52 +111,6 @@ public class MappingGenerator implements IMappingGenerator {
 			return ans;
 		}
 		return new FiniteDimensionalLinearMapping(source, target, coordinates);
-	}
-
-	@Override
-	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates) {
-		if (source instanceof EuclideanFunctionSpace) {
-			return new InjectiveFunctionSpaceOperator((EuclideanFunctionSpace) source, (EuclideanFunctionSpace) target,
-					coordinates);
-		}
-		final int dimSource = source.getDim();
-		final int dimTarget = target.getDim();
-		if (dimSource < dimTarget) {
-			final FiniteDimensionalHomomorphism tmp = new FiniteDimensionalLinearMapping(source, target, coordinates);
-			if (dimSource == tmp.getRank()) {
-				return new InjectiveLinearMapping(tmp);
-			}
-		} else if (dimSource == dimTarget) {
-			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
-			if (((FiniteDimensionalHomomorphism) ans).getRank() == dimSource) {
-				return new InvertibleSelfMapping(source, coordinates);
-			}
-			return ans;
-		}
-		return new FiniteDimensionalLinearMapping(source, target, coordinates);
-	}
-
-	@Override
-	public Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
-			Scalar[][] genericMatrix) {
-		final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
-		int i = 0;
-		for (final Vector vec1 : source.genericBaseToList()) {
-			int j = 0;
-			final Map<Vector, Scalar> coordinates = new HashMap<>();
-			for (final Vector vec2 : target.genericBaseToList()) {
-				coordinates.put(vec2, genericMatrix[j][i]);
-				j++;
-			}
-			map.put(vec1, coordinates);
-			i++;
-		}
-		return this.getFiniteDimensionalLinearMapping(source, target, map);
-	}
-
-	public static void setInstance(MappingGenerator mappingGenerator) {
-		MappingGenerator.instance = mappingGenerator;
 	}
 
 	// @Override

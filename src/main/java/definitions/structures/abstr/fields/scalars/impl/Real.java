@@ -28,16 +28,12 @@ import settings.GlobalSettings;
 @XmlRootElement
 @Component
 public class Real extends Number implements Scalar, FiniteVector {
-	
+
 	@XmlElement
 	private static final long serialVersionUID = 448447488896787384L;
 
 	@XmlElement
 	private double realValue;
-	
-	public void setValue(double value) {
-		this.realValue=value;
-	}
 
 	private Map<Vector, Scalar> coordinates;
 
@@ -45,36 +41,31 @@ public class Real extends Number implements Scalar, FiniteVector {
 	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
 	public Real() {
-		this.realValue=0d;
+		this.realValue = 0d;
 	}
-	
+
+	@Override
+	public double doubleValue() {
+		return this.getValue();
+	}
+
 //	public Real(double value) {
 //		this.realValue = value;
 //	}
 
 	@Override
-	public String toXml() {
-		return "<real>\r"+Double.toString(realValue)+"\r</real>\r";
-	}
-	
-	public Scalar toComplex() {
-		return new Complex(this, RealLine.getInstance().getZero());
-	}
-
-	@Override
-	@XmlAttribute
-	public Integer getDim() {
-		return 1;
-	}
-
-	@Override
-	public boolean elementOf(VectorSpace space) {
+	public boolean elementOf(final VectorSpace space) {
 		return space == RealLine.getInstance();
 	}
 
 	@Override
-	public boolean equals(Object vec) {
+	public boolean equals(final Object vec) {
 		return (vec instanceof Real && Math.abs(((Real) vec).getValue() - this.getValue()) < this.eps);
+	}
+
+	@Override
+	public float floatValue() {
+		return (float) this.getValue();
 	}
 
 	@Override
@@ -87,7 +78,32 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates) {
+	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
+		return this.getCoordinates();
+	}
+
+	@Override
+	@XmlAttribute
+	public Integer getDim() {
+		return 1;
+	}
+
+	@Override
+	public Set<Vector> getGenericBase() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@XmlAttribute
+	public Scalar getInverse() {
+		if (Math.abs(this.getValue()) > 1.e-15) {
+			final Real ans = new Real();
+			ans.setValue(1 / this.getValue());
+			return ans;
+		}
+		System.out.println("Devision by 0.0!");
+		return null;
 	}
 
 	@Override
@@ -107,31 +123,15 @@ public class Real extends Number implements Scalar, FiniteVector {
 	}
 
 	@Override
-	public float floatValue() {
-		return (float) this.getValue();
+	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 	}
 
 	@Override
-	public double doubleValue() {
-		return this.getValue();
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 	}
 
-	@Override
-	@XmlAttribute
-	public Scalar getInverse() {
-		if (Math.abs(this.getValue()) > 1.e-15) {
-			Real ans= new Real();
-			ans.setValue(1 / this.getValue());
-			return ans;
-		}
-		System.out.println("Devision by 0.0!");
-		return null;
-	}
-
-	@Override
-	@XmlAttribute
-	public String toString() {
-		return "" + this.getValue();
+	public void setValue(final double value) {
+		this.realValue = value;
 	}
 
 	// @Override
@@ -142,18 +142,18 @@ public class Real extends Number implements Scalar, FiniteVector {
 	// return obj instanceof Real && ((Real) obj).getValue() == this.getValue();
 	// }
 
-	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+	public Scalar toComplex() {
+		return new Complex(this, RealLine.getInstance().getZero());
 	}
 
 	@Override
-	public Set<Vector> getGenericBase() {
-		// TODO Auto-generated method stub
-		return null;
+	@XmlAttribute
+	public String toString() {
+		return "" + this.getValue();
 	}
 
 	@Override
-	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
-		return this.getCoordinates();
+	public String toXml() {
+		return "<real>\r" + Double.toString(this.realValue) + "\r</real>\r";
 	}
 }

@@ -44,12 +44,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * Plain constructor. @
 	 */
-	protected FiniteDimensionalFunctionSpace(Field field) {
+	protected FiniteDimensionalFunctionSpace(final Field field) {
 		super(field);
 	}
 
-	public FiniteDimensionalFunctionSpace(Field field, final List<Vector> genericBase, final double left,
-			final double right, boolean orthonormalize) {
+	public FiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase, final double left,
+			final double right, final boolean orthonormalize) {
 		super(field, genericBase);
 		this.interval = new double[2];
 		this.interval[0] = left;
@@ -65,8 +65,27 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public double[] getInterval() {
-		return this.interval;
+
+	public Vector add(final Vector vec1, final Vector vec2) {
+		return EuclideanFunctionSpace.super.add(vec1, vec2);
+	}
+
+	/**
+	 * Method to fill a list with sine functions.
+	 * 
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param d
+	 * @param tmpBase the list.
+	 */
+	@Measurable
+	protected void getCosineFunctions(final int n, final double d, final List<Vector> tmpBase) {
+		for (int i = 1; i < (n + 1); i++) {
+			final Vector cos = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
+					RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(d * i)) {
+				private static final long serialVersionUID = 7151322718389633337L;
+			};
+			tmpBase.add(cos);
+		}
 	}
 
 	@Override
@@ -75,31 +94,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	
-	public Vector normalize(final Vector vec) {
-		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
-	}
-
-	@Override
-	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
-				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
-			return super.innerProduct(vec1, vec2);
-		} else {
-			return this.integral((Function) vec1, (Function) vec2);
-		}
-	}
-
-	@Override
-	public Vector nullVec() {
-		if (this.nullVec == null) {
-			final Map<Vector, Scalar> nul = new HashMap<>();
-			for (final Vector vec : this.genericBaseToList()) {
-				nul.put(vec, (Scalar) this.getField().getZero());
-			}
-			this.nullVec = new FunctionTuple(nul, this);
-		}
-		return this.nullVec;
+	public double[] getInterval() {
+		return this.interval;
 	}
 
 	@Override
@@ -114,6 +110,56 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		return this.getInterval()[1];
 	}
 
+	/**
+	 * Method to fill a list with sine functions.
+	 * 
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param d
+	 * @param tmpBase the list.
+	 */
+	@Measurable
+	protected void getSineFunctions(final int n, final double d, final List<Vector> tmpBase) {
+		for (int i = 1; i < (n + 1); i++) {
+			final Vector sin = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
+					RealLine.getInstance().getZero(), RealLine.getInstance().get(d * i)) {
+				private static final long serialVersionUID = -6683701759680058862L;
+			};
+			tmpBase.add(sin);
+		}
+	}
+
+	@Override
+	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
+		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
+				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
+			return super.innerProduct(vec1, vec2);
+		} else {
+			return this.integral((Function) vec1, (Function) vec2);
+		}
+	}
+
+	@Override
+
+	public Vector normalize(final Vector vec) {
+		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
+	}
+
+	@Override
+	public Vector nullVec() {
+		if (this.nullVec == null) {
+			final Map<Vector, Scalar> nul = new HashMap<>();
+			for (final Vector vec : this.genericBaseToList()) {
+				nul.put(vec, (Scalar) this.getField().getZero());
+			}
+			this.nullVec = new FunctionTuple(nul, this);
+		}
+		return this.nullVec;
+	}
+
+	/*
+	 * These overrides are for tracing purposes only
+	 */
+
 	@Measurable
 	public void plotBase() {
 		for (final Vector vec : this.genericBaseToList()) {
@@ -121,68 +167,22 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
-	/**
-	 * Method to fill a list with sine functions.
-	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
-	 * @param tmpBase the list.
-	 */
-	@Measurable
-	protected void getSineFunctions(final int n, double d, final List<Vector> tmpBase) {
-		for (int i = 1; i < (n + 1); i++) {
-			final Vector sin = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().getZero(),
-					RealLine.getInstance().get(d * i)) {
-				private static final long serialVersionUID = -6683701759680058862L;
-			};
-			tmpBase.add(sin);
-		}
-	}
-
-	/**
-	 * Method to fill a list with sine functions.
-	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
-	 * @param tmpBase the list.
-	 */
-	@Measurable
-	protected void getCosineFunctions(final int n, double d, final List<Vector> tmpBase) {
-		for (int i = 1; i < (n + 1); i++) {
-			final Vector cos = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)), RealLine.getInstance().get(0.5 * Math.PI),
-					RealLine.getInstance().get(d * i)) {
-				private static final long serialVersionUID = 7151322718389633337L;
-			};
-			tmpBase.add(cos);
-		}
-	}
-
-	/*
-	 * These overrides are for tracing purposes only
-	 */
-
 	@Override
-	
-	public Vector add(final Vector vec1, final Vector vec2) {
-		return EuclideanFunctionSpace.super.add(vec1, vec2);
-	}
 
-	@Override
-	
-	public Vector stretch(final Vector vec, final Scalar r) {
-		return EuclideanFunctionSpace.super.stretch(vec, r);
-	}
-
-	@Override
-	
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	@Override
-	
+
 	public void show() {
 		super.show();
+	}
+
+	@Override
+
+	public Vector stretch(final Vector vec, final Scalar r) {
+		return EuclideanFunctionSpace.super.stretch(vec, r);
 	}
 
 }

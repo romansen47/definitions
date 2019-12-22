@@ -24,57 +24,58 @@ public interface IGenerator extends Serializable {
 //		return getVectorgenerator().getFiniteVector(dim);
 //	}
 
-	default Homomorphism getFiniteDimensionalLinearMapping(Scalar[][] genericMatrix) {
-		return getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
+	FieldGenerator getFieldGenerator();
+
+	default VectorSpace getFiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase,
+			final double left, final double right) {
+		return this.getSpacegenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
 	}
 
-	default Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
-			Map<Vector, Map<Vector, Scalar>> coordinates) {
-		return getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
+	default Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+			final Map<Vector, Map<Vector, Scalar>> coordinates) {
+		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
-	default EuclideanSpace getFiniteDimensionalVectorSpace(int dim) {
-		return getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
+	default Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
+		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
 	}
 
-	default VectorSpace getFiniteDimensionalFunctionSpace(Field field, List<Vector> genericBase, double left,
-			double right) {
-		return getSpacegenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
+	default VectorSpace getFiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space,
+			final int degree) {
+		return this.getSpacegenerator().getFiniteDimensionalSobolevSpace(field, space, degree);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(Field field, List<Vector> genericBase, double left,
-			double right, final int degree) throws Exception {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(field, genericBase, left, right, degree);
+	default VectorSpace getFiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase,
+			final double left, final double right, final int degree) throws Exception {
+		return this.getSpacegenerator().getFiniteDimensionalSobolevSpace(field, genericBase, left, right, degree);
 	}
 
-	default VectorSpace getTrigonometricSpace(Field field, int n) {
-		return getSpacegenerator().getTrigonometricSpace(field, n);
+	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
+		return this.getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
-	default VectorSpace getFiniteDimensionalSobolevSpace(Field field, EuclideanFunctionSpace space, int degree) {
-		return getSpacegenerator().getFiniteDimensionalSobolevSpace(field, space, degree);
-	}
+	IMappingGenerator getMappinggenerator();
 
-	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(Field field, int n) {
+//	IVectorGenerator getVectorgenerator();
+
+	ISpaceGenerator getSpacegenerator();
+
+	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field field, final int n) {
 		try {
-			return getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
+			return this.getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-//	IVectorGenerator getVectorgenerator();
-
-	IMappingGenerator getMappinggenerator();
-
-	ISpaceGenerator getSpacegenerator();
-
-	void saveCoordinateSpaces() throws IOException;
+	default VectorSpace getTrigonometricSpace(final Field field, final int n) {
+		return this.getSpacegenerator().getTrigonometricSpace(field, n);
+	}
 
 	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;
 
-	FieldGenerator getFieldGenerator();
+	void saveCoordinateSpaces() throws IOException;
 
 	void setFieldGenerator(FieldGenerator fieldGenerator);
 

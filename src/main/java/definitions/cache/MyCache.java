@@ -11,16 +11,16 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class MyCache implements ICache {
 
 	private static final long serialVersionUID = -4576680725550884235L;
- 
-	private Map<Integer, EuclideanSpace> coordinateSpaces=new ConcurrentHashMap<>();
+
+	private Map<Integer, EuclideanSpace> coordinateSpaces = new ConcurrentHashMap<>();
 
 	@Override
-	public Map<Integer, EuclideanSpace> getConcreteCache() { 
+	public Map<Integer, EuclideanSpace> getConcreteCache() {
 		return this.coordinateSpaces;
 	}
 
-	@Override 
-	public void setConcreteCache(Map<Integer, EuclideanSpace> cache) {
+	@Override
+	public void setConcreteCache(final Map<Integer, EuclideanSpace> cache) {
 		this.coordinateSpaces = cache;
 	}
 

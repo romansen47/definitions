@@ -28,38 +28,40 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
-		final Field f = getField();
-		if (vec1.equals(nullVec())) {
+		final Field f = this.getField();
+		if (vec1.equals(this.nullVec())) {
 			return vec2;
 		}
-		if (vec2.equals(nullVec())) {
+		if (vec2.equals(this.nullVec())) {
 			return vec1;
 		}
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
 					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
 				return new GenericFunction() {
-					private static final long serialVersionUID = -2989863516320429371L;
-
-					@Override
-					public Scalar value(final Scalar input) {
-						return (Scalar) getField().add(((Function) vec1).value(input), ((Function) vec2).value(input));
-					}
+					private long serialVersionUID = -2989863516320429371L;
 
 					@Override
 					public Field getField() {
 						return f;
 					}
+
+					@Override
+					public Scalar value(final Scalar input) {
+						return (Scalar) this.getField().add(((Function) vec1).value(input),
+								((Function) vec2).value(input));
+					}
 				};
 			}
-			final List<Vector> base = genericBaseToList();
+			final List<Vector> base = this.genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new HashMap<>();
-			final Vector newVec1 = functionTuple(vec1);
-			final Vector newVec2 = functionTuple(vec2);
+			final Vector newVec1 = this.functionTuple(vec1);
+			final Vector newVec2 = this.functionTuple(vec2);
 			for (final Vector vec : base) {
-				coordinates.put(vec,
-						getField().get(((FiniteVectorMethods) newVec1).getCoordinates().get(getBaseVec(vec)).getValue()
-								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(getBaseVec(vec)).getValue()));
+				coordinates.put(vec, this.getField()
+						.get(((FiniteVectorMethods) newVec1).getCoordinates().get(this.getBaseVec(vec)).getValue()
+								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(this.getBaseVec(vec))
+										.getValue()));
 			}
 			return new FunctionTuple(coordinates, this);
 		}
@@ -72,7 +74,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * @param vec the function
 	 * @return the projection of vec
 	 */
-	default Vector functionTuple(Vector vec) {
+	default Vector functionTuple(final Vector vec) {
 		if (vec instanceof FunctionTuple) {
 			return vec;
 		}
@@ -90,7 +92,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	default Function nullFunction() {
 		final Map<Vector, Scalar> nul = new HashMap<>();
-		for (final Vector baseVec : genericBaseToList()) {
+		for (final Vector baseVec : this.genericBaseToList()) {
 			nul.put(baseVec, RealLine.getInstance().getZero());
 		}
 		return new FunctionTuple(nul, this);
@@ -101,7 +103,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	@Override
 	default Vector nullVec() {
-		return nullFunction();
+		return this.nullFunction();
 	}
 
 	// @Override
@@ -120,32 +122,32 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	@Override
 	default Vector stretch(final Vector vec, final Scalar r) {
-		if (vec.equals(nullVec()) || r.equals(getField().getZero())) {
-			return (Function) nullVec();
+		if (vec.equals(this.nullVec()) || r.equals(this.getField().getZero())) {
+			return this.nullVec();
 		}
-		if (r.equals(getField().getOne())) {
-			return (Function) vec;// ((Function) vec).getProjection(this);
+		if (r.equals(this.getField().getOne())) {
+			return vec;// ((Function) vec).getProjection(this);
 		}
-		final Field f = getField();
+		final Field f = this.getField();
 		if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 			return new GenericFunction() {
-				private static final long serialVersionUID = -3311201318061885649L;
-
-				@Override
-				public Scalar value(final Scalar input) {
-					return (Scalar) getField().product(((Function) vec).value(input), r);
-				}
+				private long serialVersionUID = -3311201318061885649L;
 
 				@Override
 				public Field getField() {
 					return f;
+				}
+
+				@Override
+				public Scalar value(final Scalar input) {
+					return (Scalar) this.getField().product(((Function) vec).value(input), r);
 				}
 			};
 		} else {
 			final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 			final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 			for (final Vector vec1 : coordinates.keySet()) {
-				stretched.put(vec1, (Scalar) getField().product(coordinates.get(vec1), r));
+				stretched.put(vec1, (Scalar) this.getField().product(coordinates.get(vec1), r));
 			}
 			return new FunctionTuple(stretched, this);
 		}

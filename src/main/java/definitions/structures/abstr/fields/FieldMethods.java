@@ -9,7 +9,11 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public interface FieldMethods extends XmlPrintable, Serializable {
-	default void show(Field field) {
+	default Scalar get(final double value) {
+		return null;
+	}
+
+	default void show(final Field field) {
 		final List<Vector> base = field.genericBaseToList();
 		final Scalar[][] products = new Scalar[base.size()][base.size()];
 		int i = 0;
@@ -27,9 +31,5 @@ public interface FieldMethods extends XmlPrintable, Serializable {
 			System.out.println("");
 			i++;
 		}
-	}
-
-	default Scalar get(double value) {
-		return null;
 	}
 }

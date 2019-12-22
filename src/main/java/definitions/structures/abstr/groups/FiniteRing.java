@@ -5,61 +5,64 @@ import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 public interface FiniteRing extends FiniteGroup, Ring {
-
+	
 	@Override
-	RingElement get(Integer index);
-
-	@Override
-	default boolean isIrreducible(RingElement element) {
-		if(isPrimeElement(element)) {
-			return true;
-		}
-		for (int i=2;i<getOrder();i++) {
-			for (int j=2;j<getOrder();j++) {
-				if (getMuliplicativeMonoid().operation(get(i), get(j)).equals(element)){
-					if (!(isUnit(get(i)) || isUnit(get(j)))) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
-	};
-
-	default boolean isPrimeElement(RingElement element) {
-		if (element.equals(getIdentityElement()) || isUnit(element)) {
-			return false;
-		}
-		for (int i=2;i<getOrder();i++) {
-			for (int j=2;j<getOrder();j++) {
-				if (divides(element,(RingElement) getMuliplicativeMonoid().operation(get(i), get(j)))){
-					if(!divides(element,get(i)) && !divides(element,get(j))) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
-	};
-
-	@Override
-	default boolean isUnit(RingElement element) { 
-		if (element.equals(get(1))) {
-			return true;
-		} 
-		for (int i = 1; i < getOrder(); i++) {
-			RingElement other = (RingElement) getMuliplicativeMonoid().operation(element, get(i));
-			if (other.equals(get(1))) {
+	default boolean divides(final RingElement devisor, final RingElement devident) {
+		for (int i = 1; i < this.getOrder(); i++) {
+			final RingElement tmp = this.get(i);
+			if (this.getMuliplicativeMonoid().operation(devisor, tmp).equals(devident)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	default boolean divides(RingElement devisor, RingElement devident) {
-		for (int i = 1; i < getOrder(); i++) {
-			RingElement tmp = get(i);
-			if (getMuliplicativeMonoid().operation(devisor, get(i)).equals(devident)) {
+	@Override
+	RingElement get(Integer index);
+
+	@Override
+	default boolean isIrreducible(final RingElement element) {
+		if (this.isPrimeElement(element)) {
+			return true;
+		}
+		for (int i = 2; i < this.getOrder(); i++) {
+			for (int j = 2; j < this.getOrder(); j++) {
+				if (this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)).equals(element)) {
+					if (!(this.isUnit(this.get(i)) || this.isUnit(this.get(j)))) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	default boolean isPrimeElement(final RingElement element) {
+		if (element.equals(this.getIdentityElement()) || this.isUnit(element)) {
+			return false;
+		}
+		for (int i = 2; i < this.getOrder(); i++) {
+			for (int j = 2; j < this.getOrder(); j++) {
+				if (this.divides(element,
+						(RingElement) this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)))) {
+					if (!this.divides(element, this.get(i)) && !this.divides(element, this.get(j))) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	default boolean isUnit(final RingElement element) {
+		if (element.equals(this.get(1))) {
+			return true;
+		}
+		for (int i = 1; i < this.getOrder(); i++) {
+			final RingElement other = (RingElement) this.getMuliplicativeMonoid().operation(element, this.get(i));
+			if (other.equals(this.get(1))) {
 				return true;
 			}
 		}

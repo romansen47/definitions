@@ -24,6 +24,14 @@ public interface InnerProductSpace extends NormedSpace {
 	Scalar innerProduct(Vector vec1, Vector vec2);
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default Real norm(final Vector vec) {
+		return (Real) RealLine.getInstance().get(Math.sqrt(this.innerProduct(vec, vec).getValue()));
+	}
+
+	/**
 	 * Method to project one vector onto another.
 	 * 
 	 * @param w reference vector.
@@ -31,13 +39,5 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @return projection of v on w.
 	 */
 	Vector projection(Vector w, Vector v);
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default Real norm(final Vector vec) {
-		return (Real) RealLine.getInstance().get(Math.sqrt(innerProduct(vec, vec).getValue()));
-	}
 
 }

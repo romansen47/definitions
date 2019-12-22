@@ -10,12 +10,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -38,126 +35,39 @@ public class DeepSearch implements Unweavable {
 	static int maxDepth;
 	static int depth;
 
-	boolean loggingToConsole=false;
+	public static void print(final Thread thread) throws IOException {
+		final String testcase = tests.get(thread);
+		final String path = PATH + testcase.replace(Pattern.quote("."), "/") + "/" + "deep-search.xml";
+		new File(PATH + testcase).mkdirs();
+		w = new FileWriter(path);
+		bw = new BufferedWriter(w);
+		bw.write("<" + testcase + ">\r");
+		bw.flush();
+		final List<String> list = map.get(thread);
+		if (list == null) {
+			org.apache.log4j.Logger.getLogger("DeepSearch").info("list empty");
+		} else {
+			for (final String str : list) {
+				bw.write(str);
+				bw.flush();
+			}
+		}
+		bw.write("</" + testcase + ">");
+		bw.flush();
+		bw.close();
+		w.close();
+	}
+
+	boolean loggingToConsole = false;
+
 	boolean running = false;
 
 	@Around("@annotation(definitions.Proceed) && !execution(* definitions.Unweavable.*(..))")
-	public Object aroundLookup(ProceedingJoinPoint pjp) throws Throwable {
+	public Object aroundLookup(final ProceedingJoinPoint pjp) throws Throwable {
 		return this.getLookUp(pjp);
 	}
 
-	private Object getLookUp(ProceedingJoinPoint pjp) throws Throwable {
-		if (!running) {
-			running = true;
-		}
-		if (loggingToConsole) {
-			logger.info(pjp.getThis().getClass().getSimpleName() + ": " + pjp.toShortString());
-		}
-		this.createEntries(pjp);
-		return this.createXmlEntry(pjp);
-	}
-
-	public String xmlString(Object o) {
-		List<String> ans = new ArrayList<>();
-		if (o != null) {
-			if (o instanceof Integer || o instanceof String || o instanceof Boolean) {
-				ans.add(getEntry(o, ans));
-			} else {
-				if (o instanceof XmlPrintable) {
-					ans.add(((XmlPrintable) o).toXml());
-				} else {
-					if (o instanceof List<?>) {
-						ans.add("<list>");
-						for (Object x : (List<?>) o) {
-							String str = getEntry(o, ans);
-							if (str == "") {
-								if (x instanceof XmlPrintable) {
-									ans.add(((XmlPrintable) x).toXml());
-								} else {
-									ans.add("<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r");
-								}
-							} else {
-								ans.add(str);
-							}
-						}
-						ans.add("</list>");
-					}
-					if (o instanceof Map<?, ?>) {
-						ans.add("<map>");
-						for (Object x : ((Map<?, ?>) o).keySet()) {
-							String strX = "";
-							String strY = "";
-							if (x instanceof XmlPrintable) {
-								strX += ((XmlPrintable) x).toXml();
-							} else {
-								strX += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
-							}
-							Object y = ((Map<?, ?>) o).get(x);
-							if (y instanceof XmlPrintable) {
-								strY += ((XmlPrintable) y).toXml();
-							} else {
-								strY += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
-							}
-							String entry = "<key>\r" + strX + "\r</key>\r";
-							entry += "<value>\r" + strY + "\r</value>\r";
-							ans.add(entry);
-						}
-						ans.add("</map>");
-					} else {
-						ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
-					}
-				}
-			}
-		}
-		String realAns = "";
-		for (String str : ans) {
-			realAns += str;
-		}
-
-		return realAns;
-	}
-
-	private String getEntry(Object o, List<String> ans) {
-		String str = "";
-		if (o instanceof Integer) { // || o instanceof String || o instanceof Boolean) {
-			str = "<integer>" + o.toString() + "</integer>\r";
-		}
-		if (o instanceof Boolean) {
-			str = "<boolean>" + o.toString() + "</boolean>\r";
-		}
-		if (o instanceof String) {
-			str = "<string>" + o.toString() + "</string>\r";
-		}
-		return str;
-	}
-
-	private Object createXmlEntry(ProceedingJoinPoint pjp) throws Throwable {
-		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
-
-		String str = pjp.toShortString().split(Pattern.quote("("))[1];
-		String ans = "<" + str + ">\r";
-		Object[] args = pjp.getArgs();
-		if (args.length > 0) {
-			ans += "<arguments>\r";
-			for (Object arg : args) {
-				ans += xmlString(arg);
-			}
-			ans += "</arguments>\r";
-		}
-		ans += "<executions>\r";
-		list.add(ans);
-		String ans2 = "";
-		Object o = pjp.proceed();
-		ans2 += "</executions>\r";
-		ans2 += "<return>";
-		ans2 += xmlString(o);
-		ans2 += "</return>";
-		ans2 += "</" + str + ">\r";
-		list.add(ans2);
-		return o;
-	}
-
-	private void createEntries(ProceedingJoinPoint pjp) {
+	private void createEntries(final ProceedingJoinPoint pjp) {
 		List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
 //		try {
 		if (list == null) {
@@ -179,26 +89,114 @@ public class DeepSearch implements Unweavable {
 //		}
 	}
 
-	public static void print(Thread thread) throws IOException {
-		String testcase = tests.get(thread);
-		String path = PATH + testcase.replace(Pattern.quote("."), "/") + "/" + "deep-search.xml";
-		new File(PATH + testcase).mkdirs();
-		w = new FileWriter(path);
-		bw = new BufferedWriter(w);
-		bw.write("<" + testcase + ">\r");
-		bw.flush();
-		List<String> list = map.get(thread);
-		if (list == null) {
-			org.apache.log4j.Logger.getLogger("DeepSearch").info("list empty");
-		} else {
-			for (String str : list) {
-				bw.write(str);
-				bw.flush();
+	private Object createXmlEntry(final ProceedingJoinPoint pjp) throws Throwable {
+		final List<String> list = map.getOrDefault(Thread.currentThread(), new ArrayList<>());
+
+		final String str = pjp.toShortString().split(Pattern.quote("("))[1];
+		String ans = "<" + str + ">\r";
+		final Object[] args = pjp.getArgs();
+		if (args.length > 0) {
+			ans += "<arguments>\r";
+			for (final Object arg : args) {
+				ans += this.xmlString(arg);
+			}
+			ans += "</arguments>\r";
+		}
+		ans += "<executions>\r";
+		list.add(ans);
+		String ans2 = "";
+		final Object o = pjp.proceed();
+		ans2 += "</executions>\r";
+		ans2 += "<return>";
+		ans2 += this.xmlString(o);
+		ans2 += "</return>";
+		ans2 += "</" + str + ">\r";
+		list.add(ans2);
+		return o;
+	}
+
+	private String getEntry(final Object o, final List<String> ans) {
+		String str = "";
+		if (o instanceof Integer) { // || o instanceof String || o instanceof Boolean) {
+			str = "<integer>" + o.toString() + "</integer>\r";
+		}
+		if (o instanceof Boolean) {
+			str = "<boolean>" + o.toString() + "</boolean>\r";
+		}
+		if (o instanceof String) {
+			str = "<string>" + o.toString() + "</string>\r";
+		}
+		return str;
+	}
+
+	private Object getLookUp(final ProceedingJoinPoint pjp) throws Throwable {
+		if (!this.running) {
+			this.running = true;
+		}
+		if (this.loggingToConsole) {
+			logger.info(pjp.getThis().getClass().getSimpleName() + ": " + pjp.toShortString());
+		}
+		this.createEntries(pjp);
+		return this.createXmlEntry(pjp);
+	}
+
+	public String xmlString(final Object o) {
+		final List<String> ans = new ArrayList<>();
+		if (o != null) {
+			if (o instanceof Integer || o instanceof String || o instanceof Boolean) {
+				ans.add(this.getEntry(o, ans));
+			} else {
+				if (o instanceof XmlPrintable) {
+					ans.add(((XmlPrintable) o).toXml());
+				} else {
+					if (o instanceof List<?>) {
+						ans.add("<list>");
+						for (final Object x : (List<?>) o) {
+							final String str = this.getEntry(o, ans);
+							if (str == "") {
+								if (x instanceof XmlPrintable) {
+									ans.add(((XmlPrintable) x).toXml());
+								} else {
+									ans.add("<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r");
+								}
+							} else {
+								ans.add(str);
+							}
+						}
+						ans.add("</list>");
+					}
+					if (o instanceof Map<?, ?>) {
+						ans.add("<map>");
+						for (final Object x : ((Map<?, ?>) o).keySet()) {
+							String strX = "";
+							String strY = "";
+							if (x instanceof XmlPrintable) {
+								strX += ((XmlPrintable) x).toXml();
+							} else {
+								strX += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+							}
+							final Object y = ((Map<?, ?>) o).get(x);
+							if (y instanceof XmlPrintable) {
+								strY += ((XmlPrintable) y).toXml();
+							} else {
+								strY += "<unknown>" + x.getClass().toString().split("class ")[1] + "</unknown>\r";
+							}
+							String entry = "<key>\r" + strX + "\r</key>\r";
+							entry += "<value>\r" + strY + "\r</value>\r";
+							ans.add(entry);
+						}
+						ans.add("</map>");
+					} else {
+						ans.add("<unknown>" + o.getClass().toString().split("class ")[1] + "</unknown>\r");
+					}
+				}
 			}
 		}
-		bw.write("</" + testcase + ">");
-		bw.flush();
-		bw.close();
-		w.close();
+		String realAns = "";
+		for (final String str : ans) {
+			realAns += str;
+		}
+
+		return realAns;
 	}
 }

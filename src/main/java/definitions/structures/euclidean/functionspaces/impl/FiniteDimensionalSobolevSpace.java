@@ -29,42 +29,13 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	private Integer degree;
 
 	/**
-	 * Constructor.
-	 * 
-	 * @param genericBase the base
-	 * @param left        the inf of the interval.
-	 * @param right       the sup of the intervall.
-	 * @param degree      the sobolev degree.
-	 */
-	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
-			final double right, int degree) {
-		super(field, genericBase, left, right, true);
-		this.degree = degree;
-		this.getDerivativeBuilder();
-	}
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param genericBase the base
-	 * @param left        the inf of the interval.
-	 * @param right       the sup of the intervall.
-	 * @param degree      the sobolev degree.
-	 */
-	public FiniteDimensionalSobolevSpace(Field field, final List<Vector> genericBase, final double left,
-			final double right, int degree, boolean ortho) {
-		super(field, genericBase, left, right, ortho);
-		this.degree = degree;
-		// this.getDerivativeBuilder();
-	}
-
-	/**
 	 * Constructor. Converts function space to sobolev space.
 	 * 
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
 	 */
-	public FiniteDimensionalSobolevSpace(Field field, final EuclideanFunctionSpace space, int degree, boolean ortho) {
+	public FiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space, final int degree,
+			final boolean ortho) {
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
 		this.degree = degree;
 		if (ortho) {
@@ -78,13 +49,62 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * 
 	 * @param degree the sobolev degree.
 	 */
-	protected FiniteDimensionalSobolevSpace(Field field, int degree) {
+	protected FiniteDimensionalSobolevSpace(final Field field, final int degree) {
 		super(field);
 		this.degree = degree;
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * @param genericBase the base
+	 * @param left        the inf of the interval.
+	 * @param right       the sup of the intervall.
+	 * @param degree      the sobolev degree.
+	 */
+	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
+			final double right, final int degree) {
+		super(field, genericBase, left, right, true);
+		this.degree = degree;
+		this.getDerivativeBuilder();
+	}
+
+	/**
+	 * Constructor.
+	 * 
+	 * @param genericBase the base
+	 * @param left        the inf of the interval.
+	 * @param right       the sup of the intervall.
+	 * @param degree      the sobolev degree.
+	 */
+	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
+			final double right, final int degree, final boolean ortho) {
+		super(field, genericBase, left, right, ortho);
+		this.degree = degree;
+		// this.getDerivativeBuilder();
+	}
+
+	/**
+	 * Getter for the sobolev degree.
+	 * 
+	 * @return the sobolev degree
+	 */
+	public final Integer getDegree() {
+		if (this.degree == null) {
+			this.degree = this.base.size();
+		}
+		return this.degree;
+	}
+
+	public DerivativeOperator getDerivativeBuilder() {
+		if (this.derivativeBuilder == null) {
+			this.setDerivativeBuilder(new DerivativeOperator(this, this));
+		}
+		return this.derivativeBuilder;
+	}
+
 	@Override
-	
+
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
@@ -114,32 +134,12 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	}
 
 	@Override
-	
+
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 
-	/**
-	 * Getter for the sobolev degree.
-	 * 
-	 * @return the sobolev degree
-	 */
-	public final Integer getDegree() {
-		if (this.degree == null) {
-			this.degree = this.base.size();
-		}
-		return this.degree;
-	}
-
-	
-	public DerivativeOperator getDerivativeBuilder() {
-		if (this.derivativeBuilder == null) {
-			this.setDerivativeBuilder(new DerivativeOperator(this, this));
-		}
-		return this.derivativeBuilder;
-	}
-
-	public void setDerivativeBuilder(DerivativeOperator derivativeBuilder) {
+	public void setDerivativeBuilder(final DerivativeOperator derivativeBuilder) {
 		this.derivativeBuilder = derivativeBuilder;
 	}
 

@@ -28,29 +28,29 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	final private Scalar b;
 
+	public ExponentialFunction() {
+		this.a = RealZero.getZero();
+		this.b = RealLine.getInstance().getOne();
+	}
+
 	/**
 	 * Constructor.
 	 * 
 	 * @param a the parameter a.
 	 * @param b the parameter b.
 	 */
-	public ExponentialFunction(Scalar a, Scalar b) {
+	public ExponentialFunction(final Scalar a, final Scalar b) {
 		this.a = a;
 		this.b = b;
-	}
-
-	public ExponentialFunction() {
-		this.a = RealZero.getZero();
-		this.b = RealLine.getInstance().getOne();
-	}
-
-	@Override
-	public Scalar value(Scalar input) {
-		return this.getField().get(Math.exp(this.a.getValue() + (this.b.getValue() * input.getValue())));
 	}
 
 	@Override
 	public String toString() {
 		return "x -> exp(" + this.a + "+" + this.b + "*x ";
+	}
+
+	@Override
+	public Scalar value(final Scalar input) {
+		return this.getField().get(Math.exp(this.a.getValue() + (this.b.getValue() * input.getValue())));
 	}
 }

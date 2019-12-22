@@ -15,15 +15,7 @@ public interface PrimeField extends Field {
 	 */
 	@Override
 	default int getCharacteristic() {
-		return getOrder();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default PrimeField getPrimeField() {
-		return this;
+		return this.getOrder();
 	}
 
 	/**
@@ -31,6 +23,14 @@ public interface PrimeField extends Field {
 	 */
 	@Override
 	default Field getField() {
+		return this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default PrimeField getPrimeField() {
 		return this;
 	}
 

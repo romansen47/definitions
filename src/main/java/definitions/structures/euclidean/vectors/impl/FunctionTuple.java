@@ -25,57 +25,15 @@ public class FunctionTuple extends Tuple implements Function {
 	final private Field field;
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 
-	public FunctionTuple(final Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+	public FunctionTuple(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		super(coordinates);
 		this.coordinatesMap.put(space, coordinates);
 		this.field = space.getField();
 	}
 
-	public FunctionTuple(final Scalar[] coordinates, Field field) {
+	public FunctionTuple(final Scalar[] coordinates, final Field field) {
 		super(coordinates);
 		this.field = field;
-	}
-
-	@Override
-	
-	public Scalar value(final Scalar input) {
-		Scalar ans = (Scalar) this.getField().getZero();
-		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans = (Scalar) this.getField().add(ans,
-					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
-		}
-		return ans;
-	}
-
-	
-	public LinearMapping getDerivative(VectorSpace space) {
-		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 8910643729270807923L;
-
-			@Override
-			public Vector get(Vector vec2) {
-				return ((Function) vec2).getDerivative();
-			}
-
-			@Override
-			public Map<Vector, Scalar> getLinearity(Vector vec1) {
-				return null;
-			}
-		};
-	}
-
-	@Override
-	
-	public Function getProjection(EuclideanSpace source) {
-		return Function.super.getProjection(source);
-	}
-
-	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-		this.coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
 	}
 
 	@Override
@@ -83,16 +41,41 @@ public class FunctionTuple extends Tuple implements Function {
 		return this.coordinatesMap;
 	}
 
+	public LinearMapping getDerivative(final VectorSpace space) {
+		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8910643729270807923L;
+
+			@Override
+			public Vector get(final Vector vec2) {
+				return ((Function) vec2).getDerivative();
+			}
+
+			@Override
+			public Map<Vector, Scalar> getLinearity(final Vector vec1) {
+				return null;
+			}
+		};
+	}
+
 	@Override
 	public Field getField() {
 		return this.field;
+	}
+
+	@Override
+
+	public Function getProjection(final EuclideanSpace source) {
+		return Function.super.getProjection(source);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	
+
 	public void plot(final double left, final double right) {
 		((Plotter) gen).plot(this, left, right);
 	}
@@ -101,9 +84,25 @@ public class FunctionTuple extends Tuple implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-	
+
 	public void plotCompare(final double left, final double right, final Function fun) {
 		((Plotter) gen).plotCompare(this, fun, left, right);
+	}
+
+	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		this.coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
+	}
+
+	@Override
+
+	public Scalar value(final Scalar input) {
+		Scalar ans = (Scalar) this.getField().getZero();
+		for (final Vector fun : this.getCoordinates().keySet()) {
+			ans = (Scalar) this.getField().add(ans,
+					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
+		}
+		return ans;
 	}
 
 }

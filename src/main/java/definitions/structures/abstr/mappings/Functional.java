@@ -12,6 +12,14 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public interface Functional extends Homomorphism {
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default Vector get(final Vector vec) {
+		return ((EuclideanSpace) this.getSource()).innerProduct(this.getSourceVec(), vec);
+	}
+
 	Vector getSourceVec();
 
 	/**
@@ -19,15 +27,7 @@ public interface Functional extends Homomorphism {
 	 */
 	@Override
 	default EuclideanSpace getTarget() {
-		return getSource().getField();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public default Vector get(Vector vec) {
-		return ((EuclideanSpace) getSource()).innerProduct(getSourceVec(), vec);
+		return this.getSource().getField();
 	}
 
 }

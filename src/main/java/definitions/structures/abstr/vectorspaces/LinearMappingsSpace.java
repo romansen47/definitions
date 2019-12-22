@@ -20,7 +20,7 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 	final EuclideanSpace source;
 	final EuclideanSpace target;
 
-	public LinearMappingsSpace(EuclideanSpace source, EuclideanSpace target) {
+	public LinearMappingsSpace(final EuclideanSpace source, final EuclideanSpace target) {
 		this.source = source;
 		this.target = target;
 	}
@@ -31,7 +31,7 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 //	}
 
 	@Override
-	public Vector add(Vector vec1, Vector vec2) {
+	public Vector add(final Vector vec1, final Vector vec2) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
 		for (final Vector vec : this.source.genericBaseToList()) {
 			coordinates.put(vec, ((FiniteVectorMethods) this.target.add(((Homomorphism) vec1).get(vec),
@@ -41,7 +41,13 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 	}
 
 	@Override
-	public Vector stretch(Vector vec1, Scalar r) {
+	public Field getField() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector stretch(final Vector vec1, final Scalar r) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
 		for (final Vector vec : this.source.genericBaseToList()) {
 			coordinates.put(vec,
@@ -53,16 +59,10 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 	@Override
 	public String toXml() {
 		String ans = "<linearMappingSpace>";
-		ans += "<source>" + source.toXml() + "</source>";
-		ans += "<target>" + target.toXml() + "</target>";
+		ans += "<source>" + this.source.toXml() + "</source>";
+		ans += "<target>" + this.target.toXml() + "</target>";
 		ans += "</linearMappingSpace>";
 		return ans;
-	}
-
-	@Override
-	public Field getField() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

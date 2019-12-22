@@ -5,10 +5,10 @@ import org.junit.Test;
 
 public interface ModuleTest {
 
+	@Before
+	void prepareTest();
+
 	@Test
 	void runTest();
 
-	@Before
-	void prepareTest();
-	
 }

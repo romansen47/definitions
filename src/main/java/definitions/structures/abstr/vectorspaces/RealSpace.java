@@ -3,7 +3,6 @@
  */
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.Proceed;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.groups.ContinuousGroup;
@@ -16,7 +15,7 @@ public interface RealSpace extends VectorSpace, ContinuousGroup {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override 
+	@Override
 	default Field getField() {
 		return RealLine.getInstance();
 	}

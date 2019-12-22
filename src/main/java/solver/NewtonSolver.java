@@ -9,10 +9,15 @@ public class NewtonSolver {
 	final double eps;
 	final GenericFunction function;
 
-	public NewtonSolver(double init, double eps, GenericFunction fun) {
+	public NewtonSolver(final double init, final double eps, final GenericFunction fun) {
 		this.initialData = init;
 		this.eps = eps;
 		this.function = fun;
+	}
+
+	private double doStep(final double lastVal) throws Throwable {
+		return lastVal - (this.function.value(RealLine.getInstance().get(lastVal)).getValue()
+				/ this.function.getDerivative().value(RealLine.getInstance().get(lastVal)).getValue());
 	}
 
 	public double solve() throws Throwable {
@@ -23,10 +28,5 @@ public class NewtonSolver {
 			newVal = this.doStep(lastVal);
 		}
 		return newVal;
-	}
-
-	private double doStep(double lastVal) throws Throwable {
-		return lastVal - (this.function.value(RealLine.getInstance().get(lastVal)).getValue()
-				/ this.function.getDerivative().value(RealLine.getInstance().get(lastVal)).getValue());
 	}
 }

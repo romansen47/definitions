@@ -13,7 +13,7 @@ public interface VectorField extends Mapping {
 
 	@Override
 	default EuclideanSpace getTarget() {
-		return (EuclideanSpace) getSource();
+		return (EuclideanSpace) this.getSource();
 	}
 
 }

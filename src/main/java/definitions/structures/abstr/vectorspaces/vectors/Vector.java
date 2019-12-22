@@ -1,6 +1,5 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
-import definitions.Proceed;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -14,22 +13,12 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 public interface Vector extends GroupElement, XmlPrintable {
 
 	/**
-	 * Method to get the dimension of the underlying vector space.
-	 * 
-	 * @return the dimension of the underlying vector space, if finite dimensional.
-	 *         Otherwise null.
-	 */ 
-	default Integer getDim() {
-		return null;
-	}
-
-	/**
 	 * Method to verify that the vector is contained by a specific vector space.
 	 * 
 	 * @param space
 	 * @return
 	 */
-	default boolean elementOf(VectorSpace space) {
+	default boolean elementOf(final VectorSpace space) {
 		return true;
 	}
 
@@ -42,9 +31,19 @@ public interface Vector extends GroupElement, XmlPrintable {
 	@Override
 	boolean equals(Object vec);
 
+	/**
+	 * Method to get the dimension of the underlying vector space.
+	 * 
+	 * @return the dimension of the underlying vector space, if finite dimensional.
+	 *         Otherwise null.
+	 */
+	default Integer getDim() {
+		return null;
+	}
+
 	@Override
 	default String toXml() {
-		String ans = "<" + getClass().toString().split("class ")[1] + "/>";
+		final String ans = "<" + getClass().toString().split("class ")[1] + "/>";
 		return ans;
 	}
 

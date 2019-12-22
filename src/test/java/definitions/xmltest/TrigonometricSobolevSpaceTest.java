@@ -9,32 +9,34 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest {
 
 	private int sobolevDegree;
-	
+
+	public int getSobolevDegree() {
+		return this.sobolevDegree;
+	}
+
+	private void setSobolevDegree(final int degree) {
+		this.sobolevDegree = degree;
+	}
+
 	@Override
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(50);
-		setSobolevDegree(1);
-		
-		setField(getRealLine());
+		this.setTrigonometricDegree(50);
+		this.setSobolevDegree(1);
+
+		this.setField(getRealLine());
 		super.setUp();
-		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(), getTrigonometricDegree(),getSobolevDegree()));
-		
-	}
-	
-	@Test
-	public void test1() {
-		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+		this.setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(),
+				this.getTrigonometricDegree(), this.getSobolevDegree()));
+
 	}
 
-	public int getSobolevDegree() {
-		return sobolevDegree;
+	@Test
+	public void test1() {
+		final Function staircaseFunction1Projection = this.getStaircaseFunction()
+				.getProjection(this.getTrigonometricSpace());
+		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
 	}
-	
-	private void setSobolevDegree(int degree) {
-		sobolevDegree=degree;
-	}
-	
+
 }

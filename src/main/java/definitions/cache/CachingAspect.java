@@ -32,10 +32,10 @@ public class CachingAspect {
 	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int))")
-	public Object getCoordinateSpace(ProceedingJoinPoint pjp) {
+	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
 		System.out.println(pjp.getArgs()[0].toString());
-		Field field = (Field) (pjp.getArgs()[0]);
-		int dim = (int) (pjp.getArgs()[1]);
+		final Field field = (Field) (pjp.getArgs()[0]);
+		final int dim = (int) (pjp.getArgs()[1]);
 		EuclideanSpace ans = coordinatesSpaces.get(dim);
 		if (ans != null) {
 			logger.info("Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());

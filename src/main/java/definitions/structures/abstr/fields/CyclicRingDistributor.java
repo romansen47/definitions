@@ -9,13 +9,13 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public interface CyclicRingDistributor extends XmlPrintable {
 
-	static Map<Integer, Ring> cachedRings = new HashMap<>();
+	Map<Integer, Ring> cachedRings = new HashMap<>();
 
 	static Map<Integer, Ring> getCachedRings() {
 		return cachedRings;
 	}
 
-	static Ring getCyclicRing(Int i) {
+	static Ring getCyclicRing(final Int i) {
 		final Ring ans = cachedRings.get(i.getValue());
 		if (ans != null) {
 			return ans;

@@ -16,14 +16,6 @@ public class PersistentDataManager {
 
 	final static Field realSpace = RealLine.getInstance();
 
-	public void saveCoordinateSpacesTest() throws Throwable {
-		gen.saveCoordinateSpaces();
-	}
-
-	public static void main(String[] args) throws Exception {
-		load();
-	}
-
 	public static void load() {
 		System.out.println("Regeneration of persistent data\r");
 		for (int i = 1; i < funcSpaces; i++) {
@@ -31,12 +23,20 @@ public class PersistentDataManager {
 				System.out.println("Loading " + (2 * i + 1)
 						+ "-dimensional trigonometric function space extended by linear functions");
 				spacesGen.getTrigonometricFunctionSpaceWithLinearGrowth(realSpace, i);
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				System.out.println("Failed to reload cached " + (2 * i + 1)
 						+ "-dimensional trigonometric function space extended by linear functions");
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static void main(final String[] args) throws Exception {
+		load();
+	}
+
+	public void saveCoordinateSpacesTest() throws Throwable {
+		gen.saveCoordinateSpaces();
 	}
 
 }

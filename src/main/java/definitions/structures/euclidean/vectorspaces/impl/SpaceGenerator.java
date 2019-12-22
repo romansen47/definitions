@@ -14,11 +14,6 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 @Configuration
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
-	private Logger logger;
-
-	@Autowired(required = true)
-	private MyCache myCache;
-
 	private static final long serialVersionUID = 1L;
 
 	private static SpaceGenerator instance;
@@ -31,8 +26,18 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 		return instance;
 	}
 
-	public static void setInstance(SpaceGenerator gen) {
+	public static void setInstance(final SpaceGenerator gen) {
 		instance = gen;
+	}
+
+	private Logger logger;
+
+	@Autowired(required = true)
+	private MyCache myCache;
+
+	@Override
+	public Logger getLogger() {
+		return this.logger;
 	}
 
 	@Override
@@ -41,13 +46,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	}
 
 	@Override
-	public void setMyCache(MyCache ans) {
+	public void setMyCache(final MyCache ans) {
 		this.myCache = ans;
-	}
-
-	@Override
-	public Logger getLogger() {
-		return logger;
 	}
 
 }

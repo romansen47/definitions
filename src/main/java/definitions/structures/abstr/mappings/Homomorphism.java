@@ -24,15 +24,12 @@ public interface Homomorphism extends Mapping, Vector {
 	Vector get(Vector vec);
 
 	/**
-	 * Method to get the image of the restriction of the homomorphism to the base of
-	 * the source vector space.
+	 * the generic matrix in correspondance with the ordered bases of the source and
+	 * the target space.
 	 * 
-	 * @param vec the base vector.
-	 * @return the image of the base vector.
+	 * @return
 	 */
-	default Map<Vector, Scalar> getLinearity(final Vector vec1) {
-		return getLinearity().get(vec1);
-	}
+	Scalar[][] getGenericMatrix();
 
 	/**
 	 * Method to get the restriction of the homomorphism to the base of the source
@@ -42,18 +39,21 @@ public interface Homomorphism extends Mapping, Vector {
 	 */
 	Map<Vector, Map<Vector, Scalar>> getLinearity();
 
+	/**
+	 * Method to get the image of the restriction of the homomorphism to the base of
+	 * the source vector space.
+	 * 
+	 * @param vec the base vector.
+	 * @return the image of the base vector.
+	 */
+	default Map<Vector, Scalar> getLinearity(final Vector vec1) {
+		return this.getLinearity().get(vec1);
+	}
+
 	@Override
 	VectorSpace getSource();
 
 	@Override
 	VectorSpace getTarget();
-
-	/**
-	 * the generic matrix in correspondance with the ordered bases of the source and
-	 * the target space.
-	 * 
-	 * @return
-	 */
-	Scalar[][] getGenericMatrix();
 
 }

@@ -17,27 +17,54 @@ import solver.StdDraw;
  */
 public interface Plotter {
 
-	default void plot(Plotable fun, double left, double right) {
+	default void plot(final Plotable fun, final double left, final double right) {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		preparePlot(fun, left, right, stddraw, count, delta);
+		this.preparePlot(fun, left, right, stddraw, count, delta);
 		double z = 0;
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
-				Scalar sc = ((Function) fun).value(((Function) fun).getField().get(z));
+				final Scalar sc = ((Function) fun).value(((Function) fun).getField().get(z));
 				StdDraw.line(z, sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)).getValue(),
 						z + delta, ((Function) fun).value(((Function) fun).getField().get(z + delta)).getCoordinates()
 								.get(vec).getValue());
 			}
-		} 
+		}
 
 	}
 
-	default void preparePlot(Plotable fun, double left, double right, StdDraw stddraw, int count, double delta) {
+	default void plotCompare(final Plotable fun1, final Plotable fun2, final double left, final double right) {
+		final StdDraw stddraw = new StdDraw();
+		final int count = 1000;
+		final double delta = (right - left) / count;
+		this.preparePlot(fun1, left, right, stddraw, count, delta);
+		Scalar tmp = ((Function) fun1).getField().get(left);
+		double alpha = ((Function) fun1).value(tmp).getValue();
+		double beta = ((Function) fun2).value(tmp).getValue();
+		double z = 0;
+		for (double i = 0; i < (count - 1); i += 1) {
+			z = left + (delta * i);
+			tmp = ((Function) fun1).getField().get(z + delta);
+			final double alphaNext = ((Function) fun1).value(tmp).getValue();
+			final double betaNext = ((Function) fun2).value(tmp).getValue();
+			StdDraw.setPenRadius(0.0035);
+			StdDraw.setPenColor(Color.blue);
+			StdDraw.line(z, alpha, z + delta, alphaNext);
+			StdDraw.setPenRadius(0.0025);
+			StdDraw.setPenColor(Color.red);
+			StdDraw.line(z, beta, z + delta, betaNext);
+			alpha = alphaNext;
+			beta = betaNext;
+		}
+		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(this.hashCode()) + ".png");
+	}
+
+	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,
+			final int count, final double delta) {
 		double x = 0;
 		double min = ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)).getValue();
 		double max = min;
@@ -63,32 +90,6 @@ public interface Plotter {
 		StdDraw.setXscale(left, right);
 		StdDraw.setYscale(min, max);
 
-	}
-
-	default void plotCompare(Plotable fun1, Plotable fun2, double left, double right) {
-		final StdDraw stddraw = new StdDraw();
-		final int count = 1000;
-		final double delta = (right - left) / count;
-		preparePlot(fun1, left, right, stddraw, count, delta);
-		Scalar tmp = ((Function) fun1).getField().get(left);
-		double alpha = ((Function) fun1).value(tmp).getValue();
-		double beta = ((Function) fun2).value(tmp).getValue();
-		double z = 0;
-		for (double i = 0; i < (count - 1); i += 1) {
-			z = left + (delta * i);
-			tmp = ((Function) fun1).getField().get(z + delta);
-			final double alphaNext = ((Function) fun1).value(tmp).getValue();
-			final double betaNext = ((Function) fun2).value(tmp).getValue();
-			StdDraw.setPenRadius(0.0035);
-			StdDraw.setPenColor(Color.blue);
-			StdDraw.line(z, alpha, z + delta, alphaNext);
-			StdDraw.setPenRadius(0.0025);
-			StdDraw.setPenColor(Color.red);
-			StdDraw.line(z, beta, z + delta, betaNext);
-			alpha = alphaNext;
-			beta = betaNext;
-		}
-		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(this.hashCode()) + ".png");
 	}
 
 }

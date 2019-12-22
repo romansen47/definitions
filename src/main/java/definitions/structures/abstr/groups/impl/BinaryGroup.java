@@ -16,12 +16,12 @@
 //	}
 //
 //	@Override
-//	public Integer getOrder() { 
+//	public Integer getOrder() {
 //		return 2;
 //	}
 //
 //	@Override
-//	public MonoidElement operation(GroupElement first, GroupElement second) { 
+//	public MonoidElement operation(GroupElement first, GroupElement second) {
 //		if (first==getIdentityElement()) {
 //			return second;
 //		}

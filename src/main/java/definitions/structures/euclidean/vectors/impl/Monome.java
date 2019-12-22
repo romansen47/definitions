@@ -10,19 +10,19 @@ public abstract class Monome extends GenericFunction {
 	private static final long serialVersionUID = 6765574043986345237L;
 	final int degree;
 
-	public Monome(int degree) {
+	public Monome(final int degree) {
 		super();
 		this.degree = degree;
 	}
 
 	@Override
-	public Scalar value(Scalar input) {
-		return this.getField().get(Math.pow(input.getValue(), this.degree));
+	public String toString() {
+		return "Monome of degree " + this.degree;
 	}
 
 	@Override
-	public String toString() {
-		return "Monome of degree " + this.degree;
+	public Scalar value(final Scalar input) {
+		return this.getField().get(Math.pow(input.getValue(), this.degree));
 	}
 
 }

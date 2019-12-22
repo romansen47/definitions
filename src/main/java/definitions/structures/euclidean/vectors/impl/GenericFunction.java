@@ -24,6 +24,16 @@ public abstract class GenericFunction implements Function {
 	private Map<Vector, Scalar> coordinates;
 
 	@Override
+	public boolean elementOf(final VectorSpace space) {
+		return space instanceof FunctionSpace;
+	}
+
+	@Override
+	public boolean equals(final Object vec) {
+		return super.equals(vec);
+	}
+
+	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		return this.coordinates;
 	}
@@ -44,36 +54,20 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
+	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
+		return this.coordinatesMap;
+	}
+
+	@Override
 	public Integer getDim() {
 		return -1;
 	}
 
 	@Override
-	public boolean elementOf(final VectorSpace space) {
-		return space instanceof FunctionSpace;
+	public Field getField() {
+		return this.field;
 	}
 
-	@Override
-	public boolean equals(Object vec) {
-		return super.equals(vec);
-	}
-
-	@Override
-	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-		this.coordinatesMap.put(space, coordinates);
-		this.setCoordinates(coordinates);
-	}
-
-	@Override
-	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
-		this.coordinates = coordinates;
-	}
-
-	@Override
-	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
-		return this.coordinatesMap;
-	}
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -92,11 +86,17 @@ public abstract class GenericFunction implements Function {
 	}
 
 	@Override
-	public Field getField() {
-		return field;
+	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+		this.coordinates = coordinates;
 	}
- 
-	public void setField(Field field) {
+
+	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		this.coordinatesMap.put(space, coordinates);
+		this.setCoordinates(coordinates);
+	}
+
+	public void setField(final Field field) {
 		this.field = field;
 	}
 

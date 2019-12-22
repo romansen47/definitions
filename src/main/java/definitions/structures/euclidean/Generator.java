@@ -10,6 +10,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import definitions.Unweavable;
@@ -21,29 +22,15 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;
 import settings.GlobalSettings;
 
-@Configuration
+@Configuration 
+@ComponentScan("definitions")
 public class Generator implements IGenerator, Unweavable, Plotter {
-
-	private Logger logger;
 
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
 	private static final long serialVersionUID = -5553433829703982950L;
-	private final String PATH = GlobalSettings.CACHEDSPACES;
 
 	private static Generator instance;
-
-	@Autowired(required = true)
-	private MappingGenerator mappingGenerator;
-
-	@Autowired(required = true)
-	private SpaceGenerator spaceGenerator;
-
-	@Autowired
-	private FieldGenerator fieldGenerator;
-
-	@Autowired
-	private GroupGenerator groupGenerator;
 
 	public static synchronized Generator getInstance() {
 		if (instance == null) {
@@ -65,33 +52,54 @@ public class Generator implements IGenerator, Unweavable, Plotter {
 		return instance;
 	}
 
+	public static void setInstance(final Generator instance) {
+		Generator.instance = instance;
+		MappingGenerator.setInstance(instance.mappingGenerator);
+		SpaceGenerator.setInstance(instance.spaceGenerator);
+		FieldGenerator.setInstance(instance.fieldGenerator);
+		GroupGenerator.setInstance(instance.groupGenerator);
+	}
+
+	private Logger logger;
+
+	private final String PATH = GlobalSettings.CACHEDSPACES;
+
+	@Autowired(required = true)
+	private MappingGenerator mappingGenerator;
+
+	@Autowired(required = true)
+	private SpaceGenerator spaceGenerator;
+
+	@Autowired
+	private FieldGenerator fieldGenerator;
+
+	@Autowired
+	private GroupGenerator groupGenerator;
+
+	@Override
+	public FieldGenerator getFieldGenerator() {
+		return this.fieldGenerator;
+	}
+
+	public GroupGenerator getGroupGenerator() {
+		return this.groupGenerator;
+	}
+
+	public Logger getLogger() {
+		if (this.logger == null) {
+			this.logger = LogManager.getLogger(this.getClass());
+		}
+		return this.logger;
+	}
+
 	@Override
 	public MappingGenerator getMappinggenerator() {
-		return mappingGenerator;
+		return this.mappingGenerator;
 	}
 
 	@Override
 	public SpaceGenerator getSpacegenerator() {
-		return spaceGenerator;
-	}
-
-	@Override
-	public FieldGenerator getFieldGenerator() {
-		return fieldGenerator;
-	}
-
-	@Override
-	public void setFieldGenerator(FieldGenerator fieldGenerator) {
-		this.fieldGenerator = fieldGenerator;
-	}
-
-	@Override
-	public void saveCoordinateSpaces() throws IOException {
-		final FileOutputStream f_out = new FileOutputStream(this.PATH);
-		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(spaceGenerator.getMyCache());
-		getLogger().info("saved coordinates spaces to disk");
-		obj_out.close();
+		return this.spaceGenerator;
 	}
 
 	@Override
@@ -102,32 +110,27 @@ public class Generator implements IGenerator, Unweavable, Plotter {
 			final MyCache ans = (MyCache) obj_in.readObject();
 			this.spaceGenerator.setMyCache(ans);
 			obj_in.close();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.addSuppressed(new Exception("failed to load myCache from local file"));
 			e.printStackTrace();
 		}
 	}
 
-	public static void setInstance(Generator instance) {
-		Generator.instance = instance;
-		MappingGenerator.setInstance(instance.mappingGenerator);
-		SpaceGenerator.setInstance(instance.spaceGenerator);
-		FieldGenerator.setInstance(instance.fieldGenerator);
-		GroupGenerator.setInstance(instance.groupGenerator);
+	@Override
+	public void saveCoordinateSpaces() throws IOException {
+		final FileOutputStream f_out = new FileOutputStream(this.PATH);
+		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+		obj_out.writeObject(this.spaceGenerator.getMyCache());
+		this.getLogger().info("saved coordinates spaces to disk");
+		obj_out.close();
 	}
 
-	public Logger getLogger() {
-		if (logger==null) {
-			logger=LogManager.getLogger(this.getClass());
-		}
-		return logger;
+	@Override
+	public void setFieldGenerator(final FieldGenerator fieldGenerator) {
+		this.fieldGenerator = fieldGenerator;
 	}
 
-	public GroupGenerator getGroupGenerator() {
-		return groupGenerator;
-	}
-
-	public void setGroupGenerator(GroupGenerator groupGenerator) {
+	public void setGroupGenerator(final GroupGenerator groupGenerator) {
 		GroupGenerator.setInstance(groupGenerator);
 		this.groupGenerator = groupGenerator;
 	}

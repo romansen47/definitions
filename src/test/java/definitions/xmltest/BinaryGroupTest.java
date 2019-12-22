@@ -21,12 +21,17 @@ public class BinaryGroupTest extends AspectJTest {
 		binaryGroup = (CyclicGroup) SpringConfiguration.getSpringConfiguration().getApplicationContext()
 				.getBean("binaryField");
 		identityElement = (GroupElement) binaryGroup.getIdentityElement();
-		generator = (GroupElement) ((CyclicGroup) binaryGroup).getGenerator();
+		generator = binaryGroup.getGenerator();
 	}
 
 	@Test
 	public void testGetIdentityElement() {
 		Assert.assertTrue(binaryGroup.getIdentityElement() != null);
+	}
+
+	@Test
+	public void testGetInverseElement() {
+		Assert.assertTrue(binaryGroup.getInverseElement(binaryGroup.getGenerator()).equals(binaryGroup.getGenerator()));
 	}
 
 	@Test
@@ -40,12 +45,6 @@ public class BinaryGroupTest extends AspectJTest {
 		Assert.assertTrue(binaryGroup.operation(identityElement, generator) == generator);
 		Assert.assertTrue(binaryGroup.operation(generator, identityElement) == generator);
 		Assert.assertTrue(binaryGroup.operation(generator, generator) == identityElement);
-	}
-
-	@Test
-	public void testGetInverseElement() {
-		Assert.assertTrue(binaryGroup.getInverseElement((GroupElement) ((CyclicGroup) binaryGroup).getGenerator())
-				.equals(((CyclicGroup) binaryGroup).getGenerator()));
 	}
 
 }

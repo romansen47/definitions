@@ -12,17 +12,13 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-
 public final class DerivativeOperator extends FiniteDimensionalLinearMapping implements Homomorphism {
 
 	private static final long serialVersionUID = -5103583236895270490L;
 
-	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates) {
-		super(source, target, coordinates);
-	}
+	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
 
-	public DerivativeOperator(EuclideanSpace source, EuclideanSpace target) {
+	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 		this.linearity = new HashMap<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
@@ -33,9 +29,18 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 		this.getGenericMatrix();
 	}
 
-	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
+	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
+			final Map<Vector, Map<Vector, Scalar>> coordinates) {
+		super(source, target, coordinates);
+	}
 
-	public Vector get(Vector vec, int degree) { 
+	private void addToCache(final Vector vec, final int degree, final Vector ans) {
+		final Map<Integer, Vector> tmp = this.cachedDerivatives.get(vec);// new ConcurrentHashMap<>();
+		tmp.put(degree, ans);
+		// cachedDerivatives.put(vec, tmp);
+	}
+
+	public Vector get(final Vector vec, final int degree) {
 		if (degree < 0) {
 			return null;
 		}
@@ -63,12 +68,6 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 //				.get(vec)).getProjection((EuclideanSpace) this.getSource());
 //		this.addToCache(vec, degree, ans);
 		return test;// ans;
-	}
-
-	private void addToCache(Vector vec, int degree, Vector ans) {
-		final Map<Integer, Vector> tmp = this.cachedDerivatives.get(vec);// new ConcurrentHashMap<>();
-		tmp.put(degree, ans);
-		// cachedDerivatives.put(vec, tmp);
 	}
 
 }

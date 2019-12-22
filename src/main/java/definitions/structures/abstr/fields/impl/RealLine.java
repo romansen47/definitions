@@ -35,15 +35,23 @@ public class RealLine implements SubField, RealSpace {
 
 	private static final long serialVersionUID = -1444063003774915383L;
 
-	private EuclideanSpace dualSpace;
-
 	final private static Real one = RealOne.getOne();
 
 	final private static Real zero = RealZero.getZero();
 
-	final Map<Vector, Scalar> coordinates;
-
 	private static RealLine instance;
+
+	public static RealLine getInstance() {
+		return instance;
+	}
+
+	public static void setInstance(final RealLine realLine) {
+		instance = realLine;
+	}
+
+	private EuclideanSpace dualSpace;
+
+	final Map<Vector, Scalar> coordinates;
 
 	private final List<Vector> base;
 
@@ -64,123 +72,41 @@ public class RealLine implements SubField, RealSpace {
 		ComplexPlane.setRealLine(this);
 	}
 
-	public static RealLine getInstance() {
-		return instance;
+	@Override
+	public Vector add(final Vector vec1, final Vector vec2) {
+		return this.get(((Real) vec1).getValue() + ((Real) vec2).getValue());
 	}
 
 	@Override
-	public boolean contains(Vector vec) {
+	public Scalar conjugate(final Scalar value) {
+		return value;
+	}
+
+	@Override
+	public boolean contains(final Vector vec) {
 		return vec instanceof Real;
-	}
-
-	@Override
-	public Vector nullVec() {
-		return this.getZero();
-	}
-
-	@Override
-	public Vector add(Vector vec1, Vector vec2) {
-		return get(((Real) vec1).getValue() + ((Real) vec2).getValue());
-	}
-
-	@Override
-	public Vector stretch(Vector vec1, Scalar r) {
-		return get(((Real) vec1).getValue() * r.getValue());
-	}
-
-	@Override
-	public Real innerProduct(Vector vec1, Vector vec2) {
-		return (Real) get(((Real) vec1).getValue() * ((Real) vec2).getValue());
-	}
-
-	@Override
-	public Vector projection(Vector w, Vector v) {
-		final Real a = ((Real) v);
-		final Real b = ((Real) w);
-		if (b.getValue() != 0) {
-			return this.stretch(w, get(a.getValue() / b.getValue()));
-		}
-		return this.nullVec();
 	}
 
 	@Override
 	public List<Vector> genericBaseToList() {
 		return this.base;
 	}
- 
+
 	@Override
-	public Integer getDim() {
-		return 1;
+	public Scalar get(final double value) {
+		final Real newReal = SpringConfiguration.getSpringConfiguration().real();
+		newReal.setValue(value);
+		return newReal;
 	}
 
 	@Override
-	public Vector getCoordinates(Vector vec) {
+	public Vector getCoordinates(final Vector vec) {
 		return vec;
 	}
 
 	@Override
-	public List<Vector> getOrthonormalBase(List<Vector> base) {
-		return this.base;
-	}
-
-	@Override
-	public Vector product(Vector vec1, Vector vec2) {
-		final double val1 = ((Real) vec1).getValue();
-		final double val2 = ((Real) vec2).getValue();
-		final double ans = val1 * val2;
-		return get(ans);
-	}
-
-	@Override
-	public Vector inverse(Vector factor) {
-		if (factor == null) {
-			return null;
-		}
-		final Real num = ((Real) factor);
-		if (num.getValue() == 0.0) {
-			return null;
-		}
-		return get(1 / num.getValue());
-	}
-
-	@Override
-	public final Real getOne() {
-		return one;
-	}
-
-	@Override
-	public final Real getZero() {
-		return zero;
-	}
-
-	@Override
-	public Field getField() {
-		return RealSpace.super.getField();
-	}
-
-	@Override
-	public EuclideanSpace getSuperSpace() {
-		return ComplexPlane.getInstance();
-	}
-
-	@Override
-	public FiniteDimensionalInjection getEmbedding() {
-		final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
-		final Map<Vector, Scalar> tmp = new HashMap<>();
-		tmp.put(((Field) this.getSuperSpace()).getOne(), this.getOne());
-		tmp.put(((ComplexPlane) this.getSuperSpace()).getI(), this.getZero());
-		coord.put(this.getOne(), tmp);
-		return new InjectiveLinearMapping(this, ComplexPlane.getInstance(), coord);
-	}
- 
-	@Override
-	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
-		return this.multiplicationMatrix;
-	}
-
-	@Override
-	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
-		this.multiplicationMatrix = multiplicationMatrix;
+	public Integer getDim() {
+		return 1;
 	}
 
 	@Override
@@ -192,15 +118,98 @@ public class RealLine implements SubField, RealSpace {
 	}
 
 	@Override
-	public Scalar get(double value) {
-		Real newReal = SpringConfiguration.getSpringConfiguration().real();
-		newReal.setValue(value);
-		return newReal;
+	public FiniteDimensionalInjection getEmbedding() {
+		final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
+		final Map<Vector, Scalar> tmp = new HashMap<>();
+		tmp.put(((Field) this.getSuperSpace()).getOne(), this.getOne());
+		tmp.put(((ComplexPlane) this.getSuperSpace()).getI(), this.getZero());
+		coord.put(this.getOne(), tmp);
+		return new InjectiveLinearMapping(this, ComplexPlane.getInstance(), coord);
 	}
 
 	@Override
-	public Scalar conjugate(Scalar value) {
-		return value;
+	public Field getField() {
+		return RealSpace.super.getField();
+	}
+
+	@Override
+	public Map<Vector, Homomorphism> getMultiplicationMatrix() {
+		return this.multiplicationMatrix;
+	}
+
+	@Override
+	public final Real getOne() {
+		return one;
+	}
+
+	@Override
+	public List<Vector> getOrthonormalBase(final List<Vector> base) {
+		return this.base;
+	}
+
+	@Override
+	public EuclideanSpace getSuperSpace() {
+		return ComplexPlane.getInstance();
+	}
+
+	@Override
+	public final Real getZero() {
+		return zero;
+	}
+
+	@Override
+	public Real innerProduct(final Vector vec1, final Vector vec2) {
+		return (Real) this.get(((Real) vec1).getValue() * ((Real) vec2).getValue());
+	}
+
+	@Override
+	public Vector inverse(final Vector factor) {
+		if (factor == null) {
+			return null;
+		}
+		final Real num = ((Real) factor);
+		if (num.getValue() == 0.0) {
+			return null;
+		}
+		return this.get(1 / num.getValue());
+	}
+
+	@Override
+	public boolean isIrreducible(final RingElement element) {
+		return true;
+	}
+
+	@Override
+	public Vector nullVec() {
+		return this.getZero();
+	}
+
+	@Override
+	public Vector product(final Vector vec1, final Vector vec2) {
+		final double val1 = ((Real) vec1).getValue();
+		final double val2 = ((Real) vec2).getValue();
+		final double ans = val1 * val2;
+		return this.get(ans);
+	}
+
+	@Override
+	public Vector projection(final Vector w, final Vector v) {
+		final Real a = ((Real) v);
+		final Real b = ((Real) w);
+		if (b.getValue() != 0) {
+			return this.stretch(w, this.get(a.getValue() / b.getValue()));
+		}
+		return this.nullVec();
+	}
+
+	@Override
+	public void setMultiplicationMatrix(final Map<Vector, Homomorphism> multiplicationMatrix) {
+		this.multiplicationMatrix = multiplicationMatrix;
+	}
+
+	@Override
+	public Vector stretch(final Vector vec1, final Scalar r) {
+		return this.get(((Real) vec1).getValue() * r.getValue());
 	}
 
 	@Override
@@ -211,15 +220,6 @@ public class RealLine implements SubField, RealSpace {
 	@Override
 	public String toXml() {
 		return "<realNumbers/>";
-	}
-
-	public static void setInstance(RealLine realLine) {
-		instance = realLine;
-	}
-
-	@Override
-	public boolean isIrreducible(RingElement element) {
-		return true;
 	}
 
 }

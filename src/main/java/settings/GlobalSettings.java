@@ -6,20 +6,20 @@ package settings;
 /**
  * @author RoManski
  *
- * Global settings as static attributes of settings class 
+ *         Global settings as static attributes of settings class
  */
 public class GlobalSettings {
 
 	/**
 	 * Logging
 	 */
-	public static final boolean LOGGING=true;
-	
+	public static final boolean LOGGING = true;
+
 	/**
 	 * Default depth
 	 */
-	public final static int LOGGING_DEPTH=5;
-	
+	public final static int LOGGING_DEPTH = 5;
+
 	/**
 	 * fineness parameter for aequidistant summation for integration
 	 */
@@ -28,8 +28,8 @@ public class GlobalSettings {
 	/**
 	 * fineness parameter for differentiation
 	 */
-	public final static double DERIVATIVE_FEINHEIT=1.e-1;
-	
+	public final static double DERIVATIVE_FEINHEIT = 1.e-1;
+
 	/**
 	 * fineness on real line
 	 */

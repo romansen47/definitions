@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.Proceed;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -16,19 +15,24 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class Tuple implements FiniteVector {
 
-	public Tuple() {
-		this.dim = 0;
-	}
-
 	private static final long serialVersionUID = -738201540142933649L;
 
 	final int dim;
 
 	private Map<Vector, Scalar> coordinates;
 
-	@Override
-	public Integer getDim() {
-		return this.dim;
+	public Tuple() {
+		this.dim = 0;
+	}
+
+	public Tuple(final int dim) {
+		this.dim = dim;
+		this.coordinates = new ConcurrentHashMap<>();
+	}
+
+	public Tuple(final Map<Vector, Scalar> coordinates) {
+		this.setCoordinates(coordinates);
+		this.dim = coordinates.keySet().size();
 	}
 
 	public Tuple(final Scalar[] coordinates) {
@@ -39,16 +43,6 @@ public class Tuple implements FiniteVector {
 				.genericBaseToList()) {
 			this.getCoordinates().put(vec, coordinates[i++]);
 		}
-	}
-
-	public Tuple(final Map<Vector, Scalar> coordinates) {
-		this.setCoordinates(coordinates);
-		this.dim = coordinates.keySet().size();
-	}
-
-	public Tuple(final int dim) {
-		this.dim = dim;
-		this.coordinates = new ConcurrentHashMap<>();
 	}
 
 	@Override
@@ -85,6 +79,12 @@ public class Tuple implements FiniteVector {
 		return false;
 	}
 
+	@Override
+//	@XmlAttribute
+	public Map<Vector, Scalar> getCoordinates() {
+		return this.coordinates;
+	}
+
 	// @Override
 	// public String toString() {
 	// String str = "";
@@ -104,16 +104,24 @@ public class Tuple implements FiniteVector {
 	// }
 
 	@Override
-//	@XmlAttribute 
-	public Map<Vector, Scalar> getCoordinates() {
-		return this.coordinates;
+//	@XmlAttribute
+	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
+		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
+		if (this.elementOf(source)) {
+			return this.getCoordinates();
+		} else {
+			for (final Vector baseVec : source.genericBaseToList()) {
+				newCoordinates.put(baseVec, source.innerProduct(this, baseVec));
+			}
+		}
+		return newCoordinates;
 	}
 
 	@Override
-	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
-		this.coordinates = coordinates;
+	public Integer getDim() {
+		return this.dim;
 	}
- 
+
 	@Override
 	public Set<Vector> getGenericBase() {
 		return this.getCoordinates().keySet();
@@ -131,31 +139,22 @@ public class Tuple implements FiniteVector {
 	// }
 
 	@Override
-//	@XmlAttribute 
-	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
-		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		if (this.elementOf(source)) {
-			return this.getCoordinates();
-		} else {
-			for (final Vector baseVec : source.genericBaseToList()) {
-				newCoordinates.put(baseVec, source.innerProduct(this, baseVec));
-			}
-		}
-		return newCoordinates;
+	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+		this.coordinates = coordinates;
 	}
 
 	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		this.setCoordinates(coordinates);
 	}
 
 	@Override
 	public String toXml() {
 		String ans = "<tuple>\r";
-		int i = 0;
-		for (Vector x : getGenericBase()) {
+		final int i = 0;
+		for (final Vector x : this.getGenericBase()) {
 //			String name=x.getClass().toString().split("class ")[1];
-			ans += getCoordinates().get(x).toXml();
+			ans += this.getCoordinates().get(x).toXml();
 		}
 		ans += "</tuple>\r";
 		return ans;

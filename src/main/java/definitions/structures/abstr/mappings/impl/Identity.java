@@ -11,12 +11,12 @@ public abstract class Identity extends LinearMapping implements Endomorphism {
 	 */
 	private static final long serialVersionUID = -6209038203547448760L;
 
-	public Identity(VectorSpace source) {
+	public Identity(final VectorSpace source) {
 		super(source, source);
 	}
 
 	@Override
-	public Vector get(Vector vec) {
+	public Vector get(final Vector vec) {
 		return vec;
 	}
 

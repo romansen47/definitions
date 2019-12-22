@@ -10,5 +10,5 @@ package definitions.structures.abstr.groups;
 public interface DiscreteGroup extends Group {
 
 	GroupElement get(Integer index);
-	
+
 }

@@ -1,5 +1,7 @@
 package definitions;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
@@ -14,45 +16,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.context.support.AbstractApplicationContext;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import definitions.cache.CachingAspect;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.impl.Real;
 import definitions.structures.abstr.groups.impl.Int;
 import definitions.structures.euclidean.Generator;
 
-@EnableSpringConfigured
+//@EnableSpringConfigured
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
-@Configuration
-@ComponentScan
+//@Configuration
+@ComponentScan(basePackages="definitions..*")
 public class SpringConfiguration implements ApplicationContextAware {
 
 	private static SpringConfiguration springConfiguration;
-
-	private ApplicationContext applicationContext = annotationConfigApplicationContext();
-
-	@Bean(name = "generator")
-	public Generator generator() {
-		return new Generator();
-	}
-
-	public SpringConfiguration() {
-		this.setApplicationContext(applicationContext);
-		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
-		((AbstractApplicationContext) this.applicationContext).refresh();
-		Generator.setInstance((Generator) applicationContext.getBean("generator"));
-	}
-
-	public ApplicationContext getApplicationContext() {
-		return this.applicationContext;
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = new AnnotationConfigApplicationContext();
-	}
 
 	@Bean(name = "springConfiguration")
 	public static SpringConfiguration getSpringConfiguration() {
@@ -62,10 +38,19 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return springConfiguration;
 	}
 
+	private ApplicationContext applicationContext = this.annotationConfigApplicationContext();
+
+	public SpringConfiguration() {
+		this.setApplicationContext(this.applicationContext);
+		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
+		((AbstractApplicationContext) this.applicationContext).refresh();
+		Generator.setInstance((Generator) this.applicationContext.getBean("generator"));
+	}
+
 	@Bean(name = "annotationConfigApplicationContext")
 	public ApplicationContext annotationConfigApplicationContext() {
-		applicationContext = new AnnotationConfigApplicationContext();
-		return applicationContext;
+		this.applicationContext = new AnnotationConfigApplicationContext();
+		return this.applicationContext;
 	}
 
 	@Bean(name = "aspects.CachingAspect")
@@ -73,16 +58,13 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return new CachingAspect();
 	}
 
-	@Bean(name = "realLine")
-	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-	public RealLine realLine() {
-		return new RealLine();
+	@Bean(name = "generator")
+	public Generator generator() {
+		return new Generator();
 	}
 
-	@Bean
-	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-	public Real real() {
-		return new Real();
+	public ApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Bean(name = "int")
@@ -94,6 +76,23 @@ public class SpringConfiguration implements ApplicationContextAware {
 	@Bean(name = "logger")
 	public Logger logger() {
 		return LogManager.getLogger(Generator.class);
+	}
+
+	@Bean
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public Real real() {
+		return new Real();
+	}
+
+	@Bean(name = "realLine")
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public RealLine realLine() {
+		return new RealLine();
+	}
+
+	@Override
+	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = new AnnotationConfigApplicationContext();
 	}
 
 }

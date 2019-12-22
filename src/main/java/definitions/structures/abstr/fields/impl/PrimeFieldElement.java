@@ -12,69 +12,69 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class PrimeFieldElement extends FiniteResidueClassElement implements FiniteVector,FieldElement {
-	
+public class PrimeFieldElement extends FiniteResidueClassElement implements FiniteVector, FieldElement {
+
 	private static final long serialVersionUID = 1L;
 
-	private Field field;
+	private final Field field;
 
-	protected PrimeFieldElement(int r, Field f) {
+	private Map<Vector, Scalar> coordinates;
+
+	protected PrimeFieldElement(final int r, final Field f) {
 		super(r);
-		field = f;
+		this.field = f;
 	}
 
 	@Override
-	public double getValue() {
-		return getRepresentant();
+	public Map<Vector, Scalar> getCoordinates() {
+		final Map<Vector, Scalar> map = new HashMap<>();
+		map.put(this.field.getOne(), this);
+		return map;
+	}
+
+	@Override
+	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
+		if (this.coordinates == null) {
+			this.coordinates = new HashMap<>();
+			this.coordinates.put(this.field.getOne(), this);
+		}
+		return this.coordinates;
+	}
+
+	@Override
+	public Integer getDim() {
+		return 1;
+	}
+
+	@Override
+	public Set<Vector> getGenericBase() {
+		final Set<Vector> base = new HashSet<>();
+		base.add(this.field.getOne());
+		return base;
 	}
 
 	@Override
 	public Scalar getInverse() {
-		for (int i = 1; i < field.getCharacteristic(); i++) {
-			if (field.getMuliplicativeMonoid().operation(this, field.get(i)).equals(field.getOne())) {
-				return field.get(i);
+		for (int i = 1; i < this.field.getCharacteristic(); i++) {
+			if (this.field.getMuliplicativeMonoid().operation(this, this.field.get(i)).equals(this.field.getOne())) {
+				return this.field.get(i);
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public Map<Vector, Scalar> getCoordinates() {
-		Map<Vector, Scalar> map = new HashMap<>();
-		map.put(field.getOne(), this);
-		return map;
+	public double getValue() {
+		return this.getRepresentant();
 	}
 
 	@Override
-	public Set<Vector> getGenericBase() {
-		Set<Vector> base = new HashSet<>();
-		base.add(field.getOne());
-		return base;
-	}
-
-	private Map<Vector, Scalar> coordinates;
-	
-	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-		this.coordinates=coordinates;
-	}
-	
-	@Override
-	public void setCoordinates(Map<Vector, Scalar> coordinates) {
-		this.coordinates=coordinates;
+	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+		this.coordinates = coordinates;
 	}
 
 	@Override
-	public Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
-		if (coordinates == null) {
-			coordinates = new HashMap<>();
-			coordinates.put(field.getOne(), this);
-		}
-		return coordinates;
-	}
-	
-	@Override
-	public Integer getDim() {
-		return 1;
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		this.coordinates = coordinates;
 	}
 }

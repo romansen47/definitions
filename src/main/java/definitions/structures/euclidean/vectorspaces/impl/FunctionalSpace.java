@@ -28,7 +28,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 	private static final long serialVersionUID = 2891504884821572359L;
 	final EuclideanSpace source;
 
-	public FunctionalSpace(EuclideanSpace source) {
+	public FunctionalSpace(final EuclideanSpace source) {
 		this.source = source;
 		this.dim = source.getDim();
 		final List<Vector> base = new ArrayList<>();
@@ -44,8 +44,24 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 				final Vector sourceVec = baseVec;
 
 				@Override
-				public Vector get(Vector vec) {
+				public Vector get(final Vector vec) {
 					return this.sourceSpace.innerProduct(baseVec, vec);
+				}
+
+				@Override
+				public Scalar[][] getGenericMatrix() {
+					final Scalar[][] mat = new Scalar[((EuclideanSpace) this.getSource())
+							.getDim()][((EuclideanSpace) this.getSource()).getDim()];
+					for (int i = 0; i < ((EuclideanSpace) this.getSource()).getDim(); i++) {
+						for (int j = 0; j < ((EuclideanSpace) this.getSource()).getDim(); j++) {
+							if (i != j) {
+								mat[i][j] = (Scalar) this.getTarget().nullVec();
+							} else {
+								mat[i][j] = (Scalar) ((Field) this.getTarget()).getOne();
+							}
+						}
+					}
+					return mat;
 				}
 
 				@Override
@@ -71,29 +87,13 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 				}
 
 				@Override
-				public EuclideanSpace getTarget() {
-					return this.target;
-				}
-
-				@Override
-				public Scalar[][] getGenericMatrix() {
-					final Scalar[][] mat = new Scalar[((EuclideanSpace) this.getSource())
-							.getDim()][((EuclideanSpace) this.getSource()).getDim()];
-					for (int i = 0; i < ((EuclideanSpace) this.getSource()).getDim(); i++) {
-						for (int j = 0; j < ((EuclideanSpace) this.getSource()).getDim(); j++) {
-							if (i != j) {
-								mat[i][j] = (Scalar) this.getTarget().nullVec();
-							} else {
-								mat[i][j] = (Scalar) ((Field) this.getTarget()).getOne();
-							}
-						}
-					}
-					return mat;
-				}
-
-				@Override
 				public Vector getSourceVec() {
 					return this.sourceVec;
+				}
+
+				@Override
+				public EuclideanSpace getTarget() {
+					return this.target;
 				}
 
 			};

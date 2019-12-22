@@ -1,4 +1,4 @@
-//package definitions.xmltest; 
+//package definitions.xmltest;
 //
 //import org.junit.BeforeClass;
 //import org.junit.Test;
@@ -39,7 +39,7 @@
 //				.getSpacegenerator().getTrigonometricSobolevSpace(realSpace, fourierDegree, sobolevDegree),
 //				new GenericFunction() {
 //					/**
-//					 * 
+//					 *
 //					 */
 //					private static final long serialVersionUID = 5812927097511303688L;
 //
@@ -53,7 +53,7 @@
 //		testValues2 = Reader.readFile(PATH2);
 //		staircaseFunction = new GenericFunction() {
 //			/**
-//			 * 
+//			 *
 //			 */
 //			private static final long serialVersionUID = -8361584686661267908L;
 //			private final int length = (int) testValues[0][testValues[0].length - 1];

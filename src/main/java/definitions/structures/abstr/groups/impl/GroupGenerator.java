@@ -1,8 +1,6 @@
 package definitions.structures.abstr.groups.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +10,29 @@ import definitions.SpringConfiguration;
 import definitions.Unweavable;
 import definitions.structures.abstr.fields.impl.FinitePrimeField;
 import definitions.structures.abstr.groups.IGroupGenerator;
-import definitions.structures.abstr.vectorspaces.Ring;
 
 @Configuration
 //@Component
 public class GroupGenerator implements IGroupGenerator, Unweavable {
 
-	Map<Integer, FiniteResidueClassRing> map = new HashMap<>();
-
 	public static GroupGenerator instance;
-
-	@Autowired
-	private Integers integers;
 
 	public static GroupGenerator getInstance() {
 		return instance;
 	}
- 
+
+	public static void setInstance(final GroupGenerator groupGenerator) {
+		instance = groupGenerator;
+	}
+
+	Map<Integer, FiniteResidueClassRing> map = new HashMap<>();
+
+	@Autowired
+	private Integers integers;
+
 	@Override
-	public FiniteResidueClassRing getFiniteResidueClassRing(int order) {
-		FiniteResidueClassRing ring = map.get(order);
+	public FiniteResidueClassRing getFiniteResidueClassRing(final int order) {
+		FiniteResidueClassRing ring = this.map.get(order);
 		if (ring == null) {
 			if (order == 2) {
 				ring = (FiniteResidueClassRing) SpringConfiguration.getSpringConfiguration().getApplicationContext()
@@ -43,20 +44,16 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 					ring = FiniteResidueClassRing.getFiniteCyclicRing(order);
 				}
 			}
-			map.put(order, ring);
+			this.map.put(order, ring);
 		}
 		return ring;
 	}
 
-	public static void setInstance(GroupGenerator groupGenerator) {
-		instance = groupGenerator;
-	}
-
 	public Integers getIntegers() {
-		return integers;
+		return this.integers;
 	}
 
-	public void setIntegers(Integers integers) {
+	public void setIntegers(final Integers integers) {
 		this.integers = integers;
 	}
 

@@ -28,7 +28,7 @@ import solver.StdDraw;
  */
 public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweavable {
 
-	final static IGenerator gen = Generator.getInstance();
+	IGenerator gen = Generator.getInstance();
 	/**
 	 * Functions carry around a correctness parameter.
 	 */
@@ -39,24 +39,15 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * static constant 1-function.
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
-		private static final long serialVersionUID = 7890164185650800915L;
-		final Field ownfield = getField();
+		private long serialVersionUID = 7890164185650800915L;
+		Field ownfield = this.getField();
 
 		@Override
 		public Field getField() {
-			return ownfield;
+			return this.ownfield;
 		}
 
 	};
-
-	/**
-	 * Evaluation of the function.
-	 * 
-	 * @param input the input parameter.
-	 * @return the image of the input.
-	 */
-	@Proceed
-	Scalar value(Scalar input);
 
 	/**
 	 * Method to determine whether another function produces the same values.
@@ -73,7 +64,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(value(getField().get(x)).getValue()
+			if (Math.abs(this.value(this.getField().get(x)).getValue()
 					- other.value(RealLine.getInstance().get(x)).getValue()) > eps) {
 				return false;
 			}
@@ -81,25 +72,28 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		return true;
 	}
 
-	default void preparePlot(final double left, final double right, StdDraw stddraw, int count, double delta) {
-		((Plotter) gen).preparePlot(this, left, right, stddraw, count, delta);
+	/**
+	 * Method to compute the coordinates of the projection onto a vector space.
+	 * 
+	 * @param space the vector space.
+	 * @return the coordinates of the projection.
+	 */
+
+	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
+		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
+		if (coordinatesMap != null) {
+			if (coordinatesMap.get(space) != null) {
+				return coordinatesMap.get(space);
+			}
+		}
+		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
+		for (final Vector baseVec : space.genericBaseToList()) {
+			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
+		}
+		return newCoordinates;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default void plot(final double left, final double right) {
-		((Plotter) gen).plot(this, left, right);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) gen).plotCompare(this, fun, left, right);
-	}
+	Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap();
 
 	/**
 	 * Method to compute the derivative of the function.
@@ -108,22 +102,22 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Proceed
 	default Function getDerivative() {
-		final Field f = getField();
+		final Field f = this.getField();
 		if (derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
-				private static final long serialVersionUID = -1492641310343584079L;
+				private long serialVersionUID = -1492641310343584079L;
+
+				@Override
+				public Field getField() {
+					return f;
+				}
 
 				@Override
 				public Scalar value(final Scalar input) {
 					final double dy = fun.value(f.get(input.getValue() + eps)).getValue() - fun.value(input).getValue();
 					final double dx = eps;
 					return f.get(dy / dx);
-				}
-
-				@Override
-				public Field getField() {
-					return f;
 				}
 
 			};
@@ -139,8 +133,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 
 	@Proceed
-	default Function getDerivative(EuclideanSpace space) {
-		return getDerivative().getProjection(space);
+	default Function getDerivative(final EuclideanSpace space) {
+		return this.getDerivative().getProjection(space);
 	}
 
 	/**
@@ -151,15 +145,40 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 
 	@Proceed
-	default Function getDerivative(int n) {
+	default Function getDerivative(final int n) {
 		// if (n < 0) {
 		// return getPrimitiveIntegral(-n);
 		// }
 		if (n == 0) {
 			return this;
 		} else {
-			return getDerivative().getDerivative(n - 1);
+			return this.getDerivative().getDerivative(n - 1);
 		}
+	}
+
+	default Field getField() {
+		return RealLine.getInstance();
+	}
+
+	/**
+	 * Method to compute the projection onto another space.
+	 * 
+	 * @param source the vector space.
+	 * @return the projection.
+	 */
+
+	@Proceed
+	default Function getProjection(final EuclideanSpace source) {
+		if (this instanceof FunctionTuple) {
+			return this;
+		}
+		final Map<Vector, Scalar> coord = this.getCoordinates(source);
+		if (coord != null) {
+//			return (Function) source.get(getCoordinates());
+			return (Function) source.get(coord);
+		}
+		return new FunctionTuple(coord, source);
+
 	}
 
 	/**
@@ -207,50 +226,29 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 
 	@Proceed
-	default Function getProjectionOfDerivative(EuclideanFunctionSpace space) {
+	default Function getProjectionOfDerivative(final EuclideanFunctionSpace space) {
 		return this.getDerivative(space);
 	}
 
 	/**
-	 * Method to compute the coordinates of the projection onto a vector space.
-	 * 
-	 * @param space the vector space.
-	 * @return the coordinates of the projection.
+	 * {@inheritDoc}
 	 */
-
-	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
-		if (coordinatesMap != null) {
-			if (coordinatesMap.get(space) != null) {
-				return coordinatesMap.get(space);
-			}
-		}
-		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		for (final Vector baseVec : space.genericBaseToList()) {
-			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
-		}
-		return newCoordinates;
+	@Override
+	default void plot(final double left, final double right) {
+		((Plotter) gen).plot(this, left, right);
 	}
 
 	/**
-	 * Method to compute the projection onto another space.
-	 * 
-	 * @param source the vector space.
-	 * @return the projection.
+	 * {@inheritDoc}
 	 */
+	@Override
+	default void plotCompare(final double left, final double right, final Function fun) {
+		((Plotter) gen).plotCompare(this, fun, left, right);
+	}
 
-	@Proceed
-	default Function getProjection(EuclideanSpace source) {
-		if (this instanceof FunctionTuple) {
-			return this;
-		}
-		Map<Vector, Scalar> coord = getCoordinates(source);
-		if (coord != null) {
-//			return (Function) source.get(getCoordinates());
-			return (Function) source.get(coord);
-		}
-		return new FunctionTuple(coord, source);
-
+	default void preparePlot(final double left, final double right, final StdDraw stddraw, final int count,
+			final double delta) {
+		((Plotter) gen).preparePlot(this, left, right, stddraw, count, delta);
 	}
 
 	/**
@@ -259,10 +257,13 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 
-	Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap();
-
-	default Field getField() {
-		return RealLine.getInstance();
-	}
+	/**
+	 * Evaluation of the function.
+	 * 
+	 * @param input the input parameter.
+	 * @return the image of the input.
+	 */
+	@Proceed
+	Scalar value(Scalar input);
 
 }

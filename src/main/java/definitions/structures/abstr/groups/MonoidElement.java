@@ -11,6 +11,6 @@ import definitions.settings.XmlPrintable;
  * @author RoManski
  *
  */
-public interface MonoidElement extends XmlPrintable,Serializable {
+public interface MonoidElement extends XmlPrintable, Serializable {
 
 }

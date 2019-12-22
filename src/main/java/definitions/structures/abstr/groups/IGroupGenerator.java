@@ -1,14 +1,6 @@
 package definitions.structures.abstr.groups;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.math3.util.Pair;
-
-import definitions.structures.abstr.groups.impl.FiniteGroup;
-import definitions.structures.abstr.groups.impl.FiniteResidueClassElement;
 import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
-import definitions.structures.abstr.vectorspaces.RingElement;
 
 public interface IGroupGenerator {
 

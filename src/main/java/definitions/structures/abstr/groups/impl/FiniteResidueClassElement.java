@@ -6,51 +6,51 @@ public class FiniteResidueClassElement implements RingElement {
 
 	private static final long serialVersionUID = 1L;
 	int representant;
-	
+
 	private Boolean isPrime;
 	private Boolean isUnit;
 	private Boolean isIrreducible;
 
+	protected FiniteResidueClassElement(final int r) {
+		this.representant = r;
+	}
+
+	public int getRepresentant() {
+		return this.representant;
+	}
+
+	public Boolean isIrreducible() {
+		return this.isIrreducible;
+	}
+
 	public Boolean isPrime() {
-		return isPrime;
+		return this.isPrime;
 	}
 
-	public void setPrime(boolean isPrime) {
+	public Boolean isUnit() {
+		return this.isUnit;
+	}
+
+	public void setIrreducible(final Boolean isReducible) {
+		this.isIrreducible = isReducible;
+	}
+
+	public void setIsUnit(final Boolean isUnit) {
+		this.isUnit = isUnit;
+	}
+
+	public void setPrime(final boolean isPrime) {
 		this.isPrime = isPrime;
-	}
-
-	protected FiniteResidueClassElement(int r) {
-		representant = r;
 	}
 
 	@Override
 	public String toString() {
-		return toXml();
+		return this.toXml();
 	}
-	
+
 	@Override
 	public String toXml() {
-		return "<representant>" + representant + "</representant>";
-	}
-
-	public int getRepresentant() {
-		return representant;
-	}
-
-	public Boolean isUnit() {
-		return isUnit;
-	}
-
-	public void setIsUnit(Boolean isUnit) {
-		this.isUnit = isUnit;
-	}
-
-	public Boolean isIrreducible() {
-		return isIrreducible;
-	}
-
-	public void setIrreducible(Boolean isReducible) {
-		this.isIrreducible = isReducible;
+		return "<representant>" + this.representant + "</representant>";
 	}
 
 }

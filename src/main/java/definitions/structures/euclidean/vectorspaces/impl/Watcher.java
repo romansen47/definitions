@@ -17,14 +17,14 @@ public class Watcher implements IWatcher {
 	private static final long serialVersionUID = 1L;
 	private static IWatcher instance = null;
 
-	private Watcher() {
-	}
-
 	public static IWatcher getInstance() {
 		if (instance == null) {
 			instance = new Watcher();
 		}
 		return instance;
+	}
+
+	private Watcher() {
 	}
 
 	@Override

@@ -3,8 +3,6 @@ package definitions.structures.abstr.fields;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.Proceed;
-import definitions.Unweavable;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.impl.PrimeField;
 import definitions.structures.abstr.fields.impl.RealLine;
@@ -26,89 +24,38 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethods {
-	
-	@Override
-	default boolean isIrreducible(RingElement element) {
-		return true;
-	}
-	
-	@Override
-	default boolean isUnit(RingElement element) {
-		return !element.equals(getZero());
-	}
-	
-	@Override
-	default boolean isPrimeElement(RingElement element) {
-		return !isUnit(element);
-	}
-	
-	@Override
-	default boolean divides(RingElement devisor, RingElement devident) {
-		return isUnit(devisor);
-	}
-	
-	default Vector inverse(Vector factor) {
-		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
-		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
-			private static final long serialVersionUID = -4878554588629268392L;
 
-			@Override
-			public Vector get(Vector vec) {
-				return ((Field) getTarget()).nullVec();
-			}
-
-			@Override
-			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
-				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
-					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
-				}
-				return coord;
-			}
-
-			@Override
-			public Scalar[][] getGenericMatrix() {
-				final Scalar[][] mat = new Scalar[((Field) target).getDim()][((Field) source).getDim()];
-				for (final Scalar[] entry : mat) {
-					for (Scalar scalar : entry) {
-						scalar = RealLine.getInstance().getZero();
-					}
-				}
-				return mat;
-			}
-		};
-		for (final Vector vec : genericBaseToList()) {
-			final Vector tmp = this.getMultiplicationMatrix().get(vec);
-			hom = (FiniteDimensionalHomomorphism) multLinMaps.add(hom,
-					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
-		}
-		return hom.solve((FiniteVector) getOne());
-	}
- 
-	@Override 
-	Vector getOne();
- 
-	default Vector getZero() {
-		return nullVec();
-	}
- 
 	Scalar conjugate(Scalar value);
+
+	@Override
+	default boolean divides(final RingElement devisor, final RingElement devident) {
+		return this.isUnit(devisor);
+	}
+
+	default int getCharacteristic() {
+		return 0;
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override 
+	@Override
 	default Monoid getMuliplicativeMonoid() {
 
-		final Vector newOne = getOne();
-		final Integer newOrder = getOrder();
+		final Vector newOne = this.getOne();
+		final Integer newOrder = this.getOrder();
 
 		final Group multiplicativeGroup = new Group() {
-			private static final long serialVersionUID = 8357435449765655148L;
+			private long serialVersionUID = 8357435449765655148L;
 
 			@Override
 			public MonoidElement getIdentityElement() {
 				return newOne;
+			}
+
+			@Override
+			public GroupElement getInverseElement(final GroupElement element) {
+				return Field.this.inverse((Scalar) element);
 			}
 
 			@Override
@@ -120,33 +67,85 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 			}
 
 			@Override
-			public MonoidElement operation(GroupElement first, GroupElement second) {
-				return product((Scalar) first, (Scalar) second);
-			}
-
-			@Override
-			public GroupElement getInverseElement(GroupElement element) {
-				return inverse((Scalar) element);
+			public MonoidElement operation(final GroupElement first, final GroupElement second) {
+				return Field.this.product((Scalar) first, (Scalar) second);
 			}
 
 			@Override
 			public String toString() {
-				return "Multiplicative group of " + getField().toString();
+				return "Multiplicative group of " + Field.this.getField().toString();
 			}
 		};
 
 		return multiplicativeGroup;
 	}
- 
-	default int getCharacteristic() {
-		return 0;
-	}
+
+	@Override
+	Vector getOne();
 
 	/**
 	 * Should return field of rational numbers in infinite case by default.
+	 * 
 	 * @return
-	 */ 
+	 */
 	default PrimeField getPrimeField() {
 		return null;
+	}
+
+	default Vector getZero() {
+		return this.nullVec();
+	}
+
+	default Vector inverse(final Vector factor) {
+		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
+		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
+			private long serialVersionUID = -4878554588629268392L;
+
+			@Override
+			public Vector get(final Vector vec) {
+				return ((Field) this.getTarget()).nullVec();
+			}
+
+			@Override
+			public Scalar[][] getGenericMatrix() {
+				final Scalar[][] mat = new Scalar[((Field) this.target).getDim()][((Field) this.source).getDim()];
+				for (final Scalar[] entry : mat) {
+					for (Scalar scalar : entry) {
+						scalar = RealLine.getInstance().getZero();
+					}
+				}
+				return mat;
+			}
+
+			@Override
+			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
+				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
+				for (final Vector vec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
+					coord.put(vec, ((FiniteVectorMethods) ((Field) this.target).nullVec()).getCoordinates());
+				}
+				return coord;
+			}
+		};
+		for (final Vector vec : this.genericBaseToList()) {
+			final Vector tmp = this.getMultiplicationMatrix().get(vec);
+			hom = (FiniteDimensionalHomomorphism) multLinMaps.add(hom,
+					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
+		}
+		return hom.solve((FiniteVector) this.getOne());
+	}
+
+	@Override
+	default boolean isIrreducible(final RingElement element) {
+		return true;
+	}
+
+	@Override
+	default boolean isPrimeElement(final RingElement element) {
+		return !this.isUnit(element);
+	}
+
+	@Override
+	default boolean isUnit(final RingElement element) {
+		return !element.equals(this.getZero());
 	}
 }

@@ -7,7 +7,7 @@ import definitions.structures.euclidean.vectorspaces.impl.Watcher;
 
 public interface TechnicalProvider extends Serializable {
 
-	final static IWatcher builder = Watcher.getInstance();
+	IWatcher builder = Watcher.getInstance();
 
 	static IWatcher getStringBuilder() {
 		return builder;

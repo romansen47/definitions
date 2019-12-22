@@ -3,7 +3,6 @@ package definitions.structures.abstr.vectorspaces.vectors;
 import java.io.Serializable;
 import java.util.Map;
 
-import definitions.Proceed;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -18,6 +17,19 @@ public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 	Map<Vector, Scalar> getCoordinates();
 
 	/**
+	 * Setter for coordinates on a base.
+	 * 
+	 * @param coordinates the coordinates.
+	 */
+	default void setCoordinates(final Map<Vector, Scalar> coordinates) {
+
+	}
+
+	default void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+
+	}
+
+	/**
 	 * Coordinates as double[].
 	 * 
 	 * @return the coordinates as double[].
@@ -26,19 +38,5 @@ public interface FiniteVectorMethods extends XmlPrintable, Serializable {
 
 	@Override
 	String toString();
-
-	/**
-	 * Setter for coordinates on a base.
-	 * 
-	 * @param coordinates the coordinates.
-	 */
-	default void setCoordinates(Map<Vector, Scalar> coordinates) {
-
-	}
-
-	
-	default void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-
-	}
 
 }

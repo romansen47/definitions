@@ -9,32 +9,31 @@ import definitions.settings.XmlPrintable;
  * @author RoManski
  *
  */
-public class MathException extends java.lang.Exception implements exceptions.Exception, XmlPrintable{
+public class MathException extends java.lang.Exception implements exceptions.Exception, XmlPrintable {
 
-	final private String message;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	final private String message;
 
 	/**
-	 *  Root type for custom exceptions
+	 * Root type for custom exceptions
 	 */
-	public MathException(String message) {
+	public MathException(final String message) {
 		super(message);
-		this.message=message;
+		this.message = message;
 	}
 
+	@Override
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	@Override
 	public String toXml() {
-		String ans= "<mathException/>";
+		final String ans = "<mathException/>";
 		return ans;
 	}
-	
-	
 
 }

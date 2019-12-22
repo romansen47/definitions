@@ -5,24 +5,26 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
-import definitions.structures.abstr.groups.impl.GroupGenerator;
 import definitions.structures.abstr.vectorspaces.Ring;
 
-public class FiniteResidueClassRingTest extends AspectJTest{
+public class FiniteResidueClassRingTest extends AspectJTest {
 
-	final static int index=25;
-	
+	final static int index = 50;
+
 	static Ring finiteResidueClassRing;
-	
-	@BeforeClass 
+
+	@BeforeClass
 	public static void prepare() {
 		AspectJTest.prepare();
 		finiteResidueClassRing = new FiniteResidueClassRing(index);
 	}
-	
+
 	@Test
 	public void test() {
-		((FiniteResidueClassRing) finiteResidueClassRing).print(); 
+
+		getLogger().info(((FiniteResidueClassRing) finiteResidueClassRing).toString());
+
+		((FiniteResidueClassRing) finiteResidueClassRing).print();
 		((FiniteResidueClassRing) finiteResidueClassRing).draw();
 	}
 

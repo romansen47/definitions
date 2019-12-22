@@ -30,7 +30,7 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 	 * @param left  the inf of the interval.
 	 * @param right the sup of the interval.
 	 */
-	public TrigonometricSpace(Field field, final int n, final double right) {
+	public TrigonometricSpace(final Field field, final int n, final double right) {
 		super(field);
 		final double left = -right;
 		final List<Vector> tmpBase = new ArrayList<>();
@@ -50,18 +50,17 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		this.base = tmpBase;
 		this.assignOrthonormalCoordinates(this.base, field);
 	}
-	
 
 	@Override
-	
-	public Vector stretch(final Vector vec, final Scalar r) {
-		return super.stretch(vec, r);
+
+	public Vector projection(final Vector w, final Vector v) {
+		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	@Override
-	
-	public Vector projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
+
+	public Vector stretch(final Vector vec, final Scalar r) {
+		return super.stretch(vec, r);
 	}
 
 }

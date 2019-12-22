@@ -36,18 +36,18 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * the dimension.
 	 */
 	protected int dim;
- 
+
 	private Field field;
+
+	public FiniteDimensionalVectorSpace() {
+		this.setField(RealLine.getInstance());
+	}
 
 	/**
 	 * Plain constructor.
 	 */
-	protected FiniteDimensionalVectorSpace(Field field) {
+	protected FiniteDimensionalVectorSpace(final Field field) {
 		this.setField(field);
-	}
-
-	public FiniteDimensionalVectorSpace() {
-		this.setField(RealLine.getInstance());
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * 
 	 * @param genericBase the set of vectors.
 	 */
-	public FiniteDimensionalVectorSpace(Field field, final List<Vector> genericBase) {
+	public FiniteDimensionalVectorSpace(final Field field, final List<Vector> genericBase) {
 		this.setField(field);
 		this.dim = genericBase.size();
 		this.base = genericBase;
@@ -64,6 +64,60 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	@Override
 	public boolean contains(final Vector vec) {
 		return ((vec instanceof Tuple) && (vec.getDim().equals(this.getDim())));
+	}
+
+	@Override
+	public List<Vector> genericBaseToList() {
+		return this.base;
+	}
+
+	@Override
+	public Vector getCoordinates(final Vector vec) {
+		final Map<Vector, Scalar> coordinates = new HashMap<>();
+		for (final Vector baseVec : this.genericBaseToList()) {
+			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
+		}
+		if (vec instanceof GenericFunction) {
+			return new FunctionTuple(coordinates, this);
+		}
+		return this.get(coordinates);
+	}
+
+	/**
+	 * Getter for the dimension.
+	 * 
+	 * @return the dimension.
+	 */
+	@Override
+	public Integer getDim() {
+		return this.dim;
+	}
+
+	@Override
+	public EuclideanSpace getDualSpace() {
+		if (this.dualSpace == null) {
+			this.dualSpace = new FunctionalSpace(this);
+		}
+		return this.dualSpace;
+	}
+
+	@Override
+	public Field getField() {
+		return this.field;
+	}
+
+	@Override
+	public List<Vector> getOrthonormalBase(final List<Vector> base) {
+		final List<Vector> newBase = new ArrayList<>();
+		for (final Vector vec : base) {
+			Vector tmp = this.nullVec();
+			for (final Vector vec2 : newBase) {
+				tmp = this.add(tmp, this.projection(vec, vec2));
+			}
+			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
+			newBase.add(ans);
+		}
+		return newBase;
 	}
 
 	@Override
@@ -80,18 +134,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public List<Vector> genericBaseToList() {
-		return this.base;
-	}
-
-	/**
-	 * Getter for the dimension.
-	 * 
-	 * @return the dimension.
-	 */
-	@Override
-	public Integer getDim() {
-		return this.dim;
+	public Vector projection(final Vector w, final Vector v) {
+		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	/**
@@ -103,35 +147,13 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		this.base = newBase;
 	}
 
-	@Override 
-	public Vector getCoordinates(final Vector vec) {
-		final Map<Vector, Scalar> coordinates = new HashMap<>();
-		for (final Vector baseVec : this.genericBaseToList()) {
-			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
-		}
-		if (vec instanceof GenericFunction) {
-			return new FunctionTuple(coordinates, this);
-		}
-		return this.get(coordinates);
+	public void setField(final Field field) {
+		this.field = field;
 	}
 
-	@Override 
-	public List<Vector> getOrthonormalBase(final List<Vector> base) {
-		final List<Vector> newBase = new ArrayList<>();
-		for (final Vector vec : base) {
-			Vector tmp = this.nullVec();
-			for (final Vector vec2 : newBase) {
-				tmp = this.add(tmp, this.projection(vec, vec2));
-			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
-			newBase.add(ans);
-		}
-		return newBase;
-	}
-
-	@Override 
-	public Vector projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
+	@Override
+	public void show() {
+		EuclideanSpace.super.show();
 	}
 
 	@Override
@@ -148,38 +170,16 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return super.toString();
 	}
 
-	@Override 
-	public void show() {
-		EuclideanSpace.super.show();
-	}
-	
-	@Override
-	public Field getField() {
-		return field;
-	}
-
-	@Override
-	public EuclideanSpace getDualSpace() {
-		if (this.dualSpace == null) {
-			this.dualSpace = new FunctionalSpace(this);
-		}
-		return this.dualSpace;
-	}
-
 	@Override
 	public String toXml() {
-		String ans = "<"+this.getClass()+">";
+		String ans = "<" + this.getClass() + ">";
 		ans += "<base>";
-		for (Vector baseVec:genericBaseToList()) {
-			ans+="<baseVec>"+genericBaseToList().indexOf(baseVec)+"</baseVec>\r";
+		for (final Vector baseVec : this.genericBaseToList()) {
+			ans += "<baseVec>" + this.genericBaseToList().indexOf(baseVec) + "</baseVec>\r";
 		}
 		ans += "</base>";
-		ans = "</"+this.getClass().toString().split("class ")[1]+">";
+		ans = "</" + this.getClass().toString().split("class ")[1] + ">";
 		return ans;
-	}
-
-	public void setField(Field field) {
-		this.field = field;
 	}
 
 	/*
@@ -187,13 +187,13 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 
 //	@Override
-//	
+//
 //	public Vector add(final Vector vec1, final Vector vec2) {
 //		return EuclideanSpace.super.add(vec1, vec2);
 //	}
 //
 //	@Override
-//	
+//
 //	public Vector stretch(final Vector vec, final Scalar r) {
 //		return EuclideanSpace.super.stretch(vec, r);
 //	}

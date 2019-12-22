@@ -12,19 +12,19 @@ public abstract class LinearFunction extends GenericFunction {
 	final Scalar a;
 	final Scalar b;
 
-	public LinearFunction(Scalar a, Scalar b) {
+	public LinearFunction(final Scalar a, final Scalar b) {
 		this.a = a;
 		this.b = b;
 	}
 
 	@Override
-	public Scalar value(Scalar input) {
-		return this.getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));
+	public String toString() {
+		return "x -> " + this.a + "+" + this.b + "*x ";
 	}
 
 	@Override
-	public String toString() {
-		return "x -> " + this.a + "+" + this.b + "*x ";
+	public Scalar value(final Scalar input) {
+		return this.getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));
 	}
 
 }

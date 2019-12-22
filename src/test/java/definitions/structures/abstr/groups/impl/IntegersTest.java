@@ -30,157 +30,157 @@ public class IntegersTest extends AspectJTest {
 	private int maxInt = 300;
 
 	Function f;
-	
-	List<Integer> primes=new ArrayList<>();
-	
+
+	List<Integer> primes = new ArrayList<>();
+
 	@Before
 	public void before() {
-		
-		integers = Integers.getInstance();
-		zero = (RingElement) integers.getIdentityElement();
-		one = (RingElement) ((Integers) integers).get(1);
-		three = (RingElement) ((Integers) integers).get(3);
-		minusOne = (RingElement) ((Integers) integers).get(-1);
-		five = (RingElement) ((Integers) integers).get(5);
-		six = (RingElement) ((Integers) integers).get(6);
-		f = new Function() { 
+
+		this.integers = Integers.getInstance();
+		this.zero = (RingElement) this.integers.getIdentityElement();
+		this.one = ((Integers) this.integers).get(1);
+		this.three = ((Integers) this.integers).get(3);
+		this.minusOne = ((Integers) this.integers).get(-1);
+		this.five = ((Integers) this.integers).get(5);
+		this.six = ((Integers) this.integers).get(6);
+		this.f = new Function() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
-			public Scalar value(Scalar input) { 
+			public Map<Vector, Scalar> getCoordinates() {
+				return null;
+			}
+
+			@Override
+			public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
+				return null;
+			}
+
+			@Override
+			public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+			}
+
+			@Override
+			public Scalar value(final Scalar input) {
 				int ans = 1;
-				for (int i=0;i<input.getValue();i++) {
-					if (integers.isPrimeElement((RingElement) ((DiscreteGroup)integers).get(i))) {
+				for (int i = 0; i < input.getValue(); i++) {
+					if (IntegersTest.this.integers
+							.isPrimeElement((RingElement) ((DiscreteGroup) IntegersTest.this.integers).get(i))) {
 						ans++;
 					}
 				}
 				return RealLine.getInstance().get(ans);
 			}
-			
-			@Override
-			public Map<Vector, Scalar> getCoordinates() { 
-				return null;
-			}
- 
-			@Override
-			public void setCoordinates(Map<Vector, Scalar> coordinates) { 
-			}
-
-			@Override
-			public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() { 
-				return null;
-			}
 
 		};
-		
+
+	}
+
+	protected RingElement getFive() {
+		return this.five;
+	}
+
+	protected Ring getIntegers() {
+		return this.integers;
+	}
+
+	protected int getMaxInt() {
+		return this.maxInt;
+	}
+
+	protected RingElement getMinusOne() {
+		return this.minusOne;
+	}
+
+	protected RingElement getOne() {
+		return this.one;
+	}
+
+	protected RingElement getSix() {
+		return this.six;
+	}
+
+	protected RingElement getThree() {
+		return this.three;
+	}
+
+	protected RingElement getZero() {
+		return this.zero;
+	}
+
+	protected void setFive(final RingElement five) {
+		this.five = five;
+	}
+
+	protected void setIntegers(final Ring integers) {
+		this.integers = integers;
+	}
+
+	protected void setMaxInt(final int maxInt) {
+		this.maxInt = maxInt;
+	}
+
+	protected void setMinusOne(final RingElement minusOne) {
+		this.minusOne = minusOne;
+	}
+
+	protected void setOne(final RingElement one) {
+		this.one = one;
+	}
+
+	protected void setSix(final RingElement six) {
+		this.six = six;
+	}
+
+	protected void setThree(final RingElement three) {
+		this.three = three;
+	}
+
+	protected void setZero(final RingElement zero) {
+		this.zero = zero;
 	}
 
 	@Test
-	public void testGetOrder() {
-		Assert.assertTrue(integers.getOrder() == null);
+	public void showPrimeCountingFunction() {
+		this.f.plot(0, this.maxInt);
+	}
+
+	@Test
+	public void testDivides() {
+		Assert.assertTrue(!this.integers.divides(this.three, this.five));
+		Assert.assertTrue(this.integers.divides(this.three, this.six));
 	}
 
 	@Test
 	public void testGetIdentityElement() {
-		Assert.assertTrue(integers.getIdentityElement().equals(zero));
+		Assert.assertTrue(this.integers.getIdentityElement().equals(this.zero));
 	}
 
 	@Test
 	public void testGetInverseElement() {
-		Assert.assertTrue(integers.getInverseElement(zero).equals(zero));
-		Assert.assertTrue(integers.getInverseElement(one).equals(minusOne));
+		Assert.assertTrue(this.integers.getInverseElement(this.zero).equals(this.zero));
+		Assert.assertTrue(this.integers.getInverseElement(this.one).equals(this.minusOne));
+	}
+
+	@Test
+	public void testGetOrder() {
+		Assert.assertTrue(this.integers.getOrder() == null);
 	}
 
 	@Test
 	public void testIsPrimeElement() {
-		for (int i = 0; i < maxInt; i++) {
-			getLogger().info(((Integers) integers).get(i) + " is prime: "
-					+ integers.isPrimeElement((RingElement) ((Integers) integers).get(i)));
+		for (int i = 0; i < this.maxInt; i++) {
+			getLogger().info(((Integers) this.integers).get(i) + " is prime: "
+					+ this.integers.isPrimeElement(((Integers) this.integers).get(i)));
 		}
 	}
 
 	@Test
 	public void testIsUnit() {
-		Assert.assertTrue(!integers.isUnit(zero));
-		Assert.assertTrue(integers.isUnit(one));
-		Assert.assertTrue(integers.isUnit(minusOne));
-		Assert.assertTrue(!integers.isUnit(five));
-	}
-
-	@Test
-	public void testDivides() {
-		Assert.assertTrue(!integers.divides(three, five));
-		Assert.assertTrue(integers.divides(three, six));
-	}
-
-	
-	@Test
-	public void showPrimeCountingFunction() {
-		f.plot(0, maxInt);
-	}
-
-	protected Ring getIntegers() {
-		return integers;
-	}
-
-	protected void setIntegers(Ring integers) {
-		this.integers = integers;
-	}
-
-	protected RingElement getZero() {
-		return zero;
-	}
-
-	protected void setZero(RingElement zero) {
-		this.zero = zero;
-	}
-
-	protected RingElement getOne() {
-		return one;
-	}
-
-	protected void setOne(RingElement one) {
-		this.one = one;
-	}
-
-	protected RingElement getThree() {
-		return three;
-	}
-
-	protected void setThree(RingElement three) {
-		this.three = three;
-	}
-
-	protected RingElement getMinusOne() {
-		return minusOne;
-	}
-
-	protected void setMinusOne(RingElement minusOne) {
-		this.minusOne = minusOne;
-	}
-
-	protected RingElement getFive() {
-		return five;
-	}
-
-	protected void setFive(RingElement five) {
-		this.five = five;
-	}
-
-	protected RingElement getSix() {
-		return six;
-	}
-
-	protected void setSix(RingElement six) {
-		this.six = six;
-	}
-
-	protected int getMaxInt() {
-		return maxInt;
-	}
-
-	protected void setMaxInt(int maxInt) {
-		this.maxInt = maxInt;
+		Assert.assertTrue(!this.integers.isUnit(this.zero));
+		Assert.assertTrue(this.integers.isUnit(this.one));
+		Assert.assertTrue(this.integers.isUnit(this.minusOne));
+		Assert.assertTrue(!this.integers.isUnit(this.five));
 	}
 
 }

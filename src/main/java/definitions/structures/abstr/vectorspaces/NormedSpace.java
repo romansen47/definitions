@@ -15,6 +15,14 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
+	default Real getDistance(final Vector vec1, final Vector vec2) {
+		return this.norm(this.add(vec1, this.stretch(vec2, this.getField().get(-1))));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	Field getField();
 
 	/**
@@ -26,14 +34,6 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	Real norm(Vector vec);
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default Real getDistance(Vector vec1, Vector vec2) {
-		return norm(add(vec1, stretch(vec2, getField().get(-1))));
-	}
-
-	/**
 	 * Any non-zero vector can be normalized. The normalization of a vector is a
 	 * vector pointing towards the same direction with norm 1.
 	 * 
@@ -41,7 +41,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return stretch(vec, norm(vec).getInverse());
+		return this.stretch(vec, this.norm(vec).getInverse());
 	}
 
 }

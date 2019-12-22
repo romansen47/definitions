@@ -3,6 +3,7 @@ package definitions.structures.abstr.groups;
 import java.io.Serializable;
 
 import definitions.Proceed;
+import definitions.settings.XmlPrintable;
 
 /**
  * 
@@ -14,13 +15,13 @@ import definitions.Proceed;
  *         (MonoidElement,MonoidElement,)->MonoidElement.
  */
 
-public interface Monoid extends Serializable {
+public interface Monoid extends Serializable, XmlPrintable {
 
 	/**
 	 * Getter for the order of the monoid - the amount of elements.
 	 * 
 	 * @return null, if infinitely many, order otherwise.
-	 */ 
+	 */
 	Integer getOrder();
 
 	/**
@@ -29,7 +30,7 @@ public interface Monoid extends Serializable {
 	 * @param first  first monoid element
 	 * @param second second monoid element
 	 * @return product of both of them
-	 */ 
+	 */
 	@Proceed
 	MonoidElement operation(GroupElement first, GroupElement second);
 

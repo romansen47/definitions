@@ -30,20 +30,30 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	static private EuclideanSpace instance;
 
-	private Vector zero;
-	private Vector one;
-	private Vector i;
+	// @Autowired(required=true)
+	private static RealLine realLine = RealLine.getInstance();
+
+	public static EuclideanSpace getInstance() {
+		if (instance == null) {
+			instance = new ComplexPlane();
+//			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
+		}
+		return instance;
+	}
+
+	public static void setRealLine(final RealLine realLine) {
+		ComplexPlane.realLine = realLine;
+	}
+
+	private final Vector zero;
+
+	private final Vector one;
+
+	private final Vector i;
 
 	private Map<Vector, Homomorphism> multiplicationMatrix = null;
 
-	public Vector getI() {
-		return this.i;
-	}
-
-//	@Autowired(required=true)
-	private static RealLine realLine=RealLine.getInstance();
-
-	public ComplexPlane() { 
+	public ComplexPlane() {
 		this.dim = 2;
 		this.base = new ArrayList<>();
 		this.one = new Complex(realLine.getOne(), realLine.getZero());
@@ -54,34 +64,24 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Vector add(Vector vec1, Vector vec2) {
+	public Vector add(final Vector vec1, final Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
-	@Override
-	public Vector stretch(Vector vec1, Scalar r) {
-		final Vector ans = super.stretch(vec1, r);
-		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
-
-	}
-
-	public static EuclideanSpace getInstance() {
-		if (instance == null) {
-			instance = new ComplexPlane();
-//			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
-		}
-		return instance;
+	// @Bean
+	public Complex complex() {
+		return new Complex(0, 0);
 	}
 
 	@Override
-	public Vector product(Vector vec1, Vector vec2) {
-		return Field.super.product(vec1, vec2);
+	public Scalar conjugate(final Scalar value) {
+		final Complex v = (Complex) value;
+		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
 	}
 
-//	
+//
 //	public Vector conjugate(Vector factor) {
 //		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
 //		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
@@ -89,23 +89,25 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 //	}
 
 	@Override
-	public Vector getOne() { 
-		return this.one;
-	}
-
-	@Override
-	public String toString() {
-		return "the field of complex numbers as a 2-dimensional real vector space.";
-	}
-
-	@Override
-	public boolean contains(Vector vec) {
+	public boolean contains(final Vector vec) {
 		return vec instanceof Complex || vec == this.zero || vec == this.one || vec == null;
 	}
 
 	@Override
-	public Vector nullVec() {
-		return this.zero;
+	public Scalar get(final double realValue) {
+		final Complex newComplex = this.complex();
+		newComplex.setValue(realValue, 0);
+		return newComplex;
+	}
+
+	public Scalar get(final double realValue, final double imValue) {
+		final Complex newComplex = this.complex();
+		newComplex.setValue(realValue, imValue);
+		return newComplex;
+	}
+
+	public Vector getI() {
+		return this.i;
 	}
 
 	@Override
@@ -135,51 +137,51 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 		return this.multiplicationMatrix;
 	}
 
+	@Override
+	public Vector getOne() {
+		return this.one;
+	}
+
+	@Override
+
+	public Scalar inverse(final Vector factor) {
+		return (Scalar) Field.super.inverse(factor);
+	}
+
+	@Override
+	public Vector nullVec() {
+		return this.zero;
+	}
+
+	@Override
+	public Vector product(final Vector vec1, final Vector vec2) {
+		return Field.super.product(vec1, vec2);
+	}
+
 	/**
 	 * @param multiplicationMatrix the multiplicationMatrix to set
 	 */
 	@Override
-	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
+	public void setMultiplicationMatrix(final Map<Vector, Homomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 	}
 
 	@Override
+	public Vector stretch(final Vector vec1, final Scalar r) {
+		final Vector ans = super.stretch(vec1, r);
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 
-	public Scalar inverse(Vector factor) {
-		return (Scalar) Field.super.inverse(factor);
-	}
-
-//	@Bean
-	public Complex complex() {
-		return new Complex(0, 0);
-	}
-
-	public Scalar get(double realValue, double imValue) {
-		Complex newComplex = complex();
-		newComplex.setValue(realValue, imValue);
-		return newComplex;
 	}
 
 	@Override
-	public Scalar get(double realValue) {
-		Complex newComplex = complex();
-		newComplex.setValue(realValue, 0);
-		return newComplex;
-	}
-
-	@Override
-	public Scalar conjugate(Scalar value) {
-		final Complex v = (Complex) value;
-		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
+	public String toString() {
+		return "the field of complex numbers as a 2-dimensional real vector space.";
 	}
 
 	@Override
 	public String toXml() {
 		return "<complexPlane />";
-	}
-
-	public static void setRealLine(RealLine realLine) {
-		ComplexPlane.realLine = realLine;
 	}
 
 }

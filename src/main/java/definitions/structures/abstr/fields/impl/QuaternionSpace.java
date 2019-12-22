@@ -29,47 +29,34 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *         class.
  */
 //@Configuration
-//@Component 
+//@Component
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
- 
+
 	private static final long serialVersionUID = -5960215336667005490L;
 
 	private static EuclideanSpace instance;
 
+	public static EuclideanSpace getInstance() {
+		if (instance == null) {
+			instance = new QuaternionSpace();
+		}
+		return instance;
+	}
+
+	public static void setInstance(final EuclideanSpace space) {
+		instance = space;
+	}
+
 	private final Vector zero;
 	private final Vector one;
 	private final Vector i;
+
 	private final Vector j;
+
 	private final Vector k;
 
 	private Map<Vector, Homomorphism> multiplicationMatrix = null;
 
-	/**
-	 * @return the i
-	 */
-	public Vector getI() {
-		return this.i;
-	}
-
-	/**
-	 * @return the j
-	 */
-	public Vector getJ() {
-		return this.j;
-	}
-
-	/**
-	 * @return the k
-	 */
-	public Vector getK() {
-		return this.k;
-	}
-
-//	@Bean(value="quaternionSpace")
-	public QuaternionSpace quaternionSpace() {
-		return new QuaternionSpace();
-	}
-	
 	public QuaternionSpace() {
 		super(RealLine.getInstance());
 
@@ -89,19 +76,8 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		this.assignOrthonormalCoordinates(this.base, this.getField());
 	}
 
-	public static EuclideanSpace getInstance() { 
-		if (instance==null) {
-			instance=new QuaternionSpace();
-		}
-		return instance;
-	}
-	
-	public static void setInstance(EuclideanSpace space) { 
-		instance=space;
-	}
-
-	@Override	
-	public Vector add(Vector vec1, Vector vec2) {
+	@Override
+	public Vector add(final Vector vec1, final Vector vec2) {
 		if (vec1 == this.nullVec()) {
 			return vec2;
 		}
@@ -115,47 +91,51 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
 	}
 
-	@Override	
-	public Vector stretch(Vector vec1, Scalar r) {
-		if (r instanceof Quaternion) {
-			return this.product(vec1, r);
-		}
-		if (r == this.getField().getOne()) {
-			return vec1;
-		}
-		if (r == this.getField().getZero()) {
-			return this.nullVec();
-		}
-		final Vector ans = super.stretch(vec1, r);
-		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.i),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.j),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
-	}
-
-	@Override	
-	public Vector product(Vector vec1, Vector vec2) {
-		return Field.super.product(vec1, vec2);
+	@Override
+	public Scalar conjugate(final Scalar value) {
+		final Quaternion v = (Quaternion) value;
+		return new Quaternion(v.getReal().getValue(), -v.getI().getValue(), -v.getJ().getValue(), -v.getK().getValue());
 	}
 
 	@Override
-	public Vector getOne() {
-		return this.one;
-	}
-
-	@Override
-	public String toString() {
-		return "the field of quaternions as a 4-dimensional real vector space.";
-	}
-
-	@Override
-	public boolean contains(Vector vec) {
+	public boolean contains(final Vector vec) {
 		return vec instanceof Quaternion || vec == this.zero || vec == this.one || vec == null;
 	}
 
 	@Override
-	public Vector nullVec() {
-		return this.zero;
+	public Scalar get(final double value) {
+		return new Quaternion(value, 0, 0, 0);
+	}
+
+	/**
+	 * @return the i
+	 */
+	public Vector getI() {
+		return this.i;
+	}
+
+	@Override
+	public MonoidElement getIdentityElement() {
+		return super.getIdentityElement();
+	}
+
+	@Override
+	public GroupElement getInverseElement(final GroupElement element) {
+		return super.getInverseElement(element);
+	}
+
+	/**
+	 * @return the j
+	 */
+	public Vector getJ() {
+		return this.j;
+	}
+
+	/**
+	 * @return the k
+	 */
+	public Vector getK() {
+		return this.k;
 	}
 
 	/**
@@ -209,43 +189,65 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		return this.multiplicationMatrix;
 	}
 
-	/**
-	 * @param multiplicationMatrix the multiplicationMatrix to set
-	 */
 	@Override
-	public void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix) {
-		this.multiplicationMatrix = multiplicationMatrix;
-	}
-
-	@Override
-	public Scalar get(double value) {
-		return new Quaternion(value, 0, 0, 0);
-	}
-
-	@Override 
-	public Scalar conjugate(Scalar value) {
-		final Quaternion v = (Quaternion) value;
-		return new Quaternion(v.getReal().getValue(), -v.getI().getValue(), -v.getJ().getValue(), -v.getK().getValue());
-	}
-
-	@Override
-	public boolean isIrreducible(RingElement element) { 
-		return Field.super.isIrreducible(element);
-	}
-
-	@Override
-	public GroupElement getInverseElement(GroupElement element) {
-		return super.getInverseElement(element);
-	}
-
-	@Override
-	public MonoidElement getIdentityElement() { 
-		return super.getIdentityElement();
+	public Vector getOne() {
+		return this.one;
 	}
 
 	@Override
 	public Integer getOrder() {
 		return null;
+	}
+
+	@Override
+	public boolean isIrreducible(final RingElement element) {
+		return Field.super.isIrreducible(element);
+	}
+
+	@Override
+	public Vector nullVec() {
+		return this.zero;
+	}
+
+	@Override
+	public Vector product(final Vector vec1, final Vector vec2) {
+		return Field.super.product(vec1, vec2);
+	}
+
+	// @Bean(value="quaternionSpace")
+	public QuaternionSpace quaternionSpace() {
+		return new QuaternionSpace();
+	}
+
+	/**
+	 * @param multiplicationMatrix the multiplicationMatrix to set
+	 */
+	@Override
+	public void setMultiplicationMatrix(final Map<Vector, Homomorphism> multiplicationMatrix) {
+		this.multiplicationMatrix = multiplicationMatrix;
+	}
+
+	@Override
+	public Vector stretch(final Vector vec1, final Scalar r) {
+		if (r instanceof Quaternion) {
+			return this.product(vec1, r);
+		}
+		if (r == this.getField().getOne()) {
+			return vec1;
+		}
+		if (r == this.getField().getZero()) {
+			return this.nullVec();
+		}
+		final Vector ans = super.stretch(vec1, r);
+		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.j),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
+	}
+
+	@Override
+	public String toString() {
+		return "the field of quaternions as a 4-dimensional real vector space.";
 	}
 
 }

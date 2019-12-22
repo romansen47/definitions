@@ -9,7 +9,7 @@ import definitions.settings.XmlPrintable;
  * @author ro
  *
  */
-public class IncompatibleTypesException extends MathException implements XmlPrintable{
+public class IncompatibleTypesException extends MathException implements XmlPrintable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class IncompatibleTypesException extends MathException implements XmlPrin
 	/**
 	 * @param message
 	 */
-	public IncompatibleTypesException(String message) {
+	public IncompatibleTypesException(final String message) {
 		super(message);
 	}
 

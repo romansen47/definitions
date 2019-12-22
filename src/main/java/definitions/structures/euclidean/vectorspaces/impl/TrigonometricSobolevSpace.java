@@ -35,7 +35,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 * @param right  the sup of the interval.
 	 * @param degree the sobolev degree.
 	 */
-	public TrigonometricSobolevSpace(Field f, final int n, final double left, final double right, int degree) {
+	public TrigonometricSobolevSpace(final Field f, final int n, final double left, final double right,
+			final int degree) {
 		super(f, degree);
 		final List<Vector> tmpBase = new ArrayList<>();
 		this.dim = (2 * n) + 1;
@@ -51,8 +52,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			final Scalar value = this.getField().get(1. / Math.sqrt(2 * Math.PI));
 
 			@Override
-			public Scalar value(final Scalar input) {
-				return this.value;
+			public Field getField() {
+				return f;
 			}
 
 			@Override
@@ -61,8 +62,8 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			}
 
 			@Override
-			public Field getField() {
-				return f;
+			public Scalar value(final Scalar input) {
+				return this.value;
 			}
 		});
 		this.getSineFunctions(n, tmpBase);
@@ -71,18 +72,36 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		this.setOrthoCoordinates();
 	}
 
-	private void setOrthoCoordinates() {
-		for (final Vector vec1 : this.genericBaseToList()) {
-			final Map<Vector, Scalar> map = new HashMap<>();
-			final Scalar zero = RealLine.getInstance().getZero();
-			for (final Vector vec2 : this.genericBaseToList()) {
-				if (vec2.equals(vec1)) {
-					map.put(vec1, RealLine.getInstance().getOne());
-				} else {
-					map.put(vec2, zero);
-				}
+	/**
+	 * Method to fill a list with sine functions.
+	 * 
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param d
+	 * @param tmpBase the list.
+	 */
+
+	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
+		final Field f = this.getField();
+		for (int i = 1; i < (n + 1); i++) {
+			double factor = 0;
+			for (int j = 0; j < (this.getDegree() + 1); j++) {
+				factor += Math.pow(i, 2 * j);
 			}
-			((FiniteVectorMethods) vec1).setCoordinates(map);
+			factor = 1 / Math.sqrt(factor * Math.PI);
+			final Vector cos = new Sine(f.get(factor), f.get(0.5 * Math.PI), f.get(i)) {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = -344838499735956273L;
+
+				@Override
+				public Field getField() {
+					return TrigonometricSobolevSpace.this.getField();
+				}
+			};
+			tmpBase.add(cos);
+
 		}
 	}
 
@@ -119,16 +138,16 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 * @param n       the highest degree of the trigonometric polynomials.
 	 * @param tmpBase the list.
 	 */
-	
+
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
-		Field f=getField();
+		final Field f = this.getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
 			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector sin = new Sine(f.get(factor), (Scalar)f.getZero(), f.get(i)) {
+			final Vector sin = new Sine(f.get(factor), (Scalar) f.getZero(), f.get(i)) {
 
 				/**
 				 * 
@@ -136,7 +155,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				private static final long serialVersionUID = -3675768767280698458L;
 
 				@Override
-				public Field getField() { 
+				public Field getField() {
 					return f;
 				}
 			};
@@ -144,36 +163,18 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		}
 	}
 
-	/**
-	 * Method to fill a list with sine functions.
-	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
-	 * @param tmpBase the list.
-	 */
-	
-	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
-		Field f=getField();
-		for (int i = 1; i < (n + 1); i++) {
-			double factor = 0;
-			for (int j = 0; j < (this.getDegree() + 1); j++) {
-				factor += Math.pow(i, 2 * j);
-			}
-			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector cos = new Sine(f.get(factor), f.get(0.5 * Math.PI), f.get(i)) {
-
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = -344838499735956273L;
-
-				@Override
-				public Field getField() { 
-					return TrigonometricSobolevSpace.this.getField();
+	private void setOrthoCoordinates() {
+		for (final Vector vec1 : this.genericBaseToList()) {
+			final Map<Vector, Scalar> map = new HashMap<>();
+			final Scalar zero = RealLine.getInstance().getZero();
+			for (final Vector vec2 : this.genericBaseToList()) {
+				if (vec2.equals(vec1)) {
+					map.put(vec1, RealLine.getInstance().getOne());
+				} else {
+					map.put(vec2, zero);
 				}
-			};
-			tmpBase.add(cos);
-
+			}
+			((FiniteVectorMethods) vec1).setCoordinates(map);
 		}
 	}
 

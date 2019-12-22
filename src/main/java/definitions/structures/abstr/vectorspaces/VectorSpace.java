@@ -1,6 +1,5 @@
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.Proceed;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
@@ -18,8 +17,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  */
 public interface VectorSpace extends Group, XmlPrintable {
 
-	Field getField();
-
 	/**
 	 * Addition of vectors.
 	 * 
@@ -30,32 +27,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 
 	Vector add(Vector vec1, Vector vec2);
 
-	/**
-	 * Scalar Multiplication by real numbers.
-	 * 
-	 * @param vec1 the vector to stretch.
-	 * @param r    the factor.
-	 * @return the stretched vector.
-	 * @throws WrongFieldException
-	 */
-
-	Vector stretch(Vector vec1, Scalar r);
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default Integer getOrder() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override 
-	default GroupElement operation(GroupElement first, GroupElement second) {
-		return add((Vector) first, (Vector) second);
-	}
+	Field getField();
 
 	/**
 	 * {@inheritDoc}
@@ -69,8 +41,35 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement getInverseElement(GroupElement element) {
-		final Field field = getField();
-		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+	default GroupElement getInverseElement(final GroupElement element) {
+		final Field field = this.getField();
+		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default Integer getOrder() {
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default GroupElement operation(final GroupElement first, final GroupElement second) {
+		return this.add((Vector) first, (Vector) second);
+	}
+
+	/**
+	 * Scalar Multiplication by real numbers.
+	 * 
+	 * @param vec1 the vector to stretch.
+	 * @param r    the factor.
+	 * @return the stretched vector.
+	 * @throws WrongFieldException
+	 */
+
+	Vector stretch(Vector vec1, Scalar r);
 }

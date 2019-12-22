@@ -30,13 +30,13 @@ public abstract class Constant extends GenericFunction {
 	}
 
 	@Override
-	public Scalar value(final Scalar input) {
-		return this.constantValue;
+	public String toString() {
+		return "constant " + this.constantValue + "-function ";
 	}
 
 	@Override
-	public String toString() {
-		return "constant " + this.constantValue + "-function ";
+	public Scalar value(final Scalar input) {
+		return this.constantValue;
 	}
 
 }

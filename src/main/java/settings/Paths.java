@@ -9,5 +9,5 @@ package settings;
  */
 public enum Paths {
 
-	CACHEDSPACES,PLOTS
+	CACHEDSPACES, PLOTS
 }
