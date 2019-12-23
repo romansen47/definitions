@@ -12,11 +12,9 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
-//@Component
 @Aspect
-public class DistributionCollector implements Unweavable {
+public class DistributionCollector{
 
 	public final static Map<Thread, Map<String, Integer>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -49,9 +47,8 @@ public class DistributionCollector implements Unweavable {
 		bw.flush();
 		bw.close();
 		w.close();
-	}
-
-	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
+	} 
+	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..)) && !within(definitions.structures.abstr.groups.impl.FiniteResidueClassRing)")
 	public void getStats(final JoinPoint jp) {
 		final String key = jp.getSignature().toShortString().split(Pattern.quote("@"))[0];// jp.toShortString().split(Pattern.quote("@"))[0];
 		final Map<String, Integer> STATS = map.getOrDefault(Thread.currentThread(), new ConcurrentHashMap<>());

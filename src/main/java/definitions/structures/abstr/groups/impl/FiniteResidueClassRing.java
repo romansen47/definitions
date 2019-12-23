@@ -10,6 +10,7 @@ import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.structures.euclidean.Generator;
 import settings.GlobalSettings;
 import solver.StdDraw;
 
@@ -18,22 +19,10 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 	private static final long serialVersionUID = 1L;
 	private final static Map<Integer, FiniteResidueClassRing> finiteCyclicGroupMap = new HashMap<>();
 	static StdDraw stddraw;
-
-	public static FiniteResidueClassRing getFiniteCyclicRing(final int n) {
-		final FiniteResidueClassRing ring = finiteCyclicGroupMap.get(n);
-		if (ring == null) {
-			return new FiniteResidueClassRing(n);
-		}
-		return ring;
-	}
-
 	protected Map<Integer, RingElement> elements = new HashMap<>();
-
 	private int order;
-
 	private Monoid multiplicativeMonoid;
-
-	int size = 80;
+	int size = 50;
 
 	public FiniteResidueClassRing() {
 	}
@@ -44,44 +33,46 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 		this.createElements(n);
 	}
 
+	public static FiniteResidueClassRing getFiniteCyclicRing(final int n) {
+		final FiniteResidueClassRing ring = finiteCyclicGroupMap.get(n);
+		if (ring == null) {
+			return new FiniteResidueClassRing(n);
+		}
+		return ring;
+	}
+
 	protected void createElements(final int n) {
 		for (int i = 0; i < n; i++) {
 			this.get(i);
 		}
 		finiteCyclicGroupMap.put(n, this);
-	}
-
-	public void draw() {
-		if (stddraw == null) {
-			stddraw = new StdDraw();
-		}
-		stddraw.setCanvasSize(700, 700);
-		StdDraw.setXscale(-100, 100);
-		StdDraw.setYscale(-100, 100);
-		StdDraw.setPenRadius(0.005);
-		final int radius = 5;
+		Generator.getInstance().getLogger().info("Creating elements.");
+		Generator.getInstance().getLogger().info("Creating additions matrix.");
 		for (int i = 0; i < this.getOrder(); i++) {
-			if (this.isUnit(this.get(i))) {
-				StdDraw.setPenColor(Color.blue);
-			} else {
-				if (this.isPrimeElement(this.get(i))) {
-					StdDraw.setPenColor(Color.red);
-				} else {
-					StdDraw.setPenColor(Color.green);
-				}
+			for (int j = 0; j < this.order; j++) {
+				((FiniteResidueClassElement) this.addition(this.get(i), this.get(j))).getRepresentant();
 			}
-			StdDraw.circle(-this.size * Math.cos(2 * Math.PI * i / this.getOrder()),
-					this.size * Math.sin(2 * Math.PI * i / this.getOrder()), radius);
-			StdDraw.text(-this.size * Math.cos(2 * Math.PI * i / this.getOrder()),
-					this.size * Math.sin(2 * Math.PI * i / this.getOrder()),
-					String.valueOf(((FiniteResidueClassElement) this.get(i)).getRepresentant()));
 		}
-		StdDraw.save(GlobalSettings.PLOTS + "Group.png");
+		Generator.getInstance().getLogger().info("Creating multiplications matrix.");
+		for (int i = 0; i < this.order; i++) {
+			for (int j = 0; j < this.getOrder(); j++) {
+				((FiniteResidueClassElement) this.multiplication(this.get(i), this.get(j))).getRepresentant();
+			}
+		}
+		for (int i = 0; i < this.order; i++) {
+			this.isUnit(this.get(i));
+		}
+		for (int i = 0; i < this.order; i++) {
+			this.isPrimeElement(this.get(i));
+		}
+		for (int i = 0; i < this.order; i++) {
+			this.isIrreducible(this.get(i));
+		} 
 	}
 
 	@Override
-	public RingElement get(final Integer index) {
-		RingElement ans = this.elements.get(index);
+	public FiniteRingElement get(final Integer index) {
+		FiniteRingElement ans = (FiniteRingElement) this.elements.get(index);
 		if (ans == null) {
 			ans = new FiniteResidueClassElement(index);
 			this.elements.put(index, ans);
@@ -107,8 +98,7 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 	@Override
 	public Monoid getMuliplicativeMonoid() {
 		if (this.multiplicativeMonoid == null) {
-			this.multiplicativeMonoid = new Monoid() {
-
+			this.multiplicativeMonoid = new FiniteMonoid() {
 				private static final long serialVersionUID = 1L;
 
 				@Override
@@ -118,15 +108,39 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 
 				@Override
 				public MonoidElement operation(final GroupElement first, final GroupElement second) {
-					if (first == FiniteResidueClassRing.this.elements.get(0)
-							|| second == FiniteResidueClassRing.this.elements.get(0)) {
-						return FiniteResidueClassRing.this.elements.get(0);
-					} else {
-						return FiniteResidueClassRing.this.elements
-								.get((((FiniteResidueClassElement) first).getRepresentant()
-										* ((FiniteResidueClassElement) second).getRepresentant())
-										% FiniteResidueClassRing.this.order);
+					MonoidElement ans = FiniteMonoid.super.operation(first, second);
+					if (ans != null) {
+						return ans;
 					}
+					ans = FiniteResidueClassRing.this.elements
+							.get((((FiniteResidueClassElement) first).getRepresentant()
+									* ((FiniteResidueClassElement) second).getRepresentant())
+									% FiniteResidueClassRing.this.order);
+					if (ans.equals(FiniteResidueClassRing.this.getGenerator())) {
+						if (((FiniteResidueClassElement) first).getMultiplicativeInverseElement() == null) {
+							((FiniteResidueClassElement) first).setMultiplicativeInverseElement((RingElement) second);
+							if (((FiniteResidueClassElement) second).getMultiplicativeInverseElement() == null) {
+								((FiniteResidueClassElement) second)
+										.setMultiplicativeInverseElement((RingElement) first);
+							}
+						}
+					}
+					if (multiplicationMap.get(first) == null) {
+						multiplicationMap.put(first, new HashMap<>());
+					}
+					multiplicationMap.get(first).put(second, ans);
+					if (multiplicationMap.get(second) == null) {
+						multiplicationMap.put(second, new HashMap<>());
+					}
+					multiplicationMap.get(second).put(first, ans);
+					return ans;
+				}
+
+				private Map<MonoidElement, Map<MonoidElement, MonoidElement>> multiplicationMap = new HashMap<>();
+
+				@Override
+				public Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap() {
+					return multiplicationMap;
 				}
 
 			};
@@ -153,6 +167,9 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 				}
 			}
 			((FiniteResidueClassElement) element).setIrreducible(ans);
+			if (ans == false) {
+				((FiniteResidueClassElement) element).setPrime(false);
+			}
 		}
 		return ans;
 	}
@@ -185,81 +202,88 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 		return ans;
 	}
 
-	@Override
-	public MonoidElement operation(final GroupElement first, final GroupElement second) {
-		Map<GroupElement, GroupElement> map = getOperationMap().get(first);
-		GroupElement ans = null;
-		if (map != null) {
-			ans = map.get(second);
-			if (ans != null) {
-				return ans;
-			}
-		}
-		Map<GroupElement, GroupElement> map2 = getOperationMap().get(second);
-		map = new HashMap<>();
-		if (map2 == null) {
-			map2 = new HashMap<>();
-		}
-		ans = this.elements.get((((FiniteResidueClassElement) first).getRepresentant()
-				+ ((FiniteResidueClassElement) second).getRepresentant()) % this.getOrder());
-		map.put(second, ans);
-		map2.put(first, ans);
-		return ans;
-	}
-
 	public void print() {
 		System.out.println("\rAddition:\r");
 		for (int i = 0; i < this.getOrder(); i++) {
 			System.out.print(i + ": ");
 			for (int j = 0; j < this.order; j++) {
 				System.out.print(
-						((FiniteResidueClassElement) this.operation(this.get(i), this.get(j))).getRepresentant() + " ");
+						((FiniteResidueClassElement) this.addition(this.get(i), this.get(j))).getRepresentant() + " ");
 			}
 			System.out.println();
 		}
-
 		System.out.println("\rMultiplication:\r");
 		for (int i = 0; i < this.order; i++) {
 			System.out.print(i + ": ");
 			for (int j = 0; j < this.getOrder(); j++) {
 				System.out.print(
-						((FiniteResidueClassElement) this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)))
-								.getRepresentant() + " ");
+						((FiniteResidueClassElement) this.multiplication(this.get(i), this.get(j))).getRepresentant()
+								+ " ");
 			}
 			System.out.println();
 		}
-
 		System.out.println("\rUnits:\r");
 		for (int i = 0; i < this.order; i++) {
 			System.out.print(i + " is unit: " + this.isUnit(this.get(i)));
+			FiniteRingElement tmp = this.get(i);
+			boolean isUnit = this.isUnit(tmp);
+			if (isUnit) {
+				FiniteRingElement invElement = this.getMultiplicativeInverseElement(tmp);
+				System.out.print(" inverse: " + invElement.getRepresentant());
+			}
 			System.out.println();
 		}
-
 		System.out.println("\rPrimes:\r");
 		for (int i = 0; i < this.order; i++) {
 			System.out.print(i + " is prime: " + this.isPrimeElement(this.get(i)));
 			System.out.println();
 		}
-
 		System.out.println("\rIrreducibility:\r");
 		for (int i = 0; i < this.order; i++) {
 			System.out.print(i + ": is reducible: " + !this.isIrreducible(this.get(i)));
 			System.out.println();
 		}
-
 		System.out.println("\rDevisions:\r");
 		for (int i = 0; i < this.order; i++) {
 			for (int j = i; j < this.getOrder(); j++) {
 				System.out.println(i + " devides " + j + " = " + this.divides(this.get(i), this.get(j)));
 			}
 		}
-
 		System.out.println("\r\r");
-
+		if (stddraw == null) {
+			stddraw = new StdDraw();
+		}
+		stddraw.setCanvasSize(700, 700);
+		StdDraw.setXscale(-100, 100);
+		StdDraw.setYscale(-100, 100);
+		StdDraw.setPenRadius(0.005);
+		final int radius = (int)Math.round(Math.PI*size/order);
+		for (int i = 0; i < this.getOrder(); i++) {
+			if (this.isUnit(this.get(i))) {
+				StdDraw.setPenColor(Color.blue);
+			} else {
+				if (this.isPrimeElement(this.get(i))) {
+					StdDraw.setPenColor(Color.red);
+				} else {
+					StdDraw.setPenColor(Color.green);
+				}
+			}
+			StdDraw.circle(-this.size * Math.cos(2 * Math.PI * i / this.getOrder()),
+					this.size * Math.sin(2 * Math.PI * i / this.getOrder()), radius);
+			StdDraw.text(-2*this.size * Math.cos(2 * Math.PI * i / this.getOrder()),
+					2*this.size * Math.sin(2 * Math.PI * i / this.getOrder()),
+					String.valueOf(((FiniteResidueClassElement) this.get(i)).getRepresentant()));
+		}
+		StdDraw.save(GlobalSettings.PLOTS + "Group_of_order_"+order+".png");
 	}
 
 	public void setOrder(final int order) {
 		this.order = order;
+	}
+
+	@Override
+	public Map<Integer, RingElement> getElements() {
+		return elements;
 	}
 
 }

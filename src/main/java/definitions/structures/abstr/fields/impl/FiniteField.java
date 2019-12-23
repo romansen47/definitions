@@ -2,6 +2,7 @@ package definitions.structures.abstr.fields.impl;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.groups.FiniteRing;
+import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -46,6 +47,11 @@ public interface FiniteField extends Field, FiniteRing {
 			xmlString += "<primeField>" + this.getPrimeField().toXml() + "</primeField>";
 		}
 		return xmlString;
+	}
+
+	@Override
+	default GroupElement operation(GroupElement first, GroupElement second) { 
+		return Field.super.operation(first, second);
 	}
 
 }

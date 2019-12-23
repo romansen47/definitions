@@ -4,7 +4,9 @@
 	<weaver
 		options="-Xset:weaveJavaxPackages=true -verbose -Xreweavable">
 		<!--  -showWeaveInfo -debug  -->
-		<include within="definitions..*" /> 
+		<include within="definitions..*" />
+		<exclude within="definitions.structures.abstr.groups.impl.FiniteMonoid" />
+		<exclude within="definitions.Unweavable" />
 	</weaver>
 	<aspects>
 		 <aspect name="definitions.cache.CachingAspect" />

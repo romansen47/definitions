@@ -160,14 +160,6 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return (Vector) this.getGenerator();
 	}
 
-	/**
-	 * @return the order is two
-	 */
-	@Override
-	public Integer getOrder() {
-		return 2;
-	}
-
 	@Override
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		return base;

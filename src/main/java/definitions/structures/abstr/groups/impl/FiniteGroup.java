@@ -4,14 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.groups.DiscreteGroup;
-import definitions.structures.abstr.groups.GroupElement; 
+import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
+import definitions.structures.abstr.vectorspaces.RingElement; 
 
-public interface FiniteGroup extends DiscreteGroup {
+public interface FiniteGroup extends DiscreteGroup, FiniteMonoid {
 	
-	final Map<GroupElement,Map<GroupElement,GroupElement>> operationMap=new HashMap<>();
+	final Map<MonoidElement,Map<MonoidElement,MonoidElement>> operationMap=new HashMap<>();
 
-	default Map<GroupElement, Map<GroupElement, GroupElement>> getOperationMap(){
+	@Override
+	default Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap(){
 		return operationMap;
 	}
+	
+	GroupElement get(Integer representant);
 
+	Map<Integer, RingElement> getElements();
 }

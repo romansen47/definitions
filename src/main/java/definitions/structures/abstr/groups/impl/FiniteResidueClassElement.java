@@ -2,7 +2,7 @@ package definitions.structures.abstr.groups.impl;
 
 import definitions.structures.abstr.vectorspaces.RingElement;
 
-public class FiniteResidueClassElement implements RingElement {
+public class FiniteResidueClassElement implements FiniteRingElement {
 
 	private static final long serialVersionUID = 1L;
 	int representant;
@@ -10,6 +10,8 @@ public class FiniteResidueClassElement implements RingElement {
 	private Boolean isPrime;
 	private Boolean isUnit;
 	private Boolean isIrreducible;
+	private RingElement inverseElement;
+	private RingElement multiplicativeInverseElement;
 
 	protected FiniteResidueClassElement(final int r) {
 		this.representant = r;
@@ -51,6 +53,26 @@ public class FiniteResidueClassElement implements RingElement {
 	@Override
 	public String toXml() {
 		return "<representant>" + this.representant + "</representant>";
+	}
+
+	@Override
+	public void setInverseElement(RingElement element) {
+		inverseElement=element;
+	}
+
+	@Override
+	public RingElement getInverseElement() { 
+		return inverseElement;
+	}
+	
+	@Override
+	public void setMultiplicativeInverseElement(RingElement element) {
+		multiplicativeInverseElement=element;
+	}
+
+	@Override
+	public RingElement getMultiplicativeInverseElement() { 
+		return multiplicativeInverseElement;
 	}
 
 }

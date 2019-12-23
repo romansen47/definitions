@@ -4,19 +4,21 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
+import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
+import definitions.structures.abstr.groups.impl.GroupGenerator;
 import definitions.structures.abstr.vectorspaces.Ring;
 
 public class FiniteResidueClassRingTest extends AspectJTest {
 
-	final static int index = 50;
+	final static int index = 80;
 
 	static Ring finiteResidueClassRing;
 
 	@BeforeClass
 	public static void prepare() {
 		AspectJTest.prepare();
-		finiteResidueClassRing = new FiniteResidueClassRing(index);
+		finiteResidueClassRing = GroupGenerator.getInstance().getFiniteResidueClassRing(index);
 	}
 
 	@Test
@@ -24,8 +26,8 @@ public class FiniteResidueClassRingTest extends AspectJTest {
 
 		getLogger().info(((FiniteResidueClassRing) finiteResidueClassRing).toString());
 
-		((FiniteResidueClassRing) finiteResidueClassRing).print();
-		((FiniteResidueClassRing) finiteResidueClassRing).draw();
+		System.out.println("ring is a field: "+(finiteResidueClassRing instanceof Field));
+		((FiniteResidueClassRing) finiteResidueClassRing).print(); 
 	}
 
 }

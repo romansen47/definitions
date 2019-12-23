@@ -1,20 +1,66 @@
 package definitions.structures.abstr.groups;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import definitions.structures.abstr.groups.impl.FiniteGroup;
+import definitions.structures.abstr.groups.impl.FiniteMonoid;
+import definitions.structures.abstr.groups.impl.FiniteRingElement;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 public interface FiniteRing extends FiniteGroup, Ring {
 	
 	@Override
-	default boolean divides(final RingElement devisor, final RingElement devident) {
-		for (int i = 1; i < this.getOrder(); i++) {
-			final RingElement tmp = this.get(i);
-			if (this.getMuliplicativeMonoid().operation(devisor, tmp).equals(devident)) {
-				return true;
+	default MonoidElement operation(final GroupElement first, final GroupElement second) {
+		Map<MonoidElement, MonoidElement> tmpMap = getOperationMap().get(first);
+		if (tmpMap == null) {
+			tmpMap = new HashMap<>(); 
+		}
+		MonoidElement ans = tmpMap.get(second);
+		if (ans != null) {
+			return ans;
+		}
+		ans = FiniteRing.this.getElements().get((((FiniteRingElement) first).getRepresentant()
+				+ ((FiniteRingElement) second).getRepresentant()) % FiniteRing.this.getOrder());
+		if (ans == FiniteRing.this.getIdentityElement()) {
+			if (((FiniteRingElement) first).getInverseElement() == null) {
+				((FiniteRingElement) first).setInverseElement((RingElement) second);
+				if (((FiniteRingElement) second).getInverseElement() == null) {
+					((FiniteRingElement) second).setInverseElement((RingElement) first);
+				}
 			}
 		}
-		return false;
+		tmpMap.put(second, ans);
+		Map<MonoidElement, MonoidElement> secondTmpMap = getOperationMap().get(second);
+		if (secondTmpMap == null) {
+			secondTmpMap = new HashMap<>();
+		}
+		secondTmpMap.put(first, ans);
+		getOperationMap().put(first, tmpMap);
+		getOperationMap().put(second, secondTmpMap);
+		return ans;
+
+	}
+	
+	default RingElement getCoFactor(final RingElement devisor, final RingElement devident) {
+		for (MonoidElement el:((FiniteMonoid) getMuliplicativeMonoid()).getOperationMap().get(devisor).keySet()) {
+			if(((FiniteMonoid) getMuliplicativeMonoid()).operation(devisor, (GroupElement) el).equals(devident)){
+				return (RingElement) el;
+			}
+		}
+//		for (int i = 1; i < this.getOrder(); i++) {
+//			final RingElement tmp = this.get(i);
+//			if (this.getMuliplicativeMonoid().operation(devisor, tmp).equals(devident)) {
+//				return tmp;
+//			}
+//		}
+		return null;
+	}
+	
+	@Override
+	default boolean divides(final RingElement devisor, final RingElement devident) {
+		return getCoFactor(devisor,devident)!=null;
 	}
 
 	@Override
@@ -41,11 +87,11 @@ public interface FiniteRing extends FiniteGroup, Ring {
 	default boolean isPrimeElement(final RingElement element) {
 		if (element.equals(this.getIdentityElement()) || this.isUnit(element)) {
 			return false;
-		}
+		} 
 		for (int i = 2; i < this.getOrder(); i++) {
 			for (int j = 2; j < this.getOrder(); j++) {
 				if (this.divides(element,
-						(RingElement) this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)))) {
+						(FiniteRingElement) this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)))) {
 					if (!this.divides(element, this.get(i)) && !this.divides(element, this.get(j))) {
 						return false;
 					}
@@ -57,16 +103,31 @@ public interface FiniteRing extends FiniteGroup, Ring {
 
 	@Override
 	default boolean isUnit(final RingElement element) {
+		return getMultiplicativeInverseElement((FiniteRingElement) element)!=null;
+	}
+	
+	default FiniteRingElement getMultiplicativeInverseElement(FiniteRingElement element) {
+		FiniteRingElement tmp=(FiniteRingElement) element.getMultiplicativeInverseElement();
+		if (tmp!=null) {
+			return tmp;
+		}
+		if (element.equals(this.get(0))) {
+			element.setMultiplicativeInverseElement(null);
+			return null;
+		}
 		if (element.equals(this.get(1))) {
-			return true;
+			element.setMultiplicativeInverseElement(element);
+			return element;
 		}
 		for (int i = 1; i < this.getOrder(); i++) {
-			final RingElement other = (RingElement) this.getMuliplicativeMonoid().operation(element, this.get(i));
+			final FiniteRingElement other = (FiniteRingElement) this.getMuliplicativeMonoid().operation(element, this.get(i));
 			if (other.equals(this.get(1))) {
-				return true;
+				element.setMultiplicativeInverseElement(other);
+				other.setMultiplicativeInverseElement(element);
+				return other;
 			}
 		}
-		return false;
+		return null;
 	}
 
 }
