@@ -1,4 +1,3 @@
-package definitions;
 
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,19 +9,25 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 /**
  * @author ro
  *
  */
+
 @Aspect
-//@Component
 public class TestAspect {
 
 	public final static Logger logger = LoggerFactory.getLogger(TestAspect.class);
 
 	private final boolean testStarted = false;
+
+	/**
+	 * @return the testStarted
+	 */
+	public boolean isTestStarted() {
+		return this.testStarted;
+	}
 
 	// @After("execution(* definitions.structures..*.*(..)) && !execution(*
 	// aspects..*.*(..))")
@@ -40,10 +45,6 @@ public class TestAspect {
 			DeepSearch.map.get(thread).clear();
 			DeepSearch.tests.remove(thread);
 
-			PointcutSearch.print(thread);
-			PointcutSearch.map.get(thread).clear();
-			PointcutSearch.tests.remove(thread);
-
 			DistributionCollector.print(thread);
 			DistributionCollector.map.get(thread).clear();
 			DistributionCollector.tests.remove(thread);
@@ -52,8 +53,8 @@ public class TestAspect {
 
 	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*(..))")
 	public void syncAfterTest(final JoinPoint jp) throws Throwable {
-		this.syncAfter(jp);
 		DeepSearch.active = false;
+		this.syncAfter(jp);
 	}
 
 	private void syncBefore(final JoinPoint jp) throws Throwable {
@@ -64,9 +65,6 @@ public class TestAspect {
 
 			DeepSearch.map.putIfAbsent(thread, new ArrayList<>());
 			DeepSearch.tests.put(thread, testCaseName);
-
-			PointcutSearch.map.putIfAbsent(thread, new ArrayList<>());
-			PointcutSearch.tests.put(thread, testCaseName);
 
 			DistributionCollector.tests.put(thread, testCaseName);
 			DistributionCollector.map.putIfAbsent(thread, new ConcurrentHashMap<>());

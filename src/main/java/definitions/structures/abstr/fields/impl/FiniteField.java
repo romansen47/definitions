@@ -11,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *
  */
 public interface FiniteField extends Field, FiniteRing {
-	
+
 	@Override
 	default boolean divides(final RingElement devisor, final RingElement devident) {
 		return Field.super.divides(devisor, devident);
@@ -33,6 +33,11 @@ public interface FiniteField extends Field, FiniteRing {
 	}
 
 	@Override
+	default GroupElement operation(final GroupElement first, final GroupElement second) {
+		return Field.super.operation(first, second);
+	}
+
+	@Override
 	default Vector product(final Vector vec1, final Vector vec2) {
 		return (Vector) this.getMuliplicativeMonoid().operation(vec1, vec2);
 	}
@@ -47,11 +52,6 @@ public interface FiniteField extends Field, FiniteRing {
 			xmlString += "<primeField>" + this.getPrimeField().toXml() + "</primeField>";
 		}
 		return xmlString;
-	}
-
-	@Override
-	default GroupElement operation(GroupElement first, GroupElement second) { 
-		return Field.super.operation(first, second);
 	}
 
 }

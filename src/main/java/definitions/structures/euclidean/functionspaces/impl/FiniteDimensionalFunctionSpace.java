@@ -16,7 +16,6 @@ import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import plotter.Plotable;
 import settings.GlobalSettings;
-import settings.Measurable;
 
 /**
  * 
@@ -65,7 +64,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-
 	public Vector add(final Vector vec1, final Vector vec2) {
 		return EuclideanFunctionSpace.super.add(vec1, vec2);
 	}
@@ -77,7 +75,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param d
 	 * @param tmpBase the list.
 	 */
-	@Measurable
 	protected void getCosineFunctions(final int n, final double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector cos = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
@@ -99,13 +96,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	@Measurable
 	public double getLeft() {
 		return this.getInterval()[0];
 	}
 
 	@Override
-	@Measurable
 	public double getRight() {
 		return this.getInterval()[1];
 	}
@@ -117,7 +112,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param d
 	 * @param tmpBase the list.
 	 */
-	@Measurable
 	protected void getSineFunctions(final int n, final double d, final List<Vector> tmpBase) {
 		for (int i = 1; i < (n + 1); i++) {
 			final Vector sin = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
@@ -139,7 +133,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-
 	public Vector normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
@@ -159,8 +152,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/*
 	 * These overrides are for tracing purposes only
 	 */
-
-	@Measurable
 	public void plotBase() {
 		for (final Vector vec : this.genericBaseToList()) {
 			((Plotable) vec).plot(this.getLeft(), this.getRight());
@@ -168,19 +159,16 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-
 	public Vector projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	@Override
-
 	public void show() {
 		super.show();
 	}
 
 	@Override
-
 	public Vector stretch(final Vector vec, final Scalar r) {
 		return EuclideanFunctionSpace.super.stretch(vec, r);
 	}

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Configuration;
 
-import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.fields.scalars.impl.Real;
@@ -94,7 +93,7 @@ public class RealLine implements SubField, RealSpace {
 
 	@Override
 	public Scalar get(final double value) {
-		final Real newReal = SpringConfiguration.getSpringConfiguration().real();
+		final Real newReal = new Real();// SpringConfiguration.getSpringConfiguration().real();
 		newReal.setValue(value);
 		return newReal;
 	}

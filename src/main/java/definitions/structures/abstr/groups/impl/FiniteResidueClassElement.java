@@ -17,6 +17,17 @@ public class FiniteResidueClassElement implements FiniteRingElement {
 		this.representant = r;
 	}
 
+	@Override
+	public RingElement getInverseElement() {
+		return this.inverseElement;
+	}
+
+	@Override
+	public RingElement getMultiplicativeInverseElement() {
+		return this.multiplicativeInverseElement;
+	}
+
+	@Override
 	public int getRepresentant() {
 		return this.representant;
 	}
@@ -33,12 +44,22 @@ public class FiniteResidueClassElement implements FiniteRingElement {
 		return this.isUnit;
 	}
 
+	@Override
+	public void setInverseElement(final RingElement element) {
+		this.inverseElement = element;
+	}
+
 	public void setIrreducible(final Boolean isReducible) {
 		this.isIrreducible = isReducible;
 	}
 
 	public void setIsUnit(final Boolean isUnit) {
 		this.isUnit = isUnit;
+	}
+
+	@Override
+	public void setMultiplicativeInverseElement(final RingElement element) {
+		this.multiplicativeInverseElement = element;
 	}
 
 	public void setPrime(final boolean isPrime) {
@@ -53,26 +74,6 @@ public class FiniteResidueClassElement implements FiniteRingElement {
 	@Override
 	public String toXml() {
 		return "<representant>" + this.representant + "</representant>";
-	}
-
-	@Override
-	public void setInverseElement(RingElement element) {
-		inverseElement=element;
-	}
-
-	@Override
-	public RingElement getInverseElement() { 
-		return inverseElement;
-	}
-	
-	@Override
-	public void setMultiplicativeInverseElement(RingElement element) {
-		multiplicativeInverseElement=element;
-	}
-
-	@Override
-	public RingElement getMultiplicativeInverseElement() { 
-		return multiplicativeInverseElement;
 	}
 
 }

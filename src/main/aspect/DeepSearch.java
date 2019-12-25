@@ -1,4 +1,3 @@
-package definitions;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,9 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import definitions.settings.XmlPrintable;
- 
+
 @Aspect
-public class DeepSearch  {
+public class DeepSearch {
 
 	public final static Logger logger = LoggerFactory.getLogger(DeepSearch.class);
 

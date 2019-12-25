@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import definitions.Proceed;
 import definitions.settings.XmlPrintable;
+import settings.Measurable;
 
 /**
  * 
@@ -32,6 +33,7 @@ public interface Monoid extends Serializable, XmlPrintable {
 	 * @return product of both of them
 	 */
 	@Proceed
+	@Measurable
 	MonoidElement operation(GroupElement first, GroupElement second);
 
 }

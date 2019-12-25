@@ -21,22 +21,17 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *
  *         Implementation of the field of complex numbers as a singleton class.
  */
-//@Configuration
-//@Configuration("complexPlane")
-//@ComponentScan(value="definitions..*")
 public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 	private static final long serialVersionUID = -6528124823296735558L;
 
 	static private EuclideanSpace instance;
 
-	// @Autowired(required=true)
 	private static RealLine realLine = RealLine.getInstance();
 
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
 			instance = new ComplexPlane();
-//			instance.assignOrthonormalCoordinates(instance.genericBaseToList(), (Field) instance);
 		}
 		return instance;
 	}
@@ -70,7 +65,6 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
-	// @Bean
 	public Complex complex() {
 		return new Complex(0, 0);
 	}
@@ -80,13 +74,6 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
 	}
-
-//
-//	public Vector conjugate(Vector factor) {
-//		final Scalar newRe = new Real(((Complex) factor).getReal().getValue());
-//		final Scalar newIm = new Real(-((Complex) factor).getImag().getValue());
-//		return new Complex(newRe, newIm);
-//	}
 
 	@Override
 	public boolean contains(final Vector vec) {

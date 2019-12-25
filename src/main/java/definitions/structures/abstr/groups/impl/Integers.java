@@ -3,10 +3,7 @@
  */
 package definitions.structures.abstr.groups.impl;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
 import definitions.structures.abstr.groups.DiscreteGroup;
 import definitions.structures.abstr.groups.GroupElement;
@@ -22,50 +19,40 @@ import definitions.structures.abstr.vectorspaces.RingElement;
 @Configuration
 public class Integers implements DiscreteGroup, Ring {
 
-	final GroupElement zero;
-	final GroupElement one;
-
 	private static Integers instance;
+	private static final long serialVersionUID = 321971307361565421L;
 
 	public static Integers getInstance() {
-		if (instance==null) {
-			instance=GroupGenerator.getInstance().getIntegers();
+		if (instance == null) {
+			instance = GroupGenerator.getInstance().getIntegers();
 		}
 		return instance;
 	}
+
+	public static void setInstance(final Integers integers) {
+		Integers.instance = integers;
+	}
+
+	final GroupElement zero;
+
+	final GroupElement one;
 
 	public Integers() {
 		this.one = this.get(1);
 		this.zero = this.get(0);
 	}
 
-	private static final long serialVersionUID = 321971307361565421L;
+	@Override
+	public boolean divides(final RingElement devisor, final RingElement devident) {
+		return !devisor.equals(this.getIdentityElement())
+				&& ((Int) devident).getValue() % ((Int) devisor).getValue() == 0;
+	}
 
 	@Override
-	final public Integer getOrder() {
-		return null;
-	}
-
-	@Override
-	public RingElement operation(GroupElement first, GroupElement second) {
-		return (RingElement) this.get(((Int) first).getValue() + ((Int) second).getValue());
-	}
-
-	//@Bean(name="int")
-	//@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-	public Int integer() {
-		return new Int();
-	}
-
-	public synchronized RingElement get(Integer int1) {
-		Int i = integer();
+	public synchronized RingElement get(final Integer int1) {
+		final Int i = this.integer();
 		i.setValue(int1);
 		return i;
-	}
-
-	@Override
-	public String toString() {
-		return "Custom integers group.";
 	}
 
 	@Override
@@ -74,8 +61,8 @@ public class Integers implements DiscreteGroup, Ring {
 	}
 
 	@Override
-	public GroupElement getInverseElement(GroupElement element) {
-		return get(-((Int) element).getValue());
+	public GroupElement getInverseElement(final GroupElement element) {
+		return this.get(-((Int) element).getValue());
 	}
 
 	@Override
@@ -89,30 +76,37 @@ public class Integers implements DiscreteGroup, Ring {
 			}
 
 			@Override
-			public MonoidElement operation(GroupElement first, GroupElement second) {
+			public MonoidElement operation(final GroupElement first, final GroupElement second) {
 				return new Int(((Int) first).getValue() * ((Int) second).getValue());
 			}
 		};
 	}
 
-	public static void setInstance(Integers integers) {
-		Integers.instance = integers;
+	@Override
+	final public Integer getOrder() {
+		return null;
+	}
+
+	// @Bean(name="int")
+	// @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	public Int integer() {
+		return new Int();
 	}
 
 	@Override
-	public boolean isIrreducible(RingElement element) {
-		return isPrimeElement(element);
+	public boolean isIrreducible(final RingElement element) {
+		return this.isPrimeElement(element);
 	}
 
 	@Override
-	public boolean isPrimeElement(RingElement element) {
-		int n=((Int) element).getValue();
-		if(element.equals(this.getIdentityElement()) || isUnit(element)) {
+	public boolean isPrimeElement(final RingElement element) {
+		final int n = ((Int) element).getValue();
+		if (element.equals(this.getIdentityElement()) || this.isUnit(element)) {
 			return false;
 		}
-		for(int i=2;i<n;i++) {
-			for(int j=2;j<n;j++) {
-				if (i*j==n) {
+		for (int i = 2; i < n; i++) {
+			for (int j = 2; j < n; j++) {
+				if (i * j == n) {
 					return false;
 				}
 			}
@@ -121,12 +115,17 @@ public class Integers implements DiscreteGroup, Ring {
 	}
 
 	@Override
-	public boolean isUnit(RingElement element) {
-		return element.equals(get(-1)) || element.equals(get(1));
+	public boolean isUnit(final RingElement element) {
+		return element.equals(this.get(-1)) || element.equals(this.get(1));
 	}
 
 	@Override
-	public boolean divides(RingElement devisor, RingElement devident) {
-		return !devisor.equals(getIdentityElement()) && ((Int) devident).getValue() % ((Int) devisor).getValue() == 0;
+	public RingElement operation(final GroupElement first, final GroupElement second) {
+		return this.get(((Int) first).getValue() + ((Int) second).getValue());
+	}
+
+	@Override
+	public String toString() {
+		return "Custom integers group.";
 	}
 }

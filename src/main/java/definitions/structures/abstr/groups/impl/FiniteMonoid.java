@@ -11,10 +11,10 @@ public interface FiniteMonoid extends Monoid {
 	Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap();
 
 	@Override
-	default MonoidElement operation(GroupElement first, GroupElement second) {
-		if (getOperationMap().get(first)==null) {
+	default MonoidElement operation(final GroupElement first, final GroupElement second) {
+		if (this.getOperationMap().get(first) == null) {
 			return null;
 		}
-		return getOperationMap().get(first).get(second);
+		return this.getOperationMap().get(first).get(second);
 	}
 }

@@ -1,14 +1,14 @@
 package definitions.structures.abstr.fields.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
 import definitions.structures.abstr.fields.IFieldGenerator;
 import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-@Configuration
+@Service
 public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	private static IFieldGenerator instance;

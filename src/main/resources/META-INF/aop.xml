@@ -3,16 +3,20 @@
 <aspectj>
 	<weaver
 		options="-Xset:weaveJavaxPackages=true -verbose -Xreweavable">
-		<!--  -showWeaveInfo -debug  -->
+		<!-- -showWeaveInfo -debug   
 		<include within="definitions..*" />
-		<exclude within="definitions.structures.abstr.groups.impl.FiniteMonoid" />
+		<include within="TestAspect" />
+		<include within="DistributionCollector" /> 
+		<include within="DeepSearch" /> -->
+		<exclude
+			within="definitions.structures.abstr.groups.impl.FiniteMonoid" />
 		<exclude within="definitions.Unweavable" />
 	</weaver>
 	<aspects>
-		 <aspect name="definitions.cache.CachingAspect" />
-		 <aspect name="definitions.TestAspect" />
-		 <aspect name="definitions.DistributionCollector" />
-		 <aspect name="definitions.PointcutSearch" />
-		 <aspect name="definitions.DeepSearch" />
+		<aspect name="definitions.cache.CachingAspect" />
+		<aspect name="TestAspect" />
+		<!-- <aspect name="DistributionCollector" />
+		<aspect name="PointcutSearch" />
+		<aspect name="DeepSearch" /> -->
 	</aspects>
 </aspectj>

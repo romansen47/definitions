@@ -3,7 +3,7 @@ package definitions.prototypes;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass; 
+import org.junit.BeforeClass;
 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.fields.impl.ComplexPlane;
@@ -11,29 +11,17 @@ import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.groups.impl.BinaryField;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
- 
+
 public class AspectJTest {
 
 	private static final Logger logger = LogManager.getLogger(AspectJTest.class);
 
-	private static SpringConfiguration springConfiguration; 
+	private static SpringConfiguration springConfiguration;
 	private static Generator generator;
 	private static SpaceGenerator spaceGenerator;
 	private static RealLine realLine;
 	private static ComplexPlane complexPlane;
 	private static definitions.structures.abstr.groups.impl.BinaryField binaryField;
-
-	@BeforeClass
-	public static void prepare() {
-		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
-		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
-		setSpaceGenerator(getGenerator().getSpacegenerator());
-		setRealLine(RealLine.getInstance());
-		setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
-		setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));
-		getLogger().setLevel(Level.INFO);
-		org.apache.log4j.BasicConfigurator.configure();
-	}
 
 	public static BinaryField getBinaryField() {
 		return binaryField;
@@ -61,6 +49,18 @@ public class AspectJTest {
 
 	public static SpringConfiguration getSpringConfiguration() {
 		return springConfiguration;
+	}
+
+	@BeforeClass
+	public static void prepare() {
+		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
+		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
+		setSpaceGenerator(getGenerator().getSpacegenerator());
+		setRealLine(RealLine.getInstance());
+		setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
+		setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));
+		getLogger().setLevel(Level.INFO);
+		org.apache.log4j.BasicConfigurator.configure();
 	}
 
 	public static void setBinaryField(final BinaryField binaryField) {

@@ -39,7 +39,11 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
 					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
 				return new GenericFunction() {
-					private long serialVersionUID = -2989863516320429371L;
+
+					/**
+					 * 
+					 */
+					private long serialVersionUID = 8170149344251225762L;
 
 					@Override
 					public Field getField() {

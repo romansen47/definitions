@@ -1,13 +1,12 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface FiniteVectorMethods extends XmlPrintable, Serializable {
+public interface FiniteVectorMethods extends XmlPrintable {
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.

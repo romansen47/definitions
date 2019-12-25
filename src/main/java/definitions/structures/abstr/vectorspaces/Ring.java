@@ -1,7 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.groups.Group;
-import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 
 /**
@@ -23,14 +22,10 @@ import definitions.structures.abstr.groups.Monoid;
  */
 public interface Ring extends Group {
 
-	default RingElement addition(RingElement element,RingElement otherElement) {
-		return (RingElement) operation(element,otherElement);
-	};
-	
-	default RingElement multiplication(RingElement element,RingElement otherElement) {
-		return (RingElement) getMuliplicativeMonoid().operation(element,otherElement);
-	};
-	
+	default RingElement addition(final RingElement element, final RingElement otherElement) {
+		return (RingElement) this.operation(element, otherElement);
+	}
+
 	boolean divides(RingElement devisor, RingElement devident);
 
 	/**
@@ -45,5 +40,9 @@ public interface Ring extends Group {
 	boolean isPrimeElement(RingElement element);
 
 	boolean isUnit(RingElement element);
+
+	default RingElement multiplication(final RingElement element, final RingElement otherElement) {
+		return (RingElement) this.getMuliplicativeMonoid().operation(element, otherElement);
+	}
 
 }

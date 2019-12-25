@@ -27,7 +27,7 @@ public class IntegersTest extends AspectJTest {
 	private RingElement minusOne;
 	RingElement five;
 	RingElement six;
-	private int maxInt = 300;
+	private int maxInt = 10000;
 
 	Function f;
 

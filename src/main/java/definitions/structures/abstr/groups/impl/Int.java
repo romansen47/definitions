@@ -1,36 +1,47 @@
 package definitions.structures.abstr.groups.impl;
- 
+
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.vectorspaces.RingElement;
 
-@Component(value="int")
+@Component(value = "int")
 public class Int implements RingElement {
-	
-	private static final long serialVersionUID = -1727262864036395099L;
-	
-	private int value;
 
-	Int(int val) {
-		this();
-		this.value = val;
-	}
+	private static final long serialVersionUID = -1727262864036395099L;
+
+	private int value;
 
 	public Int() {
 		this.value = 0;
 	}
 
-	public int getValue() {
-		return this.value;
-	}
-	
-	public void setValue(int value) {
-		this.value=value;
+	Int(final int val) {
+		this();
+		this.value = val;
 	}
 
 	@Override
-	public String toString() {
-		return Integer.toString(this.getValue());
+	public boolean equals(final Object o) {
+		if (o instanceof Int && ((Int) o).getValue() == this.getValue()) {
+			return true;
+		}
+		return false;
+	}
+
+	public int getValue() {
+		return this.value;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getValue();
+	}
+
+	public boolean isPrime() {
+		if (this.smallestDevisor().getValue() < this.getValue()) {
+			return false;
+		}
+		return true;
 	}
 
 	Int next() {
@@ -41,11 +52,8 @@ public class Int implements RingElement {
 		return new Int(this.getValue() - 1);
 	}
 
-	public boolean isPrime() {
-		if (this.smallestDevisor().getValue() < this.getValue()) {
-			return false;
-		}
-		return true;
+	public void setValue(final int value) {
+		this.value = value;
 	}
 
 	private Int smallestDevisor() {
@@ -63,16 +71,8 @@ public class Int implements RingElement {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof Int && ((Int) o).getValue() == this.getValue()) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.getValue();
+	public String toString() {
+		return Integer.toString(this.getValue());
 	}
 
 	@Override

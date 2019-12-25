@@ -1,4 +1,3 @@
-package definitions;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +13,7 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.LoggerFactory;
 
 @Aspect
-public class DistributionCollector{
+public class DistributionCollector {
 
 	public final static Map<Thread, Map<String, Integer>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
@@ -47,8 +46,10 @@ public class DistributionCollector{
 		bw.flush();
 		bw.close();
 		w.close();
-	} 
-	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..)) && !within(definitions.structures.abstr.groups.impl.FiniteResidueClassRing)")
+	}
+
+//	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..)) && !within(definitions.structures.abstr.groups.impl.FiniteResidueClassRing)")
+	@Before("@annotation(settings.Measurable)")
 	public void getStats(final JoinPoint jp) {
 		final String key = jp.getSignature().toShortString().split(Pattern.quote("@"))[0];// jp.toShortString().split(Pattern.quote("@"))[0];
 		final Map<String, Integer> STATS = map.getOrDefault(Thread.currentThread(), new ConcurrentHashMap<>());

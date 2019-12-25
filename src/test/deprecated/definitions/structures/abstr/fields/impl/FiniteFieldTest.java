@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.impl.FiniteCyclicRing;
+import definitions.structures.abstr.groups.impl.BinaryField;
+import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
@@ -20,17 +21,17 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FiniteFieldTest extends VectorTest {
 
-	static Field modulo2 = (Field) BinaryField.getInstance();
-	static Scalar zero = (Scalar) modulo2.nullVec();
-	static Scalar unit = (Scalar) ((FiniteCyclicRing) modulo2).getGenerator();
+	static Field modulo2 = BinaryField.getInstance();
+	static Scalar zero =  (Scalar) modulo2.nullVec();
+	static Scalar unit = (Scalar) ((FiniteResidueClassRing) modulo2).getGenerator();
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
 
 	public void getOrCreateTestTest() {
-		final Scalar a = (Scalar) ((BinaryField) modulo2).get(true);
-		final Scalar b = (Scalar) ((BinaryField) modulo2).get(false);
+		final Scalar a = (Scalar) ((BinaryField) modulo2).get(0);
+		final Scalar b = (Scalar) ((BinaryField) modulo2).get(1);
 	}
 
 	@Test

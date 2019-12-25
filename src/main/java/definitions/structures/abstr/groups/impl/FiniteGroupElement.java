@@ -6,6 +6,14 @@ import definitions.structures.abstr.vectorspaces.RingElement;
 public interface FiniteGroupElement extends GroupElement {
 
 	/**
+	 * Elements of finite groups carry information about the corresponding inverse
+	 * elements
+	 * 
+	 * @return
+	 */
+	RingElement getInverseElement();
+
+	/**
 	 * Elements of finite groups can be indexed by integers
 	 * 
 	 * @return the integer representant
@@ -13,17 +21,10 @@ public interface FiniteGroupElement extends GroupElement {
 	int getRepresentant();
 
 	/**
-	 * Elements of finite groups carry information about the corresponding inverse elements
-	 * 
-	 * @return
-	 */
-	RingElement getInverseElement();
-
-	/**
 	 * setter for inverse element
 	 * 
 	 * @param element the inverse element
 	 */
 	void setInverseElement(RingElement element);
-	
+
 }

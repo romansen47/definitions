@@ -7,8 +7,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.Group;
-import definitions.structures.abstr.groups.impl.Integers.Int;
+import definitions.structures.abstr.groups.Group; 
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -51,6 +50,11 @@ public class PrimeTest {
 
 		@Override
 		public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
+			return null;
+		}
+
+		@Override
+		public Map<Vector, Scalar> getCoordinates() { 
 			return null;
 		}
 

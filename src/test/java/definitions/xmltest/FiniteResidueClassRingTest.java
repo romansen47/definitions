@@ -11,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public class FiniteResidueClassRingTest extends AspectJTest {
 
-	final static int index = 80;
+	final static int index = 500;
 
 	static Ring finiteResidueClassRing;
 
@@ -26,8 +26,8 @@ public class FiniteResidueClassRingTest extends AspectJTest {
 
 		getLogger().info(((FiniteResidueClassRing) finiteResidueClassRing).toString());
 
-		System.out.println("ring is a field: "+(finiteResidueClassRing instanceof Field));
-		((FiniteResidueClassRing) finiteResidueClassRing).print(); 
+		System.out.println("ring is a field: " + (finiteResidueClassRing instanceof Field));
+		((FiniteResidueClassRing) finiteResidueClassRing).print();
 	}
 
 }

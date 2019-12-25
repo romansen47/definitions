@@ -39,7 +39,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * static constant 1-function.
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
-		private long serialVersionUID = 7890164185650800915L;
+		/**
+		 * 
+		 */
+		private long serialVersionUID = 1L;
 		Field ownfield = this.getField();
 
 		@Override
@@ -106,7 +109,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		if (derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
-				private long serialVersionUID = -1492641310343584079L;
+				/**
+				 * 
+				 */
+				private long serialVersionUID = 1L;
 
 				@Override
 				public Field getField() {

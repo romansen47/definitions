@@ -6,12 +6,12 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 import definitions.cache.MyCache;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
-@Configuration
+@Service
 public class SpaceGenerator implements ISpaceGenerator, Serializable {
 
 	private static final long serialVersionUID = 1L;
