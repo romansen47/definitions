@@ -8,6 +8,7 @@ import java.util.Map;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
@@ -113,8 +114,8 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 	}
 
 	@Override
-	public GroupElement getInverseElement(final GroupElement element) {
-		return super.getInverseElement(element);
+	public PrimeFieldElement getInverseElement(final GroupElement element) {
+		return (PrimeFieldElement) super.getInverseElement(element);
 	}
 
 	/**
@@ -176,8 +177,8 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 	}
 
 	@Override
-	public GroupElement operation(final GroupElement first, final GroupElement second) {
-		return (GroupElement) super.operation(first, second);
+	public FieldElement operation(final MonoidElement first, final MonoidElement second) {
+		return (FieldElement) super.operation(first, second);
 	}
 
 	@Override

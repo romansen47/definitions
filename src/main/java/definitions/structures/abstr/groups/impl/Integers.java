@@ -5,7 +5,7 @@ package definitions.structures.abstr.groups.impl;
 
 import org.springframework.context.annotation.Configuration;
 
-import definitions.structures.abstr.groups.DiscreteGroup;
+import definitions.structures.abstr.groups.DiscreetGroup;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.groups.MonoidElement;
@@ -17,7 +17,7 @@ import definitions.structures.abstr.vectorspaces.RingElement;
  *
  */
 @Configuration
-public class Integers implements DiscreteGroup, Ring {
+public class Integers implements DiscreetGroup, Ring {
 
 	private static Integers instance;
 	private static final long serialVersionUID = 321971307361565421L;
@@ -76,7 +76,7 @@ public class Integers implements DiscreteGroup, Ring {
 			}
 
 			@Override
-			public MonoidElement operation(final GroupElement first, final GroupElement second) {
+			public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 				return new Int(((Int) first).getValue() * ((Int) second).getValue());
 			}
 		};
@@ -120,7 +120,7 @@ public class Integers implements DiscreteGroup, Ring {
 	}
 
 	@Override
-	public RingElement operation(final GroupElement first, final GroupElement second) {
+	public RingElement operation(final MonoidElement first, final MonoidElement second) {
 		return this.get(((Int) first).getValue() + ((Int) second).getValue());
 	}
 

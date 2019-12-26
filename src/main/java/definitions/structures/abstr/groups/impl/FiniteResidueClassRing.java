@@ -73,8 +73,8 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 	}
 
 	@Override
-	public FiniteRingElement get(final Integer index) {
-		FiniteRingElement ans = (FiniteRingElement) this.elements.get(index);
+	public FiniteResidueClassElement get(final Integer index) {
+		FiniteResidueClassElement ans = (FiniteResidueClassElement) this.elements.get(index);
 		if (ans == null) {
 			ans = new FiniteResidueClassElement(index);
 			this.elements.put(index, ans);
@@ -84,7 +84,7 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 
 	@Override
 	public Map<Integer, RingElement> getElements() {
-		return this.elements;
+		return elements;
 	}
 
 	@Override
@@ -98,8 +98,8 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 	}
 
 	@Override
-	public GroupElement getInverseElement(final GroupElement element) {
-		return this.elements.get(this.getOrder() - ((FiniteResidueClassElement) element).getRepresentant());
+	public FiniteResidueClassElement getInverseElement(final GroupElement element) {
+		return (FiniteResidueClassElement) this.elements.get(this.getOrder() - ((FiniteResidueClassElement) element).getRepresentant());
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 				}
 
 				@Override
-				public MonoidElement operation(final GroupElement first, final GroupElement second) {
+				public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 					MonoidElement ans = FiniteMonoid.super.operation(first, second);
 					if (ans != null) {
 						return ans;
@@ -150,6 +150,10 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 					return ans;
 				}
 
+				@Override
+				public MonoidElement get(Integer representant) {
+					return elements.get(representant);
+				}
 			};
 		}
 		return this.multiplicativeMonoid;

@@ -17,6 +17,10 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 		instance = fieldGenerator;
 		((FieldGenerator) instance).setRealLine(fieldGenerator.getRealLine());
 	}
+	
+	public static IFieldGenerator getInstance(final FieldGenerator fieldGenerator) {
+		return instance;
+	}
 
 	@Autowired
 	private RealLine realLine;
@@ -34,10 +38,11 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 		return this.binaryField;
 	}
 
-	public IFieldGenerator getInstance() {
+	public static IFieldGenerator getInstance() {
 		return instance;
 	}
 
+	@Override
 	public RealLine getRealLine() {
 		return this.realLine;
 	}

@@ -3,12 +3,12 @@ package definitions.structures.abstr.groups.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.groups.DiscreteGroup;
+import definitions.structures.abstr.groups.DiscreetGroup;
 import definitions.structures.abstr.groups.GroupElement;
 import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
-public interface FiniteGroup extends DiscreteGroup, FiniteMonoid {
+public interface FiniteGroup extends DiscreetGroup, FiniteMonoid {
 
 	Map<MonoidElement, Map<MonoidElement, MonoidElement>> operationMap = new HashMap<>();
 

@@ -45,10 +45,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 		final Vector newOne = this.getOne();
 		final Integer newOrder = this.getOrder();
 
-		final Group multiplicativeGroup = new Group() {
-			/**
-			 * 
-			 */
+		final Group multiplicativeGroup = new Group() { 
 			private long serialVersionUID = 1L;
 
 			@Override
@@ -70,7 +67,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 			}
 
 			@Override
-			public MonoidElement operation(final GroupElement first, final GroupElement second) {
+			public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 				return Field.this.product((Scalar) first, (Scalar) second);
 			}
 
@@ -101,10 +98,7 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 
 	default Vector inverse(final Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
-		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
-			/**
-			 * 
-			 */
+		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) { 
 			private long serialVersionUID = 1L;
 
 			@Override

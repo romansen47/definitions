@@ -101,7 +101,7 @@ public interface FiniteRing extends FiniteGroup, Ring {
 	}
 
 	@Override
-	default MonoidElement operation(final GroupElement first, final GroupElement second) {
+	default MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 		Map<MonoidElement, MonoidElement> tmpMap = this.getOperationMap().get(first);
 		if (tmpMap == null) {
 			tmpMap = new HashMap<>();

@@ -11,7 +11,7 @@ import org.junit.Test;
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.DiscreteGroup;
+import definitions.structures.abstr.groups.DiscreetGroup;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -27,7 +27,7 @@ public class IntegersTest extends AspectJTest {
 	private RingElement minusOne;
 	RingElement five;
 	RingElement six;
-	private int maxInt = 10000;
+	private int maxInt = 1000;
 
 	Function f;
 
@@ -65,7 +65,7 @@ public class IntegersTest extends AspectJTest {
 				int ans = 1;
 				for (int i = 0; i < input.getValue(); i++) {
 					if (IntegersTest.this.integers
-							.isPrimeElement((RingElement) ((DiscreteGroup) IntegersTest.this.integers).get(i))) {
+							.isPrimeElement((RingElement) ((DiscreetGroup) IntegersTest.this.integers).get(i))) {
 						ans++;
 					}
 				}

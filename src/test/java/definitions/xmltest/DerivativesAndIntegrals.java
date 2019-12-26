@@ -111,39 +111,28 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	@Test
 	public void test() throws Throwable {
+		getLogger().info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) this.derivativeOperator).get(this.monome, 2);
 		final Vector derivative2 = ((DerivativeOperator) this.derivativeOperator)
 				.get(((DerivativeOperator) this.derivativeOperator).get(this.monome));
-
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, (Function) derivative2);
 	}
 
 	@Test
 	public void test2() throws Throwable {
-		final Vector derivative = ((DerivativeOperator) this.derivativeOperator).get(this.sine, 1000);
+		int sobDegree = 1000;
+		getLogger().info("Plotting "+sobDegree+"-th derivative of sine in L^2:");
+		final Vector derivative = ((DerivativeOperator) this.derivativeOperator).get(this.sine, degree);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, this.sine);
 	}
 
-	// @Test
-	public void test3() throws Throwable {
-		final Homomorphism derivativeOperatorSobToL2 = new DerivativeOperator(this.sobolevSpace, this.space);
-		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToL2).get(this.sine, 4000);
-		((Function) derivative).plotCompare(-Math.PI, Math.PI, this.sine);
 
-	}
-
-	// @Test
-	public void test4() throws Throwable {
-		final Homomorphism derivativeOperatorL2ToSob = new DerivativeOperator(this.space, this.sobolevSpace);
-		final Vector derivative = ((DerivativeOperator) derivativeOperatorL2ToSob).get(this.sine, 4000);
-		((Function) derivative).plotCompare(-Math.PI, Math.PI, this.sine);
-
-	}
-
-	// @Test
+	@Test
 	public void test5() throws Throwable {
+		int sobDegree = 1000;
+		getLogger().info("Plotting "+sobDegree+"-th derivative of sine in H^1:");
 		final Homomorphism derivativeOperatorSobToSob = new DerivativeOperator(this.sobolevSpace, this.sobolevSpace);
-		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(this.sine, 4000);
+		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(this.sine, sobDegree);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, this.sine);
 	}
 }

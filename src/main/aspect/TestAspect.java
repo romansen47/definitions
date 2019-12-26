@@ -1,14 +1,13 @@
-
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author ro
@@ -18,7 +17,7 @@ import org.slf4j.LoggerFactory;
 @Aspect
 public class TestAspect {
 
-	public final static Logger logger = LoggerFactory.getLogger(TestAspect.class);
+	public final static Logger logger = LogManager.getLogger(TestAspect.class);
 
 	private final boolean testStarted = false;
 

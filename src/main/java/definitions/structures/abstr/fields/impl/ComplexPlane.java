@@ -27,7 +27,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	static private EuclideanSpace instance;
 
-	private static RealLine realLine = RealLine.getInstance();
+	private static RealLine realLine;
 
 	public static EuclideanSpace getInstance() {
 		if (instance == null) {
@@ -59,7 +59,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Vector add(final Vector vec1, final Vector vec2) {
+	public Complex add(final Vector vec1, final Vector vec2) {
 		final Vector ans = super.add(vec1, vec2);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
@@ -81,13 +81,13 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Scalar get(final double realValue) {
+	public Complex get(final double realValue) {
 		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, 0);
 		return newComplex;
 	}
 
-	public Scalar get(final double realValue, final double imValue) {
+	public Complex get(final double realValue, final double imValue) {
 		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, imValue);
 		return newComplex;
@@ -141,8 +141,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Vector product(final Vector vec1, final Vector vec2) {
-		return Field.super.product(vec1, vec2);
+	public Complex product(final Vector vec1, final Vector vec2) {
+		return (Complex) Field.super.product(vec1, vec2);
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Vector stretch(final Vector vec1, final Scalar r) {
+	public Complex stretch(final Vector vec1, final Scalar r) {
 		final Vector ans = super.stretch(vec1, r);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));

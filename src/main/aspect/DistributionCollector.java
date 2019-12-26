@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Aspect
 public class DistributionCollector {
@@ -36,7 +37,7 @@ public class DistributionCollector {
 			for (final String str : STATS.keySet()) {
 				final Integer times = STATS.get(str);
 				if (times != 0) {
-					LoggerFactory.getLogger(DistributionCollector.class).info(str + " " + times.toString() + " times");
+					LogManager.getLogger(DistributionCollector.class).info(str + " " + times.toString() + " times");
 					bw.write("<" + str + ">" + STATS.get(str).toString() + "</" + str + ">\r");
 					bw.flush();
 				}
@@ -49,7 +50,7 @@ public class DistributionCollector {
 	}
 
 //	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..)) && !within(definitions.structures.abstr.groups.impl.FiniteResidueClassRing)")
-	@Before("@annotation(settings.Measurable)")
+//	@Before("@annotation(settings.Measurable)")
 	public void getStats(final JoinPoint jp) {
 		final String key = jp.getSignature().toShortString().split(Pattern.quote("@"))[0];// jp.toShortString().split(Pattern.quote("@"))[0];
 		final Map<String, Integer> STATS = map.getOrDefault(Thread.currentThread(), new ConcurrentHashMap<>());

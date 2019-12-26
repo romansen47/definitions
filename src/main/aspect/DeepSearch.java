@@ -1,4 +1,3 @@
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,15 +11,14 @@ import java.util.regex.Pattern;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import definitions.settings.XmlPrintable;
 
 @Aspect
 public class DeepSearch {
 
-	public final static Logger logger = LoggerFactory.getLogger(DeepSearch.class);
+	public final static Logger logger = LogManager.getLogger(DeepSearch.class);
 
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
 	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();

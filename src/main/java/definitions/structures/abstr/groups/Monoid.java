@@ -34,6 +34,6 @@ public interface Monoid extends Serializable, XmlPrintable {
 	 */
 	@Proceed
 	@Measurable
-	MonoidElement operation(GroupElement first, GroupElement second);
+	MonoidElement operation(MonoidElement first, MonoidElement second);
 
 }

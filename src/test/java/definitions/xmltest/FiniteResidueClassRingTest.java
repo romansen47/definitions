@@ -11,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public class FiniteResidueClassRingTest extends AspectJTest {
 
-	final static int index = 500;
+	final static int index = 150;
 
 	static Ring finiteResidueClassRing;
 

@@ -1,6 +1,8 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;

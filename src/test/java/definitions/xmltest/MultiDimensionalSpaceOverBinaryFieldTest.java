@@ -14,7 +14,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 
-	final int dim = 4;
+	final int dim = 8;
 
 	@Test
 	public void test() {

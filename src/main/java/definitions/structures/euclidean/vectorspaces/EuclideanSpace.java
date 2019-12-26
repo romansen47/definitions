@@ -156,8 +156,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		Vector prod = this.getField().nullVec();
 		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
-		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
-		// final List<Vector> base = this.genericBaseToList();
+		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates(); 
 		for (final Vector vec : vecCoord1.keySet()) {
 			prod = this.getField().add(prod, this.getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));
 		}

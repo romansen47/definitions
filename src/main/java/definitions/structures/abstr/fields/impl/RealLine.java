@@ -72,7 +72,7 @@ public class RealLine implements SubField, RealSpace {
 	}
 
 	@Override
-	public Vector add(final Vector vec1, final Vector vec2) {
+	public Real add(final Vector vec1, final Vector vec2) {
 		return this.get(((Real) vec1).getValue() + ((Real) vec2).getValue());
 	}
 
@@ -92,7 +92,7 @@ public class RealLine implements SubField, RealSpace {
 	}
 
 	@Override
-	public Scalar get(final double value) {
+	public Real get(final double value) {
 		final Real newReal = new Real();// SpringConfiguration.getSpringConfiguration().real();
 		newReal.setValue(value);
 		return newReal;
@@ -162,7 +162,7 @@ public class RealLine implements SubField, RealSpace {
 	}
 
 	@Override
-	public Vector inverse(final Vector factor) {
+	public Real inverse(final Vector factor) {
 		if (factor == null) {
 			return null;
 		}
@@ -207,7 +207,7 @@ public class RealLine implements SubField, RealSpace {
 	}
 
 	@Override
-	public Vector stretch(final Vector vec1, final Scalar r) {
+	public Real stretch(final Vector vec1, final Scalar r) {
 		return this.get(((Real) vec1).getValue() * r.getValue());
 	}
 

@@ -58,7 +58,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement operation(final GroupElement first, final GroupElement second) {
+	default GroupElement operation(final MonoidElement first, final MonoidElement second) {
 		return this.add((Vector) first, (Vector) second);
 	}
 

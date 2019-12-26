@@ -3,6 +3,7 @@ package definitions.structures.abstr.fields.impl;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.groups.FiniteRing;
 import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -33,13 +34,13 @@ public interface FiniteField extends Field, FiniteRing {
 	}
 
 	@Override
-	default GroupElement operation(final GroupElement first, final GroupElement second) {
-		return Field.super.operation(first, second);
+	default FieldElement operation(final MonoidElement first, final MonoidElement second) {
+		return (FieldElement) Field.super.operation(first, second);
 	}
 
 	@Override
-	default Vector product(final Vector vec1, final Vector vec2) {
-		return (Vector) this.getMuliplicativeMonoid().operation(vec1, vec2);
+	default FieldElement product(final Vector vec1, final Vector vec2) {
+		return (FieldElement) this.getMuliplicativeMonoid().operation(vec1, vec2);
 	}
 
 	@Override
