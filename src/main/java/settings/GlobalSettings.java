@@ -28,7 +28,7 @@ public class GlobalSettings {
 	/**
 	 * fineness parameter for differentiation
 	 */
-	public final static double DERIVATIVE_FEINHEIT = 1.e-3;
+	public final static double DERIVATIVE_FEINHEIT = 1.e-1;
 
 	/**
 	 * fineness on real line

@@ -49,11 +49,6 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 			private long serialVersionUID = 1L;
 
 			@Override
-			public MonoidElement getIdentityElement() {
-				return newOne;
-			}
-
-			@Override
 			public GroupElement getInverseElement(final GroupElement element) {
 				return Field.this.inverse((Scalar) element);
 			}
@@ -74,6 +69,11 @@ public interface Field extends XmlPrintable, Ring, EuclideanAlgebra, FieldMethod
 			@Override
 			public String toString() {
 				return "Multiplicative group of " + Field.this.getField().toString();
+			}
+
+			@Override
+			public MonoidElement getNeutralElement() { 
+				return newOne;
 			}
 		};
 

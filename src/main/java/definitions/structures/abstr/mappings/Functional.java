@@ -27,7 +27,7 @@ public interface Functional extends Homomorphism {
 	 */
 	@Override
 	default EuclideanSpace getTarget() {
-		return this.getSource().getField();
+		return ((EuclideanSpace)this.getSource()).getField();
 	}
 
 }

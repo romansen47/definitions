@@ -93,7 +93,7 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 	}
 
 	@Override
-	public MonoidElement getIdentityElement() {
+	public MonoidElement getNeutralElement() {
 		return this.elements.get(0);
 	}
 
@@ -153,6 +153,11 @@ public class FiniteResidueClassRing implements FiniteRing, CyclicGroup {
 				@Override
 				public MonoidElement get(Integer representant) {
 					return elements.get(representant);
+				}
+
+				@Override
+				public MonoidElement getNeutralElement() { 
+					return FiniteResidueClassRing.this.getGenerator();
 				}
 			};
 		}

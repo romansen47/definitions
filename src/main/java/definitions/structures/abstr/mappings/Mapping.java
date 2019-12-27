@@ -5,8 +5,8 @@ package definitions.structures.abstr.mappings;
 
 import java.io.Serializable;
 
-import definitions.structures.abstr.vectorspaces.VectorSpace;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.abstr.groups.Monoid;
+import definitions.structures.abstr.groups.MonoidElement;
 
 /**
  * @author ro
@@ -20,20 +20,20 @@ public interface Mapping extends Serializable {
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
-	Vector get(Vector vec);
+	MonoidElement get(MonoidElement vec);
 
 	/**
 	 * Getter for the source space.
 	 * 
 	 * @return the source space.
 	 */
-	VectorSpace getSource();
+	Monoid getSource();
 
 	/**
 	 * Getter for the target space.
 	 * 
 	 * @return the target space.
 	 */
-	VectorSpace getTarget();
+	Monoid getTarget();
 
 }

@@ -79,7 +79,7 @@ public interface FiniteRing extends FiniteGroup, Ring {
 
 	@Override
 	default boolean isPrimeElement(final RingElement element) {
-		if (element.equals(this.getIdentityElement()) || this.isUnit(element)) {
+		if (element.equals(this.getNeutralElement()) || this.isUnit(element)) {
 			return false;
 		}
 		for (int i = 2; i < this.getOrder(); i++) {
@@ -113,7 +113,7 @@ public interface FiniteRing extends FiniteGroup, Ring {
 		ans = FiniteRing.this.getElements()
 				.get((((FiniteRingElement) first).getRepresentant() + ((FiniteRingElement) second).getRepresentant())
 						% FiniteRing.this.getOrder());
-		if (ans == FiniteRing.this.getIdentityElement()) {
+		if (ans == FiniteRing.this.getNeutralElement()) {
 			if (((FiniteRingElement) first).getInverseElement() == null) {
 				((FiniteRingElement) first).setInverseElement((RingElement) second);
 				if (((FiniteRingElement) second).getInverseElement() == null) {

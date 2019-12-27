@@ -37,7 +37,7 @@ public class IntegersTest extends AspectJTest {
 	public void before() {
 
 		this.integers = Integers.getInstance();
-		this.zero = (RingElement) this.integers.getIdentityElement();
+		this.zero = (RingElement) this.integers.getNeutralElement();
 		this.one = ((Integers) this.integers).get(1);
 		this.three = ((Integers) this.integers).get(3);
 		this.minusOne = ((Integers) this.integers).get(-1);
@@ -153,7 +153,7 @@ public class IntegersTest extends AspectJTest {
 
 	@Test
 	public void testGetIdentityElement() {
-		Assert.assertTrue(this.integers.getIdentityElement().equals(this.zero));
+		Assert.assertTrue(this.integers.getNeutralElement().equals(this.zero));
 	}
 
 	@Test

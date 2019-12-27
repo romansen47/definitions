@@ -3,6 +3,7 @@
  */
 package definitions.structures.abstr.mappings;
 
+import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
@@ -12,7 +13,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public interface VectorField extends Mapping {
 
 	@Override
-	default EuclideanSpace getTarget() {
+	default Monoid getTarget() {
 		return (EuclideanSpace) this.getSource();
 	}
 

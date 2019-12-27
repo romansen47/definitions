@@ -20,13 +20,13 @@ public class BinaryGroupTest extends AspectJTest {
 		AspectJTest.prepare();
 		binaryGroup = (CyclicGroup) SpringConfiguration.getSpringConfiguration().getApplicationContext()
 				.getBean("binaryField");
-		identityElement = (GroupElement) binaryGroup.getIdentityElement();
+		identityElement = (GroupElement) binaryGroup.getNeutralElement();
 		generator = binaryGroup.getGenerator();
 	}
 
 	@Test
 	public void testGetIdentityElement() {
-		Assert.assertTrue(binaryGroup.getIdentityElement() != null);
+		Assert.assertTrue(binaryGroup.getNeutralElement() != null);
 	}
 
 	@Test

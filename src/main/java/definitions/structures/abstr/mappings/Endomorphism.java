@@ -2,6 +2,7 @@ package definitions.structures.abstr.mappings;
 
 import definitions.structures.abstr.fields.impl.RealLine;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * Finite dimensional linear self mapping.
@@ -45,10 +46,10 @@ public interface Endomorphism extends Homomorphism {
 		for (int i = 0; i < matrix.length; i++) {
 			final Scalar[][] adj = this.adjointMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = this.getSource().getField()
+				det = ((EuclideanSpace)this.getSource()).getField()
 						.get(det.getValue() + this.det(adj).getValue() * matrix[i][0].getValue());
 			} else {
-				det = this.getSource().getField()
+				det = ((EuclideanSpace)this.getSource()).getField()
 						.get(det.getValue() - this.det(adj).getValue() * matrix[i][0].getValue());
 			}
 		}

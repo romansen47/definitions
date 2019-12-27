@@ -3,6 +3,12 @@
  */
 package definitions.structures.abstr.groups;
 
+import java.io.Serializable;
+
+import definitions.Proceed;
+import definitions.settings.XmlPrintable;
+import settings.Measurable;
+
 /**
  * @author RoManski
  *
@@ -14,13 +20,24 @@ package definitions.structures.abstr.groups;
  *
  *         are identically equal to the identity mapping on G.
  */
-public interface SemiGroup extends Monoid {
+public interface SemiGroup extends Serializable, XmlPrintable {
 
 	/**
-	 * Getter for the identity element
+	 * Getter for the order of the monoid - the amount of elements.
 	 * 
-	 * @return the identity element of the semi group
+	 * @return null, if infinitely many, order otherwise.
 	 */
-	MonoidElement getIdentityElement();
+	Integer getOrder();
+
+	/**
+	 * the operation on the monoid.
+	 * 
+	 * @param first  first monoid element
+	 * @param second second monoid element
+	 * @return product of both of them
+	 */
+	@Proceed
+	@Measurable
+	MonoidElement operation(MonoidElement first, MonoidElement second);
 
 }

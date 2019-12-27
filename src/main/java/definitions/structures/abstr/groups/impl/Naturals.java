@@ -20,7 +20,7 @@ public class Naturals implements SemiGroup, OrderedMonoid, DiscreetMonoid {
 	}
 
 	@Override
-	public NaturalNumber getIdentityElement() {
+	public NaturalNumber getNeutralElement() {
 		return null;
 	}
 

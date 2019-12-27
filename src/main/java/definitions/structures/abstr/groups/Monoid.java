@@ -16,24 +16,13 @@ import settings.Measurable;
  *         (MonoidElement,MonoidElement,)->MonoidElement.
  */
 
-public interface Monoid extends Serializable, XmlPrintable {
+public interface Monoid extends SemiGroup{
 
 	/**
-	 * Getter for the order of the monoid - the amount of elements.
+	 * Getter for the identity element
 	 * 
-	 * @return null, if infinitely many, order otherwise.
+	 * @return the neutral element of the semi group
 	 */
-	Integer getOrder();
-
-	/**
-	 * the operation on the monoid.
-	 * 
-	 * @param first  first monoid element
-	 * @param second second monoid element
-	 * @return product of both of them
-	 */
-	@Proceed
-	@Measurable
-	MonoidElement operation(MonoidElement first, MonoidElement second);
-
+	MonoidElement getNeutralElement();
+	
 }

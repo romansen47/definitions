@@ -44,7 +44,7 @@ public class Integers implements DiscreetGroup, Ring {
 
 	@Override
 	public boolean divides(final RingElement devisor, final RingElement devident) {
-		return !devisor.equals(this.getIdentityElement())
+		return !devisor.equals(this.getNeutralElement())
 				&& ((Int) devident).getValue() % ((Int) devisor).getValue() == 0;
 	}
 
@@ -56,7 +56,7 @@ public class Integers implements DiscreetGroup, Ring {
 	}
 
 	@Override
-	public MonoidElement getIdentityElement() {
+	public MonoidElement getNeutralElement() {
 		return this.zero;
 	}
 
@@ -78,6 +78,11 @@ public class Integers implements DiscreetGroup, Ring {
 			@Override
 			public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 				return new Int(((Int) first).getValue() * ((Int) second).getValue());
+			}
+
+			@Override
+			public MonoidElement getNeutralElement() { 
+				return Integers.this.get(1);
 			}
 		};
 	}
@@ -101,7 +106,7 @@ public class Integers implements DiscreetGroup, Ring {
 	@Override
 	public boolean isPrimeElement(final RingElement element) {
 		final int n = ((Int) element).getValue();
-		if (element.equals(this.getIdentityElement()) || this.isUnit(element)) {
+		if (element.equals(this.getNeutralElement()) || this.isUnit(element)) {
 			return false;
 		}
 		for (int i = 2; i < n; i++) {

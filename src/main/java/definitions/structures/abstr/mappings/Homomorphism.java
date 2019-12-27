@@ -3,7 +3,8 @@ package definitions.structures.abstr.mappings;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.groups.Monoid;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -20,8 +21,10 @@ public interface Homomorphism extends Mapping, Vector {
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
-	@Override
-	Vector get(Vector vec);
+	default Vector get(Vector vec) {
+		MonoidElement vector = (MonoidElement) vec;
+		return (Vector) get(vector);
+	}
 
 	/**
 	 * the generic matrix in correspondance with the ordered bases of the source and
@@ -51,9 +54,9 @@ public interface Homomorphism extends Mapping, Vector {
 	}
 
 	@Override
-	VectorSpace getSource();
+	Monoid getSource();
 
 	@Override
-	VectorSpace getTarget();
+	Monoid getTarget();
 
 }

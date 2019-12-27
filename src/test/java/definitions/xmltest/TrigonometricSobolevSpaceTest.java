@@ -22,8 +22,8 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		this.setTrigonometricDegree(50);
-		this.setSobolevDegree(1);
+		this.setTrigonometricDegree(20);
+		this.setSobolevDegree(2);
 
 		this.setField(getRealLine());
 		super.setUp();

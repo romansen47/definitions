@@ -33,7 +33,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default MonoidElement getIdentityElement() {
+	default MonoidElement getNeutralElement() {
 		return ((VectorSpaceMethods) this).nullVec();
 	}
 

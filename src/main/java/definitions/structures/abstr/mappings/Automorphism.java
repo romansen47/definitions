@@ -5,6 +5,7 @@ import definitions.structures.abstr.fields.scalars.Scalar;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * Automorphism.
@@ -25,7 +26,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 				throw new Throwable();
 			}
 			return (InvertibleSelfMapping) MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(
-					new Scalar[][] { { this.getSource().getField().get(1. / in.getValue()) } });
+					new Scalar[][] { { ((EuclideanSpace)this.getSource()).getField().get(1. / in.getValue()) } });
 		}
 		final int k = matrix.length;
 		final Scalar[][] inv = new Scalar[k][k];
@@ -39,7 +40,7 @@ public interface Automorphism extends Endomorphism, Isomorphism {
 		}
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {
-				inv[i][j] = this.getSource().getField().get(Math.pow(-1, (double) i + (double) j)
+				inv[i][j] = ((EuclideanSpace)this.getSource()).getField().get(Math.pow(-1, (double) i + (double) j)
 						* this.det(this.adjointMatrix(matrix, j, i)).getValue() * det);
 			}
 		}

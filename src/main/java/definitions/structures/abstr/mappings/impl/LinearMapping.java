@@ -3,6 +3,7 @@ package definitions.structures.abstr.mappings.impl;
 import java.util.Map;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.groups.Monoid;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -24,12 +25,12 @@ public abstract class LinearMapping implements Homomorphism {
 	/**
 	 * The source vector space.
 	 */
-	protected final VectorSpace source;
+	protected final Monoid source;
 
 	/**
 	 * The target vector space.
 	 */
-	protected final VectorSpace target;
+	protected final Monoid target;
 
 	/**
 	 * The restriction to the base.
@@ -53,20 +54,13 @@ public abstract class LinearMapping implements Homomorphism {
 	}
 
 	@Override
-	public VectorSpace getSource() {
+	public Monoid getSource() {
 		return this.source;
 	}
 
 	@Override
-	public VectorSpace getTarget() {
+	public Monoid getTarget() {
 		return this.target;
-	}
-
-	// @Override
-	// public Map<Vector,Map<Vector,Scalar>> getCoordinates(){
-	// Map<Vector,Map<Vector,Scalar>> coord=new HashMap<>();
-	// for (Vector vec1:source.genericBaseToList()) {
-	//
-	// }
-	// }
+	} 
+	
 }

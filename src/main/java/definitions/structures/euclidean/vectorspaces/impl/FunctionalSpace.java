@@ -11,6 +11,7 @@ import java.util.Map;
 import definitions.Proceed;
 import definitions.structures.abstr.fields.Field;
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -33,19 +34,15 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 		this.dim = source.getDim();
 		final List<Vector> base = new ArrayList<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
-			final Vector functional = new Functional() {
-
-				/**
-				 * 
-				 */
+			final Vector functional = new Functional() { 
 				private static final long serialVersionUID = 1925595967834154425L;
 				final EuclideanSpace sourceSpace = source;
 				final EuclideanSpace target = source.getField();
 				final Vector sourceVec = baseVec;
 
 				@Override
-				public Vector get(final Vector vec) {
-					return this.sourceSpace.innerProduct(baseVec, vec);
+				public MonoidElement get(final MonoidElement vec) {
+					return this.sourceSpace.innerProduct(baseVec, (Vector) vec);
 				}
 
 				@Override

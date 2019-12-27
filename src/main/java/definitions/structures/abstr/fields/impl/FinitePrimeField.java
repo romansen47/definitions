@@ -59,7 +59,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return vec == (Vector) this.getGenerator() || vec == this.getIdentityElement();
+		return vec == (Vector) this.getGenerator() || vec == this.getNeutralElement();
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public Vector get(final Vector vec) {
+				public MonoidElement get(final MonoidElement vec) {
 					return vec;
 				}
 
@@ -173,7 +173,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 
 	@Override
 	public Vector nullVec() {
-		return (Vector) this.getIdentityElement();
+		return (Vector) this.getNeutralElement();
 	}
 
 	@Override
@@ -183,8 +183,8 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 
 	@Override
 	public Vector projection(final Vector w, final Vector v) {
-		if (v == (Vector) this.getIdentityElement()) {
-			return (Vector) this.getIdentityElement();
+		if (v == (Vector) this.getNeutralElement()) {
+			return (Vector) this.getNeutralElement();
 		}
 		return w;
 	}

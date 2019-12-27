@@ -8,6 +8,7 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.groups.MonoidElement;
 import definitions.structures.abstr.mappings.Homomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
@@ -30,9 +31,9 @@ import definitions.structures.euclidean.vectorspaces.ParameterizedSpace;
 public interface FiniteDimensionalHomomorphism extends Homomorphism {
 
 	@Override
-	default Vector get(final Vector vec2) {
+	default MonoidElement get(final MonoidElement vec2) {
 		if (this.getSource() instanceof ParameterizedSpace) {
-			return this.getOnSubSpace(vec2);
+			return this.getOnSubSpace((Vector)vec2);
 		}
 		Map<Vector, Scalar> coordinates;
 		if (((FiniteVectorMethods) vec2).getCoordinates() == null) {
@@ -47,7 +48,7 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 		}
 		Vector ans;
 		EuclideanSpace target;
-		final VectorSpace space = this.getTarget();
+		final VectorSpace space = (VectorSpace) this.getTarget();
 		if (space instanceof EuclideanFunctionSpace) {
 			target = (EuclideanFunctionSpace) space;
 			ans = ((EuclideanFunctionSpace) target).nullFunction();
@@ -169,9 +170,9 @@ public interface FiniteDimensionalHomomorphism extends Homomorphism {
 			final Scalar[] ansAsScalars = new Scalar[ans.length];
 			final Map<Vector, Scalar> ansAsCoordinates = new HashMap<>();
 			for (int i = 0; i < ans.length; i++) {
-				ansAsScalars[i] = this.getSource().getField().get(ans[i]);
+				ansAsScalars[i] = ((EuclideanSpace)this.getSource()).getField().get(ans[i]);
 				ansAsCoordinates.put(((EuclideanSpace) this.getTarget()).genericBaseToList().get(i),
-						this.getSource().getField().get(ans[i]));
+						((EuclideanSpace)this.getSource()).getField().get(ans[i]));
 			}
 			return (FiniteVector) ((EuclideanSpace) this.getTarget()).get(ansAsCoordinates);
 		} catch (final Exception e) {

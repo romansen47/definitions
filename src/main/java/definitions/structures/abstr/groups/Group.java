@@ -17,7 +17,7 @@ package definitions.structures.abstr.groups;
  *         product(a,b) = product(b,a) = getIdentityElement().
  *
  */
-public interface Group extends SemiGroup {
+public interface Group extends Monoid {
 
 	/**
 	 * Getter for the (by definition existing) inverse of an element within the

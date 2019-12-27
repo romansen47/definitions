@@ -115,8 +115,8 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public MonoidElement getIdentityElement() {
-		return super.getIdentityElement();
+	public MonoidElement getNeutralElement() {
+		return super.getNeutralElement();
 	}
 
 	@Override
