@@ -5,9 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.Proceed;
 import definitions.Unweavable;
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;

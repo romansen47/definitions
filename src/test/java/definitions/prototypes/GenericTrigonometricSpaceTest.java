@@ -2,8 +2,8 @@ package definitions.prototypes;
 
 import org.junit.Before;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -63,7 +63,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 
 		this.setTrigonometricSpace(
 				getSpaceGenerator().getTrigonometricSpace(getRealLine(), this.getTrigonometricDegree()));
-		this.testValues = definitions.xmltest.Reader.readFile(this.getPath());
+		this.testValues = definitions.aspectjtest.Reader.readFile(this.getPath());
 		this.setStaircaseFunction(new GenericFunction() {
 
 			private static final long serialVersionUID = -8361584686661267908L;

@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -27,13 +27,13 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Vector add(final Vector vec1, final Vector vec2) {
+	default Function add(final Vector vec1, final Vector vec2) {
 		final Field f = this.getField();
 		if (vec1.equals(this.nullVec())) {
-			return vec2;
+			return (Function) vec2;
 		}
 		if (vec2.equals(this.nullVec())) {
-			return vec1;
+			return (Function) vec1;
 		}
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
@@ -78,15 +78,15 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * @param vec the function
 	 * @return the projection of vec
 	 */
-	default Vector functionTuple(final Vector vec) {
+	default Function functionTuple(final Vector vec) {
 		if (vec instanceof FunctionTuple) {
-			return vec;
+			return (Function) vec;
 		}
 		if (((FiniteVectorMethods) vec).getCoordinates() == null
 				|| ((FiniteVectorMethods) vec).getCoordinates().isEmpty()) {
 			return ((Function) vec).getProjection(this);
 		}
-		return this.get(((FiniteVectorMethods) vec).getCoordinates());
+		return (Function) this.get(((FiniteVectorMethods) vec).getCoordinates());
 	}
 
 	/**
@@ -106,7 +106,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Vector nullVec() {
+	default Function nullVec() {
 		return this.nullFunction();
 	}
 
@@ -125,12 +125,12 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Vector stretch(final Vector vec, final Scalar r) {
+	default Function stretch(final Vector vec, final Scalar r) {
 		if (vec.equals(this.nullVec()) || r.equals(this.getField().getZero())) {
 			return this.nullVec();
 		}
 		if (r.equals(this.getField().getOne())) {
-			return vec;// ((Function) vec).getProjection(this);
+			return (Function) vec;// ((Function) vec).getProjection(this);
 		}
 		final Field f = this.getField();
 		if (((FiniteVectorMethods) vec).getCoordinates() == null) {

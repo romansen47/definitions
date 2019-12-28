@@ -1,7 +1,7 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 /**

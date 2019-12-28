@@ -5,7 +5,7 @@ package definitions.structures.abstr.vectorspaces;
 
 import java.util.Map;
 
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -26,7 +26,7 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 *         mapping Vector vec2 -> getField().product(vec1,vec2)
 	 * 
 	 */
-	Map<Vector, Homomorphism> getMultiplicationMatrix();
+	Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix();
 
 	/**
 	 * {@inheritDoc}
@@ -49,6 +49,6 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 * 
 	 * @param multiplicationMatrix the input map
 	 */
-	void setMultiplicationMatrix(Map<Vector, Homomorphism> multiplicationMatrix);
+	void setMultiplicationMatrix(Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix);
 
 }

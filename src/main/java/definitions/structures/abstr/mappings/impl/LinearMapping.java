@@ -2,9 +2,10 @@ package definitions.structures.abstr.mappings.impl;
 
 import java.util.Map;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.Monoid;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -15,7 +16,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author ro
  *
  */
-public abstract class LinearMapping implements Homomorphism {
+public abstract class LinearMapping implements MonoidElement, VectorSpaceHomomorphism {
 
 	/**
 	 * 
@@ -61,6 +62,6 @@ public abstract class LinearMapping implements Homomorphism {
 	@Override
 	public Monoid getTarget() {
 		return this.target;
-	} 
-	
+	}
+
 }

@@ -1,10 +1,11 @@
 package definitions.structures.abstr.mappings.impl;
 
 import definitions.structures.abstr.mappings.Endomorphism;
+import definitions.structures.abstr.mappings.VectorField;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public abstract class Identity extends LinearMapping implements Endomorphism {
+public abstract class Identity extends LinearMapping implements Endomorphism, VectorField {
 
 	/**
 	 * 

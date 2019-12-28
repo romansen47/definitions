@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -61,11 +61,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			this.assignOrthonormalCoordinates(newBase, field);
 		}
 		this.setBase(newBase);
-	}
-
-	@Override
-	public Vector add(final Vector vec1, final Vector vec2) {
-		return EuclideanFunctionSpace.super.add(vec1, vec2);
 	}
 
 	/**
@@ -133,12 +128,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public Vector normalize(final Vector vec) {
+	public Function normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
 	@Override
-	public Vector nullVec() {
+	public Function nullVec() {
 		if (this.nullVec == null) {
 			final Map<Vector, Scalar> nul = new HashMap<>();
 			for (final Vector vec : this.genericBaseToList()) {
@@ -146,7 +141,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 			}
 			this.nullVec = new FunctionTuple(nul, this);
 		}
-		return this.nullVec;
+		return (FunctionTuple) this.nullVec;
 	}
 
 	/*
@@ -159,7 +154,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public Vector projection(final Vector w, final Vector v) {
+	public Function projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 
@@ -169,7 +164,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	}
 
 	@Override
-	public Vector stretch(final Vector vec, final Scalar r) {
+	public Function stretch(final Vector vec, final Scalar r) {
 		return EuclideanFunctionSpace.super.stretch(vec, r);
 	}
 

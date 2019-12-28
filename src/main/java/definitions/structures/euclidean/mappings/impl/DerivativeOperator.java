@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Automorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;

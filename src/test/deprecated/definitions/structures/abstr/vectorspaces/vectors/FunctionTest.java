@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;

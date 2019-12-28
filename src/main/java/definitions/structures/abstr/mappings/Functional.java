@@ -10,7 +10,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public interface Functional extends Homomorphism {
+public interface Functional extends VectorSpaceHomomorphism {
 
 	/**
 	 * {@inheritDoc}

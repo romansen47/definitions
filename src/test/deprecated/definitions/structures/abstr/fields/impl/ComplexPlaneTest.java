@@ -7,8 +7,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import definitions.structures.abstr.VectorSpaceTest;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Complex;
+import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -27,7 +29,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/** 
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#nullVec()}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#nullVec()}.
 	 */
 	@Test
 	
@@ -42,7 +44,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#getI()}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#getI()}.
 	 */
 	@Test
 	
@@ -52,7 +54,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#product(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#product(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 	
@@ -65,7 +67,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 	
@@ -76,7 +78,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
  
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#stretch(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.Scalar)}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#stretch(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.Scalar)}.
 	 */
 	@Test
 	
@@ -89,7 +91,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#inverse(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#inverse(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 	
@@ -99,7 +101,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.impl.ComplexPlane#getOne()}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#getOne()}.
 	 */
 	@Test
 	

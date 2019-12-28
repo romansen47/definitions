@@ -7,9 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.MonoidElement;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -28,7 +28,7 @@ import definitions.structures.euclidean.vectorspaces.ParameterizedSpace;
  * @author ro
  *
  */
-public interface FiniteDimensionalHomomorphism extends Homomorphism {
+public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 
 	@Override
 	default MonoidElement get(final MonoidElement vec2) {

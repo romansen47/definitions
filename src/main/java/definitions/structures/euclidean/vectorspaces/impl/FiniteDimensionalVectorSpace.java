@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Tuple;
@@ -72,7 +74,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
-	public Vector getCoordinates(final Vector vec) {
+	public FiniteVector getCoordinates(final Vector vec) {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
@@ -80,7 +82,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		if (vec instanceof GenericFunction) {
 			return new FunctionTuple(coordinates, this);
 		}
-		return this.get(coordinates);
+		return (FiniteVector) this.get(coordinates);
 	}
 
 	/**
@@ -135,7 +137,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public Vector projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
+		return (FiniteVector) this.stretch(v, this.innerProduct(w, v));
 	}
 
 	/**
@@ -182,18 +184,16 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return ans;
 	}
 
-	/*
-	 * These overrides are for tracing purposes only
-	 */
-
-//	@Override
+//	/*
+//	 * These overrides are for tracing purposes only
+//	 */
 //
+//	@Override
 //	public Vector add(final Vector vec1, final Vector vec2) {
 //		return EuclideanSpace.super.add(vec1, vec2);
 //	}
 //
 //	@Override
-//
 //	public Vector stretch(final Vector vec, final Scalar r) {
 //		return EuclideanSpace.super.stretch(vec, r);
 //	}

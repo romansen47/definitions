@@ -6,9 +6,10 @@ package definitions.structures.abstr.fields.scalars.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.QuaternionSpace;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -25,7 +26,7 @@ public class QuaternionTest extends VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.scalars.impl.Quaternion#getInverse()}.
+	 * {@link definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion#getInverse()}.
 	 */
 	@Test
 	@Trace

@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;

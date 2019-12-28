@@ -6,10 +6,10 @@ package definitions.structures.abstr.fields.impl;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.impl.BinaryField;
-import definitions.structures.abstr.groups.impl.FiniteResidueClassRing;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.groups.impl.BinaryField;
+import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;

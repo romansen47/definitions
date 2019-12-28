@@ -9,9 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.DiscreetGroup;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.groups.DiscreetGroup;
+import definitions.structures.abstr.algebra.rings.impl.Integers;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Function;

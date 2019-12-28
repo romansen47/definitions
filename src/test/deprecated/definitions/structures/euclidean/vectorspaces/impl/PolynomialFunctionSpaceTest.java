@@ -3,7 +3,7 @@
  */
 package definitions.structures.euclidean.vectorspaces.impl;
 
-import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 
 /**

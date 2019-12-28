@@ -1,6 +1,6 @@
 package definitions.structures.euclidean.vectors.impl;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 
 public abstract class Monome extends GenericFunction {
 

@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Endomorphism;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -38,7 +38,7 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		if (source instanceof EuclideanFunctionSpace) {
 			return new InjectiveFunctionSpaceOperator((EuclideanFunctionSpace) source, (EuclideanFunctionSpace) target,
@@ -62,7 +62,7 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
 			final Scalar[][] genericMatrix) {
 		final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
 		int i = 0;
@@ -80,7 +80,7 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
+	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
 		final EuclideanSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);

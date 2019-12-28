@@ -1,7 +1,7 @@
 package definitions.structures.abstr.mappings;
 
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;

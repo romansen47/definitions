@@ -1,16 +1,15 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.
@@ -137,7 +136,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	@Override
 
-	public Vector projection(final Vector w, final Vector v) {
+	public Function projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 

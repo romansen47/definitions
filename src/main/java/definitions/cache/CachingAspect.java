@@ -12,11 +12,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.ComplexPlane;
-import definitions.structures.abstr.fields.impl.QuaternionSpace;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
+import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
@@ -31,7 +31,7 @@ public class CachingAspect {
 
 	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
 
-	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.fields.Field,int))")
+	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
 	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
 		System.out.println(pjp.getArgs()[0].toString());
 		final Field field = (Field) (pjp.getArgs()[0]);

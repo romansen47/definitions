@@ -6,8 +6,9 @@ package definitions.structures.abstr.fields.scalars.impl;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.impl.ComplexPlane;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -20,7 +21,7 @@ public class ComplexTest extends VectorTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.fields.scalars.impl.Complex#getInverse()}.
+	 * {@link definitions.structures.abstr.algebra.fields.scalars.impl.Complex#getInverse()}.
 	 */
 	@Test
 	

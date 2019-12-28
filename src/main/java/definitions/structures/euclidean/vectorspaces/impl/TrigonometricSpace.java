@@ -3,8 +3,9 @@ package definitions.structures.euclidean.vectorspaces.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
@@ -53,13 +54,13 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
 	@Override
 
-	public Vector projection(final Vector w, final Vector v) {
+	public Function projection(final Vector w, final Vector v) {
 		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	@Override
 
-	public Vector stretch(final Vector vec, final Scalar r) {
+	public Function stretch(final Vector vec, final Scalar r) {
 		return super.stretch(vec, r);
 	}
 

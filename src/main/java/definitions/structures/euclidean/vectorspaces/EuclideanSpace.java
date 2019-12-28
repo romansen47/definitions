@@ -5,8 +5,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.Proceed;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -185,11 +186,15 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	@Override
 	@Proceed
 	default Vector stretch(final Vector vec, final Scalar r) {
+		ComplexPlane compl=(ComplexPlane) ComplexPlane.getInstance();
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 		final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec1 : base) {
-			stretched.put(vec1, (Scalar) this.getField().product(coordinates.get(this.getBaseVec(vec1)), r));
+			Vector tmpBaseVec=this.getBaseVec(vec1);
+			Vector tmp=coordinates.get(tmpBaseVec);
+			Scalar s=(Scalar) this.getField().product(tmp, r);
+			stretched.put(vec1, s);
 		}
 		return new Tuple(stretched);
 	}

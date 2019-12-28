@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.SpringConfiguration;
-import definitions.structures.abstr.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;

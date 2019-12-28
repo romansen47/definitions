@@ -1,7 +1,7 @@
 package definitions.structures.dynamicsystems;
 
-import definitions.structures.abstr.groups.OrderedMonoid;
-import definitions.structures.abstr.groups.impl.Naturals;
+import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
+import definitions.structures.abstr.algebra.semigroups.impl.Naturals;
 
 public interface DiscreetDynamicSystem extends DynamicSystem {
 

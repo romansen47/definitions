@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 
 import definitions.SpringConfiguration;
-import definitions.structures.abstr.fields.impl.ComplexPlane;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.groups.impl.BinaryField;
+import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.groups.impl.BinaryField;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
@@ -21,7 +21,7 @@ public class AspectJTest {
 	private static SpaceGenerator spaceGenerator;
 	private static RealLine realLine;
 	private static ComplexPlane complexPlane;
-	private static definitions.structures.abstr.groups.impl.BinaryField binaryField;
+	private static definitions.structures.abstr.algebra.groups.impl.BinaryField binaryField;
 
 	public static BinaryField getBinaryField() {
 		return binaryField;

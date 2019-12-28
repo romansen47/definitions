@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -27,22 +27,22 @@ public interface IMappingGenerator extends Serializable {
 		return matC;
 	}
 
-	default Homomorphism getComposition(final Homomorphism a, final Homomorphism b) {
+	default VectorSpaceHomomorphism getComposition(final VectorSpaceHomomorphism a, final VectorSpaceHomomorphism b) {
 		final Scalar[][] genericMatrix = MappingGenerator.getInstance().composition(a.getGenericMatrix(),
 				b.getGenericMatrix());
 		return this.getFiniteDimensionalLinearMapping(((EuclideanSpace) b.getSource()),
 				((EuclideanSpace) a.getSource()), genericMatrix);
 	}
 
-	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
+	VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Map<Vector, Map<Vector, Scalar>> matrix);
 
-	Homomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
+	VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(EuclideanSpace source, EuclideanSpace target,
 			Scalar[][] genericMatrix);
 
-	Homomorphism getFiniteDimensionalLinearMapping(Scalar[][] genericMatrix);
+	VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(Scalar[][] genericMatrix);
 
-	default Homomorphism getTransposedMapping(final FiniteDimensionalHomomorphism map) {
+	default VectorSpaceHomomorphism getTransposedMapping(final FiniteDimensionalHomomorphism map) {
 		final Map<Vector, Map<Vector, Scalar>> transposedMatrix = new ConcurrentHashMap<>();
 		for (final Vector targetVec : ((EuclideanSpace) map.getTarget()).genericBaseToList()) {
 			final Map<Vector, Scalar> entry = new ConcurrentHashMap<>();

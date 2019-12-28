@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
 import definitions.cache.MyCache;
-import definitions.structures.abstr.fields.impl.FieldGenerator;
-import definitions.structures.abstr.groups.impl.GroupGenerator;
+import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
+import definitions.structures.abstr.algebra.groups.impl.GroupGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;

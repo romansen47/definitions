@@ -3,8 +3,8 @@ package definitions.structures.euclidean.vectors.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;

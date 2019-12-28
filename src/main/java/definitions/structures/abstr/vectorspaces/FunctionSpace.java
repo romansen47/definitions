@@ -1,7 +1,7 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.Unweavable;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 

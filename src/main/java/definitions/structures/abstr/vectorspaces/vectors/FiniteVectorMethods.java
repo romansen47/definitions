@@ -3,7 +3,7 @@ package definitions.structures.abstr.vectorspaces.vectors;
 import java.util.Map;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface FiniteVectorMethods extends XmlPrintable {

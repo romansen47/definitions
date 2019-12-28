@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.Group; 
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.groups.Group;
+import definitions.structures.abstr.algebra.groups.impl.Int;
+import definitions.structures.abstr.algebra.rings.impl.Integers;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;

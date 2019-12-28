@@ -2,7 +2,7 @@ package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.util.ArrayList;
 
-import definitions.structures.abstr.fields.Field;
+import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.Monome;
 

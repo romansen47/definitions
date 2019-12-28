@@ -1,7 +1,8 @@
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.structures.abstr.groups.Group;
-import definitions.structures.abstr.groups.Monoid;
+import definitions.structures.abstr.algebra.groups.Group;
+import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * 
@@ -22,6 +23,8 @@ import definitions.structures.abstr.groups.Monoid;
  */
 public interface Ring extends Group {
 
+	RingElement getOne();
+	
 	default RingElement addition(final RingElement element, final RingElement otherElement) {
 		return (RingElement) this.operation(element, otherElement);
 	}

@@ -5,8 +5,8 @@ package definitions.structures.abstr.mappings;
 
 import java.io.Serializable;
 
-import definitions.structures.abstr.groups.Monoid;
-import definitions.structures.abstr.groups.MonoidElement;
+import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.algebra.monoids.MonoidElement;
 
 /**
  * @author ro

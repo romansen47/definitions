@@ -3,7 +3,7 @@
  */
 package definitions.structures.abstr.mappings;
 
-import definitions.structures.abstr.groups.Monoid;
+import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**

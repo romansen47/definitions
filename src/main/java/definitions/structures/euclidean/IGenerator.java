@@ -5,10 +5,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.FieldGenerator;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -31,12 +31,12 @@ public interface IGenerator extends Serializable {
 		return this.getSpacegenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
 	}
 
-	default Homomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
+	default VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
-	default Homomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
+	default VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
 	}
 

@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.Proceed;
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.MonoidElement;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;

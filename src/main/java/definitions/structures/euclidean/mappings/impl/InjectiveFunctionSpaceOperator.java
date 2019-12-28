@@ -2,7 +2,7 @@ package definitions.structures.euclidean.mappings.impl;
 
 import java.util.Map;
 
-import definitions.structures.abstr.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.FiniteDimensionalInjection;

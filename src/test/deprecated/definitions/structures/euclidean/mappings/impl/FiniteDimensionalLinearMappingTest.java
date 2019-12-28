@@ -6,10 +6,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -20,7 +20,7 @@ public class FiniteDimensionalLinearMappingTest {
 	Scalar[][] ans2;
 	VectorSpace space = RealLine.getInstance();
 
-	Homomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space, (EuclideanSpace) this.space) {
+	VectorSpaceHomomorphism lin = new FiniteDimensionalLinearMapping((EuclideanSpace) this.space, (EuclideanSpace) this.space) {
 		private static final long serialVersionUID = 8542796160933542925L;
 
 		@Override

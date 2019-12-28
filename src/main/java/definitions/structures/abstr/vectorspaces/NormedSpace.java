@@ -1,7 +1,7 @@
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**

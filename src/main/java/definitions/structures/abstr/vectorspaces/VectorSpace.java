@@ -1,11 +1,11 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.groups.Group;
-import definitions.structures.abstr.groups.GroupElement;
-import definitions.structures.abstr.groups.MonoidElement;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.groups.Group;
+import definitions.structures.abstr.algebra.groups.GroupElement;
+import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**

@@ -3,7 +3,7 @@
  */
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.structures.abstr.groups.GroupElement;
+import definitions.structures.abstr.algebra.groups.GroupElement;
 
 /**
  * @author RoManski

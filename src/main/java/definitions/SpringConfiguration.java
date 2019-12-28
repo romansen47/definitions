@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import definitions.cache.CachingAspect;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.impl.Real;
-import definitions.structures.abstr.groups.impl.Int;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.abstr.algebra.groups.impl.Int;
 import definitions.structures.euclidean.Generator;
 
 //@EnableSpringConfigured

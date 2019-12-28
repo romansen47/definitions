@@ -3,9 +3,10 @@
  */
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.structures.abstr.fields.Field;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.groups.ContinuousGroup;
+import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.FieldElement;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.groups.ContinuousGroup;
 
 /**
  * @author RoManski

@@ -4,11 +4,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.SpringConfiguration;
-import definitions.structures.abstr.fields.impl.RealLine;
-import definitions.structures.abstr.fields.scalars.Scalar;
-import definitions.structures.abstr.fields.scalars.impl.Real;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Automorphism;
-import definitions.structures.abstr.mappings.Homomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.mappings.Isomorphism;
 import definitions.structures.abstr.vectorspaces.Algebra;
 import definitions.structures.euclidean.Generator;
@@ -30,9 +30,9 @@ public class FiniteDimensionalLinearMappingTest {
 	static FiniteVector e1;
 	static FiniteVector e2;
 	static FiniteVector e3;
-	static Homomorphism map;
-	static Homomorphism inv;
-	static Homomorphism composition; 
+	static VectorSpaceHomomorphism map;
+	static VectorSpaceHomomorphism inv;
+	static VectorSpaceHomomorphism composition; 
 
 	static Scalar[][] matrix = new Scalar[][] { { one, zero, one }, { zero, one, zero }, { RealLine.getInstance().get(-1), zero, one } };
 
