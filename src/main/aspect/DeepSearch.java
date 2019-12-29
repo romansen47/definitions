@@ -112,7 +112,7 @@ public class DeepSearch {
 
 	private String getEntry(final Object o, final List<String> ans) {
 		String str = "";
-		if (o instanceof Integer) { // || o instanceof String || o instanceof Boolean) {
+		if (o instanceof Integer) {
 			str = "<integer>" + o.toString() + "</integer>\r";
 		}
 		if (o instanceof Boolean) {
@@ -160,7 +160,7 @@ public class DeepSearch {
 						}
 						ans.add("</list>");
 					}
-					if (o instanceof Map<?, ?>) {
+					if (o instanceof Map<?,?>) {
 						ans.add("<map>");
 						for (final Object x : ((Map<?, ?>) o).keySet()) {
 							String strX = "";

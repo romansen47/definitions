@@ -98,8 +98,7 @@ public interface IGroupGenerator {
 				}
 
 				@Override
-				public boolean isAbelian() {
-					// TODO Auto-generated method stub
+				public boolean isAbelian() { 
 					return false;
 				}
 			};
