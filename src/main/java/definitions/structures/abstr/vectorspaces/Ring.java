@@ -38,10 +38,6 @@ public interface Ring extends Group {
 	 */
 	Monoid getMuliplicativeMonoid();
 
-	boolean isIrreducible(RingElement element);
-
-	boolean isPrimeElement(RingElement element);
-
 	boolean isUnit(RingElement element);
 
 	default RingElement multiplication(final RingElement element, final RingElement otherElement) {

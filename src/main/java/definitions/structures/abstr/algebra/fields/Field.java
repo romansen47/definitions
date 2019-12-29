@@ -13,9 +13,9 @@ import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
-import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -25,7 +25,7 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMap
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface Field extends AbelianSemiGroup, XmlPrintable, Ring, EuclideanAlgebra, FieldMethods {
+public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
 	Scalar conjugate(Scalar value);
 

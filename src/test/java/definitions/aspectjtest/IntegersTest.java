@@ -1,4 +1,4 @@
-package definitions.structures.abstr.groups.impl;
+package definitions.aspectjtest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
+import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.rings.impl.Integers;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
@@ -21,7 +22,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class IntegersTest extends AspectJTest {
 
-	private Ring integers;
+	private Domain integers;
 	private RingElement zero;
 	private RingElement one;
 	private RingElement three;
@@ -114,7 +115,7 @@ public class IntegersTest extends AspectJTest {
 	}
 
 	protected void setIntegers(final Ring integers) {
-		this.integers = integers;
+		this.integers = (Domain) integers;
 	}
 
 	protected void setMaxInt(final int maxInt) {

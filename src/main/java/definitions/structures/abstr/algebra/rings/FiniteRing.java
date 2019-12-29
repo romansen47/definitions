@@ -56,40 +56,40 @@ public interface FiniteRing extends FiniteGroup, Ring {
 		return null;
 	}
 
-	@Override
-	default boolean isIrreducible(final RingElement element) {
-		if (this.isPrimeElement(element)) {
-			return true;
-		}
-		for (int i = 2; i < this.getOrder(); i++) {
-			for (int j = 2; j < this.getOrder(); j++) {
-				if (this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)).equals(element)) {
-					if (!(this.isUnit(this.get(i)) || this.isUnit(this.get(j)))) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
-	}
-
-	@Override
-	default boolean isPrimeElement(final RingElement element) {
-		if (element.equals(this.getNeutralElement()) || this.isUnit(element)) {
-			return false;
-		}
-		for (int i = 2; i < this.getOrder(); i++) {
-			for (int j = 2; j < this.getOrder(); j++) {
-				if (this.divides(element,
-						(FiniteRingElement) this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)))) {
-					if (!this.divides(element, this.get(i)) && !this.divides(element, this.get(j))) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
-	}
+//	@Override
+//	default boolean isIrreducible(final RingElement element) {
+//		if (this.isPrimeElement(element)) {
+//			return true;
+//		}
+//		for (int i = 2; i < this.getOrder(); i++) {
+//			for (int j = 2; j < this.getOrder(); j++) {
+//				if (this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)).equals(element)) {
+//					if (!(this.isUnit(this.get(i)) || this.isUnit(this.get(j)))) {
+//						return false;
+//					}
+//				}
+//			}
+//		}
+//		return true;
+//	}
+//
+//	@Override
+//	default boolean isPrimeElement(final RingElement element) {
+//		if (element.equals(this.getNeutralElement()) || this.isUnit(element)) {
+//			return false;
+//		}
+//		for (int i = 2; i < this.getOrder(); i++) {
+//			for (int j = 2; j < this.getOrder(); j++) {
+//				if (this.divides(element,
+//						(FiniteRingElement) this.getMuliplicativeMonoid().operation(this.get(i), this.get(j)))) {
+//					if (!this.divides(element, this.get(i)) && !this.divides(element, this.get(j))) {
+//						return false;
+//					}
+//				}
+//			}
+//		}
+//		return true;
+//	}
 
 	@Override
 	default boolean isUnit(final RingElement element) {

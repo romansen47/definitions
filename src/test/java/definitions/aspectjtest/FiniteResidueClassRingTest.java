@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class FiniteResidueClassRingTest extends AspectJTest {
 
-	final static int index = 200;
+	final static int index = 100;
 
 	static Map<Integer, Ring> finiteResidueClassRingList = new HashMap<>();
 

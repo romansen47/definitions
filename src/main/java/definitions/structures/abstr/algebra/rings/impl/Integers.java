@@ -11,7 +11,7 @@ import definitions.structures.abstr.algebra.groups.impl.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.impl.Int;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
-import definitions.structures.abstr.vectorspaces.Ring;
+import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 /**
@@ -19,7 +19,7 @@ import definitions.structures.abstr.vectorspaces.RingElement;
  *
  */
 @Configuration
-public class Integers implements DiscreetGroup, Ring {
+public class Integers implements DiscreetGroup, Domain {
 
 	private static Integers instance;
 	private static final long serialVersionUID = 321971307361565421L;
