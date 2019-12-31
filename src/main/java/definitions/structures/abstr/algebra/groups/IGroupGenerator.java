@@ -8,45 +8,46 @@ import org.apache.commons.math3.util.Pair;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
-import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing; 
+import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
 
 public interface IGroupGenerator {
-
-	FiniteResidueClassRing getFiniteResidueClassRing(int order);
 
 	class ProductElement extends Pair<MonoidElement, MonoidElement> implements MonoidElement {
 		private static final long serialVersionUID = 1L;
 
-		private MonoidElement k;
-		private MonoidElement v;
-		public ProductElement(MonoidElement k, MonoidElement v) {
+		private final MonoidElement k;
+		private final MonoidElement v;
+
+		public ProductElement(final MonoidElement k, final MonoidElement v) {
 			super(k, v);
-			this.k=k;
-			this.v=v;
+			this.k = k;
+			this.v = v;
 		}
-		
+
+		@Override
 		public String toString() {
-			if (k instanceof FiniteGroupElement && v instanceof FiniteGroupElement) {
-				FiniteGroupElement u=(FiniteGroupElement)k;
-				FiniteGroupElement w=(FiniteGroupElement)v;
-				return " ( "+u.getRepresentant()+" , "+w.getRepresentant()+" ) ";
+			if (this.k instanceof FiniteGroupElement && this.v instanceof FiniteGroupElement) {
+				final FiniteGroupElement u = (FiniteGroupElement) this.k;
+				final FiniteGroupElement w = (FiniteGroupElement) this.v;
+				return " ( " + u.getRepresentant() + " , " + w.getRepresentant() + " ) ";
 			}
-			return " ( "+k.toString()+" , "+v.toString()+" ) ";
+			return " ( " + this.k.toString() + " , " + this.v.toString() + " ) ";
 		}
 	}
-	
-	default Monoid outerProduct(Monoid a, Monoid b) {
+
+	FiniteResidueClassRing getFiniteResidueClassRing(int order);
+
+	default Monoid outerProduct(final Monoid a, final Monoid b) {
 		Monoid ans = null;
 		if (a.getOrder() != null && b.getOrder() != null) {
 			ans = new FiniteMonoid() {
-				private static final long serialVersionUID = 1L;
+				private long serialVersionUID = 1L;
 				private Map<MonoidElement, Map<MonoidElement, MonoidElement>> operationMap = null;
-				protected Map<Integer, MonoidElement> elements = new HashMap<>();
 				private int order = a.getOrder() * b.getOrder();
 
 				@Override
-				public MonoidElement get(Integer representant) {
-					return elements.get(representant);
+				public MonoidElement get(final Integer representant) {
+					return this.elements.get(representant);
 				}
 
 				@Override
@@ -55,28 +56,28 @@ public interface IGroupGenerator {
 				}
 
 				@Override
-				public Integer getOrder() {
-					return order;
-				}
-
-				@Override
 				public Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap() {
-					if (operationMap == null) {
+					if (this.operationMap == null) {
 						for (int i = 0; i < a.getOrder(); i++) {
 							for (int j = 0; j < b.getOrder(); j++) {
-								ProductElement tmp = new ProductElement(((FiniteMonoid) a).get(i),
+								final ProductElement tmp = new ProductElement(((FiniteMonoid) a).get(i),
 										((FiniteMonoid) b).get(j));
-								elements.put(i * b.getOrder() + j, tmp);
+								this.elements.put(i * b.getOrder() + j, tmp);
 							}
 						}
-						operationMap = new HashMap<>();
-						for (Integer key1 : elements.keySet()) {
-							for (Integer key2 : elements.keySet()) {
-								operation(elements.get(key1), elements.get(key2));
+						this.operationMap = new HashMap<>();
+						for (final Integer key1 : this.elements.keySet()) {
+							for (final Integer key2 : this.elements.keySet()) {
+								this.operation(this.elements.get(key1), this.elements.get(key2));
 							}
 						}
 					}
-					return operationMap;
+					return this.operationMap;
+				}
+
+				@Override
+				public Integer getOrder() {
+					return this.order;
 				}
 
 				@Override
@@ -88,35 +89,19 @@ public interface IGroupGenerator {
 					ans = new ProductElement(
 							a.operation(((ProductElement) first).getFirst(), ((ProductElement) second).getFirst()),
 							b.operation(((ProductElement) first).getSecond(), ((ProductElement) second).getSecond()));
-					Map<MonoidElement, MonoidElement> tmpMap = operationMap.get(first);
+					Map<MonoidElement, MonoidElement> tmpMap = this.operationMap.get(first);
 					if (tmpMap == null) {
 						tmpMap = new HashMap<>();
 					}
 					tmpMap.put(second, ans);
-					operationMap.put(first, tmpMap);
+					this.operationMap.put(first, tmpMap);
 					return ans;
 				}
 
-				@Override
-				public boolean isAbelian() { 
-					return false;
-				}
 			};
 		} else {
 			ans = new Monoid() {
-				private static final long serialVersionUID = 1L;
-
-				@Override
-				public Integer getOrder() {
-					return null;
-				}
-
-				@Override
-				public MonoidElement operation(MonoidElement first, MonoidElement second) {
-					return new ProductElement(
-							a.operation(((ProductElement) first).getFirst(), ((ProductElement) first).getSecond()),
-							b.operation(((ProductElement) second).getFirst(), ((ProductElement) second).getSecond()));
-				}
+				private long serialVersionUID = 1L;
 
 				@Override
 				public MonoidElement getNeutralElement() {
@@ -124,8 +109,15 @@ public interface IGroupGenerator {
 				}
 
 				@Override
-				public boolean isAbelian() {
-					return a.isAbelian() && b.isAbelian();
+				public Integer getOrder() {
+					return null;
+				}
+
+				@Override
+				public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
+					return new ProductElement(
+							a.operation(((ProductElement) first).getFirst(), ((ProductElement) first).getSecond()),
+							b.operation(((ProductElement) second).getFirst(), ((ProductElement) second).getSecond()));
 				}
 			};
 		}

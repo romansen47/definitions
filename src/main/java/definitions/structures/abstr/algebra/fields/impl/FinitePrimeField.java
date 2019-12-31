@@ -46,7 +46,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 
 	@Override
 	public Vector add(final Vector vec1, final Vector vec2) {
-		return (Vector) this.operation(vec1, vec2);
+		return this.operation(vec1, vec2);
 	}
 
 	/**
@@ -67,9 +67,9 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		this.base = new ArrayList<>();
 		for (int i = 0; i < n; i++) {
 			final PrimeFieldElement element = new PrimeFieldElement(i, this);
-			this.elements.put(i, element);
+			this.getElements().put(i, element);
 		}
-		this.base.add((Vector) this.elements.get(1));
+		this.base.add((Vector) this.getElements().get(1));
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 	 */
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
-		final Scalar one = (Scalar) this.getOne();
+		final Scalar one = this.getOne();
 		if (this.multiplicationMatrix == null) {
 			this.multiplicationMatrix = new HashMap<>();
 			final VectorSpaceHomomorphism identity = new LinearMapping(this, this) {
@@ -138,7 +138,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 				@Override
 				public Scalar[][] getGenericMatrix() {
 					final Scalar[][] mat = new Scalar[1][1];
-					mat[0][0] = (Scalar) FinitePrimeField.this.getOne();
+					mat[0][0] = FinitePrimeField.this.getOne();
 					return mat;
 				}
 
@@ -146,7 +146,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 					final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
 					final Map<Vector, Scalar> tmp = new HashMap<>();
-					tmp.put(FinitePrimeField.this.getOne(), (Scalar) FinitePrimeField.this.getOne());
+					tmp.put(FinitePrimeField.this.getOne(), FinitePrimeField.this.getOne());
 					map.put(FinitePrimeField.this.getOne(), tmp);
 					return map;
 				}
@@ -195,5 +195,5 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 	@Override
 	public void setMultiplicationMatrix(final Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
-	} 
+	}
 }

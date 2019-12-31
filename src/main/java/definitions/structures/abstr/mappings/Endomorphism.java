@@ -46,10 +46,10 @@ public interface Endomorphism extends VectorSpaceHomomorphism {
 		for (int i = 0; i < matrix.length; i++) {
 			final Scalar[][] adj = this.adjointMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = ((EuclideanSpace)this.getSource()).getField()
+				det = ((EuclideanSpace) this.getSource()).getField()
 						.get(det.getValue() + this.det(adj).getValue() * matrix[i][0].getValue());
 			} else {
-				det = ((EuclideanSpace)this.getSource()).getField()
+				det = ((EuclideanSpace) this.getSource()).getField()
 						.get(det.getValue() - this.det(adj).getValue() * matrix[i][0].getValue());
 			}
 		}

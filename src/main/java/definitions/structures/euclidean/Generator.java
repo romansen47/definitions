@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
 import definitions.cache.MyCache;
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
 import definitions.structures.abstr.algebra.groups.impl.GroupGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
@@ -24,7 +25,7 @@ import settings.GlobalSettings;
 
 @Service
 @ComponentScan("definitions")
-public class Generator implements IGenerator, Unweavable, Plotter {
+public class Generator implements IGenerator, Unweavable, Plotter,XmlPrintable {
 
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
@@ -135,4 +136,8 @@ public class Generator implements IGenerator, Unweavable, Plotter {
 		this.groupGenerator = groupGenerator;
 	}
 
+	@Override
+	public String toXml() {
+		return "the main generator";
+	}
 }

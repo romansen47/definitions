@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import definitions.cache.MyCache;
+import definitions.settings.XmlPrintable;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
 @Service
-public class SpaceGenerator implements ISpaceGenerator, Serializable {
+public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +49,11 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable {
 	@Override
 	public void setMyCache(final MyCache ans) {
 		this.myCache = ans;
+	}
+
+	@Override
+	public String toXml() {
+		return "the space generator";
 	}
 
 }

@@ -2,7 +2,7 @@ package definitions.structures.abstr.algebra.groups;
 
 import definitions.structures.abstr.vectorspaces.RingElement;
 
-public interface FiniteGroupElement extends GroupElement,DiscreetMonoidElement {
+public interface FiniteGroupElement extends GroupElement, DiscreetMonoidElement {
 
 	/**
 	 * Elements of finite groups carry information about the corresponding inverse

@@ -7,8 +7,11 @@
 		<include within="definitions..*" />
 		<include within="TestAspect" />
 		<include within="org.springframework..*" />
-		<!-- <include within="TestAspect" /> <include within="DistributionCollector" 
-			/> <include within="DeepSearch" /> -->
+		<include within="DebugAspect" /> 
+		<include within="Aspect" /> 
+		<include within="AspectsController" /> 
+		<!-- <include within="DistributionCollector" /> <include within="DeepSearch" 
+			/> -->
 		<exclude
 			within="definitions.structures.abstr.groups.impl.FiniteMonoid" />
 		<exclude within="definitions.Unweavable" />
@@ -17,6 +20,7 @@
 	<aspects>
 		<aspect name="definitions.cache.CachingAspect" />
 		<aspect name="TestAspect" />
+		<aspect name="DebugAspect" />
 		<!-- <aspect name="DistributionCollector" /> <aspect name="PointcutSearch" 
 			/> <aspect name="DeepSearch" /> -->
 	</aspects>

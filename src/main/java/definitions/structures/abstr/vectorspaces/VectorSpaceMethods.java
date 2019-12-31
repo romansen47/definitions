@@ -17,7 +17,7 @@ public interface VectorSpaceMethods extends Serializable {
 			final Map<Vector, Scalar> tmpCoord = new ConcurrentHashMap<>();
 			for (final Vector otherVec : newBase) {
 				if (vec == otherVec) {
-					tmpCoord.put(otherVec, (Scalar) field.getOne());
+					tmpCoord.put(otherVec, field.getOne());
 				} else {
 					tmpCoord.put(otherVec, (Scalar) field.getZero());
 				}

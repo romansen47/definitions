@@ -12,7 +12,7 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMap
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class LinearMappingsSpace implements VectorSpace, RealSpace {
- 
+
 	private static final long serialVersionUID = 2181150043690171777L;
 	final EuclideanSpace source;
 	final EuclideanSpace target;
@@ -29,7 +29,7 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 			coordinates.put(vec, ((FiniteVectorMethods) this.target.add(((VectorSpaceHomomorphism) vec1).get(vec),
 					((VectorSpaceHomomorphism) vec2).get(vec))).getCoordinates());
 		}
-		return (Vector) new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
+		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}
 
 	@Override
@@ -43,9 +43,10 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
 		for (final Vector vec : this.source.genericBaseToList()) {
 			coordinates.put(vec,
-					((FiniteVectorMethods) this.target.stretch(((VectorSpaceHomomorphism) vec1).get(vec), r)).getCoordinates());
+					((FiniteVectorMethods) this.target.stretch(((VectorSpaceHomomorphism) vec1).get(vec), r))
+							.getCoordinates());
 		}
-		return (Vector) new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
+		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}
 
 	@Override

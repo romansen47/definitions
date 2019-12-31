@@ -3,18 +3,14 @@ package definitions.structures.abstr.algebra.groups.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.math3.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.impl.FinitePrimeField;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
-import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.algebra.rings.impl.Integers;
-import definitions.structures.abstr.vectorspaces.RingElement;
 
 @Service
 public class GroupGenerator implements IGroupGenerator, Unweavable {

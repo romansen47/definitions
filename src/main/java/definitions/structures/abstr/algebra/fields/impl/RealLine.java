@@ -140,7 +140,7 @@ public class RealLine implements Field, RealSpace {
 
 	@Override
 	public Real innerProduct(final Vector vec1, final Vector vec2) {
-		return (Real) this.get(((Real) vec1).getValue() * ((Real) vec2).getValue());
+		return this.get(((Real) vec1).getValue() * ((Real) vec2).getValue());
 	}
 
 	@Override

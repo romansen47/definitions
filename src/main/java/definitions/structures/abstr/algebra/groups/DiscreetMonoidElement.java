@@ -10,5 +10,5 @@ public interface DiscreetMonoidElement extends MonoidElement {
 	 * @return the integer representant
 	 */
 	int getRepresentant();
-	
+
 }

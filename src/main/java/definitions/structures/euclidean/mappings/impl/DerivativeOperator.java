@@ -21,21 +21,21 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 		this.linearity = new HashMap<>();
-		fillCoordinates(source,target);
+		this.fillCoordinates(source, target);
 		this.getGenericMatrix();
 	}
-	
-	private void fillCoordinates(EuclideanSpace source, EuclideanSpace target) {
+
+	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
+			final Map<Vector, Map<Vector, Scalar>> coordinates) {
+		super(source, target, coordinates);
+	}
+
+	private void fillCoordinates(final EuclideanSpace source, final EuclideanSpace target) {
 		for (final Vector baseVec : source.genericBaseToList()) {
 			final Function derivative = ((Function) baseVec).getDerivative();
 			final Map<Vector, Scalar> derivativeOnSpace = derivative.getCoordinates(target);
 			this.linearity.put(baseVec, derivativeOnSpace);
 		}
-	}
- 
-	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates) {
-		super(source, target, coordinates);
 	}
 
 	public Vector get(final Vector vec, final int degree) {
@@ -48,25 +48,25 @@ public final class DerivativeOperator extends FiniteDimensionalLinearMapping imp
 
 		if (degree == 1) {
 			if (((FiniteVectorMethods) vec).getCoordinates() == null) {
-				return (this.get(vec)); 
+				return (this.get(vec));
 			}
 			return ((Function) this.get(vec)).getProjection((EuclideanSpace) this.getSource());
 		}
 		if (vec instanceof FunctionTuple) {
 			return this.get(this.get(vec), degree - 1);
-		} 
+		}
 		Vector test = ((Function) vec).getProjection((EuclideanSpace) this.getSource());
 		for (int i = 0; i < degree; i++) {
-			test = this.get(test); 
-		} 
-		return test; 
+			test = this.get(test);
+		}
+		return test;
 	}
 
 	/**
 	 * @return the cachedDerivatives
 	 */
-	public Map<Vector, Map<Integer, Vector>> getCachedDerivatives() { 
-		return cachedDerivatives;
+	public Map<Vector, Map<Integer, Vector>> getCachedDerivatives() {
+		return this.cachedDerivatives;
 	}
 
 }

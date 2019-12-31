@@ -77,6 +77,6 @@ public class Int implements RingElement {
 
 	@Override
 	public String toXml() {
-		return "<integer " + Int.this.getValue() + "/>";
+		return "<integer>" + Int.this.getValue() + "</integer>";
 	}
 }

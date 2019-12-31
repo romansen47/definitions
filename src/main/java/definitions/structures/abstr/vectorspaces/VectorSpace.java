@@ -33,17 +33,17 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default MonoidElement getNeutralElement() {
-		return ((VectorSpaceMethods) this).nullVec();
+	default GroupElement getInverseElement(final GroupElement element) {
+		final Field field = this.getField();
+		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement getInverseElement(final GroupElement element) {
-		final Field field = this.getField();
-		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+	default MonoidElement getNeutralElement() {
+		return ((VectorSpaceMethods) this).nullVec();
 	}
 
 	/**

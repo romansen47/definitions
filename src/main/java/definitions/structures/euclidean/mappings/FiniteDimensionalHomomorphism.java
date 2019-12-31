@@ -33,7 +33,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 	@Override
 	default MonoidElement get(final MonoidElement vec2) {
 		if (this.getSource() instanceof ParameterizedSpace) {
-			return this.getOnSubSpace((Vector)vec2);
+			return this.getOnSubSpace((Vector) vec2);
 		}
 		Map<Vector, Scalar> coordinates;
 		if (((FiniteVectorMethods) vec2).getCoordinates() == null) {
@@ -170,9 +170,9 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 			final Scalar[] ansAsScalars = new Scalar[ans.length];
 			final Map<Vector, Scalar> ansAsCoordinates = new HashMap<>();
 			for (int i = 0; i < ans.length; i++) {
-				ansAsScalars[i] = ((EuclideanSpace)this.getSource()).getField().get(ans[i]);
+				ansAsScalars[i] = ((EuclideanSpace) this.getSource()).getField().get(ans[i]);
 				ansAsCoordinates.put(((EuclideanSpace) this.getTarget()).genericBaseToList().get(i),
-						((EuclideanSpace)this.getSource()).getField().get(ans[i]));
+						((EuclideanSpace) this.getSource()).getField().get(ans[i]));
 			}
 			return (FiniteVector) ((EuclideanSpace) this.getTarget()).get(ansAsCoordinates);
 		} catch (final Exception e) {

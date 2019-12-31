@@ -27,7 +27,7 @@ public interface Functional extends VectorSpaceHomomorphism {
 	 */
 	@Override
 	default EuclideanSpace getTarget() {
-		return ((EuclideanSpace)this.getSource()).getField();
+		return ((EuclideanSpace) this.getSource()).getField();
 	}
 
 }

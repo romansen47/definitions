@@ -16,103 +16,29 @@ import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.euclidean.Generator;
 import solver.StdDraw;
 
+/**
+ * 
+ * @author RoManski
+ *
+ *         Concrete implementation of a finite residue class ring.
+ *
+ */
 public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, CyclicGroup {
-
-	private static final long serialVersionUID = 1L;
-	private final static Map<Integer, FiniteResidueClassRing> finiteCyclicGroupMap = new HashMap<>();
-	static StdDraw stddraw;
-
-	public static FiniteResidueClassRing getFiniteCyclicRing(final int n) {
-		final FiniteResidueClassRing ring = finiteCyclicGroupMap.get(n);
-		if (ring == null) {
-			return new FiniteResidueClassRing(n);
-		}
-		return ring;
-	}
-
-	protected Map<Integer, FiniteGroupElement> elements = new HashMap<>();
-	private int order;
-	private Monoid multiplicativeMonoid;
-
-	int size = 50;
-
-	public FiniteResidueClassRing() {
-	}
-
-	public FiniteResidueClassRing(final int n) {
-		this.setOrder(n);
-		this.elements = new HashMap<>();
-		this.createElements(n);
-	}
-
-	protected void createElements(final int n) {
-		for (int i = 0; i < n; i++) {
-			this.get(i);
-		}
-		finiteCyclicGroupMap.put(n, this);
-		Generator.getInstance().getLogger().info("Creating elements.");
-		Generator.getInstance().getLogger().info("Creating additions matrix.");
-		for (int i = 0; i < this.getOrder(); i++) {
-			for (int j = 0; j < this.order; j++) {
-				((FiniteResidueClassElement) this.addition(this.get(i), this.get(j))).getRepresentant();
-			}
-		}
-		Generator.getInstance().getLogger().info("Creating multiplications matrix.");
-		for (int i = 0; i < this.order; i++) {
-			int k = 0;
-			if (isAbelian()) {
-				k = i;
-			}
-			for (int j = k; j < this.getOrder(); j++) {
-				((FiniteResidueClassElement) this.multiplication(this.get(i), this.get(j))).getRepresentant();
-			}
-		}
-		for (int i = 0; i < this.order; i++) {
-			this.isUnit(this.get(i));
-		}
-//		for (int i = 0; i < this.order; i++) {
-//			this.isPrimeElement(this.get(i));
-//		}
-//		for (int i = 0; i < this.order; i++) {
-//			this.isIrreducible(this.get(i));
-//		}
-	}
-
-	@Override
-	public FiniteResidueClassElement get(final Integer index) {
-		FiniteResidueClassElement ans = (FiniteResidueClassElement) this.elements.get(index);
-		if (ans == null) {
-			ans = new FiniteResidueClassElement(index);
-			this.elements.put(index, ans);
-		}
-		return ans;
-	}
-
-	@Override
-	public Map<Integer, FiniteGroupElement> getElements() {
-		return elements;
-	}
-
-	@Override
-	public FiniteResidueClassElement getGenerator() {
-		return (FiniteResidueClassElement) this.elements.get(1);
-	}
-
-	@Override
-	public FiniteResidueClassElement getNeutralElement() {
-		return (FiniteResidueClassElement) this.elements.get(0);
-	}
-
-	@Override
-	public FiniteResidueClassElement getInverseElement(final GroupElement element) {
-		return (FiniteResidueClassElement) this.elements
-				.get(this.getOrder() - ((FiniteResidueClassElement) element).getRepresentant());
-	}
 
 	private class MuliplicativeMonoid implements FiniteMonoid, AbelianSemiGroup {
 		private static final long serialVersionUID = 1L;
 
 		private final Map<MonoidElement, Map<MonoidElement, MonoidElement>> multiplicationMap = new HashMap<>();
+
+		@Override
+		public MonoidElement get(final Integer representant) {
+			return FiniteResidueClassRing.this.elements.get(representant);
+		}
+
+		@Override
+		public MonoidElement getNeutralElement() {
+			return FiniteResidueClassRing.this.getGenerator();
+		}
 
 		@Override
 		public Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap() {
@@ -150,17 +76,116 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 			this.multiplicationMap.get(second).put(first, ans);
 			return ans;
 		}
+	}
 
-		@Override
-		public MonoidElement get(Integer representant) {
-			return elements.get(representant);
-		}
+	private static final long serialVersionUID = 1L;
 
-		@Override
-		public MonoidElement getNeutralElement() {
-			return FiniteResidueClassRing.this.getGenerator();
+	/**
+	 * The group map for caching purposes.
+	 */
+	private final static Map<Integer, FiniteResidueClassRing> finiteCyclicGroupMap = new HashMap<>();
+
+	@Deprecated
+	static StdDraw stddraw;
+
+	/**
+	 * Generation of finite residue class rings.
+	 * 
+	 * @param n the degree of the residue class ring.
+	 * @return the residue class ring of order ${n}.
+	 */
+	public static FiniteResidueClassRing getFiniteCyclicRing(final int n) {
+		final FiniteResidueClassRing ring = finiteCyclicGroupMap.get(n);
+		if (ring == null) {
+			return new FiniteResidueClassRing(n);
 		}
-	};
+		return ring;
+	}
+
+	/**
+	 * Map for the finitely many elements of the ring.
+	 */
+	protected Map<Integer, MonoidElement> elements = new HashMap<>();
+
+	/**
+	 * order of the ring.
+	 */
+	private int order;
+
+	/**
+	 * the multiplicative monoid of the ring.
+	 */
+	private Monoid multiplicativeMonoid;
+
+	int size = 50;
+
+	protected FiniteResidueClassRing() {
+	}
+
+	public FiniteResidueClassRing(final int n) {
+		this.setOrder(n);
+		this.elements = new HashMap<>();
+		this.createElements(n);
+	}
+
+	protected void createElements(final int n) {
+		for (int i = 0; i < n; i++) {
+			this.get(i);
+		}
+		finiteCyclicGroupMap.put(n, this);
+		Generator.getInstance().getLogger().info("Creating elements.");
+		Generator.getInstance().getLogger().info("Creating additions matrix.");
+		for (int i = 0; i < this.getOrder(); i++) {
+			for (int j = 0; j < this.order; j++) {
+				((FiniteResidueClassElement) this.addition(this.get(i), this.get(j))).getRepresentant();
+			}
+		}
+		Generator.getInstance().getLogger().info("Creating multiplications matrix.");
+		for (int i = 0; i < this.order; i++) {
+			int k = 0;
+			if (this.getMuliplicativeMonoid() instanceof AbelianSemiGroup) {
+				k = i;
+			}
+			for (int j = k; j < this.getOrder(); j++) {
+				((FiniteResidueClassElement) this.multiplication(this.get(i), this.get(j))).getRepresentant();
+			}
+		}
+		for (int i = 0; i < this.order; i++) {
+			this.isUnit(this.get(i));
+		}
+//		for (int i = 0; i < this.order; i++) {
+//			this.isPrimeElement(this.get(i));
+//		}
+//		for (int i = 0; i < this.order; i++) {
+//			this.isIrreducible(this.get(i));
+//		}
+	}
+
+	@Override
+	public FiniteResidueClassElement get(final Integer index) {
+		FiniteResidueClassElement ans = (FiniteResidueClassElement) this.elements.get(index);
+		if (ans == null) {
+			ans = new FiniteResidueClassElement(index);
+			this.elements.put(index, ans);
+		}
+		return ans;
+	}
+
+	@Override
+	public Map<Integer, MonoidElement> getElements() {
+		return this.elements;
+	}
+
+	@Override
+	public FiniteResidueClassElement getGenerator() {
+		return (FiniteResidueClassElement) this.elements.get(1);
+	}
+
+	@Override
+	public FiniteResidueClassElement getInverseElement(final GroupElement element) {
+		return (FiniteResidueClassElement) this.elements
+				.get(this.getOrder() - ((FiniteResidueClassElement) element).getRepresentant());
+	}
 
 	@Override
 	public Monoid getMuliplicativeMonoid() {
@@ -172,8 +197,13 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 	}
 
 	@Override
-	public Integer getOrder() {
-		return this.order;
+	public FiniteResidueClassElement getNeutralElement() {
+		return (FiniteResidueClassElement) this.elements.get(0);
+	}
+
+	@Override
+	public FiniteRingElement getOne() {
+		return (FiniteRingElement) this.elements.get(1);
 	}
 
 //	@Override
@@ -212,6 +242,11 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 //	}
 
 	@Override
+	public Integer getOrder() {
+		return this.order;
+	}
+
+	@Override
 	public boolean isUnit(final RingElement element) {
 		Boolean ans = ((FiniteResidueClassElement) element).isUnit();
 		if (ans == null) {
@@ -225,6 +260,7 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 		return ans;
 	}
 
+	@Override
 	public void print() {
 		System.out.println("\rAddition:\r");
 		for (int i = 0; i < this.getOrder(); i++) {
@@ -300,18 +336,18 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 //		StdDraw.save(GlobalSettings.PLOTS + "Group_of_order_" + this.order + ".png");
 	}
 
+	/**
+	 * setter for the order of the ring.
+	 * 
+	 * @param order the order of the ring.
+	 */
 	public void setOrder(final int order) {
 		this.order = order;
 	}
 
 	@Override
 	public String toString() {
-		return "Finite residue class ring of order " + getOrder().toString();
-	}
-
-	@Override
-	public FiniteRingElement getOne() {
-		return (FiniteRingElement) elements.get(1);
+		return "Finite residue class ring of order " + this.getOrder().toString();
 	}
 
 }

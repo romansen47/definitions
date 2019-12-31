@@ -34,7 +34,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 		this.dim = source.getDim();
 		final List<Vector> base = new ArrayList<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
-			final Vector functional = new Functional() { 
+			final Vector functional = new Functional() {
 				private static final long serialVersionUID = 1925595967834154425L;
 				final EuclideanSpace sourceSpace = source;
 				final EuclideanSpace target = source.getField();
@@ -54,7 +54,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 							if (i != j) {
 								mat[i][j] = (Scalar) this.getTarget().nullVec();
 							} else {
-								mat[i][j] = (Scalar) ((Field) this.getTarget()).getOne();
+								mat[i][j] = ((Field) this.getTarget()).getOne();
 							}
 						}
 					}
@@ -70,7 +70,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 							if (bv1 != bv2) {
 								coord.put(bv2, (Scalar) this.target.nullVec());
 							} else {
-								coord.put(bv2, (Scalar) ((Field) this.target).getOne());
+								coord.put(bv2, ((Field) this.target).getOne());
 							}
 						}
 						newMap.put(bv1, coord);

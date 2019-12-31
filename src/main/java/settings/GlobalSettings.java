@@ -33,7 +33,7 @@ public class GlobalSettings {
 	/**
 	 * fineness on real line
 	 */
-	public final static double REAL_EQUALITY_FEINHEIT = 1.e-2;
+	public final static double REAL_EQUALITY_FEINHEIT = 1.e-5;
 
 	/**
 	 * pointwise equality

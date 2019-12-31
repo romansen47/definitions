@@ -31,8 +31,8 @@ public interface IGenerator extends Serializable {
 		return this.getSpacegenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
 	}
 
-	default VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates) {
+	default VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
+			final EuclideanSpace target, final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 

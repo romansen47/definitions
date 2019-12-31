@@ -37,11 +37,6 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	default int getCharacteristic() {
 		return 0;
 	}
-	
-	@Override
-	default FieldElement getOne() {
-		return (FieldElement) get(1);
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -52,12 +47,17 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		final Vector newOne = this.getOne();
 		final Integer newOrder = this.getOrder();
 
-		final Group multiplicativeGroup = new Group() { 
+		final Group multiplicativeGroup = new Group() {
 			private long serialVersionUID = 1L;
 
 			@Override
 			public GroupElement getInverseElement(final GroupElement element) {
 				return Field.this.inverse((Scalar) element);
+			}
+
+			@Override
+			public MonoidElement getNeutralElement() {
+				return newOne;
 			}
 
 			@Override
@@ -77,14 +77,14 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			public String toString() {
 				return "Multiplicative group of " + Field.this.getField().toString();
 			}
-
-			@Override
-			public MonoidElement getNeutralElement() { 
-				return newOne;
-			}
 		};
 
 		return multiplicativeGroup;
+	}
+
+	@Override
+	default FieldElement getOne() {
+		return (FieldElement) this.get(1);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 
 	default Vector inverse(final Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
-		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) { 
+		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
 			private long serialVersionUID = 1L;
 
 			@Override
@@ -131,8 +131,8 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			}
 		};
 		for (final Vector vec : this.genericBaseToList()) {
-			final Vector tmp = (Vector) this.getMultiplicationMatrix().get(vec);
-			hom = (FiniteDimensionalHomomorphism) multLinMaps.add((Vector) hom,
+			final Vector tmp = this.getMultiplicationMatrix().get(vec);
+			hom = (FiniteDimensionalHomomorphism) multLinMaps.add(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
 		return hom.solve((FiniteVector) this.getOne());
@@ -152,7 +152,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	default boolean isUnit(final RingElement element) {
 		return !element.equals(this.getZero());
 	}
-	
+
 	@Override
 	default FieldElement operation(final MonoidElement first, final MonoidElement second) {
 		return (FieldElement) EuclideanAlgebra.super.operation(first, second);

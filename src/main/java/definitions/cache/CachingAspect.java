@@ -62,8 +62,7 @@ public class CachingAspect {
 		for (int i = 0; i < dim; i++) {
 			for (int j = 0; j < dim; j++) {
 				if (i == j) {
-					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(i),
-							(Scalar) field.getOne());
+					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(i), field.getOne());
 				} else {
 					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(j),
 							(Scalar) field.getZero());

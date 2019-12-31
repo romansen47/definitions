@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.Endomorphism;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
@@ -18,7 +19,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 @Service
-public class MappingGenerator implements IMappingGenerator {
+public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 
 	private static final long serialVersionUID = 1L;
 	private static IMappingGenerator instance;
@@ -38,8 +39,8 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Map<Vector, Map<Vector, Scalar>> coordinates) {
+	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
+			final EuclideanSpace target, final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		if (source instanceof EuclideanFunctionSpace) {
 			return new InjectiveFunctionSpaceOperator((EuclideanFunctionSpace) source, (EuclideanFunctionSpace) target,
 					coordinates);
@@ -62,8 +63,8 @@ public class MappingGenerator implements IMappingGenerator {
 	}
 
 	@Override
-	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target,
-			final Scalar[][] genericMatrix) {
+	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
+			final EuclideanSpace target, final Scalar[][] genericMatrix) {
 		final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
@@ -113,10 +114,9 @@ public class MappingGenerator implements IMappingGenerator {
 		return new FiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
-	// @Override
-	// public Homomorphism getComposition(Homomorphism map2, Homomorphism map) {
-	// return (Homomorphism)
-	// getComposition((IFiniteDimensionalLinearMapping)map2,(IFiniteDimensionalLinearMapping)map);
-	// }
+	@Override
+	public String toXml() {
+		return "the mapping generator";
+	}
 
 }

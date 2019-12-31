@@ -157,7 +157,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		Vector prod = this.getField().nullVec();
 		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
-		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates(); 
+		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
 		for (final Vector vec : vecCoord1.keySet()) {
 			prod = this.getField().add(prod, this.getField().product(vecCoord1.get(vec), vecCoord2.get(vec)));
 		}
@@ -186,14 +186,14 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	@Override
 	@Proceed
 	default Vector stretch(final Vector vec, final Scalar r) {
-		ComplexPlane compl=(ComplexPlane) ComplexPlane.getInstance();
+		final ComplexPlane compl = (ComplexPlane) ComplexPlane.getInstance();
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 		final List<Vector> base = this.genericBaseToList();
 		for (final Vector vec1 : base) {
-			Vector tmpBaseVec=this.getBaseVec(vec1);
-			Vector tmp=coordinates.get(tmpBaseVec);
-			Scalar s=(Scalar) this.getField().product(tmp, r);
+			final Vector tmpBaseVec = this.getBaseVec(vec1);
+			final Vector tmp = coordinates.get(tmpBaseVec);
+			final Scalar s = (Scalar) this.getField().product(tmp, r);
 			stretched.put(vec1, s);
 		}
 		return new Tuple(stretched);

@@ -65,7 +65,7 @@ public class Quaternion extends Tuple implements FieldElement {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		Map<Vector, Scalar> tmp=super.getCoordinates();
+		Map<Vector, Scalar> tmp = super.getCoordinates();
 		if (tmp == null || tmp.isEmpty()) {
 			tmp = new HashMap<>();
 			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());

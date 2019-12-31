@@ -61,3 +61,5 @@ cleanup.use_unboxing=false
 cleanup_profile=_definitions
 cleanup_settings_version=2
 eclipse.preferences.version=1
+formatter_settings_version=17
+org.eclipse.jdt.ui.text.custom_code_templates=

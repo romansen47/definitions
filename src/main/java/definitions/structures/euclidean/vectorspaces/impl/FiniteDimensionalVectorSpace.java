@@ -8,7 +8,6 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
@@ -137,7 +136,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public Vector projection(final Vector w, final Vector v) {
-		return (FiniteVector) this.stretch(v, this.innerProduct(w, v));
+		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	/**

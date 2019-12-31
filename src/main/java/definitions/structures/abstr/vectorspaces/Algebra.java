@@ -10,7 +10,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *         (Vector,Vector) -> Vector.
  *
  */
-public interface Algebra extends VectorSpace, Ring { 
+public interface Algebra extends VectorSpace, Ring {
 
 	Vector product(Vector vec1, Vector vec2);
 

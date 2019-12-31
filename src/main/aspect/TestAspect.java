@@ -28,8 +28,7 @@ public class TestAspect {
 		return this.testStarted;
 	}
 
-	// @After("execution(* definitions.structures..*.*(..)) && !execution(*
-	// aspects..*.*(..))")
+//	@After("execution(* definitions.structures..*.*(..)) && !execution(* aspects..*.*(..))")
 	public void message(final JoinPoint jp) {
 		logger.info("done with " + jp.toShortString());
 	}

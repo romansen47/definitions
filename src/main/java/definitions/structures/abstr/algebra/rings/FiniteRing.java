@@ -3,9 +3,7 @@ package definitions.structures.abstr.algebra.rings;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.fields.impl.FieldElement;
 import definitions.structures.abstr.algebra.groups.FiniteGroup;
-import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.vectorspaces.Ring;
@@ -24,10 +22,10 @@ public interface FiniteRing extends FiniteGroup, Ring {
 	default FiniteRingElement getCoFactor(final RingElement devisor, final RingElement devident) {
 		for (final MonoidElement el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(devisor)
 				.keySet()) {
-			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(devisor, (GroupElement) el).equals(devident)) {
+			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(devisor, el).equals(devident)) {
 				return (FiniteRingElement) el;
 			}
-		} 
+		}
 		return null;
 	}
 
@@ -128,5 +126,5 @@ public interface FiniteRing extends FiniteGroup, Ring {
 		return (FiniteRingElement) ans;
 
 	}
-	
+
 }

@@ -1,7 +1,6 @@
 package definitions.structures.abstr.algebra.fields.scalars.impl;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -43,7 +42,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	public boolean elementOf(final VectorSpace space) {
 		return space == ComplexPlane.getInstance();
 	}
-	
+
 	@Override
 	public boolean equals(final Object vec) {
 		return vec instanceof Complex && ((Complex) vec).getReal().equals(this.getReal())
@@ -52,7 +51,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		Map<Vector, Scalar> tmp = super.getCoordinates();
+		final Map<Vector, Scalar> tmp = super.getCoordinates();
 		if (tmp.isEmpty()) {
 			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), this.getReal());
 			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), this.getImag());
@@ -111,12 +110,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	}
 
 	@Override
-	public String toString() {
-		return "<real>" + this.getReal().getValue() + "</real>\r" + "<imag>" + this.getImag().getValue() + "</imag>\r";
-	}
-
-	@Override
 	public String toXml() {
-		return "<complex>\r" + this.real.toXml() + this.imag.toXml() + "</complex>\r";
+		return "<complex>\r<realPart>" + this.real.getValue()+"</realPart>\r<imagPart>" + this.imag.getValue() + "</imagPart>\r</complex>\r";
 	}
+ 
 }

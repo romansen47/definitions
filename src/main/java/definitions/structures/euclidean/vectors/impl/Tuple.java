@@ -151,8 +151,8 @@ public class Tuple implements FiniteVector {
 	@Override
 	public String toXml() {
 		String ans = "<tuple>\r";
-		final int i = 0;
-		for (final Vector x : this.getGenericBase()) {
+		for (final Vector x : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
+				.genericBaseToList()) {
 //			String name=x.getClass().toString().split("class ")[1];
 			ans += this.getCoordinates().get(x).toXml();
 		}

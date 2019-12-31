@@ -21,9 +21,9 @@ public interface VectorSpaceHomomorphism extends Vector, MonoidHomomorphism {
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
-	default Vector get(Vector vec) {
-		MonoidElement vector = (MonoidElement) vec;
-		return (Vector) get(vector);
+	default Vector get(final Vector vec) {
+		final MonoidElement vector = vec;
+		return (Vector) this.get(vector);
 	}
 
 	/**

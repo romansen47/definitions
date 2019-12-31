@@ -40,8 +40,8 @@ public class Integers implements DiscreetGroup, Domain {
 	final Int one;
 
 	public Integers() {
-		this.one = (Int) this.get(1);
-		this.zero = (Int) this.get(0);
+		this.one = this.get(1);
+		this.zero = this.get(0);
 	}
 
 	@Override
@@ -58,11 +58,6 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public Int getNeutralElement() {
-		return this.zero;
-	}
-
-	@Override
 	public Int getInverseElement(final GroupElement element) {
 		return this.get(-((Int) element).getValue());
 	}
@@ -73,6 +68,11 @@ public class Integers implements DiscreetGroup, Domain {
 			private static final long serialVersionUID = 3746187360827667761L;
 
 			@Override
+			public MonoidElement getNeutralElement() {
+				return Integers.this.get(1);
+			}
+
+			@Override
 			public Integer getOrder() {
 				return null;
 			}
@@ -81,19 +81,24 @@ public class Integers implements DiscreetGroup, Domain {
 			public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 				return new Int(((Int) first).getValue() * ((Int) second).getValue());
 			}
-
-			@Override
-			public MonoidElement getNeutralElement() { 
-				return Integers.this.get(1);
-			}
 		};
+	}
+
+	@Override
+	public Int getNeutralElement() {
+		return this.zero;
+	}
+
+	@Override
+	public RingElement getOne() {
+		return this.get(1);
 	}
 
 	@Override
 	final public Integer getOrder() {
 		return null;
 	}
- 
+
 	public Int integer() {
 		return new Int();
 	}
@@ -131,11 +136,6 @@ public class Integers implements DiscreetGroup, Domain {
 
 	@Override
 	public String toString() {
-		return "Custom integers group.";
-	}
-
-	@Override
-	public RingElement getOne() {
-		return get(1);
+		return "Custom ring of integers.";
 	}
 }

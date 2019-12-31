@@ -2,7 +2,6 @@ package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * 
@@ -23,8 +22,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  */
 public interface Ring extends Group {
 
-	RingElement getOne();
-	
 	default RingElement addition(final RingElement element, final RingElement otherElement) {
 		return (RingElement) this.operation(element, otherElement);
 	}
@@ -37,6 +34,8 @@ public interface Ring extends Group {
 	 * @return the multiplicative monoid of the ring
 	 */
 	Monoid getMuliplicativeMonoid();
+
+	RingElement getOne();
 
 	boolean isUnit(RingElement element);
 

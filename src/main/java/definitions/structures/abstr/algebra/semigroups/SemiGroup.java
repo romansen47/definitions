@@ -5,10 +5,8 @@ package definitions.structures.abstr.algebra.semigroups;
 
 import java.io.Serializable;
 
-import definitions.Proceed;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
-import settings.Measurable;
 
 /**
  * @author RoManski

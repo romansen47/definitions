@@ -27,7 +27,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *
  *         Implementation of the field of quaternion numbers as a singleton
  *         class.
- */ 
+ */
 public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 	private static final long serialVersionUID = -5960215336667005490L;
@@ -111,11 +111,6 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public MonoidElement getNeutralElement() {
-		return super.getNeutralElement();
-	}
-
-	@Override
 	public GroupElement getInverseElement(final GroupElement element) {
 		return super.getInverseElement(element);
 	}
@@ -149,29 +144,29 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 					{ realZero, realOne, realZero, realZero }, { realZero, realZero, realOne, realZero },
 					{ realZero, realZero, realZero, realOne } };
 
-			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
-					oneMat);
+			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
+					.getFiniteDimensionalLinearMapping(this, this, oneMat);
 
 			final Scalar[][] iMat = new Scalar[][] { { realZero, neg, realZero, realZero },
 					{ realOne, realZero, realZero, realZero }, { realZero, realZero, realZero, realOne },
 					{ realZero, realZero, neg, realZero } };
 
-			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
-					iMat);
+			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+					this, iMat);
 
 			final Scalar[][] jMat = new Scalar[][] { { realZero, realZero, neg, realZero },
 					{ realZero, realZero, realZero, neg }, { realOne, realZero, realZero, realZero },
 					{ realZero, realOne, realZero, realZero } };
 
-			final VectorSpaceHomomorphism jHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
-					jMat);
+			final VectorSpaceHomomorphism jHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+					this, jMat);
 
 			final Scalar[][] kMat = new Scalar[][] { { realZero, realZero, realZero, neg },
 					{ realZero, realZero, realOne, realZero }, { realZero, neg, realZero, realZero },
 					{ realOne, realZero, realZero, realZero } };
 
-			final VectorSpaceHomomorphism kHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
-					kMat);
+			final VectorSpaceHomomorphism kHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+					this, kMat);
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
@@ -183,6 +178,11 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 			this.setMultiplicationMatrix(newMap);
 		}
 		return this.multiplicationMatrix;
+	}
+
+	@Override
+	public MonoidElement getNeutralElement() {
+		return super.getNeutralElement();
 	}
 
 	@Override
@@ -243,7 +243,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public String toString() {
-		return "the field of quaternions as a 4-dimensional real vector space.";
+		return "Custom field of quaternions as a 4-dimensional real vector space.";
 	}
 
 }

@@ -93,11 +93,6 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 		return newComplex;
 	}
 
-	@Override
-	public Complex getOne() {
-		return this.one;
-	}
-	
 	public Complex getI() {
 		return this.i;
 	}
@@ -112,12 +107,12 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 			final Scalar neg = RealLine.getInstance().get(-1);
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero }, { realZero, realOne } };
-			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
-					oneMat);
+			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
+					.getFiniteDimensionalLinearMapping(this, this, oneMat);
 
 			final Scalar[][] iMat = new Scalar[][] { { realZero, neg }, { realOne, realZero } };
-			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this,
-					iMat);
+			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+					this, iMat);
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
@@ -127,6 +122,11 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 			this.setMultiplicationMatrix(newMap);
 		}
 		return this.multiplicationMatrix;
+	}
+
+	@Override
+	public Complex getOne() {
+		return this.one;
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	@Override
 	public String toXml() {
-		return "<complexPlane />";
+		return "Custom field of complex numbers.";
 	}
 
 }

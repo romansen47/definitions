@@ -1,11 +1,6 @@
 package definitions.structures.abstr.algebra.monoids;
 
-import java.io.Serializable;
-
-import definitions.Proceed;
-import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.semigroups.SemiGroup;
-import settings.Measurable;
 
 /**
  * 
@@ -17,7 +12,7 @@ import settings.Measurable;
  *         (MonoidElement,MonoidElement,)->MonoidElement.
  */
 
-public interface Monoid extends SemiGroup{
+public interface Monoid extends SemiGroup {
 
 	/**
 	 * Getter for the identity element
@@ -25,9 +20,5 @@ public interface Monoid extends SemiGroup{
 	 * @return the neutral element of the semi group
 	 */
 	MonoidElement getNeutralElement();
-	
-	default boolean isAbelian() {
-		return true;
-	};
-	
+
 }
