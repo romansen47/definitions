@@ -39,7 +39,8 @@ public class DebugAspect {
 			+ "!execution(definitions.structures.abstr.algebra.monoids.MonoidElement definitions.structures.abstr.algebra.monoids.DiscreetMonoid.get(java.lang.Integer)) &&"
 			+ "!execution(* definitions.structures.euclidean.vectors.impl.Tuple.*(..)) &&"
 			+ "!execution(* definitions.structures.euclidean.vectorspaces.EuclideanSpace.genericBaseToList(..)) &&"
-			+ "!execution(* *.getInstance(..)) &&" + "!execution(* *.getLogger(..))";
+			+ "!execution(* *.getInstance(..)) &&" + "!execution(* *.getLogger(..)) &&"
+			+ "!execution(void plotter.Plotable.plot(..))";
 
 //	@After("execution(static void definitions.prototypes.AspectJTest.prepare())")
 	@Before("@annotation(org.junit.Test)")

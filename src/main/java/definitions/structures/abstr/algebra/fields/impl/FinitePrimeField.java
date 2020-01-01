@@ -44,24 +44,33 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		this.characteristic = prime;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector add(final Vector vec1, final Vector vec2) {
 		return this.operation(vec1, vec2);
 	}
 
 	/**
-	 * @return the conjugated
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Scalar conjugate(final Scalar value) {
 		return value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean contains(final Vector vec) {
 		return vec == (Vector) this.getGenerator() || vec == this.getNeutralElement();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void createElements(final int n) {
 		this.base = new ArrayList<>();
@@ -72,6 +81,9 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		this.base.add((Vector) this.getElements().get(1));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Vector> genericBaseToList() {
 		return this.base;
@@ -85,11 +97,17 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return this.characteristic;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector getCoordinates(final Vector vec) {
 		return vec;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getDim() {
 		return 1;
@@ -108,11 +126,17 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return this.dualSpace;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Field getField() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PrimeFieldElement getInverseElement(final GroupElement element) {
 		return (PrimeFieldElement) super.getInverseElement(element);
@@ -156,31 +180,49 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return this.multiplicationMatrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PrimeFieldElement getOne() {
 		return (PrimeFieldElement) this.getGenerator();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		return base;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PrimeField getPrimeField() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PrimeFieldElement nullVec() {
 		return (PrimeFieldElement) this.getNeutralElement();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PrimeFieldElement operation(final MonoidElement first, final MonoidElement second) {
 		return (PrimeFieldElement) super.operation(first, second);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector projection(final Vector w, final Vector v) {
 		if (v == (Vector) this.getNeutralElement()) {

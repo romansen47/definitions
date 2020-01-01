@@ -68,43 +68,67 @@ public class RealLine implements Field, RealSpace {
 		ComplexPlane.setRealLine(this);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Real add(final Vector vec1, final Vector vec2) {
 		return this.get(((Real) vec1).getValue() + ((Real) vec2).getValue());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar conjugate(final Scalar value) {
 		return value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean contains(final Vector vec) {
 		return vec instanceof Real;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Vector> genericBaseToList() {
 		return this.base;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Real get(final double value) {
-		final Real newReal = new Real();// SpringConfiguration.getSpringConfiguration().real();
+		final Real newReal = new Real(); 
 		newReal.setValue(value);
 		return newReal;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector getCoordinates(final Vector vec) {
 		return vec;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getDim() {
 		return 1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
 		if (this.dualSpace == null) {
@@ -113,36 +137,57 @@ public class RealLine implements Field, RealSpace {
 		return this.dualSpace;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Field getField() {
 		return RealSpace.super.getField();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
 		return this.multiplicationMatrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final Real getOne() {
 		return one;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Vector> getOrthonormalBase(final List<Vector> base) {
 		return this.base;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public final Real getZero() {
 		return zero;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Real innerProduct(final Vector vec1, final Vector vec2) {
 		return this.get(((Real) vec1).getValue() * ((Real) vec2).getValue());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Real inverse(final Vector factor) {
 		if (factor == null) {
@@ -155,16 +200,25 @@ public class RealLine implements Field, RealSpace {
 		return this.get(1 / num.getValue());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isIrreducible(final RingElement element) {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector nullVec() {
 		return this.getZero();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector product(final Vector vec1, final Vector vec2) {
 		final double val1 = ((Real) vec1).getValue();
@@ -173,6 +227,9 @@ public class RealLine implements Field, RealSpace {
 		return this.get(ans);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector projection(final Vector w, final Vector v) {
 		final Real a = ((Real) v);
@@ -183,24 +240,36 @@ public class RealLine implements Field, RealSpace {
 		return this.nullVec();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setMultiplicationMatrix(final Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix) {
 		this.multiplicationMatrix = multiplicationMatrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Real stretch(final Vector vec1, final Scalar r) {
 		return this.get(((Real) vec1).getValue() * r.getValue());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "the field of real numbers.";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
-		return "<realNumbers/>";
+		return "<realline/>";
 	}
 
 }

@@ -10,6 +10,7 @@ import definitions.structures.abstr.algebra.fields.Field;
  *
  */
 public interface PrimeField extends Field {
+
 	/**
 	 * {@inheritDoc}
 	 */
