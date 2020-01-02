@@ -3,16 +3,18 @@ package definitions.structures.abstr.algebra.rings.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.groups.AbelianSemiGroup;
 import definitions.structures.abstr.algebra.groups.CyclicGroup;
 import definitions.structures.abstr.algebra.groups.GroupElement;
+import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.rings.FiniteCommutativeRing;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.rings.FiniteRingElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.euclidean.Generator;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import solver.StdDraw;
 
 /**
@@ -22,7 +24,7 @@ import solver.StdDraw;
  *         Concrete implementation of a finite residue class ring.
  *
  */
-public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, CyclicGroup {
+public class FiniteResidueClassRing implements FiniteCommutativeRing , CyclicGroup {
 
 	private class MuliplicativeMonoid implements FiniteMonoid, AbelianSemiGroup {
 		private static final long serialVersionUID = 1L;
@@ -31,7 +33,7 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 
 		@Override
 		public MonoidElement get(final Integer representant) {
-			return FiniteResidueClassRing.this.elements.get(representant);
+			return FiniteResidueClassRing.this.elements.get(representant+1);
 		}
 
 		@Override
@@ -46,7 +48,7 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 
 		@Override
 		public Integer getOrder() {
-			return FiniteResidueClassRing.this.order;
+			return FiniteResidueClassRing.this.order-1;
 		}
 
 		@Override
@@ -55,8 +57,18 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 			if (ans != null) {
 				return ans;
 			}
-			ans = FiniteResidueClassRing.this.elements.get((((FiniteResidueClassElement) first).getRepresentant()
-					* ((FiniteResidueClassElement) second).getRepresentant()) % FiniteResidueClassRing.this.order);
+			if (first.equals(FiniteResidueClassRing.this.elements.get(0))
+					|| second.equals(FiniteResidueClassRing.this.elements.get(0))) {
+				ans = FiniteResidueClassRing.this.elements.get(0);
+			} else {
+				ans = FiniteResidueClassRing.this.elements.get((((FiniteResidueClassElement) first).getRepresentant()
+						* ((FiniteResidueClassElement) second).getRepresentant()) % FiniteResidueClassRing.this.order);
+			}
+			if (first.equals(FiniteResidueClassRing.this.elements.get(1))) {
+				ans = second;
+			} else if (second.equals(FiniteResidueClassRing.this.elements.get(1))) {
+				ans = first;
+			}
 			if (ans.equals(FiniteResidueClassRing.this.getGenerator())) {
 				if (((FiniteResidueClassElement) first).getMultiplicativeInverseElement() == null) {
 					((FiniteResidueClassElement) first).setMultiplicativeInverseElement((RingElement) second);
@@ -86,20 +98,6 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 
 	@Deprecated
 	static StdDraw stddraw;
-
-	/**
-	 * Generation of finite residue class rings.
-	 * 
-	 * @param n the degree of the residue class ring.
-	 * @return the residue class ring of order ${n}.
-	 */
-	public static FiniteResidueClassRing getFiniteCyclicRing(final int n) {
-		final FiniteResidueClassRing ring = finiteCyclicGroupMap.get(n);
-		if (ring == null) {
-			return new FiniteResidueClassRing(n);
-		}
-		return ring;
-	}
 
 	/**
 	 * Map for the finitely many elements of the ring.
@@ -150,14 +148,12 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 			}
 		}
 		for (int i = 0; i < this.order; i++) {
+			RingElement e = this.get(i);
+			if (e instanceof FiniteVector) {
+				((FiniteVector)e).getCoordinates();
+			}
 			this.isUnit(this.get(i));
 		}
-//		for (int i = 0; i < this.order; i++) {
-//			this.isPrimeElement(this.get(i));
-//		}
-//		for (int i = 0; i < this.order; i++) {
-//			this.isIrreducible(this.get(i));
-//		}
 	}
 
 	@Override
@@ -205,41 +201,6 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 		return (FiniteRingElement) this.elements.get(1);
 	}
 
-//	@Override
-//	public boolean isIrreducible(final RingElement element) {
-//		Boolean ans = ((FiniteResidueClassElement) element).isIrreducible();
-//		if (ans == null) {
-//			if (((FiniteResidueClassElement) element).isUnit()) {
-//				ans = false;
-//			} else {
-//				if (((FiniteResidueClassElement) element).isPrime()) {
-//					ans = true;
-//				} else {
-//					ans = FiniteRing.super.isIrreducible(element);
-//				}
-//			}
-//			((FiniteResidueClassElement) element).setIrreducible(ans);
-//			if (ans == false) {
-//				((FiniteResidueClassElement) element).setPrime(false);
-//			}
-//		}
-//		return ans;
-//	}
-//
-//	@Override
-//	public boolean isPrimeElement(final RingElement element) {
-//		Boolean ans = ((FiniteResidueClassElement) element).isPrime();
-//		if (ans == null) {
-//			ans = FiniteRing.super.isPrimeElement(element);
-//			((FiniteResidueClassElement) element).setPrime(ans);
-//			if (ans) {
-//				((FiniteResidueClassElement) element).setIsUnit(false);
-//				((FiniteResidueClassElement) element).setIrreducible(true);
-//			}
-//		}
-//		return ans;
-//	}
-
 	@Override
 	public Integer getOrder() {
 		return this.order;
@@ -249,7 +210,7 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 	public boolean isUnit(final RingElement element) {
 		Boolean ans = ((FiniteResidueClassElement) element).isUnit();
 		if (ans == null) {
-			ans = FiniteRing.super.isUnit(element);
+			ans = FiniteCommutativeRing.super.isUnit(element);
 			((FiniteResidueClassElement) element).setIsUnit(ans);
 			if (ans) {
 				((FiniteResidueClassElement) element).setPrime(false);
@@ -291,48 +252,12 @@ public class FiniteResidueClassRing implements AbelianSemiGroup, FiniteRing, Cyc
 			}
 			System.out.println();
 		}
-//		System.out.println("\rPrimes:\r");
-//		for (int i = 0; i < this.order; i++) {
-//			System.out.print(i + " is prime: " + this.isPrimeElement(this.get(i)));
-//			System.out.println();
-//		}
-//		System.out.println("\rIrreducibility:\r");
-//		for (int i = 0; i < this.order; i++) {
-//			System.out.print(i + ": is reducible: " + !this.isIrreducible(this.get(i)));
-//			System.out.println();
-//		}
 		System.out.println("\rDevisions:\r");
 		for (int i = 0; i < this.order; i++) {
 			for (int j = i; j < this.getOrder(); j++) {
 				System.out.println(i + " devides " + j + " = " + this.divides(this.get(i), this.get(j)));
 			}
 		}
-//		System.out.println("\r\r");
-//		if (stddraw == null) {
-//			stddraw = new StdDraw();
-//		}
-//		stddraw.setCanvasSize(700, 700);
-//		StdDraw.setXscale(-100, 100);
-//		StdDraw.setYscale(-100, 100);
-//		StdDraw.setPenRadius(0.005);
-//		final int radius = (int) Math.round(Math.PI * this.size / this.order);
-//		for (int i = 0; i < this.getOrder(); i++) {
-//			if (this.isUnit(this.get(i))) {
-//				StdDraw.setPenColor(Color.blue);
-//			} else {
-//				if (this.isPrimeElement(this.get(i))) {
-//					StdDraw.setPenColor(Color.red);
-//				} else {
-//					StdDraw.setPenColor(Color.green);
-//				}
-//			}
-//			StdDraw.circle(-this.size * Math.cos(2 * Math.PI * i / this.getOrder()),
-//					this.size * Math.sin(2 * Math.PI * i / this.getOrder()), radius);
-//			StdDraw.text(-2 * this.size * Math.cos(2 * Math.PI * i / this.getOrder()),
-//					2 * this.size * Math.sin(2 * Math.PI * i / this.getOrder()),
-//					String.valueOf(((FiniteResidueClassElement) this.get(i)).getRepresentant()));
-//		}
-//		StdDraw.save(GlobalSettings.PLOTS + "Group_of_order_" + this.order + ".png");
 	}
 
 	/**

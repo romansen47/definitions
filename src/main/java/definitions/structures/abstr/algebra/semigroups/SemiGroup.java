@@ -26,7 +26,9 @@ public interface SemiGroup extends Serializable, XmlPrintable {
 	 * 
 	 * @return null, if infinitely many, order otherwise.
 	 */
-	Integer getOrder();
+	default Integer getOrder() {
+		return null;
+	}
 
 	/**
 	 * the operation on the monoid.

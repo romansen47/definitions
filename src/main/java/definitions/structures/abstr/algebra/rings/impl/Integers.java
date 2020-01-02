@@ -3,7 +3,7 @@
  */
 package definitions.structures.abstr.algebra.rings.impl;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.groups.GroupElement;
@@ -18,12 +18,14 @@ import definitions.structures.abstr.vectorspaces.RingElement;
  * @author RoManski
  *
  */
-@Configuration
+@Component
 public class Integers implements DiscreetGroup, Domain {
 
 	private static Integers instance;
 	private static final long serialVersionUID = 321971307361565421L;
-
+	final Int zero;
+	final Int one;
+	
 	public static Integers getInstance() {
 		if (instance == null) {
 			instance = GroupGenerator.getInstance().getIntegers();
@@ -35,9 +37,6 @@ public class Integers implements DiscreetGroup, Domain {
 		Integers.instance = integers;
 	}
 
-	final Int zero;
-
-	final Int one;
 
 	public Integers() {
 		this.one = this.get(1);
@@ -68,7 +67,7 @@ public class Integers implements DiscreetGroup, Domain {
 			private static final long serialVersionUID = 3746187360827667761L;
 
 			@Override
-			public MonoidElement getNeutralElement() {
+			public Int getNeutralElement() {
 				return Integers.this.get(1);
 			}
 
@@ -78,9 +77,10 @@ public class Integers implements DiscreetGroup, Domain {
 			}
 
 			@Override
-			public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
+			public Int operation(final MonoidElement first, final MonoidElement second) {
 				return new Int(((Int) first).getValue() * ((Int) second).getValue());
 			}
+
 		};
 	}
 
@@ -90,7 +90,7 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public RingElement getOne() {
+	public Int getOne() {
 		return this.get(1);
 	}
 

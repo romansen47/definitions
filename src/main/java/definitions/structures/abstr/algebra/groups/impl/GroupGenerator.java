@@ -47,7 +47,7 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 				if (Integers.getInstance().isPrimeElement(Integers.getInstance().get(order))) {
 					ring = new FinitePrimeField(order);
 				} else {
-					ring = FiniteResidueClassRing.getFiniteCyclicRing(order);
+					ring = new FiniteResidueClassRing(order);
 				}
 			}
 			this.map.put(order, ring);

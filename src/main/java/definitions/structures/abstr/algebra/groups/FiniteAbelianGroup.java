@@ -1,5 +1,7 @@
 package definitions.structures.abstr.algebra.groups;
 
-public interface FiniteAbelianGroup extends AbelianSemiGroup, FiniteGroup {
+import definitions.structures.abstr.algebra.monoids.FiniteAbelianSemiGroup;
+
+public interface FiniteAbelianGroup extends FiniteAbelianSemiGroup {
 
 }
