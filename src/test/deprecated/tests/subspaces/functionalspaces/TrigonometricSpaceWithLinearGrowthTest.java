@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -23,7 +22,6 @@ import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
-import plotter.Plotter;
 
 public class TrigonometricSpaceWithLinearGrowthTest {
 
@@ -51,186 +49,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 	static int dim = 49;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-
-		IGenerator gen = Generator.getInstance();
-
-		ISpaceGenerator spaceGen = gen.getSpacegenerator();
-
-		trigonometricFunctionSpace = spaceGen.getTrigonometricSpace(RealLine.getInstance(), dim);
-
-		extendedTrigonometricFunctionSpace = spaceGen
-				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
-
-	}
-
-	@Test
-	
-	public void test() {
-
-		try {
-			testValues = readFile(PATH);
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-
-		staircaseFunction = new GenericFunction() {
-			private static final long serialVersionUID = 1L;
-			int length = (int) testValues[0][testValues[0].length - 1];
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
-				int k = 0;
-				final int l = (int) (newInput - (newInput % 1));
-				while (testValues[0][k] < l) {
-					k++;
-				}
-				return RealLine.getInstance().get(testValues[1][k]);
-			}
-
-		};
-
-		staircaseFunctionToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction);
-
-		((GenericFunction) staircaseFunction).plotCompare(left, right, (Function) staircaseFunctionToFourier);
-
-	}
-
-	@Test
-	
-	public void test2() {
-
-		try {
-			testValues2 = readFile(PATH2);
-		} catch (final IOException e) {
-			e.printStackTrace();
-		}
-
-		staircaseFunction2 = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			int length = (int) testValues2[0][testValues2[0].length - 1];
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
-				int k = 0;
-				final int l = (int) (newInput - (newInput % 1));
-				while (testValues2[0][k] < l) {
-					k++;
-				}
-				return RealLine.getInstance().get(testValues2[1][k]);
-			}
-
-		};
-
-		staircaseFunction2ToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction2);
-
-		final int length = (int) testValues2[0][testValues2[0].length - 1];
-
-		staircaseFunction3 = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
-				return staircaseFunction2.value(RealLine.getInstance().get(newx));
-			}
-
-		};
-
-		staircaseFunction3ToFourier = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
-				return ((Function) staircaseFunction2ToFourier).value(RealLine.getInstance().get(newx));
-			}
-
-		};
-
-		((GenericFunction) staircaseFunction3).plotCompare(0, length, (Function) staircaseFunction3ToFourier);
-
-		String ans = "";
-
-		for (final Entry<Vector, Scalar> entry : ((FiniteVectorMethods) staircaseFunction2ToFourier).getCoordinates()
-				.entrySet()) {
-			ans += entry.toString() + "\r";
-		}
-
-	}
-
-	@Test
-	
-	public void test3() {
-		identity = new GenericFunction() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				return input;
-			}
-
-		};
-		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
-		((GenericFunction) identity).plotCompare(left, right, (Function) identityToFourier);
-	}
-
-	@Test
-	
-	public void test4() {
-
-		final Function exp = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				return RealLine.getInstance().get(Math.exp(input.getValue()));
-			}
-
-		};
-		final Function ans = (Function) extendedTrigonometricFunctionSpace.getCoordinates(exp);
-		((GenericFunction) exp).plotCompare(left, right, ans);
-
-	}
-
-	@Test
-	
-	public void test5() {
-
-//		final List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();
-//		final double[][] scalarProducts = new double[base.size()][base.size()];
-//		int i = 0;
-//		String str = "";
-//		for (final Vector vec1 : base) {
-//			int j = 0;
-//			for (final Vector vec2 : base) {
-//				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2).getValue();
-//				str += (scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",";
-//				j++;
-//			}
-//			str += "\r";
-//			i++;
-//		}
-//		System.out.println(str);
-		extendedTrigonometricFunctionSpace.show();
-	}
-
-	protected static double[][] readFile(String string) throws IOException {
+	protected static double[][] readFile(final String string) throws IOException {
 		final List<double[]> values = new ArrayList<>();
 		final BufferedReader br = new BufferedReader(new FileReader(string));
 		String line = "";
@@ -257,17 +76,31 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		return ans;
 	}
 
-	protected double correlationCoefficient(double[] measured, double[] produced) {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+
+		final IGenerator gen = Generator.getInstance();
+
+		final ISpaceGenerator spaceGen = gen.getSpacegenerator();
+
+		trigonometricFunctionSpace = spaceGen.getTrigonometricSpace(RealLine.getInstance(), dim);
+
+		extendedTrigonometricFunctionSpace = spaceGen
+				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
+
+	}
+
+	protected double correlationCoefficient(final double[] measured, final double[] produced) {
 
 		return 0;
 	}
 
-	protected double covariance(double[] randomVar1, double[] randomVar2) {
+	protected double covariance(final double[] randomVar1, final double[] randomVar2) {
 
 		return 0;
 	}
 
-	protected double expectedValue(double[] randomVar) {
+	protected double expectedValue(final double[] randomVar) {
 		double ans = 0;
 		for (final double entry : randomVar) {
 			ans += entry;
@@ -275,12 +108,177 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 		return ans / randomVar.length;
 	}
 
+	protected double mean() {
+		return 0;
+	}
+
 	protected Function standardDeviation() {
 		return null;
 	}
 
-	protected double mean() {
-		return 0;
+	@Test
+
+	public void test() {
+
+		try {
+			testValues = readFile(PATH);
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+		staircaseFunction = new GenericFunction() {
+			private static final long serialVersionUID = 1L;
+			int length = (int) testValues[0][testValues[0].length - 1];
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				int k = 0;
+				final int l = (int) (newInput - (newInput % 1));
+				while (testValues[0][k] < l) {
+					k++;
+				}
+				return RealLine.getInstance().get(testValues[1][k]);
+			}
+
+		};
+
+		staircaseFunctionToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction);
+
+		((GenericFunction) staircaseFunction).plotCompare(left, right, (Function) staircaseFunctionToFourier);
+
+	}
+
+	@Test
+
+	public void test2() {
+
+		try {
+			testValues2 = readFile(PATH2);
+		} catch (final IOException e) {
+			e.printStackTrace();
+		}
+
+		staircaseFunction2 = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			int length = (int) testValues2[0][testValues2[0].length - 1];
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				int k = 0;
+				final int l = (int) (newInput - (newInput % 1));
+				while (testValues2[0][k] < l) {
+					k++;
+				}
+				return RealLine.getInstance().get(testValues2[1][k]);
+			}
+
+		};
+
+		staircaseFunction2ToFourier = extendedTrigonometricFunctionSpace.getCoordinates(staircaseFunction2);
+
+		final int length = (int) testValues2[0][testValues2[0].length - 1];
+
+		staircaseFunction3 = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
+				return staircaseFunction2.value(RealLine.getInstance().get(newx));
+			}
+
+		};
+
+		staircaseFunction3ToFourier = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
+				return ((Function) staircaseFunction2ToFourier).value(RealLine.getInstance().get(newx));
+			}
+
+		};
+
+		((GenericFunction) staircaseFunction3).plotCompare(0, length, (Function) staircaseFunction3ToFourier);
+
+		String ans = "";
+
+		for (final Entry<Vector, Scalar> entry : ((FiniteVectorMethods) staircaseFunction2ToFourier).getCoordinates()
+				.entrySet()) {
+			ans += entry.toString() + "\r";
+		}
+
+	}
+
+	@Test
+
+	public void test3() {
+		identity = new GenericFunction() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Scalar value(final Scalar input) {
+				return input;
+			}
+
+		};
+		identityToFourier = extendedTrigonometricFunctionSpace.getCoordinates(identity);
+		((GenericFunction) identity).plotCompare(left, right, (Function) identityToFourier);
+	}
+
+	@Test
+
+	public void test4() {
+
+		final Function exp = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Scalar value(final Scalar input) {
+				return RealLine.getInstance().get(Math.exp(input.getValue()));
+			}
+
+		};
+		final Function ans = (Function) extendedTrigonometricFunctionSpace.getCoordinates(exp);
+		((GenericFunction) exp).plotCompare(left, right, ans);
+
+	}
+
+	@Test
+
+	public void test5() {
+
+//		final List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();
+//		final double[][] scalarProducts = new double[base.size()][base.size()];
+//		int i = 0;
+//		String str = "";
+//		for (final Vector vec1 : base) {
+//			int j = 0;
+//			for (final Vector vec2 : base) {
+//				scalarProducts[i][j] = extendedTrigonometricFunctionSpace.innerProduct(vec1, vec2).getValue();
+//				str += (scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",";
+//				j++;
+//			}
+//			str += "\r";
+//			i++;
+//		}
+//		System.out.println(str);
+		extendedTrigonometricFunctionSpace.show();
 	}
 
 }

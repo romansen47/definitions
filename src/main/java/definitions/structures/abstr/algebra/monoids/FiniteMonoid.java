@@ -3,7 +3,6 @@ package definitions.structures.abstr.algebra.monoids;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.groups.FiniteGroupElement;
 import definitions.structures.euclidean.Generator;
 
 public interface FiniteMonoid extends DiscreetMonoid {
@@ -14,12 +13,13 @@ public interface FiniteMonoid extends DiscreetMonoid {
 	/**
 	 * 
 	 * Method to obtain a map to the elements.
+	 * 
 	 * @return the map.
 	 */
-	default Map<Integer, MonoidElement> getElements(){
+	default Map<Integer, MonoidElement> getElements() {
 		return elements;
 	}
-	
+
 	/**
 	 * Method to obtain the matrix of multiplication.
 	 * 
@@ -30,8 +30,8 @@ public interface FiniteMonoid extends DiscreetMonoid {
 	}
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	default MonoidElement operation(final MonoidElement first, final MonoidElement second) {
 		final Map<MonoidElement, MonoidElement> tmpMap = this.getOperationMap().get(first);

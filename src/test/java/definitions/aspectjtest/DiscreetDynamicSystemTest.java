@@ -30,10 +30,10 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	@Before
 	public void beforeTest() {
-		timeSpace = Naturals.getInstance();
-		phaseSpace = ComplexPlane.getInstance();
-		startVector = ((EuclideanSpace) phaseSpace).genericBaseToList().get(0);
-		Function evolutionOperator = new GenericFunction() {
+		this.timeSpace = Naturals.getInstance();
+		this.phaseSpace = ComplexPlane.getInstance();
+		this.startVector = ((EuclideanSpace) this.phaseSpace).genericBaseToList().get(0);
+		final Function evolutionOperator = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -42,57 +42,57 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 			}
 
 			@Override
-			public Scalar value(Scalar input) {
-				Scalar factor = RealLine.getInstance().get(-0.5);
-				return (Scalar) phaseSpace.stretch(input, factor);
-			}
-
-			@Override
 			public String toXml() {
 				return "the evolution operator of the system.";
 			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final Scalar factor = RealLine.getInstance().get(-0.5);
+				return (Scalar) DiscreetDynamicSystemTest.this.phaseSpace.stretch(input, factor);
+			}
 		};
-		dinamicSystem = new DiscreetDynamicSystem(phaseSpace, evolutionOperator) {
+		this.dinamicSystem = new DiscreetDynamicSystem(this.phaseSpace, evolutionOperator) {
 		};
-	}
-
-	@Test
-	public void test() {
-		Vector vec = startVector;
-		for (int i = 0; i < iterations; i++) {
-			MonoidElement tmp = ((DiscreetMonoid) Naturals.getInstance()).get(i);
-			Function evolutionOp = dinamicSystem.getEvolutionOperator(tmp);
-			vec = evolutionOp.value((Scalar) vec);
-			getLogger().info(i + ": " + vec.toString());
-		}
-	}
-
-	/**
-	 * @return the timespace
-	 */
-	public OrderedMonoid getTimespace() {
-		return timeSpace;
-	}
-
-	/**
-	 * @return the phasespace
-	 */
-	public VectorSpace getPhasespace() {
-		return phaseSpace;
 	}
 
 	/**
 	 * @return the dinamicSystem
 	 */
 	public DynamicSystem getDinamicSystem() {
-		return dinamicSystem;
+		return this.dinamicSystem;
+	}
+
+	/**
+	 * @return the phasespace
+	 */
+	public VectorSpace getPhasespace() {
+		return this.phaseSpace;
+	}
+
+	/**
+	 * @return the timespace
+	 */
+	public OrderedMonoid getTimespace() {
+		return this.timeSpace;
 	}
 
 	/**
 	 * @param dinamicSystem the dinamicSystem to set
 	 */
-	public void setDinamicSystem(DynamicSystem dinamicSystem) {
+	public void setDinamicSystem(final DynamicSystem dinamicSystem) {
 		this.dinamicSystem = dinamicSystem;
+	}
+
+	@Test
+	public void test() {
+		Vector vec = this.startVector;
+		for (int i = 0; i < this.iterations; i++) {
+			final MonoidElement tmp = ((DiscreetMonoid) Naturals.getInstance()).get(i);
+			final Function evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
+			vec = evolutionOp.value((Scalar) vec);
+			getLogger().info(i + ": " + vec.toString());
+		}
 	}
 
 }

@@ -6,12 +6,10 @@ import org.junit.Test;
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.Automorphism;
-import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.mappings.Isomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.Algebra;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
@@ -22,7 +20,8 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class FiniteDimensionalLinearMappingTest {
 
-	final static IMappingGenerator mapGen = SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(MappingGenerator.class);
+	final static IMappingGenerator mapGen = SpringConfiguration.getSpringConfiguration().getApplicationContext()
+			.getBean(MappingGenerator.class);
 
 	final static Algebra realLine = RealLine.getInstance();
 	final static Scalar one = ((RealLine) realLine).getOne();
@@ -32,9 +31,10 @@ public class FiniteDimensionalLinearMappingTest {
 	static FiniteVector e3;
 	static VectorSpaceHomomorphism map;
 	static VectorSpaceHomomorphism inv;
-	static VectorSpaceHomomorphism composition; 
+	static VectorSpaceHomomorphism composition;
 
-	static Scalar[][] matrix = new Scalar[][] { { one, zero, one }, { zero, one, zero }, { RealLine.getInstance().get(-1), zero, one } };
+	static Scalar[][] matrix = new Scalar[][] { { one, zero, one }, { zero, one, zero },
+			{ RealLine.getInstance().get(-1), zero, one } };
 
 	static FiniteDimensionalHomomorphism product;
 
@@ -58,16 +58,6 @@ public class FiniteDimensionalLinearMappingTest {
 	}
 
 	@Test
-	public void second() throws Throwable {
-		Assert.assertTrue(composition.get(e2).equals(e2));
-	}
-
-	@Test
-	public void third() throws Throwable {
-		Assert.assertTrue(composition.get(e3).equals(e3));
-	}
-
-	@Test
 	public void iso1() throws Throwable {
 		Assert.assertTrue(map instanceof Isomorphism);
 	}
@@ -80,5 +70,15 @@ public class FiniteDimensionalLinearMappingTest {
 	@Test
 	public void iso3() throws Throwable {
 		Assert.assertTrue(composition instanceof Isomorphism);
+	}
+
+	@Test
+	public void second() throws Throwable {
+		Assert.assertTrue(composition.get(e2).equals(e2));
+	}
+
+	@Test
+	public void third() throws Throwable {
+		Assert.assertTrue(composition.get(e3).equals(e3));
 	}
 }

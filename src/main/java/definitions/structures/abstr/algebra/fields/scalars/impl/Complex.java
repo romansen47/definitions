@@ -111,7 +111,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@Override
 	public String toXml() {
-		return "<complex>\r<realPart>" + this.real.getValue()+"</realPart>\r<imagPart>" + this.imag.getValue() + "</imagPart>\r</complex>\r";
+		return "<complex>\r<realPart>" + this.real.getValue() + "</realPart>\r<imagPart>" + this.imag.getValue()
+				+ "</imagPart>\r</complex>\r";
 	}
- 
+
 }

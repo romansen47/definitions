@@ -24,31 +24,24 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  */
 public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensionalFunctionSpaceTest {
 
-	final public Field f = (Field) ComplexPlane.getInstance();
-	List<Vector> base = new ArrayList<>();
-	FunctionSpace space;
-
-	Function alpha;
-	Function beta;
-	Function gamma;
-
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		new FiniteDimensionalComplexFunctionSpaceTest().test();
 		System.exit(0);
 	}
 
+	final public Field f = (Field) ComplexPlane.getInstance();
+	List<Vector> base = new ArrayList<>();
+
+	FunctionSpace space;
+	Function alpha;
+	Function beta;
+
+	Function gamma;
+
 	@Before
 	public void before() {
-		alpha = new GenericFunction() {
+		this.alpha = new GenericFunction() {
 			private static final long serialVersionUID = 6698998256903151087L;
-
-			@Override
-			public Scalar value(Scalar input) {
-				final double val = ((Complex) input).getReal().getValue();
-				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f
-						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, -val));
-				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
-			}
 
 			@Override
 			public Field getField() {
@@ -59,18 +52,18 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public String toString() {
 				return "alpha";
 			}
-		};
-
-		beta = new GenericFunction() {
-			private static final long serialVersionUID = -2624612868740391242L;
 
 			@Override
-			public Scalar value(Scalar input) {
+			public Scalar value(final Scalar input) {
 				final double val = ((Complex) input).getReal().getValue();
 				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f
-						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, val));
+						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, -val));
 				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
 			}
+		};
+
+		this.beta = new GenericFunction() {
+			private static final long serialVersionUID = -2624612868740391242L;
 
 			@Override
 			public Field getField() {
@@ -81,18 +74,18 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public String toString() {
 				return "beta";
 			}
-		};
-
-		gamma = new GenericFunction() {
-			private static final long serialVersionUID = -6598973940477311007L;
 
 			@Override
-			public Scalar value(Scalar input) {
-				final double val = ((Complex) input).getValue();
-				final Scalar factor = new Complex(Math.cos(val), Math.sin(val));
-				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f.product(factor, factor);
+			public Scalar value(final Scalar input) {
+				final double val = ((Complex) input).getReal().getValue();
+				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f
+						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, val));
 				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
 			}
+		};
+
+		this.gamma = new GenericFunction() {
+			private static final long serialVersionUID = -6598973940477311007L;
 
 			@Override
 			public Field getField() {
@@ -103,30 +96,38 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public String toString() {
 				return "gamma";
 			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double val = ((Complex) input).getValue();
+				final Scalar factor = new Complex(Math.cos(val), Math.sin(val));
+				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f.product(factor, factor);
+				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
+			}
 		};
 
-		this.base.add(alpha);
-		this.base.add(beta);
+		this.base.add(this.alpha);
+		this.base.add(this.beta);
+	}
+
+	// @Test
+	public void test() {
+		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -Math.PI, Math.PI, true);
 	}
 
 	@Test
 	public void test1() {
-		alpha.plot(-Math.PI, Math.PI);
+		this.alpha.plot(-Math.PI, Math.PI);
 	}
 
 	@Test
 	public void test2() {
-		beta.plot(-Math.PI, Math.PI);
+		this.beta.plot(-Math.PI, Math.PI);
 	}
 
 	@Test
 	public void test3() {
-		gamma.plot(-Math.PI, Math.PI);
-	}
-
-//	@Test
-	public void test() {
-		this.space = new FiniteDimensionalFunctionSpace(this.f, this.base, -Math.PI, Math.PI, true);
+		this.gamma.plot(-Math.PI, Math.PI);
 	}
 
 }

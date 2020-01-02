@@ -22,18 +22,6 @@ public class AspectJTest {
 	private static ComplexPlane complexPlane;
 	private static definitions.structures.abstr.algebra.groups.impl.BinaryField binaryField;
 
-	@BeforeClass
-	public static void prepare() {
-		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
-		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
-		setSpaceGenerator(getGenerator().getSpacegenerator());
-		setRealLine(RealLine.getInstance());
-		setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
-		setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));
-		getLogger().setLevel(Level.INFO);
-		org.apache.log4j.BasicConfigurator.configure();
-	}
-	
 	public static BinaryField getBinaryField() {
 		return binaryField;
 	}
@@ -60,6 +48,18 @@ public class AspectJTest {
 
 	public static SpringConfiguration getSpringConfiguration() {
 		return springConfiguration;
+	}
+
+	@BeforeClass
+	public static void prepare() {
+		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
+		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
+		setSpaceGenerator(getGenerator().getSpacegenerator());
+		setRealLine(RealLine.getInstance());
+		setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
+		setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));
+		getLogger().setLevel(Level.INFO);
+		org.apache.log4j.BasicConfigurator.configure();
 	}
 
 	public static void setBinaryField(final BinaryField binaryField) {

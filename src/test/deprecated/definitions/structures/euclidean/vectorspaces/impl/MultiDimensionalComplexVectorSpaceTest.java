@@ -17,14 +17,14 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
  */
 public class MultiDimensionalComplexVectorSpaceTest {
 
-	ISpaceGenerator gen = SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(SpaceGenerator.class);
-
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		new MultiDimensionalComplexVectorSpaceTest().test();
 	}
 
+	ISpaceGenerator gen = SpringConfiguration.getSpringConfiguration().getApplicationContext()
+			.getBean(SpaceGenerator.class);
+
 	@Test
-	
 
 	public void test() {
 		final int dim = 10;

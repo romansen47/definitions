@@ -19,17 +19,11 @@ public class DebugAspect {
 
 	public final static Logger logger = Logger.getLogger(DebugAspect.class);
 	private final String path = "target/";
-	private FileWriter w; 
-	private BufferedWriter bw; 
+	private FileWriter w;
+	private BufferedWriter bw;
 	private int count = 0;
-	private int executionsCount=0;
+	private int executionsCount = 0;
 	private final Map<Integer, String> entries = new HashMap<>();
-
-	private synchronized void printToFile(String str) throws IOException {
-		System.out.println(str);
-		bw.write(str);
-		bw.flush(); 
-	}
 
 	final String pointCut = "execution(* definitions..*(..)) && !execution(java.lang.String definitions.settings.XmlPrintable.toXml()) &&"
 			+ "!execution(definitions.structures.abstr.algebra.fields.impl.PrimeField definitions.structures.abstr.algebra.fields.impl.FinitePrimeField.getPrimeField()) && "
@@ -42,40 +36,75 @@ public class DebugAspect {
 			+ "!execution(* *.getInstance(..)) &&" + "!execution(* *.getLogger(..)) &&"
 			+ "!execution(void plotter.Plotable.plot(..))";
 
-//	@After("execution(static void definitions.prototypes.AspectJTest.prepare())")
-	@Before("@annotation(org.junit.Test)")
-	public void setRunningTrueByAnnotation() {
-		Boolean running = AspectsController.getInstance().getRunning();
-		if (running == null) {
-			AspectsController.getInstance().setRunning(true);
-		}
+	public DebugAspect() throws IOException {
+		new File(this.path).mkdirs();
+		this.w = new FileWriter(this.path + "deep-search.xml");
+		this.bw = new BufferedWriter(this.w);
+		this.bw.flush();
+		logger.info("Created buffered file writer");
 	}
 
-	public DebugAspect() throws IOException {
-		new File(path).mkdirs();
-		w = new FileWriter(path + "deep-search.xml");
-		bw = new BufferedWriter(w);
-		bw.flush(); 
-		logger.info("Created buffered file writer");
+	@AfterReturning(value = pointCut, returning = "returnValue")
+	public synchronized void afterLookup(final JoinPoint jp, final Object returnValue) throws Throwable {
+		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
+			this.postCreateXmlEntry(jp, returnValue);
+			this.count -= 1;
+			if (this.count == 0) {
+				AspectsController.getInstance().setRunning(false);
+			}
+		}
 	}
 
 	@Before(pointCut)
 	public synchronized void beforeLookup(final JoinPoint jp) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
-			count += 1;
+			this.count += 1;
 			this.preCreateXmlEntry(jp);
 		}
 	}
 
-	@AfterReturning(value = pointCut, returning = "returnValue")
-	public synchronized void afterLookup(final JoinPoint jp, Object returnValue) throws Throwable {
-		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
-			this.postCreateXmlEntry(jp, returnValue);
-			count -= 1;
-			if (count == 0) {
-				AspectsController.getInstance().setRunning(false);
+	/**
+	 * @return the buffered writer
+	 */
+	public BufferedWriter getBw() {
+		return this.bw;
+	}
+
+	/**
+	 * @return the executionsCount
+	 */
+	public int getExecutionsCount() {
+		return this.executionsCount;
+	}
+
+	/**
+	 * @return the path
+	 */
+	public String getPath() {
+		return this.path;
+	}
+
+	/**
+	 * @return the writer
+	 */
+	public FileWriter getW() {
+		return this.w;
+	}
+
+	private synchronized void postCreateXmlEntry(final JoinPoint jp, final Object o) throws Throwable {
+		String ans2 = "";
+		ans2 += "</executionsWithin>\r";
+		if (o != null) {
+			ans2 += "<return>\r";
+			if (o instanceof XmlPrintable && ((XmlPrintable) o).toXml() != "") {
+				ans2 += ((XmlPrintable) o).toXml();
+			} else {
+				ans2 += o.toString().split(Pattern.quote("@"))[0] + "\r";
 			}
+			ans2 += "</return>\r";
 		}
+		ans2 += "</" + this.entries.get(this.count) + ">";
+		this.printToFile(ans2);
 	}
 
 	private synchronized void preCreateXmlEntry(final JoinPoint jp) throws Throwable {
@@ -83,11 +112,11 @@ public class DebugAspect {
 		name = name.split(Pattern.quote("..EnhancerBySpringCGLIB"))[0];
 		try {
 			name = name.split(Pattern.quote("("))[1];
-		} catch (Exception e) {
-			int i = 0;
+		} catch (final Exception e) {
+			final int i = 0;
 		}
-		entries.put(this.count, name);
-		final String str = entries.get(count);
+		this.entries.put(this.count, name);
+		final String str = this.entries.get(this.count);
 		String ans = "";
 		final Object[] args = jp.getArgs();
 		if (args.length > 1) {
@@ -123,73 +152,44 @@ public class DebugAspect {
 			ans += "</argument>\r";
 		}
 		ans += "<executionsWithin>";
-		ans="<" + str + ">\r"+"<count>"+(++executionsCount)+"</count>\r"+ans;
-		printToFile(ans);
+		ans = "<" + str + ">\r" + "<count>" + (++this.executionsCount) + "</count>\r" + ans;
+		this.printToFile(ans);
 	}
 
-	private synchronized void postCreateXmlEntry(final JoinPoint jp, Object o) throws Throwable {
-		String ans2 = ""; 
-		ans2 += "</executionsWithin>\r";
-		if (o != null) {
-			ans2 += "<return>\r";
-			if (o instanceof XmlPrintable && ((XmlPrintable) o).toXml() != "") {
-				ans2 += ((XmlPrintable) o).toXml();
-			} else {
-				ans2 += o.toString().split(Pattern.quote("@"))[0] + "\r";
-			}
-			ans2 += "</return>\r";
-		}
-		ans2 += "</" + entries.get(count) + ">";
-		printToFile(ans2);
-	}
-
-	/**
-	 * @return the path
-	 */
-	public String getPath() {
-		return path;
-	}
-
-	/**
-	 * @return the writer
-	 */
-	public FileWriter getW() {
-		return w;
-	}
-
-	/**
-	 * @param w the writer to set
-	 */
-	public void setW(FileWriter w) {
-		this.w = w;
-	}
-
-	/**
-	 * @return the buffered writer
-	 */
-	public BufferedWriter getBw() {
-		return bw;
+	private synchronized void printToFile(final String str) throws IOException {
+		System.out.println(str);
+		this.bw.write(str);
+		this.bw.flush();
 	}
 
 	/**
 	 * @param bw the buffered writer to set
 	 */
-	public void setBw(BufferedWriter bw) {
+	public void setBw(final BufferedWriter bw) {
 		this.bw = bw;
-	}
-
-	/**
-	 * @return the executionsCount
-	 */
-	public int getExecutionsCount() {
-		return executionsCount;
 	}
 
 	/**
 	 * @param executionsCount the executionsCount to set
 	 */
-	public void setExecutionsCount(int executionsCount) {
+	public void setExecutionsCount(final int executionsCount) {
 		this.executionsCount = executionsCount;
+	}
+
+	// @After("execution(static void definitions.prototypes.AspectJTest.prepare())")
+	@Before("@annotation(org.junit.Test)")
+	public void setRunningTrueByAnnotation() {
+		final Boolean running = AspectsController.getInstance().getRunning();
+		if (running == null) {
+			AspectsController.getInstance().setRunning(true);
+		}
+	}
+
+	/**
+	 * @param w the writer to set
+	 */
+	public void setW(final FileWriter w) {
+		this.w = w;
 	}
 
 }

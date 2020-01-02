@@ -10,7 +10,6 @@ import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
@@ -33,7 +32,8 @@ public class PolynomeRegressionTest {
 	static EuclideanFunctionSpace newSpace = null;
 
 	private static int maxDegree = 3;
-	protected static Field realLine=SpringConfiguration.getSpringConfiguration().getApplicationContext().getBean(RealLine.class);
+	protected static Field realLine = SpringConfiguration.getSpringConfiguration().getApplicationContext()
+			.getBean(RealLine.class);
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
@@ -44,15 +44,15 @@ public class PolynomeRegressionTest {
 			 */
 			private static final long serialVersionUID = 1L;
 
-			// @Override
-			@Override
-			public Scalar value(Scalar input) {
-				return RealLine.getInstance().get(Math.sin(input.getValue() * Math.PI));
-			}
-
 			@Override
 			public Field getField() {
 				return realLine;
+			}
+
+			// @Override
+			@Override
+			public Scalar value(final Scalar input) {
+				return RealLine.getInstance().get(Math.sin(input.getValue() * Math.PI));
 			}
 		};
 
@@ -61,15 +61,15 @@ public class PolynomeRegressionTest {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
- 
-			@Override
-			public Scalar value(Scalar input) {
-				return RealLine.getInstance().get(Math.exp(input.getValue() * Math.PI));
-			}
 
 			@Override
 			public Field getField() {
 				return realLine;
+			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				return RealLine.getInstance().get(Math.exp(input.getValue() * Math.PI));
 			}
 		};
 
@@ -94,13 +94,6 @@ public class PolynomeRegressionTest {
 		// Generator.getGenerator().getFiniteDimensionalSobolevSpace((IFiniteDimensionalFunctionSpace)
 		// space);
 
-	} 
-
-	@Test
-//	
-	public void sinTest1() throws Throwable {
-		final Function ans = sin.getProjection(space);
-		ans.plotCompare(left, right, sin);
 	}
 
 	// @Test
@@ -110,15 +103,22 @@ public class PolynomeRegressionTest {
 	}
 
 	// //@Test
-	public void sinTest2() throws Throwable {
-		final Function ans = sin.getProjection(newSpace);
+	public void expTest2() throws Throwable {
+		final Function ans = exp.getProjection(newSpace);
+		ans.plotCompare(left, right, exp);
+	}
+
+	@Test
+//
+	public void sinTest1() throws Throwable {
+		final Function ans = sin.getProjection(space);
 		ans.plotCompare(left, right, sin);
 	}
 
 	// //@Test
-	public void expTest2() throws Throwable {
-		final Function ans = exp.getProjection(newSpace);
-		ans.plotCompare(left, right, exp);
+	public void sinTest2() throws Throwable {
+		final Function ans = sin.getProjection(newSpace);
+		ans.plotCompare(left, right, sin);
 	}
 
 }

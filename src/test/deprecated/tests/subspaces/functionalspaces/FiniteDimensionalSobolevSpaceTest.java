@@ -13,12 +13,9 @@ import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
@@ -28,11 +25,11 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class FiniteDimensionalSobolevSpaceTest {
- 
+
 	final static VectorSpace realLine = RealLine.getInstance();
 	static EuclideanSpace trigonometricFunctionSpace;
 	static EuclideanSpace sobolevSpace;
-	final static ISpaceGenerator spaceGen =  SpaceGenerator.getInstance();
+	final static ISpaceGenerator spaceGen = SpaceGenerator.getInstance();
 
 	static double left = -Math.PI;
 	static double right = Math.PI;
@@ -63,6 +60,36 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 	static Vector expToSobolevFourierCoordinates;
 
+	protected static double[][] readFile(final String string) throws IOException {
+		final List<double[]> values = new ArrayList<>();
+		final BufferedReader br = new BufferedReader(new FileReader(string));
+		String line = "";
+		LocalDate firstDate = null;
+		try {
+			while ((line = br.readLine()) != null) {
+				final String[] parts = line.split(";");
+				final String[] tmpdate = parts[0].split("-");
+				final LocalDate date = LocalDate.of(Integer.parseInt(tmpdate[0]), Integer.parseInt(tmpdate[1]),
+						Integer.parseInt(tmpdate[2]));
+				if (firstDate == null) {
+					firstDate = date;
+				}
+				final double[] tmp = new double[2];
+				tmp[0] = firstDate.until(date, ChronoUnit.DAYS);
+				tmp[1] = Double.parseDouble(parts[1]);
+				values.add(tmp);
+			}
+		} finally {
+			br.close();
+		}
+		final double[][] ans = new double[2][values.size()];
+		for (int i = 0; i < values.size(); i++) {
+			ans[0][i] = values.get(i)[0];
+			ans[1][i] = values.get(i)[1];
+		}
+		return ans;
+	}
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
@@ -70,18 +97,18 @@ public class FiniteDimensionalSobolevSpaceTest {
 
 		testValues2 = readFile(PATH2);
 
-		normalizedIdentity = new GenericFunction() { 
+		normalizedIdentity = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 			final double norm = Math.sqrt(2 * Math.PI) + Math.sqrt((2 * Math.pow(Math.PI, 3)) / 3);
 
 			@Override
-			public Scalar value(Scalar input) {
+			public Scalar value(final Scalar input) {
 				return RealLine.getInstance().get(input.getValue() / this.norm);
 			}
 
 		};
 		exp = new ExponentialFunction((Scalar) ((RealLine) realLine).nullVec(), ((RealLine) realLine).getOne()) {
- 
+
 			private static final long serialVersionUID = 1L;
 		};
 		niceOne = new GenericFunction() {
@@ -91,9 +118,9 @@ public class FiniteDimensionalSobolevSpaceTest {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Scalar value(Scalar input) {
-				double ans = input.getValue();
-				double newAns = Math.sqrt(1 + Math.pow(ans, 2));
+			public Scalar value(final Scalar input) {
+				final double ans = input.getValue();
+				final double newAns = Math.sqrt(1 + Math.pow(ans, 2));
 				return RealLine.getInstance().get(newAns);
 			}
 		};
@@ -105,7 +132,7 @@ public class FiniteDimensionalSobolevSpaceTest {
 			int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
-			public Scalar value(Scalar input) {
+			public Scalar value(final Scalar input) {
 				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
@@ -116,12 +143,12 @@ public class FiniteDimensionalSobolevSpaceTest {
 			}
 
 		};
-		staircaseFunction2 = new GenericFunction() { 
+		staircaseFunction2 = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 			int length = (int) testValues2[0][testValues2[0].length - 1];
 
 			@Override
-			public Scalar value(Scalar input) {
+			public Scalar value(final Scalar input) {
 				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
@@ -154,8 +181,8 @@ public class FiniteDimensionalSobolevSpaceTest {
 	}
 
 	@Test
-	public void scalarProducts() throws Throwable {
-		sobolevSpace.show();
+	public void exp() throws Throwable {
+		exp.plotCompare(left, right, (Function) expToSobolevFourierCoordinates);
 	}
 
 	@Test
@@ -164,13 +191,13 @@ public class FiniteDimensionalSobolevSpaceTest {
 	}
 
 	@Test
-	public void exp() throws Throwable {
-		exp.plotCompare(left, right, (Function) expToSobolevFourierCoordinates);
+	public void niceone() throws Throwable {
+		((Function) niceOne).plotCompare(left, right, (Function) newAbs);
 	}
 
 	@Test
-	public void niceone() throws Throwable {
-		((Function) niceOne).plotCompare(left, right, (Function) newAbs);
+	public void scalarProducts() throws Throwable {
+		sobolevSpace.show();
 	}
 
 	@Test
@@ -183,36 +210,6 @@ public class FiniteDimensionalSobolevSpaceTest {
 	public void staircaseFunction2() throws Throwable {
 		staircaseFunction2ToFourier = ((Function) staircaseFunction2).getProjection(sobolevSpace);
 		((Function) staircaseFunction2).plotCompare(left, right, (Function) staircaseFunction2ToFourier);
-	}
-
-	protected static double[][] readFile(String string) throws IOException {
-		final List<double[]> values = new ArrayList<>();
-		final BufferedReader br = new BufferedReader(new FileReader(string));
-		String line = "";
-		LocalDate firstDate = null;
-		try {
-			while ((line = br.readLine()) != null) {
-				final String[] parts = line.split(";");
-				final String[] tmpdate = parts[0].split("-");
-				final LocalDate date = LocalDate.of(Integer.parseInt(tmpdate[0]), Integer.parseInt(tmpdate[1]),
-						Integer.parseInt(tmpdate[2]));
-				if (firstDate == null) {
-					firstDate = date;
-				}
-				final double[] tmp = new double[2];
-				tmp[0] = firstDate.until(date, ChronoUnit.DAYS);
-				tmp[1] = Double.parseDouble(parts[1]);
-				values.add(tmp);
-			}
-		} finally {
-			br.close();
-		}
-		final double[][] ans = new double[2][values.size()];
-		for (int i = 0; i < values.size(); i++) {
-			ans[0][i] = values.get(i)[0];
-			ans[1][i] = values.get(i)[1];
-		}
-		return ans;
 	}
 
 }

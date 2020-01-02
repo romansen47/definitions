@@ -9,19 +9,19 @@ package definitions.structures.java;
  */
 public interface IStats {
 
-	default void increaseVectorCount() {
-		setVectorCount(getVectorCount() + 1);
-	}
-
 	/**
 	 * @return the vectorCount
 	 */
 
-	public int getVectorCount();
+	int getVectorCount();
+
+	default void increaseVectorCount() {
+		this.setVectorCount(this.getVectorCount() + 1);
+	}
 
 	/**
 	 * @param vectorCount the vectorCount to set
 	 */
 
-	public void setVectorCount(int vectorCount);
+	void setVectorCount(int vectorCount);
 }

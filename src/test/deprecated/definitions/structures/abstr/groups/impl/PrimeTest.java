@@ -24,10 +24,25 @@ public class PrimeTest {
 		Map<Int, Boolean> map = new HashMap<>();
 
 		@Override
-		public Scalar value(Scalar input) {
+		public Map<Vector, Scalar> getCoordinates() {
+			return null;
+		}
+
+		@Override
+		public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
+			return null;
+		}
+
+		@Override
+		public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+
+		}
+
+		@Override
+		public Scalar value(final Scalar input) {
 			int ans = 0;
-			for (Int i = (Int) ((Integers) PrimeTest.this.integers).get(2); i.getValue() < input
-					.getValue(); i = (Int) ((Integers) PrimeTest.this.integers).get(i.getValue() + 1)) {
+			for (Int i = ((Integers) PrimeTest.this.integers).get(2); i.getValue() < input
+					.getValue(); i = ((Integers) PrimeTest.this.integers).get(i.getValue() + 1)) {
 				final Boolean prime = this.map.get(i);
 				if (prime == null) {
 					if (i.isPrime()) {
@@ -45,25 +60,10 @@ public class PrimeTest {
 			return RealLine.getInstance().get(ans);
 		}
 
-		@Override
-		public void setCoordinates(Map<Vector, Scalar> coordinates) {
-
-		}
-
-		@Override
-		public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
-			return null;
-		}
-
-		@Override
-		public Map<Vector, Scalar> getCoordinates() { 
-			return null;
-		}
-
 	};
 
 	@Test
-	
+
 	public void test() {
 		this.distribution.plot(0, 1.e6);
 	}

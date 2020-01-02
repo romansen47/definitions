@@ -12,8 +12,8 @@ import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 public interface DiscreetGroup extends DiscreetMonoid, Group {
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	GroupElement get(Integer index);
 

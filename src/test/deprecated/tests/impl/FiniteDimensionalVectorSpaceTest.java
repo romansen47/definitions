@@ -7,7 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -39,7 +38,8 @@ public class FiniteDimensionalVectorSpaceTest {
 		final Vector x1 = space.add(genericBase.get(0), genericBase.get(1));
 		final Vector x2 = space.add(genericBase.get(1), genericBase.get(2));
 		final Vector x3 = space.add(genericBase.get(2), genericBase.get(3));
-		final Vector x4 = space.add(genericBase.get(3), space.stretch(genericBase.get(0), RealLine.getInstance().get(-1)));
+		final Vector x4 = space.add(genericBase.get(3),
+				space.stretch(genericBase.get(0), RealLine.getInstance().get(-1)));
 
 		system.add(x1);
 		system.add(x2);
@@ -61,19 +61,19 @@ public class FiniteDimensionalVectorSpaceTest {
 	}
 
 	@Test
-	public void orthogonal() throws Throwable {
-		Assert.assertTrue(Math.abs(ans1) < 1.e-5);
-		Assert.assertTrue(Math.abs(ans2) < 1.e-5);
-		Assert.assertTrue(Math.abs(ans3) < 1.e-5);
-		Assert.assertTrue(Math.abs(ans4) < 1.e-5);
-	}
-
-	@Test
 	public void normalized() throws Throwable {
 		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < 1.e-5);
 		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < 1.e-5);
 		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < 1.e-5);
 		Assert.assertTrue(Math.abs(space.norm(d).getValue() - 1) < 1.e-5);
+	}
+
+	@Test
+	public void orthogonal() throws Throwable {
+		Assert.assertTrue(Math.abs(ans1) < 1.e-5);
+		Assert.assertTrue(Math.abs(ans2) < 1.e-5);
+		Assert.assertTrue(Math.abs(ans3) < 1.e-5);
+		Assert.assertTrue(Math.abs(ans4) < 1.e-5);
 	}
 
 }

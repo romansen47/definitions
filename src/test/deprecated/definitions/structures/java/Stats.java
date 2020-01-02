@@ -9,8 +9,6 @@ package definitions.structures.java;
  */
 public class Stats implements IStats {
 
-	private int vectorCount;
-
 	private static IStats instance = null;
 
 	public static IStats getInstance() {
@@ -21,13 +19,15 @@ public class Stats implements IStats {
 		return instance;
 	}
 
+	private int vectorCount;
+
 	@Override
 	public int getVectorCount() {
 		return this.vectorCount;
 	}
 
 	@Override
-	public void setVectorCount(int vectorCount) {
+	public void setVectorCount(final int vectorCount) {
 		this.vectorCount = vectorCount;
 	}
 

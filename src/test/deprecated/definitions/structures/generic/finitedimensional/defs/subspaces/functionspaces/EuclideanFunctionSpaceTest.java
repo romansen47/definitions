@@ -37,18 +37,18 @@ public class EuclideanFunctionSpaceTest {
 	final static int sobolevDegree = 1;
 
 	private static Function exp;
-	
+
 	private static FunctionSpace extendedSpace;
 	private static FunctionSpace extendedToSobolev;
 
-	public static void main(String[] args) throws Exception {
+	public static void main(final String[] args) throws Exception {
 		setUpBeforeClass();
 		new EuclideanFunctionSpaceTest().polynomialSobolev();
 	}
 
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		springConfiguration=SpringConfiguration.getSpringConfiguration();
+		springConfiguration = SpringConfiguration.getSpringConfiguration();
 		polynomialSpace = SpaceGenerator.getInstance().getPolynomialFunctionSpace((Field) realLine, polynomialDegree, 1,
 				false);
 		polynomialSpaceSobolev = (FunctionSpace) SpaceGenerator.getInstance()
@@ -57,8 +57,7 @@ public class EuclideanFunctionSpaceTest {
 		trigonometricSpace = SpaceGenerator.getInstance().getTrigonometricSpace((Field) realLine, trigonometricDegree);
 		trigonometricSpaceSobolev = SpaceGenerator.getInstance().getTrigonometricSobolevSpace((Field) realLine,
 				trigonometricDegree, sobolevDegree);
-		exp = new ExponentialFunction(RealLine.getInstance().getZero(),
-				RealLine.getInstance().getOne()) {
+		exp = new ExponentialFunction(RealLine.getInstance().getZero(), RealLine.getInstance().getOne()) {
 			private static final long serialVersionUID = 1172031978682722462L;
 
 			@Override
@@ -66,6 +65,10 @@ public class EuclideanFunctionSpaceTest {
 				return (Field) realLine;
 			}
 		};
+	}
+
+	public SpringConfiguration getSpringConfiguration() {
+		return springConfiguration;
 	}
 
 	@Test
@@ -94,6 +97,13 @@ public class EuclideanFunctionSpaceTest {
 	}
 
 	@Test
+	public void trigonometric2() throws java.lang.Exception {
+		final EuclideanSpace ans = SpaceGenerator.getInstance()
+				.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 49);
+		exp.getProjection(ans).plotCompare(-Math.PI, Math.PI, exp);
+	}
+
+	@Test
 	public void trigonometricL2() throws java.lang.Exception {
 		extendedSpace = (FunctionSpace) SpaceGenerator.getInstance().extend(trigonometricSpace,
 				new LinearFunction(((RealLine) realLine).getZero(), ((RealLine) realLine).getOne()) {
@@ -113,23 +123,12 @@ public class EuclideanFunctionSpaceTest {
 	}
 
 	@Test
-	public void trigonometric2() throws java.lang.Exception {
-		EuclideanSpace ans = SpaceGenerator.getInstance()
-				.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 49);
-		exp.getProjection(ans).plotCompare(-Math.PI, Math.PI, exp);
-	}
-
-	@Test
 	public void trigonometricSobolev2() throws java.lang.Exception {
-		ISpaceGenerator sp = SpaceGenerator.getInstance();
-		EuclideanSpace ans = sp.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 7);
-		EuclideanSpace sobolev = sp.getFiniteDimensionalSobolevSpace(RealLine.getInstance(),
+		final ISpaceGenerator sp = SpaceGenerator.getInstance();
+		final EuclideanSpace ans = sp.getTrigonometricFunctionSpaceWithLinearGrowth((Field) realLine, 7);
+		final EuclideanSpace sobolev = sp.getFiniteDimensionalSobolevSpace(RealLine.getInstance(),
 				(EuclideanFunctionSpace) ans, sobolevDegree);
 		exp.getProjection(sobolev).plotCompare(-Math.PI, Math.PI, exp);
-	}
-
-	public SpringConfiguration getSpringConfiguration() {
-		return springConfiguration;
 	}
 
 }

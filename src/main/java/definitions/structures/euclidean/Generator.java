@@ -25,7 +25,7 @@ import settings.GlobalSettings;
 
 @Service
 @ComponentScan("definitions")
-public class Generator implements IGenerator, Unweavable, Plotter,XmlPrintable {
+public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable {
 
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 

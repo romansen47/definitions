@@ -33,6 +33,17 @@ public class GroupGeneratorTest extends AspectJTest {
 		return this.group;
 	}
 
+	@Test
+	public void outerProductTest() {
+		final Ring a = getGenerator().getGroupGenerator().getFiniteResidueClassRing(3);
+		final Ring b = getGenerator().getGroupGenerator().getFiniteResidueClassRing(11);
+		final Monoid c = getGenerator().getGroupGenerator().outerProduct(a, b);
+		((FiniteMonoid) c).print();
+		final MonoidElement o1 = ((DiscreetMonoid) c).get(3);
+		final MonoidElement o2 = ((DiscreetMonoid) c).get(5);
+		final MonoidElement test = c.operation(o1, o2);
+	}
+
 	public void setGroup(final Group group) {
 		this.group = group;
 	}
@@ -42,15 +53,4 @@ public class GroupGeneratorTest extends AspectJTest {
 		((FiniteResidueClassRing) this.group).print();
 	}
 
-	@Test
-	public void outerProductTest() {
-		Ring a=getGenerator().getGroupGenerator().getFiniteResidueClassRing(3);
-		Ring b=getGenerator().getGroupGenerator().getFiniteResidueClassRing(11);
-		Monoid c= getGenerator().getGroupGenerator().outerProduct(a,b);
-		((FiniteMonoid) c).print();
-		MonoidElement o1=((DiscreetMonoid) c).get(3);
-		MonoidElement o2=((DiscreetMonoid) c).get(5);
-		MonoidElement test=c.operation(o1,o2); 
-	}
-	
 }

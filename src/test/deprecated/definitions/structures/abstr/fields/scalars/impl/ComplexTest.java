@@ -19,14 +19,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class ComplexTest extends VectorTest {
 
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.algebra.fields.scalars.impl.Complex#getInverse()}.
-	 */
-	@Test
-	
-	public final void testGetInverse() {
-		Assert.assertTrue(((Scalar) this.getVector()).getInverse().equals(new Complex(0.5, -0.5)));
+	@Override
+	public EuclideanSpace getSpace() {
+		return ComplexPlane.getInstance();
 	}
 
 	@Override
@@ -34,9 +29,14 @@ public class ComplexTest extends VectorTest {
 		return new Complex(1, 1);
 	}
 
-	@Override
-	public EuclideanSpace getSpace() {
-		return ComplexPlane.getInstance();
+	/**
+	 * Test method for
+	 * {@link definitions.structures.abstr.algebra.fields.scalars.impl.Complex#getInverse()}.
+	 */
+	@Test
+
+	public final void testGetInverse() {
+		Assert.assertTrue(((Scalar) this.getVector()).getInverse().equals(new Complex(0.5, -0.5)));
 	}
 
 }

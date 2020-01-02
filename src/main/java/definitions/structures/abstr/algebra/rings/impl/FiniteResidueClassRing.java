@@ -5,7 +5,6 @@ import java.util.Map;
 
 import definitions.structures.abstr.algebra.groups.AbelianSemiGroup;
 import definitions.structures.abstr.algebra.groups.CyclicGroup;
-import definitions.structures.abstr.algebra.groups.FiniteGroupElement;
 import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;

@@ -10,7 +10,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
  * @author RoManski
  *
  */
-public class PolynomialFunctionSpaceTest  {
+public class PolynomialFunctionSpaceTest {
 
 	private static final int polynomialDegree = 5;
 

@@ -2,12 +2,6 @@ public class AspectsController {
 
 	private static AspectsController instance;
 
-	private Boolean running;
-
-	private AspectsController() {
-
-	};
-
 	public static AspectsController getInstance() {
 		if (instance == null) {
 			instance = new AspectsController();
@@ -15,17 +9,23 @@ public class AspectsController {
 		return instance;
 	}
 
+	private Boolean running;
+
+	private AspectsController() {
+
+	}
+
 	/**
 	 * @return the running
 	 */
 	public Boolean getRunning() {
-		return running;
+		return this.running;
 	}
 
 	/**
 	 * @param running the running to set
 	 */
-	public void setRunning(Boolean running) {
+	public void setRunning(final Boolean running) {
 		this.running = running;
 	}
 

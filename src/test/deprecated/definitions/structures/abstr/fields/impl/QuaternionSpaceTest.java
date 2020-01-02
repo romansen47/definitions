@@ -13,7 +13,6 @@ import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -31,6 +30,11 @@ public class QuaternionSpaceTest extends VectorSpaceTest {
 	}
 
 	@Override
+	public Scalar getFactor() {
+		return RealLine.getInstance().get(0.5);
+	}
+
+	@Override
 	public VectorSpace getSpace() {
 		return QuaternionSpace.getInstance();
 	}
@@ -45,13 +49,8 @@ public class QuaternionSpaceTest extends VectorSpaceTest {
 		return new Quaternion(1, 0, -2, 0);
 	}
 
-	@Override
-	public Scalar getFactor() {
-		return RealLine.getInstance().get(0.5);
-	}
-
 	@Test
-	
+
 	public void testAddAndStretch() {
 		Assert.assertTrue(this.getSpace().stretch(this.getSpace().add(this.getVec1(), this.getVec2()), this.getFactor())
 				.equals(((Field) this.getSpace()).getOne()));

@@ -49,16 +49,6 @@ public class FiniteDimensionalFunctionSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
-	 */
-	@Test
-	public final void testNullVec() {
-		final Scalar d = ((NormedSpace) trigonometricSpace).norm(((VectorSpaceMethods) trigonometricSpace).nullVec());
-		Assert.assertTrue(Math.abs(d.getValue()) < 1.e-3);
-	}
-
-	/**
-	 * Test method for
 	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#getOrthonormalBase(java.util.List)}.
 	 */
 	@SuppressWarnings({ "unused" })
@@ -67,6 +57,16 @@ public class FiniteDimensionalFunctionSpaceTest {
 		final List<Vector> ortho = ((EuclideanFunctionSpace) trigonometricSpace)
 				.getOrthonormalBase(((EuclideanFunctionSpace) trigonometricSpace).genericBaseToList());
 		Assert.assertTrue(true);
+	}
+
+	/**
+	 * Test method for
+	 * {@link definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace#nullVec()}.
+	 */
+	@Test
+	public final void testNullVec() {
+		final Scalar d = ((NormedSpace) trigonometricSpace).norm(((VectorSpaceMethods) trigonometricSpace).nullVec());
+		Assert.assertTrue(Math.abs(d.getValue()) < 1.e-3);
 	}
 
 	// /**

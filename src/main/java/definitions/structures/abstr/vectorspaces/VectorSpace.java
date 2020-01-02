@@ -67,7 +67,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * 
 	 * @param vec1 the vector to stretch.
 	 * @param r    the factor.
-	 * @return the stretched vector. 
+	 * @return the stretched vector.
 	 */
 
 	Vector stretch(Vector vec1, Scalar r);

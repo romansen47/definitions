@@ -26,7 +26,7 @@ public class FiniteResidueClassRingTest extends AspectJTest {
 
 	@BeforeClass
 	public static void prepare() {
-		AspectJTest.prepare(); 
+		AspectJTest.prepare();
 	}
 
 	@Test
@@ -34,7 +34,7 @@ public class FiniteResidueClassRingTest extends AspectJTest {
 		long time;
 		for (int i = 1; i < index; i++) {
 			time = System.currentTimeMillis();
-			Ring r = GroupGenerator.getInstance().getFiniteResidueClassRing(i);
+			final Ring r = GroupGenerator.getInstance().getFiniteResidueClassRing(i);
 			time = System.currentTimeMillis() - time;
 			times.put(i, time);
 			getLogger().info(r.toString());
@@ -44,18 +44,24 @@ public class FiniteResidueClassRingTest extends AspectJTest {
 		for (int i = 0; i < index - 1; i++) {
 			System.out.println(i + ": " + times.get(i) + " milli seconds");
 		}
-		Function fun = new GenericFunction() {
+		final Function fun = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8051636753712354251L;
+
 			@Override
-			public Scalar value(Scalar input) {
-				int i = ((int) (input.getValue() - (input.getValue() % 1.0)));
-				return RealLine.getInstance().get(times.get(i));
-			}
-			@Override
-			public Field getField( ) { 
+			public Field getField() {
 				return RealLine.getInstance();
 			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final int i = ((int) (input.getValue() - (input.getValue() % 1.0)));
+				return RealLine.getInstance().get(times.get(i));
+			}
 		};
-		fun.plot(1,index-1);
+		fun.plot(1, index - 1);
 	}
 
 }

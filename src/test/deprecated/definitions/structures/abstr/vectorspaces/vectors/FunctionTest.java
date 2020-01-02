@@ -50,36 +50,6 @@ public class FunctionTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
-	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
-	public final void testPlot() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
-	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
-	public final void testPlotCompare() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.fields.scalars.Scalar)}.
-	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
-	public final void testValue() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(definitions.structures.euclidean.vectorspaces.EuclideanSpace)}.
 	 */
 	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
@@ -93,7 +63,7 @@ public class FunctionTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
-	
+
 	public final void testGetDerivativeInt() {
 		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
 
@@ -106,12 +76,10 @@ public class FunctionTest {
 			cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 2));
-			((Function) trigSpace.stretch(sine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI,
-					highDerivative);
+			trigSpace.stretch(sine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 3));
-			((Function) trigSpace.stretch(cosine, trigSpace.getField().get(-1))).plotCompare(-Math.PI, Math.PI,
-					highDerivative);
+			trigSpace.stretch(cosine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 4));
 			sine.plotCompare(-Math.PI, Math.PI, highDerivative);
@@ -146,6 +114,36 @@ public class FunctionTest {
 	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
 	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetProjectionOfDerivative() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
+	 */
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	public final void testPlot() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
+	 */
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	public final void testPlotCompare() {
+		fail("Not yet implemented"); // TODO
+	}
+
+	/**
+	 * Test method for
+	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.fields.scalars.Scalar)}.
+	 */
+	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
+	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
+	public final void testValue() {
 		fail("Not yet implemented"); // TODO
 	}
 

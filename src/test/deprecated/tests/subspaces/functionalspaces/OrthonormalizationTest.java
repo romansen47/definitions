@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -18,16 +17,15 @@ import junit.framework.Assert;
 @SuppressWarnings("deprecation")
 public class OrthonormalizationTest {
 
-	final double eps = 1.e-3;
-
 	static EuclideanSpace space;
-	static EuclideanSpace space2;
 
+	static EuclideanSpace space2;
 	static Vector a;
+
 	static Vector b;
 	static Vector c;
-
 	static double ans1;
+
 	static double ans2;
 	static double ans3;
 	static double ans4;
@@ -44,7 +42,8 @@ public class OrthonormalizationTest {
 
 		final Vector x1 = space.add(genericBase.get(0), genericBase.get(1));
 		final Vector x2 = space.add(genericBase.get(1), genericBase.get(2));
-		final Vector x3 = space.add(genericBase.get(2), space.stretch(genericBase.get(0), RealLine.getInstance().get(2)));
+		final Vector x3 = space.add(genericBase.get(2),
+				space.stretch(genericBase.get(0), RealLine.getInstance().get(2)));
 
 		system.add(x1);
 		system.add(x2);
@@ -66,19 +65,7 @@ public class OrthonormalizationTest {
 
 	}
 
-	@Test
-	public void orthogonal() throws Throwable {
-		Assert.assertTrue(Math.abs(ans1) < this.eps);
-		Assert.assertTrue(Math.abs(ans2) < this.eps);
-		Assert.assertTrue(Math.abs(ans3) < this.eps);
-	}
-
-	@Test
-	public void normalized() throws Throwable {
-		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < this.eps);
-		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < this.eps);
-		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < this.eps);
-	}
+	final double eps = 1.e-3;
 
 	@Test
 	public void exponential() throws Throwable {
@@ -89,7 +76,7 @@ public class OrthonormalizationTest {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Scalar value(Scalar input) {
+			public Scalar value(final Scalar input) {
 				return RealLine.getInstance().get(Math.exp(input.getValue() + Math.exp(-input.getValue())));
 			}
 		};
@@ -98,5 +85,19 @@ public class OrthonormalizationTest {
 		// Assert.assertTrue((Math.abs(x.getCoordinates()[0].getValue() - y) < this.eps)
 		// || (Math.abs(x.getCoordinates()[1].getValue() - y) < this.eps)
 		// || (Math.abs(x.getCoordinates()[2].getValue() - y) < this.eps));
+	}
+
+	@Test
+	public void normalized() throws Throwable {
+		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < this.eps);
+	}
+
+	@Test
+	public void orthogonal() throws Throwable {
+		Assert.assertTrue(Math.abs(ans1) < this.eps);
+		Assert.assertTrue(Math.abs(ans2) < this.eps);
+		Assert.assertTrue(Math.abs(ans3) < this.eps);
 	}
 }

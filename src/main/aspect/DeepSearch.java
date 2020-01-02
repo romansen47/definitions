@@ -8,11 +8,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import definitions.settings.XmlPrintable;
 
 @Aspect
@@ -160,7 +161,7 @@ public class DeepSearch {
 						}
 						ans.add("</list>");
 					}
-					if (o instanceof Map<?,?>) {
+					if (o instanceof Map<?, ?>) {
 						ans.add("<map>");
 						for (final Object x : ((Map<?, ?>) o).keySet()) {
 							String strX = "";

@@ -47,7 +47,7 @@ public interface IGroupGenerator {
 
 				@Override
 				public MonoidElement get(final Integer representant) {
-					return this.elements.get(representant);
+					return FiniteMonoid.elements.get(representant);
 				}
 
 				@Override
@@ -62,13 +62,13 @@ public interface IGroupGenerator {
 							for (int j = 0; j < b.getOrder(); j++) {
 								final ProductElement tmp = new ProductElement(((FiniteMonoid) a).get(i),
 										((FiniteMonoid) b).get(j));
-								this.elements.put(i * b.getOrder() + j, tmp);
+								FiniteMonoid.elements.put(i * b.getOrder() + j, tmp);
 							}
 						}
 						this.operationMap = new HashMap<>();
-						for (final Integer key1 : this.elements.keySet()) {
-							for (final Integer key2 : this.elements.keySet()) {
-								this.operation(this.elements.get(key1), this.elements.get(key2));
+						for (final Integer key1 : FiniteMonoid.elements.keySet()) {
+							for (final Integer key2 : FiniteMonoid.elements.keySet()) {
+								this.operation(FiniteMonoid.elements.get(key1), FiniteMonoid.elements.get(key2));
 							}
 						}
 					}
