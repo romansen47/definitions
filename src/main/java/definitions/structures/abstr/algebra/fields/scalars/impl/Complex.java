@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
-import definitions.structures.abstr.algebra.fields.impl.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -38,17 +38,26 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		this.imag = im;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
 		return space == ComplexPlane.getInstance();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object vec) {
 		return vec instanceof Complex && ((Complex) vec).getReal().equals(this.getReal())
 				&& ((Complex) vec).getImag().equals(this.getImag());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		final Map<Vector, Scalar> tmp = super.getCoordinates();
@@ -59,11 +68,17 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return tmp;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		return this.getCoordinates();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getDim() {
 		return 2;
@@ -76,6 +91,9 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return this.imag;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar getInverse() {
 		return (Scalar) ((Field) ComplexPlane.getInstance()).inverse(this);
@@ -88,17 +106,26 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return this.real;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double getValue() {
 		return this.getReal().getValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 		super.setCoordinates(coordinates);
 		this.real = coordinates.get(((Field) ComplexPlane.getInstance()).getOne());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 	}
@@ -109,6 +136,9 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "<complex>\r<realPart>" + this.real.getValue() + "</realPart>\r<imagPart>" + this.imag.getValue()

@@ -23,21 +23,37 @@ public class PrimeTest {
 		private static final long serialVersionUID = 1L;
 		Map<Int, Boolean> map = new HashMap<>();
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Map<Vector, Scalar> getCoordinates() {
 			return null;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
 			return null;
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 
 		}
 
+		@Override
+		public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		}
+
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override
 		public Scalar value(final Scalar input) {
 			int ans = 0;
@@ -63,7 +79,6 @@ public class PrimeTest {
 	};
 
 	@Test
-
 	public void test() {
 		this.distribution.plot(0, 1.e6);
 	}

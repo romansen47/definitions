@@ -9,6 +9,7 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public interface FieldMethods extends XmlPrintable, Serializable {
+
 	default Scalar get(final double value) {
 		return null;
 	}

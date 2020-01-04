@@ -22,7 +22,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  *         A finite dimensional function space is an euclidean function space.
  */
+@SuppressWarnings("serial")
 public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -38,12 +40,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
 					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
-				return new GenericFunction() {
-
-					/**
-					 * 
-					 */
-					private long serialVersionUID = 8170149344251225762L;
+				return new GenericFunction() { 
 
 					@Override
 					public Field getField() {
@@ -108,19 +105,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	@Override
 	default Function nullVec() {
 		return this.nullFunction();
-	}
-
-	// @Override
-	// default Vector get(final Map<Vector, Scalar> tmp) {
-	// Function vec = nullFunction();
-	// for (final Vector basevec : tmp.keySet()) {
-	// vec = (Function) add(vec, stretch(basevec, tmp.get(basevec)));
-	// }
-	// return vec;
-	// }
-
-	// @Override
-	// Vector getCoordinates(Vector vec);
+	} 
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -134,8 +120,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		}
 		final Field f = this.getField();
 		if (((FiniteVectorMethods) vec).getCoordinates() == null) {
-			return new GenericFunction() {
-				private long serialVersionUID = -3311201318061885649L;
+			return new GenericFunction() { 
 
 				@Override
 				public Field getField() {

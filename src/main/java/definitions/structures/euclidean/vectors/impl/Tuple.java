@@ -45,6 +45,9 @@ public class Tuple implements FiniteVector {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
 		if (!(space instanceof FiniteDimensionalVectorSpace)
@@ -69,6 +72,9 @@ public class Tuple implements FiniteVector {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object vec) {
 		if (!(vec instanceof Vector)) {
@@ -79,6 +85,9 @@ public class Tuple implements FiniteVector {
 		return false;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 //	@XmlAttribute
 	public Map<Vector, Scalar> getCoordinates() {
@@ -117,11 +126,17 @@ public class Tuple implements FiniteVector {
 		return newCoordinates;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getDim() {
 		return this.dim;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<Vector> getGenericBase() {
 		return this.getCoordinates().keySet();
@@ -138,16 +153,25 @@ public class Tuple implements FiniteVector {
 	// return true;
 	// }
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 		this.coordinates = coordinates;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		this.setCoordinates(coordinates);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		String ans = "<tuple>\r";

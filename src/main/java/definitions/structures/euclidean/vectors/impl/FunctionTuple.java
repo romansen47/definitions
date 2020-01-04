@@ -36,6 +36,9 @@ public class FunctionTuple extends Tuple implements Function {
 		this.field = field;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
 		return this.coordinatesMap;
@@ -54,19 +57,24 @@ public class FunctionTuple extends Tuple implements Function {
 			}
 
 			@Override
-			public Map<Vector, Scalar> getLinearity(final Vector vec1) {
+			public Map<Vector, Scalar> getImageVectorOfBaseVector(final Vector vec1) {
 				return null;
 			}
 		};
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Field getField() {
 		return this.field;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-
 	public Function getProjection(final EuclideanSpace source) {
 		return Function.super.getProjection(source);
 	}
@@ -75,7 +83,6 @@ public class FunctionTuple extends Tuple implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-
 	public void plot(final double left, final double right) {
 		((Plotter) gen).plot(this, left, right);
 	}
@@ -84,7 +91,6 @@ public class FunctionTuple extends Tuple implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-
 	public void plotCompare(final double left, final double right, final Function fun) {
 		((Plotter) gen).plotCompare(this, fun, left, right);
 	}
@@ -95,7 +101,6 @@ public class FunctionTuple extends Tuple implements Function {
 	}
 
 	@Override
-
 	public Scalar value(final Scalar input) {
 		Scalar ans = (Scalar) this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {

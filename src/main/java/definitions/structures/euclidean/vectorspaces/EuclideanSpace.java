@@ -13,7 +13,6 @@ import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
-import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 
 /**
@@ -26,6 +25,9 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
  */
 public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@Proceed
 	default Vector add(final Vector vec1, final Vector vec2) {
@@ -47,21 +49,6 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	}
 
 	/**
-	 * The base can be returned as an unordered set.
-	 * 
-	 * @return the base as a set. @
-	 */
-//	Set<Vector> getGenericBase();
-
-	default Vector copyVector(final Vector vec) {
-		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-		for (final Vector baseVec : this.genericBaseToList()) {
-			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
-		}
-		return new FunctionTuple(coordinates, this);
-	}
-
-	/**
 	 * A base is an ordered set of linearly independent vectors.
 	 * 
 	 * @return the base as ordered base. @
@@ -69,7 +56,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	List<Vector> genericBaseToList();
 
 	/**
-	 * Elements of the vector space can be created using a map (Vector -> Scalar).
+	 * Elements of the vector space can be created using a map (Vector - Scalar).
 	 * 
 	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
@@ -83,7 +70,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	}
 
 	/**
-	 * Elements of the vector space can be created using a map (Vector -> Scalar).
+	 * Elements of the vector space can be created using a map (Vector - Scalar).
 	 * 
 	 * @param tmp the coordinates with respect to the base
 	 * @return the corresponding vector @
@@ -98,15 +85,15 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	}
 
 	/**
-	 * Compare vectors in order to identify base vectors.
+	 * identifyequal to and replace by base vector.
 	 * 
-	 * @param vec2
+	 * @param vec the vector to compare to a base vector
 	 * @return the base vector, if has same coordinates. Otherwise null.
 	 */
-	default Vector getBaseVec(final Vector vec2) {
-		for (final Vector vec : this.genericBaseToList()) {
-			if (vec2.equals(vec)) {
-				return vec;
+	default Vector getBaseVec(final Vector vec) {
+		for (final Vector tmp : this.genericBaseToList()) {
+			if (vec.equals(tmp)) {
+				return tmp;
 			}
 		}
 		return null;
@@ -148,11 +135,14 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	/**
 	 * Method to create an orthonormal base.
 	 * 
-	 * @param the original base.
-	 * @return an orthonormal base of same span. @
+	 * @param base the original base.
+	 * @return an orthonormal base of same span.
 	 */
 	List<Vector> getOrthonormalBase(List<Vector> base);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		Vector prod = this.getField().nullVec();
@@ -183,6 +173,9 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@Proceed
 	default Vector stretch(final Vector vec, final Scalar r) {

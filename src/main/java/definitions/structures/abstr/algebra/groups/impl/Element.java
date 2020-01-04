@@ -15,6 +15,9 @@ public class Element implements RingElement {
 		return this.representant;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "<representant>" + this.representant + " </representant>";

@@ -46,7 +46,8 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
 			for (final Vector vec2 : target.genericBaseToList()) {
-				this.genericMatrix[j][i] = this.getLinearity(source.getBaseVec(vec1)).get(target.getBaseVec(vec2));
+				this.genericMatrix[j][i] = this.getImageVectorOfBaseVector(source.getBaseVec(vec1))
+						.get(target.getBaseVec(vec2));
 				j++;
 			}
 			i++;
@@ -59,6 +60,9 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		this.genericMatrix = matrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar[][] getGenericMatrix() {
 		if (!((this.source instanceof EuclideanSpace) && (this.target instanceof EuclideanSpace))) {
@@ -78,7 +82,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 			for (final Vector vec1 : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 				int j = 0;
 				for (final Vector vec2 : ((EuclideanSpace) this.getTarget()).genericBaseToList()) {
-					this.genericMatrix[j][i] = this.getLinearity(vec1).get(vec2);
+					this.genericMatrix[j][i] = this.getImageVectorOfBaseVector(vec1).get(vec2);
 					j++;
 				}
 				i++;
@@ -87,6 +91,17 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		return this.genericMatrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<Vector, Scalar> getImageVectorOfBaseVector(final Vector vec1) {
+		return this.linearity.get(vec1);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 		if (this.linearity == null) {
@@ -103,21 +118,25 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		return this.linearity;
 	}
 
-	@Override
-	public Map<Vector, Scalar> getLinearity(final Vector vec1) {
-		return this.linearity.get(vec1);
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Monoid getSource() {
 		return this.source;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Monoid getTarget() {
 		return this.target;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		String str = "";
@@ -138,6 +157,9 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		return str;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		String ans = "<linearMapping>";
@@ -155,7 +177,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 				ans += "</targetVector>";
 
 				ans += "<value>";
-				ans += this.getLinearity(vec1).get(vec2).toXml();
+				ans += this.getImageVectorOfBaseVector(vec1).get(vec2).toXml();
 				ans += "</value>";
 			}
 		}

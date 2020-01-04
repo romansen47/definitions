@@ -17,8 +17,29 @@ import definitions.structures.abstr.vectorspaces.RingElement;
  */
 public interface Domain extends Ring {
 
+	/**
+	 * In a domain the concept of divisibility makes sense.
+	 * 
+	 * @param divisor
+	 * @param devident
+	 * @return true if divisor divides divident
+	 */
+	boolean divides(RingElement divisor, RingElement divident);
+
+	/**
+	 * using divisibility we can define reducibility
+	 * 
+	 * @param element the element
+	 * @return true if element is irreducible
+	 */
 	boolean isIrreducible(RingElement element);
 
+	/**
+	 * using divisibility we can define prime elements
+	 * 
+	 * @param element the element
+	 * @return true if element is a prime element
+	 */
 	boolean isPrimeElement(RingElement element);
 
 }

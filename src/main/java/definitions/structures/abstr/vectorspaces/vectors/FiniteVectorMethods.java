@@ -20,13 +20,9 @@ public interface FiniteVectorMethods extends XmlPrintable {
 	 * 
 	 * @param coordinates the coordinates.
 	 */
-	default void setCoordinates(final Map<Vector, Scalar> coordinates) {
+	void setCoordinates(final Map<Vector, Scalar> coordinates);
 
-	}
-
-	default void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-
-	}
+	void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space);
 
 	/**
 	 * Coordinates as double[].

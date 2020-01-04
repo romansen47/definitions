@@ -16,21 +16,33 @@ public class DiscreetDynamicSystem implements DynamicSystem {
 		this.evolutionOperator = evolutionOperator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Function getEvolutionOperator(final MonoidElement timeelement) {
 		return this.evolutionOperator;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VectorSpace getPhaseSpace() {
 		return this.phaseSpace;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public OrderedMonoid getTimeSpace() {
 		return Naturals.getInstance();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "discreet dynamic system.";

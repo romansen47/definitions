@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.vectors.specialfunctions.Constant;
@@ -50,18 +48,6 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		this.getCosineFunctions(n, Math.PI / right, tmpBase);
 		this.base = tmpBase;
 		this.assignOrthonormalCoordinates(this.base, field);
-	}
-
-	@Override
-
-	public Function projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
-	}
-
-	@Override
-
-	public Function stretch(final Vector vec, final Scalar r) {
-		return super.stretch(vec, r);
 	}
 
 }

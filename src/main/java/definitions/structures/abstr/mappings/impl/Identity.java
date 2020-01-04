@@ -1,5 +1,6 @@
 package definitions.structures.abstr.mappings.impl;
 
+import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.mappings.Endomorphism;
 import definitions.structures.abstr.mappings.VectorField;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -19,6 +20,11 @@ public abstract class Identity extends LinearMapping implements Endomorphism, Ve
 	@Override
 	public Vector get(final Vector vec) {
 		return vec;
+	}
+
+	@Override
+	public Monoid getTarget() {
+		return VectorField.super.getTarget();
 	}
 
 }

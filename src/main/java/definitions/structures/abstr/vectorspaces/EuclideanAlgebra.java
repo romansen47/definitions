@@ -15,12 +15,12 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *
  */
 public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
+
 	/**
-	 * In case of being finitely dimensional as a vecor space over the field,
-	 * Multiplication wihin the algebra can be discribed as a set of linear
-	 * mappings.
+	 * In case of a finitely dimensional vector space over the field, multiplication
+	 * within the algebra can be described as a set of linear mappings.
 	 * 
-	 * In detail, we nned to explain, how base elements are multiplied.
+	 * In detail, we need to explain, how base elements are multiplied.
 	 * 
 	 * @return the multiplication map - for every base vector vec1 it gives a linear
 	 *         mapping Vector vec2 -> getField().product(vec1,vec2)

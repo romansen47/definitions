@@ -3,7 +3,7 @@ package definitions.structures.euclidean.mappings.impl;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Automorphism;
+import definitions.structures.abstr.mappings.FiniteDimensionalAutomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -13,7 +13,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public class InvertibleSelfMapping extends InjectiveLinearMapping implements Automorphism {
+public class InvertibleSelfMapping extends InjectiveLinearMapping implements FiniteDimensionalAutomorphism {
 
 	/**
 	 * 

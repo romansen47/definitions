@@ -15,11 +15,17 @@ public abstract class Monome extends GenericFunction {
 		this.degree = degree;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "Monome of degree " + this.degree;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar value(final Scalar input) {
 		return this.getField().get(Math.pow(input.getValue(), this.degree));

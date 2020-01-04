@@ -12,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public final class DerivativeOperator extends FiniteDimensionalLinearMapping implements Automorphism {
+public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping implements Automorphism {
 
 	private static final long serialVersionUID = -5103583236895270490L;
 

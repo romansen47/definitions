@@ -53,11 +53,17 @@ public abstract class Sine extends GenericFunction {
 		return this.translation;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "x -> " + this.magnitude + "*sin(" + this.getTranslation() + "+" + this.getFrequency() + "*x) ";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar value(final Scalar input) {
 		return this.getField().get(this.magnitude.getValue()

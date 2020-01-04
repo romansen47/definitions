@@ -1,11 +1,11 @@
-package definitions.structures.abstr.algebra.fields.impl;
+package definitions.structures.abstr.algebra.fields;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.PrimeFieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;

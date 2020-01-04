@@ -2,7 +2,7 @@ package definitions.structures.abstr.algebra.groups.impl;
 
 import org.springframework.stereotype.Component;
 
-import definitions.structures.abstr.algebra.fields.impl.FinitePrimeField;
+import definitions.structures.abstr.algebra.fields.FinitePrimeField;
 
 @Component
 public class BinaryField extends FinitePrimeField {
@@ -22,6 +22,9 @@ public class BinaryField extends FinitePrimeField {
 		super(2);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "the binary field";

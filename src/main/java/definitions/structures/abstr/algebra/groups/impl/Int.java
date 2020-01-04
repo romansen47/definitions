@@ -20,6 +20,9 @@ public class Int implements RingElement {
 		this.value = val;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object o) {
 		if (o instanceof Int && ((Int) o).getValue() == this.getValue()) {
@@ -32,6 +35,9 @@ public class Int implements RingElement {
 		return this.value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return this.getValue();
@@ -70,11 +76,17 @@ public class Int implements RingElement {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return Integer.toString(this.getValue());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "<integer>" + Int.this.getValue() + "</integer>";

@@ -9,6 +9,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativeOperator;
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.
@@ -23,6 +24,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 */
 	private static final long serialVersionUID = 2547484050898391066L;
 	private DerivativeOperator derivativeBuilder;
+
 	/**
 	 * The sobolev degree.
 	 */
@@ -81,7 +83,6 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			final double right, final int degree, final boolean ortho) {
 		super(field, genericBase, left, right, ortho);
 		this.degree = degree;
-		// this.getDerivativeBuilder();
 	}
 
 	/**
@@ -98,13 +99,12 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	public DerivativeOperator getDerivativeBuilder() {
 		if (this.derivativeBuilder == null) {
-			this.setDerivativeBuilder(new DerivativeOperator(this, this));
+			this.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
 		}
 		return this.derivativeBuilder;
 	}
 
 	@Override
-
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
@@ -131,12 +131,6 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			}
 		}
 		return super.innerProduct(vec1, vec2);
-	}
-
-	@Override
-
-	public Function projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 	public void setDerivativeBuilder(final DerivativeOperator derivativeBuilder) {

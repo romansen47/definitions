@@ -180,49 +180,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		}
 		final Map<Vector, Scalar> coord = this.getCoordinates(source);
 		if (coord != null) {
-//			return (Function) source.get(getCoordinates());
 			return (Function) source.get(coord);
 		}
 		return new FunctionTuple(coord, source);
-
 	}
-
-	/**
-	 * Method to compute the primitive integral function.
-	 * 
-	 * @return the integral function.
-	 */
-	// default Function getPrimitiveIntegral() {
-	// final EuclideanSpace space = (EuclideanSpace)
-	// Generator.getGenerator().getTrigonometricSpace(20);
-	// final Function projection = getProjection(space);
-	// return new FunctionTuple(new GenericFunction() {
-	// @Override
-	// public Scalar value(Scalar input) {
-	// return new Real(FunctionSpace.getIntegral(projection, one, ((FunctionSpace)
-	// space).getLeft(),
-	// input.getValue(), eps));
-	// }
-	//
-	// }.getCoordinates(space));
-	// }
-
-	/**
-	 * Method to get an n-th primitive integral.
-	 * 
-	 * @param n the degree.
-	 * @return an n-th integral.
-	 */
-	// default Function getPrimitiveIntegral(int n) {
-	// if (n < 0) {
-	// return getDerivative(-n);
-	// }
-	// if (n == 0) {
-	// return this;
-	// } else {
-	// return getPrimitiveIntegral().getPrimitiveIntegral(n - 1);
-	// }
-	// }
 
 	/**
 	 * Method to compute the projection of the derivative onto a vector space.
@@ -230,7 +191,6 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * @param space the vector space.
 	 * @return the projection of the derivative.
 	 */
-
 	@Proceed
 	default Function getProjectionOfDerivative(final EuclideanFunctionSpace space) {
 		return this.getDerivative(space);

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
-import definitions.structures.abstr.algebra.fields.impl.FinitePrimeField;
+import definitions.structures.abstr.algebra.fields.FinitePrimeField;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.algebra.rings.impl.Integers;
@@ -37,6 +37,9 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 		return this.binaryField;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public FiniteResidueClassRing getFiniteResidueClassRing(final int order) {
 		FiniteResidueClassRing ring = this.map.get(order);

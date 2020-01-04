@@ -23,9 +23,7 @@ public class Integers implements DiscreetGroup, Domain {
 
 	private static Integers instance;
 	private static final long serialVersionUID = 321971307361565421L;
-	final Int zero;
-	final Int one;
-	
+
 	public static Integers getInstance() {
 		if (instance == null) {
 			instance = GroupGenerator.getInstance().getIntegers();
@@ -37,6 +35,9 @@ public class Integers implements DiscreetGroup, Domain {
 		Integers.instance = integers;
 	}
 
+	final Int zero;
+
+	final Int one;
 
 	public Integers() {
 		this.one = this.get(1);

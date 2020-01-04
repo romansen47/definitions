@@ -44,11 +44,17 @@ public abstract class ExponentialFunction extends GenericFunction {
 		this.b = b;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "x -> exp(" + this.a + "+" + this.b + "*x ";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar value(final Scalar input) {
 		return this.getField().get(Math.exp(this.a.getValue() + (this.b.getValue() * input.getValue())));

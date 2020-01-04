@@ -23,21 +23,33 @@ public abstract class GenericFunction implements Function {
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 	private Map<Vector, Scalar> coordinates;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
 		return space instanceof FunctionSpace;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object vec) {
 		return super.equals(vec);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		return this.coordinates;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
 		if (this.coordinatesMap != null) {
@@ -51,16 +63,25 @@ public abstract class GenericFunction implements Function {
 		return newCoordinates;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
 		return this.coordinatesMap;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getDim() {
 		return -1;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Field getField() {
 		return this.field;
@@ -83,11 +104,17 @@ public abstract class GenericFunction implements Function {
 		((Plotter) gen).plotCompare(this, fun, left, right);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 		this.coordinates = coordinates;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		this.coordinatesMap.put(space, coordinates);

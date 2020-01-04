@@ -24,7 +24,7 @@ public interface InnerProductSpace extends NormedSpace {
 	Scalar innerProduct(Vector vec1, Vector vec2);
 
 	/**
-	 * {@inheritDoc}
+	 * the norm in an inner product space is induced by the inner product
 	 */
 	@Override
 	default Real norm(final Vector vec) {
@@ -38,6 +38,8 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @param v projected vector.
 	 * @return projection of v on w.
 	 */
-	Vector projection(Vector w, Vector v);
+	default Vector projection(final Vector w, final Vector v) {
+		return this.stretch(v, this.innerProduct(w, v));
+	}
 
 }

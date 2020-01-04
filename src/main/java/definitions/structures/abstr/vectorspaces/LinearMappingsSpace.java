@@ -3,7 +3,6 @@ package definitions.structures.abstr.vectorspaces;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -22,6 +21,9 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 		this.target = target;
 	}
 
+	/**
+	 * Addition of linear mappings.
+	 */
 	@Override
 	public Vector add(final Vector vec1, final Vector vec2) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
@@ -32,12 +34,9 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}
 
-	@Override
-	public Field getField() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/**
+	 * stretching linear mappings.
+	 */
 	@Override
 	public Vector stretch(final Vector vec1, final Scalar r) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
@@ -49,6 +48,9 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		String ans = "<linearMappingSpace>";

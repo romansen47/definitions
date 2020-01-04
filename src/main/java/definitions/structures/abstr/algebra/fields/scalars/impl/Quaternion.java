@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -51,11 +51,17 @@ public class Quaternion extends Tuple implements FieldElement {
 		this.k = k;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
 		return space == QuaternionSpace.getInstance();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals(final Object vec) {
 		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
@@ -63,6 +69,9 @@ public class Quaternion extends Tuple implements FieldElement {
 				&& ((Quaternion) vec).getK().equals(this.getK());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		Map<Vector, Scalar> tmp = super.getCoordinates();
@@ -76,12 +85,18 @@ public class Quaternion extends Tuple implements FieldElement {
 		return tmp;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@XmlAttribute
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		return this.getCoordinates();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getDim() {
 		return 4;
@@ -95,6 +110,9 @@ public class Quaternion extends Tuple implements FieldElement {
 		return this.i;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@XmlAttribute
 	@Override
 	public Scalar getInverse() {
@@ -125,16 +143,25 @@ public class Quaternion extends Tuple implements FieldElement {
 		return this.real;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@XmlAttribute
 	@Override
 	public double getValue() {
 		return this.getReal().getValue();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@XmlAttribute
 	public String toString() {

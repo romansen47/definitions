@@ -24,9 +24,13 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @param vec2 summand b.
 	 * @return the addition of a and b.
 	 */
-
 	Vector add(Vector vec1, Vector vec2);
 
+	/**
+	 * vector spaces are defined over fields.
+	 * 
+	 * @return the field
+	 */
 	Field getField();
 
 	/**
@@ -69,6 +73,5 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @param r    the factor.
 	 * @return the stretched vector.
 	 */
-
 	Vector stretch(Vector vec1, Scalar r);
 }

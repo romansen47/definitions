@@ -63,6 +63,10 @@ public class IntegersTest extends AspectJTest {
 			}
 
 			@Override
+			public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+			}
+
+			@Override
 			public Scalar value(final Scalar input) {
 				int ans = 1;
 				for (int i = 0; i < input.getValue(); i++) {

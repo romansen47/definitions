@@ -80,21 +80,33 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double getEpsilon() {
 		return this.eps;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double[] getInterval() {
 		return this.interval;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double getLeft() {
 		return this.getInterval()[0];
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public double getRight() {
 		return this.getInterval()[1];
@@ -117,6 +129,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar innerProduct(final Vector vec1, final Vector vec2) {
 		if ((((FiniteVectorMethods) vec1).getCoordinates() != null)
@@ -127,11 +142,17 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Function normalize(final Vector vec) {
 		return this.stretch(vec, this.getField().get(this.norm(vec).getValue()).getInverse());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Function nullVec() {
 		if (this.nullVec == null) {
@@ -153,16 +174,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		}
 	}
 
-	@Override
-	public Function projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
-	}
-
-	@Override
-	public void show() {
-		super.show();
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Function stretch(final Vector vec, final Scalar r) {
 		return EuclideanFunctionSpace.super.stretch(vec, r);

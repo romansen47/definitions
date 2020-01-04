@@ -18,31 +18,49 @@ public class Naturals implements SemiGroup, OrderedMonoid, DiscreetMonoid, XmlPr
 		return instance;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NaturalNumber get(final Integer representant) {
 		return new NaturalNumber(representant);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NaturalNumber getNeutralElement() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Integer getOrder() {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isHigher(final MonoidElement smallerOne, final MonoidElement biggerOne) {
 		return ((NaturalNumber) smallerOne).getRepresentant() < ((NaturalNumber) biggerOne).getRepresentant();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public NaturalNumber operation(final MonoidElement first, final MonoidElement second) {
 		return this.get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "Custom monoid of natural numbers.";

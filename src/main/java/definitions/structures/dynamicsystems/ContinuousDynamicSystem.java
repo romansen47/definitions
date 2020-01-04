@@ -5,6 +5,9 @@ import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
 
 public interface ContinuousDynamicSystem extends DynamicSystem {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default OrderedMonoid getTimeSpace() {
 		return (OrderedMonoid) RealLine.getInstance();

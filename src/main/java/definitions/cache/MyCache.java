@@ -9,9 +9,7 @@ import definitions.settings.XmlPrintable;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 @Component
-public class MyCache implements ICache, XmlPrintable {
-
-	private static final long serialVersionUID = -4576680725550884235L;
+public class MyCache implements ICache, XmlPrintable { 
 
 	private Map<Integer, EuclideanSpace> coordinateSpaces = new ConcurrentHashMap<>();
 

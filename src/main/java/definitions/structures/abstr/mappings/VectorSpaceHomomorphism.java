@@ -35,6 +35,22 @@ public interface VectorSpaceHomomorphism extends Vector, MonoidHomomorphism {
 	Scalar[][] getGenericMatrix();
 
 	/**
+	 * Method to get the image of the restriction of the homomorphism to the base of
+	 * the source vector space. It gives a map
+	 * 
+	 * e |-> A(e)
+	 * 
+	 * where A is the linear mapping and where e is a base element of the source
+	 * vector space.
+	 * 
+	 * @param vec the base vector.
+	 * @return the image of the base vector.
+	 */
+	default Map<Vector, Scalar> getImageVectorOfBaseVector(final Vector vec1) {
+		return this.getLinearity().get(vec1);
+	}
+
+	/**
 	 * Method to get the restriction of the homomorphism to the base of the source
 	 * vector space.
 	 * 
@@ -43,16 +59,8 @@ public interface VectorSpaceHomomorphism extends Vector, MonoidHomomorphism {
 	Map<Vector, Map<Vector, Scalar>> getLinearity();
 
 	/**
-	 * Method to get the image of the restriction of the homomorphism to the base of
-	 * the source vector space.
-	 * 
-	 * @param vec the base vector.
-	 * @return the image of the base vector.
+	 * ${inheritDoc}
 	 */
-	default Map<Vector, Scalar> getLinearity(final Vector vec1) {
-		return this.getLinearity().get(vec1);
-	}
-
 	@Override
 	Monoid getSource();
 

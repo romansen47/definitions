@@ -38,6 +38,9 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 	public MappingGenerator() {
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
 			final EuclideanSpace target, final Map<Vector, Map<Vector, Scalar>> coordinates) {
@@ -62,6 +65,9 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 		return new FiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
 			final EuclideanSpace target, final Scalar[][] genericMatrix) {
@@ -80,6 +86,9 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 		return this.getFiniteDimensionalLinearMapping(source, target, map);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
 		final int dimSource = genericMatrix[0].length;
@@ -114,6 +123,9 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 		return new FiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "the mapping generator";

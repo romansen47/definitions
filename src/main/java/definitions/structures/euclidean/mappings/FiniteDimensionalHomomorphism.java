@@ -30,6 +30,9 @@ import definitions.structures.euclidean.vectorspaces.ParameterizedSpace;
  */
 public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default MonoidElement get(final MonoidElement vec2) {
 		if (this.getSource() instanceof ParameterizedSpace) {

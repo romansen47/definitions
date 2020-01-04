@@ -19,6 +19,9 @@ public class NaturalNumber implements DiscreetMonoidElement {
 		return this.representant;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "<natural>" + String.valueOf(this.getRepresentant()) + "</natural>";

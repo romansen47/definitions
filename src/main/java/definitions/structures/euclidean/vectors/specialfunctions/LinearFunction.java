@@ -17,11 +17,17 @@ public abstract class LinearFunction extends GenericFunction {
 		this.b = b;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "x -> " + this.a + "+" + this.b + "*x ";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar value(final Scalar input) {
 		return this.getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));

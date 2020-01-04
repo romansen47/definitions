@@ -20,7 +20,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
-import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
@@ -70,7 +70,8 @@ public interface ISpaceGenerator {
 			}
 			coordinatesMap.put(vec, tmp);
 		}
-		((TrigonometricSobolevSpace) ans).setDerivativeBuilder(new DerivativeOperator(ans, ans, coordinatesMap));
+		((TrigonometricSobolevSpace) ans)
+				.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(ans, ans, coordinatesMap));
 	}
 
 	default EuclideanSpace extend(final VectorSpace space, final Vector fun) throws Exception {

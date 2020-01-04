@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
@@ -19,8 +18,8 @@ public class DebugAspect {
 
 	public final static Logger logger = Logger.getLogger(DebugAspect.class);
 	private final String path = "target/";
-	private FileWriter w;
-	private BufferedWriter bw;
+	private final FileWriter w;
+	private final BufferedWriter bw;
 	private int count = 0;
 	private int executionsCount = 0;
 	private final Map<Integer, String> entries = new HashMap<>();
@@ -44,7 +43,7 @@ public class DebugAspect {
 		logger.info("Created buffered file writer");
 	}
 
-	@AfterReturning(value = pointCut, returning = "returnValue")
+//	@AfterReturning(value = pointCut, returning = "returnValue")
 	public synchronized void afterLookup(final JoinPoint jp, final Object returnValue) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
 			this.postCreateXmlEntry(jp, returnValue);
@@ -55,7 +54,7 @@ public class DebugAspect {
 		}
 	}
 
-	@Before(pointCut)
+//	@Before(pointCut)
 	public synchronized void beforeLookup(final JoinPoint jp) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
 			this.count += 1;
@@ -63,33 +62,33 @@ public class DebugAspect {
 		}
 	}
 
-	/**
-	 * @return the buffered writer
-	 */
-	public BufferedWriter getBw() {
-		return this.bw;
-	}
-
-	/**
-	 * @return the executionsCount
-	 */
-	public int getExecutionsCount() {
-		return this.executionsCount;
-	}
-
-	/**
-	 * @return the path
-	 */
-	public String getPath() {
-		return this.path;
-	}
-
-	/**
-	 * @return the writer
-	 */
-	public FileWriter getW() {
-		return this.w;
-	}
+//	/**
+//	 * @return the buffered writer
+//	 */
+//	public BufferedWriter getBw() {
+//		return this.bw;
+//	}
+//
+//	/**
+//	 * @return the executionsCount
+//	 */
+//	public int getExecutionsCount() {
+//		return this.executionsCount;
+//	}
+//
+//	/**
+//	 * @return the path
+//	 */
+//	public String getPath() {
+//		return this.path;
+//	}
+//
+//	/**
+//	 * @return the writer
+//	 */
+//	public FileWriter getW() {
+//		return this.w;
+//	}
 
 	private synchronized void postCreateXmlEntry(final JoinPoint jp, final Object o) throws Throwable {
 		String ans2 = "";
@@ -162,19 +161,19 @@ public class DebugAspect {
 		this.bw.flush();
 	}
 
-	/**
-	 * @param bw the buffered writer to set
-	 */
-	public void setBw(final BufferedWriter bw) {
-		this.bw = bw;
-	}
+//	/**
+//	 * @param bw the buffered writer to set
+//	 */
+//	public void setBw(final BufferedWriter bw) {
+//		this.bw = bw;
+//	}
 
-	/**
-	 * @param executionsCount the executionsCount to set
-	 */
-	public void setExecutionsCount(final int executionsCount) {
-		this.executionsCount = executionsCount;
-	}
+//	/**
+//	 * @param executionsCount the executionsCount to set
+//	 */
+//	public void setExecutionsCount(final int executionsCount) {
+//		this.executionsCount = executionsCount;
+//	}
 
 	// @After("execution(static void definitions.prototypes.AspectJTest.prepare())")
 	@Before("@annotation(org.junit.Test)")
@@ -185,11 +184,11 @@ public class DebugAspect {
 		}
 	}
 
-	/**
-	 * @param w the writer to set
-	 */
-	public void setW(final FileWriter w) {
-		this.w = w;
-	}
+//	/**
+//	 * @param w the writer to set
+//	 */
+//	public void setW(final FileWriter w) {
+//		this.w = w;
+//	}
 
 }

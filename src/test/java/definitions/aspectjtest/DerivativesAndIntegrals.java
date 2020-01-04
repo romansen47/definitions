@@ -15,6 +15,7 @@ import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.Monome;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -78,7 +79,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	public void setUp() throws Throwable {
 
 		this.space = (EuclideanSpace) getGenerator().getTrigonometricSpace(getRealLine(), this.degree);
-		this.derivativeOperator = new DerivativeOperator(this.space, this.space);
+		this.derivativeOperator = new FiniteDimensionalDerivativeOperator(this.space, this.space);
 
 		this.sobolevSpace = getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(), this.degree,
 				this.sobolevDegree);
@@ -130,8 +131,8 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	public void test5() throws Throwable {
 		final int sobDegree = 1000;
 		getLogger().info("Plotting " + sobDegree + "-th derivative of sine in H^1:");
-		final VectorSpaceHomomorphism derivativeOperatorSobToSob = new DerivativeOperator(this.sobolevSpace,
-				this.sobolevSpace);
+		final VectorSpaceHomomorphism derivativeOperatorSobToSob = new FiniteDimensionalDerivativeOperator(
+				this.sobolevSpace, this.sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(this.sine, sobDegree);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, this.sine);
 	}

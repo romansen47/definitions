@@ -5,7 +5,7 @@ import java.util.Map;
 
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface ICache extends Serializable {
+public interface ICache {
 
 	Map<Integer, EuclideanSpace> getConcreteCache();
 

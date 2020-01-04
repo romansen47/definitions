@@ -1,4 +1,4 @@
-package definitions.structures.abstr.algebra.fields.impl;
+package definitions.structures.abstr.algebra.fields.scalars;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
@@ -20,7 +19,7 @@ public class PrimeFieldElement extends FiniteResidueClassElement implements Fini
 
 	private Map<Vector, Scalar> coordinates;
 
-	protected PrimeFieldElement(final int r, final Field f) {
+	public PrimeFieldElement(final int r, final Field f) {
 		super(r);
 		this.field = f;
 	}

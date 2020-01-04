@@ -10,7 +10,7 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface VectorSpaceMethods extends Serializable {
+public interface VectorSpaceMethods {
 
 	default void assignOrthonormalCoordinates(final List<Vector> newBase, final Field field) {
 		for (final Vector vec : newBase) {
@@ -34,6 +34,11 @@ public interface VectorSpaceMethods extends Serializable {
 	 */
 	boolean contains(Vector vec);
 
+	/**
+	 * method to get the dimension of the vector space
+	 * 
+	 * @return null if dimension is infinite. returns the dimension otherwise
+	 */
 	default Integer getDim() {
 		return null;
 	}

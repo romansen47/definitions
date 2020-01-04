@@ -12,6 +12,7 @@ import definitions.structures.abstr.algebra.groups.ContinuousGroup;
  *
  */
 public interface RealSpace extends VectorSpace, ContinuousGroup {
+
 	/**
 	 * {@inheritDoc}
 	 */

@@ -10,7 +10,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author RoManski
  * 
  *         A function space knows what an integral is. It is defined on an
- *         intervall and carries an small parameter eps due to approximative
+ *         interval and carries an small parameter eps due to approximative
  *         methods.
  */
 public interface FunctionSpace extends VectorSpace, Unweavable {
@@ -45,13 +45,13 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 					.product(this.getField().product(tmp1, this.getField().conjugate((Scalar) tmp2)), epsNew)));
 			x = (Scalar) this.getField().add(x, newEps);
 		}
-		return ans;// * eps;
+		return ans;
 	}
 
 	/**
-	 * Function spaces are defined on finite intervalls.
+	 * Function spaces are defined on finite intervals.
 	 * 
-	 * @return the intervall
+	 * @return the interval
 	 */
 	double[] getInterval();
 

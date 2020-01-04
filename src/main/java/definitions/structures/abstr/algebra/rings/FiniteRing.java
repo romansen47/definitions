@@ -4,30 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.groups.FiniteGroup;
-import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 public interface FiniteRing extends FiniteGroup, Ring {
 
-	@Override
-	default boolean divides(final RingElement devisor, final RingElement devident) {
-		return this.getCoFactor(devisor, devident) != null;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	FiniteRingElement get(Integer index);
-
-	default FiniteRingElement getCoFactor(final RingElement devisor, final RingElement devident) {
-		for (final MonoidElement el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(devisor)
-				.keySet()) {
-			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(devisor, el).equals(devident)) {
-				return (FiniteRingElement) el;
-			}
-		}
-		return null;
-	}
 
 	default FiniteRingElement getMultiplicativeInverseElement(final FiniteRingElement element) {
 		final FiniteRingElement tmp = (FiniteRingElement) element.getMultiplicativeInverseElement();
@@ -54,11 +41,17 @@ public interface FiniteRing extends FiniteGroup, Ring {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default boolean isUnit(final RingElement element) {
 		return this.getMultiplicativeInverseElement((FiniteRingElement) element) != null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default FiniteRingElement operation(final MonoidElement first, final MonoidElement second) {
 		Map<MonoidElement, MonoidElement> tmpMap = this.getOperationMap().get(first);

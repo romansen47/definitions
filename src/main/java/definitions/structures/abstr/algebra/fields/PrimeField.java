@@ -1,9 +1,7 @@
 /**
  * 
  */
-package definitions.structures.abstr.algebra.fields.impl;
-
-import definitions.structures.abstr.algebra.fields.Field;
+package definitions.structures.abstr.algebra.fields;
 
 /**
  * @author RoManski

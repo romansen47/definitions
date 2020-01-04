@@ -134,11 +134,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return new Tuple(coordinates);
 	}
 
-	@Override
-	public Vector projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
-	}
-
 	/**
 	 * setter for the base.
 	 * 

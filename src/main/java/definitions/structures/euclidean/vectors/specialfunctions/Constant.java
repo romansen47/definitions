@@ -29,11 +29,17 @@ public abstract class Constant extends GenericFunction {
 		this.constantValue = value;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return "constant " + this.constantValue + "-function ";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar value(final Scalar input) {
 		return this.constantValue;

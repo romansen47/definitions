@@ -14,6 +14,9 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
 
 public interface ParameterizedSpace extends EuclideanSpace {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Vector add(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector)) {
@@ -31,9 +34,15 @@ public interface ParameterizedSpace extends EuclideanSpace {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	boolean contains(Vector vec);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Integer getDim() {
 		return this.getParametrization().getRank();

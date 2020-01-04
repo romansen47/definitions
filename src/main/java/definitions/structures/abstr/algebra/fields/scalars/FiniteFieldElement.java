@@ -1,4 +1,4 @@
-package definitions.structures.abstr.algebra.fields.impl;
+package definitions.structures.abstr.algebra.fields.scalars;
 
 import definitions.structures.abstr.algebra.rings.FiniteRingElement;
 

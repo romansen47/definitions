@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -26,15 +26,12 @@ import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
  *
  *         Implementation of the field of real numbers as a singleton class.
  */
-@Configuration
+@Component
 public class RealLine implements Field, RealSpace {
 
 	private static final long serialVersionUID = -1444063003774915383L;
-
 	final private static Real one = RealOne.getOne();
-
 	final private static Real zero = RealZero.getZero();
-
 	private static RealLine instance;
 
 	public static RealLine getInstance() {
@@ -46,7 +43,6 @@ public class RealLine implements Field, RealSpace {
 	}
 
 	private EuclideanSpace dualSpace;
-
 	final Map<Vector, Scalar> coordinates;
 
 	private final List<Vector> base;

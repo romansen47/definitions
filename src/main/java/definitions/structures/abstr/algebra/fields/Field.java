@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.algebra.fields.impl.FieldElement;
-import definitions.structures.abstr.algebra.fields.impl.PrimeField;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupElement;
@@ -29,6 +28,9 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 
 	Scalar conjugate(Scalar value);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default boolean divides(final RingElement devisor, final RingElement devident) {
 		return this.isUnit(devisor);
@@ -138,21 +140,33 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		return hom.solve((FiniteVector) this.getOne());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default boolean isIrreducible(final RingElement element) {
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default boolean isPrimeElement(final RingElement element) {
 		return !this.isUnit(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default boolean isUnit(final RingElement element) {
 		return !element.equals(this.getZero());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default FieldElement operation(final MonoidElement first, final MonoidElement second) {
 		return (FieldElement) EuclideanAlgebra.super.operation(first, second);

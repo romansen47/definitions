@@ -10,7 +10,6 @@ import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.FiniteCommutativeRing;
-import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.rings.FiniteRingElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.euclidean.Generator;
@@ -24,7 +23,7 @@ import solver.StdDraw;
  *         Concrete implementation of a finite residue class ring.
  *
  */
-public class FiniteResidueClassRing implements FiniteCommutativeRing , CyclicGroup {
+public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGroup {
 
 	private class MuliplicativeMonoid implements FiniteMonoid, AbelianSemiGroup {
 		private static final long serialVersionUID = 1L;
@@ -33,7 +32,7 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing , CyclicGro
 
 		@Override
 		public MonoidElement get(final Integer representant) {
-			return FiniteResidueClassRing.this.elements.get(representant+1);
+			return FiniteResidueClassRing.this.elements.get(representant + 1);
 		}
 
 		@Override
@@ -48,7 +47,7 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing , CyclicGro
 
 		@Override
 		public Integer getOrder() {
-			return FiniteResidueClassRing.this.order-1;
+			return FiniteResidueClassRing.this.order - 1;
 		}
 
 		@Override
@@ -148,9 +147,9 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing , CyclicGro
 			}
 		}
 		for (int i = 0; i < this.order; i++) {
-			RingElement e = this.get(i);
+			final RingElement e = this.get(i);
 			if (e instanceof FiniteVector) {
-				((FiniteVector)e).getCoordinates();
+				((FiniteVector) e).getCoordinates();
 			}
 			this.isUnit(this.get(i));
 		}
@@ -252,12 +251,12 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing , CyclicGro
 			}
 			System.out.println();
 		}
-		System.out.println("\rDevisions:\r");
-		for (int i = 0; i < this.order; i++) {
-			for (int j = i; j < this.getOrder(); j++) {
-				System.out.println(i + " devides " + j + " = " + this.divides(this.get(i), this.get(j)));
-			}
-		}
+//		System.out.println("\rDevisions:\r");
+//		for (int i = 0; i < this.order; i++) {
+//			for (int j = i; j < this.getOrder(); j++) {
+//				System.out.println(i + " devides " + j + " = " + this.divides(this.get(i), this.get(j)));
+//			}
+//		}
 	}
 
 	/**

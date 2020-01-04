@@ -1,6 +1,6 @@
-package definitions.structures.abstr.algebra.fields.impl;
+package definitions.structures.abstr.algebra.fields;
 
-import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.FiniteFieldElement;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.vectorspaces.RingElement;
