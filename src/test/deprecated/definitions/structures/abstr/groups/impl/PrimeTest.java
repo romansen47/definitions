@@ -57,8 +57,8 @@ public class PrimeTest {
 		@Override
 		public Scalar value(final Scalar input) {
 			int ans = 0;
-			for (Int i = ((Integers) PrimeTest.this.integers).get(2); i.getValue() < input
-					.getValue(); i = ((Integers) PrimeTest.this.integers).get(i.getValue() + 1)) {
+			for (Int i = ((Integers) PrimeTest.this.integers).get(2); i.getRepresentant() < input
+					.getValue(); i = ((Integers) PrimeTest.this.integers).get(i.getRepresentant() + 1)) {
 				final Boolean prime = this.map.get(i);
 				if (prime == null) {
 					if (i.isPrime()) {

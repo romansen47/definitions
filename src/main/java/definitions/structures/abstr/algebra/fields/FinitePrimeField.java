@@ -10,6 +10,7 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -44,6 +45,17 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		this.characteristic = prime;
 	}
 
+
+	/**
+	 * Getter for the identity element
+	 * 
+	 * @return the neutral element of the semi group
+	 */
+	@Override
+	public PrimeFieldElement getNeutralElement() {
+		return (PrimeFieldElement) super.getNeutralElement();
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -113,10 +125,11 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 		return 1;
 	}
 
+	/*
+	 * @TODO: Should be isomorphic to this... should be tested.
+	 */
 	/**
 	 * @return the dual space.
-	 * 
-	 * @TODO: Should be isomorphic to this... should be tested.
 	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
@@ -216,7 +229,7 @@ public class FinitePrimeField extends FiniteResidueClassRing implements FiniteFi
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PrimeFieldElement operation(final MonoidElement first, final MonoidElement second) {
+	public PrimeFieldElement operation(final SemiGroupElement first, final SemiGroupElement second) {
 		return (PrimeFieldElement) super.operation(first, second);
 	}
 

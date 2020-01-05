@@ -3,6 +3,7 @@ package definitions.structures.dynamicsystems;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
+import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroupElement;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 
@@ -13,7 +14,7 @@ public interface DynamicSystem extends XmlPrintable {
 	 * 
 	 * @return the evolution operator
 	 */
-	Function getEvolutionOperator(MonoidElement timeelement);
+	Function getEvolutionOperator(DiscreetSemiGroupElement tmp);
 
 	/**
 	 * the phase space of the dynamic system.

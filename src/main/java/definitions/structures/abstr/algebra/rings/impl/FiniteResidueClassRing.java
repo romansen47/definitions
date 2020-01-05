@@ -2,15 +2,18 @@ package definitions.structures.abstr.algebra.rings.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.groups.CyclicGroup;
 import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
+import definitions.structures.abstr.algebra.monoids.FiniteMonoidElement;
 import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.FiniteCommutativeRing;
 import definitions.structures.abstr.algebra.rings.FiniteRingElement;
+import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroupElement;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
@@ -25,23 +28,25 @@ import solver.StdDraw;
  */
 public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGroup {
 
+	private Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> operationMap = new HashMap<>();
+	
 	private class MuliplicativeMonoid implements FiniteMonoid, AbelianSemiGroup {
 		private static final long serialVersionUID = 1L;
 
-		private final Map<MonoidElement, Map<MonoidElement, MonoidElement>> multiplicationMap = new HashMap<>();
+		private final Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> multiplicationMap = new HashMap<>();
 
 		@Override
-		public MonoidElement get(final Integer representant) {
-			return FiniteResidueClassRing.this.elements.get(representant + 1);
+		public FiniteResidueClassElement get(final Integer representant) {
+			return (FiniteResidueClassElement) FiniteResidueClassRing.this.getElements().get(representant + 1);
 		}
 
 		@Override
-		public MonoidElement getNeutralElement() {
+		public FiniteResidueClassElement getNeutralElement() {
 			return FiniteResidueClassRing.this.getGenerator();
 		}
 
 		@Override
-		public Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap() {
+		public Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> getOperationMap() {
 			return this.multiplicationMap;
 		}
 
@@ -51,21 +56,28 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 		}
 
 		@Override
-		public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
-			MonoidElement ans = FiniteMonoid.super.operation(first, second);
-			if (ans != null) {
-				return ans;
+		public FiniteMonoidElement operation(final SemiGroupElement first, final SemiGroupElement second) {
+			Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> a=operationMap;
+			Map<SemiGroupElement, SemiGroupElement> x=a.get(first);
+			SemiGroupElement ans;
+			if (x==null) { 
+				x=new ConcurrentHashMap<>();
+				a.put(first,x);
 			}
-			if (first.equals(FiniteResidueClassRing.this.elements.get(0))
-					|| second.equals(FiniteResidueClassRing.this.elements.get(0))) {
-				ans = FiniteResidueClassRing.this.elements.get(0);
+			ans=x.get(second); 
+			if (ans != null) {
+				return (FiniteMonoidElement) ans;
+			}
+			if (first.equals(FiniteResidueClassRing.this.getElements().get(0))
+					|| second.equals(FiniteResidueClassRing.this.getElements().get(0))) {
+				ans = FiniteResidueClassRing.this.getElements().get(0);
 			} else {
-				ans = FiniteResidueClassRing.this.elements.get((((FiniteResidueClassElement) first).getRepresentant()
+				ans = FiniteResidueClassRing.this.getElements().get((((FiniteResidueClassElement) first).getRepresentant()
 						* ((FiniteResidueClassElement) second).getRepresentant()) % FiniteResidueClassRing.this.order);
 			}
-			if (first.equals(FiniteResidueClassRing.this.elements.get(1))) {
+			if (first.equals(FiniteResidueClassRing.this.getElements().get(1))) {
 				ans = second;
-			} else if (second.equals(FiniteResidueClassRing.this.elements.get(1))) {
+			} else if (second.equals(FiniteResidueClassRing.this.getElements().get(1))) {
 				ans = first;
 			}
 			if (ans.equals(FiniteResidueClassRing.this.getGenerator())) {
@@ -84,7 +96,12 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 				this.multiplicationMap.put(second, new HashMap<>());
 			}
 			this.multiplicationMap.get(second).put(first, ans);
-			return ans;
+			return (FiniteMonoidElement) ans;
+		}
+
+		@Override
+		public Map<Integer, FiniteSemiGroupElement> getElements() {
+			return FiniteResidueClassRing.this.getElements();
 		}
 	}
 
@@ -98,10 +115,10 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 	@Deprecated
 	static StdDraw stddraw;
 
-	/**
-	 * Map for the finitely many elements of the ring.
-	 */
-	protected Map<Integer, MonoidElement> elements = new HashMap<>();
+//	/**
+//	 * Map for the finitely many elements of the ring.
+//	 */
+//	protected Map<Integer, SemiGroupElement> elements = new HashMap<>();
 
 	/**
 	 * order of the ring.
@@ -113,17 +130,26 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 	 */
 	private Monoid multiplicativeMonoid;
 
-	int size = 50;
-
 	protected FiniteResidueClassRing() {
 	}
 
 	public FiniteResidueClassRing(final int n) {
 		this.setOrder(n);
-		this.elements = new HashMap<>();
 		this.createElements(n);
 	}
 
+	Map<Integer, FiniteSemiGroupElement> elements = new ConcurrentHashMap<>();
+
+	/**
+	 * 
+	 * Method to obtain a map to the elements.
+	 * 
+	 * @return the map.
+	 */
+	public Map<Integer, FiniteSemiGroupElement> getElements() {
+		return elements;
+	}
+	
 	protected void createElements(final int n) {
 		for (int i = 0; i < n; i++) {
 			this.get(i);
@@ -157,27 +183,22 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 
 	@Override
 	public FiniteResidueClassElement get(final Integer index) {
-		FiniteResidueClassElement ans = (FiniteResidueClassElement) this.elements.get(index);
+		FiniteResidueClassElement ans = (FiniteResidueClassElement) this.getElements().get(index);
 		if (ans == null) {
 			ans = new FiniteResidueClassElement(index);
-			this.elements.put(index, ans);
+			this.getElements().put(index, ans);
 		}
 		return ans;
 	}
 
 	@Override
-	public Map<Integer, MonoidElement> getElements() {
-		return this.elements;
-	}
-
-	@Override
 	public FiniteResidueClassElement getGenerator() {
-		return (FiniteResidueClassElement) this.elements.get(1);
+		return (FiniteResidueClassElement) this.getElements().get(1);
 	}
 
 	@Override
 	public FiniteResidueClassElement getInverseElement(final GroupElement element) {
-		return (FiniteResidueClassElement) this.elements
+		return (FiniteResidueClassElement) this.getElements()
 				.get(this.getOrder() - ((FiniteResidueClassElement) element).getRepresentant());
 	}
 
@@ -192,12 +213,15 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 
 	@Override
 	public FiniteResidueClassElement getNeutralElement() {
-		return (FiniteResidueClassElement) this.elements.get(0);
+		return (FiniteResidueClassElement) this.getElements().get(0);
 	}
 
 	@Override
 	public FiniteRingElement getOne() {
-		return (FiniteRingElement) this.elements.get(1);
+		if (getOrder() > 0) {
+			return (FiniteRingElement) this.elements.get(1);
+		}
+		return (FiniteRingElement) this.elements.get(0);
 	}
 
 	@Override
@@ -271,6 +295,21 @@ public class FiniteResidueClassRing implements FiniteCommutativeRing, CyclicGrou
 	@Override
 	public String toString() {
 		return "Finite residue class ring of order " + this.getOrder().toString();
+	}
+
+	/**
+	 * @return the operationMap
+	 */
+	@Override
+	public Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> getOperationMap() {
+		return operationMap;
+	}
+
+	/**
+	 * @param operationMap the operationMap to set
+	 */
+	public void setOperationMap(Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> operationMap) {
+		this.operationMap = operationMap;
 	}
 
 }

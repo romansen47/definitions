@@ -13,12 +13,13 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Isomorphism getInverse() throws Throwable {
+	default Isomorphism getInverse() {
 		final Scalar[][] matrix = this.getGenericMatrix();
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final Scalar in = matrix[0][0];
 			if (in.equals(RealLine.getInstance().getZero())) {
-				throw new Throwable();
+				Generator.getInstance().getLogger().info("devision by 0");
+				return null;
 			}
 			return (InvertibleSelfMapping) MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(
 					new Scalar[][] { { ((EuclideanSpace) this.getSource()).getField().get(1. / in.getValue()) } });
@@ -39,7 +40,7 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 						* this.det(this.adjointMatrix(matrix, j, i)).getValue() * det);
 			}
 		}
-		return (InvertibleSelfMapping) Generator.getInstance().getMappinggenerator()
+		return (InvertibleSelfMapping) Generator.getInstance().getMappingGenerator()
 				.getFiniteDimensionalLinearMapping(inv);
 	}
 }

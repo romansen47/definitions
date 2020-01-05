@@ -4,6 +4,7 @@
 package definitions.structures.abstr.algebra.groups;
 
 import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.algebra.monoids.MonoidElement;
 
 /**
  * @author ro
@@ -21,6 +22,14 @@ import definitions.structures.abstr.algebra.monoids.Monoid;
  */
 public interface Group extends Monoid {
 
+
+	/**
+	 * Getter for the identity element
+	 * 
+	 * @return the neutral element of the semi group
+	 */
+	GroupElement getNeutralElement();
+	
 	/**
 	 * Getter for the (by definition existing) inverse of an element within the
 	 * group.

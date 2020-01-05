@@ -94,12 +94,12 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	}
 
 	@Override
-	public MappingGenerator getMappinggenerator() {
+	public MappingGenerator getMappingGenerator() {
 		return this.mappingGenerator;
 	}
 
 	@Override
-	public SpaceGenerator getSpacegenerator() {
+	public SpaceGenerator getSpaceGenerator() {
 		return this.spaceGenerator;
 	}
 
@@ -112,8 +112,8 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 			this.spaceGenerator.setMyCache(ans);
 			obj_in.close();
 		} catch (final Exception e) {
-			e.addSuppressed(new Exception("failed to load myCache from local file"));
-			e.printStackTrace();
+			e.addSuppressed(new Exception("failed to load myCache from local file")); 
+			getLogger().info("Cached spaces not loaded");
 		}
 	}
 

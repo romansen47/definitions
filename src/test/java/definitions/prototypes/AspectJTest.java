@@ -16,7 +16,7 @@ public class AspectJTest {
 
 	private static final Logger logger = LogManager.getLogger(AspectJTest.class);
 	private static SpringConfiguration springConfiguration;
-	private static Generator generator;
+	private static Generator generator; 
 	private static SpaceGenerator spaceGenerator;
 	private static RealLine realLine;
 	private static ComplexPlane complexPlane;
@@ -54,7 +54,7 @@ public class AspectJTest {
 	public static void prepare() {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
-		setSpaceGenerator(getGenerator().getSpacegenerator());
+		setSpaceGenerator(getGenerator().getSpaceGenerator());
 		setRealLine(RealLine.getInstance());
 		setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
 		setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));

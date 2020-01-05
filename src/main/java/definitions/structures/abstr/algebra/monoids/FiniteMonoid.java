@@ -3,12 +3,12 @@ package definitions.structures.abstr.algebra.monoids;
 import java.util.HashMap;
 import java.util.Map;
 
+import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
+import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroupElement;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.euclidean.Generator;
 
-public interface FiniteMonoid extends DiscreetMonoid {
-
-	Map<MonoidElement, Map<MonoidElement, MonoidElement>> operationMap = new HashMap<>();
-	Map<Integer, MonoidElement> elements = new HashMap<>();
+public interface FiniteMonoid extends Monoid, FiniteSemiGroup {
 
 	/**
 	 * 
@@ -16,31 +16,28 @@ public interface FiniteMonoid extends DiscreetMonoid {
 	 * 
 	 * @return the map.
 	 */
-	default Map<Integer, MonoidElement> getElements() {
-		return elements;
-	}
+	Map<Integer, FiniteSemiGroupElement> getElements();
 
 	/**
 	 * Method to obtain the matrix of multiplication.
 	 * 
 	 * @return the multiplication matrix.
 	 */
-	default Map<MonoidElement, Map<MonoidElement, MonoidElement>> getOperationMap() {
-		return operationMap;
-	}
+	Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> getOperationMap();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	default MonoidElement operation(final MonoidElement first, final MonoidElement second) {
-		final Map<MonoidElement, MonoidElement> tmpMap = this.getOperationMap().get(first);
-		if (tmpMap == null) {
-			return null;
-		}
-		return tmpMap.get(second);
-	}
+	public FiniteMonoidElement operation(final SemiGroupElement first, final SemiGroupElement second);
 
+	/**
+	 * Getter for the identity element
+	 * 
+	 * @return the neutral element of the semi group
+	 */
+	FiniteMonoidElement getNeutralElement();
+	
 	/**
 	 * method to present the monoid.
 	 */
@@ -48,15 +45,15 @@ public interface FiniteMonoid extends DiscreetMonoid {
 		Generator.getInstance().getLogger().info("Operation matrix:\r");
 		String ans = "  operation    ";
 		for (int i = 0; i < this.getOperationMap().keySet().size(); i++) {
-			final MonoidElement element1 = this.get(i);
+			final SemiGroupElement element1 = this.get(i);
 			ans += element1 + "  ";
 		}
 		System.out.println(ans + "\r");
 		for (int i = 0; i < this.getOperationMap().keySet().size(); i++) {
-			final MonoidElement element1 = this.get(i);
+			final SemiGroupElement element1 = this.get(i);
 			ans = element1 + "   ";
 			for (int j = 0; j < this.getOperationMap().keySet().size(); j++) {
-				final MonoidElement element2 = this.get(j);
+				final SemiGroupElement element2 = this.get(j);
 				ans += " " + this.getOperationMap().get(element1).get(element2) + " ";
 			}
 			System.out.println(ans);

@@ -10,8 +10,10 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author RoManski
  *
  *         a metric space M is a set with elements in a way that a distance
- *         function called metric MxM->|R can be defined.
- * 
+ *         function called metric MxM-|R can be defined.
+ */
+
+/*
  * @TODO: triangle inequality check.
  */
 

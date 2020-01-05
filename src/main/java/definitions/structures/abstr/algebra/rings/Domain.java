@@ -12,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.RingElement;
  *         a*x = b*x for non-zero x always implies a=b. This means that the
  *         mapping
  * 
- *         a |-> a*x is injective for every non-zero x.
+ *         a |- a*x is injective for every non-zero x.
  *
  */
 public interface Domain extends Ring {
@@ -20,8 +20,8 @@ public interface Domain extends Ring {
 	/**
 	 * In a domain the concept of divisibility makes sense.
 	 * 
-	 * @param divisor
-	 * @param devident
+	 * @param divisor the divisor
+	 * @param divident the divident
 	 * @return true if divisor divides divident
 	 */
 	boolean divides(RingElement divisor, RingElement divident);

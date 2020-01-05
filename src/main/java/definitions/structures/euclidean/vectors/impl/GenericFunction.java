@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -17,9 +18,7 @@ import plotter.Plotter;
 public abstract class GenericFunction implements Function {
 
 	private static final long serialVersionUID = 1L;
-
-	private Field field;
-
+	private Field field = RealLine.getInstance();
 	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
 	private Map<Vector, Scalar> coordinates;
 
@@ -52,15 +51,18 @@ public abstract class GenericFunction implements Function {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		if (this.coordinatesMap != null) {
-			final Map<Vector, Scalar> map = new ConcurrentHashMap<>();
+		if (this.coordinatesMap == null) {
+			this.coordinatesMap = new ConcurrentHashMap<>();
 		}
-		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		for (final Vector baseVec : space.genericBaseToList()) {
-			newCoordinates.put(baseVec, ((EuclideanFunctionSpace) space).innerProduct(this, baseVec));
+		Map<Vector, Scalar> coordinates = coordinatesMap.get(space);
+		if (coordinates == null) {
+			coordinates = new ConcurrentHashMap<>();
+			for (final Vector baseVec : space.genericBaseToList()) {
+				coordinates.put(baseVec, ((EuclideanFunctionSpace) space).innerProduct(this, baseVec));
+			}
+		coordinatesMap.put(space, coordinates);
 		}
-		this.coordinatesMap.put(space, newCoordinates);
-		return newCoordinates;
+		return coordinates;
 	}
 
 	/**
@@ -76,7 +78,7 @@ public abstract class GenericFunction implements Function {
 	 */
 	@Override
 	public Integer getDim() {
-		return -1;
+		return null;
 	}
 
 	/**

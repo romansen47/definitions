@@ -46,6 +46,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	/**
 	 * Plain constructor.
+	 * 
+	 * @param field the basic field
 	 */
 	protected FiniteDimensionalVectorSpace(final Field field) {
 		this.setField(field);
@@ -55,6 +57,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * Generator using a linear independent set of vectors.
 	 * 
 	 * @param genericBase the set of vectors.
+	 * @param field the basic field
 	 */
 	public FiniteDimensionalVectorSpace(final Field field, final List<Vector> genericBase) {
 		this.setField(field);

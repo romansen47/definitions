@@ -67,7 +67,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * Method to fill a list with sine functions.
 	 * 
 	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
+	 * @param d       frequency
 	 * @param tmpBase the list.
 	 */
 	protected void getCosineFunctions(final int n, final double d, final List<Vector> tmpBase) {
@@ -116,7 +116,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * Method to fill a list with sine functions.
 	 * 
 	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
+	 * @param d       frequency
 	 * @param tmpBase the list.
 	 */
 	protected void getSineFunctions(final int n, final double d, final List<Vector> tmpBase) {

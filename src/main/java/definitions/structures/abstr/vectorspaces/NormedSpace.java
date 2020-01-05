@@ -9,7 +9,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author RoManski
  *
  *         A normed space N is a vector space over a field F which is also a
- *         metric space with a mapping FxN->|R. The distance function is induced
+ *         metric space with a mapping FxN-|R. The distance function is induced
  *         by the norm.
  */
 public interface NormedSpace extends VectorSpace, MetricSpace {

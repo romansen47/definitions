@@ -8,10 +8,11 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
+import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroup;
+import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroupElement;
 import definitions.structures.abstr.algebra.semigroups.impl.Naturals;
+import definitions.structures.abstr.algebra.semigroups.impl.NaturalsWithZero;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -30,7 +31,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	@Before
 	public void beforeTest() {
-		this.timeSpace = Naturals.getInstance();
+		this.timeSpace = NaturalsWithZero.getInstance();
 		this.phaseSpace = ComplexPlane.getInstance();
 		this.startVector = ((EuclideanSpace) this.phaseSpace).genericBaseToList().get(0);
 		final Function evolutionOperator = new GenericFunction() {
@@ -88,7 +89,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	public void test() {
 		Vector vec = this.startVector;
 		for (int i = 0; i < this.iterations; i++) {
-			final MonoidElement tmp = ((DiscreetMonoid) Naturals.getInstance()).get(i);
+			final DiscreetSemiGroupElement tmp =  ((DiscreetSemiGroup)Naturals.getInstance()).get(i);
 			final Function evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
 			vec = evolutionOp.value((Scalar) vec);
 			getLogger().info(i + ": " + vec.toString());

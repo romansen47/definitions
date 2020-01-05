@@ -10,8 +10,8 @@ import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.groups.impl.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.impl.Int;
 import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.Domain;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 /**
@@ -47,7 +47,7 @@ public class Integers implements DiscreetGroup, Domain {
 	@Override
 	public boolean divides(final RingElement devisor, final RingElement devident) {
 		return !devisor.equals(this.getNeutralElement())
-				&& ((Int) devident).getValue() % ((Int) devisor).getValue() == 0;
+				&& ((Int) devident).getRepresentant() % ((Int) devisor).getRepresentant() == 0;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class Integers implements DiscreetGroup, Domain {
 
 	@Override
 	public Int getInverseElement(final GroupElement element) {
-		return this.get(-((Int) element).getValue());
+		return this.get(-((Int) element).getRepresentant());
 	}
 
 	@Override
@@ -78,8 +78,8 @@ public class Integers implements DiscreetGroup, Domain {
 			}
 
 			@Override
-			public Int operation(final MonoidElement first, final MonoidElement second) {
-				return new Int(((Int) first).getValue() * ((Int) second).getValue());
+			public Int operation(final SemiGroupElement first, final SemiGroupElement second) {
+				return new Int(((Int) first).getRepresentant() * ((Int) second).getRepresentant());
 			}
 
 		};
@@ -111,7 +111,7 @@ public class Integers implements DiscreetGroup, Domain {
 
 	@Override
 	public boolean isPrimeElement(final RingElement element) {
-		final int n = ((Int) element).getValue();
+		final int n = ((Int) element).getRepresentant();
 		if (element.equals(this.getNeutralElement()) || this.isUnit(element)) {
 			return false;
 		}
@@ -131,8 +131,8 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public Int operation(final MonoidElement first, final MonoidElement second) {
-		return this.get(((Int) first).getValue() + ((Int) second).getValue());
+	public Int operation(final SemiGroupElement first, final SemiGroupElement second) {
+		return this.get(((Int) first).getRepresentant() + ((Int) second).getRepresentant());
 	}
 
 	@Override

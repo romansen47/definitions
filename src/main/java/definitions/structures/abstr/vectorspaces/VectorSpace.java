@@ -6,6 +6,7 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupElement;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -46,7 +47,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default MonoidElement getNeutralElement() {
+	default GroupElement getNeutralElement() {
 		return ((VectorSpaceMethods) this).nullVec();
 	}
 
@@ -62,7 +63,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement operation(final MonoidElement first, final MonoidElement second) {
+	default GroupElement operation(final SemiGroupElement first, final SemiGroupElement second) {
 		return this.add((Vector) first, (Vector) second);
 	}
 

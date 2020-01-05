@@ -15,8 +15,8 @@ public interface Vector extends GroupElement, XmlPrintable {
 	/**
 	 * Method to verify that the vector is contained by a specific vector space.
 	 * 
-	 * @param space
-	 * @return
+	 * @param space the space
+	 * @return true if is element of space
 	 */
 	default boolean elementOf(final VectorSpace space) {
 		return true;
@@ -41,6 +41,9 @@ public interface Vector extends GroupElement, XmlPrintable {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default String toXml() {
 		final String ans = "<" + getClass().toString().split("class ")[1] + "/>";

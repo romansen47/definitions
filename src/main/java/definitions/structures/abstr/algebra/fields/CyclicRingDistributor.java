@@ -16,7 +16,7 @@ public interface CyclicRingDistributor extends XmlPrintable {
 	}
 
 	static Ring getCyclicRing(final Int i) {
-		final Ring ans = cachedRings.get(i.getValue());
+		final Ring ans = cachedRings.get(i.getRepresentant());
 		if (ans != null) {
 			return ans;
 		}

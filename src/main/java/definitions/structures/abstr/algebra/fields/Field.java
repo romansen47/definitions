@@ -13,6 +13,7 @@ import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.Domain;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.RingElement;
@@ -27,7 +28,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
 	Scalar conjugate(Scalar value);
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -58,7 +59,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			}
 
 			@Override
-			public MonoidElement getNeutralElement() {
+			public GroupElement getNeutralElement() {
 				return newOne;
 			}
 
@@ -71,7 +72,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			}
 
 			@Override
-			public MonoidElement operation(final MonoidElement first, final MonoidElement second) {
+			public MonoidElement operation(final SemiGroupElement first, final SemiGroupElement second) {
 				return Field.this.product((Scalar) first, (Scalar) second);
 			}
 
@@ -168,7 +169,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default FieldElement operation(final MonoidElement first, final MonoidElement second) {
+	default FieldElement operation(final SemiGroupElement first, final SemiGroupElement second) {
 		return (FieldElement) EuclideanAlgebra.super.operation(first, second);
 	}
 }

@@ -2,7 +2,7 @@ package definitions.structures.abstr.algebra.rings;
 
 import definitions.structures.abstr.algebra.fields.FiniteField;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 public interface FiniteDomain extends IntegralDomain, FiniteField {
@@ -22,7 +22,7 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	 * @return the co factor
 	 */
 	default FiniteRingElement getCoFactor(final RingElement divisor, final RingElement divident) {
-		for (final MonoidElement el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
+		for (final SemiGroupElement el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
 				.keySet()) {
 			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
 				return (FiniteRingElement) el;

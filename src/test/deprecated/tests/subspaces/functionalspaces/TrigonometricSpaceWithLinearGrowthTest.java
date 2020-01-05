@@ -12,7 +12,8 @@ import java.util.Map.Entry;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.AspectJTest;
+import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -23,7 +24,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
-public class TrigonometricSpaceWithLinearGrowthTest {
+public class TrigonometricSpaceWithLinearGrowthTest extends AspectJTest{
 
 	static EuclideanSpace trigonometricFunctionSpace;
 	static EuclideanSpace extendedTrigonometricFunctionSpace;
@@ -81,12 +82,12 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 		final IGenerator gen = Generator.getInstance();
 
-		final ISpaceGenerator spaceGen = gen.getSpacegenerator();
+		final ISpaceGenerator spaceGen = gen.getSpaceGenerator();
 
-		trigonometricFunctionSpace = spaceGen.getTrigonometricSpace(RealLine.getInstance(), dim);
+		trigonometricFunctionSpace = spaceGen.getTrigonometricSpace(realLine, dim);
 
 		extendedTrigonometricFunctionSpace = spaceGen
-				.getTrigonometricFunctionSpaceWithLinearGrowth(RealLine.getInstance(), dim);
+				.getTrigonometricFunctionSpaceWithLinearGrowth(realLine, dim);
 
 	}
 
@@ -117,7 +118,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-
 	public void test() {
 
 		try {
@@ -138,7 +138,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				while (testValues[0][k] < l) {
 					k++;
 				}
-				return RealLine.getInstance().get(testValues[1][k]);
+				return realLine.get(testValues[1][k]);
 			}
 
 		};
@@ -150,7 +150,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-
 	public void test2() {
 
 		try {
@@ -174,7 +173,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 				while (testValues2[0][k] < l) {
 					k++;
 				}
-				return RealLine.getInstance().get(testValues2[1][k]);
+				return realLine.get(testValues2[1][k]);
 			}
 
 		};
@@ -192,7 +191,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
-				return staircaseFunction2.value(RealLine.getInstance().get(newx));
+				return staircaseFunction2.value(realLine.get(newx));
 			}
 
 		};
@@ -206,7 +205,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
-				return ((Function) staircaseFunction2ToFourier).value(RealLine.getInstance().get(newx));
+				return ((Function) staircaseFunction2ToFourier).value(realLine.get(newx));
 			}
 
 		};
@@ -223,7 +222,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-
 	public void test3() {
 		identity = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
@@ -239,7 +237,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-
 	public void test4() {
 
 		final Function exp = new GenericFunction() {
@@ -250,7 +247,7 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(Math.exp(input.getValue()));
+				return realLine.get(Math.exp(input.getValue()));
 			}
 
 		};
@@ -260,7 +257,6 @@ public class TrigonometricSpaceWithLinearGrowthTest {
 	}
 
 	@Test
-
 	public void test5() {
 
 //		final List<Vector> base = extendedTrigonometricFunctionSpace.genericBaseToList();

@@ -30,6 +30,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Constructor.
 	 * 
+	 * @param f      the field.
 	 * @param n      the highest degree of the trigonometric polynomials.
 	 * @param left   the inf of the interval.
 	 * @param right  the sup of the interval.
@@ -75,8 +76,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	/**
 	 * Method to fill a list with sine functions.
 	 * 
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d
+	 * @param n       the highest degree of the trigonometric polynomials. 
 	 * @param tmpBase the list.
 	 */
 

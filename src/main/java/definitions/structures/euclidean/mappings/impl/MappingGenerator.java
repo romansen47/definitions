@@ -94,7 +94,7 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 		final int dimSource = genericMatrix[0].length;
 		final int dimTarget = genericMatrix.length;
 		final EuclideanSpace source = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dimSource);
-		final EuclideanSpace target = Generator.getInstance().getSpacegenerator()
+		final EuclideanSpace target = Generator.getInstance().getSpaceGenerator()
 				.getFiniteDimensionalVectorSpace(dimTarget);
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
 		int i = 0;

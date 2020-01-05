@@ -23,7 +23,7 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 * In detail, we need to explain, how base elements are multiplied.
 	 * 
 	 * @return the multiplication map - for every base vector vec1 it gives a linear
-	 *         mapping Vector vec2 -> getField().product(vec1,vec2)
+	 *         mapping Vector vec2 - getField().product(vec1,vec2)
 	 * 
 	 */
 	Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix();

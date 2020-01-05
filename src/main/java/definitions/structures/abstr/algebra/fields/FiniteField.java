@@ -1,8 +1,9 @@
 package definitions.structures.abstr.algebra.fields;
 
 import definitions.structures.abstr.algebra.fields.scalars.FiniteFieldElement;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
+import definitions.structures.abstr.algebra.rings.FiniteRingElement;
+import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -12,6 +13,14 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  */
 public interface FiniteField extends Field, FiniteRing {
 
+	/**
+	 * Getter for the identity element
+	 * 
+	 * @return the neutral element of the semi group
+	 */
+	@Override
+	FiniteFieldElement getNeutralElement();
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -48,7 +57,7 @@ public interface FiniteField extends Field, FiniteRing {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default FiniteFieldElement operation(final MonoidElement first, final MonoidElement second) {
+	default FiniteFieldElement operation(final SemiGroupElement first, final SemiGroupElement second) {
 		return (FiniteFieldElement) Field.super.operation(first, second);
 	}
 

@@ -35,7 +35,7 @@ public class OrthonormalizationTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Throwable {
 
-		space = Generator.getInstance().getSpacegenerator().getTrigonometricSpace(RealLine.getInstance(), 1);
+		space = Generator.getInstance().getSpaceGenerator().getTrigonometricSpace(RealLine.getInstance(), 1);
 
 		final List<Vector> genericBase = space.genericBaseToList();
 		final List<Vector> system = new ArrayList<>();

@@ -14,8 +14,8 @@ import definitions.structures.abstr.algebra.monoids.MonoidElement;
  *         A semi group G is a special monoid with an Element called identity
  *         element. The mappings
  *
- *         alpha: Vector vec -> product(Vector vec,identityElement) beta: Vector
- *         vec -> product(identityElement,Vector vec)
+ *         alpha: Vector vec - product(Vector vec,identityElement) beta: Vector
+ *         vec - product(identityElement,Vector vec)
  *
  *         are identically equal to the identity mapping on G.
  */
@@ -37,6 +37,6 @@ public interface SemiGroup extends Serializable, XmlPrintable {
 	 * @param second second monoid element
 	 * @return product of both of them
 	 */
-	MonoidElement operation(MonoidElement first, MonoidElement second);
+	SemiGroupElement operation(SemiGroupElement first, SemiGroupElement second);
 
 }

@@ -34,7 +34,7 @@ public class FiniteResidueClassRingTest extends AspectJTest {
 		long time;
 		for (int i = 1; i < index; i++) {
 			time = System.currentTimeMillis();
-			final Ring r = GroupGenerator.getInstance().getFiniteResidueClassRing(i);
+			final Ring r = getGenerator().getGroupGenerator().getFiniteResidueClassRing(i);
 			time = System.currentTimeMillis() - time;
 			times.put(i, time);
 			getLogger().info(r.toString());

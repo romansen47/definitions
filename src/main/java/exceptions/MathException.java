@@ -32,7 +32,7 @@ public class MathException extends java.lang.Exception implements exceptions.Exc
 
 	@Override
 	public String toXml() {
-		final String ans = "<mathException/>";
+		final String ans = "<mathException />";
 		return ans;
 	}
 

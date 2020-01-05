@@ -8,6 +8,7 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -28,41 +29,43 @@ public interface IGenerator extends Serializable {
 
 	default VectorSpace getFiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right) {
-		return this.getSpacegenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
+		return this.getSpaceGenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
 	}
 
 	default VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
 			final EuclideanSpace target, final Map<Vector, Map<Vector, Scalar>> coordinates) {
-		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
+		return this.getMappingGenerator().getFiniteDimensionalLinearMapping(source, target, coordinates);
 	}
 
 	default VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final Scalar[][] genericMatrix) {
-		return this.getMappinggenerator().getFiniteDimensionalLinearMapping(genericMatrix);
+		return this.getMappingGenerator().getFiniteDimensionalLinearMapping(genericMatrix);
 	}
 
 	default VectorSpace getFiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space,
 			final int degree) {
-		return this.getSpacegenerator().getFiniteDimensionalSobolevSpace(field, space, degree);
+		return this.getSpaceGenerator().getFiniteDimensionalSobolevSpace(field, space, degree);
 	}
 
 	default VectorSpace getFiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right, final int degree) throws Exception {
-		return this.getSpacegenerator().getFiniteDimensionalSobolevSpace(field, genericBase, left, right, degree);
+		return this.getSpaceGenerator().getFiniteDimensionalSobolevSpace(field, genericBase, left, right, degree);
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
-		return this.getSpacegenerator().getFiniteDimensionalVectorSpace(dim);
+		return this.getSpaceGenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
-	IMappingGenerator getMappinggenerator();
+	IMappingGenerator getMappingGenerator();
 
 //	IVectorGenerator getVectorgenerator();
 
-	ISpaceGenerator getSpacegenerator();
+	ISpaceGenerator getSpaceGenerator();
+	
+	IGroupGenerator getGroupGenerator();
 
 	default VectorSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field field, final int n) {
 		try {
-			return this.getSpacegenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
+			return this.getSpaceGenerator().getTrigonometricFunctionSpaceWithLinearGrowth(field, n);
 		} catch (final Exception e) {
 			e.printStackTrace();
 		}
@@ -70,7 +73,7 @@ public interface IGenerator extends Serializable {
 	}
 
 	default VectorSpace getTrigonometricSpace(final Field field, final int n) {
-		return this.getSpacegenerator().getTrigonometricSpace(field, n);
+		return this.getSpaceGenerator().getTrigonometricSpace(field, n);
 	}
 
 	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;

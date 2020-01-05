@@ -26,7 +26,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 				this.dim);
 		modulo2Space.show();
 
-		for (int i = 0; i < this.dim; i++) {
+		for (int i = 1; i < this.dim; i++) {
 			final Vector x = modulo2Space.genericBaseToList().get(i);
 			final Vector h = modulo2Space.add(x, x);
 			if (!h.equals(modulo2Space.nullVec())) {

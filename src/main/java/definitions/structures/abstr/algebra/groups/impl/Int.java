@@ -2,22 +2,23 @@ package definitions.structures.abstr.algebra.groups.impl;
 
 import org.springframework.stereotype.Component;
 
+import definitions.structures.abstr.algebra.rings.DiscreetRingElement;
 import definitions.structures.abstr.vectorspaces.RingElement;
 
 @Component(value = "int")
-public class Int implements RingElement {
+public class Int implements RingElement, DiscreetRingElement {
 
 	private static final long serialVersionUID = -1727262864036395099L;
 
-	private int value;
+	private int representant;
 
 	public Int() {
-		this.value = 0;
+		this.representant = 0;
 	}
 
 	public Int(final int val) {
 		this();
-		this.value = val;
+		this.representant = val;
 	}
 
 	/**
@@ -25,14 +26,15 @@ public class Int implements RingElement {
 	 */
 	@Override
 	public boolean equals(final Object o) {
-		if (o instanceof Int && ((Int) o).getValue() == this.getValue()) {
+		if (o instanceof Int && ((Int) o).getRepresentant() == this.getRepresentant()) {
 			return true;
 		}
 		return false;
 	}
 
-	public int getValue() {
-		return this.value;
+	@Override
+	public int getRepresentant() {
+		return this.representant;
 	}
 
 	/**
@@ -40,33 +42,33 @@ public class Int implements RingElement {
 	 */
 	@Override
 	public int hashCode() {
-		return this.getValue();
+		return this.getRepresentant();
 	}
 
 	public boolean isPrime() {
-		if (this.smallestDevisor().getValue() < this.getValue()) {
+		if (this.smallestDevisor().getRepresentant() < this.getRepresentant()) {
 			return false;
 		}
 		return true;
 	}
 
 	Int next() {
-		return new Int(this.getValue() + 1);
+		return new Int(this.getRepresentant() + 1);
 	}
 
 	Int prev() {
-		return new Int(this.getValue() - 1);
+		return new Int(this.getRepresentant() - 1);
 	}
 
 	public void setValue(final int value) {
-		this.value = value;
+		this.representant = value;
 	}
 
 	private Int smallestDevisor() {
 		int index = 1;
 		int smallestDevisor = 2;
-		while (index * smallestDevisor <= this.getValue()) {
-			if (this.getValue() % smallestDevisor == 0) {
+		while (index * smallestDevisor <= this.getRepresentant()) {
+			if (this.getRepresentant() % smallestDevisor == 0) {
 				return new Int(smallestDevisor);
 			} else {
 				index = smallestDevisor;
@@ -81,7 +83,7 @@ public class Int implements RingElement {
 	 */
 	@Override
 	public String toString() {
-		return Integer.toString(this.getValue());
+		return Integer.toString(this.getRepresentant());
 	}
 
 	/**
@@ -89,6 +91,6 @@ public class Int implements RingElement {
 	 */
 	@Override
 	public String toXml() {
-		return "<integer>" + Int.this.getValue() + "</integer>";
+		return "<integer>" + Int.this.getRepresentant() + "</integer>";
 	}
 }

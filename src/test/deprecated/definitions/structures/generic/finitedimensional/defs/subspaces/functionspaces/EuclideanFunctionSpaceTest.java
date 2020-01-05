@@ -3,6 +3,7 @@ package definitions.structures.generic.finitedimensional.defs.subspaces.function
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.AspectJTest;
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
@@ -20,7 +21,7 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 //@ContextConfiguration("definitions.SpringConfiguration.annotationConfigApplicationContext")
-public class EuclideanFunctionSpaceTest {
+public class EuclideanFunctionSpaceTest extends AspectJTest{
 
 	static private SpringConfiguration springConfiguration;
 
@@ -67,7 +68,7 @@ public class EuclideanFunctionSpaceTest {
 		};
 	}
 
-	public SpringConfiguration getSpringConfiguration() {
+	public static SpringConfiguration getSpringConfiguration() {
 		return springConfiguration;
 	}
 

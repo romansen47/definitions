@@ -108,11 +108,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		final Field f = this.getField();
 		if (derivative == null) {
 			final Function fun = this;
-			return new GenericFunction() {
-				/**
-				 * 
-				 */
-				private long serialVersionUID = 1L;
+			return new GenericFunction() { 
 
 				@Override
 				public Field getField() {

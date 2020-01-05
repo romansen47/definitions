@@ -10,10 +10,8 @@ public interface Isomorphism extends Monomorphism, Epimorphism {
 	/**
 	 * Method to get the inverse isomorphism.
 	 * 
-	 * @return
-	 * @throws Throwable
+	 * @return the inverse
 	 */
-
-	Isomorphism getInverse() throws Throwable;
+	Isomorphism getInverse();
 
 }

@@ -51,7 +51,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return this.applicationContext;
 	}
 
-	@Bean(name = "aspects.CachingAspect")
+	@Bean(name = "definitions.cache.CachingAspect")
 	public CachingAspect cachingAspect() {
 		return new CachingAspect();
 	}

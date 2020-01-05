@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.AspectJTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -24,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
-public class FiniteDimensionalSobolevSpaceTest {
+public class FiniteDimensionalSobolevSpaceTest extends AspectJTest{
 
 	final static VectorSpace realLine = RealLine.getInstance();
 	static EuclideanSpace trigonometricFunctionSpace;
