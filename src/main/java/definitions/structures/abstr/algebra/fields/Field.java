@@ -5,18 +5,14 @@ import java.util.Map;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.groups.Group;
-import definitions.structures.abstr.algebra.groups.GroupElement;
+import definitions.structures.abstr.algebra.groups.Group; 
 import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
-import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.monoids.Monoid; 
 import definitions.structures.abstr.algebra.rings.Domain;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
-import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
-import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.structures.abstr.vectorspaces.LinearMappingsSpace; 
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -33,7 +29,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean divides(final RingElement devisor, final RingElement devident) {
+	default boolean divides(final Element devisor, final Element devident) {
 		return this.isUnit(devisor);
 	}
 
@@ -54,12 +50,12 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			private long serialVersionUID = 1L;
 
 			@Override
-			public GroupElement getInverseElement(final GroupElement element) {
+			public Element getInverseElement(final Element element) {
 				return Field.this.inverse((Scalar) element);
 			}
 
 			@Override
-			public GroupElement getNeutralElement() {
+			public Element getNeutralElement() {
 				return newOne;
 			}
 
@@ -72,7 +68,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			}
 
 			@Override
-			public MonoidElement operation(final SemiGroupElement first, final SemiGroupElement second) {
+			public Element operation(final Element first, final Element second) {
 				return Field.this.product((Scalar) first, (Scalar) second);
 			}
 
@@ -109,7 +105,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			private long serialVersionUID = 1L;
 
 			@Override
-			public Vector get(final Vector vec) {
+			public Vector get(final Element vec) {
 				return ((Field) this.getTarget()).nullVec();
 			}
 
@@ -145,7 +141,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean isIrreducible(final RingElement element) {
+	default boolean isIrreducible(final Element element) {
 		return true;
 	}
 
@@ -153,7 +149,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean isPrimeElement(final RingElement element) {
+	default boolean isPrimeElement(final Element element) {
 		return !this.isUnit(element);
 	}
 
@@ -161,7 +157,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean isUnit(final RingElement element) {
+	default boolean isUnit(final Element element) {
 		return !element.equals(this.getZero());
 	}
 
@@ -169,7 +165,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default FieldElement operation(final SemiGroupElement first, final SemiGroupElement second) {
+	default FieldElement operation(final Element first, final Element second) {
 		return (FieldElement) EuclideanAlgebra.super.operation(first, second);
 	}
 }

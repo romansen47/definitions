@@ -97,7 +97,7 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 	public void testNullVec() {
 		boolean ans = true;
 		final Complex nul = this.complexPlane.nullVec();
-		if (nul.getReal().getValue() != 0.0 || nul.getImag().getValue() != 0.0) {
+		if (nul.getReal().getDoubleValue() != 0.0 || nul.getImag().getDoubleValue() != 0.0) {
 			ans = false;
 		}
 		Assert.assertTrue(ans);

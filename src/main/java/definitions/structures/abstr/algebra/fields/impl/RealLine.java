@@ -12,9 +12,9 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.fields.scalars.impl.RealOne;
 import definitions.structures.abstr.algebra.fields.scalars.impl.RealZero;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
-import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -69,7 +69,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real add(final Vector vec1, final Vector vec2) {
-		return this.get(((Real) vec1).getValue() + ((Real) vec2).getValue());
+		return this.get(((Real) vec1).getDoubleValue() + ((Real) vec2).getDoubleValue());
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real innerProduct(final Vector vec1, final Vector vec2) {
-		return this.get(((Real) vec1).getValue() * ((Real) vec2).getValue());
+		return this.get(((Real) vec1).getDoubleValue() * ((Real) vec2).getDoubleValue());
 	}
 
 	/**
@@ -190,17 +190,17 @@ public class RealLine implements Field, RealSpace {
 			return null;
 		}
 		final Real num = ((Real) factor);
-		if (num.getValue() == 0.0) {
+		if (num.getDoubleValue() == 0.0) {
 			return null;
 		}
-		return this.get(1 / num.getValue());
+		return this.get(1 / num.getDoubleValue());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isIrreducible(final RingElement element) {
+	public boolean isIrreducible(final Element element) {
 		return true;
 	}
 
@@ -217,8 +217,8 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Vector product(final Vector vec1, final Vector vec2) {
-		final double val1 = ((Real) vec1).getValue();
-		final double val2 = ((Real) vec2).getValue();
+		final double val1 = ((Real) vec1).getDoubleValue();
+		final double val2 = ((Real) vec2).getDoubleValue();
 		final double ans = val1 * val2;
 		return this.get(ans);
 	}
@@ -230,8 +230,8 @@ public class RealLine implements Field, RealSpace {
 	public Vector projection(final Vector w, final Vector v) {
 		final Real a = ((Real) v);
 		final Real b = ((Real) w);
-		if (b.getValue() != 0) {
-			return this.stretch(w, this.get(a.getValue() / b.getValue()));
+		if (b.getDoubleValue() != 0) {
+			return this.stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
 		}
 		return this.nullVec();
 	}
@@ -249,7 +249,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real stretch(final Vector vec1, final Scalar r) {
-		return this.get(((Real) vec1).getValue() * r.getValue());
+		return this.get(((Real) vec1).getDoubleValue() * r.getDoubleValue());
 	}
 
 	/**

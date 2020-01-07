@@ -6,13 +6,10 @@ package definitions.structures.abstr.algebra.rings.impl;
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
-import definitions.structures.abstr.algebra.groups.GroupElement;
-import definitions.structures.abstr.algebra.groups.impl.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.impl.Int;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.rings.Domain;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
-import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
  * @author RoManski
@@ -24,20 +21,15 @@ public class Integers implements DiscreetGroup, Domain {
 	private static Integers instance;
 	private static final long serialVersionUID = 321971307361565421L;
 
+	final Int zero;
+	final Int one;
+
 	public static Integers getInstance() {
 		if (instance == null) {
-			instance = GroupGenerator.getInstance().getIntegers();
+			instance = new Integers();
 		}
 		return instance;
 	}
-
-	public static void setInstance(final Integers integers) {
-		Integers.instance = integers;
-	}
-
-	final Int zero;
-
-	final Int one;
 
 	public Integers() {
 		this.one = this.get(1);
@@ -45,7 +37,7 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public boolean divides(final RingElement devisor, final RingElement devident) {
+	public boolean divides(final Element devisor, final Element devident) {
 		return !devisor.equals(this.getNeutralElement())
 				&& ((Int) devident).getRepresentant() % ((Int) devisor).getRepresentant() == 0;
 	}
@@ -58,7 +50,7 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public Int getInverseElement(final GroupElement element) {
+	public Int getInverseElement(final Element element) {
 		return this.get(-((Int) element).getRepresentant());
 	}
 
@@ -78,7 +70,7 @@ public class Integers implements DiscreetGroup, Domain {
 			}
 
 			@Override
-			public Int operation(final SemiGroupElement first, final SemiGroupElement second) {
+			public Int operation(final Element first, final Element second) {
 				return new Int(((Int) first).getRepresentant() * ((Int) second).getRepresentant());
 			}
 
@@ -105,12 +97,12 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public boolean isIrreducible(final RingElement element) {
+	public boolean isIrreducible(final Element element) {
 		return this.isPrimeElement(element);
 	}
 
 	@Override
-	public boolean isPrimeElement(final RingElement element) {
+	public boolean isPrimeElement(final Element element) {
 		final int n = ((Int) element).getRepresentant();
 		if (element.equals(this.getNeutralElement()) || this.isUnit(element)) {
 			return false;
@@ -126,12 +118,12 @@ public class Integers implements DiscreetGroup, Domain {
 	}
 
 	@Override
-	public boolean isUnit(final RingElement element) {
+	public boolean isUnit(final Element element) {
 		return element.equals(this.get(-1)) || element.equals(this.get(1));
 	}
 
 	@Override
-	public Int operation(final SemiGroupElement first, final SemiGroupElement second) {
+	public Int operation(final Element first, final Element second) {
 		return this.get(((Int) first).getRepresentant() + ((Int) second).getRepresentant());
 	}
 

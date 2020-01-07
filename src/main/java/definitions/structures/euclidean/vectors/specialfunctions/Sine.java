@@ -29,7 +29,7 @@ public abstract class Sine extends GenericFunction {
 	}
 
 	public Sine(final Scalar a, final Scalar b, final Scalar c) {
-		this(a.getValue(), b.getValue(), c.getValue());
+		this(a.getDoubleValue(), b.getDoubleValue(), c.getDoubleValue());
 	}
 
 	public Sine(final Scalar a, final Scalar b, final Scalar c, final Field field) {
@@ -66,8 +66,8 @@ public abstract class Sine extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(this.magnitude.getValue()
-				* Math.sin(this.getTranslation().getValue() + (this.getFrequency().getValue() * input.getValue())));
+		return this.getField().get(this.magnitude.getDoubleValue()
+				* Math.sin(this.getTranslation().getDoubleValue() + (this.getFrequency().getDoubleValue() * input.getDoubleValue())));
 	}
 
 }

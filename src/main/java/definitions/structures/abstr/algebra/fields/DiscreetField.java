@@ -1,13 +1,12 @@
 package definitions.structures.abstr.algebra.fields;
 
-import definitions.structures.abstr.algebra.groups.DiscreetGroupElement;
 import definitions.structures.abstr.algebra.groups.DiscreetRing;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface DiscreetField extends DiscreetRing, Field {
 
 	@Override
-	DiscreetFieldElement getNeutralElement();
+	FieldElement getNeutralElement();
 
 	/**
 	 * the operation on the monoid.
@@ -17,5 +16,5 @@ public interface DiscreetField extends DiscreetRing, Field {
 	 * @return product of both of them
 	 */
 	@Override
-	DiscreetFieldElement operation(SemiGroupElement first, SemiGroupElement second);
+	FieldElement operation(Element first, Element second);
 }

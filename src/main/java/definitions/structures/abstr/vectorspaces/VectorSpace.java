@@ -3,10 +3,8 @@ package definitions.structures.abstr.vectorspaces;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.groups.Group;
-import definitions.structures.abstr.algebra.groups.GroupElement;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
+import definitions.structures.abstr.algebra.groups.Group; 
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -38,7 +36,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement getInverseElement(final GroupElement element) {
+	default Element getInverseElement(final Element element) {
 		final Field field = this.getField();
 		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
@@ -47,7 +45,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement getNeutralElement() {
+	default Element getNeutralElement() {
 		return ((VectorSpaceMethods) this).nullVec();
 	}
 
@@ -63,7 +61,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default GroupElement operation(final SemiGroupElement first, final SemiGroupElement second) {
+	default Element operation(final Element first, final Element second) {
 		return this.add((Vector) first, (Vector) second);
 	}
 

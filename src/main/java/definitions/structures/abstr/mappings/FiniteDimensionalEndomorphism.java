@@ -41,10 +41,10 @@ public interface FiniteDimensionalEndomorphism extends Endomorphism {
 			final Scalar[][] adj = this.adjointMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
 				det = ((EuclideanSpace) this.getSource()).getField()
-						.get(det.getValue() + this.det(adj).getValue() * matrix[i][0].getValue());
+						.get(det.getDoubleValue() + this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue());
 			} else {
 				det = ((EuclideanSpace) this.getSource()).getField()
-						.get(det.getValue() - this.det(adj).getValue() * matrix[i][0].getValue());
+						.get(det.getDoubleValue() - this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue());
 			}
 		}
 		return det;

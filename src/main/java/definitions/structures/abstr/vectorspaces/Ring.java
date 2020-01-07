@@ -2,6 +2,7 @@ package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.rings.SemiRing;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
  * 
@@ -21,14 +22,5 @@ import definitions.structures.abstr.algebra.rings.SemiRing;
  *
  */
 public interface Ring extends Group,SemiRing {
-
-
-	/**
-	 * we define rings with a multiplicative identity.
-	 * 
-	 * @return the multiplicative identity
-	 */
-	RingElement getOne();
-
 
 }

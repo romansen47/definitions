@@ -132,7 +132,7 @@ public class TrigonometricSpaceWithLinearGrowthTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getDoubleValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues[0][k] < l) {
@@ -167,7 +167,7 @@ public class TrigonometricSpaceWithLinearGrowthTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getDoubleValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues2[0][k] < l) {
@@ -190,7 +190,7 @@ public class TrigonometricSpaceWithLinearGrowthTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
+				final double newx = -Math.PI + ((2 * Math.PI * input.getDoubleValue()) / length);
 				return staircaseFunction2.value(realLine.get(newx));
 			}
 
@@ -204,7 +204,7 @@ public class TrigonometricSpaceWithLinearGrowthTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newx = -Math.PI + ((2 * Math.PI * input.getValue()) / length);
+				final double newx = -Math.PI + ((2 * Math.PI * input.getDoubleValue()) / length);
 				return ((Function) staircaseFunction2ToFourier).value(realLine.get(newx));
 			}
 
@@ -247,7 +247,7 @@ public class TrigonometricSpaceWithLinearGrowthTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return realLine.get(Math.exp(input.getValue()));
+				return realLine.get(Math.exp(input.getDoubleValue()));
 			}
 
 		};

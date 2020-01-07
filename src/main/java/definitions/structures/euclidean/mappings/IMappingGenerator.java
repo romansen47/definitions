@@ -20,7 +20,7 @@ public interface IMappingGenerator extends Serializable {
 				matC[i][j] = RealLine.getInstance().getZero();
 				for (int k = 0; k < scalars[0].length; k++) {
 					matC[i][j] = RealLine.getInstance()
-							.get(matC[i][j].getValue() + scalars[i][k].getValue() * scalars2[k][j].getValue());
+							.get(matC[i][j].getDoubleValue() + scalars[i][k].getDoubleValue() * scalars2[k][j].getDoubleValue());
 				}
 			}
 		}

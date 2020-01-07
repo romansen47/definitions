@@ -3,14 +3,10 @@ package definitions.structures.abstr.algebra.rings;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.groups.GroupElement;
-import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroupElement;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
-import definitions.structures.abstr.vectorspaces.Ring;
-import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.vectorspaces.Ring; 
 
-public interface FiniteRing extends FiniteMonoid, Ring {
+public interface FiniteRing extends FiniteGroup, Ring {
 
 
 	/**
@@ -19,34 +15,24 @@ public interface FiniteRing extends FiniteMonoid, Ring {
 	 * @return the neutral element of the semi group
 	 */
 	@Override
-	FiniteRingElement getNeutralElement();
+	Element getNeutralElement();
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	FiniteRingElement get(Integer index);
+	Element get(Integer index);
 
-	default FiniteRingElement getMultiplicativeInverseElement(final FiniteRingElement element) {
-		final FiniteRingElement tmp = (FiniteRingElement) element.getMultiplicativeInverseElement();
+	default Element getMultiplicativeInverseElement(final Element element) {
+		final Element tmp = getMultiplicativeInverseElement((Element) element);
 		if (tmp != null) {
 			return tmp;
 		}
-		if (element.equals(this.get(0))) {
-			element.setMultiplicativeInverseElement(null);
-			return null;
-		}
-		if (element.equals(this.get(1))) {
-			element.setMultiplicativeInverseElement(element);
-			return element;
-		}
 		for (int i = 1; i < this.getOrder(); i++) {
-			final FiniteRingElement other = (FiniteRingElement) this.getMuliplicativeMonoid().operation(element,
+			final Element other = (Element) this.getMuliplicativeMonoid().operation(element,
 					this.get(i));
 			if (other.equals(this.get(1))) {
-				element.setMultiplicativeInverseElement(other);
-				other.setMultiplicativeInverseElement(element);
-				return other;
+				return (Element) other;
 			}
 		}
 		return null;
@@ -56,46 +42,45 @@ public interface FiniteRing extends FiniteMonoid, Ring {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean isUnit(final RingElement element) {
-		return this.getMultiplicativeInverseElement((FiniteRingElement) element) != null;
+	default boolean isUnit(final Element element) {
+		return this.getMultiplicativeInverseElement((Element) element) != null;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	default FiniteRingElement operation(final SemiGroupElement first, final SemiGroupElement second) {
-		Map<SemiGroupElement, SemiGroupElement> tmpMap = this.getOperationMap().get(first);
+	default Element operation(final Element first, final Element second) {
+		Map<Element, Element> tmpMap = this.getOperationMap().get(first);
 		if (tmpMap == null) {
 			tmpMap = new HashMap<>();
 		}
-		SemiGroupElement ans = tmpMap.get(second);
+		Element ans = tmpMap.get(second);
 		if (ans != null) {
-			return (FiniteRingElement) ans;
+			return (Element) ans;
 		}
 		ans = FiniteRing.this.getElements()
-				.get((((FiniteRingElement) first).getRepresentant() + ((FiniteRingElement) second).getRepresentant())
+				.get((getRepresentant(first) + getRepresentant(second))
 						% FiniteRing.this.getOrder());
-		if (((DiscreetSemiGroupElement) ans).equals((DiscreetSemiGroupElement) FiniteRing.this.getNeutralElement())) {
-			if (((FiniteRingElement) first).getInverseElement() == null) {
-				if (!((DiscreetSemiGroupElement) second)
-						.equals((DiscreetSemiGroupElement) FiniteRing.this.getNeutralElement())) {
-					((FiniteRingElement) first).setInverseElement((RingElement) second);
-					if (((FiniteRingElement) second).getInverseElement() == null) {
-						((FiniteRingElement) second).setInverseElement((RingElement) first);
-					}
-				}
-			}
-		}
+//		if (((Element) ans).equals((Element) FiniteRing.this.getNeutralElement())) {
+//			if (getInverseElement(first) == null) {
+//				if (!((Element) second)
+//						.equals((Element) FiniteRing.this.getNeutralElement())) { 
+//					if (getInverseElement(second) == null) {
+//						setInverseElement((Element) second,(Element) first);
+//					}
+//				}
+//			}
+//		}
 		tmpMap.put(second, ans);
-		Map<SemiGroupElement, SemiGroupElement> secondTmpMap = this.getOperationMap().get(second);
+		Map<Element, Element> secondTmpMap = this.getOperationMap().get(second);
 		if (secondTmpMap == null) {
 			secondTmpMap = new HashMap<>();
 		}
 		secondTmpMap.put(first, ans);
 		this.getOperationMap().put(first, tmpMap);
 		this.getOperationMap().put(second, secondTmpMap);
-		return (FiniteRingElement) ans;
+		return (Element) ans;
 
 	}
 

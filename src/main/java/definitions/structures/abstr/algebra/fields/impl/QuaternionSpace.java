@@ -10,11 +10,9 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
-import definitions.structures.abstr.algebra.groups.GroupElement;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
-import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
@@ -90,7 +88,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public Scalar conjugate(final Scalar value) {
 		final Quaternion v = (Quaternion) value;
-		return new Quaternion(v.getReal().getValue(), -v.getI().getValue(), -v.getJ().getValue(), -v.getK().getValue());
+		return new Quaternion(v.getReal().getDoubleValue(), -v.getI().getDoubleValue(), -v.getJ().getDoubleValue(), -v.getK().getDoubleValue());
 	}
 
 	@Override
@@ -111,7 +109,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public GroupElement getInverseElement(final GroupElement element) {
+	public Element getInverseElement(final Element element) {
 		return super.getInverseElement(element);
 	}
 
@@ -181,7 +179,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public GroupElement getNeutralElement() {
+	public Element getNeutralElement() {
 		return super.getNeutralElement();
 	}
 
@@ -196,7 +194,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public boolean isIrreducible(final RingElement element) {
+	public boolean isIrreducible(final Element element) {
 		return Field.super.isIrreducible(element);
 	}
 

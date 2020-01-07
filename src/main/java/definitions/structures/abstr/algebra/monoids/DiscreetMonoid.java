@@ -1,9 +1,8 @@
 package definitions.structures.abstr.algebra.monoids;
 
-import definitions.structures.abstr.algebra.groups.DiscreetMonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroup;
-import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroupElement;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface DiscreetMonoid extends Monoid, DiscreetSemiGroup {
 	/**
@@ -12,7 +11,7 @@ public interface DiscreetMonoid extends Monoid, DiscreetSemiGroup {
 	 * @return the neutral element of the semi group
 	 */
 	@Override
-	DiscreetMonoidElement getNeutralElement();
+	Element getNeutralElement();
 	
 	/**
 	 * the operation on the monoid.
@@ -22,7 +21,7 @@ public interface DiscreetMonoid extends Monoid, DiscreetSemiGroup {
 	 * @return product of both of them
 	 */
 	@Override
-	DiscreetMonoidElement operation(SemiGroupElement first, SemiGroupElement second);
+	Element operation(Element first, Element second);
 	
 
 	/**
@@ -33,5 +32,5 @@ public interface DiscreetMonoid extends Monoid, DiscreetSemiGroup {
 	 * @return the corresponding monoid element.
 	 */
 	@Override
-	DiscreetMonoidElement get(Integer representant);
+	Element get(Integer representant);
 }

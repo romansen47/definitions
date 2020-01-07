@@ -2,15 +2,15 @@ package definitions.structures.abstr.algebra.rings;
 
 import definitions.structures.abstr.algebra.fields.FiniteField;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
-import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface FiniteDomain extends IntegralDomain, FiniteField {
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean divides(final RingElement devisor, final RingElement devident) {
+	default boolean divides(final Element devisor, final Element devident) {
 		return this.getCoFactor(devisor, devident) != null;
 	}
 
@@ -21,14 +21,19 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	 * @param divident
 	 * @return the co factor
 	 */
-	default FiniteRingElement getCoFactor(final RingElement divisor, final RingElement divident) {
-		for (final SemiGroupElement el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
+	default Element getCoFactor(final Element divisor, final Element divident) {
+		for (final Element el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
 				.keySet()) {
 			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
-				return (FiniteRingElement) el;
+				return (Element) el;
 			}
 		}
 		return null;
+	}
+
+	@Override
+	default Element getInverseElement(Element element) { 
+		return FiniteField.super.getInverseElement(element);
 	}
 
 }

@@ -28,7 +28,7 @@ public abstract class Monome extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(Math.pow(input.getValue(), this.degree));
+		return this.getField().get(Math.pow(input.getDoubleValue(), this.degree));
 	}
 
 }

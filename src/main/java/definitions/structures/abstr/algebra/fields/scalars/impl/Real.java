@@ -13,8 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.stereotype.Component;
 
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -50,7 +50,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public double doubleValue() {
-		return this.getValue();
+		return this.getDoubleValue();
 	}
 
 //	public Real(double value) {
@@ -70,7 +70,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return (vec instanceof Real && Math.abs(((Real) vec).getValue() - this.getValue()) < this.eps);
+		return (vec instanceof Real && Math.abs(((Real) vec).getDoubleValue() - this.getDoubleValue()) < this.eps);
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public float floatValue() {
-		return (float) this.getValue();
+		return (float) this.getDoubleValue();
 	}
 
 	/**
@@ -125,9 +125,9 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@Override
 	@XmlAttribute
 	public Scalar getInverse() {
-		if (Math.abs(this.getValue()) > 1.e-15) {
+		if (Math.abs(this.getDoubleValue()) > 1.e-15) {
 			final Real ans = new Real();
-			ans.setValue(1 / this.getValue());
+			ans.setValue(1 / this.getDoubleValue());
 			return ans;
 		}
 		System.out.println("Devision by 0.0!");
@@ -139,7 +139,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	@XmlAttribute
-	public double getValue() {
+	public double getDoubleValue() {
 		return this.realValue;
 	}
 
@@ -148,7 +148,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public int intValue() {
-		return (int) this.getValue();
+		return (int) this.getDoubleValue();
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public long longValue() {
-		return (long) this.getValue();
+		return (long) this.getDoubleValue();
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "" + this.getValue();
+		return "" + this.getDoubleValue();
 	}
 
 	/**

@@ -165,7 +165,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 			int j = 0;
 			for (final Vector vec2 : base) {
 				scalarProducts[i][j] = this.innerProduct(vec1, vec2);
-				System.out.print((scalarProducts[i][j].getValue() - (scalarProducts[i][j].getValue() % 0.001)) + ",");
+				System.out.print((scalarProducts[i][j].getDoubleValue() - (scalarProducts[i][j].getDoubleValue() % 0.001)) + ",");
 				j++;
 			}
 			System.out.println("");

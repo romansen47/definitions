@@ -6,31 +6,20 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.math3.util.Pair;
 
-import definitions.structures.abstr.algebra.fields.DiscreetField;
-import definitions.structures.abstr.algebra.fields.DiscreetFieldElement;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.monoids.FiniteMonoidElement;
-import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
-import definitions.structures.abstr.algebra.rings.DiscreetRingElement;
-import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
-import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroupElement;
-import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroupElement;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.abstr.algebra.monoids.Monoid; 
+import definitions.structures.abstr.algebra.semigroups.Element; 
 
 public interface IGroupGenerator {
 
-	class Fraction extends Pair<MonoidElement, MonoidElement> implements GroupElement {
+	class Fraction extends Pair<Element, Element> implements Element {
 		private static final long serialVersionUID = -4136163547473234129L;
 		private final Monoid baseGroup;
-		private final MonoidElement k;
-		private final MonoidElement v;
+		private final Element k;
+		private final Element v;
 
-		public Fraction(MonoidElement k, MonoidElement v, Monoid baseGroup) {
+		public Fraction(Element k, Element v, Monoid baseGroup) {
 			super(k, v);
 			this.k = k;
 			this.v = v;
@@ -46,61 +35,28 @@ public interface IGroupGenerator {
 			return false;
 		}
 
-		public MonoidElement getK() {
+		public Element getK() {
 			return k;
 		}
 
-		public MonoidElement getV() {
+		public Element getV() {
 			return v;
 		}
 
 		public Monoid getBaseGroup() {
 			return baseGroup;
 		}
-	}
-
-	class DiscreetFraction extends Fraction implements DiscreetGroupElement {
-		public DiscreetFraction(DiscreetMonoidElement k, DiscreetMonoidElement v, DiscreetMonoid baseGroup) {
-			super(k, v, baseGroup);
-		}
-
-		@Override
-		public int getRepresentant() {
-			return ((DiscreetSemiGroupElement) getK()).getRepresentant()
-					- ((DiscreetSemiGroupElement) getV()).getRepresentant();
-		}
-
-		@Override
-		public String toString() {
-			return String.valueOf(getRepresentant());
-		}
-	}
-	
-	class DiscreetRingFraction extends DiscreetFraction implements DiscreetFieldElement {
-		public DiscreetRingFraction(DiscreetRingElement k, DiscreetRingElement v, DiscreetRing baseGroup) {
-			super(k, v, baseGroup);
-		}
-
-		@Override
-		public Scalar getInverse() { 
-			return new DiscreetRingFraction((DiscreetRingElement)getV(),(DiscreetRingElement)getK(),(DiscreetRing)getBaseGroup());
-		}
-
-		Map<Vector, Scalar> coordinates=new HashMap<>();
 		
 		@Override
-		public Map<Vector, Scalar> getCoordinates() { 
-			return null;
+		public String toString() {
+			return "("+getK().getRepresentant()+","+getV().getRepresentant()+")";
 		}
+	}
 
-		@Override
-		public void setCoordinates(Map<Vector, Scalar> coordinates) {
-			this.coordinates=coordinates;
+	class DiscreetFraction extends Fraction implements Element {
+		public DiscreetFraction(Element k, Element v, DiscreetMonoid baseGroup) {
+			super(k, v, baseGroup);
 		}
-
-		@Override
-		public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) { 
-		} 
 	}
 
 	default Group completion(Monoid m) {
@@ -109,25 +65,25 @@ public interface IGroupGenerator {
 			final private Monoid monoid = m;
 
 			@Override
-			public GroupElement getNeutralElement() {
-				MonoidElement neutralElement = monoid.getNeutralElement();
+			public Element getNeutralElement() {
+				Element neutralElement = monoid.getNeutralElement();
 				return new Fraction(neutralElement, neutralElement, monoid);
 			}
 
 			@Override
-			public MonoidElement operation(SemiGroupElement first, SemiGroupElement second) {
-				MonoidElement firstOp = monoid.operation(((Fraction) first).getK(), ((Fraction) second).getK());
-				MonoidElement secondOp = monoid.operation(((Fraction) first).getV(), ((Fraction) second).getV());
+			public Element operation(Element first, Element second) {
+				Element firstOp = monoid.operation(((Fraction) first).getK(), ((Fraction) second).getK());
+				Element secondOp = monoid.operation(((Fraction) first).getV(), ((Fraction) second).getV());
 				return new Fraction(firstOp, secondOp, monoid);
 			}
 
 			@Override
-			public GroupElement getInverseElement(GroupElement element) {
+			public Element getInverseElement(Element element) {
 				Fraction x = (Fraction) element;
 				return new Fraction(x.getV(), x.getK(), monoid);
 			}
 
-			public MonoidElement get(MonoidElement element) {
+			public Element get(Element element) {
 				return new Fraction(element, monoid.getNeutralElement(), monoid);
 			}
 
@@ -140,111 +96,73 @@ public interface IGroupGenerator {
 			final private DiscreetMonoid monoid = m;
 
 			@Override
-			public DiscreetGroupElement getNeutralElement() {
-				DiscreetMonoidElement neutralElement = monoid.getNeutralElement();
+			public Element getNeutralElement() {
+				Element neutralElement = monoid.getNeutralElement();
 				return new DiscreetFraction(neutralElement, neutralElement, monoid);
 			}
 
 			@Override
-			public DiscreetMonoidElement operation(SemiGroupElement first, SemiGroupElement second) {
-				DiscreetMonoidElement firstOp = monoid.operation(((DiscreetFraction) first).getK(),
+			public Element operation(Element first, Element second) {
+				Element firstOp = monoid.operation(((DiscreetFraction) first).getK(),
 						((DiscreetFraction) second).getK());
-				DiscreetMonoidElement secondOp = monoid.operation(((DiscreetFraction) first).getV(),
+				Element secondOp = monoid.operation(((DiscreetFraction) first).getV(),
 						((DiscreetFraction) second).getV());
 				return new DiscreetFraction(firstOp, secondOp, monoid);
 			}
 
 			@Override
-			public DiscreetGroupElement getInverseElement(GroupElement element) {
+			public Element getInverseElement(Element element) {
 				DiscreetFraction x = (DiscreetFraction) element;
-				return new DiscreetFraction((DiscreetMonoidElement) x.getV(), (DiscreetMonoidElement) x.getK(), monoid);
+				return new DiscreetFraction((Element) x.getV(), (Element) x.getK(), monoid);
 			}
 
-			public DiscreetGroupElement get(Integer representant) {
-				DiscreetMonoidElement neutral = monoid.getNeutralElement();
+			public Element get(Integer representant) {
+				Element neutral = monoid.getNeutralElement();
 				if (representant >= 0) {
-					DiscreetMonoidElement element = monoid.get(representant);
+					Element element = monoid.get(representant);
 					return new DiscreetFraction(element, neutral, monoid);
 				} else {
-					DiscreetMonoidElement element = monoid.get(-representant);
+					Element element = monoid.get(-representant);
 					return new DiscreetFraction(neutral, element, monoid);
 				}
 			}
+
 		};
 	}
 	
-	default DiscreetField completion(DiscreetRing m) {
-		return new DiscreetField() {
-
-			final private DiscreetMonoid monoid = m;
-
-			@Override
-			public DiscreetFieldElement getNeutralElement() {
-				DiscreetFieldElement neutralElement = monoid.getNeutralElement();
-				return new DiscreetRingFraction(neutralElement, neutralElement, monoid);
-			}
-
-			@Override
-			public DiscreetFieldElement operation(SemiGroupElement first, SemiGroupElement second) {
-				DiscreetFieldElement firstOp = monoid.operation(((DiscreetFraction) first).getK(),
-						((DiscreetFraction) second).getK());
-				DiscreetFieldElement secondOp = monoid.operation(((DiscreetFraction) first).getV(),
-						((DiscreetFraction) second).getV());
-				return new DiscreetFraction(firstOp, secondOp, monoid);
-			}
-
-			@Override
-			public DiscreetGroupElement getInverseElement(GroupElement element) {
-				DiscreetFraction x = (DiscreetFraction) element;
-				return new DiscreetFraction((DiscreetMonoidElement) x.getV(), (DiscreetMonoidElement) x.getK(), monoid);
-			}
-
-			public DiscreetGroupElement get(Integer representant) {
-				DiscreetMonoidElement neutral = monoid.getNeutralElement();
-				if (representant >= 0) {
-					DiscreetMonoidElement element = monoid.get(representant);
-					return new DiscreetFraction(element, neutral, monoid);
-				} else {
-					DiscreetMonoidElement element = monoid.get(-representant);
-					return new DiscreetFraction(neutral, element, monoid);
-				}
-			}
-		};
-	}
-
-	class ProductElement extends Pair<FiniteMonoidElement, FiniteMonoidElement> implements FiniteMonoidElement {
+	class ProductElement extends Pair<Element, Element> implements Element {
 		private static final long serialVersionUID = 1L;
 
-		private final DiscreetSemiGroupElement k;
-		private final DiscreetSemiGroupElement v;
+		private final Element k;
+		private final Element v;
 
 		private int representant;
 
-		public ProductElement(final FiniteMonoidElement finiteSemiGroupElement,
-				final FiniteMonoidElement finiteSemiGroupElement2) {
-			super(finiteSemiGroupElement, finiteSemiGroupElement2);
-			this.k = finiteSemiGroupElement;
-			this.v = finiteSemiGroupElement2;
+		public ProductElement(final Element Element,
+				final Element Element2) {
+			super(Element, Element2);
+			this.k = Element;
+			this.v = Element2;
 		}
 
 		@Override
 		public String toString() {
-			if (this.k instanceof FiniteGroupElement && this.v instanceof FiniteGroupElement) {
-				final FiniteGroupElement u = (FiniteGroupElement) this.k;
-				final FiniteGroupElement w = (FiniteGroupElement) this.v;
+			if (this.k instanceof Element && this.v instanceof Element) {
+				final Element u = (Element) this.k;
+				final Element w = (Element) this.v;
 				return " ( " + u.getRepresentant() + " , " + w.getRepresentant() + " ) ";
 			}
 			return " ( " + this.k.toString() + " , " + this.v.toString() + " ) ";
 		}
 
 		@Override
-		public int getRepresentant() {
+		public Integer getRepresentant() {
 			return representant;
 		}
 
 	}
 
-	FiniteResidueClassRing getFiniteResidueClassRing(int order);
+//	FiniteResidueClassRing getFiniteResidueClassRing(int order);
 
 	default FiniteMonoid outerProduct(final FiniteMonoid a, final FiniteMonoid b) {
 		FiniteMonoid ans = null;
@@ -254,29 +172,29 @@ public interface IGroupGenerator {
 				 * 
 				 */
 				private static final long serialVersionUID = -6631649574912990607L;
-				private Map<Integer, FiniteSemiGroupElement> elements = new ConcurrentHashMap<>();
-				private Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> operationMap = null;
-				private int order = a.getOrder() * b.getOrder();
+				private Map<Integer, Element> elements = new ConcurrentHashMap<>();
+				private Map<Element, Map<Element, Element>> operationMap = null;
+				private int order = a.getOrder() * b.getOrder(); 
 
 				@Override
-				public DiscreetSemiGroupElement get(final Integer representant) {
+				public Element get(final Integer representant) {
 					return getElements().get(representant);
 				}
 
 				@Override
-				public FiniteMonoidElement getNeutralElement() {
-					return new ProductElement((FiniteMonoidElement) a.getNeutralElement(),
-							(FiniteMonoidElement) b.getNeutralElement());
+				public Element getNeutralElement() {
+					return new ProductElement((Element) a.getNeutralElement(),
+							(Element) b.getNeutralElement());
 				}
 
 				@Override
-				public Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> getOperationMap() {
+				public Map<Element, Map<Element, Element>> getOperationMap() {
 					if (this.operationMap == null) {
 						for (int i = 0; i < a.getOrder(); i++) {
 							for (int j = 0; j < b.getOrder(); j++) {
-								final ProductElement tmp = new ProductElement((FiniteMonoidElement) a.get(i),
-										(FiniteMonoidElement) b.get(j));
-								getElements().put(i * b.getOrder() + j, (FiniteSemiGroupElement) tmp);
+								final ProductElement tmp = new ProductElement((Element) a.get(i),
+										(Element) b.get(j));
+								getElements().put(i * b.getOrder() + j, (Element) tmp);
 							}
 						}
 						this.operationMap = new HashMap<>();
@@ -295,36 +213,36 @@ public interface IGroupGenerator {
 				}
 
 				@Override
-				public FiniteMonoidElement operation(final SemiGroupElement first, final SemiGroupElement second) {
-					Map<SemiGroupElement, Map<SemiGroupElement, SemiGroupElement>> u = operationMap;
-					Map<SemiGroupElement, SemiGroupElement> x = u.get(first);
-					SemiGroupElement ans;
+				public Element operation(final Element first, final Element second) {
+					Map<Element, Map<Element, Element>> u = operationMap;
+					Map<Element, Element> x = u.get(first);
+					Element ans;
 					if (x == null) {
 						x = new ConcurrentHashMap<>();
 						u.put(first, x);
 					}
 					ans = x.get(second);
 					if (ans != null) {
-						return (FiniteMonoidElement) ans;
+						return (Element) ans;
 					}
 					ans = new ProductElement(
-							(FiniteMonoidElement) a.operation(((ProductElement) first).getFirst(),
+							(Element) a.operation(((ProductElement) first).getFirst(),
 									((ProductElement) second).getFirst()),
-							(FiniteMonoidElement) b.operation(((ProductElement) first).getSecond(),
+							(Element) b.operation(((ProductElement) first).getSecond(),
 									((ProductElement) second).getSecond()));
-					Map<SemiGroupElement, SemiGroupElement> tmpMap = this.operationMap.get(first);
+					Map<Element, Element> tmpMap = this.operationMap.get(first);
 					if (tmpMap == null) {
 						tmpMap = new HashMap<>();
 					}
 					tmpMap.put(second, ans);
 					this.operationMap.put(first, tmpMap);
-					return (FiniteMonoidElement) ans;
+					return (Element) ans;
 				}
 
 				/**
 				 * @return the elements
 				 */
-				public Map<Integer, FiniteSemiGroupElement> getElements() {
+				public Map<Integer, Element> getElements() {
 					return elements;
 				}
 
@@ -335,8 +253,8 @@ public interface IGroupGenerator {
 //				private long serialVersionUID = 1L;
 //
 //				@Override
-//				public MonoidElement getNeutralElement() {
-//					return new ProductElement((DiscreetSemiGroupElement)a.getNeutralElement(), (DiscreetSemiGroupElement)b.getNeutralElement());
+//				public Element getNeutralElement() {
+//					return new ProductElement((DiscreetSemiElement)a.getNeutralElement(), (DiscreetSemiElement)b.getNeutralElement());
 //				}
 //
 //				@Override
@@ -345,14 +263,14 @@ public interface IGroupGenerator {
 //				}
 //
 //				@Override
-//				public SemiGroupElement operation(final SemiGroupElement first, final SemiGroupElement second) {
+//				public SemiElement operation(final SemiElement first, final SemiElement second) {
 //					return new ProductElement(
-//							(DiscreetSemiGroupElement)a.operation(((ProductElement) first).getFirst(), ((ProductElement) first).getSecond()),
-//							(DiscreetSemiGroupElement)b.operation(((ProductElement) second).getFirst(), ((ProductElement) second).getSecond()));
+//							(DiscreetSemiElement)a.operation(((ProductElement) first).getFirst(), ((ProductElement) first).getSecond()),
+//							(DiscreetSemiElement)b.operation(((ProductElement) second).getFirst(), ((ProductElement) second).getSecond()));
 //				}
 //
 //				@Override
-//				public DiscreetSemiGroupElement get(Integer representant) {
+//				public DiscreetSemiElement get(Integer representant) {
 //					// TODO Auto-generated method stub
 //					return null;
 //				}

@@ -14,8 +14,8 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.rings.impl.Integers;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.Ring;
-import definitions.structures.abstr.vectorspaces.RingElement;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -23,12 +23,12 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class IntegersTest extends AspectJTest {
 
 	private Domain integers;
-	private RingElement zero;
-	private RingElement one;
-	private RingElement three;
-	private RingElement minusOne;
-	RingElement five;
-	RingElement six;
+	private Element zero;
+	private Element one;
+	private Element three;
+	private Element minusOne;
+	Element five;
+	Element six;
 	private int maxInt = 1000;
 
 	Function f;
@@ -39,7 +39,7 @@ public class IntegersTest extends AspectJTest {
 	public void before() {
 
 		this.integers = Integers.getInstance();
-		this.zero = (RingElement) this.integers.getNeutralElement();
+		this.zero = (Element) this.integers.getNeutralElement();
 		this.one = ((Integers) this.integers).get(1);
 		this.three = ((Integers) this.integers).get(3);
 		this.minusOne = ((Integers) this.integers).get(-1);
@@ -69,9 +69,9 @@ public class IntegersTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				int ans = 1;
-				for (int i = 0; i < input.getValue(); i++) {
+				for (int i = 0; i < input.getDoubleValue(); i++) {
 					if (IntegersTest.this.integers
-							.isPrimeElement((RingElement) ((DiscreetGroup) IntegersTest.this.integers).get(i))) {
+							.isPrimeElement((Element) ((DiscreetGroup) IntegersTest.this.integers).get(i))) {
 						ans++;
 					}
 				}
@@ -82,7 +82,7 @@ public class IntegersTest extends AspectJTest {
 
 	}
 
-	protected RingElement getFive() {
+	protected Element getFive() {
 		return this.five;
 	}
 
@@ -94,27 +94,27 @@ public class IntegersTest extends AspectJTest {
 		return this.maxInt;
 	}
 
-	protected RingElement getMinusOne() {
+	protected Element getMinusOne() {
 		return this.minusOne;
 	}
 
-	protected RingElement getOne() {
+	protected Element getOne() {
 		return this.one;
 	}
 
-	protected RingElement getSix() {
+	protected Element getSix() {
 		return this.six;
 	}
 
-	protected RingElement getThree() {
+	protected Element getThree() {
 		return this.three;
 	}
 
-	protected RingElement getZero() {
+	protected Element getZero() {
 		return this.zero;
 	}
 
-	protected void setFive(final RingElement five) {
+	protected void setFive(final Element five) {
 		this.five = five;
 	}
 
@@ -126,23 +126,23 @@ public class IntegersTest extends AspectJTest {
 		this.maxInt = maxInt;
 	}
 
-	protected void setMinusOne(final RingElement minusOne) {
+	protected void setMinusOne(final Element minusOne) {
 		this.minusOne = minusOne;
 	}
 
-	protected void setOne(final RingElement one) {
+	protected void setOne(final Element one) {
 		this.one = one;
 	}
 
-	protected void setSix(final RingElement six) {
+	protected void setSix(final Element six) {
 		this.six = six;
 	}
 
-	protected void setThree(final RingElement three) {
+	protected void setThree(final Element three) {
 		this.three = three;
 	}
 
-	protected void setZero(final RingElement zero) {
+	protected void setZero(final Element zero) {
 		this.zero = zero;
 	}
 

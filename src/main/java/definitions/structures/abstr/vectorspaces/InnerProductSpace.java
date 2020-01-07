@@ -28,7 +28,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	@Override
 	default Real norm(final Vector vec) {
-		return RealLine.getInstance().get(Math.sqrt(this.innerProduct(vec, vec).getValue()));
+		return RealLine.getInstance().get(Math.sqrt(this.innerProduct(vec, vec).getDoubleValue()));
 	}
 
 	/**

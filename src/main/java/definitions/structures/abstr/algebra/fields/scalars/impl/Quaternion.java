@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -148,8 +148,8 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@XmlAttribute
 	@Override
-	public double getValue() {
-		return this.getReal().getValue();
+	public double getDoubleValue() {
+		return this.getReal().getDoubleValue();
 	}
 
 	/**
@@ -165,8 +165,8 @@ public class Quaternion extends Tuple implements FieldElement {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "(" + this.getReal().getValue() + "," + this.getI().getValue() + "," + this.getJ().getValue() + ","
-				+ this.getK().getValue() + ")";
+		return "(" + this.getReal().getDoubleValue() + "," + this.getI().getDoubleValue() + "," + this.getJ().getDoubleValue() + ","
+				+ this.getK().getDoubleValue() + ")";
 	}
 
 }

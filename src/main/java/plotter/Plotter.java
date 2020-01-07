@@ -29,9 +29,9 @@ public interface Plotter {
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
 				final Scalar sc = ((Function) fun).value(((Function) fun).getField().get(z));
-				StdDraw.line(z, sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)).getValue(),
+				StdDraw.line(z, sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)).getDoubleValue(),
 						z + delta, ((Function) fun).value(((Function) fun).getField().get(z + delta)).getCoordinates()
-								.get(vec).getValue());
+								.get(vec).getDoubleValue());
 			}
 		}
 
@@ -43,14 +43,14 @@ public interface Plotter {
 		final double delta = (right - left) / count;
 		this.preparePlot(fun1, left, right, stddraw, count, delta);
 		Scalar tmp = ((Function) fun1).getField().get(left);
-		double alpha = ((Function) fun1).value(tmp).getValue();
-		double beta = ((Function) fun2).value(tmp).getValue();
+		double alpha = ((Function) fun1).value(tmp).getDoubleValue();
+		double beta = ((Function) fun2).value(tmp).getDoubleValue();
 		double z = 0;
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
 			tmp = ((Function) fun1).getField().get(z + delta);
-			final double alphaNext = ((Function) fun1).value(tmp).getValue();
-			final double betaNext = ((Function) fun2).value(tmp).getValue();
+			final double alphaNext = ((Function) fun1).value(tmp).getDoubleValue();
+			final double betaNext = ((Function) fun2).value(tmp).getDoubleValue();
 			StdDraw.setPenRadius(0.0035);
 			StdDraw.setPenColor(Color.blue);
 			StdDraw.line(z, alpha, z + delta, alphaNext);
@@ -66,11 +66,11 @@ public interface Plotter {
 	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,
 			final int count, final double delta) {
 		double x = 0;
-		double min = ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)).getValue();
+		double min = ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)).getDoubleValue();
 		double max = min;
 		for (double i = 0; i < (count - 1); i += 1) {
 			x = left + (delta * i);
-			final double y = ((Function) fun).value(((Function) fun).getField().get(x)).getValue();
+			final double y = ((Function) fun).value(((Function) fun).getField().get(x)).getDoubleValue();
 			if (y > max) {
 				max = y;
 			}

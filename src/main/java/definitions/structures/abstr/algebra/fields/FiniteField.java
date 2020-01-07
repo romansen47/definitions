@@ -1,10 +1,7 @@
 package definitions.structures.abstr.algebra.fields;
-
-import definitions.structures.abstr.algebra.fields.scalars.FiniteFieldElement;
+ 
 import definitions.structures.abstr.algebra.rings.FiniteRing;
-import definitions.structures.abstr.algebra.rings.FiniteRingElement;
-import definitions.structures.abstr.algebra.semigroups.SemiGroupElement;
-import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -12,61 +9,21 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *
  */
 public interface FiniteField extends Field, FiniteRing {
-
-	/**
-	 * Getter for the identity element
-	 * 
-	 * @return the neutral element of the semi group
-	 */
-	@Override
-	FiniteFieldElement getNeutralElement();
-	
+ 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean divides(final RingElement devisor, final RingElement devident) {
-		return Field.super.divides(devisor, devident);
+	default FieldElement operation(final Element first, final Element second) {
+		return (FieldElement) Field.super.operation(first, second);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	default boolean isIrreducible(final RingElement element) {
-		return Field.super.isIrreducible(element);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default boolean isPrimeElement(final RingElement element) {
-		return Field.super.isPrimeElement(element);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default boolean isUnit(final RingElement element) {
-		return Field.super.isUnit(element);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default FiniteFieldElement operation(final SemiGroupElement first, final SemiGroupElement second) {
-		return (FiniteFieldElement) Field.super.operation(first, second);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default FiniteFieldElement product(final Vector vec1, final Vector vec2) {
-		return (FiniteFieldElement) this.getMuliplicativeMonoid().operation(vec1, vec2);
+	default FieldElement product(final Vector vec1, final Vector vec2) {
+		return (FieldElement) this.getMuliplicativeMonoid().operation(vec1, vec2);
 	}
 
 	/**
@@ -82,6 +39,19 @@ public interface FiniteField extends Field, FiniteRing {
 			xmlString += "<primeField>" + this.getPrimeField().toXml() + "</primeField>";
 		}
 		return xmlString;
+	}
+
+	@Override
+	FieldElement getNeutralElement();
+
+	@Override
+	default boolean isUnit(Element element) { 
+		return Field.super.isUnit(element);
+	}
+
+	@Override
+	default Element getInverseElement(Element element) {
+		return FiniteRing.super.getInverseElement(element);
 	}
 
 }

@@ -60,7 +60,7 @@ public class PolynomialRegressionTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return realLine.get(Math.exp(input.getValue()));
+				return realLine.get(Math.exp(input.getDoubleValue()));
 			}
 		};
 
@@ -76,7 +76,7 @@ public class PolynomialRegressionTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getDoubleValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues[0][k] < l) {
@@ -94,7 +94,7 @@ public class PolynomialRegressionTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = (input.getValue() + Math.PI) / (2 * Math.PI) * this.length;
+				final double newInput = (input.getDoubleValue() + Math.PI) / (2 * Math.PI) * this.length;
 				int k = 1;
 				final int l = (int) (newInput - (newInput % 1));
 				while (k < testValues2[0].length - 1 && testValues2[0][k - 1] < l) {

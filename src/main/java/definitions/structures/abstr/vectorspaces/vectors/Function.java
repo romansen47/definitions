@@ -67,8 +67,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(this.value(this.getField().get(x)).getValue()
-					- other.value(RealLine.getInstance().get(x)).getValue()) > eps) {
+			if (Math.abs(this.value(this.getField().get(x)).getDoubleValue()
+					- other.value(RealLine.getInstance().get(x)).getDoubleValue()) > eps) {
 				return false;
 			}
 		}
@@ -117,7 +117,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = fun.value(f.get(input.getValue() + eps)).getValue() - fun.value(input).getValue();
+					final double dy = fun.value(f.get(input.getDoubleValue() + eps)).getDoubleValue() - fun.value(input).getDoubleValue();
 					final double dx = eps;
 					return f.get(dy / dx);
 				}

@@ -6,7 +6,7 @@ package definitions.structures.abstr.mappings;
 import java.io.Serializable;
 
 import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
  * @author ro
@@ -20,7 +20,7 @@ public interface Mapping extends Serializable {
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
-	MonoidElement get(MonoidElement vec);
+	Element get(Element vec);
 
 	/**
 	 * Getter for the source space.

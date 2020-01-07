@@ -2,11 +2,11 @@ package definitions.structures.abstr.algebra.groups.impl;
 
 import org.springframework.stereotype.Component;
 
-import definitions.structures.abstr.algebra.rings.DiscreetRingElement;
-import definitions.structures.abstr.vectorspaces.RingElement;
+import definitions.settings.XmlPrintable;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 @Component(value = "int")
-public class Int implements RingElement, DiscreetRingElement {
+public class Int implements Element,XmlPrintable {
 
 	private static final long serialVersionUID = -1727262864036395099L;
 
@@ -32,8 +32,7 @@ public class Int implements RingElement, DiscreetRingElement {
 		return false;
 	}
 
-	@Override
-	public int getRepresentant() {
+	public Integer getRepresentant() {
 		return this.representant;
 	}
 

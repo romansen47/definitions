@@ -77,7 +77,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getDoubleValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (k + 1 < GenericTrigonometricSpaceTest.this.testValues[0].length

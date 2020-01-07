@@ -5,8 +5,7 @@ package definitions.structures.abstr.algebra.semigroups;
 
 import java.io.Serializable;
 
-import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.settings.XmlPrintable; 
 
 /**
  * @author RoManski
@@ -37,6 +36,6 @@ public interface SemiGroup extends Serializable, XmlPrintable {
 	 * @param second second monoid element
 	 * @return product of both of them
 	 */
-	SemiGroupElement operation(SemiGroupElement first, SemiGroupElement second);
+	Element operation(Element first, Element second);
 
 }

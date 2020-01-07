@@ -5,6 +5,7 @@ import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -52,7 +53,7 @@ public class FunctionTuple extends Tuple implements Function {
 			private static final long serialVersionUID = 8910643729270807923L;
 
 			@Override
-			public Vector get(final Vector vec2) {
+			public Vector get(final Element vec2) {
 				return ((Function) vec2).getDerivative();
 			}
 

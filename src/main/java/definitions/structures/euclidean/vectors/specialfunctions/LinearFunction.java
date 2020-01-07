@@ -40,7 +40,7 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(this.a.getValue() + (this.b.getValue() * input.getValue()));
+		return this.getField().get(this.a.getDoubleValue() + (this.b.getDoubleValue() * input.getDoubleValue()));
 	}
 
 }

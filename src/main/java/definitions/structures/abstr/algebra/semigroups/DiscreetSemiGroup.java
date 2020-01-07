@@ -1,7 +1,5 @@
 package definitions.structures.abstr.algebra.semigroups;
 
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
-
 public interface DiscreetSemiGroup extends SemiGroup {
 	
 	/**
@@ -11,5 +9,9 @@ public interface DiscreetSemiGroup extends SemiGroup {
 	 * @param representant the representant of the element.
 	 * @return the corresponding monoid element.
 	 */
-	DiscreetSemiGroupElement get(Integer representant);
+	Element get(Integer representant);
+
+	default Integer getRepresentant(Element first) {
+		return first.getRepresentant();
+	};
 }

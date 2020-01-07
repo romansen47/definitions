@@ -8,33 +8,32 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
-import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroup;
-import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroupElement;
-import definitions.structures.abstr.algebra.semigroups.impl.Naturals;
-import definitions.structures.abstr.algebra.semigroups.impl.NaturalsWithZero;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.dynamicsystems.DiscreetDynamicSystem;
 import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.impl.Naturals;
 
 public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	private OrderedMonoid timeSpace;
 	private VectorSpace phaseSpace;
 	private DynamicSystem dinamicSystem;
+	private Function evolutionOperator;
 	private Vector startVector;
 	private final int iterations = 21;
 
 	@Before
 	public void beforeTest() {
-		this.timeSpace = NaturalsWithZero.getInstance();
+		this.timeSpace = new Naturals();
 		this.phaseSpace = ComplexPlane.getInstance();
-		this.startVector = ((EuclideanSpace) this.phaseSpace).genericBaseToList().get(0);
-		final Function evolutionOperator = new GenericFunction() {
+		this.startVector = ((EuclideanSpace) this.phaseSpace).genericBaseToList().get(1);
+		this.evolutionOperator = new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -53,7 +52,22 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 				return (Scalar) DiscreetDynamicSystemTest.this.phaseSpace.stretch(input, factor);
 			}
 		};
-		this.dinamicSystem = new DiscreetDynamicSystem(this.phaseSpace, evolutionOperator) {
+		this.dinamicSystem = new DynamicSystem() {
+
+			@Override
+			public Function getEvolutionOperator(Element tmp) {
+				return evolutionOperator;
+			}
+
+			@Override
+			public VectorSpace getPhaseSpace() { 
+				return phaseSpace;
+			}
+
+			@Override
+			public OrderedMonoid getTimeSpace() { 
+				return timeSpace;
+			}
 		};
 	}
 
@@ -89,10 +103,10 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	public void test() {
 		Vector vec = this.startVector;
 		for (int i = 0; i < this.iterations; i++) {
-			final DiscreetSemiGroupElement tmp =  ((DiscreetSemiGroup)Naturals.getInstance()).get(i);
+			final Element tmp =  ((DiscreetMonoid) this.timeSpace).get(i);
 			final Function evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
 			vec = evolutionOp.value((Scalar) vec);
-			getLogger().info(i + ": " + vec.toString());
+			getLogger().info("\r"+i + ": " + vec.toXml());
 		}
 	}
 

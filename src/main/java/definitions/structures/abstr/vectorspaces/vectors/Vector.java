@@ -1,7 +1,7 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.algebra.groups.GroupElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 /**
@@ -10,7 +10,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
  * @author ro
  *
  */
-public interface Vector extends GroupElement, XmlPrintable {
+public interface Vector extends Element, XmlPrintable {
 
 	/**
 	 * Method to verify that the vector is contained by a specific vector space.

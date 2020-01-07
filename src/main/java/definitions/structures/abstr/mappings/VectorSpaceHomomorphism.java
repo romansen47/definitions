@@ -4,7 +4,7 @@ import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -21,10 +21,7 @@ public interface VectorSpaceHomomorphism extends Vector, MonoidHomomorphism {
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
-	default Vector get(final Vector vec) {
-		final MonoidElement vector = vec;
-		return (Vector) this.get(vector);
-	}
+	Vector get(final Element vec);
 
 	/**
 	 * the generic matrix in correspondance with the ordered bases of the source and

@@ -45,15 +45,15 @@ public interface ISpaceGenerator {
 			Map<Vector, Scalar> tmp = new HashMap<>();
 			if (vec instanceof Sine) {
 				final Scalar freq = ((Sine) vec).getFrequency();
-				final boolean isSine = ((Sine) vec).getTranslation().getValue() == 0.;
+				final boolean isSine = ((Sine) vec).getTranslation().getDoubleValue() == 0.;
 				for (final Vector otherVec : base) {
 					tmp.put(otherVec, zero);
 					if (otherVec instanceof Sine) {
 						final Scalar otherFreq = ((Sine) otherVec).getFrequency();
-						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getValue() == 0.;
-						if (freq.getValue() == otherFreq.getValue()) {
+						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getDoubleValue() == 0.;
+						if (freq.getDoubleValue() == otherFreq.getDoubleValue()) {
 							if (!isSine && otherIsSine) {
-								tmp.put(otherVec, realLine.get(-freq.getValue()));
+								tmp.put(otherVec, realLine.get(-freq.getDoubleValue()));
 							}
 							if (isSine && !otherIsSine) {
 								tmp.put(otherVec, freq);

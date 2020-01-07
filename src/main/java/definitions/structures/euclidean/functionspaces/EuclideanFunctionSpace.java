@@ -60,9 +60,9 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			final Vector newVec2 = this.functionTuple(vec2);
 			for (final Vector vec : base) {
 				coordinates.put(vec, this.getField()
-						.get(((FiniteVectorMethods) newVec1).getCoordinates().get(this.getBaseVec(vec)).getValue()
+						.get(((FiniteVectorMethods) newVec1).getCoordinates().get(this.getBaseVec(vec)).getDoubleValue()
 								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(this.getBaseVec(vec))
-										.getValue()));
+										.getDoubleValue()));
 			}
 			return new FunctionTuple(coordinates, this);
 		}

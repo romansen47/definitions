@@ -52,7 +52,7 @@ public class PolynomeRegressionTest {
 			// @Override
 			@Override
 			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(Math.sin(input.getValue() * Math.PI));
+				return RealLine.getInstance().get(Math.sin(input.getDoubleValue() * Math.PI));
 			}
 		};
 
@@ -69,7 +69,7 @@ public class PolynomeRegressionTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(Math.exp(input.getValue() * Math.PI));
+				return RealLine.getInstance().get(Math.exp(input.getDoubleValue() * Math.PI));
 			}
 		};
 

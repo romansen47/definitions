@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -24,7 +25,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	 * 
 	 */
 	private static final long serialVersionUID = -261334109954833773L;
-
+	
 	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 	}
@@ -146,7 +147,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 			double x;
 			for (int i = 0; i < matrix.length; i++) {
 				for (int j = 0; j < matrix[i].length; j++) {
-					x = matrix[i][j].getValue();
+					x = matrix[i][j].getDoubleValue();
 					str += " " + (x - (x % 0.001)) + " ";
 				}
 				str += " \r";

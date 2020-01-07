@@ -22,13 +22,13 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 				return null;
 			}
 			return (InvertibleSelfMapping) MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(
-					new Scalar[][] { { ((EuclideanSpace) this.getSource()).getField().get(1. / in.getValue()) } });
+					new Scalar[][] { { ((EuclideanSpace) this.getSource()).getField().get(1. / in.getDoubleValue()) } });
 		}
 		final int k = matrix.length;
 		final Scalar[][] inv = new Scalar[k][k];
 		double det;
 		try {
-			det = 1.0 / this.det(matrix).getValue();
+			det = 1.0 / this.det(matrix).getDoubleValue();
 		} catch (final Exception e) {
 			System.err.println("Division durch 0!");
 			return (InvertibleSelfMapping) MappingGenerator.getInstance()
@@ -37,7 +37,7 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {
 				inv[i][j] = ((EuclideanSpace) this.getSource()).getField().get(Math.pow(-1, (double) i + (double) j)
-						* this.det(this.adjointMatrix(matrix, j, i)).getValue() * det);
+						* this.det(this.adjointMatrix(matrix, j, i)).getDoubleValue() * det);
 			}
 		}
 		return (InvertibleSelfMapping) Generator.getInstance().getMappingGenerator()

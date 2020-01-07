@@ -55,13 +55,13 @@ public class OrthonormalizationTest {
 		b = newBase.get(1);
 		c = newBase.get(2);
 
-		ans1 = space.innerProduct(a, b).getValue();
-		ans2 = space.innerProduct(b, c).getValue();
-		ans3 = space.innerProduct(c, a).getValue();
+		ans1 = space.innerProduct(a, b).getDoubleValue();
+		ans2 = space.innerProduct(b, c).getDoubleValue();
+		ans3 = space.innerProduct(c, a).getDoubleValue();
 
-		ans4 = space.innerProduct(a, a).getValue();
-		ans5 = space.innerProduct(b, b).getValue();
-		ans6 = space.innerProduct(c, c).getValue();
+		ans4 = space.innerProduct(a, a).getDoubleValue();
+		ans5 = space.innerProduct(b, b).getDoubleValue();
+		ans6 = space.innerProduct(c, c).getDoubleValue();
 
 	}
 
@@ -77,7 +77,7 @@ public class OrthonormalizationTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(Math.exp(input.getValue() + Math.exp(-input.getValue())));
+				return RealLine.getInstance().get(Math.exp(input.getDoubleValue() + Math.exp(-input.getDoubleValue())));
 			}
 		};
 		final Vector x = space.getCoordinates(exp);
@@ -89,9 +89,9 @@ public class OrthonormalizationTest {
 
 	@Test
 	public void normalized() throws Throwable {
-		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < this.eps);
-		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < this.eps);
-		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(a).getDoubleValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(b).getDoubleValue() - 1) < this.eps);
+		Assert.assertTrue(Math.abs(space.norm(c).getDoubleValue() - 1) < this.eps);
 	}
 
 	@Test

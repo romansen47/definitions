@@ -114,7 +114,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				double product = 0;
 				Vector tmp1 = vec1;
 				Vector tmp2 = vec2;
-				product += super.innerProduct(tmp1, tmp2).getValue();
+				product += super.innerProduct(tmp1, tmp2).getDoubleValue();
 				for (int i = 0; i < this.getDegree(); i++) {
 					if (((FiniteVectorMethods) tmp1).getCoordinates() == null
 							|| ((FiniteVectorMethods) tmp2).getCoordinates() == null
@@ -125,7 +125,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 						tmp1 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
 						tmp2 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
 					}
-					product += super.innerProduct(tmp1, tmp2).getValue();
+					product += super.innerProduct(tmp1, tmp2).getDoubleValue();
 				}
 				return this.getField().get(product);
 			}

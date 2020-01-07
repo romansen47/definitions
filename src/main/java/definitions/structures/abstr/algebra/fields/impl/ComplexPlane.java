@@ -72,7 +72,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public Complex conjugate(final Scalar value) {
 		final Complex v = (Complex) value;
-		return new Complex(v.getReal().getValue(), -v.getImag().getValue());
+		return new Complex(v.getReal().getDoubleValue(), -v.getImag().getDoubleValue());
 	}
 
 	@Override

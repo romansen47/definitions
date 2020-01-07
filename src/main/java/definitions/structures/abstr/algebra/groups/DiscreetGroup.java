@@ -4,6 +4,7 @@
 package definitions.structures.abstr.algebra.groups;
 
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
  * @author RoManski
@@ -16,7 +17,7 @@ public interface DiscreetGroup extends DiscreetMonoid, Group {
 	 * 
 	 * @return the neutral element of the semi group
 	 */
-	DiscreetGroupElement getNeutralElement();
+	Element getNeutralElement();
 	
 	/**
 	 * In a discreet monoid we have countably many elements and can define a getter
@@ -25,5 +26,5 @@ public interface DiscreetGroup extends DiscreetMonoid, Group {
 	 * @param representant the representant of the element.
 	 * @return the corresponding monoid element.
 	 */
-	DiscreetGroupElement get(Integer representant);
+	Element get(Integer representant);
 }

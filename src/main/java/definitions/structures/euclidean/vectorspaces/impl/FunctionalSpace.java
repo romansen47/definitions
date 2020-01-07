@@ -11,7 +11,7 @@ import java.util.Map;
 import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -41,7 +41,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 				final Vector sourceVec = baseVec;
 
 				@Override
-				public MonoidElement get(final MonoidElement vec) {
+				public Vector get(final Element vec) {
 					return this.sourceSpace.innerProduct(baseVec, (Vector) vec);
 				}
 

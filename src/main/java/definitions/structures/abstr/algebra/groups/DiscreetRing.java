@@ -1,6 +1,6 @@
 package definitions.structures.abstr.algebra.groups;
 
-import definitions.structures.abstr.algebra.rings.DiscreetRingElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface DiscreetRing extends DiscreetGroup {
 
@@ -12,5 +12,5 @@ public interface DiscreetRing extends DiscreetGroup {
 	 * @return the corresponding monoid element.
 	 */
 	@Override
-	DiscreetRingElement get(Integer representant);
+	Element get(Integer representant);
 }

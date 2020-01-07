@@ -1,7 +1,7 @@
 package definitions.structures.abstr.algebra.rings;
 
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.Ring;
-import definitions.structures.abstr.vectorspaces.RingElement;
 
 /**
  * 
@@ -24,7 +24,7 @@ public interface Domain extends Ring {
 	 * @param divident the divident
 	 * @return true if divisor divides divident
 	 */
-	boolean divides(RingElement divisor, RingElement divident);
+	boolean divides(Element divisor, Element divident);
 
 	/**
 	 * using divisibility we can define reducibility
@@ -32,7 +32,7 @@ public interface Domain extends Ring {
 	 * @param element the element
 	 * @return true if element is irreducible
 	 */
-	boolean isIrreducible(RingElement element);
+	boolean isIrreducible(Element element);
 
 	/**
 	 * using divisibility we can define prime elements
@@ -40,6 +40,6 @@ public interface Domain extends Ring {
 	 * @param element the element
 	 * @return true if element is a prime element
 	 */
-	boolean isPrimeElement(RingElement element);
+	boolean isPrimeElement(Element element);
 
 }

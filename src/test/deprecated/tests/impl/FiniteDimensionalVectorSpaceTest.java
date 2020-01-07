@@ -53,19 +53,19 @@ public class FiniteDimensionalVectorSpaceTest {
 		c = newBase.get(2);
 		d = newBase.get(3);
 
-		ans1 = space.innerProduct(a, b).getValue();
-		ans2 = space.innerProduct(b, c).getValue();
-		ans3 = space.innerProduct(c, d).getValue();
-		ans4 = space.innerProduct(a, d).getValue();
+		ans1 = space.innerProduct(a, b).getDoubleValue();
+		ans2 = space.innerProduct(b, c).getDoubleValue();
+		ans3 = space.innerProduct(c, d).getDoubleValue();
+		ans4 = space.innerProduct(a, d).getDoubleValue();
 
 	}
 
 	@Test
 	public void normalized() throws Throwable {
-		Assert.assertTrue(Math.abs(space.norm(a).getValue() - 1) < 1.e-5);
-		Assert.assertTrue(Math.abs(space.norm(b).getValue() - 1) < 1.e-5);
-		Assert.assertTrue(Math.abs(space.norm(c).getValue() - 1) < 1.e-5);
-		Assert.assertTrue(Math.abs(space.norm(d).getValue() - 1) < 1.e-5);
+		Assert.assertTrue(Math.abs(space.norm(a).getDoubleValue() - 1) < 1.e-5);
+		Assert.assertTrue(Math.abs(space.norm(b).getDoubleValue() - 1) < 1.e-5);
+		Assert.assertTrue(Math.abs(space.norm(c).getDoubleValue() - 1) < 1.e-5);
+		Assert.assertTrue(Math.abs(space.norm(d).getDoubleValue() - 1) < 1.e-5);
 	}
 
 	@Test

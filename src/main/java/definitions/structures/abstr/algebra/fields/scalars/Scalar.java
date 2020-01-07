@@ -1,11 +1,11 @@
 package definitions.structures.abstr.algebra.fields.scalars;
 
 import definitions.settings.XmlPrintable;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public interface Scalar extends MonoidElement, Vector, FiniteVectorMethods, XmlPrintable {
+public interface Scalar extends Element, Vector, FiniteVectorMethods, XmlPrintable {
 
 	Scalar getInverse();
 
@@ -14,6 +14,6 @@ public interface Scalar extends MonoidElement, Vector, FiniteVectorMethods, XmlP
 	 * 
 	 * @return the double value
 	 */
-	double getValue();
+	double getDoubleValue();
 
 }

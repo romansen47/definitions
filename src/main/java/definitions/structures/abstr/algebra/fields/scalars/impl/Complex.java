@@ -5,9 +5,9 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlElement;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -110,8 +110,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public double getValue() {
-		return this.getReal().getValue();
+	public double getDoubleValue() {
+		return this.getReal().getDoubleValue();
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 */
 	@Override
 	public String toXml() {
-		return "<complex>\r<realPart>" + this.real.getValue() + "</realPart>\r<imagPart>" + this.imag.getValue()
+		return "<complex>\r<realPart>" + this.real.getDoubleValue() + "</realPart>\r<imagPart>" + this.imag.getDoubleValue()
 				+ "</imagPart>\r</complex>\r";
 	}
 

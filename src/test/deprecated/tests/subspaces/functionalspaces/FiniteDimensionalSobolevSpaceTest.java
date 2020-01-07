@@ -104,7 +104,7 @@ public class FiniteDimensionalSobolevSpaceTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(input.getValue() / this.norm);
+				return RealLine.getInstance().get(input.getDoubleValue() / this.norm);
 			}
 
 		};
@@ -120,7 +120,7 @@ public class FiniteDimensionalSobolevSpaceTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double ans = input.getValue();
+				final double ans = input.getDoubleValue();
 				final double newAns = Math.sqrt(1 + Math.pow(ans, 2));
 				return RealLine.getInstance().get(newAns);
 			}
@@ -134,7 +134,7 @@ public class FiniteDimensionalSobolevSpaceTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getDoubleValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (testValues[0][k] < l) {
@@ -150,7 +150,7 @@ public class FiniteDimensionalSobolevSpaceTest extends AspectJTest{
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((this.length / (2 * Math.PI)) * input.getValue()) + (this.length / 2.);
+				final double newInput = ((this.length / (2 * Math.PI)) * input.getDoubleValue()) + (this.length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (k < testValues2[0].length - 1 && testValues2[0][k + 1] < l) {

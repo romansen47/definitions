@@ -23,8 +23,8 @@ public interface ParameterizedSpace extends EuclideanSpace {
 			final List<Vector> base = this.genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec : base) {
-				final double summand1 = ((FiniteVector) vec1).getCoordinates().get(this.getBaseVec(vec)).getValue();
-				final double summand2 = ((FiniteVector) vec2).getCoordinates().get(this.getBaseVec(vec)).getValue();
+				final double summand1 = ((FiniteVector) vec1).getCoordinates().get(this.getBaseVec(vec)).getDoubleValue();
+				final double summand2 = ((FiniteVector) vec2).getCoordinates().get(this.getBaseVec(vec)).getDoubleValue();
 				final double sumOnCoordinate = summand1 + summand2;
 				coordinates.put(vec, this.getField().get(sumOnCoordinate));
 			}

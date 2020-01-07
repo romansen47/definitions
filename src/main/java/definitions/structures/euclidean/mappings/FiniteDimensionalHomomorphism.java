@@ -8,7 +8,7 @@ import org.apache.commons.math3.linear.LUDecomposition;
 import org.apache.commons.math3.linear.MatrixUtils;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.monoids.MonoidElement;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
@@ -34,7 +34,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default MonoidElement get(final MonoidElement vec2) {
+	default Vector get(final Element vec2) {
 		if (this.getSource() instanceof ParameterizedSpace) {
 			return this.getOnSubSpace((Vector) vec2);
 		}
@@ -103,7 +103,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 		for (final Vector vec1 : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 			int n = 0;
 			for (final Vector vec2 : ((EuclideanSpace) this.getTarget()).genericBaseToList()) {
-				mat[n][m] = this.getGenericMatrix()[n++][m].getValue();
+				mat[n][m] = this.getGenericMatrix()[n++][m].getDoubleValue();
 			}
 			m++;
 		}
@@ -158,12 +158,12 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 		final double[][] matrixAsDoubles = new double[matrix.length][matrix[0].length];
 		for (int i = 0; i < matrix.length; i++) {
 			for (int j = 0; j < matrix[0].length; j++) {
-				matrixAsDoubles[i][j] = matrix[i][j].getValue();
+				matrixAsDoubles[i][j] = matrix[i][j].getDoubleValue();
 			}
 		}
 		final double[] imageVectorAsDoubles = new double[imageVector.length];
 		for (int i = 0; i < imageVector.length; i++) {
-			imageVectorAsDoubles[i] = imageVector[i].getValue();
+			imageVectorAsDoubles[i] = imageVector[i].getDoubleValue();
 		}
 		try {
 			final org.apache.commons.math3.linear.RealVector apacheVector = new LUDecomposition(

@@ -58,7 +58,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = ((InnerProductSpace) this.sobolevSpace).innerProduct(vec1, vec2).getValue();
+				scalarProducts[i][j] = ((InnerProductSpace) this.sobolevSpace).innerProduct(vec1, vec2).getDoubleValue();
 				System.out.print((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
 				j++;
 			}
@@ -104,7 +104,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				return RealLine.getInstance()
-						.get(1 - super.value(RealLine.getInstance().get(input.getValue() / Math.PI)).getValue());
+						.get(1 - super.value(RealLine.getInstance().get(input.getDoubleValue() / Math.PI)).getDoubleValue());
 			}
 		};
 

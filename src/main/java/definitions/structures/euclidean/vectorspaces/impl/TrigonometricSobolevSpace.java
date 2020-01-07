@@ -59,7 +59,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 			@Override
 			public String toString() {
-				return "Normed constant Function: x -> " + this.value.getValue();
+				return "Normed constant Function: x -> " + this.value.getDoubleValue();
 			}
 
 			@Override

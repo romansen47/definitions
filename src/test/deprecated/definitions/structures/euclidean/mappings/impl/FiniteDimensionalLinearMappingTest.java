@@ -42,7 +42,7 @@ public class FiniteDimensionalLinearMappingTest {
 			this.ans1 = this.lin.getLinearity();
 			this.ans2 = this.lin.getGenericMatrix();
 		}
-		Assert.assertTrue(this.ans2[0][0].getValue() == 5.);
+		Assert.assertTrue(this.ans2[0][0].getDoubleValue() == 5.);
 	}
 
 	@Test
@@ -50,6 +50,6 @@ public class FiniteDimensionalLinearMappingTest {
 		this.ans1 = this.lin.getLinearity();
 		this.ans2 = this.lin.getGenericMatrix();
 		Assert.assertTrue(
-				this.ans1.get(((RealLine) this.space).getOne()).get(((RealLine) this.space).getOne()).getValue() == 5.);
+				this.ans1.get(((RealLine) this.space).getOne()).get(((RealLine) this.space).getOne()).getDoubleValue() == 5.);
 	}
 }
