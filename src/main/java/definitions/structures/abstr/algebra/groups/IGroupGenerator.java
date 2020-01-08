@@ -6,10 +6,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.math3.util.Pair;
 
+import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.monoids.Monoid; 
-import definitions.structures.abstr.algebra.semigroups.Element; 
+import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.algebra.rings.Domain;
+import definitions.structures.abstr.algebra.rings.SemiRing;
+import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.vectorspaces.Ring; 
 
 public interface IGroupGenerator {
 
@@ -59,7 +63,7 @@ public interface IGroupGenerator {
 		}
 	}
 
-	default Group completion(Monoid m) {
+	default Group completeToGroup(Monoid m) {
 		return new Group() {
 
 			final private Monoid monoid = m;
@@ -90,7 +94,7 @@ public interface IGroupGenerator {
 		};
 	}
 
-	default DiscreetGroup completion(DiscreetMonoid m) {
+	default DiscreetGroup completeToGroup(DiscreetMonoid m) {
 		return new DiscreetGroup() {
 
 			final private DiscreetMonoid monoid = m;
@@ -130,8 +134,7 @@ public interface IGroupGenerator {
 		};
 	}
 	
-	class ProductElement extends Pair<Element, Element> implements Element {
-		private static final long serialVersionUID = 1L;
+	class ProductElement extends Pair<Element, Element> implements Element { 
 
 		private final Element k;
 		private final Element v;
@@ -161,8 +164,6 @@ public interface IGroupGenerator {
 		}
 
 	}
-
-//	FiniteResidueClassRing getFiniteResidueClassRing(int order);
 
 	default FiniteMonoid outerProduct(final FiniteMonoid a, final FiniteMonoid b) {
 		FiniteMonoid ans = null;
@@ -248,36 +249,11 @@ public interface IGroupGenerator {
 
 			};
 		}
-//		else {
-//			ans = new FiniteMonoid() {
-//				private long serialVersionUID = 1L;
-//
-//				@Override
-//				public Element getNeutralElement() {
-//					return new ProductElement((DiscreetSemiElement)a.getNeutralElement(), (DiscreetSemiElement)b.getNeutralElement());
-//				}
-//
-//				@Override
-//				public Integer getOrder() {
-//					return null;
-//				}
-//
-//				@Override
-//				public SemiElement operation(final SemiElement first, final SemiElement second) {
-//					return new ProductElement(
-//							(DiscreetSemiElement)a.operation(((ProductElement) first).getFirst(), ((ProductElement) first).getSecond()),
-//							(DiscreetSemiElement)b.operation(((ProductElement) second).getFirst(), ((ProductElement) second).getSecond()));
-//				}
-//
-//				@Override
-//				public DiscreetSemiElement get(Integer representant) {
-//					// TODO Auto-generated method stub
-//					return null;
-//				}
-// 
-//			};
-//		}
 		return ans;
 	}
 
+	Ring completeToRing(SemiRing semiRing);
+	
+	Field completeToField(Domain domain);
+	
 }

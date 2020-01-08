@@ -69,7 +69,7 @@ public class GroupGeneratorTest extends AspectJTest {
 			}
 
 		};
-		DiscreetGroup rationals = GroupGenerator.getInstance().completion(multiplicatioveMonoid);
+		DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(multiplicatioveMonoid);
 		Element neutralElement = rationals.getNeutralElement();
 		for (int i = 1; i < 10; i++) {
 			Element tmp = rationals.get(i);

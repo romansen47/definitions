@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
+import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
+import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
+import definitions.structures.abstr.algebra.rings.SemiRing;
 import definitions.structures.abstr.algebra.rings.impl.Integers;
+import definitions.structures.abstr.vectorspaces.Ring;
 
 @Service
 public class GroupGenerator implements IGroupGenerator, Unweavable {
@@ -31,6 +35,18 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 
 	public void setIntegers(final Integers integers) {
 		this.integers = integers;
+	}
+
+	@Override
+	public Ring completeToRing(SemiRing semiRing) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Field completeToField(Domain domain) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
