@@ -13,7 +13,7 @@ public interface FiniteSemiGroup extends DiscreetSemiGroup{
 	 * 
 	 * @return the map.
 	 */
-	Map<Integer, Element> getElements();
+	Map<Double, Element> getElements();
 
 	/**
 	 * Method to obtain the matrix of multiplication.
@@ -34,15 +34,15 @@ public interface FiniteSemiGroup extends DiscreetSemiGroup{
 	default void print() {
 		Generator.getInstance().getLogger().info("Operation matrix:\r");
 		String ans = "  operation    ";
-		for (int i = 0; i < this.getOperationMap().keySet().size(); i++) {
+		for (double i = 0; i < this.getOperationMap().keySet().size(); i++) {
 			final Element element1 = this.get(i);
 			ans += element1 + "  ";
 		}
 		System.out.println(ans + "\r");
-		for (int i = 0; i < this.getOperationMap().keySet().size(); i++) {
+		for (double i = 0; i < this.getOperationMap().keySet().size(); i++) {
 			final Element element1 = this.get(i);
 			ans = element1 + "   ";
-			for (int j = 0; j < this.getOperationMap().keySet().size(); j++) {
+			for (double j = 0; j < this.getOperationMap().keySet().size(); j++) {
 				final Element element2 = this.get(j);
 				ans += " " + this.getOperationMap().get(element1).get(element2) + " ";
 			}

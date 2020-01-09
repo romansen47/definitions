@@ -102,7 +102,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	@Test
 	public void test() {
 		Vector vec = this.startVector;
-		for (int i = 0; i < this.iterations; i++) {
+		for (double i = 0; i < this.iterations; i++) {
 			final Element tmp =  ((DiscreetMonoid) this.timeSpace).get(i);
 			final Function evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
 			vec = evolutionOp.value((Scalar) vec);

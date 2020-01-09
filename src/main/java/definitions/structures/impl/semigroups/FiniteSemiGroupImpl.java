@@ -8,16 +8,16 @@ import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
 
 public abstract class FiniteSemiGroupImpl extends DiscreetSemiGroupImpl implements FiniteSemiGroup{
 
-	Map<Integer, Element> elements=new HashMap<>();
+	Map<Double, Element> elements=new HashMap<>();
 	Map<Element, Map<Element, Element>> operationMap;
 	
 	@Override
-	public Element get(Integer representant) {
+	public Element get(Double representant) {
 		return elements.get(representant);
 	}
 
 	@Override
-	public Map<Integer, Element> getElements() { 
+	public Map<Double, Element> getElements() { 
 		return elements;
 	}
 

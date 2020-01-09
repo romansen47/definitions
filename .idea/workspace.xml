@@ -2,92 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca451893-3505-4da0-a6bc-f4631988d4cc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/definitions.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/CyclicRingDistributor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/CyclicRingDistributor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/Field.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/Field.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/FieldMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/FieldMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/BinaryField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/BinaryField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/ComplexPlane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/ComplexPlane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/QuaternionSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/QuaternionSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/RealLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/impl/RealLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/Complex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/Complex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/False.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/False.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/Quaternion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/Quaternion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/Real.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/Real.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/True.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/fields/scalars/impl/True.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/mappings/Homomorphism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/mappings/Homomorphism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/mappings/impl/LinearMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/mappings/impl/LinearMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/mappings/impl/RealZero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/mappings/impl/RealZero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/EuclideanAlgebra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/EuclideanAlgebra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/LinearMappingsSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/LinearMappingsSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/VectorSpaceMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/VectorSpaceMethods.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/vectors/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/vectors/Function.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/vectors/VectorMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/vectorspaces/vectors/VectorMethods.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/SpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/SpringConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/fields/CyclicRingDistributor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetRing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/IGroupGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/IGroupGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/impl/GroupGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/GroupGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/impl/Int.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/impl/package-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/DiscreetMonoid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/DiscreetMonoid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/FiniteMonoid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/FiniteMonoid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/DiscreetSemiRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/DiscreetSemiRing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteRing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/impl/Integers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/DiscreetSemiGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/DiscreetSemiGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/Element.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/FiniteSemiGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/FiniteSemiGroup.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/IGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/IGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/functionspaces/EuclideanFunctionSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/functionspaces/EuclideanFunctionSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalFunctionSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalFunctionSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalSobolevSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalSobolevSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/FiniteDimensionalHomomorphism.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/FiniteDimensionalHomomorphism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/IMappingGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/IMappingGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/DerivativeOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/DerivativeOperator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalLinearMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalLinearMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/InjectiveFunctionSpaceOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/InjectiveFunctionSpaceOperator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/InjectiveLinearMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/InjectiveLinearMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/InvertibleSelfMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/InvertibleSelfMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/LinearSelfMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/LinearSelfMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/MappingGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/MappingGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/FiniteVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/FiniteVector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/impl/FunctionTuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/impl/FunctionTuple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/impl/GenericFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/impl/GenericFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/impl/Tuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/impl/Tuple.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/specialfunctions/Sine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectors/specialfunctions/Sine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/EuclideanSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/EuclideanSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/ISpaceGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/ISpaceGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/ParameterizedSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/ParameterizedSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/FiniteDimensionalVectorSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/FiniteDimensionalVectorSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/FunctionalSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/FunctionalSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/PolynomialFunctionSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/PolynomialFunctionSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/SpaceGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/SpaceGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/TrigonometricSobolevSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/TrigonometricSobolevSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/TrigonometricSpace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/vectorspaces/impl/TrigonometricSpace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/solver/StdDraw.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/solver/StdDraw.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/finitedimensional/functionspaces/impl/FiniteDimensionalFunctionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/finitedimensional/functionspaces/impl/FiniteDimensionalFunctionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/spaces/impl/CachingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/spaces/impl/CachingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/subspaces/functionspaces/EuclideanFunctionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/subspaces/functionspaces/EuclideanFunctionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/vectors/impl/DerivativesAndIntegrals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/vectors/impl/DerivativesAndIntegrals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/vectors/impl/PolynomeRegressionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/definitions/structures/generic/finitedimensional/defs/vectors/impl/PolynomeRegressionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/impl/FiniteDimensionalVectorSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/impl/FiniteDimensionalVectorSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/mappings/FiniteDimensionalLinearMappingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/mappings/FiniteDimensionalLinearMappingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/FiniteDimensionalFunctionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/FiniteDimensionalFunctionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/FiniteDimensionalSobolevSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/FiniteDimensionalSobolevSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/OrthonormalizationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/OrthonormalizationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/PolynomialRegressionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/PolynomialRegressionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/TrigonometricSpaceWithLinearGrowthTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/deprecated/subspaces/functionalspaces/TrigonometricSpaceWithLinearGrowthTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/FunctionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/FunctionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/VectorSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/VectorSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/ComplexPlaneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/ComplexPlaneTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/FieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/FieldTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/FiniteFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/FiniteFieldTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/QuaternionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/impl/QuaternionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/scalars/impl/ComplexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/scalars/impl/ComplexTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/scalars/impl/QuaternionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/fields/scalars/impl/QuaternionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/groups/impl/IntegersTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/groups/impl/IntegersTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/groups/impl/PrimeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/groups/impl/PrimeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/vectorspaces/vectors/FunctionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/vectorspaces/vectors/FunctionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/vectorspaces/vectors/VectorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/abstr/vectorspaces/vectors/VectorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalComplexFunctionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalComplexFunctionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalSobolevSpaceTestDepr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/functionspaces/impl/FiniteDimensionalSobolevSpaceTestDepr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/functionspaces/impl/QuaternionFunctionSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/functionspaces/impl/QuaternionFunctionSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalLinearMappingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalLinearMappingTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/SubSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/SubSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/FiniteDimensionalVectorSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/FiniteDimensionalVectorSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/FunctionalSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/FunctionalSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/MultiDimensionalComplexVectorSpaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/MultiDimensionalComplexVectorSpaceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/MultiDimensionalSpaceOverBinaryFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/structures/euclidean/vectorspaces/impl/MultiDimensionalSpaceOverBinaryFieldTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalDerivativeOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalDerivativeOperator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/Naturals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/Naturals.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/semigroups/FiniteSemiGroupImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/semigroups/FiniteSemiGroupImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/DiscreetDynamicSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/DiscreetDynamicSystemTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/GroupGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/GroupGeneratorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/IntegersTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/classes/" />
@@ -103,11 +42,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/FiniteDimensionalHomomorphism.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+            <state relative-caret-position="51">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -115,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -125,6 +73,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="212" />
@@ -137,8 +92,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane" />
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -173,9 +128,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="106" y="27" width="700" height="485" extended-state="0" />
+    <frame x="212" y="54" width="1400" height="970" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25856698" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26268658" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -203,15 +159,22 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/FiniteDimensionalHomomorphism.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+        <state relative-caret-position="51">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
         </state>
       </provider>
     </entry>

@@ -32,5 +32,5 @@ public interface DiscreetMonoid extends Monoid, DiscreetSemiGroup {
 	 * @return the corresponding monoid element.
 	 */
 	@Override
-	Element get(Integer representant);
+	Element get(Double representant);
 }

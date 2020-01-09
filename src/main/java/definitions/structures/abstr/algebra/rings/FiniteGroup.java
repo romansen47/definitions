@@ -10,7 +10,7 @@ public interface FiniteGroup extends FiniteMonoid, Group {
 
 	default Element getInverseElement(Element element) {
 		Map<Element,Element> operations=getOperationMap().get(element);
-		for(int i=1;i<getOrder();i++) {
+		for(double i=1;i<getOrder();i++) {
 			Element ans=operations.get(get(i));
 			if (ans.equals(getNeutralElement())) {
 				return ans;

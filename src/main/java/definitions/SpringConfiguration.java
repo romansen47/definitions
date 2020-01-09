@@ -16,13 +16,10 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import definitions.cache.CachingAspect;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
-import definitions.structures.abstr.algebra.groups.impl.Int;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real; 
 import definitions.structures.euclidean.Generator;
-
-//@EnableSpringConfigured
-@EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
-//@Configuration
+ 
+@EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED) 
 @ComponentScan(basePackages = "definitions..*")
 public class SpringConfiguration implements ApplicationContextAware {
 
@@ -63,12 +60,6 @@ public class SpringConfiguration implements ApplicationContextAware {
 
 	public ApplicationContext getApplicationContext() {
 		return this.applicationContext;
-	}
-
-	@Bean(name = "int")
-	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-	public Int integer() {
-		return new Int();
 	}
 
 	@Bean(name = "logger")

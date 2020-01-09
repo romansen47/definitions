@@ -1,24 +1,28 @@
 package definitions.structures.impl;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
-import definitions.structures.abstr.algebra.rings.SemiRing;
+import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.impl.semigroups.DiscreetSemiGroupImpl; 
+import definitions.structures.impl.semigroups.DiscreetSemiGroupImpl;
+import settings.GlobalSettings; 
 
 @SuppressWarnings("serial")
-public class Naturals extends DiscreetSemiGroupImpl implements SemiRing, DiscreetMonoid, OrderedMonoid{
+@Component
+public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid{
 
 	class NaturalNumber implements Element{
 		
-		private final int representant;
+		private final double representant;
 		
-		public NaturalNumber(int i) {
-			this.representant=i;
+		public NaturalNumber(Double representant2) {
+			this.representant=representant2;
 		}
 		
 		@Override
-		public Integer getRepresentant() {
+		public Double getRepresentant() {
 			return representant;
 		}
 	}
@@ -27,7 +31,7 @@ public class Naturals extends DiscreetSemiGroupImpl implements SemiRing, Discree
 	
 	@Override
 	public Element getNeutralElement() {
-		return get(0);
+		return get(0.);
 	}
 
 	@Override
@@ -36,18 +40,25 @@ public class Naturals extends DiscreetSemiGroupImpl implements SemiRing, Discree
 	}
 
 	@Override
-	public Element get(Integer representant) {
+	public Element get(Double representant) {
 		return new NaturalNumber(representant) {
 			@Override
-			public Integer getRepresentant() {
-				return (Integer) Math.abs(representant);
+			public Double getRepresentant() {
+				if (representant<0.0) {
+					System.out.println("natural number must not be smaller 0!");
+				}
+				return representant;
 			}
 			@Override
 			public boolean equals(Object other) {
 				if (other instanceof NaturalNumber) {
-					return representant == ((NaturalNumber) other).getRepresentant();
+					return Math.abs(representant - ((NaturalNumber) other).getRepresentant())<GlobalSettings.REAL_EQUALITY_FEINHEIT;
 				}
 				return false;
+			}
+			@Override
+			public String toString() {
+				return String.valueOf(representant);
 			}
 		};
 	}
@@ -59,7 +70,7 @@ public class Naturals extends DiscreetSemiGroupImpl implements SemiRing, Discree
 
 				@Override
 				public Element getNeutralElement() {
-					return Naturals.this.get(1);
+					return Naturals.this.get(1.);
 				}
 
 				@Override
@@ -68,7 +79,7 @@ public class Naturals extends DiscreetSemiGroupImpl implements SemiRing, Discree
 				}
 
 				@Override
-				public Element get(Integer representant) { 
+				public Element get(Double representant) { 
 					return Naturals.this.get(representant);
 				}
 				
@@ -90,6 +101,6 @@ public class Naturals extends DiscreetSemiGroupImpl implements SemiRing, Discree
 	@Override
 	public boolean isHigher(Element smallerOne, Element biggerOne) { 
 		return biggerOne.getRepresentant()>smallerOne.getRepresentant();
-	} 
+	}
 
 }

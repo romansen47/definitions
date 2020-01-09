@@ -20,7 +20,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 	Field f;
 	
 	
-	@Test
+	//@Test
 	public void test() {
 
 		boolean ans = true;

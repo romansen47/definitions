@@ -21,17 +21,17 @@ public interface FiniteRing extends FiniteGroup, Ring {
 	 * {@inheritDoc}
 	 */
 	@Override
-	Element get(Integer index);
+	Element get(Double index);
 
 	default Element getMultiplicativeInverseElement(final Element element) {
 		final Element tmp = getMultiplicativeInverseElement((Element) element);
 		if (tmp != null) {
 			return tmp;
 		}
-		for (int i = 1; i < this.getOrder(); i++) {
+		for (double i = 1; i < this.getOrder(); i++) {
 			final Element other = (Element) this.getMuliplicativeMonoid().operation(element,
 					this.get(i));
-			if (other.equals(this.get(1))) {
+			if (other.equals(this.get(1.))) {
 				return (Element) other;
 			}
 		}

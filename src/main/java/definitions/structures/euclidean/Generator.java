@@ -17,7 +17,7 @@ import definitions.Unweavable;
 import definitions.cache.MyCache;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
-import definitions.structures.abstr.algebra.groups.impl.GroupGenerator;
+import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;

@@ -10,10 +10,11 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
+import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.rings.SemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.vectorspaces.Ring; 
+import definitions.structures.abstr.vectorspaces.Ring;
 
 public interface IGroupGenerator {
 
@@ -33,8 +34,9 @@ public interface IGroupGenerator {
 		@Override
 		public boolean equals(Object other) {
 			if (other instanceof Fraction) {
-				return getBaseGroup().operation(getK(), ((Fraction) other).getSecond())
-						.equals(getBaseGroup().operation(getV(), ((Fraction) other).getFirst()));
+				final Element a=getBaseGroup().operation(k, ((Fraction) other).getSecond());
+				final Element b=getBaseGroup().operation(v, ((Fraction) other).getFirst());
+				return a.equals(b);
 			}
 			return false;
 		}
@@ -50,10 +52,10 @@ public interface IGroupGenerator {
 		public Monoid getBaseGroup() {
 			return baseGroup;
 		}
-		
+
 		@Override
 		public String toString() {
-			return "("+getK().getRepresentant()+","+getV().getRepresentant()+")";
+			return "(" + getK().getRepresentant() + "," + getV().getRepresentant() + ")";
 		}
 	}
 
@@ -120,7 +122,7 @@ public interface IGroupGenerator {
 				return new DiscreetFraction((Element) x.getV(), (Element) x.getK(), monoid);
 			}
 
-			public Element get(Integer representant) {
+			public Element get(Double representant) {
 				Element neutral = monoid.getNeutralElement();
 				if (representant >= 0) {
 					Element element = monoid.get(representant);
@@ -133,16 +135,15 @@ public interface IGroupGenerator {
 
 		};
 	}
-	
-	class ProductElement extends Pair<Element, Element> implements Element { 
+
+	class ProductElement extends Pair<Element, Element> implements Element {
 
 		private final Element k;
 		private final Element v;
 
-		private int representant;
+		private double representant;
 
-		public ProductElement(final Element Element,
-				final Element Element2) {
+		public ProductElement(final Element Element, final Element Element2) {
 			super(Element, Element2);
 			this.k = Element;
 			this.v = Element2;
@@ -159,7 +160,7 @@ public interface IGroupGenerator {
 		}
 
 		@Override
-		public Integer getRepresentant() {
+		public Double getRepresentant() {
 			return representant;
 		}
 
@@ -173,34 +174,32 @@ public interface IGroupGenerator {
 				 * 
 				 */
 				private static final long serialVersionUID = -6631649574912990607L;
-				private Map<Integer, Element> elements = new ConcurrentHashMap<>();
+				private Map<Double, Element> elements = new ConcurrentHashMap<>();
 				private Map<Element, Map<Element, Element>> operationMap = null;
-				private int order = a.getOrder() * b.getOrder(); 
+				private int order = a.getOrder() * b.getOrder();
 
 				@Override
-				public Element get(final Integer representant) {
+				public Element get(final Double representant) {
 					return getElements().get(representant);
 				}
 
 				@Override
 				public Element getNeutralElement() {
-					return new ProductElement((Element) a.getNeutralElement(),
-							(Element) b.getNeutralElement());
+					return new ProductElement((Element) a.getNeutralElement(), (Element) b.getNeutralElement());
 				}
 
 				@Override
 				public Map<Element, Map<Element, Element>> getOperationMap() {
 					if (this.operationMap == null) {
-						for (int i = 0; i < a.getOrder(); i++) {
-							for (int j = 0; j < b.getOrder(); j++) {
-								final ProductElement tmp = new ProductElement((Element) a.get(i),
-										(Element) b.get(j));
+						for (double i = 0; i < a.getOrder(); i++) {
+							for (double j = 0; j < b.getOrder(); j++) {
+								final ProductElement tmp = new ProductElement((Element) a.get(i), (Element) b.get(j));
 								getElements().put(i * b.getOrder() + j, (Element) tmp);
 							}
 						}
 						this.operationMap = new HashMap<>();
-						for (final Integer key1 : getElements().keySet()) {
-							for (final Integer key2 : getElements().keySet()) {
+						for (final Double key1 : getElements().keySet()) {
+							for (final Double key2 : getElements().keySet()) {
 								this.operation(getElements().get(key1), getElements().get(key2));
 							}
 						}
@@ -243,7 +242,7 @@ public interface IGroupGenerator {
 				/**
 				 * @return the elements
 				 */
-				public Map<Integer, Element> getElements() {
+				public Map<Double, Element> getElements() {
 					return elements;
 				}
 
@@ -252,8 +251,177 @@ public interface IGroupGenerator {
 		return ans;
 	}
 
-	Ring completeToRing(SemiRing semiRing);
-	
+	default Ring completeToRing(SemiRing semiRing) {
+		return new Ring() {
+
+			final private SemiRing monoid = semiRing;
+
+			@Override
+			public Element getNeutralElement() {
+				Element neutralElement = monoid.getNeutralElement();
+				return new Fraction(neutralElement, neutralElement, monoid);
+			}
+
+			@Override
+			public Element operation(Element first, Element second) {
+				Element firstOp = monoid.operation(((Fraction) first).getK(), ((Fraction) second).getK());
+				Element secondOp = monoid.operation(((Fraction) first).getV(), ((Fraction) second).getV());
+				return new Fraction(firstOp, secondOp, monoid);
+			}
+
+			@Override
+			public Element getInverseElement(Element element) {
+				Fraction x = (Fraction) element;
+				return new Fraction(x.getV(), x.getK(), monoid);
+			}
+
+			Monoid multiplicativeMonoid;
+
+			@Override
+			public Monoid getMuliplicativeMonoid() {
+				if (multiplicativeMonoid == null) {
+					multiplicativeMonoid = new Monoid() {
+
+						@Override
+						public Element operation(Element first, Element second) {
+							Element firstOp = monoid.operation(
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getK(),
+											((Fraction) second).getK()),
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getV(),
+											((Fraction) second).getV()));
+							Element secondOp = monoid.operation(
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getK(),
+											((Fraction) second).getV()),
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getV(),
+											((Fraction) second).getK()));
+							return new Fraction(firstOp, secondOp, monoid);
+						}
+
+						@Override
+						public Element getNeutralElement() {
+							return new Fraction(monoid.getMuliplicativeMonoid().getNeutralElement(),
+									monoid.getNeutralElement(), monoid);
+						}
+
+					};
+				}
+				return multiplicativeMonoid;
+			}
+
+			@Override
+			public boolean isUnit(Element element) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Element getOne() {
+				Element zero = monoid.getNeutralElement();
+				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				return new Fraction(one, zero, monoid);
+			}
+
+		};
+	}
+
+	DiscreetSemiRing getNaturals();
+
+	default DiscreetRing getIntegers() {
+		if (getIntegers() == null) {
+			DiscreetRing integers = completeToDiscreetRing(getNaturals());
+			setIntegers(integers);
+			return integers;
+		}
+		return null;
+	}
+
+	void setIntegers(DiscreetRing integers);
+
+	default DiscreetRing completeToDiscreetRing(DiscreetSemiRing semiRing) {
+		return new DiscreetRing() {
+
+			final private DiscreetSemiRing monoid = semiRing;
+
+			@Override
+			public Element getNeutralElement() {
+				Element neutralElement = monoid.getNeutralElement();
+				return new Fraction(neutralElement, neutralElement, monoid);
+			}
+
+			@Override
+			public Element operation(Element first, Element second) {
+				Element firstOp = monoid.operation(((Fraction) first).getK(), ((Fraction) second).getK());
+				Element secondOp = monoid.operation(((Fraction) first).getV(), ((Fraction) second).getV());
+				return new Fraction(firstOp, secondOp, monoid);
+			}
+
+			@Override
+			public Element getInverseElement(Element element) {
+				Fraction x = (Fraction) element;
+				return new Fraction(x.getV(), x.getK(), monoid);
+			}
+
+			DiscreetMonoid multiplicativeMonoid;
+
+			@Override
+			public DiscreetMonoid getMuliplicativeMonoid() {
+				if (multiplicativeMonoid == null) {
+					multiplicativeMonoid = new DiscreetMonoid() {
+
+						@Override
+						public Element operation(Element first, Element second) {
+							Element firstOp = monoid.operation(
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getK(),
+											((Fraction) second).getK()),
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getV(),
+											((Fraction) second).getV()));
+							Element secondOp = monoid.operation(
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getK(),
+											((Fraction) second).getV()),
+									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getV(),
+											((Fraction) second).getK()));
+							return new Fraction(firstOp, secondOp, monoid);
+						}
+
+						@Override
+						public Element getNeutralElement() {
+							return new Fraction(monoid.getMuliplicativeMonoid().getNeutralElement(),
+									monoid.getNeutralElement(), monoid);
+						}
+
+						@Override
+						public Element get(Double representant) {
+							// TODO Auto-generated method stub
+							return null;
+						}
+
+					};
+				}
+				return multiplicativeMonoid;
+			}
+
+			@Override
+			public boolean isUnit(Element element) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public Element getOne() {
+				Element zero = monoid.getNeutralElement();
+				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				return new Fraction(one, zero, monoid);
+			}
+
+			@Override
+			public Element get(Double representant) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+		};
+	}
+
 	Field completeToField(Domain domain);
-	
+
 }
