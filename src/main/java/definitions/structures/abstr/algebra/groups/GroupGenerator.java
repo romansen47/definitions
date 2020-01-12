@@ -42,12 +42,6 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 		return integers;
 	}
 
-	@Override
-	public Field completeToField(Domain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public DiscreetSemiRing getNaturals() {
 		if (naturals==null) {
 			naturals=new Naturals();

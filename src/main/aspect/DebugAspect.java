@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
@@ -43,7 +44,7 @@ public class DebugAspect {
 		logger.info("Created buffered file writer");
 	}
 
-//	@AfterReturning(value = pointCut, returning = "returnValue")
+	@AfterReturning(value = pointCut, returning = "returnValue")
 	public synchronized void afterLookup(final JoinPoint jp, final Object returnValue) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
 			this.postCreateXmlEntry(jp, returnValue);
@@ -54,7 +55,7 @@ public class DebugAspect {
 		}
 	}
 
-//	@Before(pointCut)
+	@Before(pointCut)
 	public synchronized void beforeLookup(final JoinPoint jp) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
 			this.count += 1;

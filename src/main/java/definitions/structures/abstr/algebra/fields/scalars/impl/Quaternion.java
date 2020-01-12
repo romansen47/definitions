@@ -111,15 +111,6 @@ public class Quaternion extends Tuple implements FieldElement {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@XmlAttribute
-	@Override
-	public Scalar getInverse() {
-		return (Scalar) ((Field) QuaternionSpace.getInstance()).inverse(this);
-	}
-
-	/**
 	 * @return the j
 	 */
 	@XmlAttribute

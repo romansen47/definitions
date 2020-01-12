@@ -1,5 +1,7 @@
 package definitions.structures.abstr.algebra.rings;
 
-public interface DiscreetDomain extends IntegralDomain {
+import definitions.structures.abstr.algebra.groups.DiscreetRing;
+
+public interface DiscreetDomain extends IntegralDomain, DiscreetRing {
 
 }

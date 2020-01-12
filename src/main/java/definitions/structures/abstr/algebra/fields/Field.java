@@ -6,13 +6,13 @@ import java.util.Map;
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.groups.Group; 
+import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
-import definitions.structures.abstr.algebra.monoids.Monoid; 
+import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
-import definitions.structures.abstr.vectorspaces.LinearMappingsSpace; 
+import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -23,8 +23,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
-	Scalar conjugate(Scalar value);
-	
+	default Scalar conjugate(Scalar value) {
+		return value;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -81,9 +83,8 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		return multiplicativeGroup;
 	}
 
-	@Override
 	default FieldElement getOne() {
-		return (FieldElement) this.get(1);
+		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	/**
@@ -168,4 +169,5 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	default FieldElement operation(final Element first, final Element second) {
 		return (FieldElement) EuclideanAlgebra.super.operation(first, second);
 	}
+
 }

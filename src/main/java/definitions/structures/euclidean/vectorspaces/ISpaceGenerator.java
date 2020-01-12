@@ -53,7 +53,7 @@ public interface ISpaceGenerator {
 						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getDoubleValue() == 0.;
 						if (freq.getDoubleValue() == otherFreq.getDoubleValue()) {
 							if (!isSine && otherIsSine) {
-								tmp.put(otherVec, realLine.get(-freq.getDoubleValue()));
+								tmp.put(otherVec, ((RealLine)realLine).get(-freq.getDoubleValue()));
 							}
 							if (isSine && !otherIsSine) {
 								tmp.put(otherVec, freq);
@@ -83,7 +83,7 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.add(fun, space.stretch(projection, space.getField().get(-1.)));
+			final Function diff = (Function) space.add(fun, space.stretch(projection, ((Scalar) space.getField().getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {
@@ -218,7 +218,7 @@ public interface ISpaceGenerator {
 			return space;
 		}
 		final EuclideanSpace newSpace = this.extend(this.getTrigonometricSpace(f, n, right),
-				new LinearFunction(RealLine.getInstance().getZero(), f.get(1. / Math.sqrt(2 * Math.PI))) {
+				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine)f).get(1. / Math.sqrt(2 * Math.PI))) {
 					private long serialVersionUID = 8254610780535405982L;
 
 					@Override

@@ -90,15 +90,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	public Scalar getImag() {
 		return this.imag;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Scalar getInverse() {
-		return (Scalar) ((Field) ComplexPlane.getInstance()).inverse(this);
-	}
-
+ 
 	/**
 	 * @return the real
 	 */

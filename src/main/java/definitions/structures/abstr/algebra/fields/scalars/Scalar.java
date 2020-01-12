@@ -7,7 +7,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public interface Scalar extends Element, Vector, FiniteVectorMethods, XmlPrintable {
 
-	Scalar getInverse();
+//	Scalar getInverse();
 
 	/**
 	 * This has practical reasons. Gives double value, if possible.

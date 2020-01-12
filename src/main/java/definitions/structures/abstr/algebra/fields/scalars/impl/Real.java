@@ -124,21 +124,6 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	@XmlAttribute
-	public Scalar getInverse() {
-		if (Math.abs(this.getDoubleValue()) > 1.e-15) {
-			final Real ans = new Real();
-			ans.setValue(1 / this.getDoubleValue());
-			return ans;
-		}
-		System.out.println("Devision by 0.0!");
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@XmlAttribute
 	public double getDoubleValue() {
 		return this.realValue;
 	}

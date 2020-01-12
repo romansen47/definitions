@@ -13,6 +13,11 @@ import settings.GlobalSettings;
 @Component
 public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid{
 
+	@Override
+	public String toString() {
+		return "the implementation of the ordered discreet semi ring of natural numbers with 0 ";
+	}
+
 	class NaturalNumber implements Element{
 		
 		private final double representant;

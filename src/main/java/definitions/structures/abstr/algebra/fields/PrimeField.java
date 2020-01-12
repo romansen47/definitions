@@ -32,5 +32,13 @@ public interface PrimeField extends Field {
 	default PrimeField getPrimeField() {
 		return this;
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default Integer getDim() {
+		return 1;
+	}
 
 }
