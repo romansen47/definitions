@@ -71,8 +71,7 @@ public class GroupGeneratorTest extends AspectJTest {
 	}
 
 	@Test
-	public void integersTest() { 
-		
+	public void integersTest() {  
 		boolean addSameAsMult = four1.equals(four2);
 		boolean sumIsZero = integers.addition(four1, minusFour).equals(zero);
 		System.out.println(one);
@@ -107,6 +106,7 @@ public class GroupGeneratorTest extends AspectJTest {
 			var=(FieldElement) rationals.addition(var,rationals.getInverseElement(rationals.multiplication(var,half)));
 			System.out.println(i+": "+var.toString());
 		}
+		System.out.println(((Group)rationals.getMuliplicativeMonoid()).getInverseElement(newZero));
 	}
 
 }

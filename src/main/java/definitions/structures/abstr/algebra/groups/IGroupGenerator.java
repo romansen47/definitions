@@ -483,12 +483,12 @@ public interface IGroupGenerator {
 		};
 	}
 
-	class FieldFraction extends Fraction implements FieldElement {
+	class FieldFraction extends DiscreetFraction implements FieldElement {
 
 		Map<Vector, Scalar> coordinates;
 		Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
 
-		public FieldFraction(Element k, Element v, Monoid baseGroup) {
+		public FieldFraction(Element k, Element v, DiscreetMonoid baseGroup) {
 			super(k, v, baseGroup);
 		}
 
@@ -560,7 +560,7 @@ public interface IGroupGenerator {
 					multiplicativeMonoid = new DiscreetGroup() {
 
 						@Override
-						public Element getNeutralElement() {
+						public FieldFraction getNeutralElement() {
 							Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
 							return new FieldFraction(one, one, monoid);
 						}
@@ -572,7 +572,7 @@ public interface IGroupGenerator {
 						}
 
 						@Override
-						public Element operation(Element first, Element second) {
+						public FieldFraction operation(Element first, Element second) {
 							Element a = monoid.multiplication(((FieldFraction) first).getLeft(),
 									((FieldFraction) second).getLeft());
 							Element b = monoid.multiplication(((FieldFraction) first).getRight(),
@@ -581,7 +581,7 @@ public interface IGroupGenerator {
 						}
 
 						@Override
-						public Element getInverseElement(Element element) {
+						public FieldFraction getInverseElement(Element element) { 
 							return new FieldFraction(((FieldFraction) element).getRight(),
 									((FieldFraction) element).getLeft(), monoid);
 						}
