@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -169,6 +172,21 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public String toXml() {
 		return "Custom field of complex numbers.";
+	}
+
+	@Override
+	public Element getMinusOne() {
+		return new Complex(-1., 0.);
+	}
+
+	@Override
+	public Element getNeutralElement() {
+		return getZero();
+	}
+
+	@Override
+	public PrimeField getPrimeField() {
+		return Generator.getInstance().getGroupGenerator().getRationals();
 	}
 
 }

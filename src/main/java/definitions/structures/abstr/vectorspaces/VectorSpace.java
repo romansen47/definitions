@@ -36,7 +36,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Element getInverseElement(final Element element) {
+	default Vector getInverseElement(final Element element) {
 		final Field field = this.getField();
 		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}

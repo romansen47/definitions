@@ -22,5 +22,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
  *
  */
 public interface Ring extends Group,SemiRing {
+	
+	Element getMinusOne();
 
 }

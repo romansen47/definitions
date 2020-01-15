@@ -1,8 +1,9 @@
 package definitions.structures.abstr.algebra.rings;
 
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.FiniteField;
+import definitions.structures.abstr.algebra.groups.FiniteGroup;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface FiniteDomain extends IntegralDomain, FiniteField {
@@ -32,8 +33,11 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	}
 
 	@Override
-	default Element getInverseElement(Element element) { 
+	default FieldElement getInverseElement(Element element) { 
 		return FiniteField.super.getInverseElement(element);
 	}
+
+	@Override
+	FiniteGroup getMuliplicativeMonoid();
 
 }

@@ -1,5 +1,6 @@
 package definitions.structures.abstr.algebra.fields;
  
+import definitions.structures.abstr.algebra.groups.FiniteGroup;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -50,8 +51,11 @@ public interface FiniteField extends Field, FiniteRing {
 	}
 
 	@Override
-	default Element getInverseElement(Element element) {
-		return FiniteRing.super.getInverseElement(element);
+	default FieldElement getInverseElement(Element element) {
+		return (FieldElement) FiniteRing.super.getInverseElement(element);
 	}
+
+	@Override
+	FiniteGroup getMuliplicativeMonoid();
 
 }

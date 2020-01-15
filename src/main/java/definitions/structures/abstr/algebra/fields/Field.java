@@ -43,7 +43,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Monoid getMuliplicativeMonoid() {
+	default Group getMuliplicativeMonoid() {
 
 		final Vector newOne = this.getOne();
 		final Integer newOrder = this.getOrder();
@@ -86,15 +86,21 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	default FieldElement getOne() {
 		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
 	}
-
+	
+	@Override
+	default FieldElement getInverseElement(Element element) {
+		if (element.equals(getOne())) {
+			return (FieldElement) getMinusOne();
+		}
+		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
+	};
+	
 	/**
 	 * Should return field of rational numbers in infinite case by default.
 	 * 
 	 * @return
 	 */
-	default PrimeField getPrimeField() {
-		return null;
-	}
+	PrimeField getPrimeField();
 
 	default Vector getZero() {
 		return this.nullVec();

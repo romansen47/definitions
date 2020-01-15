@@ -7,7 +7,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
 import definitions.structures.euclidean.Generator;
 
-public interface FiniteMonoid extends Monoid, FiniteSemiGroup {
+public interface FiniteMonoid extends DiscreetMonoid, FiniteSemiGroup {
 
 	/**
 	 * Method to obtain the matrix of multiplication.

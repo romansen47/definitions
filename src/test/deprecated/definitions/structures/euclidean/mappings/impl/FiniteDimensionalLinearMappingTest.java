@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -30,8 +31,8 @@ public class FiniteDimensionalLinearMappingTest {
 		private static final long serialVersionUID = 8542796160933542925L;
 
 		@Override
-		public Vector get(final Vector vec) {
-			return ((EuclideanSpace) FiniteDimensionalLinearMappingTest.this.space).stretch(vec,
+		public Vector get(final Element vec) {
+			return ((EuclideanSpace) FiniteDimensionalLinearMappingTest.this.space).stretch((Vector) vec,
 					RealLine.getInstance().get(5));
 		}
 	};

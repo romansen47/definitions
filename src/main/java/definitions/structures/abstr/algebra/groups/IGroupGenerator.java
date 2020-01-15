@@ -14,7 +14,7 @@ import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.rings.DiscreetDomain;
-import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
+import definitions.structures.abstr.algebra.rings.DiscreetSemiRing; 
 import definitions.structures.abstr.algebra.rings.SemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
@@ -79,10 +79,9 @@ public interface IGroupGenerator {
 			final private Monoid monoid = m;
 			GroupElement neutralElement;
 
-
 			@Override
 			public String toString() {
-				return "the completion of "+m.toString()+ " to a group";
+				return "the completion of " + m.toString() + " to a group";
 			}
 
 			@Override
@@ -115,7 +114,7 @@ public interface IGroupGenerator {
 
 			@Override
 			public String toString() {
-				return "the completion of "+m.toString()+ " to a discreet group";
+				return "the completion of " + m.toString() + " to a discreet group";
 			}
 
 			final private DiscreetMonoid monoid = m;
@@ -289,9 +288,9 @@ public interface IGroupGenerator {
 
 			@Override
 			public String toString() {
-				return "the completion of "+semiRing.toString()+ " to a Ring";
+				return "the completion of " + semiRing.toString() + " to a Ring";
 			}
-			
+
 			final private SemiRing monoid = semiRing;
 
 			@Override
@@ -359,14 +358,21 @@ public interface IGroupGenerator {
 				return new Fraction(one, zero, monoid);
 			}
 
+			@Override
+			public Element getMinusOne() {
+				Element zero = monoid.getNeutralElement();
+				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				return new Fraction(zero, one, monoid);
+			}
+
 		};
 	}
 
 	DiscreetSemiRing getNaturals();
 
-	default DiscreetRing getIntegers() {
+	default DiscreetDomain getIntegers() {
 		if (getIntegers() == null) {
-			DiscreetRing integers = completeToDiscreetRing(getNaturals());
+			DiscreetDomain integers = completeToDiscreetRing(getNaturals());
 			setIntegers(integers);
 			return integers;
 		}
@@ -380,9 +386,9 @@ public interface IGroupGenerator {
 
 			@Override
 			public String toString() {
-				return "the completion of "+semiRing.toString()+ " to a discreet domain";
+				return "the completion of " + semiRing.toString() + " to a discreet domain";
 			}
-			
+
 			final private DiscreetSemiRing monoid = semiRing;
 
 			@Override
@@ -464,20 +470,24 @@ public interface IGroupGenerator {
 
 			@Override
 			public boolean divides(Element divisor, Element divident) {
-				// TODO Auto-generated method stub
-				return false;
+				return true;
 			}
 
 			@Override
 			public boolean isIrreducible(Element element) {
-				// TODO Auto-generated method stub
-				return false;
+				return true;
 			}
 
 			@Override
 			public boolean isPrimeElement(Element element) {
-				// TODO Auto-generated method stub
 				return false;
+			}
+
+			@Override
+			public Element getMinusOne() {
+				Element zero = monoid.getNeutralElement();
+				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				return new Fraction(zero, one, monoid);
 			}
 
 		};
@@ -533,7 +543,7 @@ public interface IGroupGenerator {
 			 * {@inheritDoc}
 			 */
 			@Override
-			public Element getInverseElement(final Element element) {
+			public FieldElement getInverseElement(final Element element) {
 				final Field field = this.getField();
 				Element monoidNeutralElement = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new FieldFraction(monoid.getInverseElement(((ProductElement) element).getLeft()),
@@ -581,7 +591,7 @@ public interface IGroupGenerator {
 						}
 
 						@Override
-						public FieldFraction getInverseElement(Element element) { 
+						public FieldFraction getInverseElement(Element element) {
 							return new FieldFraction(((FieldFraction) element).getRight(),
 									((FieldFraction) element).getLeft(), monoid);
 						}
@@ -620,7 +630,8 @@ public interface IGroupGenerator {
 			@Override
 			public EuclideanSpace getDualSpace() {
 				if (dualSpace == null) {
-					dualSpace = new FunctionalSpace(this) {};
+					dualSpace = new FunctionalSpace(this) {
+					};
 				}
 				return dualSpace;
 			}
@@ -637,6 +648,37 @@ public interface IGroupGenerator {
 				return true;
 			}
 
+			@Override
+			public Element getMinusOne() {
+				Element zero = monoid.getNeutralElement();
+				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				return new Fraction(zero, one, monoid);
+			}
+
+			@Override
+			public Vector add(Vector vec1, Vector vec2) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Vector stretch(Vector vec1, Scalar r) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Vector nullVec() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
 		};
 	}
+
+	void setNaturals(DiscreetSemiRing naturals);
+
+	PrimeField getRationals();
+
+	void setRationals(PrimeField rationals);
 }

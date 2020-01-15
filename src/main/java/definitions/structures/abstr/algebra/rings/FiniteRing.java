@@ -3,10 +3,11 @@ package definitions.structures.abstr.algebra.rings;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.vectorspaces.Ring; 
+import definitions.structures.abstr.algebra.groups.DiscreetRing;
+import definitions.structures.abstr.algebra.groups.FiniteGroup;
+import definitions.structures.abstr.algebra.semigroups.Element; 
 
-public interface FiniteRing extends FiniteGroup, Ring {
+public interface FiniteRing extends FiniteGroup, DiscreetRing {
 
 
 	/**

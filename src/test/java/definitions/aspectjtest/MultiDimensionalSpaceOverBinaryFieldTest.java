@@ -20,9 +20,9 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 	Field f;
 	
 	
-	//@Test
+	@Test
 	public void test() {
-
+		
 		boolean ans = true;
 		final EuclideanSpace modulo2Space = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalVectorSpace(f,
 				this.dim);

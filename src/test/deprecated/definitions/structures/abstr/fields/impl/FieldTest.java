@@ -36,7 +36,7 @@ public class FieldTest extends VectorSpaceTest {
 
 	@Override
 	public Vector getVec2() {
-		return new Quaternion(1, 1, 1, 1).getInverse();
+		return ((Field)getSpace()).getInverseElement(new Quaternion(1, 1, 1, 1));
 	}
 
 	@Test

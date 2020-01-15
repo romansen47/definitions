@@ -39,9 +39,9 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 
 	@Test
 	public void test1() {
-		final Function staircaseFunction1Projection = this.getStaircaseFunction()
+		final Function staircaseFunctionProjection = this.getStaircaseFunction()
 				.getProjection(this.getTrigonometricSpace());
-		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunctionProjection);
 	}
 
 }

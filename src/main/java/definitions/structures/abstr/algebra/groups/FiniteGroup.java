@@ -1,8 +1,7 @@
-package definitions.structures.abstr.algebra.rings;
+package definitions.structures.abstr.algebra.groups;
 
 import java.util.Map;
 
-import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 

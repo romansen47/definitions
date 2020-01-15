@@ -48,9 +48,7 @@ public interface VectorSpaceMethods {
 	 * 
 	 * @return the zero vector.
 	 */
-	default Vector nullVec() {
-		return null;
-	}
+	Vector nullVec();
 
 	/**
 	 * For debugging purposes.

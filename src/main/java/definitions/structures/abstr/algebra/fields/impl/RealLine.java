@@ -8,6 +8,8 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
+import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.fields.scalars.impl.RealOne;
@@ -16,6 +18,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
@@ -266,6 +269,26 @@ public class RealLine implements Field, RealSpace {
 	@Override
 	public String toXml() {
 		return "<realline/>";
+	}
+
+	@Override
+	public Element getNeutralElement() {
+		return get(0.);
+	}
+
+	@Override
+	public FieldElement getInverseElement(Element element) { 
+		return get(-((Real)element).getDoubleValue());
+	}
+
+	@Override
+	public Element getMinusOne() {
+		return get(-1);
+	}
+
+	@Override
+	public PrimeField getPrimeField() { 
+		 return Generator.getInstance().getGroupGenerator().getRationals();
 	}
 
 }

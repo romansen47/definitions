@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.algebra.semigroups.Element;
@@ -15,6 +16,7 @@ import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -106,12 +108,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	 */
 	public Vector getI() {
 		return this.i;
-	}
-
-	@Override
-	public Element getInverseElement(final Element element) {
-		return super.getInverseElement(element);
-	}
+	} 
 
 	/**
 	 * @return the j
@@ -207,8 +204,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	public Quaternion product(final Vector vec1, final Vector vec2) {
 		return (Quaternion) Field.super.product(vec1, vec2);
 	}
-
-	// @Bean(value="quaternionSpace")
+ 
 	public QuaternionSpace quaternionSpace() {
 		return new QuaternionSpace();
 	}
@@ -242,6 +238,16 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public String toString() {
 		return "Custom field of quaternions as a 4-dimensional real vector space.";
+	}
+
+	@Override
+	public Element getMinusOne() { 
+		return new Quaternion(-1,0,0,0);
+	}
+
+	@Override
+	public PrimeField getPrimeField() {
+		return Generator.getInstance().getGroupGenerator().getRationals();
 	}
 
 }

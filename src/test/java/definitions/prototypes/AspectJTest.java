@@ -6,10 +6,15 @@ import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 
 import definitions.SpringConfiguration;
+import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
-import definitions.structures.abstr.algebra.fields.impl.RealLine; 
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.groups.GroupGenerator;
+import definitions.structures.abstr.algebra.rings.DiscreetDomain;
+import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.impl.Naturals;
 
 public class AspectJTest {
 
@@ -17,6 +22,9 @@ public class AspectJTest {
 	private static SpringConfiguration springConfiguration;
 	private static Generator generator; 
 	private static SpaceGenerator spaceGenerator;
+	private static DiscreetSemiRing naturals;
+	private static DiscreetDomain integers;
+	private static PrimeField rationals;
 	private static RealLine realLine;
 	private static ComplexPlane complexPlane; 
  
@@ -50,6 +58,9 @@ public class AspectJTest {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
 		setSpaceGenerator(getGenerator().getSpaceGenerator());
+		setNaturals(GroupGenerator.getInstance().getNaturals());
+		setIntegers(GroupGenerator.getInstance().getIntegers());
+		setRationals(GroupGenerator.getInstance().getRationals());
 		setRealLine(RealLine.getInstance());
 		setComplexPlane((ComplexPlane) ComplexPlane.getInstance()); 
 		getLogger().setLevel(Level.INFO);
@@ -74,6 +85,48 @@ public class AspectJTest {
 
 	public static void setSpringConfiguration(final SpringConfiguration springConfiguration) {
 		AspectJTest.springConfiguration = springConfiguration;
+	}
+
+	/**
+	 * @return the naturals
+	 */
+	public static DiscreetSemiRing getNaturals() {
+		return naturals;
+	}
+
+	/**
+	 * @param naturals the naturals to set
+	 */
+	public static void setNaturals(DiscreetSemiRing naturals) {
+		AspectJTest.naturals = naturals;
+	}
+
+	/**
+	 * @return the integers
+	 */
+	public static DiscreetDomain getIntegers() {
+		return integers;
+	}
+
+	/**
+	 * @param integers the integers to set
+	 */
+	public static void setIntegers(DiscreetDomain integers) {
+		AspectJTest.integers = integers;
+	}
+
+	/**
+	 * @return the rationals
+	 */
+	public static PrimeField getRationals() {
+		return rationals;
+	}
+
+	/**
+	 * @param rationals the rationals to set
+	 */
+	public static void setRationals(PrimeField rationals) {
+		AspectJTest.rationals = rationals;
 	}
 
 }

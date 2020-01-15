@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
+import definitions.structures.euclidean.Generator;
+
 /**
  * @author ro
  *
@@ -28,6 +30,13 @@ public class TestAspect {
 		return this.testStarted;
 	}
 
+	@Before("@annotation(org.junit.Test)")
+	public void printTestCaseName(JoinPoint jp) {
+		String testCaseName = jp.toShortString()+"\r";
+		Generator.getInstance().getLogger().info(testCaseName);
+	}
+	
+	
 //	@After("execution(* definitions.structures..*.*(..)) && !execution(* aspects..*.*(..))")
 	public void message(final JoinPoint jp) {
 		logger.info("done with " + jp.toShortString());
