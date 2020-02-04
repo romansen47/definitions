@@ -34,13 +34,6 @@ public interface FiniteVector extends Vector, FiniteVectorMethods {
 	Map<Vector, Scalar> getCoordinates(EuclideanSpace source);
 
 	/**
-	 * Method to get the base corresponding to the coordinates of the vector.
-	 * 
-	 * @return the base.
-	 */
-	Set<Vector> getGenericBase();
-
-	/**
 	 * Method to compute the projection of the vector onto a vector space.
 	 * 
 	 * @param source the vector space.

@@ -25,10 +25,10 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 	 * Addition of linear mappings.
 	 */
 	@Override
-	public Vector add(final Vector vec1, final Vector vec2) {
+	public Vector addition(final Vector vec1, final Vector vec2) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
 		for (final Vector vec : this.source.genericBaseToList()) {
-			coordinates.put(vec, ((FiniteVectorMethods) this.target.add(((VectorSpaceHomomorphism) vec1).get(vec),
+			coordinates.put(vec, ((FiniteVectorMethods) this.target.addition(((VectorSpaceHomomorphism) vec1).get(vec),
 					((VectorSpaceHomomorphism) vec2).get(vec))).getCoordinates());
 		}
 		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);

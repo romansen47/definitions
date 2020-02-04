@@ -25,13 +25,19 @@ public interface SemiRing extends Monoid{
 	Monoid getMuliplicativeMonoid();
 
 	/**
-	 * method to multiply elements
+	 * method to multiply elements.
 	 * 
 	 * @param element      first element
 	 * @param otherElement second element
 	 * @return the multiplication of the elements
 	 */
 	default Element multiplication(final Element element, final Element otherElement) {
+		Element neutralElement=getNeutralElement();
+		boolean cond1 = element.equals(neutralElement);
+		boolean cond2 = otherElement.equals(neutralElement);
+		if ( cond1 || cond2 ) {
+			return neutralElement;
+		}
 		return (Element) this.getMuliplicativeMonoid().operation(element, otherElement);
 	}
 

@@ -73,14 +73,14 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public Quaternion add(final Vector vec1, final Vector vec2) {
+	public Quaternion addition(final Vector vec1, final Vector vec2) {
 		if (vec1 == this.nullVec()) {
 			return (Quaternion) vec2;
 		}
 		if (vec2 == this.nullVec()) {
 			return (Quaternion) vec1;
 		}
-		final Vector ans = super.add(vec1, vec2);
+		final Vector ans = super.addition(vec1, vec2);
 		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.j),
@@ -176,8 +176,8 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
-	public Element getNeutralElement() {
-		return super.getNeutralElement();
+	public Quaternion getNeutralElement() {
+		return (Quaternion) super.getNeutralElement();
 	}
 
 	@Override
@@ -202,7 +202,9 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public Quaternion product(final Vector vec1, final Vector vec2) {
+//		return stretch(vec1,(Scalar)vec2);
 		return (Quaternion) Field.super.product(vec1, vec2);
+		
 	}
  
 	public QuaternionSpace quaternionSpace() {
@@ -220,7 +222,8 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public Quaternion stretch(final Vector vec1, final Scalar r) {
 		if (r instanceof Quaternion) {
-			return this.product(vec1, r);
+			return (Quaternion) super.innerProduct(vec1,(Vector)r);
+//			return this.product(vec1, r);
 		}
 		if (r == this.getField().getOne()) {
 			return (Quaternion) vec1;

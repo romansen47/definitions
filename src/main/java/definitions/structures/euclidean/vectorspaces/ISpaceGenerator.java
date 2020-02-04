@@ -83,7 +83,7 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.add(fun, space.stretch(projection, ((Scalar) space.getField().getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
+			final Function diff = (Function) space.addition(fun, space.stretch(projection, ((Scalar) space.getField().getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {
@@ -225,6 +225,10 @@ public interface ISpaceGenerator {
 					public Field getField() {
 						return f;
 					}
+
+					@Override
+					public void setRepresentant(Double representant) {
+					}
 				});
 		this.getMyCache().getConcreteCache().put(n, newSpace);
 		System.out.println(
@@ -256,6 +260,10 @@ public interface ISpaceGenerator {
 			@Override
 			public Scalar value(final Scalar input) {
 				return input;
+			}
+
+			@Override
+			public void setRepresentant(Double representant) {
 			}
 
 		});

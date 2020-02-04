@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -34,7 +35,10 @@ public class DebugAspect {
 			+ "!execution(* definitions.structures.euclidean.vectors.impl.Tuple.*(..)) &&"
 			+ "!execution(* definitions.structures.euclidean.vectorspaces.EuclideanSpace.genericBaseToList(..)) &&"
 			+ "!execution(* *.getInstance(..)) &&" + "!execution(* *.getLogger(..)) &&"
-			+ "!execution(void plotter.Plotable.plot(..))";
+			+ "!execution(void plotter.Plotable.plot(..)) && "
+			+ "!execution(* definitions.structures.dynamicsystems.GameOfLife.*(..)) && "
+			+ "!execution(* definitions.structures.dynamicsystems.DynamicSystem.*(..))";
+	
 
 	public DebugAspect() throws IOException {
 		new File(this.path).mkdirs();
@@ -44,7 +48,7 @@ public class DebugAspect {
 		logger.info("Created buffered file writer");
 	}
 
-	@AfterReturning(value = pointCut, returning = "returnValue")
+//	@AfterReturning(value = pointCut, returning = "returnValue")
 	public synchronized void afterLookup(final JoinPoint jp, final Object returnValue) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
 			this.postCreateXmlEntry(jp, returnValue);
@@ -55,41 +59,13 @@ public class DebugAspect {
 		}
 	}
 
-	@Before(pointCut)
+//	@Before(pointCut)
 	public synchronized void beforeLookup(final JoinPoint jp) throws Throwable {
 		if (AspectsController.getInstance().getRunning() != null && AspectsController.getInstance().getRunning()) {
 			this.count += 1;
 			this.preCreateXmlEntry(jp);
 		}
 	}
-
-//	/**
-//	 * @return the buffered writer
-//	 */
-//	public BufferedWriter getBw() {
-//		return this.bw;
-//	}
-//
-//	/**
-//	 * @return the executionsCount
-//	 */
-//	public int getExecutionsCount() {
-//		return this.executionsCount;
-//	}
-//
-//	/**
-//	 * @return the path
-//	 */
-//	public String getPath() {
-//		return this.path;
-//	}
-//
-//	/**
-//	 * @return the writer
-//	 */
-//	public FileWriter getW() {
-//		return this.w;
-//	}
 
 	private synchronized void postCreateXmlEntry(final JoinPoint jp, final Object o) throws Throwable {
 		String ans2 = "";
@@ -157,7 +133,7 @@ public class DebugAspect {
 	}
 
 	private synchronized void printToFile(final String str) throws IOException {
-		System.out.println(str);
+		//System.out.println(str);
 		this.bw.write(str);
 		this.bw.flush();
 	}
@@ -176,8 +152,8 @@ public class DebugAspect {
 //		this.executionsCount = executionsCount;
 //	}
 
-	// @After("execution(static void definitions.prototypes.AspectJTest.prepare())")
-	@Before("@annotation(org.junit.Test)")
+//	@After("execution(static void definitions.prototypes.AspectJTest.prepare())")
+//	@Before("@annotation(org.junit.Test)")
 	public void setRunningTrueByAnnotation() {
 		final Boolean running = AspectsController.getInstance().getRunning();
 		if (running == null) {

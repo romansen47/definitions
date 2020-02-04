@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
@@ -62,8 +63,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Complex add(final Vector vec1, final Vector vec2) {
-		final Vector ans = super.add(vec1, vec2);
+	public Complex addition(final Vector vec1, final Vector vec2) {
+		final Vector ans = super.addition(vec1, vec2);
 		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
 				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
@@ -134,8 +135,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	@Override
 
-	public Complex inverse(final Vector factor) {
-		return (Complex) Field.super.inverse(factor);
+	public Complex getMultiplicativeInverseElement(final Vector factor) {
+		return (Complex) Field.super.getMultiplicativeInverseElement(factor);
 	}
 
 	@Override
@@ -175,13 +176,13 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	@Override
-	public Element getMinusOne() {
+	public Complex getMinusOne() {
 		return new Complex(-1., 0.);
 	}
 
 	@Override
-	public Element getNeutralElement() {
-		return getZero();
+	public Complex getNeutralElement() {
+		return (Complex) getZero();
 	}
 
 	@Override

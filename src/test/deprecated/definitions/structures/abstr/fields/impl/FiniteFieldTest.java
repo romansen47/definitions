@@ -8,8 +8,6 @@ import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.groups.impl.BinaryField;
-import definitions.structures.abstr.algebra.rings.impl.FiniteResidueClassRing;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.abstr.vectorspaces.vectors.VectorTest;
@@ -32,10 +30,10 @@ public class FiniteFieldTest extends VectorTest {
 	@Test
 
 	public void addTest() {
-		final Vector sum1 = modulo2.add(modulo2.getOne(), modulo2.getOne());
-		final Vector sum2 = modulo2.add(modulo2.getOne(), modulo2.getZero());
-		final Vector sum3 = modulo2.add(modulo2.getZero(), modulo2.getOne());
-		final Vector sum4 = modulo2.add(modulo2.getZero(), modulo2.getZero());
+		final Vector sum1 = modulo2.addition(modulo2.getOne(), modulo2.getOne());
+		final Vector sum2 = modulo2.addition(modulo2.getOne(), modulo2.getZero());
+		final Vector sum3 = modulo2.addition(modulo2.getZero(), modulo2.getOne());
+		final Vector sum4 = modulo2.addition(modulo2.getZero(), modulo2.getZero());
 	}
 
 	@Test
@@ -74,8 +72,8 @@ public class FiniteFieldTest extends VectorTest {
 	@Test
 
 	public void inverseTest() {
-		final Vector inv1 = modulo2.inverse(modulo2.getOne());
-		final Vector inv2 = modulo2.inverse(modulo2.getZero());
+		final Vector inv1 = modulo2.getMultiplicativeInverseElement(modulo2.getOne());
+		final Vector inv2 = modulo2.getMultiplicativeInverseElement(modulo2.getZero());
 	}
 
 	@Test

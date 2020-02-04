@@ -18,7 +18,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Vector add(final Vector vec1, final Vector vec2) {
+	default Vector addition(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector)) {
 			final List<Vector> base = this.genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
@@ -30,7 +30,7 @@ public interface ParameterizedSpace extends EuclideanSpace {
 			}
 			return this.get(coordinates);
 		} else {
-			return this.add(vec1, vec2);
+			return this.addition(vec1, vec2);
 		}
 	}
 

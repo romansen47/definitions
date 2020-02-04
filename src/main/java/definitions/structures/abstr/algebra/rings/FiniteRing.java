@@ -9,21 +9,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface FiniteRing extends FiniteGroup, DiscreetRing {
 
-
-	/**
-	 * Getter for the identity element
-	 * 
-	 * @return the neutral element of the semi group
-	 */
 	@Override
-	Element getNeutralElement();
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	Element get(Double index);
-
 	default Element getMultiplicativeInverseElement(final Element element) {
 		final Element tmp = getMultiplicativeInverseElement((Element) element);
 		if (tmp != null) {
@@ -52,27 +38,21 @@ public interface FiniteRing extends FiniteGroup, DiscreetRing {
 	 */
 	@Override
 	default Element operation(final Element first, final Element second) {
+		Element ans=FiniteGroup.super.operation(first, second);
+		if (ans!=null) {
+			return ans;
+		}
 		Map<Element, Element> tmpMap = this.getOperationMap().get(first);
 		if (tmpMap == null) {
 			tmpMap = new HashMap<>();
 		}
-		Element ans = tmpMap.get(second);
+		ans = tmpMap.get(second);
 		if (ans != null) {
 			return (Element) ans;
 		}
 		ans = FiniteRing.this.getElements()
 				.get((getRepresentant(first) + getRepresentant(second))
 						% FiniteRing.this.getOrder());
-//		if (((Element) ans).equals((Element) FiniteRing.this.getNeutralElement())) {
-//			if (getInverseElement(first) == null) {
-//				if (!((Element) second)
-//						.equals((Element) FiniteRing.this.getNeutralElement())) { 
-//					if (getInverseElement(second) == null) {
-//						setInverseElement((Element) second,(Element) first);
-//					}
-//				}
-//			}
-//		}
 		tmpMap.put(second, ans);
 		Map<Element, Element> secondTmpMap = this.getOperationMap().get(second);
 		if (secondTmpMap == null) {

@@ -4,7 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import definitions.prototypes.GenericTrigonometricSpaceTest;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
+import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest {
 
@@ -22,8 +25,8 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		this.setTrigonometricDegree(20);
-		this.setSobolevDegree(2);
+		this.setTrigonometricDegree(50);
+		this.setSobolevDegree(3);
 
 		this.setField(getRealLine());
 		super.setUp();
@@ -37,6 +40,26 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 		final Function staircaseFunction1Projection = this.getStaircaseFunction()
 				.getProjection(this.getTrigonometricSpace());
 		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+	}
+
+	@Test
+	public void testOnContinuousFunction() throws Exception {
+		Function h = new GenericFunction() {
+			@Override
+			public Scalar value(Scalar input) {
+				Double inputValue = input.getRepresentant();
+				double abs = Math.abs(Math.sin(inputValue) * Math.cos(inputValue));
+				return RealLine.getInstance().get(abs);
+			}
+		};
+		Function hProjection;
+		for (int i = 0; i < 5; i++) {
+			this.setSobolevDegree(i);
+			this.setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(),
+					this.getTrigonometricDegree(), this.getSobolevDegree()));
+			hProjection = h.getProjection(this.getTrigonometricSpace());
+			h.plotCompare(-Math.PI, Math.PI, hProjection);
+		}
 	}
 
 }

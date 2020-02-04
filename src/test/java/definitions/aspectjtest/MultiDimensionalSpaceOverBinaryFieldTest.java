@@ -1,12 +1,10 @@
 package definitions.aspectjtest;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
-import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.FiniteField;
+import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -17,7 +15,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 
 	final int dim = 8;
-	Field f;
+	PrimeField f=AspectJTest.getGenerator().getGroupGenerator().getBinaries();
 	
 	
 	@Test
@@ -30,9 +28,10 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 
 		for (int i = 1; i < this.dim; i++) {
 			final Vector x = modulo2Space.genericBaseToList().get(i);
-			final Vector h = modulo2Space.add(x, x);
+			final Vector h = modulo2Space.addition(x, x);
 			if (!h.equals(modulo2Space.nullVec())) {
 				ans = false;
+				continue;
 			}
 		}
 

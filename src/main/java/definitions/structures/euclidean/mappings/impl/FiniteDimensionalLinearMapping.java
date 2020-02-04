@@ -60,7 +60,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		this(source, target, coordinates);
 		this.genericMatrix = matrix;
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

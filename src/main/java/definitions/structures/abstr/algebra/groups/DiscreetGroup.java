@@ -12,12 +12,12 @@ import definitions.structures.abstr.algebra.semigroups.Element;
  */
 public interface DiscreetGroup extends DiscreetMonoid, Group {
 	
-	/**
-	 * Getter for the identity element
-	 * 
-	 * @return the neutral element of the semi group
-	 */
-	Element getNeutralElement();
+//	/**
+//	 * Getter for the identity element
+//	 * 
+//	 * @return the neutral element of the semi group
+//	 */
+//	Element getNeutralElement();
 	
 	/**
 	 * In a discreet monoid we have countably many elements and can define a getter

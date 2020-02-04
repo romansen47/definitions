@@ -67,7 +67,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 			final Scalar coord = coordinates.get(((EuclideanSpace) this.getSource()).getBaseVec(src));
 			final Vector vec = target.get(tmp);
 			final Vector summand = target.stretch(vec, coord);
-			ans = target.add(ans, summand);
+			ans = target.addition(ans, summand);
 		}
 		return ans;
 	}

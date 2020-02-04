@@ -93,16 +93,16 @@ public class GroupGeneratorTest extends AspectJTest {
 	public void integersTest() {
 		boolean addSameAsMult = four1.equals(four2);
 		boolean sumIsZero = getIntegers().addition(four1, minusFour).equals(zero);
-		System.out.println(one);
-		System.out.println(minusOne);
-		System.out.println(zero);
-		System.out.println(two);
-		System.out.println(three);
-		System.out.println(four1);
-		System.out.println(minusFour);
+//		System.out.println(one);
+//		System.out.println(minusOne);
+//		System.out.println(zero);
+//		System.out.println(two);
+//		System.out.println(three);
+//		System.out.println(four1);
+//		System.out.println(minusFour);
 		Assert.assertTrue(addSameAsMult);
 		Assert.assertTrue(sumIsZero);
-		System.out.println(getIntegers().get(12.));
+//		System.out.println(getIntegers().get(12.));
 	}
 
 	@Test
@@ -117,15 +117,13 @@ public class GroupGeneratorTest extends AspectJTest {
 		FieldElement half = (FieldElement) ((Group) getRationals().getMuliplicativeMonoid()).getInverseElement(newTwo);
 		FieldElement quarter = (FieldElement) ((Group) getRationals().getMuliplicativeMonoid())
 				.getInverseElement(newFour);
-		System.out.println(newZero.toString());
-		System.out.println(newOne.toString());
-		System.out.println(newTwo.toString());
-		System.out.println(newFour.toString());
-		System.out.println(quarter.toString());
 		FieldElement var = (FieldElement) getRationals().multiplication(newOne, newOne);
+		FieldElement tmp;
+		FieldElement debugTmp;
 		for (int i = 1; i < 10; i++) {
-			var = (FieldElement) getRationals().addition(var,
-					getRationals().getInverseElement(getRationals().multiplication(var, half)));
+			debugTmp=(FieldElement) getRationals().multiplication(var, half);
+			tmp = getRationals().getInverseElement(debugTmp);
+			var = (FieldElement) getRationals().addition(var, tmp);
 			System.out.println(i + ": " + var.toString());
 		}
 		System.out.println(((Group) getRationals().getMuliplicativeMonoid()).getInverseElement(newZero));
@@ -133,137 +131,25 @@ public class GroupGeneratorTest extends AspectJTest {
 
 	@Test
 	public void testBinField() {
-		DiscreetSemiRing binaryField = new FiniteRing() {
- 
-			private FiniteMonoid muliplicativeMonoid;
-			Map<Element, Map<Element, Element>> operationMap;
 
-			Map<Element, Map<Element, Element>> multiplicationMap;
-			private Map<Double, Element> elements;
+		PrimeField field = GroupGenerator.getInstance().getBinaries();
+		System.out.println(field.toXml());
 
-			@Override
-			public Element getNeutralElement() {
-				return get(0.0);
-			}
+		int i = 0;
+		Element zero = field.getZero();
+		Element one = field.getOne();
+		System.out.println("zero " + zero.toString() + ", one " + one.toString());
 
-			@Override
-			public Element operation(Element first, Element second) {
-				return get((first.getRepresentant() + second.getRepresentant()) % 2.);
-			}
+		System.out.println("zero + zero: " + field.addition(zero, zero));
+		System.out.println("zero + one: " + field.addition(zero, one));
+		System.out.println("one + zero: " + field.addition(one, zero));
+		System.out.println("one + one: " + field.addition(one, one) + "\r");
 
-			@Override
-			public Element get(Double r) {
-				FieldElement element = (FieldElement) getElements().get(r);
-				if (element == null) {
-					element = new FieldElement() {
-						@Override
-						public Double getRepresentant() {
-							return r;
-						}
-						@Override
-						public Map<Vector, Scalar> getCoordinates() {
-							return null;
-						}
-						@Override
-						public void setCoordinates(Map<Vector, Scalar> coordinates) {
+		System.out.println("zero * zero: " + field.multiplication(zero, zero));
+		System.out.println("zero * one: " + field.multiplication(zero, one));
+		System.out.println("one * zero: " + field.multiplication(one, zero));
+		System.out.println("one * one: " + field.multiplication(one, one));
 
-						}
-						@Override
-						public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-
-						}
-					};
-					getElements().put(r, element);
-				}
-				return element;
-			}
-
-			@Override
-			public boolean isUnit(Element element) {
-				return element.equals(get(0.0));
-			}
-
-			@Override
-			public Element getOne() {
-				return get(1.0);
-			}
-
-			@Override
-			public DiscreetMonoid getMuliplicativeMonoid() {
-				muliplicativeMonoid = new FiniteMonoid() { 
-					
-					@Override
-					public Element get(Double representant) {
-						return getOne();
-					}
-
-					@Override
-					public Map<Double, Element> getElements() {
-						return elements;
-					}
-
-					@Override
-					public Map<Element, Map<Element, Element>> getOperationMap() {
-						if (multiplicationMap==null) {
-							multiplicationMap=new ConcurrentHashMap<>();
-							Map<Element, Element> entry=new HashMap<>();
-							entry.put(getOne(),getOne());
-							multiplicationMap.put(getOne(),entry);
-						}
-						return multiplicationMap;
-					}
-
-					@Override
-					public Element operation(Element first, Element second) { 
-						if (first==get(0.0) || second == get(0.0)){
-							return get(0.0);
-						}
-						return get(1.0);
-					}
-
-					@Override
-					public Element getNeutralElement() { 
-						return get(1.0);
-					}
-
-				};
-				return muliplicativeMonoid;
-			}
-
-			@Override
-			public Map<Element, Map<Element, Element>> getOperationMap() { 
-				if (operationMap==null) {
-					operationMap=new ConcurrentHashMap<>();
-					Map<Element, Element> entry=new HashMap<>(); 
-					Map<Element, Element> entry2=new HashMap<>(); 
-					entry.put(getNeutralElement(),getNeutralElement());
-					entry.put(getOne(),getOne());
-					entry2.put(getNeutralElement(),getOne());
-					entry2.put(getOne(),getNeutralElement());
-					operationMap.put(getOne(),entry);
-				}
-				return operationMap;
-			}
-
-			@Override
-			public Map<Double, Element> getElements() { 
-				return elements;
-			}
-
-			@Override
-			public Element getMinusOne() { 
-				return getOne();
-			}
-
-		};
-		DiscreetSemiRing test= binaryField;
-		DiscreetDomain bindom=GroupGenerator.getInstance().completeToDiscreetRing(test);
-		PrimeField field=GroupGenerator.getInstance().completeToDiscreetField(bindom);
-		int i=0;
-		Element zero=field.getZero();
-		Element one=field.getOne();
-		System.out.println("zero "+zero.toString()+", one "+one.toString());
-		
 	}
 
 }

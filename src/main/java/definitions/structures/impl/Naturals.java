@@ -104,7 +104,7 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 	}
 
 	@Override
-	public boolean isHigher(Element smallerOne, Element biggerOne) { 
+	public boolean isSmallerThan(Element smallerOne, Element biggerOne) { 
 		return biggerOne.getRepresentant()>smallerOne.getRepresentant();
 	}
 

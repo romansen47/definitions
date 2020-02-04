@@ -2,8 +2,9 @@ package definitions.structures.abstr.vectorspaces;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.groups.Group; 
+import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -23,7 +24,9 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @param vec2 summand b.
 	 * @return the addition of a and b.
 	 */
-	Vector add(Vector vec1, Vector vec2);
+	default Vector addition(Vector vec1, Vector vec2) {
+		return (Vector) Group.super.operation(vec1, vec2);
+	}
 
 	/**
 	 * vector spaces are defined over fields.
@@ -37,6 +40,9 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 */
 	@Override
 	default Vector getInverseElement(final Element element) {
+		if (element.equals(getNeutralElement())) {
+			return (Vector) element;
+		}
 		final Field field = this.getField();
 		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
@@ -58,19 +64,21 @@ public interface VectorSpace extends Group, XmlPrintable {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	default Element operation(final Element first, final Element second) {
-		return this.add((Vector) first, (Vector) second);
-	}
-
-	/**
 	 * Scalar Multiplication by real numbers.
 	 * 
 	 * @param vec1 the vector to stretch.
 	 * @param r    the factor.
 	 * @return the stretched vector.
 	 */
-	Vector stretch(Vector vec1, Scalar r);
+	default	Vector stretch(Vector vec1, Scalar r) {
+		FieldElement zero = (FieldElement) getField().getNeutralElement();
+		FieldElement one = getField().getOne();
+		if (r.equals(zero)) {
+			return (Vector) getNeutralElement();
+		}
+		if (r.equals(one)) {
+			return vec1;
+		}
+		return null;
+	}
 }

@@ -4,71 +4,34 @@ import org.junit.Before;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
-import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
-import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
+import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.mappings.Mapping;
+import definitions.structures.abstr.mappings.SelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
-import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.impl.Naturals;
 
 public class DiscreetDynamicSystemTest extends AspectJTest {
 
-	private OrderedMonoid timeSpace;
+	private Group timeSpace;
 	private VectorSpace phaseSpace;
 	private DynamicSystem dinamicSystem;
-	private Function evolutionOperator;
+	private Mapping evolutionOperator;
 	private Vector startVector;
 	private final int iterations = 21;
 
+	@SuppressWarnings("serial")
 	@Before
 	public void beforeTest() {
-		this.timeSpace = new Naturals();
-		this.phaseSpace = ComplexPlane.getInstance();
-		this.startVector = ((EuclideanSpace) this.phaseSpace).genericBaseToList().get(1);
-		this.evolutionOperator = new GenericFunction() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Field getField() {
-				return (Field) ComplexPlane.getInstance();
-			}
-
-			@Override
-			public String toXml() {
-				return "the evolution operator of the system.";
-			}
-
-			@Override
-			public Scalar value(final Scalar input) {
-				final Scalar factor = RealLine.getInstance().get(-0.5);
-				return (Scalar) DiscreetDynamicSystemTest.this.phaseSpace.stretch(input, factor);
-			}
-		};
-		this.dinamicSystem = new DynamicSystem() {
-
-			@Override
-			public Function getEvolutionOperator(Element tmp) {
-				return evolutionOperator;
-			}
-
-			@Override
-			public VectorSpace getPhaseSpace() { 
-				return phaseSpace;
-			}
-
-			@Override
-			public OrderedMonoid getTimeSpace() { 
-				return timeSpace;
-			}
-		};
+		this.timeSpace = getIntegers();// new Naturals();
 	}
 
 	/**
@@ -88,7 +51,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	/**
 	 * @return the timespace
 	 */
-	public OrderedMonoid getTimespace() {
+	public Group getTimespace() {
 		return this.timeSpace;
 	}
 
@@ -100,14 +63,97 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	}
 
 	@Test
-	public void test() {
+	public void testExponentialLaw() {
+		this.phaseSpace = RealLine.getInstance();
+		this.startVector = ((RealLine) phaseSpace).get(1.);
+
+		this.dinamicSystem = new DynamicSystem() {
+
+			@Override
+			public VectorSpace getPhaseSpace() {
+				return phaseSpace;
+			}
+
+			@Override
+			public SelfMapping getDefiningMapping() {
+				return new SelfMapping() {
+
+					@Override
+					public Element get(Element vec) {
+						return phaseSpace.addition((Vector) vec, (Vector) vec);
+					}
+
+					@Override
+					public Monoid getSource() {
+						return phaseSpace;
+					}
+
+				};
+			}
+
+		};
 		Vector vec = this.startVector;
+		Element tmp;
+		Element ans;
+		Mapping evolutionOp;
 		for (double i = 0; i < this.iterations; i++) {
-			final Element tmp =  ((DiscreetMonoid) this.timeSpace).get(i);
-			final Function evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
-			vec = evolutionOp.value((Scalar) vec);
-			getLogger().info("\r"+i + ": " + vec.toXml());
+			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
+			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
+			getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get((Scalar) vec)).toXml());
 		}
+	}
+
+	@Test
+	public void testFibbonacciLaw() {
+		this.phaseSpace = ComplexPlane.getInstance();
+		this.startVector = ((ComplexPlane) phaseSpace).get(1, 1);
+
+		this.dinamicSystem = new DynamicSystem() {
+
+			@Override
+			public VectorSpace getPhaseSpace() {
+				return phaseSpace;
+			}
+
+			@Override
+			public SelfMapping getDefiningMapping() {
+				return new SelfMapping() {
+
+					@Override
+					public Element get(Element vec) {
+						return ((ComplexPlane) getPhaseSpace()).get(((Complex) vec).getImag().getDoubleValue(),
+								RealLine.getInstance().addition(((Complex) vec).getReal(), ((Complex) vec).getImag()).getDoubleValue());
+					}
+
+					@Override
+					public Monoid getSource() {
+						return phaseSpace;
+					}
+
+				};
+			}
+
+		};
+		Vector vec = this.startVector;
+		Element tmp;
+		Element ans;
+		Mapping evolutionOp;
+		for (double i = 0; i < this.iterations; i++) {
+			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
+			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
+			Complex toComplex = (Complex) evolutionOp.get((Scalar) vec);
+			Real real=(Real) toComplex.getReal();
+			Real imag=(Real) toComplex.getImag();
+			String comp=real.toString();
+			if (imag.getDoubleValue()>0) {
+				comp+=" + "+imag.getDoubleValue()+"*i";
+			}
+			if (imag.getDoubleValue()<0) {
+				comp+=" - "+Math.abs(imag.getDoubleValue())+"*i";
+			}
+			System.out.println(i + ": " + comp);
+		}
+
 	}
 
 }

@@ -52,7 +52,7 @@ public class QuaternionSpaceTest extends VectorSpaceTest {
 	@Test
 
 	public void testAddAndStretch() {
-		Assert.assertTrue(this.getSpace().stretch(this.getSpace().add(this.getVec1(), this.getVec2()), this.getFactor())
+		Assert.assertTrue(this.getSpace().stretch(this.getSpace().addition(this.getVec1(), this.getVec2()), this.getFactor())
 				.equals(((Field) this.getSpace()).getOne()));
 	}
 }

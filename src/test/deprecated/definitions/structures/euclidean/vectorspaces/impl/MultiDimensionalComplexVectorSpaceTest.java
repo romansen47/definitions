@@ -35,7 +35,7 @@ public class MultiDimensionalComplexVectorSpaceTest {
 		Vector vec = complexSpace.nullVec();
 		for (int i = 0; i < dim; i++) {
 			final Vector x = complexSpace.genericBaseToList().get(i);
-			vec = complexSpace.add(vec, x);
+			vec = complexSpace.addition(vec, x);
 		}
 		final boolean newAns = Math.abs(complexSpace.norm(vec).doubleValue() - Math.sqrt(dim)) < 0.1;
 		Assert.assertTrue(newAns);

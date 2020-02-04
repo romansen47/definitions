@@ -1,18 +1,31 @@
 package definitions.structures.abstr.algebra.groups;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
+import definitions.structures.abstr.algebra.fields.FinitePrimeField;
 import definitions.structures.abstr.algebra.fields.PrimeField;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
+import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.rings.DiscreetDomain;
 import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
-import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
+import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
+import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.mappings.impl.LinearSelfMapping;
+import definitions.structures.euclidean.vectors.FiniteVector;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.impl.Naturals;
 
 @Service
@@ -22,24 +35,26 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 	private DiscreetSemiRing naturals;
 	private DiscreetDomain integers;
 	private PrimeField rationals;
-	
+	private FinitePrimeField binaries;
+
 	public static GroupGenerator getInstance() {
 		return instance;
 	}
-	
+
 	public static void setInstance(final GroupGenerator groupGenerator) {
 		instance = groupGenerator;
 	}
 
-	Map<Integer, FiniteRing> map = new HashMap<>(); 
+	Map<Integer, FiniteRing> map = new HashMap<>();
+	private PrimeField constructedBinaries;
 
 	public void setIntegers(final DiscreetDomain integers) {
 		this.integers = integers;
 	}
-	
+
 	@Override
-	public DiscreetDomain getIntegers( ) {
-		if (integers==null){
+	public DiscreetDomain getIntegers() {
+		if (integers == null) {
 			setIntegers(completeToDiscreetRing(getNaturals()));
 		}
 		return integers;
@@ -47,7 +62,7 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 
 	@Override
 	public DiscreetSemiRing getNaturals() {
-		if (naturals==null) {
+		if (naturals == null) {
 			setNaturals(new Naturals());
 		}
 		return naturals;
@@ -63,7 +78,7 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 	 */
 	@Override
 	public PrimeField getRationals() {
-		if (rationals==null) {
+		if (rationals == null) {
 			setRationals(completeToDiscreetField(integers));
 		}
 		return rationals;
@@ -79,7 +94,404 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 
 	@Override
 	public void setIntegers(DiscreetRing integers) {
-		this.integers=(DiscreetDomain) integers;
+		this.integers = (DiscreetDomain) integers;
+	}
+
+	public FinitePrimeField getBinaries() {
+		if (binaries == null) {
+			binaries = new FinitePrimeField() {
+
+//				@Override
+//				public Integer getOrder() {
+//					return FinitePrimeField.super.getOrder();
+//				}
+				
+				class Binary implements FieldElement {
+
+					private Map<Vector, Scalar> coordinates;
+					private final boolean value;
+
+					Binary(boolean value) {
+						this.value = value;
+					}
+
+					@Override
+					public Map<Vector, Scalar> getCoordinates() {
+						if (coordinates == null) {
+							coordinates = new ConcurrentHashMap<>();
+							if (this == one) {
+								coordinates.put(one, (Scalar) one);
+							} else {
+								coordinates.put(one, (Scalar) zero);
+							}
+						}
+						return coordinates;
+					}
+
+					@Override
+					public void setCoordinates(Map<Vector, Scalar> coordinates) {
+						this.coordinates = coordinates;
+					}
+
+					@Override
+					public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+					}
+
+					@Override
+					public Double getRepresentant() {
+						if (this==one) {
+							return 1.;
+						}
+						return 0.;
+					}
+					
+					@Override
+					public String toString() {
+						return " Binary - " + value;
+					}
+
+				};
+
+				private Binary zero = new Binary(false);
+				private Binary one = new Binary(true);
+				private List<Vector> base;
+				private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
+				private Map<Element, Map<Element, Element>> operationMap;
+				private Map<Double, Element> elements;
+
+				@Override
+				public Map<Double, Element> getElements(){
+					if (elements==null) {
+						elements=new ConcurrentHashMap<>();
+						elements.put(0d,zero);
+						elements.put(1d,one);
+					}
+					return elements;
+				}
+				
+				@Override
+				public Binary getOne() {
+					return one;
+				}
+
+				@Override
+				public Binary getZero() {
+					return zero;
+				}
+
+				@Override
+				public Element getMinusOne() {
+					return one;
+				}
+
+				@Override
+				public void setMultiplicationMatrix(Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix) {
+					this.multiplicationMatrix = multiplicationMatrix;
+				}
+
+				@Override
+				public Vector getCoordinates(Vector vec) {
+					return ((FiniteVector) vec).getProjection(this);
+				}
+
+				@Override
+				public EuclideanSpace getDualSpace() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public Vector stretch(Vector vec, Scalar r) {
+					return multiplication((Binary) vec, (Binary) r);
+				}
+
+				@Override
+				public List<Vector> getOrthonormalBase(List<Vector> base) {
+					return this.base;
+				}
+
+				@Override
+				public boolean contains(Vector vec) {
+					return vec==one || vec==zero;
+				}
+
+				@Override
+				public Map<Element, Map<Element, Element>> getOperationMap() {
+					if (operationMap == null) {
+						operationMap = new ConcurrentHashMap<>();
+						Map<Element, Element> zeroMap = new ConcurrentHashMap<>();
+						Map<Element, Element> oneMap = new ConcurrentHashMap<>();
+						zeroMap.put(zero, zero);
+						zeroMap.put(one, one);
+						oneMap.put(zero, one);
+						oneMap.put(one, zero);
+						operationMap.put(zero, zeroMap);
+						operationMap.put(one, oneMap);
+					}
+					return operationMap;
+				}
+
+				@Override
+				public Vector addition(Vector a, Vector b) {
+					Vector ans = FinitePrimeField.super.operation(a, b);
+					if (ans == null) {
+						boolean tmp = ((Binary) a).value && ((Binary) b).value;
+						ans = get(!tmp);
+					}
+					return ans;
+				}
+
+				@Override
+				public Vector multiplication(Element a, Element b) {
+					boolean ans = ((Binary) a).value && ((Binary) b).value;
+					return get(ans);
+				}
+
+				private Vector get(boolean b) {
+					Binary ans = zero;
+					if (b) {
+						ans = one;
+					}
+					return ans;
+				}
+
+				@Override
+				public FieldElement getNeutralElement() {
+					return zero;
+				}
+
+				@Override
+				public Element get(Double representant) {
+					boolean ans = false;
+					if (representant != 0.) {
+						ans = true;
+					}
+					return get(ans);
+				}
+
+				@Override
+				public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
+					if (multiplicationMatrix == null) {
+						multiplicationMatrix = new ConcurrentHashMap<>();
+						Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
+						Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+						coordinates.put(one, one);
+						linearity.put(one, coordinates);
+						VectorSpaceHomomorphism ans = new LinearSelfMapping(this, linearity) {
+
+							@Override
+							public Vector get(Element vec) {
+								return (Vector) vec;
+							}
+
+							@Override
+							public Scalar[][] getGenericMatrix() {
+								if (genericMatrix == null) {
+									genericMatrix = new Scalar[1][1];
+									genericMatrix[0][0] = one;
+								}
+								return genericMatrix;
+							}
+
+						};
+						multiplicationMatrix.put(one, ans);
+					}
+					return multiplicationMatrix;
+				}
+
+				@Override
+				public Field getField() {
+					return this;
+				}
+
+				@Override
+				public List<Vector> genericBaseToList() {
+					if (base == null) {
+						base = new ArrayList<>();
+						base.add(one);
+					}
+					return base;
+				}
+
+				@Override
+				public Integer getDim() {
+					return 1;
+				}
+
+				@Override
+				public Vector nullVec() {
+					return getNeutralElement();
+				}
+
+			};
+		}
+		return binaries;
+	}
+
+	@Override
+	public PrimeField getConstructedBinaries() {
+		if (constructedBinaries == null) {
+			DiscreetSemiRing binaryGroup = new FiniteRing() {
+
+				private FiniteMonoid muliplicativeMonoid;
+				Map<Element, Map<Element, Element>> operationMap;
+
+				Map<Element, Map<Element, Element>> multiplicationMap;
+				private Map<Double, Element> elements;
+
+				@Override
+				public Element getNeutralElement() {
+					return get(0.0);
+				}
+
+				@Override
+				public Element operation(Element first, Element second) {
+					Element neutralElement = getNeutralElement();
+					if (first.equals(neutralElement)) {
+						return second;
+					}
+					if (second.equals(neutralElement)) {
+						return first;
+					}
+					return neutralElement;
+				}
+
+				@Override
+				public Element get(Double r) {
+					FieldElement element = (FieldElement) getElements().get(r);
+					if (element == null) {
+						element = new FieldElement() {
+
+							Double representant = r;
+
+							@Override
+							public Double getRepresentant() {
+								return representant;
+							}
+
+							@Override
+							public Map<Vector, Scalar> getCoordinates() {
+								return null;
+							}
+
+							@Override
+							public void setCoordinates(Map<Vector, Scalar> coordinates) {
+
+							}
+
+							@Override
+							public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+
+							}
+
+							@Override
+							public void setRepresentant(Double representant) {
+								this.representant = representant;
+							}
+							
+							@Override
+							public String toString() {
+								String ans="false";
+								if (this.representant==0.0) {
+									ans="true";
+								}
+								return "constructed binary: "+ans;
+							}
+							
+						};
+						getElements().put(r, element);
+					}
+					return element;
+				}
+
+				@Override
+				public boolean isUnit(Element element) {
+					return element.equals(get(0.0));
+				}
+
+				@Override
+				public Element getOne() {
+					return get(1.0);
+				}
+
+				@Override
+				public DiscreetMonoid getMuliplicativeMonoid() {
+					muliplicativeMonoid = new FiniteMonoid() {
+
+						@Override
+						public Element get(Double representant) {
+							return getOne();
+						}
+
+						@Override
+						public Map<Double, Element> getElements() {
+							return elements;
+						}
+
+						@Override
+						public Map<Element, Map<Element, Element>> getOperationMap() {
+							if (multiplicationMap == null) {
+								multiplicationMap = new ConcurrentHashMap<>();
+								Map<Element, Element> entry = new HashMap<>();
+								entry.put(getOne(), getOne());
+								multiplicationMap.put(getOne(), entry);
+							}
+							return multiplicationMap;
+						}
+
+						@Override
+						public Element getNeutralElement() {
+							return get(1.0);
+						}
+
+					};
+					return muliplicativeMonoid;
+				}
+
+				@Override
+				public Map<Element, Map<Element, Element>> getOperationMap() {
+					if (operationMap == null) {
+						operationMap = new ConcurrentHashMap<>();
+						Map<Element, Element> entry = new HashMap<>();
+						Map<Element, Element> entry2 = new HashMap<>();
+						entry.put(getNeutralElement(), getNeutralElement());
+						entry.put(getOne(), getOne());
+						entry2.put(getNeutralElement(), getOne());
+						entry2.put(getOne(), getNeutralElement());
+						operationMap.put(getOne(), entry);
+					}
+					return operationMap;
+				}
+
+				@Override
+				public Map<Double, Element> getElements() {
+					if (elements == null) {
+						elements = new ConcurrentHashMap<>();
+					}
+					return elements;
+				}
+
+				@Override
+				public Element getMinusOne() {
+					return getOne();
+				}
+				
+				@Override
+				public String toString() {
+					return "the group of binaries";
+				}
+
+			};
+
+			DiscreetSemiRing test = binaryGroup;
+			DiscreetDomain binaryDomain = GroupGenerator.getInstance().completeToDiscreetRing(test);
+			constructedBinaries = GroupGenerator.getInstance().completeToDiscreetField(binaryDomain);
+		}
+		return constructedBinaries;
+	}
+
+	public void setBinaries(FinitePrimeField binaries) {
+		this.binaries = binaries;
 	}
 
 }

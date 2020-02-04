@@ -105,7 +105,7 @@ public class FunctionTuple extends Tuple implements Function {
 	public Scalar value(final Scalar input) {
 		Scalar ans = (Scalar) this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans = (Scalar) this.getField().add(ans,
+			ans = (Scalar) this.getField().addition(ans,
 					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
 		}
 		return ans;

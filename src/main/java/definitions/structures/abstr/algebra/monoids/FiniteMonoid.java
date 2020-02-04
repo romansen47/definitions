@@ -9,25 +9,7 @@ import definitions.structures.euclidean.Generator;
 
 public interface FiniteMonoid extends DiscreetMonoid, FiniteSemiGroup {
 
-	/**
-	 * Method to obtain the matrix of multiplication.
-	 * 
-	 * @return the multiplication matrix.
-	 */
-	Map<Element, Map<Element, Element>> getOperationMap();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	Element operation(final Element first, final Element second);
-
-	/**
-	 * Getter for the identity element
-	 * 
-	 * @return the neutral element of the semi group
-	 */
-	Element getNeutralElement();
+	
 	
 	/**
 	 * method to present the monoid.

@@ -34,6 +34,8 @@ public class TestAspect {
 	public void printTestCaseName(JoinPoint jp) {
 		String testCaseName = jp.toShortString()+"\r";
 		Generator.getInstance().getLogger().info(testCaseName);
+
+		System.out.println("\r"+testCaseName+"\r");
 	}
 	
 	

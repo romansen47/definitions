@@ -49,13 +49,13 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#addition(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 
 	public void testAdd() {
-		Assert.assertTrue(this.complexPlane.add(this.one, this.reMin).equals(this.complexPlane.nullVec()));
-		Assert.assertTrue(this.complexPlane.add(this.im, this.imMin).equals(this.complexPlane.nullVec()));
+		Assert.assertTrue(this.complexPlane.addition(this.one, this.reMin).equals(this.complexPlane.nullVec()));
+		Assert.assertTrue(this.complexPlane.addition(this.im, this.imMin).equals(this.complexPlane.nullVec()));
 	}
 
 	/**
@@ -80,12 +80,12 @@ public class ComplexPlaneTest extends VectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#inverse(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#getMultiplicativeInverseElement(definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 
 	public void testInverse() {
-		Assert.assertTrue(this.complexPlane.inverse(this.im).equals(this.imMin));
+		Assert.assertTrue(this.complexPlane.getMultiplicativeInverseElement(this.im).equals(this.imMin));
 	}
 
 	/**

@@ -2,7 +2,7 @@ package definitions.structures.euclidean.vectors.impl;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -65,9 +65,6 @@ public class Tuple implements FiniteVector {
 			if (ans == false) {
 				return false;
 			}
-			// if (!base.contains(vec)) {
-			// return false;
-			// }
 		}
 		return true;
 	}
@@ -94,23 +91,26 @@ public class Tuple implements FiniteVector {
 		return this.coordinates;
 	}
 
-	// @Override
-	// public String toString() {
-	// String str = "";
-	// try {
-	// for (int i = 0; i < this.dim; i++) {
-	// str += this.getCoordinates()
-	// .get(((EuclideanSpace)
-	// SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim))
-	// .genericBaseToList().get(i))
-	// + "\r";
-	// }
-	// return str;
-	// } catch (final Throwable e) {
-	// e.printStackTrace();
-	// return "Problems occured...";
-	// }
-	// }
+	@Override
+	public String toString() {
+		String str = "";
+		for (Entry entry : coordinates.entrySet()) {
+			str += entry.getValue().toString() + "\r";
+		}
+		return str;
+//		try {
+//			for (int i = 0; i < this.dim; i++) {
+//				str += this.getCoordinates()
+//						.get(((EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim))
+//								.genericBaseToList().get(i))
+//						+ "\r";
+//			}
+//			return str;
+//		} catch (final Throwable e) {
+//			e.printStackTrace();
+//			return "Problems occured...";
+//		}
+	}
 
 	@Override
 //	@XmlAttribute
@@ -132,14 +132,6 @@ public class Tuple implements FiniteVector {
 	@Override
 	public Integer getDim() {
 		return this.dim;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Set<Vector> getGenericBase() {
-		return this.getCoordinates().keySet();
 	}
 
 	// @Override

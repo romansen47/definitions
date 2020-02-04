@@ -29,6 +29,8 @@ public interface Group extends Monoid {
 	 * @param element the input
 	 * @return the inverse element of the input within the group.
 	 */
-	Element getInverseElement(Element element);
+	default Element getInverseElement(Element element) {
+		return null;
+	}
 
 }

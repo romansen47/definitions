@@ -57,7 +57,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public Scalar value(final Scalar input) {
 				final double val = ((Complex) input).getReal().getDoubleValue();
 				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f
-						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, -val));
+						.addition(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, -val));
 				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
 			}
 		};
@@ -79,7 +79,7 @@ public class FiniteDimensionalComplexFunctionSpaceTest {// extends FiniteDimensi
 			public Scalar value(final Scalar input) {
 				final double val = ((Complex) input).getReal().getDoubleValue();
 				final Complex tmp = (Complex) FiniteDimensionalComplexFunctionSpaceTest.this.f
-						.add(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, val));
+						.addition(FiniteDimensionalComplexFunctionSpaceTest.this.f.getOne(), new Complex(val, val));
 				return (Scalar) FiniteDimensionalComplexFunctionSpaceTest.this.f.normalize(tmp);
 			}
 		};

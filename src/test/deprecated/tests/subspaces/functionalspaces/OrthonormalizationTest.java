@@ -40,9 +40,9 @@ public class OrthonormalizationTest {
 		final List<Vector> genericBase = space.genericBaseToList();
 		final List<Vector> system = new ArrayList<>();
 
-		final Vector x1 = space.add(genericBase.get(0), genericBase.get(1));
-		final Vector x2 = space.add(genericBase.get(1), genericBase.get(2));
-		final Vector x3 = space.add(genericBase.get(2),
+		final Vector x1 = space.addition(genericBase.get(0), genericBase.get(1));
+		final Vector x2 = space.addition(genericBase.get(1), genericBase.get(2));
+		final Vector x3 = space.addition(genericBase.get(2),
 				space.stretch(genericBase.get(0), RealLine.getInstance().get(2)));
 
 		system.add(x1);

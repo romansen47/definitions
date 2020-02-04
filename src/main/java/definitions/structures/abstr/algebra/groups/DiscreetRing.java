@@ -6,13 +6,9 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public interface DiscreetRing extends DiscreetGroup, DiscreetSemiRing, Ring {
 
-	/**
-	 * In a discreet monoid we have countably many elements and can define a getter
-	 * for integers.
-	 * 
-	 * @param representant the representant of the element.
-	 * @return the corresponding monoid element.
-	 */
 	@Override
-	Element get(Double representant);
+	default Element getMinusOne() {
+		return get(-1.0);
+	}
+	
 }

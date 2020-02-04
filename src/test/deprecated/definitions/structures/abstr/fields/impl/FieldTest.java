@@ -57,8 +57,8 @@ public class FieldTest extends VectorSpaceTest {
 	public void test() {
 		final Vector test = new Complex(1, 1);
 		final Vector test2 = new Quaternion(1, 1, 1, 1);
-		final Vector ans = this.field.inverse(test);
-		final Vector ans2 = this.field2.inverse(test2);
+		final Vector ans = this.field.getMultiplicativeInverseElement(test);
+		final Vector ans2 = this.field2.getMultiplicativeInverseElement(test2);
 		final Monoid m = this.field.getMuliplicativeMonoid();
 	}
 

@@ -116,9 +116,9 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		for (final Vector vec : base) {
 			Vector tmp = this.nullVec();
 			for (final Vector vec2 : newBase) {
-				tmp = this.add(tmp, this.projection(vec, vec2));
+				tmp = this.addition(tmp, this.projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.add(vec, this.stretch(tmp, this.getField().get(-1))));
+			final Vector ans = this.normalize(this.addition(vec, this.stretch(tmp, this.getField().get(-1))));
 			newBase.add(ans);
 		}
 		return newBase;
@@ -131,8 +131,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}
 		/*
-		 * Direct usage of constructor instead of get method in order to avoid cycles.
-		 * Don't touch this
+		 * Direct usage of constructor instead of get method in order to avoid cycles. Don't touch this.
 		 */
 		return new Tuple(coordinates);
 	}

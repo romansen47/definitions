@@ -20,7 +20,7 @@ public interface Algebra extends VectorSpace, Ring {
 	 * @return the product
 	 */
 	default Vector product(final Vector vec1, final Vector vec2) {
-		return (Vector) this.getMuliplicativeMonoid().operation(vec1, vec2);
+		return null;
 	}
 
 }

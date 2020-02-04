@@ -19,8 +19,8 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Real getDistance(final Vector vec1, final Vector vec2) {
-		return this.norm(this.add(vec1, this.stretch(vec2, this.getField().get(-1))));
+	default Real distance(final Vector vec1, final Vector vec2) {
+		return this.norm(this.addition(vec1, this.stretch(vec2, this.getField().get(-1))));
 	}
 
 	/**

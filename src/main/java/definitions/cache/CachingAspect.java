@@ -12,17 +12,19 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
-@Aspect 
+@Aspect
 public class CachingAspect {
 
 	final static private Logger logger = LogManager.getLogger(CachingAspect.class);
@@ -34,10 +36,13 @@ public class CachingAspect {
 		System.out.println(pjp.getArgs()[0].toString());
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);
-		EuclideanSpace ans = coordinatesSpaces.get(dim);
-		if (ans != null) {
-			logger.info("Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
-			return ans;
+		if (field.equals(RealLine.getInstance())) {
+			EuclideanSpace ans = coordinatesSpaces.get(dim);
+			if (ans != null) {
+				logger.info(
+						"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
+				return ans;
+			}
 		}
 		if (field == RealLine.getInstance()) {
 			switch (dim) {
@@ -57,19 +62,29 @@ public class CachingAspect {
 			 */
 			basetmp.add(new Tuple(dim));
 		}
+		FieldElement one = field.getOne();
+		Vector zero = field.getZero();
 		for (int i = 0; i < dim; i++) {
+			Vector baseVec = basetmp.get(i);
+			Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) baseVec).getCoordinates();
 			for (int j = 0; j < dim; j++) {
 				if (i == j) {
-					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(i), field.getOne());
+					coordinates.put(baseVec, one);
 				} else {
-					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(j),
-							(Scalar) field.getZero());
+					coordinates.put(basetmp.get(j), (Scalar) zero);
 				}
 			}
 		}
-		ans = new FiniteDimensionalVectorSpace(field, basetmp);
+		EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp) {
+			@Override
+			public String toString() {
+				return dim + "-dimensional vector space over" + field.toString();
+			}
+		};
 		logger.info("Created new space: " + ans.toString());
-		coordinatesSpaces.put(dim, ans);
+		if (field.equals(RealLine.getInstance())) {
+			coordinatesSpaces.put(dim, ans);
+		}
 		return ans;
 	}
 

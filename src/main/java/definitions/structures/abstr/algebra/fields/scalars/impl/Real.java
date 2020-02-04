@@ -34,7 +34,11 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	private static final long serialVersionUID = 448447488896787384L;
 
 	@XmlElement
-	private double realValue;
+	private Double representant;
+	
+	public Double getRepresentant() {
+		return representant;
+	}
 
 	private Map<Vector, Scalar> coordinates;
 
@@ -42,7 +46,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
 	public Real() {
-		this.realValue = 0d;
+		this.representant = 0d;
 	}
 
 	/**
@@ -114,18 +118,9 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<Vector> getGenericBase() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	@XmlAttribute
 	public double getDoubleValue() {
-		return this.realValue;
+		return this.representant;
 	}
 
 	/**
@@ -159,7 +154,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	}
 
 	public void setValue(final double value) {
-		this.realValue = value;
+		this.representant = value;
 	}
 
 	// @Override
@@ -188,6 +183,11 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public String toXml() {
-		return "<real>\r" + Double.toString(this.realValue) + "\r</real>\r";
+		return "<real>\r" + Double.toString(this.representant) + "\r</real>\r";
+	}
+
+	@Override
+	public void setRepresentant(Double representant) {
+		this.representant=representant;
 	}
 }

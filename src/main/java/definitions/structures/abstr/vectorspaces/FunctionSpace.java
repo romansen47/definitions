@@ -41,9 +41,9 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 		while (x.getDoubleValue() < right) {
 			final Vector tmp1 = vec1.value(x);
 			final Vector tmp2 = vec2.value(x);
-			ans = (Scalar) (this.getField().add(ans, this.getField()
+			ans = (Scalar) (this.getField().addition(ans, this.getField()
 					.product(this.getField().product(tmp1, this.getField().conjugate((Scalar) tmp2)), epsNew)));
-			x = (Scalar) this.getField().add(x, newEps);
+			x = (Scalar) this.getField().addition(x, newEps);
 		}
 		return ans;
 	}

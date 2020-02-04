@@ -53,7 +53,7 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double val = ((Quaternion) input).getReal().getDoubleValue();
-				final Quaternion tmp = (Quaternion) this.getField().add(QuaternionFunctionSpaceTest.this.f.getOne(),
+				final Quaternion tmp = (Quaternion) this.getField().addition(QuaternionFunctionSpaceTest.this.f.getOne(),
 						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
 				return (Scalar) this.getField().normalize(tmp);
 			}
@@ -69,7 +69,7 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double val = ((Quaternion) input).getReal().getDoubleValue();
-				final Quaternion tmp = (Quaternion) this.getField().add(this.getField().getOne(),
+				final Quaternion tmp = (Quaternion) this.getField().addition(this.getField().getOne(),
 						new Quaternion(val / 2, val / 2, 0.1 * Math.sin(val), 0.1 * Math.cos(val)));
 				return (Scalar) this.getField().normalize(tmp);
 			}
@@ -85,7 +85,7 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double val = ((Quaternion) input).getReal().getDoubleValue();
-				final Quaternion tmp = (Quaternion) this.getField().add(this.getField().getOne(),
+				final Quaternion tmp = (Quaternion) this.getField().addition(this.getField().getOne(),
 						new Quaternion(val, -val, val, 1 - val));
 				if (Math.abs(((Quaternion) input).getReal().getDoubleValue()) < 1.e-5) {
 					return (Scalar) this.getField().stretch(input, RealLine.getInstance().get(1.e5));

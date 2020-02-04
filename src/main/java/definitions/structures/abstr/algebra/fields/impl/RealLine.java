@@ -71,7 +71,7 @@ public class RealLine implements Field, RealSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Real add(final Vector vec1, final Vector vec2) {
+	public Real addition(final Vector vec1, final Vector vec2) {
 		return this.get(((Real) vec1).getDoubleValue() + ((Real) vec2).getDoubleValue());
 	}
 
@@ -106,6 +106,7 @@ public class RealLine implements Field, RealSpace {
 	public Real get(final double value) {
 		final Real newReal = new Real();
 		newReal.setValue(value);
+		newReal.setRepresentant(value);
 		return newReal;
 	}
 
@@ -188,7 +189,7 @@ public class RealLine implements Field, RealSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Real inverse(final Vector factor) {
+	public Real getMultiplicativeInverseElement(final Vector factor) {
 		if (factor == null) {
 			return null;
 		}
@@ -260,7 +261,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public String toString() {
-		return "the field of real numbers.";
+		return "the field of real numbers";
 	}
 
 	/**
@@ -272,7 +273,7 @@ public class RealLine implements Field, RealSpace {
 	}
 
 	@Override
-	public Element getNeutralElement() {
+	public Real getNeutralElement() {
 		return get(0.);
 	}
 

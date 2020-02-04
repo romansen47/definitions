@@ -1,6 +1,5 @@
 package definitions.structures.abstr.algebra.semigroups;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.euclidean.Generator;
@@ -13,20 +12,29 @@ public interface FiniteSemiGroup extends DiscreetSemiGroup{
 	 * 
 	 * @return the map.
 	 */
-	Map<Double, Element> getElements();
+	default Map<Double, Element> getElements(){
+		return null;
+	}
+	
+	@Override
+	default Integer getOrder() {
+		return getElements().size();
+	}
 
 	/**
 	 * Method to obtain the matrix of multiplication.
 	 * 
 	 * @return the multiplication matrix.
 	 */
-	Map<Element, Map<Element, Element>> getOperationMap();
+	default Map<Element, Map<Element, Element>> getOperationMap(){
+		return null;
+	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	Element operation(final Element first, final Element second);
+//	@Override
+//	Element operation(final Element first, final Element second);
 
 	/**
 	 * method to present the monoid.

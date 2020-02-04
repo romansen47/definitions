@@ -8,7 +8,6 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
@@ -21,8 +20,13 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMap
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
+@SuppressWarnings("serial")
 public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
+	default	FieldElement getNeutralElement() {
+		return (FieldElement) EuclideanAlgebra.super.getNeutralElement();
+	}
+	
 	default Scalar conjugate(Scalar value) {
 		return value;
 	}
@@ -49,11 +53,10 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		final Integer newOrder = this.getOrder();
 
 		final Group multiplicativeGroup = new Group() {
-			private long serialVersionUID = 1L;
 
 			@Override
 			public Element getInverseElement(final Element element) {
-				return Field.this.inverse((Scalar) element);
+				return Field.this.getMultiplicativeInverseElement((Scalar) element);
 			}
 
 			@Override
@@ -98,18 +101,19 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	/**
 	 * Should return field of rational numbers in infinite case by default.
 	 * 
-	 * @return
+	 * @return the prime field.
 	 */
-	PrimeField getPrimeField();
+	default PrimeField getPrimeField() {
+		return null;
+	};
 
 	default Vector getZero() {
 		return this.nullVec();
 	}
 
-	default Vector inverse(final Vector factor) {
+	default Vector getMultiplicativeInverseElement(final Vector factor) {
 		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
-			private long serialVersionUID = 1L;
 
 			@Override
 			public Vector get(final Element vec) {
@@ -138,7 +142,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		};
 		for (final Vector vec : this.genericBaseToList()) {
 			final Vector tmp = this.getMultiplicationMatrix().get(vec);
-			hom = (FiniteDimensionalHomomorphism) multLinMaps.add(hom,
+			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
 		return hom.solve((FiniteVector) this.getOne());

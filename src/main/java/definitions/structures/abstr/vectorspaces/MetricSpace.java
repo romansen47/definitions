@@ -26,6 +26,6 @@ public interface MetricSpace extends Serializable {
 	 * @param vec2 second element
 	 * @return distance between first and second one
 	 */
-	Real getDistance(Vector vec1, Vector vec2);
+	Real distance(Vector vec1, Vector vec2);
 
 }

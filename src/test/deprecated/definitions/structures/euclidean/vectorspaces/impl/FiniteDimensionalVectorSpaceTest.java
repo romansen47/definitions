@@ -35,12 +35,12 @@ public class FiniteDimensionalVectorSpaceTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#add(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
+	 * {@link definitions.structures.abstr.vectorspaces.VectorSpace#addition(definitions.structures.abstr.vectorspaces.vectors.Vector, definitions.structures.abstr.vectorspaces.vectors.Vector)}.
 	 */
 	@Test
 
 	public void testAdd() {
-		Assert.assertTrue(this.space.add(((VectorSpaceMethods) this.space).nullVec(), this.nul).equals(this.nul));
+		Assert.assertTrue(this.space.addition(((VectorSpaceMethods) this.space).nullVec(), this.nul).equals(this.nul));
 	}
 
 	/**

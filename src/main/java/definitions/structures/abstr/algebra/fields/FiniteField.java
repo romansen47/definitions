@@ -1,22 +1,23 @@
 package definitions.structures.abstr.algebra.fields;
- 
-import definitions.structures.abstr.algebra.groups.FiniteGroup;
+
+import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * @author RoManski
  *
  */
-public interface FiniteField extends Field, FiniteRing {
- 
+public interface FiniteField extends DiscreetField, FiniteRing {
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	default FieldElement operation(final Element first, final Element second) {
-		return (FieldElement) Field.super.operation(first, second);
+		return (FieldElement) FiniteRing.super.operation(first, second);
 	}
 
 	/**
@@ -24,7 +25,11 @@ public interface FiniteField extends Field, FiniteRing {
 	 */
 	@Override
 	default FieldElement product(final Vector vec1, final Vector vec2) {
-		return (FieldElement) this.getMuliplicativeMonoid().operation(vec1, vec2);
+		Element ans = DiscreetField.super.product(vec1, vec2);
+		if (ans == null) {
+			ans = (FieldElement) this.getMuliplicativeMonoid().operation(vec1, vec2);
+		}
+		return (FieldElement)ans;
 	}
 
 	/**
@@ -46,8 +51,8 @@ public interface FiniteField extends Field, FiniteRing {
 	FieldElement getNeutralElement();
 
 	@Override
-	default boolean isUnit(Element element) { 
-		return Field.super.isUnit(element);
+	default boolean isUnit(Element element) {
+		return DiscreetField.super.isUnit(element);
 	}
 
 	@Override
@@ -56,6 +61,13 @@ public interface FiniteField extends Field, FiniteRing {
 	}
 
 	@Override
-	FiniteGroup getMuliplicativeMonoid();
+	default DiscreetGroup getMuliplicativeMonoid() {
+		return DiscreetField.super.getMuliplicativeMonoid();
+	}
+
+	@Override
+	default Integer getOrder() {
+		return FiniteRing.super.getOrder();
+	}
 
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
-public interface FiniteGroup extends FiniteMonoid, Group {
+public interface FiniteGroup extends FiniteMonoid, DiscreetGroup {
 
 	default Element getInverseElement(Element element) {
 		Map<Element,Element> operations=getOperationMap().get(element);

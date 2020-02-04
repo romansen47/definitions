@@ -8,6 +8,7 @@ import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.mappings.Mapping;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -39,15 +40,18 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * static constant 1-function.
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
-		/**
-		 * 
-		 */
+		
 		private long serialVersionUID = 1L;
 		Field ownfield = this.getField();
 
 		@Override
 		public Field getField() {
 			return this.ownfield;
+		}
+
+		@Override
+		public void setRepresentant(Double representant) {
+			this.getConstantValue().setRepresentant(1.0);
 		}
 
 	};
@@ -120,6 +124,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 					final double dy = fun.value(f.get(input.getDoubleValue() + eps)).getDoubleValue() - fun.value(input).getDoubleValue();
 					final double dx = eps;
 					return f.get(dy / dx);
+				}
+
+				@Override
+				public void setRepresentant(Double representant) {
 				}
 
 			};

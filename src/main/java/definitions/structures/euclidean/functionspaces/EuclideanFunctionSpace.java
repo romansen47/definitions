@@ -29,7 +29,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default Function add(final Vector vec1, final Vector vec2) {
+	default Function addition(final Vector vec1, final Vector vec2) {
 		final Field f = this.getField();
 		if (vec1.equals(this.nullVec())) {
 			return (Function) vec2;
@@ -49,7 +49,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 					@Override
 					public Scalar value(final Scalar input) {
-						return (Scalar) this.getField().add(((Function) vec1).value(input),
+						return (Scalar) this.getField().addition(((Function) vec1).value(input),
 								((Function) vec2).value(input));
 					}
 				};

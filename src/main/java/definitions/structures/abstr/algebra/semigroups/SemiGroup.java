@@ -19,7 +19,7 @@ import definitions.settings.XmlPrintable;
  *         are identically equal to the identity mapping on G.
  */
 public interface SemiGroup extends Serializable, XmlPrintable {
-
+	
 	/**
 	 * Getter for the order of the monoid - the amount of elements.
 	 * 
@@ -36,6 +36,8 @@ public interface SemiGroup extends Serializable, XmlPrintable {
 	 * @param second second monoid element
 	 * @return product of both of them
 	 */
-	Element operation(Element first, Element second);
+	default	Element operation(Element first, Element second) {
+		return null;
+	}
 
 }

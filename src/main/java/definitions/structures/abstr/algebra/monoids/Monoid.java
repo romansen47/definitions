@@ -16,6 +16,23 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 public interface Monoid extends SemiGroup {
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	default Element operation(Element first, Element second) {
+		Element neutralElement = getNeutralElement();
+		Element ans;
+		if (first.equals(neutralElement)) {
+			ans = second;
+		} else if (second.equals(neutralElement)) {
+			ans = first;
+		} else {
+			ans = SemiGroup.super.operation(first, second);
+		}
+		return ans;
+	}
+
+	/**
 	 * Getter for the identity element
 	 * 
 	 * @return the neutral element of the semi group
