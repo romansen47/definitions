@@ -4,8 +4,16 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface FiniteDimensionalEndomorphism extends Endomorphism {
-	default Scalar[][] adjointMatrix(final Scalar[][] matrix, final int a, final int b) {
+public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
+	
+	/**
+	 * method to get the adjugate matrix
+	 * @param matrix the input matrix
+	 * @param a column index
+	 * @param b row index
+	 * @return the adjugate at (i,j)=(a,b)
+	 */
+	default Scalar[][] adjugateMatrix(final Scalar[][] matrix, final int a, final int b) {
 		final int k = matrix.length;
 		final Scalar[][] adj = new Scalar[k - 1][k - 1];
 		for (int i = 0; i < a; i++) {
@@ -38,7 +46,7 @@ public interface FiniteDimensionalEndomorphism extends Endomorphism {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
-			final Scalar[][] adj = this.adjointMatrix(matrix, i, 0);
+			final Scalar[][] adj = this.adjugateMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
 				det = ((EuclideanSpace) this.getSource()).getField()
 						.get(det.getDoubleValue() + this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue());

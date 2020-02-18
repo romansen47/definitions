@@ -33,7 +33,7 @@ public class CachingAspect {
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
 	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
-		System.out.println(pjp.getArgs()[0].toString());
+//		System.out.println(pjp.getArgs()[0].toString());
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);
 		if (field.equals(RealLine.getInstance())) {

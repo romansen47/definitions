@@ -1,14 +1,16 @@
 /**
  * 
  */
-package definitions.structures.abstr.vectorspaces.vectors;
+package definitions.aspectjtest;
 
 import static org.junit.Assert.fail;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import definitions.AspectJTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
@@ -20,7 +22,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  * @author RoManski
  *
  */
-public class FunctionTest {
+public class FunctionTest extends AspectJTest{
 
 	static final int trigonometricDegree = 20;
 	static final int sobolevDegree = 20;
@@ -63,7 +65,6 @@ public class FunctionTest {
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
-
 	public final void testGetDerivativeInt() {
 		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
 

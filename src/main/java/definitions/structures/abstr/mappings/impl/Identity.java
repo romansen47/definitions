@@ -1,13 +1,12 @@
 package definitions.structures.abstr.mappings.impl;
 
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.Endomorphism;
 import definitions.structures.abstr.mappings.VectorField;
+import definitions.structures.abstr.mappings.VectorSpaceIsomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public abstract class Identity extends LinearMapping implements Endomorphism, VectorField {
+public abstract class Identity extends LinearMapping implements VectorSpaceIsomorphism, VectorField {
 
 	/**
 	 * 
@@ -18,14 +17,20 @@ public abstract class Identity extends LinearMapping implements Endomorphism, Ve
 		super(source, source);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public VectorSpaceIsomorphism getInverse() {
+		return this;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector get(final Element vec) {
 		return (Vector) vec;
-	}
-
-	@Override
-	public Monoid getTarget() {
-		return VectorField.super.getTarget();
 	}
 
 }

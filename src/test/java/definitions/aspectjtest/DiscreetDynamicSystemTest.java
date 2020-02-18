@@ -13,8 +13,8 @@ import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.Mapping;
-import definitions.structures.abstr.mappings.SelfMapping;
+import definitions.structures.abstr.mappings.VectorSpaceMapping;
+import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
@@ -24,7 +24,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	private Group timeSpace;
 	private VectorSpace phaseSpace;
 	private DynamicSystem dinamicSystem;
-	private Mapping evolutionOperator;
+	private VectorSpaceMapping evolutionOperator;
 	private Vector startVector;
 	private final int iterations = 21;
 
@@ -75,8 +75,8 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 			}
 
 			@Override
-			public SelfMapping getDefiningMapping() {
-				return new SelfMapping() {
+			public VectorSpaceSelfMapping getDefiningMapping() {
+				return new VectorSpaceSelfMapping() {
 
 					@Override
 					public Element get(Element vec) {
@@ -84,7 +84,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 					}
 
 					@Override
-					public Monoid getSource() {
+					public VectorSpace getSource() {
 						return phaseSpace;
 					}
 
@@ -95,7 +95,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 		Vector vec = this.startVector;
 		Element tmp;
 		Element ans;
-		Mapping evolutionOp;
+		VectorSpaceMapping evolutionOp;
 		for (double i = 0; i < this.iterations; i++) {
 			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
 			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
@@ -116,8 +116,8 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 			}
 
 			@Override
-			public SelfMapping getDefiningMapping() {
-				return new SelfMapping() {
+			public VectorSpaceSelfMapping getDefiningMapping() {
+				return new VectorSpaceSelfMapping() {
 
 					@Override
 					public Element get(Element vec) {
@@ -126,7 +126,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 					}
 
 					@Override
-					public Monoid getSource() {
+					public VectorSpace getSource() {
 						return phaseSpace;
 					}
 
@@ -137,7 +137,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 		Vector vec = this.startVector;
 		Element tmp;
 		Element ans;
-		Mapping evolutionOp;
+		VectorSpaceMapping evolutionOp;
 		for (double i = 0; i < this.iterations; i++) {
 			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
 			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);

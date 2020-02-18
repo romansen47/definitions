@@ -2,12 +2,12 @@ package definitions.structures.dynamicsystems;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.groups.Group;
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.rings.SemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.Mapping;
-import definitions.structures.abstr.mappings.SelfMapping;
+import definitions.structures.abstr.mappings.VectorSpaceMapping;
+import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.Ring;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
@@ -17,14 +17,14 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 	 * @return the evolution operator
 	 */
 	@Override
-	default Mapping getEvolutionOperator(Element time, Element start) {
+	default VectorSpaceMapping getEvolutionOperator(Element time, Element start) {
 		Group timeSpace = getTimeSpace();
 		Element diff = timeSpace.operation(time, timeSpace.getInverseElement(start));
 		return getEvolutionOperator(diff);
 	}
 
-	default Mapping getEvolutionOperator(Element t) {
-		return new SelfMapping() {
+	default VectorSpaceMapping getEvolutionOperator(Element t) {
+		return new VectorSpaceSelfMapping() {
 
 			final Element time = t;
 
@@ -53,18 +53,18 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 			}
 
 			@Override
-			public Monoid getSource() {
-				return getPhaseSpace();
+			public VectorSpace getSource() {
+				return (VectorSpace) getPhaseSpace();
 			}
 
 		};
 	};
 
 	@Override
-	default SelfMapping getDefiningMapping(Element input) {
+	default VectorSpaceSelfMapping getDefiningMapping(Element input) {
 		return getDefiningMapping();
 	};
 
-	SelfMapping getDefiningMapping();
+	VectorSpaceSelfMapping getDefiningMapping();
 
 }

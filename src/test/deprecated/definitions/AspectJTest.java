@@ -5,10 +5,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 
-import definitions.SpringConfiguration;
+import definitions.structures.abstr.algebra.fields.FinitePrimeField;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.groups.impl.BinaryField;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
@@ -20,9 +19,9 @@ public class AspectJTest {
 	protected static SpaceGenerator spaceGenerator;
 	protected static RealLine realLine;
 	protected static ComplexPlane complexPlane;
-	protected static definitions.structures.abstr.algebra.groups.impl.BinaryField binaryField;
+	protected static FinitePrimeField binaryField;
 
-	public static BinaryField getBinaryField() {
+	public static FinitePrimeField getBinaryField() {
 		return binaryField;
 	}
 
@@ -58,13 +57,13 @@ public class AspectJTest {
 			setSpaceGenerator(getGenerator().getSpaceGenerator());
 			setRealLine(RealLine.getInstance());
 			setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
-			setBinaryField((BinaryField) springConfiguration.getApplicationContext().getBean("binaryField"));
+			setBinaryField(getGenerator().getGroupGenerator().getBinaries());
 			getLogger().setLevel(Level.INFO);
 			org.apache.log4j.BasicConfigurator.configure();
 		}
 	}
 
-	public static void setBinaryField(final BinaryField binaryField) {
+	public static void setBinaryField(final FinitePrimeField binaryField) {
 		AspectJTest.binaryField = binaryField;
 	}
 

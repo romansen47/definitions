@@ -20,6 +20,12 @@
 
 	<dependencies>
 		<dependency>
+			<artifactId>template</artifactId>
+			<groupId>prcssng</groupId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version> ${spring.version}</version>

@@ -8,7 +8,6 @@ import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Mapping;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -40,8 +39,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * static constant 1-function.
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
-		
-		private long serialVersionUID = 1L;
+
 		Field ownfield = this.getField();
 
 		@Override
@@ -63,7 +61,6 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * @param source the source vector space.
 	 * @return the equality.
 	 */
-
 	default boolean equals(final Function other, final EuclideanFunctionSpace source) {
 		final int n = GlobalSettings.FUNCTION_EQUALITY_FEINHEIT;
 		final double a = source.getInterval()[0];
@@ -112,7 +109,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		final Field f = this.getField();
 		if (derivative == null) {
 			final Function fun = this;
-			return new GenericFunction() { 
+			return new GenericFunction() {
 
 				@Override
 				public Field getField() {
@@ -121,7 +118,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = fun.value(f.get(input.getDoubleValue() + eps)).getDoubleValue() - fun.value(input).getDoubleValue();
+					final double dy = fun.value(f.get(input.getDoubleValue() + eps)).getDoubleValue()
+							- fun.value(input).getDoubleValue();
 					final double dx = eps;
 					return f.get(dy / dx);
 				}

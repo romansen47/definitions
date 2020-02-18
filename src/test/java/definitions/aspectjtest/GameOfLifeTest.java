@@ -3,22 +3,27 @@
  */
 package definitions.aspectjtest;
 
-import org.junit.Test;
+import org.junit.BeforeClass;
 
-import definitions.prototypes.AspectJTest;
+import definitions.SpringConfiguration;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.dynamicsystems.GameOfLife;
 import definitions.structures.dynamicsystems.GameOfLifeConstructedBinaries;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import processing.template.Gui;
+import solver.StdDraw;
 
 /**
  * @author ro
  *
  */
-public class GameOfLifeTest extends AspectJTest {
+public class GameOfLifeTest extends Gui {
 
-	final int size = 20;
+	private static SpringConfiguration springConfiguration;
+
+	final private int size = 20;
 	private DynamicSystem gameOfLife;
 	private DynamicSystem gameOfLifeConstructedBinaries;
 	private FiniteVector initialCondition;
@@ -29,29 +34,109 @@ public class GameOfLifeTest extends AspectJTest {
 	private FiniteVector golocb;
 	private int lifetime = 200;
 
-	@Test
+	@BeforeClass
+	public static void prepare() {
+		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
+	}
+
+	private StdDraw stddraw;
+	private final int canvasSize = 500;
+
+	public int getCanvasSize() {
+		return canvasSize;
+	}
+	
+	public void draw(Element state) {
+	if (stddraw == null) {
+		stddraw = new StdDraw();
+		stddraw.setCanvasSize(canvasSize, canvasSize);
+		StdDraw.setXscale(0, canvasSize);
+		StdDraw.setYscale(0, canvasSize);
+	}
+	final int squareSize = (canvasSize / size) / 2;
+	StdDraw.clear();
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < size; j++) {
+			int x = squareSize * (1 + 2 * i);
+			int y = squareSize * (1 + 2 * j);
+			if (((FiniteVector) state).getCoordinates().get(tmpgol.getCoordinates().get((size - j - 1) * size + i)) == tmpgol.getBinaries()
+					.getNeutralElement()) {
+				StdDraw.setPenColor(StdDraw.WHITE);
+			} else {
+				StdDraw.setPenColor(StdDraw.BLACK);
+			}
+//			StdDraw.filledSquare(x, y, squareSize);
+			StdDraw.circle(x, y, squareSize);
+		}
+	}
+}
+	
+//	@Test
 	public void gameOfLifeTest() {
 		setGameOfLife(new GameOfLife(size));
 		setGrid((EuclideanSpace) getGameOfLife().getPhaseSpace());
 		setInitialCondition(((GameOfLife) getGameOfLife()).createRandomInitialCondition());
-		setGol(getInitialCondition());//(FiniteVector) grid.addition(grid.nullVec(), initialCondition);
-		((GameOfLife) getGameOfLife()).draw(getGol());
+		setGol(getInitialCondition());// (FiniteVector) grid.addition(grid.nullVec(), initialCondition);
+		draw(getGol());
 		for (int a = 0; a < getLifetime(); a++) {
 			setGol((FiniteVector) getGameOfLife().getDefiningMapping().get(getGol()));
-			((GameOfLife) getGameOfLife()).draw(getGol());
+			draw(getGol());
 		}
 	}
-	
-	@Test
+
+//	@Test
 	public void gameOfLifeTestConstructedBinaries() {
 		setGameOfLifeConstructedBinaries(new GameOfLifeConstructedBinaries(size));
 		setGridOverConstructedBinaries((EuclideanSpace) getGameOfLifeConstructedBinaries().getPhaseSpace());
-		setInitialConditionForConstructedBinaries(((GameOfLife) getGameOfLifeConstructedBinaries()).createRandomInitialCondition());
-		setGolocb((FiniteVector) getGridOverConstructedBinaries().addition(getGridOverConstructedBinaries().nullVec(), getInitialConditionForConstructedBinaries()));
-		((GameOfLife) getGameOfLifeConstructedBinaries()).draw(getGolocb());
+		setInitialConditionForConstructedBinaries(
+				((GameOfLife) getGameOfLifeConstructedBinaries()).createRandomInitialCondition());
+		setGolocb((FiniteVector) getGridOverConstructedBinaries().addition(getGridOverConstructedBinaries().nullVec(),
+				getInitialConditionForConstructedBinaries()));
+		draw(getGolocb());
 		for (int a = 0; a < getLifetime(); a++) {
 			setGolocb((FiniteVector) getGameOfLifeConstructedBinaries().getDefiningMapping().get(getGolocb()));
-			((GameOfLife) getGameOfLifeConstructedBinaries()).draw(getGolocb());
+			draw(getGolocb());
+		}
+	}
+
+	Gui template;
+
+	GameOfLife tmpgol = new GameOfLife(size);
+
+	private FiniteVector tmp = tmpgol.createRandomInitialCondition();
+
+	@Override
+	public void setup() {
+		frameRate(10);
+	}
+
+	static GameOfLifeTest newGameOfLife;
+
+	public static void main(String[] args) {
+		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
+		newGameOfLife = new GameOfLifeTest();
+		((Gui) newGameOfLife).run("definitions.aspectjtest.GameOfLifeTest");
+	}
+
+	@Override
+	public void draw() {
+		tmp = (FiniteVector) tmpgol.getDefiningMapping().get(tmp);
+		this.clear();
+		this.background(255);
+		final int squareSize = (height / size) / 2;
+		StdDraw.clear();
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				int x = squareSize * (1 + 2 * i);
+				int y = squareSize * (1 + 2 * j);
+				if (((FiniteVector) tmp).getCoordinates().get(tmpgol.getCoordinates()
+						.get((size - j - 1) * size + i)) == tmpgol.getBinaries().getNeutralElement()) {
+					fill(255);
+				} else {
+					fill(0);
+				}
+				rect(x, y, squareSize,squareSize);
+			}
 		}
 	}
 
@@ -133,7 +218,9 @@ public class GameOfLifeTest extends AspectJTest {
 	}
 
 	/**
-	 * @param initialConditionForConstructedBinaries the initialConditionForConstructedBinaries to set
+	 * @param initialConditionForConstructedBinaries the
+	 *                                               initialConditionForConstructedBinaries
+	 *                                               to set
 	 */
 	public void setInitialConditionForConstructedBinaries(FiniteVector initialConditionForConstructedBinaries) {
 		this.initialConditionForConstructedBinaries = initialConditionForConstructedBinaries;
@@ -179,6 +266,20 @@ public class GameOfLifeTest extends AspectJTest {
 	 */
 	public void setLifetime(int lifetime) {
 		this.lifetime = lifetime;
+	}
+
+	/**
+	 * @return the springConfiguration
+	 */
+	public static SpringConfiguration getSpringConfiguration() {
+		return springConfiguration;
+	}
+
+	/**
+	 * @param springConfiguration the springConfiguration to set
+	 */
+	public static void setSpringConfiguration(SpringConfiguration springConfiguration) {
+		GameOfLifeTest.springConfiguration = springConfiguration;
 	}
 
 }

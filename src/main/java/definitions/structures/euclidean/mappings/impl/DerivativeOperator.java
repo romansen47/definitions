@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.Automorphism;
+import definitions.structures.abstr.mappings.VectorSpaceAutomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -14,7 +14,7 @@ import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping implements Automorphism {
+public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping implements VectorSpaceAutomorphism {
 
 	private static final long serialVersionUID = -5103583236895270490L;
 

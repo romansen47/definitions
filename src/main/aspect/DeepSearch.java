@@ -22,7 +22,7 @@ public class DeepSearch {
 	public final static Logger logger = LogManager.getLogger(DeepSearch.class);
 
 	public final static Map<Thread, List<String>> map = new ConcurrentHashMap<>();
-	public final static Map<Thread, String> tests = new ConcurrentHashMap<>();
+	private final static Map<Thread, String> tests = new ConcurrentHashMap<>();
 	final static private String PATH = "target/";
 	private static FileWriter w;
 	private static BufferedWriter bw;
@@ -32,7 +32,7 @@ public class DeepSearch {
 	static int depth;
 
 	public static void print(final Thread thread) throws IOException {
-		final String testcase = tests.get(thread);
+		final String testcase = getTests().get(thread);
 		final String path = PATH + testcase.replace(Pattern.quote("."), "/") + "/" + "deep-search.xml";
 		new File(PATH + testcase).mkdirs();
 		w = new FileWriter(path);
@@ -70,7 +70,7 @@ public class DeepSearch {
 			list = new ArrayList<>();
 			map.put(Thread.currentThread(), list);
 		}
-		String invocator = tests.get(Thread.currentThread());
+		String invocator = getTests().get(Thread.currentThread());
 		if (invocator == null) {
 			invocator = pjp.getSignature().toShortString().split(Pattern.quote("@"))[0];
 			if (invocator.startsWith("execution(")) {
@@ -78,11 +78,8 @@ public class DeepSearch {
 			} else {
 				invocator = invocator.split(Pattern.quote("("))[1];
 			}
-			tests.put(Thread.currentThread(), invocator);
+			getTests().put(Thread.currentThread(), invocator);
 		}
-//		} catch (Exception e) {
-//			logger.error(e.getStackTrace()[0].toString());
-//		}
 	}
 
 	private Object createXmlEntry(final ProceedingJoinPoint pjp) throws Throwable {
@@ -194,5 +191,12 @@ public class DeepSearch {
 		}
 
 		return realAns;
+	}
+
+	/**
+	 * @return the tests
+	 */
+	public static Map<Thread, String> getTests() {
+		return tests;
 	}
 }

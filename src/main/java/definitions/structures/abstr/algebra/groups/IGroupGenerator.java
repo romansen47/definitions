@@ -26,8 +26,8 @@ import exceptions.MathException;
 import settings.GlobalSettings;
 
 @SuppressWarnings("serial")
-public interface IGroupGenerator {
-
+public interface IGroupGenerator {	
+	
 	class Fraction extends ProductElement {
 		private final Monoid baseGroup;
 
@@ -793,4 +793,5 @@ public interface IGroupGenerator {
 	void setRationals(PrimeField rationals);
 
 	PrimeField getConstructedBinaries();
+
 }

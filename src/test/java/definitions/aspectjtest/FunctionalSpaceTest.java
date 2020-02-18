@@ -1,7 +1,7 @@
 /**
  * 
  */
-package definitions.structures.euclidean.vectorspaces.impl;
+package definitions.aspectjtest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -12,6 +12,7 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.mappings.Functional;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
@@ -42,7 +43,6 @@ public class FunctionalSpaceTest {
 	final EuclideanSpace dualDualSobolevSpace = this.dualSobolevSpace.getDualSpace();
 
 	@Test
-
 	public void functionSpaceTest() {
 		final Vector a = this.functionSpace.genericBaseToList().get(1);
 		final Vector b = this.dualFunctionSpace.genericBaseToList().get(1);
@@ -53,7 +53,6 @@ public class FunctionalSpaceTest {
 	}
 
 	@Test
-
 	public void sobolevSpaceTest() {
 		final Vector a = this.sobolevSpace.genericBaseToList().get(1);
 		final Vector b = this.dualSobolevSpace.genericBaseToList().get(1);
@@ -64,7 +63,6 @@ public class FunctionalSpaceTest {
 	}
 
 	@Test
-
 	public void spaceTest() {
 		final Vector a = this.space.genericBaseToList().get(0);
 		final Vector b = this.dualSpace.genericBaseToList().get(0);

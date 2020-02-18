@@ -29,7 +29,7 @@ public class TestAspect {
 	public boolean isTestStarted() {
 		return this.testStarted;
 	}
-
+	
 	@Before("@annotation(org.junit.Test)")
 	public void printTestCaseName(JoinPoint jp) {
 		String testCaseName = jp.toShortString()+"\r";
@@ -52,7 +52,7 @@ public class TestAspect {
 
 			DeepSearch.print(thread);
 			DeepSearch.map.get(thread).clear();
-			DeepSearch.tests.remove(thread);
+			DeepSearch.getTests().remove(thread);
 
 			DistributionCollector.print(thread);
 			DistributionCollector.map.get(thread).clear();
@@ -60,7 +60,7 @@ public class TestAspect {
 		}
 	}
 
-	@After("@annotation(org.junit.Test) && execution(* definitions.xmltest..*(..))")
+	@After("@annotation(org.junit.Test)")
 	public void syncAfterTest(final JoinPoint jp) throws Throwable {
 		DeepSearch.active = false;
 		this.syncAfter(jp);
@@ -73,7 +73,7 @@ public class TestAspect {
 					.replace(Pattern.quote("."), Pattern.quote("/"));
 
 			DeepSearch.map.putIfAbsent(thread, new ArrayList<>());
-			DeepSearch.tests.put(thread, testCaseName);
+			DeepSearch.getTests().put(thread, testCaseName);
 
 			DistributionCollector.tests.put(thread, testCaseName);
 			DistributionCollector.map.putIfAbsent(thread, new ConcurrentHashMap<>());
@@ -82,7 +82,7 @@ public class TestAspect {
 		}
 	}
 
-	@Before("@annotation(org.junit.Test) && execution(* definitions.xmltest..*.*(..))")
+	@Before("@annotation(org.junit.Test)")
 	public void syncBeforeTest(final JoinPoint jp) throws Throwable {
 		DeepSearch.active = true;
 		logger.info("DeepLogging activated in " + jp.toShortString().split(Pattern.quote("("))[1]);

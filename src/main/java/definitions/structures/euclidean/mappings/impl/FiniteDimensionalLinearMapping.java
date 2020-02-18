@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.monoids.Monoid;
-import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.impl.LinearMapping;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
@@ -123,7 +122,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Monoid getSource() {
+	public VectorSpace getSource() {
 		return this.source;
 	}
 
@@ -131,7 +130,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Monoid getTarget() {
+	public VectorSpace getTarget() {
 		return this.target;
 	}
 

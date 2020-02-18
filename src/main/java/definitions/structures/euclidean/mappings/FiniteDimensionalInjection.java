@@ -1,6 +1,6 @@
 package definitions.structures.euclidean.mappings;
 
-import definitions.structures.abstr.mappings.Monomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceMonomorphism;
 
 /**
  * Injective mapping.
@@ -8,6 +8,6 @@ import definitions.structures.abstr.mappings.Monomorphism;
  * @author ro
  *
  */
-public interface FiniteDimensionalInjection extends FiniteDimensionalHomomorphism, Monomorphism {
+public interface FiniteDimensionalInjection extends FiniteDimensionalHomomorphism, VectorSpaceMonomorphism {
 
 }

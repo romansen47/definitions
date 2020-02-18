@@ -1,21 +1,23 @@
 /**
  * 
  */
-package definitions.structures.euclidean.vectorspaces.impl;
+package definitions.aspectjtest;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import definitions.SpringConfiguration;
+import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
  *
  */
-public class MultiDimensionalComplexVectorSpaceTest {
+public class MultiDimensionalComplexVectorSpaceTest{
 
 	public static void main(final String[] args) {
 		new MultiDimensionalComplexVectorSpaceTest().test();
@@ -25,7 +27,6 @@ public class MultiDimensionalComplexVectorSpaceTest {
 			.getBean(SpaceGenerator.class);
 
 	@Test
-
 	public void test() {
 		final int dim = 10;
 
@@ -37,8 +38,12 @@ public class MultiDimensionalComplexVectorSpaceTest {
 			final Vector x = complexSpace.genericBaseToList().get(i);
 			vec = complexSpace.addition(vec, x);
 		}
-		final boolean newAns = Math.abs(complexSpace.norm(vec).doubleValue() - Math.sqrt(dim)) < 0.1;
+		final double doubleAns = complexSpace.norm(vec).doubleValue() - Math.sqrt(dim);
+		final boolean newAns = Math.abs(doubleAns) < 0.1;
+		
 		Assert.assertTrue(newAns);
+		System.out.println("norm = "+complexSpace.norm(vec).doubleValue()
+				+"\rsquare root of dim = "+Math.sqrt(dim)+"\rdifference = "+doubleAns+"\r");
 	}
 
 }

@@ -4,8 +4,8 @@ import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.Mapping;
-import definitions.structures.abstr.mappings.SelfMapping;
+import definitions.structures.abstr.mappings.VectorSpaceMapping;
+import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.impl.Naturals;
 
@@ -16,14 +16,14 @@ public interface EvolutionSystem extends XmlPrintable {
 	 * 
 	 * @return the evolution operator
 	 */
-	Mapping getEvolutionOperator(Element time, Element start);
+	VectorSpaceMapping getEvolutionOperator(Element time, Element start);
 	
 	/**
 	 * the phase space of the dynamic system.
 	 * 
 	 * @return the time phase
 	 */
-	VectorSpace getPhaseSpace();
+	Group getPhaseSpace();
 
 	/**
 	 * the time space of the dynamic system.
@@ -43,6 +43,6 @@ public interface EvolutionSystem extends XmlPrintable {
 				+ this.getPhaseSpace().toXml() + "</phaseSpace>\r" + "</dynamicSystem>\r";
 	}
 
-	SelfMapping getDefiningMapping(Element input);
+	VectorSpaceSelfMapping getDefiningMapping(Element input);
 	
 }

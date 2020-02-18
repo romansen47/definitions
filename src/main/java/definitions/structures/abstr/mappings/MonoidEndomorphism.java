@@ -2,10 +2,14 @@ package definitions.structures.abstr.mappings;
 
 import definitions.structures.abstr.algebra.monoids.Monoid;
 
-public interface SelfMapping extends Mapping {
+public interface MonoidEndomorphism extends MonoidHomomorphism {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Monoid getTarget() {
 		return getSource();
 	}
+	
 }

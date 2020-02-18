@@ -5,14 +5,14 @@ package definitions.structures.abstr.mappings;
 
 import java.io.Serializable;
 
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 /**
  * @author ro
  *
  */
-public interface Mapping extends Serializable {
+public interface VectorSpaceMapping extends MonoidHomomorphism, Serializable {
 
 	/**
 	 * Method to apply the mapping on a vector.
@@ -27,13 +27,15 @@ public interface Mapping extends Serializable {
 	 * 
 	 * @return the source space.
 	 */
-	Monoid getSource();
+	@Override
+	VectorSpace getSource();
 
 	/**
 	 * Getter for the target space.
 	 * 
 	 * @return the target space.
 	 */
-	Monoid getTarget();
+	@Override
+	VectorSpace getTarget();
 
 }

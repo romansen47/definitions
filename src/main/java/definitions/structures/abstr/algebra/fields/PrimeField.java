@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceIsomorphism;
 import definitions.structures.abstr.mappings.impl.Identity;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -96,10 +97,5 @@ public interface PrimeField extends Field {
 
 	@Override
 	Vector addition(Vector a, Vector b);
-
-	@Override
-	default Vector nullVec() {
-		return (Vector) getNeutralElement();
-	}
 
 }

@@ -6,8 +6,8 @@ import org.junit.Test;
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Automorphism;
-import definitions.structures.abstr.mappings.Isomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceAutomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceIsomorphism;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.Algebra;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
@@ -46,7 +46,7 @@ public class FiniteDimensionalLinearMappingTest {
 		e3 = new Tuple(new Scalar[] { zero, zero, one });
 
 		map = mapGen.getFiniteDimensionalLinearMapping(matrix);
-		inv = ((Automorphism) map).getInverse();
+		inv = ((VectorSpaceAutomorphism) map).getInverse();
 
 		composition = mapGen.getComposition(map, inv);
 
@@ -59,17 +59,17 @@ public class FiniteDimensionalLinearMappingTest {
 
 	@Test
 	public void iso1() throws Throwable {
-		Assert.assertTrue(map instanceof Isomorphism);
+		Assert.assertTrue(map instanceof VectorSpaceIsomorphism);
 	}
 
 	@Test
 	public void iso2() throws Throwable {
-		Assert.assertTrue(inv instanceof Isomorphism);
+		Assert.assertTrue(inv instanceof VectorSpaceIsomorphism);
 	}
 
 	@Test
 	public void iso3() throws Throwable {
-		Assert.assertTrue(composition instanceof Isomorphism);
+		Assert.assertTrue(composition instanceof VectorSpaceIsomorphism);
 	}
 
 	@Test

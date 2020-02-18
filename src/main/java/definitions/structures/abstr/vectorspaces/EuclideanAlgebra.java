@@ -60,4 +60,9 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 */
 	void setMultiplicationMatrix(Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix);
 
+	@Override
+	default Vector nullVec() {
+		return (Vector) getNeutralElement();
+	}
+	
 }

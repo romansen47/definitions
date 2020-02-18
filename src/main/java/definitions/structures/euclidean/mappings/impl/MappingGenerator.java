@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Endomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceEndomorphism;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
@@ -56,7 +56,7 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 				return new InjectiveLinearMapping(tmp);
 			}
 		} else if (dimSource == dimTarget) {
-			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
+			final VectorSpaceEndomorphism ans = new LinearSelfMapping(source, coordinates);
 			if (((FiniteDimensionalHomomorphism) ans).getRank() == dimSource) {
 				return new InvertibleSelfMapping(source, coordinates);
 			}
@@ -114,7 +114,7 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 				return new InjectiveLinearMapping(tmp);
 			}
 		} else if (dimSource == dimTarget) {
-			final Endomorphism ans = new LinearSelfMapping(source, coordinates);
+			final VectorSpaceEndomorphism ans = new LinearSelfMapping(source, coordinates);
 			if (((FiniteDimensionalHomomorphism) ans).getRank() == dimSource) {
 				return new InvertibleSelfMapping(source, coordinates);
 			}

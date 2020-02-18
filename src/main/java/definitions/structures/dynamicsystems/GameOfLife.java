@@ -4,19 +4,18 @@ import java.util.List;
 import java.util.Random;
 
 import definitions.structures.abstr.algebra.fields.PrimeField;
+import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.SelfMapping;
+import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
-import solver.StdDraw;
 
 @SuppressWarnings("serial")
-public class GameOfLife implements DynamicSystem {
+public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	protected final int size;
 	protected PrimeField binaries;
@@ -45,16 +44,12 @@ public class GameOfLife implements DynamicSystem {
 		this.coordinates = coordinates;
 	}
 
-	public int getCanvasSize() {
-		return canvasSize;
-	}
-
 	protected EuclideanSpace grid;
 	protected List<Vector> coordinates;
 
 	public GameOfLife(int size) {
 		this.size = size;
-		this.setBinaries(Generator.getInstance().getGroupGenerator().getBinaries());
+		this.setBinaries(GroupGenerator.getInstance().getBinaries());
 		this.grid = (EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getBinaries(),
 				size * size);
 		coordinates = grid.genericBaseToList();
@@ -64,13 +59,13 @@ public class GameOfLife implements DynamicSystem {
 	 * @return the grid
 	 */
 	@Override
-	public VectorSpace getPhaseSpace() {
+	public EuclideanSpace getPhaseSpace() {
 		return grid;
 	}
 
 	@Override
-	public SelfMapping getDefiningMapping() {
-		return new SelfMapping() {
+	public VectorSpaceSelfMapping getDefiningMapping() {
+		return new VectorSpaceSelfMapping() {
 
 			@Override
 			public Element get(Element vec) {
@@ -100,7 +95,7 @@ public class GameOfLife implements DynamicSystem {
 			}
 
 			@Override
-			public Monoid getSource() {
+			public VectorSpace getSource() {
 				return grid;
 			}
 
@@ -152,34 +147,6 @@ public class GameOfLife implements DynamicSystem {
 			ans += "\r";
 		}
 		return ans;
-	}
-
-	private StdDraw stddraw;
-	private final int canvasSize = 500;
-
-	public void draw(Element state) {
-		if (stddraw == null) {
-			stddraw = new StdDraw();
-			stddraw.setCanvasSize(canvasSize, canvasSize);
-			StdDraw.setXscale(0, canvasSize);
-			StdDraw.setYscale(0, canvasSize);
-		}
-		final int squareSize = (canvasSize / size) / 2;
-		StdDraw.clear();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				int x = squareSize * (1 + 2 * i);
-				int y = squareSize * (1 + 2 * j);
-				if (((FiniteVector) state).getCoordinates().get(coordinates.get((size - j - 1) * size + i)) == getBinaries()
-						.getNeutralElement()) {
-					StdDraw.setPenColor(StdDraw.WHITE);
-				} else {
-					StdDraw.setPenColor(StdDraw.BLACK);
-				}
-//				StdDraw.filledSquare(x, y, squareSize);
-				StdDraw.circle(x, y, squareSize);
-			}
-		}
 	}
 
 	public FiniteVector createRandomInitialCondition() {

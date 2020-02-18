@@ -13,7 +13,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author ro
  *
  */
-public interface VectorSpaceHomomorphism extends Vector, MonoidHomomorphism {
+public interface VectorSpaceHomomorphism extends Vector, VectorSpaceMapping, GroupHomomorphism {
 
 	/**
 	 * Method to apply the homomorphism on a vector.
@@ -54,17 +54,5 @@ public interface VectorSpaceHomomorphism extends Vector, MonoidHomomorphism {
 	 * @return the image of the base vector.
 	 */
 	Map<Vector, Map<Vector, Scalar>> getLinearity();
-
-	/**
-	 * ${inheritDoc}
-	 */
-	@Override
-	Monoid getSource();
-
-	/**
-	 * ${inheritDoc}
-	 */
-	@Override
-	Monoid getTarget();
 
 }

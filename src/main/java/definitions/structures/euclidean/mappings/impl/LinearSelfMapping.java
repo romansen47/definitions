@@ -3,7 +3,7 @@ package definitions.structures.euclidean.mappings.impl;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.mappings.Endomorphism;
+import definitions.structures.abstr.mappings.VectorSpaceEndomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -13,7 +13,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public class LinearSelfMapping extends FiniteDimensionalLinearMapping implements Endomorphism {
+public class LinearSelfMapping extends FiniteDimensionalLinearMapping implements VectorSpaceEndomorphism {
 
 	/**
 	 * 

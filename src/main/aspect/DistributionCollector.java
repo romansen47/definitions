@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.logging.log4j.LogManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 
 @Aspect
 public class DistributionCollector {
@@ -47,7 +48,7 @@ public class DistributionCollector {
 		w.close();
 	}
 
-//	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..)) && !within(definitions.structures.abstr.groups.impl.FiniteResidueClassRing)")
+	@Before(value = "execution(* definitions.structures..*(..)) && !execution(* *.print(..)) && !execution(* *.toXml(..)) && !execution(* definitions.structures.euclidean.Generator.*(..))")
 //	@Before("@annotation(settings.Measurable)")
 	public void getStats(final JoinPoint jp) {
 		final String key = jp.getSignature().toShortString().split(Pattern.quote("@"))[0];// jp.toShortString().split(Pattern.quote("@"))[0];
