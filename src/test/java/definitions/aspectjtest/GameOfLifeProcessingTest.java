@@ -66,7 +66,8 @@ public class GameOfLifeProcessingTest extends Gui {
 				rect(x, y, 2*squareSize, 2*squareSize);
 				}
 			}
-		}fill(0);
+		}
+		fill(0);
 		text("generation: "+generation++,2*squareSize*size+50, size);
 		if (generation==lifetime) {
 			Assert.assertTrue(true);

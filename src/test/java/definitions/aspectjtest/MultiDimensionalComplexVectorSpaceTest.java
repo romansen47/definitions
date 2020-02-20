@@ -19,15 +19,11 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  */
 public class MultiDimensionalComplexVectorSpaceTest{
 
-	public static void main(final String[] args) {
-		new MultiDimensionalComplexVectorSpaceTest().test();
-	}
-
 	ISpaceGenerator gen = SpringConfiguration.getSpringConfiguration().getApplicationContext()
 			.getBean(SpaceGenerator.class);
 
 	@Test
-	public void test() {
+	public void testNorm() {
 		final int dim = 10;
 
 		final EuclideanSpace complexSpace = (EuclideanSpace) SpaceGenerator.getInstance()

@@ -20,9 +20,9 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
-import exceptions.MathException;
 import settings.GlobalSettings;
 
 @SuppressWarnings("serial")
@@ -774,8 +774,8 @@ public interface IGroupGenerator {
 			}
 
 			@Override
-			public Vector addition(Vector a, Vector b) {
-				return operation(a, b);
+			public FiniteVector addition(Vector a, Vector b) {
+				return (FiniteVector) operation(a, b);
 			}
 			
 			@Override

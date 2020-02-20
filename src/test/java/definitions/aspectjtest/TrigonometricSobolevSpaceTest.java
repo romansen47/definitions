@@ -48,7 +48,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 			@Override
 			public Scalar value(Scalar input) {
 				Double inputValue = input.getRepresentant();
-				double abs = Math.abs(Math.sin(inputValue) * Math.cos(inputValue));
+				double abs = Math.abs(Math.sin(inputValue) * Math.cos(inputValue)-0.25);
 				return RealLine.getInstance().get(abs);
 			}
 		};

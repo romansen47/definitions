@@ -10,9 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
-import definitions.structures.abstr.mappings.VectorSpaceIsomorphism;
 import definitions.structures.abstr.mappings.impl.Identity;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 
 /**
  * @author RoManski
@@ -96,6 +96,6 @@ public interface PrimeField extends Field {
 	}
 
 	@Override
-	Vector addition(Vector a, Vector b);
+	FiniteVector addition(Vector a, Vector b);
 
 }

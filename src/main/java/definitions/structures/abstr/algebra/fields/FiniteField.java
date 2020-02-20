@@ -11,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *
  */
 public interface FiniteField extends DiscreetField, FiniteRing {
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

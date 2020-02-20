@@ -58,7 +58,8 @@ public abstract class GenericFunction implements Function {
 		if (coordinates == null) {
 			coordinates = new ConcurrentHashMap<>();
 			for (final Vector baseVec : space.genericBaseToList()) {
-				coordinates.put(baseVec, ((EuclideanFunctionSpace) space).innerProduct(this, baseVec));
+				Scalar tmp=((EuclideanFunctionSpace) space).innerProduct(this, baseVec);
+				coordinates.put(baseVec, tmp);
 			}
 		coordinatesMap.put(space, coordinates);
 		}

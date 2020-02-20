@@ -111,19 +111,19 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 	}
 
 	@Test
-	public void testAlpha() throws IOException {
+	public void testFirstCoordinate() throws IOException {
 		this.alpha.plot(-Math.PI, Math.PI);
 		getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
-	public void testBeta() throws IOException {
+	public void testSecondCoordinate() throws IOException {
 		this.beta.plot(-Math.PI, Math.PI);
 		getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
-	public void testGamma() throws IOException {
+	public void testThirdCoordinate() throws IOException {
 		this.gamma.plot(-Math.PI, Math.PI);
 		getGenerator().saveCoordinateSpaces();
 	}

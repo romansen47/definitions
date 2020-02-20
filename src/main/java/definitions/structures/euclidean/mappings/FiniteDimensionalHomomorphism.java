@@ -41,6 +41,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 		Map<Vector, Scalar> coordinates;
 		if (((FiniteVectorMethods) vec2).getCoordinates() == null) {
 			coordinates = ((Function) vec2).getCoordinates((EuclideanSpace) this.getSource());
+			((Function)vec2).setCoordinates(coordinates, (EuclideanSpace) this.getSource());
 		} else {
 			if (vec2 instanceof FiniteVector) {
 				coordinates = ((FiniteVector) vec2).getCoordinates();

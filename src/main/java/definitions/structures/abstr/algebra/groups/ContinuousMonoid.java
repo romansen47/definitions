@@ -9,6 +9,6 @@ import definitions.structures.abstr.algebra.monoids.Monoid;
  * @author RoManski
  *
  */
-public interface ContinuousMonoid extends Monoid {
+public interface ContinuousMonoid extends Monoid, ContinuousSemiGroup {
 
 }

@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.mappings.VectorSpaceEndomorphism;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
+import definitions.structures.euclidean.mappings.impl.LinearSelfMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class LinearMappingsSpace implements VectorSpace, RealSpace {
@@ -30,6 +32,9 @@ public class LinearMappingsSpace implements VectorSpace, RealSpace {
 		for (final Vector vec : this.source.genericBaseToList()) {
 			coordinates.put(vec, ((FiniteVectorMethods) this.target.addition(((VectorSpaceHomomorphism) vec1).get(vec),
 					((VectorSpaceHomomorphism) vec2).get(vec))).getCoordinates());
+		}
+		if (vec1 instanceof VectorSpaceEndomorphism && vec1 instanceof VectorSpaceEndomorphism) {
+			return new LinearSelfMapping(this.source, coordinates);
 		}
 		return new FiniteDimensionalLinearMapping(this.source, this.target, coordinates);
 	}

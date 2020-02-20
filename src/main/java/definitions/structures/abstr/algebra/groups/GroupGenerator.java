@@ -101,11 +101,6 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 		if (binaries == null) {
 			binaries = new FinitePrimeField() {
 
-//				@Override
-//				public Integer getOrder() {
-//					return FinitePrimeField.super.getOrder();
-//				}
-				
 				class Binary implements FieldElement {
 
 					private Map<Vector, Scalar> coordinates;
@@ -232,13 +227,13 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 				}
 
 				@Override
-				public Vector addition(Vector a, Vector b) {
+				public FiniteVector addition(Vector a, Vector b) {
 					Vector ans = FinitePrimeField.super.operation(a, b);
 					if (ans == null) {
 						boolean tmp = ((Binary) a).value && ((Binary) b).value;
 						ans = get(!tmp);
 					}
-					return ans;
+					return (FiniteVector) ans;
 				}
 
 				@Override
