@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -15,7 +16,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotter;
 
-public abstract class GenericFunction implements Function {
+public abstract class GenericFunction implements Function, Element {
 
 	private static final long serialVersionUID = 1L;
 	private Field field = RealLine.getInstance();
