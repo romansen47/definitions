@@ -16,6 +16,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
+import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -29,15 +30,15 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 4;
-	private static int sobolevDegree = 2;
+	private static int degree = 2;
+	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static TranslationsAsDynamicSystemTest test;
 	private static Function tmp;
 
-	final int iterations = 1000;
-	final double eps = 1.e-2;
+	final int iterations = 10000;
+	final double eps = 1.e-3;
 	int iteration = 0;
 
 	public static void main(String[] args) {
@@ -72,7 +73,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 
 			@Override
 			public Element get(Element vec) {
-				Vector newVec = (Vector) map.get(map.get(map.get(vec)));
+				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 3);
 //				newVec =(Vector) map.get(vec);
 				newVec = getSource().addition((Vector) map.get(vec),
 						getSource().stretch((Vector) map.get(newVec), (Scalar) getRealLine().getMinusOne()));
@@ -94,17 +95,18 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 //		setInitialCondition((Function) getFunctionSpace().addition(new Sine(1d, 0d, 1d) {
 //		}, new Sine(1d, 0.5 * Math.PI, 1d) {
 //		}));
-		setInitialCondition((Function) getFunctionSpace().addition(new Sine(1d, 0d, 1d) {
-		}, new Sine(1d, 0d, 1d) {
-		}));
-//		setInitialCondition(new GenericFunction() {
-//
-//			@Override
-//			public Scalar value(Scalar input) {
-//				return RealLine.getInstance().get(10*(-1+Math.exp(-1/Math.abs(Math.pow(Math.PI,2)-Math.pow(input.getDoubleValue(),2)))));
-//			}
-//			
-//		});
+//		setInitialCondition((Function) getFunctionSpace().addition(new Sine(1d, 0d, 1d) {
+//		}, new Sine(1d, 0d, 10d) {
+//		}));
+		setInitialCondition(new GenericFunction() {
+
+			@Override
+			public Scalar value(Scalar input) {
+				return RealLine.getInstance().get(10
+						* (-1 + Math.exp(-1 / Math.abs(Math.pow(Math.PI, 2) - Math.pow(input.getDoubleValue(), 2)))));
+			}
+
+		});
 		LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
 		setDifferentialEquation(new DynamicSystem() {
 
@@ -126,6 +128,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	}
 
 	List<Function> list = new ArrayList<>();
+	private int speed = 10;
 
 	@Override
 	public void settings() {
@@ -143,6 +146,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			tmp = tmp2;
 			System.out.println(i + "th iteration completed");
 		}
+		getInitialCondition().plot(-Math.PI, Math.PI);
 	}
 
 	@Override
@@ -157,9 +161,10 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 		text("time: " + iteration + " * " + eps + " = " + iteration++ * eps, 200, 200, 15);
 		Function tmp = list.get(iteration);
 		draw(tmp);
-		if (tmp.getDerivative().equals(getFunctionSpace().nullVec()) || iteration == iterations) {
+		if (tmp.getDerivative().equals(getFunctionSpace().nullVec()) || iteration >= iterations) {
 			System.exit(0);
 		}
+		iteration += speed;
 	}
 
 	private void draw(Function tmp2) {
