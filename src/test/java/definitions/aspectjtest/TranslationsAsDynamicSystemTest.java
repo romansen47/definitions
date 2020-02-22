@@ -29,15 +29,15 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 3;
-	private static int sobolevDegree = 1;
+	private static int degree = 4;
+	private static int sobolevDegree = 2;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static TranslationsAsDynamicSystemTest test;
 	private static Function tmp;
 
-	final int iterations = 100;
-	final double eps = 1.e-1;
+	final int iterations = 1000;
+	final double eps = 1.e-2;
 	int iteration = 0;
 
 	public static void main(String[] args) {
@@ -74,14 +74,14 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			public Element get(Element vec) {
 				Vector newVec = (Vector) map.get(map.get(map.get(vec)));
 //				newVec =(Vector) map.get(vec);
-//				newVec = getSource().addition((Vector) map.get(vec),
-//						getSource().stretch((Vector) map.get(newVec), (Scalar) getRealLine().getMinusOne()));
-				newVec = getSource()
-						.addition(
-								getSource().addition((Vector) map.get(vec),
-										getSource().stretch((Vector) map.get(newVec),
-												(Scalar) getRealLine().getMinusOne())),
-								((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
+				newVec = getSource().addition((Vector) map.get(vec),
+						getSource().stretch((Vector) map.get(newVec), (Scalar) getRealLine().getMinusOne()));
+//				newVec = getSource()
+//						.addition(
+//								getSource().addition((Vector) map.get(vec),
+//										getSource().stretch((Vector) map.get(newVec),
+//												(Scalar) getRealLine().getMinusOne())),
+//								((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
 				return newVec;
 			}
 
@@ -134,7 +134,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 
 	@Override
 	public void setup() {
-		frameRate(2);
+		frameRate(20);
 		list.add(tmp);
 		for (int i = 0; i < iterations; i++) {
 			Function tmp2 = (Function) space.addition(tmp, space
