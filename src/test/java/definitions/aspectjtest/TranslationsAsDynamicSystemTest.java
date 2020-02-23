@@ -23,6 +23,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import processing.template.Gui;
+import solver.StdDraw;
 
 public class TranslationsAsDynamicSystemTest extends Gui {
 
@@ -30,16 +31,19 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 2;
+	private static int degree = 10;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static TranslationsAsDynamicSystemTest test;
 	private static Function tmp;
 
-	final int iterations = 10000;
+	final int iterations = 100000;
 	final double eps = 1.e-3;
 	int iteration = 0;
+
+	List<Function> list = new ArrayList<>();
+	private int speed = 20;
 
 	public static void main(String[] args) {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
@@ -73,8 +77,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 
 			@Override
 			public Element get(Element vec) {
-				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 3);
-//				newVec =(Vector) map.get(vec);
+				Vector newVec = getSource().stretch(((DerivativeOperator) map).get((Vector) vec, 3),RealLine.getInstance().get(0.1));
 				newVec = getSource().addition((Vector) map.get(vec),
 						getSource().stretch((Vector) map.get(newVec), (Scalar) getRealLine().getMinusOne()));
 //				newVec = getSource()
@@ -92,18 +95,17 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			}
 
 		};
-//		setInitialCondition((Function) getFunctionSpace().addition(new Sine(1d, 0d, 1d) {
-//		}, new Sine(1d, 0.5 * Math.PI, 1d) {
-//		}));
-//		setInitialCondition((Function) getFunctionSpace().addition(new Sine(1d, 0d, 1d) {
-//		}, new Sine(1d, 0d, 10d) {
-//		}));
 		setInitialCondition(new GenericFunction() {
+
+			double support = 2.0;
 
 			@Override
 			public Scalar value(Scalar input) {
-				return RealLine.getInstance().get(10
-						* (-1 + Math.exp(-1 / Math.abs(Math.pow(Math.PI, 2) - Math.pow(input.getDoubleValue(), 2)))));
+				double val = input.getDoubleValue();
+				if (val <= -support / 2 || val >= support / 2) {
+					return RealLine.getInstance().get(0);
+				}
+				return RealLine.getInstance().get(5*(1+Math.cos(2*Math.PI*val))*Math.exp(-1 / (Math.pow(support/2, 2) - Math.pow(val, 2))));
 			}
 
 		});
@@ -118,17 +120,15 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			@Override
 			public VectorSpaceSelfMapping getDefiningMapping() {
 				return newMap;
-//				return (VectorSpaceEndomorphism)linearMappingsSpace.addition((VectorSpaceEndomorphism) map, (VectorSpaceEndomorphism) map);
 			}
 
 		});
 		space = (EuclideanSpace) getDifferentialEquation().getPhaseSpace();
-		tmp = initialCondition;
+//		tmp = initialCondition;
+		tmp = (Function) space.getCoordinates(initialCondition);
+		initialCondition.plotCompare(-Math.PI, Math.PI, tmp);
 		((Gui) test).run("definitions.aspectjtest.TranslationsAsDynamicSystemTest");
 	}
-
-	List<Function> list = new ArrayList<>();
-	private int speed = 10;
 
 	@Override
 	public void settings() {
@@ -137,16 +137,46 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 
 	@Override
 	public void setup() {
-		frameRate(20);
+		frameRate(60);
+		drawPreparationsWindows();
+		int size = 20;
+		int sizeOfRect = (xScale - deltaX) / size;
+		int deltaIt = iterations / size;
 		list.add(tmp);
+		int count = 0;
+		StdDraw.setPenColor(StdDraw.BLACK);
+		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading...");
+		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading...");
+		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading...");
+		StdDraw.text(-xScale + deltaX, 2.5 * sizeOfRect, "loading...");
+		StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading...");
+		StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading...");
 		for (int i = 0; i < iterations; i++) {
 			Function tmp2 = (Function) space.addition(tmp, space
 					.stretch((Function) differentialEquation.getDefiningMapping().get(tmp), getRealLine().get(eps)));
 			list.add(tmp2);
 			tmp = tmp2;
-			System.out.println(i + "th iteration completed");
+			if (i % deltaIt == 0) {
+				StdDraw.setPenColor(StdDraw.GREEN);
+//				StdDraw.filledSquare(-xScale+deltaX + count * sizeOfRect, 3*sizeOfRect, sizeOfRect);
+				StdDraw.square(-xScale + 2 * deltaX + count * sizeOfRect, sizeOfRect, sizeOfRect/2);
+				count++;
+			}
 		}
-		getInitialCondition().plot(-Math.PI, Math.PI);
+//		getInitialCondition().plot(-Math.PI, Math.PI);
+	}
+
+	StdDraw stddraw;
+	int xScale = 400;
+	int yScale = xScale / 2;
+	int deltaX = 100;
+
+	private void drawPreparationsWindows() {
+		stddraw = new StdDraw();
+		stddraw.setCanvasSize(2 * xScale + deltaX, yScale);
+		StdDraw.setXscale(-xScale, xScale);
+		StdDraw.setYscale(-yScale, yScale);
+		StdDraw.setPenRadius(0.001);
 	}
 
 	@Override
@@ -160,6 +190,8 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 		fill(0);
 		text("time: " + iteration + " * " + eps + " = " + iteration++ * eps, 200, 200, 15);
 		Function tmp = list.get(iteration);
+
+//		tmp.plot(-Math.PI,Math.PI);
 		draw(tmp);
 		if (tmp.getDerivative().equals(getFunctionSpace().nullVec()) || iteration >= iterations) {
 			System.exit(0);
@@ -176,8 +208,8 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			x2 = x1 + eps;
 			realX1 = (Real) getRealLine().get(x1);
 			realX2 = (Real) getRealLine().get(x2);
-			line(500 + 100 * (float) x1, (float) (500 + 100 * tmp2.value(realX1).getDoubleValue()),
-					500 + 100 * (float) x2, (float) (500 + 100 * tmp2.value(realX2).getDoubleValue()));
+			line(500 + 100 * (float) x1, (float) (500 * (1 - tmp2.value(realX1).getDoubleValue())),
+					500 + 100 * (float) x2, (float) (500 * (1 - tmp2.value(realX2).getDoubleValue())));
 			x1 = x2;
 		}
 	}
@@ -218,7 +250,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	}
 
 	/**
-	 * @param initialCondition the initialCondition to set
+	 * @param initialConditio)n the initialCondition to set
 	 */
 	public static void setInitialCondition(Function initialCondition) {
 		TranslationsAsDynamicSystemTest.initialCondition = initialCondition;

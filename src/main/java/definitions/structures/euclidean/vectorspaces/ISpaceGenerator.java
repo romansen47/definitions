@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -269,8 +270,6 @@ public interface ISpaceGenerator {
 		});
 	}
 
-//	EuclideanSpace convert(EuclideanSpace complexSpace, SubField subField);
-
 	default EuclideanFunctionSpace getTrigonometricSpace(final Field field, final int n) {
 		return new TrigonometricSpace(field, n, Math.PI);
 	}
@@ -280,4 +279,5 @@ public interface ISpaceGenerator {
 	}
 
 	void setMyCache(MyCache ans);
+	
 }

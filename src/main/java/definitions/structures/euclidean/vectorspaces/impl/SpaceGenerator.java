@@ -1,6 +1,7 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
@@ -10,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import definitions.cache.MyCache;
 import definitions.settings.XmlPrintable;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
 @Service
