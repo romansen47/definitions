@@ -110,19 +110,19 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return this.field;
 	}
 
-	@Override
-	public List<Vector> getOrthonormalBase(final List<Vector> base) {
-		final List<Vector> newBase = new ArrayList<>();
-		for (final Vector vec : base) {
-			Vector tmp = this.nullVec();
-			for (final Vector vec2 : newBase) {
-				tmp = this.addition(tmp, this.projection(vec, vec2));
-			}
-			final Vector ans = this.normalize(this.addition(vec, this.stretch(tmp, this.getField().get(-1))));
-			newBase.add(ans);
-		}
-		return newBase;
-	}
+//	@Override
+//	public List<Vector> getOrthonormalBase(final List<Vector> base) {
+//		final List<Vector> newBase = new ArrayList<>();
+//		for (final Vector vec : base) {
+//			Vector tmp = this.nullVec();
+//			for (final Vector vec2 : newBase) {
+//				tmp = this.addition(tmp, this.projection(vec, vec2));
+//			}
+//			final Vector ans = this.normalize(this.addition(vec, this.stretch(tmp, this.getField().get(-1))));
+//			newBase.add(ans);
+//		}
+//		return newBase;
+//	}
 
 	@Override
 	public Vector nullVec() {

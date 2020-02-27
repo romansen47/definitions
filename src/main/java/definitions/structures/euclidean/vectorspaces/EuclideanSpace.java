@@ -1,5 +1,6 @@
 package definitions.structures.euclidean.vectorspaces;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -142,7 +143,18 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @param base the original base.
 	 * @return an orthonormal base of same span.
 	 */
-	List<Vector> getOrthonormalBase(List<Vector> base);
+	default List<Vector> getOrthonormalBase(List<Vector> base){
+		final List<Vector> newBase = new ArrayList<>();
+		for (final Vector vec : base) {
+			Vector tmp = this.nullVec();
+			for (final Vector vec2 : newBase) {
+				tmp = this.addition(tmp, this.projection(vec, vec2));
+			}
+			final Vector ans = this.normalize(this.addition(vec, this.stretch(tmp, this.getField().get(-1))));
+			newBase.add(ans);
+		}
+		return newBase;
+	};
 
 	/**
 	 * {@inheritDoc}

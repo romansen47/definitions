@@ -22,6 +22,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativeOperator;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
@@ -54,7 +55,7 @@ public interface ISpaceGenerator {
 						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getDoubleValue() == 0.;
 						if (freq.getDoubleValue() == otherFreq.getDoubleValue()) {
 							if (!isSine && otherIsSine) {
-								tmp.put(otherVec, ((RealLine)realLine).get(-freq.getDoubleValue()));
+								tmp.put(otherVec, ((RealLine) realLine).get(-freq.getDoubleValue()));
 							}
 							if (isSine && !otherIsSine) {
 								tmp.put(otherVec, freq);
@@ -84,7 +85,8 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.addition(fun, space.stretch(projection, ((Scalar) space.getField().getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
+			final Function diff = (Function) space.addition(fun, space.stretch(projection, ((Scalar) space.getField()
+					.getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {
@@ -169,7 +171,7 @@ public interface ISpaceGenerator {
 		return newSpace;
 	}
 
-	default VectorSpace getFiniteDimensionalVectorSpace(final Field field, final int dim) {
+	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final int dim) {
 		return null;
 	}
 
@@ -219,7 +221,7 @@ public interface ISpaceGenerator {
 			return space;
 		}
 		final EuclideanSpace newSpace = this.extend(this.getTrigonometricSpace(f, n, right),
-				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine)f).get(1. / Math.sqrt(2 * Math.PI))) {
+				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine) f).get(1. / Math.sqrt(2 * Math.PI))) {
 					private long serialVersionUID = 8254610780535405982L;
 
 					@Override
@@ -278,6 +280,156 @@ public interface ISpaceGenerator {
 		return new TrigonometricSpace(field, n, right);
 	}
 
+	default EuclideanSpace getOuterProduct(EuclideanSpace first, EuclideanSpace second) {
+		if (!first.getField().equals(second.getField())) {
+			return null;
+		}
+
+		EuclideanSpace product = new EuclideanSpace() {
+
+			final protected EuclideanSpace outerThis = this;
+
+			@Override
+			public String toString() {
+				String ans = "Product space UxV, where\r";
+				ans += "U is " + first.toString() + "\rans\r" + "V is " + second.toString();
+				return ans;
+			}
+
+			class ProductVector implements FiniteVector {
+
+				final private Vector left;
+				final private Vector right;
+				private Map<Vector, Scalar> coordinates;
+				private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
+
+				ProductVector(Vector l, Vector r) {
+					left = l;
+					right = r;
+				}
+
+				@Override
+				public Integer getDim() {
+					return left.getDim() + right.getDim();
+				}
+
+				/**
+				 * @return the left
+				 */
+				public Vector getLeft() {
+					return left;
+				}
+
+				/**
+				 * @return the right
+				 */
+				public Vector getRight() {
+					return right;
+				}
+
+				@Override
+				public Map<Vector, Scalar> getCoordinates() {
+					if (coordinates == null) {
+						coordinates = new ConcurrentHashMap<>();
+						for (Vector vec : genericBaseToList()) {
+							FiniteVector tmpLeft = (FiniteVector) ((ProductVector) vec).left;
+							FiniteVector tmpRight = (FiniteVector) ((ProductVector) vec).right;
+							Scalar val;
+							if (tmpRight.equals(second.nullVec())) {
+								Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft()).getCoordinates();
+								val = tmpMap.get(tmpLeft);
+							} else {
+								Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight()).getCoordinates();
+								val = tmpMap.get(tmpRight);
+							}
+							coordinates.put(vec, val);
+						}
+					}
+					setCoordinates(coordinates, outerThis);
+					return coordinates;
+				}
+
+				@Override
+				public void setCoordinates(Map<Vector, Scalar> coordinates) {
+					this.coordinates = coordinates;
+				}
+
+				@Override
+				public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+					if (coordinatesMap == null) {
+						coordinatesMap = new ConcurrentHashMap<>();
+					}
+					coordinatesMap.putIfAbsent(space, coordinates);
+				}
+
+			}
+
+			@Override
+			public Field getField() {
+				return first.getField();
+			}
+
+			@Override
+			public boolean contains(Vector vec) {
+				boolean ans = false;
+				if (vec instanceof ProductVector) {
+					ans = first.contains(((ProductVector) vec).getLeft())
+							&& second.contains(((ProductVector) vec).getRight());
+				}
+				return ans;
+			}
+
+			private Vector nullVec;
+
+			@Override
+			public Vector nullVec() {
+				if (nullVec == null) {
+					nullVec = new ProductVector(first.nullVec(), second.nullVec());
+				}
+				return nullVec;
+			}
+
+			List<Vector> base;
+
+			@Override
+			public List<Vector> genericBaseToList() {
+				if (base == null) {
+					base = new ArrayList<>();
+					for (int i = 0; i < first.getDim(); i++) {
+						base.add(new ProductVector(first.genericBaseToList().get(i), second.nullVec()));
+					}
+					for (int j = 0; j < second.getDim(); j++) {
+						base.add(new ProductVector(first.nullVec(), second.genericBaseToList().get(j)));
+					}
+				}
+				return base;
+			}
+
+			@Override
+			public Vector getCoordinates(Vector vec) {
+				return new ProductVector(first.getCoordinates(vec), second.getCoordinates(vec));
+			}
+
+			@Override
+			public Integer getDim() {
+				return first.getDim() + second.getDim();
+			}
+
+			EuclideanSpace dualSpace;
+
+			@Override
+			public EuclideanSpace getDualSpace() {
+				if (dualSpace == null) {
+					dualSpace = getOuterProduct(first.getDualSpace(), second.getDualSpace());
+				}
+				return dualSpace;
+			}
+
+		};
+		return product;
+
+	}
+
 	void setMyCache(MyCache ans);
-	
+
 }

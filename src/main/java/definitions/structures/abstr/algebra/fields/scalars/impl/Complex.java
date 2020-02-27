@@ -65,6 +65,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), this.getReal());
 			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), this.getImag());
 		}
+		super.setCoordinates(tmp);
 		return tmp;
 	}
 
@@ -128,6 +129,12 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	}
 
+	
+	@Override
+	public String toString() {
+		return "("+getReal().getDoubleValue()+","+getImag().getDoubleValue()+")";
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

@@ -78,7 +78,7 @@ public class CachingAspect {
 		EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp) {
 			@Override
 			public String toString() {
-				return dim + "-dimensional vector space over" + field.toString();
+				return dim + "-dimensional vector space over " + field.toString();
 			}
 		};
 		logger.info("Created new space: " + ans.toString());
