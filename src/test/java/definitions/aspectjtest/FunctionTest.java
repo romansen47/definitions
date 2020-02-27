@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.AspectJTest;
+import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;

@@ -68,8 +68,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(this.value(this.getField().get(x)).getDoubleValue()
-					- other.value(RealLine.getInstance().get(x)).getDoubleValue()) > eps) {
+			if (Math.abs(((Scalar) this.value(this.getField().get(x))).getDoubleValue()
+					- ((Scalar) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > eps) {
 				return false;
 			}
 		}
@@ -118,8 +118,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = fun.value(f.get(input.getDoubleValue() + eps)).getDoubleValue()
-							- fun.value(input).getDoubleValue();
+					final double dy = ((Scalar) fun.value(f.get(input.getDoubleValue() + eps))).getDoubleValue()
+							- ((Scalar) fun.value(input)).getDoubleValue();
 					final double dx = eps;
 					return f.get(dy / dx);
 				}
@@ -232,6 +232,6 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * @return the image of the input.
 	 */
 	@Proceed
-	Scalar value(Scalar input);
+	Vector value(Scalar input);
 
 }

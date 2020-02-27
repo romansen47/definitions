@@ -2,6 +2,7 @@ package definitions.aspectjtest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -31,19 +32,20 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 7;
+	private static int degree = 5;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static TranslationsAsDynamicSystemTest test;
 	private static Function tmp;
+	boolean linear = false;
 
-	final int iterations = 100000;
+	final int iterations = 10000;
 	final double eps = 1.e-3;
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();
-	private int speed = 25;
+	private int speed = 1;
 
 	public static void main(String[] args) {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
@@ -77,21 +79,14 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 
 			@Override
 			public Element get(Element vec) {
-				Vector newVec = getSource().stretch(((DerivativeOperator) map).get((Vector) vec, 3),
-						RealLine.getInstance().get(0.1));
-				newVec = getSource().addition((Vector) map.get(vec),
-						getSource().stretch((Vector) map.get(newVec), (Scalar) getRealLine().getMinusOne()));
-//				newVec = getSource()
-//						.addition(
-//								getSource().addition(
-//										(Vector) map.get(vec),
-//										getSource()
-//												.stretch(
-//														(Vector) map.get(newVec),
-//														(Scalar) getRealLine().getMinusOne())),
-//								((Function) map.get(((EuclideanSpace) getSource())
-//										.getCoordinates((Vector) nonlinearity.get(vec)))));
-				return newVec;
+				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
+				newVec = getSource().stretch(newVec, (Scalar) getRealLine().get(-1));
+				newVec = getSource().addition(getSource().stretch((Vector) vec,(Scalar) getRealLine().get(0.1)), newVec);
+				if (!test.linear) {
+					newVec = getSource().addition(newVec,
+							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
+				}
+				return ((DerivativeOperator) map).get(newVec);
 			}
 
 			@Override
@@ -102,16 +97,17 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 		};
 		setInitialCondition(new GenericFunction() {
 
-			double support = 2.0;
+			double support = 1.0;
 
 			@Override
 			public Scalar value(Scalar input) {
 				double val = input.getDoubleValue();
+				double a = 0.2;
 				if (val <= -support / 2 || val >= support / 2) {
-					return RealLine.getInstance().get(0);
+					return RealLine.getInstance().get(a);
 				}
-				return RealLine.getInstance().get(5 * (1 + Math.cos(2 * Math.PI * val))
-						* Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
+				return RealLine.getInstance().get(a+Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
+//				return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 			}
 
 		});
@@ -151,13 +147,13 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 		list.add(tmp);
 		int count = 0;
 		StdDraw.setPenColor(StdDraw.BLACK);
-		double it = (double)iteration;
+		double it = (double) iteration;
 		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 2.5 * sizeOfRect, "loading... ");
-		StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading... ");
-		StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading... ");
+//		StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading... ");
+//		StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading... ");
 		for (int i = 0; i < iterations; i++) {
 			Function tmp2 = (Function) space.addition(tmp, space
 					.stretch((Function) differentialEquation.getDefiningMapping().get(tmp), getRealLine().get(eps)));
@@ -165,7 +161,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			tmp = tmp2;
 			if (i % deltaIt == 0) {
 				StdDraw.setPenColor(StdDraw.GREEN);
-//				StdDraw.filledSquare(-xScale+deltaX + count * sizeOfRect, 3*sizeOfRect, sizeOfRect);
+				StdDraw.filledSquare(-xScale + 2 * deltaX + count * sizeOfRect, sizeOfRect, sizeOfRect / 2);
 				StdDraw.square(-xScale + 2 * deltaX + count * sizeOfRect, sizeOfRect, sizeOfRect / 2);
 				count++;
 			}
@@ -212,12 +208,12 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 		Real realX1;
 		double x2 = x1 + eps;
 		Real realX2;
-		while (x2 < Math.PI) {
-			x2 = x1 + eps;
+		while (x1 + speed*eps < Math.PI) {
+			x2 = x1 + speed*eps;
 			realX1 = (Real) getRealLine().get(x1);
 			realX2 = (Real) getRealLine().get(x2);
-			line(500 + 100 * (float) x1, (float) (500 * (1 - tmp2.value(realX1).getDoubleValue())),
-					500 + 100 * (float) x2, (float) (500 * (1 - tmp2.value(realX2).getDoubleValue())));
+			line(500 + 100 * (float) x1, (float) (500 * (1 - ((Scalar) tmp2.value(realX1)).getDoubleValue())),
+					500 + 100 * (float) x2, (float) (500 * (1 - ((Scalar) tmp2.value(realX2)).getDoubleValue())));
 			x1 = x2;
 		}
 	}
