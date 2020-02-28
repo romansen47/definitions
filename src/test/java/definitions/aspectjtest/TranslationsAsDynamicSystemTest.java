@@ -32,20 +32,20 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 5;
+	private static int degree = 6;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static TranslationsAsDynamicSystemTest test;
 	private static Function tmp;
-	boolean linear = false;
+	boolean linear = true;
 
-	final int iterations = 10000;
-	final double eps = 1.e-3;
+	final int iterations = (int) 1.e5;
+	final double eps = 1.e-4;
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();
-	private int speed = 1;
+	private int speed = (int) (iterations * eps);
 
 	public static void main(String[] args) {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
@@ -80,8 +80,9 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			@Override
 			public Element get(Element vec) {
 				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
-				newVec = getSource().stretch(newVec, (Scalar) getRealLine().get(-1));
-				newVec = getSource().addition(getSource().stretch((Vector) vec,(Scalar) getRealLine().get(0.1)), newVec);
+				newVec = getSource().stretch(newVec, (Scalar) getRealLine().get(-0.2));
+				newVec = getSource().addition(getSource().stretch((Vector) vec, (Scalar) getRealLine().get(0.2)),newVec);
+//				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
 				if (!test.linear) {
 					newVec = getSource().addition(newVec,
 							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
@@ -102,15 +103,16 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			@Override
 			public Scalar value(Scalar input) {
 				double val = input.getDoubleValue();
-				double a = 0.2;
+				double a = 10.0;
 				if (val <= -support / 2 || val >= support / 2) {
-					return RealLine.getInstance().get(a);
+					return RealLine.getInstance().get(0);
 				}
-				return RealLine.getInstance().get(a+Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
+				return RealLine.getInstance().get(1 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
 //				return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 			}
 
 		});
+//		setInitialCondition((Function) getFunctionSpace().genericBaseToList().get(2));
 		LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
 		setDifferentialEquation(new DynamicSystem() {
 
@@ -208,12 +210,12 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 		Real realX1;
 		double x2 = x1 + eps;
 		Real realX2;
-		while (x1 + speed*eps < Math.PI) {
-			x2 = x1 + speed*eps;
+		while (x1 + speed * eps < Math.PI) {
+			x2 = x1 + eps * speed;
 			realX1 = (Real) getRealLine().get(x1);
 			realX2 = (Real) getRealLine().get(x2);
-			line(500 + 100 * (float) x1, (float) (500 * (1 - ((Scalar) tmp2.value(realX1)).getDoubleValue())),
-					500 + 100 * (float) x2, (float) (500 * (1 - ((Scalar) tmp2.value(realX2)).getDoubleValue())));
+			line(500 + 100 * (float) x1, (float) (500 * (1 - 30 * ((Scalar) tmp2.value(realX1)).getDoubleValue())),
+					500 + 100 * (float) x2, (float) (500 * (1 - 30 * ((Scalar) tmp2.value(realX2)).getDoubleValue())));
 			x1 = x2;
 		}
 	}
