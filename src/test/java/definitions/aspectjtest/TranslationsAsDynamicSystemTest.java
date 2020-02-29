@@ -40,8 +40,13 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static Function tmp;
 	boolean linear = true;
 
+<<<<<<< HEAD
+	final int iterations = 10000;
+	final double eps = 1.e-2;
+=======
 	final int iterations = (int) 1.e5;
 	final double eps = 1.e-4;
+>>>>>>> branch 'master' of https://github.com/romansen47/definitions
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();

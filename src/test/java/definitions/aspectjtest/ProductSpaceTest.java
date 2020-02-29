@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -38,19 +39,35 @@ public class ProductSpaceTest extends AspectJTest {
 
 	@Test
 	public void testproductSpaces() {
-		Vector tmp1 = testSpace(productLeftLeft); 
-		Vector tmp2 = testSpace(productLeftRight); 
-		Vector tmp3 = testSpace(compTimesComp); 
-		Vector tmp4 = testSpace(compTimesThree); 
+		Vector tmp1 = testSpace(productLeftLeft);
+		Vector tmp2 = testSpace(productLeftRight);
+		Vector tmp3 = testSpace(compTimesComp);
+		Vector tmp4 = testSpace(compTimesThree);
 		int i = 0;
 	}
-	
+
 	public Vector testSpace(EuclideanSpace space) {
 		Vector tmp = space.nullVec();
 		for (Vector vec : space.genericBaseToList()) {
 			tmp = space.addition(tmp, vec);
 		}
 		return tmp;
+	}
+
+	@Test
+	public void higherDimensionalVectorSpaceTest() {
+		EuclideanSpace space = ComplexPlane.getInstance();
+		EuclideanSpace otherSpace = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace((Field) space, 101);
+		ComplexPlane.getInstance();
+		for (int i = 0; i < 100; i++) {
+			space = SpaceGenerator.getInstance().getOuterProduct(space, ComplexPlane.getInstance());
+		}
+		Vector tmp = space.nullVec();
+		boolean ans;
+		for (Vector vec : space.genericBaseToList()) {
+			ans = space.genericBaseToList().contains(vec);
+			System.out.println(ans);
+		}
 	}
 
 	/**
