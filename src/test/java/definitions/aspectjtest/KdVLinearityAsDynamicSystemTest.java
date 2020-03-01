@@ -26,7 +26,7 @@ import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSp
 import processing.template.Gui;
 import solver.StdDraw;
 
-public class TranslationsAsDynamicSystemTest extends Gui {
+public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 	private static SpringConfiguration springConfiguration;
 	private static DynamicSystem differentialEquation;
@@ -36,17 +36,12 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
-	private static TranslationsAsDynamicSystemTest test;
+	private static KdVLinearityAsDynamicSystemTest test;
 	private static Function tmp;
 	boolean linear = true;
 
-<<<<<<< HEAD
-	final int iterations = 10000;
-	final double eps = 1.e-2;
-=======
 	final int iterations = (int) 1.e5;
 	final double eps = 1.e-4;
->>>>>>> branch 'master' of https://github.com/romansen47/definitions
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();
@@ -55,7 +50,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	public static void main(String[] args) {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 		setRealLine(RealLine.getInstance());
-		test = new TranslationsAsDynamicSystemTest();
+		test = new KdVLinearityAsDynamicSystemTest();
 		setFunctionSpace(
 				SpaceGenerator.getInstance().getTrigonometricSobolevSpace(getRealLine(), degree, sobolevDegree));
 		VectorSpaceSelfMapping map = ((TrigonometricSobolevSpace) getFunctionSpace()).getDerivativeBuilder();
@@ -101,6 +96,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			}
 
 		};
+		
 		setInitialCondition(new GenericFunction() {
 
 			double support = 1.0;
@@ -117,8 +113,10 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 			}
 
 		});
+		
 //		setInitialCondition((Function) getFunctionSpace().genericBaseToList().get(2));
 		LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
+		
 		setDifferentialEquation(new DynamicSystem() {
 
 			@Override
@@ -136,7 +134,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 //		tmp = initialCondition;
 		tmp = (Function) space.getCoordinates(initialCondition);
 		initialCondition.plotCompare(-Math.PI, Math.PI, tmp);
-		((Gui) test).run("definitions.aspectjtest.TranslationsAsDynamicSystemTest");
+		((Gui) test).run("definitions.aspectjtest.KdVLinearityAsDynamicSystemTest");
 	}
 
 	@Override
@@ -236,7 +234,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	 * @param differentialEquation the differentialEquation to set
 	 */
 	public static void setDifferentialEquation(DynamicSystem differentialEquation) {
-		TranslationsAsDynamicSystemTest.differentialEquation = differentialEquation;
+		KdVLinearityAsDynamicSystemTest.differentialEquation = differentialEquation;
 	}
 
 	/**
@@ -250,7 +248,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	 * @param functionSpace the functionSpace to set
 	 */
 	public static void setFunctionSpace(EuclideanSpace functionSpace) {
-		TranslationsAsDynamicSystemTest.functionSpace = functionSpace;
+		KdVLinearityAsDynamicSystemTest.functionSpace = functionSpace;
 	}
 
 	/**
@@ -264,7 +262,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	 * @param initialConditio)n the initialCondition to set
 	 */
 	public static void setInitialCondition(Function initialCondition) {
-		TranslationsAsDynamicSystemTest.initialCondition = initialCondition;
+		KdVLinearityAsDynamicSystemTest.initialCondition = initialCondition;
 	}
 
 	/**
@@ -278,7 +276,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	 * @param realLine the realLine to set
 	 */
 	public static void setRealLine(Field realLine) {
-		TranslationsAsDynamicSystemTest.realLine = realLine;
+		KdVLinearityAsDynamicSystemTest.realLine = realLine;
 	}
 
 	/**
@@ -292,7 +290,7 @@ public class TranslationsAsDynamicSystemTest extends Gui {
 	 * @param springConfiguration the springConfiguration to set
 	 */
 	public static void setSpringConfiguration(SpringConfiguration springConfiguration) {
-		TranslationsAsDynamicSystemTest.springConfiguration = springConfiguration;
+		KdVLinearityAsDynamicSystemTest.springConfiguration = springConfiguration;
 	}
 
 }

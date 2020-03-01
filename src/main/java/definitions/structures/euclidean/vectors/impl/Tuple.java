@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
+import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -76,8 +77,8 @@ public class Tuple implements FiniteVector {
 	public boolean equals(final Object vec) {
 		if (!(vec instanceof Vector)) {
 			return false;
-		} else if ((vec instanceof Tuple) && (((Tuple) vec).dim == this.dim)) {
-			return this.getCoordinates().equals(((Tuple) vec).getCoordinates());
+		} else if (((Vector) vec).getDim() == this.dim) { 
+			return this.getCoordinates().equals(((FiniteVector) vec).getCoordinates());
 		}
 		return false;
 	}

@@ -1,9 +1,11 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.Unweavable;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 
 /**
  * 
@@ -59,14 +61,18 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	 * 
 	 * @return the inf of the interval.
 	 */
-	double getLeft();
+	default	double getLeft() {
+		return getInterval()[0];
+	};
 
 	/**
 	 * Getter for the sup of the interval.
 	 * 
 	 * @return the sup of the interval.
 	 */
-	double getRight();
+	default double getRight() {
+		return getInterval()[1];
+	}
 
 	/**
 	 * Concrete scalar product.
@@ -77,6 +83,13 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	 */
 	default Scalar integral(final Function vec1, final Function vec2) {
 		return this.getIntegral(vec1, vec2, this.getInterval()[0], this.getInterval()[1], this.getEpsilon());
+	}
+	
+	@SuppressWarnings("serial")
+	static Function nullVec = new Constant(RealLine.getInstance().get(0)) {};
+	
+	default Function nullVec() {
+		return nullVec;
 	}
 
 }

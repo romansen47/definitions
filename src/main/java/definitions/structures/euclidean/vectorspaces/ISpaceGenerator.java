@@ -171,6 +171,14 @@ public interface ISpaceGenerator {
 		return newSpace;
 	}
 
+	default EuclideanSpace getFiniteDimensionalVectorSpaceAsProduct(final Field field, final int dim) {
+		EuclideanSpace ans = (EuclideanSpace) field;
+		for (int i = 1; i < dim; i++) {
+			ans = this.getOuterProduct(ans, field);
+		}
+		return ans;
+	}
+
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final int dim) {
 		return null;
 	}
@@ -310,7 +318,7 @@ public interface ISpaceGenerator {
 
 				@Override
 				public Integer getDim() {
-					return left.getDim() + right.getDim();
+					return outerThis.getDim();
 				}
 
 				/**
@@ -412,7 +420,20 @@ public interface ISpaceGenerator {
 
 			@Override
 			public Integer getDim() {
-				return first.getDim() + second.getDim();
+				int k,j=0;
+				if (first instanceof Field) {
+					j=1;
+				}
+				else {
+					j=first.getDim();
+				}
+				if (second instanceof Field) {
+					k=1;
+				}
+				else{
+					k=second.getDim();
+				}
+				return j + k;
 			}
 
 			EuclideanSpace dualSpace;
