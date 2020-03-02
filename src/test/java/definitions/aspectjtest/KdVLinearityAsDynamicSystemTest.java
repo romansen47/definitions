@@ -32,7 +32,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 6;
+	private static int degree = 20;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
@@ -40,12 +40,12 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	private static Function tmp;
 	boolean linear = true;
 
-	final int iterations = (int) 1.e5;
-	final double eps = 1.e-4;
+	final int iterations = (int) 1.e4;
+	final double eps = 1.e-5;
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();
-	private int speed = (int) (iterations * eps);
+	private int speed = (int) (1000*iterations * eps);
 
 	public static void main(String[] args) {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
@@ -82,7 +82,6 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
 				newVec = getSource().stretch(newVec, (Scalar) getRealLine().get(-0.2));
 				newVec = getSource().addition(getSource().stretch((Vector) vec, (Scalar) getRealLine().get(0.2)),newVec);
-//				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
 				if (!test.linear) {
 					newVec = getSource().addition(newVec,
 							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
@@ -99,7 +98,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		
 		setInitialCondition(new GenericFunction() {
 
-			double support = 1.0;
+			double support = 0.9;
 
 			@Override
 			public Scalar value(Scalar input) {
@@ -108,13 +107,12 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 				if (val <= -support / 2 || val >= support / 2) {
 					return RealLine.getInstance().get(0);
 				}
-				return RealLine.getInstance().get(1 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
+				return RealLine.getInstance().get(0.6 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
 //				return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 			}
 
 		});
 		
-//		setInitialCondition((Function) getFunctionSpace().genericBaseToList().get(2));
 		LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
 		
 		setDifferentialEquation(new DynamicSystem() {
@@ -131,7 +129,6 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 		});
 		space = (EuclideanSpace) getDifferentialEquation().getPhaseSpace();
-//		tmp = initialCondition;
 		tmp = (Function) space.getCoordinates(initialCondition);
 		initialCondition.plotCompare(-Math.PI, Math.PI, tmp);
 		((Gui) test).run("definitions.aspectjtest.KdVLinearityAsDynamicSystemTest");
@@ -199,11 +196,9 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		text("time: " + iteration + " * " + eps + " = " + iteration * eps, 200, 200, 15);
 		Function tmp = list.get(iteration++);
 
-//		tmp.plot(-Math.PI,Math.PI);
 		draw(tmp);
 		if (tmp.getDerivative().equals(getFunctionSpace().nullVec()) || iteration + speed >= iterations) {
 			iteration = 0;
-//			System.exit(0);
 		}
 		iteration += speed;
 	}
@@ -217,8 +212,8 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			x2 = x1 + eps * speed;
 			realX1 = (Real) getRealLine().get(x1);
 			realX2 = (Real) getRealLine().get(x2);
-			line(500 + 100 * (float) x1, (float) (500 * (1 - 30 * ((Scalar) tmp2.value(realX1)).getDoubleValue())),
-					500 + 100 * (float) x2, (float) (500 * (1 - 30 * ((Scalar) tmp2.value(realX2)).getDoubleValue())));
+			line(500 + 100 * (float) x1, (float) (500 * (1 - 100 * ((Scalar) tmp2.value(realX1)).getDoubleValue())),
+					500 + 100 * (float) x2, (float) (500 * (1 - 100 * ((Scalar) tmp2.value(realX2)).getDoubleValue())));
 			x1 = x2;
 		}
 	}
