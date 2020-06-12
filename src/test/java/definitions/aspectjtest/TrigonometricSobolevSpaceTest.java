@@ -45,6 +45,11 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Test
 	public void testOnContinuousFunction() throws Exception {
 		Function h = new GenericFunction() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 3842946945322219375L;
+
 			@Override
 			public Scalar value(Scalar input) {
 				Double inputValue = input.getRepresentant();

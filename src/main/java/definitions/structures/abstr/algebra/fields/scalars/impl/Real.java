@@ -5,8 +5,6 @@ package definitions.structures.abstr.algebra.fields.scalars.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,6 +34,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@XmlElement
 	private Double representant;
 	
+	@Override
 	public Double getRepresentant() {
 		return representant;
 	}

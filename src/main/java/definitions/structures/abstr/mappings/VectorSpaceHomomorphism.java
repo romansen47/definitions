@@ -3,7 +3,6 @@ package definitions.structures.abstr.mappings;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -21,6 +20,7 @@ public interface VectorSpaceHomomorphism extends Vector, VectorSpaceMapping, Gro
 	 * @param vec the vector.
 	 * @return the image on the vector.
 	 */
+	@Override
 	Vector get(final Element vec);
 
 	/**

@@ -17,6 +17,7 @@ public class FunctionSpaceTest extends AspectJTest{
 	
 	final EuclideanSpace functionSpace=SpaceGenerator.getInstance().getTrigonometricSobolevSpace((Field) ComplexPlane.getInstance(), 3, 1);
 	
+	@SuppressWarnings("serial")
 	final Function functio = new GenericFunction() {
 
 		double support = 10.0;

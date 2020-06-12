@@ -4,6 +4,7 @@
 package definitions.aspectjtest;
 
 import org.junit.BeforeClass;
+import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.semigroups.Element;
@@ -21,7 +22,7 @@ import solver.StdDraw;
  */
 public class GameOfLifeTest extends Gui {
 
-	private static SpringConfiguration springConfiguration;
+	private static ApplicationContextAware springConfiguration;
 
 	final private int size = 20;
 	private DynamicSystem gameOfLife;
@@ -129,7 +130,7 @@ public class GameOfLifeTest extends Gui {
 			for (int j = 0; j < size; j++) {
 				int x = squareSize * (1 + 2 * i);
 				int y = squareSize * (1 + 2 * j);
-				if (((FiniteVector) tmp).getCoordinates().get(tmpgol.getCoordinates()
+				if (tmp.getCoordinates().get(tmpgol.getCoordinates()
 						.get((size - j - 1) * size + i)) == tmpgol.getBinaries().getNeutralElement()) {
 					fill(255);
 				} else {
@@ -271,14 +272,14 @@ public class GameOfLifeTest extends Gui {
 	/**
 	 * @return the springConfiguration
 	 */
-	public static SpringConfiguration getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		return springConfiguration;
 	}
 
 	/**
 	 * @param springConfiguration the springConfiguration to set
 	 */
-	public static void setSpringConfiguration(SpringConfiguration springConfiguration) {
+	public static void setSpringConfiguration(ApplicationContextAware springConfiguration) {
 		GameOfLifeTest.springConfiguration = springConfiguration;
 	}
 

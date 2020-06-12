@@ -147,7 +147,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function normalize(final Vector vec) {
-		return this.stretch(vec, (Scalar) this.getField().getInverseElement(this.getField().get(this.norm(vec).getDoubleValue())));
+		return this.stretch(vec, this.getField().getInverseElement(this.getField().get(this.norm(vec).getDoubleValue())));
 	}
 
 	/**

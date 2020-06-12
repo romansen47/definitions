@@ -1,7 +1,6 @@
 package definitions.structures.abstr.algebra.rings;
 
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
-import definitions.structures.abstr.algebra.semigroups.DiscreetSemiGroup;
 
 public interface DiscreetSemiRing extends DiscreetMonoid, SemiRing {
 
@@ -10,5 +9,6 @@ public interface DiscreetSemiRing extends DiscreetMonoid, SemiRing {
 	 * 
 	 * @return the multiplicative monoid of the ring
 	 */
+	@Override
 	DiscreetMonoid getMuliplicativeMonoid();
 }

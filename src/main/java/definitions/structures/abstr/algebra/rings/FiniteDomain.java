@@ -26,7 +26,7 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 		for (final Element el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
 				.keySet()) {
 			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
-				return (Element) el;
+				return el;
 			}
 		}
 		return null;

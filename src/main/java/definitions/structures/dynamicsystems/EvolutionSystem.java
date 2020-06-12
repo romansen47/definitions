@@ -6,8 +6,6 @@ import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceMapping;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
-import definitions.structures.abstr.vectorspaces.VectorSpace;
-import definitions.structures.impl.Naturals;
 
 public interface EvolutionSystem extends XmlPrintable {
 
@@ -31,7 +29,7 @@ public interface EvolutionSystem extends XmlPrintable {
 	 * @return the time space
 	 */
 	default Group getTimeSpace() {
-		return (Group) GroupGenerator.getInstance().getIntegers();
+		return GroupGenerator.getInstance().getIntegers();
 	}
 
 	/**

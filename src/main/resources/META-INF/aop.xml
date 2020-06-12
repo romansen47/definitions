@@ -1,17 +1,12 @@
 <!DOCTYPE aspectj PUBLIC
         "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
-	<weaver
-		options="-Xset:weaveJavaxPackages=true -verbose -Xreweavable">
+	<weaver options="-Xset:weaveJavaxPackages=true -verbose ">
 		<!-- -showWeaveInfo -debug -->
-		<include within="definitions..*" />
-		<include within="TestAspect" />
 		<include within="org.springframework..*" />
-		<include within="DebugAspect" /> 
-		<include within="Aspect" /> 
-		<include within="AspectsController" /> 
-		<!-- <include within="DistributionCollector" /> <include within="DeepSearch" 
-			/> -->
+		<include within="definitions..*" />
+		<include within="plotter.Plotter" />
+		<include within="customaspects..*" />
 		<exclude
 			within="definitions.structures.abstr.groups.impl.FiniteMonoid" />
 		<exclude within="definitions.Unweavable" />
@@ -19,9 +14,9 @@
 	</weaver>
 	<aspects>
 		<aspect name="definitions.cache.CachingAspect" />
-		<aspect name="TestAspect" />
-		<aspect name="DebugAspect" />
-		<!-- <aspect name="DistributionCollector" /> <aspect name="PointcutSearch" 
-			/> <aspect name="DeepSearch" /> -->
+		<aspect name="customaspects.impl.ConcreteTestAspect" />
+		<aspect name="customaspects.impl.ConcreteProfilingAspect" />
+		<!-- <aspect name="customaspects.impl.ConcreteDistributionAspect"/><aspect 
+			name="DistributionCollector" /> <aspect name="PointcutSearch" /> -->
 	</aspects>
 </aspectj>

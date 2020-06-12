@@ -3,7 +3,7 @@
  */
 package definitions.structures.abstr.algebra.semigroups;
 
-import java.io.Serializable;
+import java.util.regex.Pattern;
 
 import definitions.settings.XmlPrintable; 
 
@@ -18,7 +18,7 @@ import definitions.settings.XmlPrintable;
  *
  *         are identically equal to the identity mapping on G.
  */
-public interface SemiGroup extends Serializable, XmlPrintable {
+public interface SemiGroup extends XmlPrintable {
 	
 	/**
 	 * Getter for the order of the monoid - the amount of elements.
@@ -38,6 +38,11 @@ public interface SemiGroup extends Serializable, XmlPrintable {
 	 */
 	default	Element operation(Element first, Element second) {
 		return null;
+	}
+	
+	@Override
+	default String toXml() {
+		return "<"+this.getClass().toString().split(Pattern.quote("$"))[0]+ "/>\r";
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.Random;
 
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -13,8 +12,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
-
-@SuppressWarnings("serial")
+ 
 public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	protected final int size;
@@ -50,7 +48,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	public GameOfLife(int size) {
 		this.size = size;
 		this.setBinaries(GroupGenerator.getInstance().getBinaries());
-		this.grid = (EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getBinaries(),
+		this.grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getBinaries(),
 				size * size);
 		coordinates = grid.genericBaseToList();
 	}
@@ -150,7 +148,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	}
 
 	public FiniteVector createRandomInitialCondition() {
-		FiniteVector initialCondition = (FiniteVector) ((EuclideanSpace) getPhaseSpace()).nullVec();
+		FiniteVector initialCondition = (FiniteVector) getPhaseSpace().nullVec();
 		Random random = new Random();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {

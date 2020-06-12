@@ -3,7 +3,6 @@ package definitions.structures.abstr.algebra.fields;
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
@@ -27,7 +26,7 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 	default FieldElement product(final Vector vec1, final Vector vec2) {
 		Element ans = DiscreetField.super.product(vec1, vec2);
 		if (ans == null) {
-			ans = (FieldElement) this.getMuliplicativeMonoid().operation(vec1, vec2);
+			ans = this.getMuliplicativeMonoid().operation(vec1, vec2);
 		}
 		return (FieldElement)ans;
 	}

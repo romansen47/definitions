@@ -256,13 +256,13 @@ public class RealLine implements Field, RealSpace {
 		return this.get(((Real) vec1).getDoubleValue() * r.getDoubleValue());
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String toString() {
-		return "the field of real numbers";
-	}
+//	/**
+//	 * {@inheritDoc}
+//	 */
+//	@Override
+//	public String toString() {
+//		return "the field of real numbers";
+//	}
 
 	/**
 	 * {@inheritDoc}

@@ -20,7 +20,6 @@ import definitions.structures.abstr.algebra.rings.DiscreetDomain;
 import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.LinearSelfMapping;
@@ -99,7 +98,13 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 
 	public FinitePrimeField getBinaries() {
 		if (binaries == null) {
-			binaries = new FinitePrimeField() {
+			binaries = new FinitePrimeField() { 
+				private static final long serialVersionUID = 1L;
+				
+				@Override
+				public String toXml() {
+					return "<binaries />";
+				}
 
 				class Binary implements FieldElement {
 
@@ -115,9 +120,9 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 						if (coordinates == null) {
 							coordinates = new ConcurrentHashMap<>();
 							if (this == one) {
-								coordinates.put(one, (Scalar) one);
+								coordinates.put(one, one);
 							} else {
-								coordinates.put(one, (Scalar) zero);
+								coordinates.put(one, zero);
 							}
 						}
 						return coordinates;
@@ -142,7 +147,7 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 					
 					@Override
 					public String toString() {
-						return " Binary - " + value;
+						return "<binary>" + value+"</binary>";
 					}
 
 				};
@@ -197,7 +202,7 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 
 				@Override
 				public Vector stretch(Vector vec, Scalar r) {
-					return multiplication((Binary) vec, (Binary) r);
+					return multiplication(vec, r);
 				}
 
 				@Override
@@ -487,6 +492,11 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 
 	public void setBinaries(FinitePrimeField binaries) {
 		this.binaries = binaries;
+	}
+	
+	@Override
+	public String toString() {
+		return "<GroupGenerator />\r";
 	}
 
 }

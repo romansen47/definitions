@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
-import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -95,7 +94,7 @@ public class Tuple implements FiniteVector {
 	@Override
 	public String toString() {
 		String str = "";
-		for (Entry entry : coordinates.entrySet()) {
+		for (Entry<Vector, Scalar> entry : coordinates.entrySet()) {
 			str += entry.getValue().toString() + "\r";
 		}
 		return str;

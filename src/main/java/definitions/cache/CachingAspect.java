@@ -19,7 +19,6 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -33,7 +32,10 @@ public class CachingAspect {
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
 	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
-//		System.out.println(pjp.getArgs()[0].toString());
+		return coordinateSpace(pjp);
+	}
+
+	private Object coordinateSpace(ProceedingJoinPoint pjp) {
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);
 		if (field.equals(RealLine.getInstance())) {
@@ -43,8 +45,6 @@ public class CachingAspect {
 						"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
 				return ans;
 			}
-		}
-		if (field == RealLine.getInstance()) {
 			switch (dim) {
 			case 1:
 				return RealLine.getInstance();
@@ -74,13 +74,8 @@ public class CachingAspect {
 					coordinates.put(basetmp.get(j), (Scalar) zero);
 				}
 			}
-		}
-		EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp) {
-			@Override
-			public String toString() {
-				return dim + "-dimensional vector space over " + field.toString();
-			}
-		};
+		} 
+		EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
 		logger.info("Created new space: " + ans.toString());
 		if (field.equals(RealLine.getInstance())) {
 			coordinatesSpaces.put(dim, ans);

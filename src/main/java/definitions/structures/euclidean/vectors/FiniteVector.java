@@ -1,8 +1,6 @@
 package definitions.structures.euclidean.vectors;
 
 import java.util.Map;
-import java.util.Set;
-
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;

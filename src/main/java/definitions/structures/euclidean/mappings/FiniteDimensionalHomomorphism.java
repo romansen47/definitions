@@ -52,7 +52,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 		}
 		Vector ans;
 		EuclideanSpace target;
-		final VectorSpace space = (VectorSpace) this.getTarget();
+		final VectorSpace space = this.getTarget();
 		if (space instanceof EuclideanFunctionSpace) {
 			target = (EuclideanFunctionSpace) space;
 			ans = ((EuclideanFunctionSpace) target).nullFunction();

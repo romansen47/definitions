@@ -27,7 +27,7 @@ public class FunctionalSpaceTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	final EuclideanSpace space = SpringConfiguration.getSpringConfiguration().getApplicationContext()
+	final EuclideanSpace space = ((SpringConfiguration) SpringConfiguration.getSpringConfiguration()).getApplicationContext()
 			.getBean(SpaceGenerator.class).getFiniteDimensionalVectorSpace(3);
 	final EuclideanSpace dualSpace = this.space.getDualSpace();
 

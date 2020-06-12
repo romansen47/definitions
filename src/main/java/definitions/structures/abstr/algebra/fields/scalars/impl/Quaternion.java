@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;

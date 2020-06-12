@@ -2,7 +2,8 @@ package definitions.aspectjtest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -19,7 +20,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
@@ -28,7 +28,7 @@ import solver.StdDraw;
 
 public class KdVLinearityAsDynamicSystemTest extends Gui {
 
-	private static SpringConfiguration springConfiguration;
+	private static ApplicationContextAware springConfiguration;
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
@@ -60,6 +60,11 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			public Element get(Element vec) {
 				return new GenericFunction() {
 
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = -1105085341775793307L;
+
 					@Override
 					public Scalar value(Scalar input) {
 						return (Scalar) getRealLine().product(((Function) vec).value(input),
@@ -80,8 +85,8 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			@Override
 			public Element get(Element vec) {
 				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
-				newVec = getSource().stretch(newVec, (Scalar) getRealLine().get(-0.2));
-				newVec = getSource().addition(getSource().stretch((Vector) vec, (Scalar) getRealLine().get(0.2)),newVec);
+				newVec = getSource().stretch(newVec, getRealLine().get(-0.2));
+				newVec = getSource().addition(getSource().stretch((Vector) vec, getRealLine().get(0.2)),newVec);
 				if (!test.linear) {
 					newVec = getSource().addition(newVec,
 							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
@@ -98,6 +103,10 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		
 		setInitialCondition(new GenericFunction() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -4921080371690731611L;
 			double support = 0.9;
 
 			@Override
@@ -149,7 +158,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		list.add(tmp);
 		int count = 0;
 		StdDraw.setPenColor(StdDraw.BLACK);
-		double it = (double) iteration;
+		double it = iteration;
 		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
@@ -277,14 +286,14 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	/**
 	 * @return the springConfiguration
 	 */
-	public static SpringConfiguration getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		return springConfiguration;
 	}
 
 	/**
 	 * @param springConfiguration the springConfiguration to set
 	 */
-	public static void setSpringConfiguration(SpringConfiguration springConfiguration) {
+	public static void setSpringConfiguration(ApplicationContextAware springConfiguration) {
 		KdVLinearityAsDynamicSystemTest.springConfiguration = springConfiguration;
 	}
 

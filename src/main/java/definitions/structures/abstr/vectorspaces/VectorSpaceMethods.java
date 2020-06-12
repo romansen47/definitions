@@ -1,6 +1,5 @@
 package definitions.structures.abstr.vectorspaces;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

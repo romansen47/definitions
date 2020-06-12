@@ -222,7 +222,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public Quaternion stretch(final Vector vec1, final Scalar r) {
 		if (r instanceof Quaternion) {
-			return (Quaternion) super.innerProduct(vec1,(Vector)r);
+			return (Quaternion) super.innerProduct(vec1,r);
 //			return this.product(vec1, r);
 		}
 		if (r == this.getField().getOne()) {
@@ -238,10 +238,10 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
 	}
 
-	@Override
-	public String toString() {
-		return "Custom field of quaternions as a 4-dimensional real vector space.";
-	}
+//	@Override
+//	public String toString() {
+//		return "Custom field of quaternions as a 4-dimensional real vector space.";
+//	}
 
 	@Override
 	public Element getMinusOne() { 

@@ -1,7 +1,5 @@
 package definitions.structures.abstr.mappings;
 
-import definitions.structures.abstr.vectorspaces.VectorSpace;
-
 /**
  * Isomorphism between vector spaces.
  * 

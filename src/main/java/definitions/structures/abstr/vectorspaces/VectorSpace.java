@@ -71,7 +71,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @return the stretched vector.
 	 */
 	default	Vector stretch(Vector vec1, Scalar r) {
-		FieldElement zero = (FieldElement) getField().getNeutralElement();
+		FieldElement zero = getField().getNeutralElement();
 		FieldElement one = getField().getOne();
 		if (r.equals(zero)) {
 			return (Vector) getNeutralElement();

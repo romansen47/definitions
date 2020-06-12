@@ -31,7 +31,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	private final List<Function> testfunctions = new ArrayList<>();
 
-	private final int degree = 4;
+	private final int degree = 2;
 	private final int sobolevDegree = 2;
 
 	private EuclideanSpace sobolevSpace;
@@ -123,7 +123,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	public void test2() throws Throwable {
 		final int sobDegree = 1000;
 		getLogger().info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
-		final Vector derivative = ((DerivativeOperator) this.derivativeOperator).get(this.sine, this.degree);
+		final Vector derivative = ((DerivativeOperator) this.derivativeOperator).get(this.sine, sobDegree);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, this.sine);
 	}
 

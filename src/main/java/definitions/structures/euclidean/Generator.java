@@ -24,7 +24,7 @@ import plotter.Plotter;
 import settings.GlobalSettings;
 
 @Service
-@ComponentScan("definitions")
+@ComponentScan(basePackages = "definitions")
 public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable {
 
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
@@ -82,6 +82,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		return this.fieldGenerator;
 	}
 
+	@Override
 	public GroupGenerator getGroupGenerator() {
 		return this.groupGenerator;
 	}
@@ -112,7 +113,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 			this.spaceGenerator.setMyCache(ans);
 			obj_in.close();
 		} catch (final Exception e) {
-			e.addSuppressed(new Exception("failed to load myCache from local file")); 
+			e.addSuppressed(new Exception("failed to load myCache from local file"));
 			getLogger().info("Cached spaces not loaded");
 		}
 	}

@@ -2,7 +2,7 @@ package definitions.aspectjtest;
 
 import java.util.Random;
 
-import org.junit.Test;
+import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
 import processing.template.Gui;
@@ -13,14 +13,14 @@ import processing.template.Gui;
  */
 public class NativeGameOfLifeTest extends Gui {
 
-	private static SpringConfiguration springConfiguration = SpringConfiguration.getSpringConfiguration();
+	private static ApplicationContextAware springConfiguration = SpringConfiguration.getSpringConfiguration();
 
 	@Override
 	public void setup() {
 		frameRate(100);
 	}
 
-	final private static int size = 100;
+	final private static int size = 500;
 	private boolean[][] initialCondition;
 	private int lifetime = 10000;
 
@@ -162,14 +162,14 @@ public class NativeGameOfLifeTest extends Gui {
 	/**
 	 * @return the springConfiguration
 	 */
-	public static SpringConfiguration getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		return springConfiguration;
 	}
 
 	/**
 	 * @param springConfiguration the springConfiguration to set
 	 */
-	public static void setSpringConfiguration(SpringConfiguration springConfiguration) {
+	public static void setSpringConfiguration(ApplicationContextAware springConfiguration) {
 		NativeGameOfLifeTest.springConfiguration = springConfiguration;
 	}
 

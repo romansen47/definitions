@@ -1,6 +1,5 @@
 package definitions.cache;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;

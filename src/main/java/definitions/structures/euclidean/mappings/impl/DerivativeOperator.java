@@ -10,7 +10,6 @@ import definitions.structures.abstr.mappings.VectorSpaceAutomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -40,8 +39,9 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 		}
 	}
 	
+	@Override
 	public Vector get(final Element vec) {
-		return (Vector) super.get(vec);
+		return super.get(vec);
 	}
 	
 	public Vector get(final Vector vec, final int degree) {

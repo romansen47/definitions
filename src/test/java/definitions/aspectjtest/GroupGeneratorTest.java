@@ -1,9 +1,5 @@
 package definitions.aspectjtest;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,18 +8,11 @@ import org.junit.Test;
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
-import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
-import definitions.structures.abstr.algebra.rings.DiscreetDomain;
-import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
-import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.impl.Naturals;
 
 public class GroupGeneratorTest extends AspectJTest {
@@ -92,30 +81,22 @@ public class GroupGeneratorTest extends AspectJTest {
 	@Test
 	public void integersTest() {
 		boolean addSameAsMult = four1.equals(four2);
-		boolean sumIsZero = getIntegers().addition(four1, minusFour).equals(zero);
-//		System.out.println(one);
-//		System.out.println(minusOne);
-//		System.out.println(zero);
-//		System.out.println(two);
-//		System.out.println(three);
-//		System.out.println(four1);
-//		System.out.println(minusFour);
+		boolean sumIsZero = getIntegers().addition(four1, minusFour).equals(zero); 
 		Assert.assertTrue(addSameAsMult);
-		Assert.assertTrue(sumIsZero);
-//		System.out.println(getIntegers().get(12.));
+		Assert.assertTrue(sumIsZero); 
 	}
 
 	@Test
 	public void fieldsTest() {
-		FieldElement newZero = (FieldElement) getRationals().getNeutralElement();
+		FieldElement newZero = getRationals().getNeutralElement();
 		FieldElement newOne = (FieldElement) getRationals().getMuliplicativeMonoid().getNeutralElement();
-		FieldElement newMinusOne = (FieldElement) getRationals()
+		FieldElement newMinusOne = getRationals()
 				.getInverseElement(getRationals().getMuliplicativeMonoid().getNeutralElement());
 		FieldElement newTwo = (FieldElement) getRationals().addition(newOne, newOne);
 		FieldElement newMinusTwo = (FieldElement) getRationals().multiplication(newTwo, newMinusOne);
 		FieldElement newFour = (FieldElement) getRationals().multiplication(newMinusTwo, newMinusTwo);
-		FieldElement half = (FieldElement) ((Group) getRationals().getMuliplicativeMonoid()).getInverseElement(newTwo);
-		FieldElement quarter = (FieldElement) ((Group) getRationals().getMuliplicativeMonoid())
+		FieldElement half = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newTwo);
+		FieldElement quarter = (FieldElement) getRationals().getMuliplicativeMonoid()
 				.getInverseElement(newFour);
 		FieldElement var = (FieldElement) getRationals().multiplication(newOne, newOne);
 		FieldElement tmp;
@@ -126,7 +107,7 @@ public class GroupGeneratorTest extends AspectJTest {
 			var = (FieldElement) getRationals().addition(var, tmp);
 			System.out.println(i + ": " + var.toString());
 		}
-		System.out.println(((Group) getRationals().getMuliplicativeMonoid()).getInverseElement(newZero));
+		System.out.println(getRationals().getMuliplicativeMonoid().getInverseElement(newZero));
 	}
 
 	@Test
@@ -134,8 +115,7 @@ public class GroupGeneratorTest extends AspectJTest {
 
 		PrimeField field = GroupGenerator.getInstance().getBinaries();
 		System.out.println(field.toXml());
-
-		int i = 0;
+ 
 		Element zero = field.getZero();
 		Element one = field.getOne();
 		System.out.println("zero " + zero.toString() + ", one " + one.toString());

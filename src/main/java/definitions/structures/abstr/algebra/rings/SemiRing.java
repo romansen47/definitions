@@ -2,7 +2,6 @@ package definitions.structures.abstr.algebra.rings;
 
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.algebra.semigroups.SemiGroup;
 
 public interface SemiRing extends Monoid{
 	
@@ -14,7 +13,7 @@ public interface SemiRing extends Monoid{
 	 * @return sum of both
 	 */
 	default Element addition(final Element first, final Element second) {
-		return (Element) this.operation(first, second);
+		return this.operation(first, second);
 	}
 
 	/**
@@ -38,7 +37,7 @@ public interface SemiRing extends Monoid{
 		if ( cond1 || cond2 ) {
 			return neutralElement;
 		}
-		return (Element) this.getMuliplicativeMonoid().operation(element, otherElement);
+		return this.getMuliplicativeMonoid().operation(element, otherElement);
 	}
 
 	/**

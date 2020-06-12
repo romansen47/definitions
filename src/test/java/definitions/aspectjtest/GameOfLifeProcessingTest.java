@@ -2,6 +2,7 @@ package definitions.aspectjtest;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
 import definitions.structures.dynamicsystems.GameOfLife;
@@ -15,7 +16,7 @@ import processing.template.Gui;
  */
 public class GameOfLifeProcessingTest extends Gui {
 
-	private static SpringConfiguration springConfiguration=SpringConfiguration.getSpringConfiguration();
+	private static ApplicationContextAware springConfiguration=SpringConfiguration.getSpringConfiguration();
 	
 	@Test
 	public void testGameOfLifeOnProcessing() {
@@ -57,7 +58,7 @@ public class GameOfLifeProcessingTest extends Gui {
 			for (int j = 0; j < size; j++) {
 				int x = squareSize * (1 + 2 * i);
 				int y = squareSize * (1 + 2 * j);
-				if (!(((FiniteVector) tmp).getCoordinates().get(tmpgol.getCoordinates()
+				if (!(tmp.getCoordinates().get(tmpgol.getCoordinates()
 						.get((size - j - 1) * size + i)) == tmpgol.getBinaries().getNeutralElement())) {
 					//fill(255);
 //				} else {
@@ -106,14 +107,14 @@ public class GameOfLifeProcessingTest extends Gui {
 	/**
 	 * @return the springConfiguration
 	 */
-	public static SpringConfiguration getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		return springConfiguration;
 	}
 
 	/**
 	 * @param springConfiguration the springConfiguration to set
 	 */
-	public static void setSpringConfiguration(SpringConfiguration springConfiguration) {
+	public static void setSpringConfiguration(ApplicationContextAware springConfiguration) {
 		GameOfLifeProcessingTest.springConfiguration = springConfiguration;
 	}
 

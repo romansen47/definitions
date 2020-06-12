@@ -37,13 +37,7 @@ public interface IGroupGenerator {
 		}
 
 		@Override
-		public boolean equals(Object other) {
-//			if (other instanceof Fraction) {
-//				final Element a = getBaseGroup().operation(getLeft(), ((Fraction) other).getRight());
-//				final Element b = getBaseGroup().operation(getRight(), ((Fraction) other).getLeft());
-//				Boolean ans=a.equals(b);
-//				return ans;
-//			}
+		public boolean equals(Object other) { 
 			return Math.abs(
 					getRepresentant() - ((Element) other).getRepresentant()) < GlobalSettings.REAL_EQUALITY_FEINHEIT;
 		}
@@ -65,6 +59,7 @@ public interface IGroupGenerator {
 				return "(" + getLeft().getRepresentant() + "," + getRight().getRepresentant() + ")";
 			}
 		}
+		 
 	}
 
 	class AdditionFraction extends Fraction {
@@ -75,7 +70,12 @@ public interface IGroupGenerator {
 
 	default Group completeToGroup(Monoid m) {
 		return new Group() {
-
+			
+			@Override
+			public String toXml() {
+				return "\r<group>\r<completion>\r" + m.toXml() + "\r</completion>\r</group>\r";
+			}
+			
 			class GroupElement extends Fraction {
 
 				public GroupElement(Element k, Element v, Monoid baseGroup) {
@@ -92,10 +92,10 @@ public interface IGroupGenerator {
 			final private Monoid monoid = m;
 			GroupElement neutralElement;
 
-			@Override
-			public String toString() {
-				return "the completion of " + m.toString() + " to a group";
-			}
+//			@Override
+//			public String toString() {
+//				return "the completion of " + m.toString() + " to a group";
+//			}
 
 			@Override
 			public GroupElement getNeutralElement() {
@@ -126,10 +126,10 @@ public interface IGroupGenerator {
 		return new DiscreetGroup() {
 
 			@Override
-			public String toString() {
-				return "the completion of " + m.toString() + " to a discreet group";
+			public String toXml() {
+				return "\r<discreet_group>\r<completion>\r" + m.toXml() + "\r</completion>\r</discreet_group>\r";
 			}
-
+			
 			final private DiscreetMonoid monoid = m;
 
 			@Override
@@ -150,9 +150,10 @@ public interface IGroupGenerator {
 			@Override
 			public Element getInverseElement(Element element) {
 				AdditionFraction x = (AdditionFraction) element;
-				return new AdditionFraction((Element) x.getRight(), (Element) x.getLeft(), monoid);
+				return new AdditionFraction(x.getRight(), x.getLeft(), monoid);
 			}
 
+			@Override
 			public Element get(Double representant) {
 				Element neutral = monoid.getNeutralElement();
 				if (representant >= 0) {
@@ -183,13 +184,13 @@ public interface IGroupGenerator {
 		@Override
 		public String toString() {
 			if (this.getLeft() instanceof Element && this.getRight() instanceof Element) {
-				final Element u = (Element) this.getLeft();
-				final Element w = (Element) this.getRight();
+				final Element u = this.getLeft();
+				final Element w = this.getRight();
 				return " ( " + u.getRepresentant() + " , " + w.getRepresentant() + " ) ";
 			}
 			return " ( " + this.getLeft().toString() + " , " + this.getRight().toString() + " ) ";
 		}
-
+		 
 		@Override
 		public Double getRepresentant() {
 			return representant;
@@ -235,7 +236,7 @@ public interface IGroupGenerator {
 
 				@Override
 				public Element getNeutralElement() {
-					return new ProductElement((Element) a.getNeutralElement(), (Element) b.getNeutralElement());
+					return new ProductElement(a.getNeutralElement(), b.getNeutralElement());
 				}
 
 				@Override
@@ -243,8 +244,8 @@ public interface IGroupGenerator {
 					if (this.operationMap == null) {
 						for (double i = 0; i < a.getOrder(); i++) {
 							for (double j = 0; j < b.getOrder(); j++) {
-								final ProductElement tmp = new ProductElement((Element) a.get(i), (Element) b.get(j));
-								getElements().put(i * b.getOrder() + j, (Element) tmp);
+								final ProductElement tmp = new ProductElement(a.get(i), b.get(j));
+								getElements().put(i * b.getOrder() + j, tmp);
 							}
 						}
 						this.operationMap = new HashMap<>();
@@ -273,12 +274,12 @@ public interface IGroupGenerator {
 					}
 					ans = x.get(second);
 					if (ans != null) {
-						return (Element) ans;
+						return ans;
 					}
 					ans = new ProductElement(
-							(Element) a.operation(((ProductElement) first).getLeft(),
+							a.operation(((ProductElement) first).getLeft(),
 									((ProductElement) second).getLeft()),
-							(Element) b.operation(((ProductElement) first).getRight(),
+							b.operation(((ProductElement) first).getRight(),
 									((ProductElement) second).getRight()));
 					Map<Element, Element> tmpMap = this.operationMap.get(first);
 					if (tmpMap == null) {
@@ -286,12 +287,13 @@ public interface IGroupGenerator {
 					}
 					tmpMap.put(second, ans);
 					this.operationMap.put(first, tmpMap);
-					return (Element) ans;
+					return ans;
 				}
 
 				/**
 				 * @return the elements
 				 */
+				@Override
 				public Map<Double, Element> getElements() {
 					return elements;
 				}
@@ -303,11 +305,6 @@ public interface IGroupGenerator {
 
 	default Ring completeToRing(SemiRing semiRing) {
 		return new Ring() {
-
-			@Override
-			public String toString() {
-				return "the completion of " + semiRing.toString() + " to a Ring";
-			}
 
 			final private SemiRing monoid = semiRing;
 
@@ -365,7 +362,6 @@ public interface IGroupGenerator {
 
 			@Override
 			public boolean isUnit(Element element) {
-				// TODO Auto-generated method stub
 				return false;
 			}
 
@@ -403,11 +399,6 @@ public interface IGroupGenerator {
 		return new DiscreetDomain() {
 
 			Element neutralElement;
-
-			@Override
-			public String toString() {
-				return "the completion of " + semiRing.toString() + " to a discreet domain";
-			}
 
 			final private DiscreetSemiRing monoid = semiRing;
 
@@ -558,6 +549,11 @@ public interface IGroupGenerator {
 			}
 			return ans;
 		}
+		
+		@Override
+		public String toXml() {
+			return "<MultiplicationFraction>\r"+getRepresentant()+"\r</MultiplicationFraction>\r";
+		}
 
 		@Override
 		public boolean equals(Object o) {
@@ -602,7 +598,7 @@ public interface IGroupGenerator {
 					Map<Vector, Scalar> tmpCoordinates = neutralElement.getCoordinates();
 					if (tmpCoordinates == null) {
 						tmpCoordinates = new ConcurrentHashMap<>();
-						tmpCoordinates.put(getOne(), (Scalar) neutralElement);
+						tmpCoordinates.put(getOne(), neutralElement);
 						neutralElement.setCoordinates(tmpCoordinates);
 					}
 				}
@@ -624,9 +620,9 @@ public interface IGroupGenerator {
 							return coordinates;
 						}
 					};
-					one.getCoordinates().put(one, (Scalar) one);
+					one.getCoordinates().put(one, one);
 				}
-				return (MultiplicationFraction) one;
+				return one;
 			}
 
 			/**
@@ -775,12 +771,7 @@ public interface IGroupGenerator {
 
 			@Override
 			public FiniteVector addition(Vector a, Vector b) {
-				return (FiniteVector) operation(a, b);
-			}
-			
-			@Override
-			public String toString() {
-				return "the completion of "+monoid.toString()+" to a prime field";
+				return operation(a, b);
 			}
 
 		};

@@ -1,10 +1,10 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -106,6 +106,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	}
 
 	@Override
+	@Proceed
 	public Field getField() {
 		return this.field;
 	}

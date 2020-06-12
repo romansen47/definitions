@@ -25,7 +25,7 @@ public class TwoDimDynSysTest extends AspectJTest {
 
 	final int duration=1000;
 	final EuclideanSpace complexPhaseSpace = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
-	final EuclideanSpace realPhaseSpace = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalVectorSpace(2);
+	final EuclideanSpace realPhaseSpace = getSpaceGenerator().getFiniteDimensionalVectorSpace(2);
 
 	final Complex complexInitialCondition = ((ComplexPlane) complexPhaseSpace).get(0.9,0.1);
 	final Vector realInitialCondition = realPhaseSpace.genericBaseToList().get(0);

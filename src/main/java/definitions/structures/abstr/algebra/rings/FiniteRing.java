@@ -11,15 +11,15 @@ public interface FiniteRing extends FiniteGroup, DiscreetRing {
 
 	@Override
 	default Element getMultiplicativeInverseElement(final Element element) {
-		final Element tmp = getMultiplicativeInverseElement((Element) element);
+		final Element tmp = getMultiplicativeInverseElement(element);
 		if (tmp != null) {
 			return tmp;
 		}
 		for (double i = 1; i < this.getOrder(); i++) {
-			final Element other = (Element) this.getMuliplicativeMonoid().operation(element,
+			final Element other = this.getMuliplicativeMonoid().operation(element,
 					this.get(i));
 			if (other.equals(this.get(1.))) {
-				return (Element) other;
+				return other;
 			}
 		}
 		return null;
@@ -30,7 +30,7 @@ public interface FiniteRing extends FiniteGroup, DiscreetRing {
 	 */
 	@Override
 	default boolean isUnit(final Element element) {
-		return this.getMultiplicativeInverseElement((Element) element) != null;
+		return this.getMultiplicativeInverseElement(element) != null;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public interface FiniteRing extends FiniteGroup, DiscreetRing {
 		}
 		ans = tmpMap.get(second);
 		if (ans != null) {
-			return (Element) ans;
+			return ans;
 		}
 		ans = FiniteRing.this.getElements()
 				.get((getRepresentant(first) + getRepresentant(second))
@@ -61,7 +61,7 @@ public interface FiniteRing extends FiniteGroup, DiscreetRing {
 		secondTmpMap.put(first, ans);
 		this.getOperationMap().put(first, tmpMap);
 		this.getOperationMap().put(second, secondTmpMap);
-		return (Element) ans;
+		return ans;
 
 	}
 

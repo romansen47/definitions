@@ -6,7 +6,6 @@ import org.junit.Test;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
@@ -51,6 +50,11 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 	@Test
 	public void test2() {
 		final Function absolute = new GenericFunction() {
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -5009775881103765610L;
 
 			@Override
 			public Scalar value(Scalar input) {

@@ -8,8 +8,7 @@ import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.impl.semigroups.DiscreetSemiGroupImpl;
 import settings.GlobalSettings; 
-
-@SuppressWarnings("serial")
+ 
 @Component
 public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid{
 

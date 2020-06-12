@@ -85,7 +85,7 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.addition(fun, space.stretch(projection, ((Scalar) space.getField()
+			final Function diff = (Function) space.addition(fun, space.stretch(projection, (space.getField()
 					.getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
@@ -172,7 +172,7 @@ public interface ISpaceGenerator {
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpaceAsProduct(final Field field, final int dim) {
-		EuclideanSpace ans = (EuclideanSpace) field;
+		EuclideanSpace ans = field;
 		for (int i = 1; i < dim; i++) {
 			ans = this.getOuterProduct(ans, field);
 		}
@@ -180,7 +180,8 @@ public interface ISpaceGenerator {
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final int dim) {
-		return null;
+		throw new NullPointerException("Caching aspect missed!");
+//		return null;
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final List<Vector> newBase) {
@@ -189,7 +190,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
 		RealLine.getInstance();
-		return (EuclideanSpace) this.getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
+		return this.getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
 	}
 
 	default int getHashCode(final Field field, final List<Vector> base, final Double[] interval) {
@@ -228,10 +229,9 @@ public interface ISpaceGenerator {
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
+		@SuppressWarnings("serial")
 		final EuclideanSpace newSpace = this.extend(this.getTrigonometricSpace(f, n, right),
 				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine) f).get(1. / Math.sqrt(2 * Math.PI))) {
-					private long serialVersionUID = 8254610780535405982L;
-
 					@Override
 					public Field getField() {
 						return f;
@@ -257,11 +257,11 @@ public interface ISpaceGenerator {
 		return ans;
 	}
 
+	@SuppressWarnings("serial")
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(final Field f, final int sobolevDegree,
 			final double right, final int fourierDegree) throws Exception {
 
 		return this.extend(this.getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
-			private long serialVersionUID = 5812927097511303688L;
 
 			@Override
 			public Field getField() {
@@ -295,6 +295,10 @@ public interface ISpaceGenerator {
 
 		EuclideanSpace product = new EuclideanSpace() {
 
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -8654223590653694820L;
 			final protected EuclideanSpace outerThis = this;
 
 			@Override
@@ -306,6 +310,16 @@ public interface ISpaceGenerator {
 
 			class ProductVector implements FiniteVector {
 
+				@Override
+				public String toXml() {
+					return left.toXml()+right.toXml();
+				}
+				
+				@Override
+				public String toString() {
+					return toXml();
+				}
+				
 				final private Vector left;
 				final private Vector right;
 				private Map<Vector, Scalar> coordinates;
@@ -420,18 +434,16 @@ public interface ISpaceGenerator {
 
 			@Override
 			public Integer getDim() {
-				int k,j=0;
+				int k, j = 0;
 				if (first instanceof Field) {
-					j=1;
-				}
-				else {
-					j=first.getDim();
+					j = 1;
+				} else {
+					j = first.getDim();
 				}
 				if (second instanceof Field) {
-					k=1;
-				}
-				else{
-					k=second.getDim();
+					k = 1;
+				} else {
+					k = second.getDim();
 				}
 				return j + k;
 			}

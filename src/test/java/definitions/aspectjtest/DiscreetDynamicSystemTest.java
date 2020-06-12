@@ -6,12 +6,10 @@ import org.junit.Test;
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
-import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceMapping;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
@@ -27,8 +25,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	private VectorSpaceMapping evolutionOperator;
 	private Vector startVector;
 	private final int iterations = 21;
-
-	@SuppressWarnings("serial")
+ 
 	@Before
 	public void beforeTest() {
 		this.timeSpace = getIntegers();// new Naturals();
@@ -99,7 +96,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 		for (double i = 0; i < this.iterations; i++) {
 			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
 			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
-			getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get((Scalar) vec)).toXml());
+			getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get(vec)).toXml());
 		}
 	}
 
@@ -141,7 +138,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 		for (double i = 0; i < this.iterations; i++) {
 			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
 			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
-			Complex toComplex = (Complex) evolutionOp.get((Scalar) vec);
+			Complex toComplex = (Complex) evolutionOp.get(vec);
 			Real real=(Real) toComplex.getReal();
 			Real imag=(Real) toComplex.getImag();
 			String comp=real.toString();

@@ -4,6 +4,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
+import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.PrimeField;
@@ -14,20 +15,18 @@ import definitions.structures.abstr.algebra.rings.DiscreetDomain;
 import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
-import definitions.structures.impl.Naturals;
 
 public class AspectJTest {
 
 	private static final Logger logger = LogManager.getLogger(AspectJTest.class);
-	private static SpringConfiguration springConfiguration;
-	private static Generator generator; 
+	private static ApplicationContextAware springConfiguration;
+	private static Generator generator;
 	private static SpaceGenerator spaceGenerator;
 	private static DiscreetSemiRing naturals;
 	private static DiscreetDomain integers;
 	private static PrimeField rationals;
 	private static RealLine realLine;
-	private static ComplexPlane complexPlane; 
- 
+	private static ComplexPlane complexPlane;
 
 	public static ComplexPlane getComplexPlane() {
 		return complexPlane;
@@ -49,24 +48,35 @@ public class AspectJTest {
 		return spaceGenerator;
 	}
 
-	public static SpringConfiguration getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		return springConfiguration;
 	}
 
 	@BeforeClass
-	public static void prepare() {
-		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
-		setGenerator((Generator) springConfiguration.getApplicationContext().getBean("generator"));
-		setSpaceGenerator(getGenerator().getSpaceGenerator());
-		setNaturals(GroupGenerator.getInstance().getNaturals());
-		setIntegers(GroupGenerator.getInstance().getIntegers());
-		setRationals(GroupGenerator.getInstance().getRationals());
-		setRealLine(RealLine.getInstance());
-		setComplexPlane((ComplexPlane) ComplexPlane.getInstance()); 
-		getLogger().setLevel(Level.INFO);
-		org.apache.log4j.BasicConfigurator.configure();
+	public synchronized static void prepare() {
+		springConfiguration=getSpringConfiguration();
+		if (springConfiguration == null) {
+			logger.setLevel(Level.INFO);
+			org.apache.log4j.BasicConfigurator.configure();
+			logger.info("Initializing Spring configuration\r");
+			setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
+			setGenerator((Generator) ((SpringConfiguration) springConfiguration).getApplicationContext()
+					.getBean("generator"));
+			setSpaceGenerator(getGenerator().getSpaceGenerator());
+			setNaturals(GroupGenerator.getInstance().getNaturals());
+			setIntegers(GroupGenerator.getInstance().getIntegers());
+			setRationals(GroupGenerator.getInstance().getRationals());
+			setRealLine(RealLine.getInstance());
+			setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
+			logger.info("Created beans:");
+			for (String beanName : ((SpringConfiguration) springConfiguration).getApplicationContext()
+					.getBeanNamesForType(Object.class)) {
+				logger.info("bean " + beanName);
+			}
+			System.out.println();
+		}
 	}
- 
+
 	public static void setComplexPlane(final ComplexPlane complexPlane) {
 		AspectJTest.complexPlane = complexPlane;
 	}
@@ -83,7 +93,7 @@ public class AspectJTest {
 		AspectJTest.spaceGenerator = spaceGenerator;
 	}
 
-	public static void setSpringConfiguration(final SpringConfiguration springConfiguration) {
+	public static void setSpringConfiguration(final ApplicationContextAware springConfiguration) {
 		AspectJTest.springConfiguration = springConfiguration;
 	}
 

@@ -8,11 +8,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public abstract class Identity extends LinearMapping implements VectorSpaceIsomorphism, VectorField {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6209038203547448760L;
-
 	public Identity(final VectorSpace source) {
 		super(source, source);
 	}

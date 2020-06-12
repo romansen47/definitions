@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
-import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -165,15 +163,15 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	}
 
-	@Override
-	public String toString() {
-		return "the field of complex numbers, which is modelled as a 2-dimensional real vector space.";
-	}
+//	@Override
+//	public String toString() {
+//		return "the field of complex numbers, which is modelled as a 2-dimensional real vector space.";
+//	}
 
-	@Override
-	public String toXml() {
-		return "Custom field of complex numbers.";
-	}
+//	@Override
+//	public String toXml() {
+//		return "Custom field of complex numbers.";
+//	}
 
 	@Override
 	public Complex getMinusOne() {

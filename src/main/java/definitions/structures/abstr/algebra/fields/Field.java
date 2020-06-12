@@ -17,12 +17,11 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
-import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-
-@SuppressWarnings("serial")
+ 
 public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
+	@Override
 	default	FieldElement getNeutralElement() {
 		return (FieldElement) EuclideanAlgebra.super.getNeutralElement();
 	}
@@ -86,6 +85,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		return multiplicativeGroup;
 	}
 
+	@Override
 	default FieldElement getOne() {
 		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
 	}
@@ -145,7 +145,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
-		return hom.solve((FiniteVector) this.getOne());
+		return hom.solve(this.getOne());
 	}
 
 	/**

@@ -1,11 +1,6 @@
 package definitions.structures.abstr.algebra.monoids;
 
-import java.util.Map;
-
-import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
-import definitions.structures.euclidean.Generator;
 
 public interface FiniteMonoid extends DiscreetMonoid, FiniteSemiGroup {
 

@@ -20,20 +20,20 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
  
 @EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED) 
-@ComponentScan(basePackages = "definitions..*")
+@ComponentScan(basePackages = "definitions")
 public class SpringConfiguration implements ApplicationContextAware {
 
-	private static SpringConfiguration springConfiguration;
+	private static ApplicationContextAware springConfiguration;
 
 	@Bean(name = "springConfiguration")
-	public static SpringConfiguration getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		if (springConfiguration == null) {
 			springConfiguration = new SpringConfiguration();
 		}
 		return springConfiguration;
 	}
 
-	private ApplicationContext applicationContext = this.annotationConfigApplicationContext();
+	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
 		this.setApplicationContext(this.applicationContext);

@@ -3,8 +3,6 @@
  */
 package definitions.structures.abstr.mappings;
 
-import java.io.Serializable;
-
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 
@@ -12,7 +10,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
  * @author ro
  *
  */
-public interface VectorSpaceMapping extends MonoidHomomorphism, Serializable {
+public interface VectorSpaceMapping extends MonoidHomomorphism {
 
 	/**
 	 * Method to apply the mapping on a vector.

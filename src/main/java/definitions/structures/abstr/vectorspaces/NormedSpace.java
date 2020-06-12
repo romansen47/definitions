@@ -1,7 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -45,7 +44,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return this.stretch(vec, (Scalar) this.getField().getInverseElement(this.norm(vec)));
+		return this.stretch(vec, this.getField().getInverseElement(this.norm(vec)));
 	}
 
 }

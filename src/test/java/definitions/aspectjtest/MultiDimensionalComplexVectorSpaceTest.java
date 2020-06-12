@@ -6,21 +6,16 @@ package definitions.aspectjtest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.SpringConfiguration;
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * @author ro
  *
  */
-public class MultiDimensionalComplexVectorSpaceTest{
-
-	ISpaceGenerator gen = SpringConfiguration.getSpringConfiguration().getApplicationContext()
-			.getBean(SpaceGenerator.class);
+public class MultiDimensionalComplexVectorSpaceTest extends AspectJTest{
 
 	@Test
 	public void testNorm() {
