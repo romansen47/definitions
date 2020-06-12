@@ -1,12 +1,10 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.io.Serializable;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.apache.logging.log4j.Logger;
 import definitions.cache.MyCache;
 import definitions.settings.XmlPrintable;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
@@ -20,8 +18,7 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintab
 
 	public static SpaceGenerator getInstance() {
 		if (instance.logger == null) {
-			instance.logger = LogManager.getLogger(SpaceGenerator.class);
-			BasicConfigurator.configure();
+			instance.logger = org.apache.logging.log4j.LogManager.getLogger(SpaceGenerator.class);
 		}
 		return instance;
 	}
@@ -30,7 +27,7 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintab
 		instance = gen;
 	}
 
-	private Logger logger;
+	private org.apache.logging.log4j.Logger logger;
 
 	@Autowired(required = true)
 	private MyCache myCache;

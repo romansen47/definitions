@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 
 /**
@@ -33,7 +34,7 @@ public interface CustomAspect {
 	/**
 	 * @return the corresponding logger
 	 */
-	org.apache.log4j.Logger getLogger();
+	Logger getLogger();
 
 	/**
 	 * Logging using the logger
@@ -112,7 +113,7 @@ public interface CustomAspect {
 		String value = stringOf(o);
 		value = value.split("@")[0];
 		if (value.contains("$")) {
-			value = "subtype_in_"+value.split(Pattern.quote("$"))[0];
+			value = "subtype_in_" + value.split(Pattern.quote("$"))[0];
 		}
 		ans.add("<" + type + ">" + value + "</" + type + ">\r");
 	}
@@ -126,7 +127,7 @@ public interface CustomAspect {
 	}
 
 	default String stringOf(Object o) {
-		String str = o.toString().replace(Pattern.quote("\\$"), "_"); 
+		String str = o.toString().replace(Pattern.quote("\\$"), "_");
 		return str;
 	}
 

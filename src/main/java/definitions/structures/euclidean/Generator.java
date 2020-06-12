@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		if (instance == null) {
 			instance = new Generator();
 			if (instance.logger == null) {
-				instance.logger = LogManager.getLogger(SpaceGenerator.class);
-				BasicConfigurator.configure();
+				instance.logger = LogManager.getLogger(SpaceGenerator.class); 
 			}
 		}
 		if (restoreFromCached) {

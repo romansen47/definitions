@@ -1,13 +1,12 @@
 package customaspects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.concurrent.ConcurrentHashMap; 
 import org.aspectj.lang.annotation.Aspect;
 
 @Aspect
@@ -18,9 +17,7 @@ public abstract class AbstractCustomAspect implements OutputToFile {
 	@Override
 	public Logger getLogger() {
 		if (logger == null) {
-			logger = LogManager.getLogger(getGenericName());
-			logger.setLevel(Level.INFO);
-			org.apache.log4j.BasicConfigurator.configure();
+			logger = LogManager.getLogger(getGenericName());  
 		}
 		return logger;
 	}

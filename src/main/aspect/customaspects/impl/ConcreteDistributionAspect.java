@@ -40,7 +40,7 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 		bw.flush();
 		final Map<String, Integer> stats = (Map<String, Integer>) getThreadToOutputMap().get(Thread.currentThread());
 		if (stats.isEmpty()) {
-			org.apache.log4j.Logger.getLogger("Statistics empty").info("list empty");
+			log("list empty");
 		} else {
 			for (final String str : stats.keySet()) {
 				final Integer times = stats.get(str);

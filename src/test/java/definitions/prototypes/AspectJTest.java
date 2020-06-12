@@ -1,8 +1,11 @@
 package definitions.prototypes;
-
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+ 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
+import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.junit.BeforeClass;
 import org.springframework.context.ApplicationContextAware;
 
@@ -53,11 +56,14 @@ public class AspectJTest {
 	}
 
 	@BeforeClass
-	public synchronized static void prepare() {
+	public synchronized static void prepare() { 
+		LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+		Configuration config = ctx.getConfiguration();
+		LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME); 
+		loggerConfig.setLevel(Level.INFO);
+		ctx.updateLoggers();
 		springConfiguration=getSpringConfiguration();
-		if (springConfiguration == null) {
-			logger.setLevel(Level.INFO);
-			org.apache.log4j.BasicConfigurator.configure();
+		if (springConfiguration == null) { 
 			logger.info("Initializing Spring configuration\r");
 			setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 			setGenerator((Generator) ((SpringConfiguration) springConfiguration).getApplicationContext()

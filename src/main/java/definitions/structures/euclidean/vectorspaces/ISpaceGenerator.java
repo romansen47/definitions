@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.Logger;
+
 import definitions.cache.MyCache;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
@@ -199,7 +201,7 @@ public interface ISpaceGenerator {
 		return result;
 	}
 
-	org.apache.log4j.Logger getLogger();
+	Logger getLogger();
 
 	MyCache getMyCache();
 

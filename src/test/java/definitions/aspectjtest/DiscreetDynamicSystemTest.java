@@ -22,13 +22,12 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	private Group timeSpace;
 	private VectorSpace phaseSpace;
 	private DynamicSystem dinamicSystem;
-	private VectorSpaceMapping evolutionOperator;
 	private Vector startVector;
 	private final int iterations = 21;
  
 	@Before
 	public void beforeTest() {
-		this.timeSpace = getIntegers();// new Naturals();
+		this.timeSpace = getIntegers();// new Naturals(); 
 	}
 
 	/**
