@@ -16,19 +16,21 @@ import org.springframework.context.support.AbstractApplicationContext;
 
 import definitions.cache.CachingAspect;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real; 
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
- 
-@EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED) 
+
+@EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
 @ComponentScan(basePackages = "definitions")
 public class SpringConfiguration implements ApplicationContextAware {
 
 	private static ApplicationContextAware springConfiguration;
 
+	private static Logger logger;
+
 	@Bean(name = "springConfiguration")
 	public static ApplicationContextAware getSpringConfiguration() {
 		if (springConfiguration == null) {
-			springConfiguration = new SpringConfiguration();
+			springConfiguration = new SpringConfiguration(); 
 		}
 		return springConfiguration;
 	}
@@ -40,6 +42,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
 		((AbstractApplicationContext) this.applicationContext).refresh();
 		Generator.setInstance((Generator) this.applicationContext.getBean("generator"));
+		logger=this.logger();
 	}
 
 	@Bean(name = "annotationConfigApplicationContext")
@@ -64,7 +67,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 
 	@Bean(name = "logger")
 	public Logger logger() {
-		return LogManager.getLogger(Generator.class);
+		return LogManager.getLogger("spring configuration");
 	}
 
 	@Bean
@@ -82,6 +85,13 @@ public class SpringConfiguration implements ApplicationContextAware {
 	@Override
 	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = new AnnotationConfigApplicationContext();
+	}
+
+	/**
+	 * @return the logger
+	 */
+	public Logger getLogger() {
+		return logger;
 	}
 
 }

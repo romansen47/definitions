@@ -22,31 +22,39 @@ public interface OutputToFile extends CustomAspect {
 
 	default void print(final Thread thread) throws IOException {
 		final String testcase = getTests().get(thread);
-		String[] structure = testcase.split(Pattern.quote("."));
-		new File(getPath() + structure[0]).mkdirs(); 
-		String newPath= getPath() + structure[0] + "/" + structure[1] + ".profiling.xml";
-		setFileWriter(new FileWriter(newPath));
-		setBufferedWriter(new BufferedWriter(getFileWriter()));
+		prepareWriters(thread,testcase); 
+		write(thread); 
+	}
+
+	@SuppressWarnings("unchecked")
+	default void write(Thread thread) throws IOException {
 		getBufferedWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r");
 		getBufferedWriter().flush();
 		getBufferedWriter().write("<Test>\r");
 		getBufferedWriter().flush();
-		@SuppressWarnings("unchecked")
 		final List<String> list = (List<String>) getThreadToOutputMap().get(thread);
 		if (list == null || list.isEmpty()) {
-			log("list empty", false);
+			log("list empty");
 		} else {
 			for (final String str : list) {
 				getBufferedWriter().write(str);
 				getBufferedWriter().flush();
 			}
 		}
-		list.clear(); 
 		getBufferedWriter().write("</Test>");
+		list.clear(); 
 		getBufferedWriter().flush();
 		getBufferedWriter().close();
 		getFileWriter().close();
 	}
+
+	default void prepareWriters(Thread thread, String testcase) throws IOException {
+		String[] structure = testcase.split(Pattern.quote("."));
+		new File(getPath() + structure[0]).mkdirs(); 
+		String newPath= getPath() + structure[0] + "/" + structure[1] +"."+this.getGenericName()+".xml";
+		setFileWriter(new FileWriter(newPath));
+		setBufferedWriter(new BufferedWriter(getFileWriter()));
+	};
 
 	@Override
 	default String xmlString(Object o) {

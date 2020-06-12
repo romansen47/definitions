@@ -27,7 +27,7 @@ public interface TestAspect extends OutputToFile {
 	default void syncBeforeTest(JoinPoint jp) throws Throwable {
 		if (getConcreteProfilingAspect() != null) {
 			((ConcreteProfilingAspect) getConcreteProfilingAspect()).setEnabled(true);
-			log("Profiling active in " + jp.toShortString().split(Pattern.quote("("))[1], true);
+			log("Profiling active in " + jp.toShortString().split(Pattern.quote("("))[1]);
 		}
 		this.syncBefore(jp);
 		getTests().putIfAbsent(Thread.currentThread(),jp.toShortString());
@@ -67,10 +67,10 @@ public interface TestAspect extends OutputToFile {
 			new File(tcn).mkdirs();
 			((ConcreteProfilingAspect) getConcreteProfilingAspect()).setRecording(false);
 			for (OutputToFile aspect : getRelevantAspects()) {
-				log("writing " + aspect.getGenericName() + "-output", true);
+				log("writing " + aspect.getGenericName() + "-output");
 				aspect.print(tcn);
 			}
-			log("done! \r", true);
+			log("done! \r");
 		}
 	}
 }

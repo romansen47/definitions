@@ -1,14 +1,10 @@
 package customaspects.impl;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -18,43 +14,34 @@ import customaspects.DistributionAspect;
 
 @Aspect
 public class ConcreteDistributionAspect extends AbstractCustomAspect implements DistributionAspect {
-
-	private FileWriter w;
-	private BufferedWriter bw;
-
+ 
 	public ConcreteDistributionAspect() {
 		register();
 		setGenericName("DistributionAspect");
 		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, Map<String, Integer>>());
-	}
-
-	@Override
+	} 
+	
 	@SuppressWarnings("unchecked")
-	public void print(final Thread thread) throws IOException {
+	@Override
+	public void write(Thread thread) throws IOException {
 		final String testcase = getTests().get(thread);
-		final String path = getPath() + testcase.replace(Pattern.quote("."), "/") + "/" + "stats.xml";
-		new File(getPath() + testcase).mkdirs();
-		w = new FileWriter(path);
-		bw = new BufferedWriter(w);
-		bw.write("<" + testcase + ">");
-		bw.flush();
 		final Map<String, Integer> stats = (Map<String, Integer>) getThreadToOutputMap().get(Thread.currentThread());
 		if (stats.isEmpty()) {
 			log("list empty");
 		} else {
 			for (final String str : stats.keySet()) {
 				final Integer times = stats.get(str);
-				if (times != 0) {
-					LogManager.getLogger(DistributionAspect.class).info(str + " " + stringOf(times) + " times");
-					bw.write("<" + str + ">" + stringOf(stats.get(str)) + "</" + str + ">\r");
-					bw.flush();
+				if (times != 0) { 
+					String s="<" + str + ">" + times + "</" + str + ">\r";
+					getBufferedWriter().write(s);
+					getBufferedWriter().flush();
 				}
 			}
 		}
-		bw.write("</" + testcase + ">");
-		bw.flush();
-		bw.close();
-		w.close();
+		getBufferedWriter().write("</" + testcase + ">");
+		getBufferedWriter().flush();
+		getBufferedWriter().close();
+		getFileWriter().close();
 	}
 
 	@SuppressWarnings("unchecked")

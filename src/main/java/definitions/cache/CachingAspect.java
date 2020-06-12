@@ -11,6 +11,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
+import customaspects.CustomAspect;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
@@ -24,11 +25,25 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Aspect
-public class CachingAspect {
-
-	final static private Logger logger = LogManager.getLogger(CachingAspect.class);
+public class CachingAspect implements CustomAspect {
 
 	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
+
+	final Logger logger;
+
+	@Override
+	public String getGenericName() {
+		return "CachingAspect";
+	}
+
+	@Override
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public CachingAspect() {
+		logger = LogManager.getLogger(getGenericName());
+	}
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
 	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
@@ -41,7 +56,7 @@ public class CachingAspect {
 		if (field.equals(RealLine.getInstance())) {
 			EuclideanSpace ans = coordinatesSpaces.get(dim);
 			if (ans != null) {
-				logger.info(
+				getLogger().info(
 						"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
 				return ans;
 			}
@@ -74,9 +89,9 @@ public class CachingAspect {
 					coordinates.put(basetmp.get(j), (Scalar) zero);
 				}
 			}
-		} 
+		}
 		EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		logger.info("Created new space: " + ans.toString());
+		getLogger().info("Created new space: " + ans.toString());
 		if (field.equals(RealLine.getInstance())) {
 			coordinatesSpaces.put(dim, ans);
 		}

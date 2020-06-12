@@ -104,7 +104,7 @@ public interface CustomAspect {
 		try {
 			type = o.getClass().getSimpleName().split(Pattern.quote("@"))[0].split(Pattern.quote("$"))[0];
 		} catch (Exception e) {
-			log(e.getMessage(), true);
+			log(e.getMessage());
 		}
 		if (type == null || type.contentEquals("")) {
 			type = stringOf(o.getClass()).split("class ")[1];
