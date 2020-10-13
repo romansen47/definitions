@@ -14,11 +14,13 @@ public interface CyclicGroup extends Group, FiniteMonoid {
 	Map<Double, Element> getElements();
 
 	@Override
-	Element get(Double representant);
+	default Element get(Number representant) {
+		return getElementsAsList().get((Integer)representant);
+	}
 
 	@Override
 	default Element getNeutralElement() {
-		return this.getElementsAsList().get(0);
+		return getElementsAsList().get(0);
 	}
 
 }

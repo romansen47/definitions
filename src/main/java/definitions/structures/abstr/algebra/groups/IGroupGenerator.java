@@ -147,13 +147,13 @@ public interface IGroupGenerator {
 			}
 
 			@Override
-			public Element get(Double representant) {
+			public Element get(Number representant) {
 				final Element neutral = monoid.getNeutralElement();
-				if (representant >= 0) {
+				if (representant.doubleValue() >= 0) {
 					final Element element = monoid.get(representant);
 					return new Fraction(element, neutral, monoid);
 				} else {
-					final Element element = monoid.get(-representant);
+					final Element element = monoid.get(-representant.doubleValue());
 					return new Fraction(neutral, element, monoid);
 				}
 			}
@@ -198,7 +198,7 @@ public interface IGroupGenerator {
 				private final int order = a.getOrder() * b.getOrder();
 
 				@Override
-				public Element get(final Double representant) {
+				public Element get(final Number representant) {
 					return getElements().get(representant);
 				}
 
@@ -423,7 +423,7 @@ public interface IGroupGenerator {
 					}
 
 					@Override
-					public Element get(Double representant) {
+					public Element get(Number representant) {
 						return new Fraction(monoid.get(representant), monoid.getNeutralElement(), this);
 					}
 
@@ -444,7 +444,7 @@ public interface IGroupGenerator {
 			}
 
 			@Override
-			public Element get(Double representant) {
+			public Element get(Number representant) {
 				return getMuliplicativeMonoid().get(representant);
 			}
 
@@ -617,8 +617,8 @@ public interface IGroupGenerator {
 						}
 
 						@Override
-						public MultiplicationFraction get(Double representant) {
-							final double rounded = representant - (representant % 1.);
+						public MultiplicationFraction get(Number representant) {
+							final double rounded = representant.doubleValue() - (representant.doubleValue() % 1.);
 							return new MultiplicationFraction(monoid.get(rounded), monoid.getNeutralElement(), monoid);
 						}
 

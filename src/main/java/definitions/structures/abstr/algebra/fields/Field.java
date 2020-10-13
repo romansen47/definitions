@@ -3,7 +3,6 @@ package definitions.structures.abstr.algebra.fields;
 import java.util.HashMap;
 import java.util.Map;
 
-import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
@@ -26,7 +25,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  *         A field is a commutative ring where the maltiplicative semi group is
  *         a group
  */
-public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
+public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldMethods {
 
 	@Override
 	default FieldElement getNeutralElement() {
@@ -42,7 +41,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	@Override
 	default boolean divides(final Element devisor, final Element devident) {
-		return this.isUnit(devisor);
+		return isUnit(devisor);
 	}
 
 	default int getCharacteristic() {
@@ -55,8 +54,8 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	@Override
 	default Group getMuliplicativeMonoid() {
 
-		final Vector newOne = this.getOne();
-		final Integer newOrder = this.getOrder();
+		final Vector newOne = getOne();
+		final Integer newOrder = getOrder();
 
 		final Group multiplicativeGroup = new Group() {
 
@@ -94,13 +93,13 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 
 	@Override
 	default FieldElement getOne() {
-		return (FieldElement) this.getMuliplicativeMonoid().getNeutralElement();
+		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	@Override
 	default FieldElement getInverseElement(Element element) {
-		if (element.equals(this.getOne())) {
-			return (FieldElement) this.getMinusOne();
+		if (element.equals(getOne())) {
+			return (FieldElement) getMinusOne();
 		}
 		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
 	}
@@ -115,7 +114,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	}
 
 	default Vector getZero() {
-		return this.nullVec();
+		return nullVec();
 	}
 
 	default Vector getMultiplicativeInverseElement(final Vector factor) {
@@ -124,7 +123,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 
 			@Override
 			public Vector get(final Element vec) {
-				return ((Field) this.getTarget()).nullVec();
+				return ((Field) getTarget()).nullVec();
 			}
 
 			@Override
@@ -141,18 +140,18 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
-				for (final Vector vec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
+				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
 					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
 				}
 				return coord;
 			}
 		};
-		for (final Vector vec : this.genericBaseToList()) {
-			final Vector tmp = this.getMultiplicationMatrix().get(vec);
+		for (final Vector vec : genericBaseToList()) {
+			final Vector tmp = getMultiplicationMatrix().get(vec);
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
-		return hom.solve(this.getOne());
+		return hom.solve(getOne());
 	}
 
 	/**
@@ -168,7 +167,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	@Override
 	default boolean isPrimeElement(final Element element) {
-		return !this.isUnit(element);
+		return !isUnit(element);
 	}
 
 	/**
@@ -176,7 +175,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	@Override
 	default boolean isUnit(final Element element) {
-		return !element.equals(this.getZero());
+		return !element.equals(getZero());
 	}
 
 	/**

@@ -12,7 +12,7 @@ public abstract class FiniteSemiGroupImpl extends DiscreetSemiGroupImpl implemen
 	Map<Element, Map<Element, Element>> operationMap;
 
 	@Override
-	public Element get(Double representant) {
+	public Element get(Number representant) {
 		return elements.get(representant);
 	}
 

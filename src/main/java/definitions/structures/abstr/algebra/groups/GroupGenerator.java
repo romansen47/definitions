@@ -262,9 +262,9 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 				}
 
 				@Override
-				public Element get(Double representant) {
+				public Element get(Number representant) {
 					boolean ans = false;
-					if (representant != 0.) {
+					if (representant.intValue()!=0) {
 						ans = true;
 					}
 					return this.get(ans);
@@ -378,12 +378,12 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 				}
 
 				@Override
-				public Element get(Double r) {
+				public Element get(Number r) {
 					FieldElement element = (FieldElement) getElements().get(r);
 					if (element == null) {
 						element = new FieldElement() {
 
-							Double representant = r;
+							Number representant = r;
 
 							@Override
 							public Map<Vector, Scalar> getCoordinates() {
@@ -403,7 +403,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 							@Override
 							public String toString() {
 								String ans = "false";
-								if (representant == 0.0) {
+								if (representant.intValue()!=0) {
 									ans = "true";
 								}
 								return "constructed binary: " + ans;
@@ -411,11 +411,11 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 							@Override
 							public double getDoubleValue() {
-								return representant;
+								return representant.doubleValue();
 							}
 
 						};
-						getElements().put(r, element);
+						getElements().put(r.doubleValue(), element);
 					}
 					return element;
 				}
@@ -435,7 +435,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 					muliplicativeMonoid = new FiniteMonoid() {
 
 						@Override
-						public Element get(Double representant) {
+						public Element get(Number representant) {
 							return getOne();
 						}
 

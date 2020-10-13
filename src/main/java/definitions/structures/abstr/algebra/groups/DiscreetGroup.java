@@ -20,5 +20,5 @@ public interface DiscreetGroup extends DiscreetMonoid, Group {
 	 * @return the corresponding monoid element.
 	 */
 	@Override
-	Element get(Double representant);
+	Element get(Number representant);
 }

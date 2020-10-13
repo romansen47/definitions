@@ -1,6 +1,5 @@
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -15,7 +14,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
-public interface VectorSpace extends Group, XmlPrintable {
+public interface VectorSpace extends Group {
 
 	/**
 	 * Addition of vectors.
@@ -40,11 +39,11 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 */
 	@Override
 	default Vector getInverseElement(final Element element) {
-		if (element.equals(this.getNeutralElement())) {
+		if (element.equals(getNeutralElement())) {
 			return (Vector) element;
 		}
-		final Field field = this.getField();
-		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+		final Field field = getField();
+		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
 
 	/**
@@ -71,10 +70,10 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @return the stretched vector.
 	 */
 	default Vector stretch(Vector vec1, Scalar r) {
-		final FieldElement zero = this.getField().getNeutralElement();
-		final FieldElement one = this.getField().getOne();
+		final FieldElement zero = getField().getNeutralElement();
+		final FieldElement one = getField().getOne();
 		if (r.equals(zero)) {
-			return (Vector) this.getNeutralElement();
+			return (Vector) getNeutralElement();
 		}
 		if (r.equals(one)) {
 			return vec1;

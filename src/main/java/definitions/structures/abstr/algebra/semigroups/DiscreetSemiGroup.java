@@ -9,5 +9,5 @@ public interface DiscreetSemiGroup extends SemiGroup {
 	 * @param representant the representant of the element.
 	 * @return the corresponding monoid element.
 	 */
-	Element get(Double representant);
+	Element get(Number representant);
 }

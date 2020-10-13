@@ -19,13 +19,13 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 
 	class NaturalNumber implements Element {
 
-		private final double representant;
+		private final int representant;
 
-		public NaturalNumber(Double representant2) {
-			representant = representant2;
+		public NaturalNumber(Number representant2) {
+			representant = representant2.intValue();
 		}
 
-		public Double getRepresentant() {
+		public Integer getRepresentant() {
 			return representant;
 		}
 	}
@@ -43,20 +43,20 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 	}
 
 	@Override
-	public Element get(Double representant) {
+	public Element get(Number representant) {
 		return new NaturalNumber(representant) {
 			@Override
-			public Double getRepresentant() {
-				if (representant < 0.0) {
+			public Integer getRepresentant() {
+				if (representant.intValue() < 0.0) {
 					System.out.println("natural number must not be smaller 0!");
 				}
-				return representant;
+				return representant.intValue();
 			}
 
 			@Override
 			public boolean equals(Object other) {
 				if (other instanceof NaturalNumber) {
-					return Math.abs(representant
+					return Math.abs(representant.intValue()
 							- ((NaturalNumber) other).getRepresentant()) < GlobalSettings.REAL_EQUALITY_FEINHEIT;
 				}
 				return false;
@@ -86,7 +86,7 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 				}
 
 				@Override
-				public Element get(Double representant) {
+				public Element get(Number representant) {
 					return Naturals.this.get(representant);
 				}
 
@@ -97,12 +97,12 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 
 	@Override
 	public boolean isUnit(Element element) {
-		return element.equals(this.getOne());
+		return element.equals(getOne());
 	}
 
 	@Override
 	public Element getOne() {
-		return this.getMuliplicativeMonoid().getNeutralElement();
+		return getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	@Override

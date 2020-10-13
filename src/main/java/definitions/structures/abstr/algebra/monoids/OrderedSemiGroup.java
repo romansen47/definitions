@@ -11,7 +11,7 @@ public interface OrderedSemiGroup extends SemiGroup {
 	 * @param representant
 	 * @return
 	 */
-	Element get(Double representant);
+	Element get(Number representant);
 
 	/**
 	 * Method to compare two elements.

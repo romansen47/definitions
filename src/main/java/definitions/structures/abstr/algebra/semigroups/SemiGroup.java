@@ -40,6 +40,9 @@ public interface SemiGroup extends XmlPrintable {
 		return null;
 	}
 
+	/**
+	 * Defining own xml-string
+	 */
 	@Override
 	default String toXml() {
 		return "<" + getClass().toString().split(Pattern.quote("$"))[0] + "/>\r";
