@@ -16,4 +16,10 @@ public interface Scalar extends Element, Vector, FiniteVectorMethods, XmlPrintab
 	 */
 	double getDoubleValue();
 
+	@Override
+	default String toXml() {
+		return "<" + getClass().toString().split("class ")[1] + " value=\"" + this.getRepresentant().doubleValue()
+				+ "\" />";
+	}
+
 }

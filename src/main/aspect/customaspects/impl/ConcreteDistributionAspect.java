@@ -14,13 +14,13 @@ import customaspects.DistributionAspect;
 
 @Aspect
 public class ConcreteDistributionAspect extends AbstractCustomAspect implements DistributionAspect {
- 
+
 	public ConcreteDistributionAspect() {
 		register();
 		setGenericName("DistributionAspect");
 		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, Map<String, Integer>>());
-	} 
-	
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void write(Thread thread) throws IOException {
@@ -31,8 +31,8 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 		} else {
 			for (final String str : stats.keySet()) {
 				final Integer times = stats.get(str);
-				if (times != 0) { 
-					String s="<" + str + ">" + times + "</" + str + ">\r";
+				if (times != 0) {
+					String s = "<" + str + ">" + times + "</" + str + ">\r";
 					getBufferedWriter().write(s);
 					getBufferedWriter().flush();
 				}
@@ -59,6 +59,11 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 		}
 		stats.put(key, ans);
 		((Map<Thread, Map<String, Integer>>) getThreadToOutputMap()).put(Thread.currentThread(), stats);
+	}
+
+	@Override
+	public void register() {
+		ConcreteTestAspect.getInstance().getRelevantAspects().add(this);
 	}
 
 }

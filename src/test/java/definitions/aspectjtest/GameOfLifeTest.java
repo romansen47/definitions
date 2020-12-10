@@ -13,7 +13,7 @@ import definitions.structures.dynamicsystems.GameOfLife;
 import definitions.structures.dynamicsystems.GameOfLifeConstructedBinaries;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import processing.template.Gui;
+import processing.template.impl.Gui;
 import solver.StdDraw;
 
 /**

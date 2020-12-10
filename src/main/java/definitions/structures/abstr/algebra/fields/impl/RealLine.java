@@ -269,7 +269,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public String toXml() {
-		return "<realline/>";
+		return "<realline />";
 	}
 
 	@Override

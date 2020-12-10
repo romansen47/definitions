@@ -8,7 +8,7 @@ import definitions.SpringConfiguration;
 import definitions.structures.dynamicsystems.GameOfLife;
 import definitions.structures.dynamicsystems.GameOfLifeConstructedBinaries;
 import definitions.structures.euclidean.vectors.FiniteVector;
-import processing.template.Gui;
+import processing.template.impl.Gui;
 
 /**
  * @author ro

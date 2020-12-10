@@ -23,7 +23,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
-import processing.template.Gui;
+import processing.template.impl.Gui;
 import solver.StdDraw;
 
 public class KdVLinearityAsDynamicSystemTest extends Gui {

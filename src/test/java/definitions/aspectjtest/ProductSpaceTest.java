@@ -57,11 +57,10 @@ public class ProductSpaceTest extends AspectJTest {
 	@Test
 	public void higherDimensionalVectorSpaceTest() {
 		int dim = 2;
-		EuclideanSpace space = SpaceGenerator.getInstance()
-				.getFiniteDimensionalVectorSpaceAsProduct((Field) ComplexPlane.getInstance(), dim);
-		EuclideanSpace otherSpace = SpaceGenerator.getInstance()
-				.getFiniteDimensionalVectorSpace((Field) ComplexPlane.getInstance(), dim);
-		Vector tmp = space.nullVec();
+		EuclideanSpace space = spaceGenerator
+				.getFiniteDimensionalVectorSpaceAsProduct(complexNumbers, dim);
+		EuclideanSpace otherSpace = spaceGenerator
+				.getFiniteDimensionalVectorSpace(complexNumbers, dim); 
 		boolean ans=false;
 		for (Vector vec1 : space.genericBaseToList()) {
 			for (Vector vec2 : otherSpace.genericBaseToList()) {

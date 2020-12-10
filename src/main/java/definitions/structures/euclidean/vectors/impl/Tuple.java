@@ -93,10 +93,11 @@ public class Tuple implements FiniteVector {
 
 	@Override
 	public String toString() {
-		String str = "";
+		String str = "<Tuple>\r";
 		for (Entry<Vector, Scalar> entry : coordinates.entrySet()) {
-			str += entry.getValue().toString() + "\r";
+			str += entry.getValue().toXml() + "\r";
 		}
+		str += "</Tuple>\r";
 		return str;
 //		try {
 //			for (int i = 0; i < this.dim; i++) {

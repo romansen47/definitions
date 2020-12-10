@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.DeclarePrecedence;
 
 import customaspects.AbstractCustomAspect;
 import customaspects.ProfilingAspect;
+import definitions.settings.XmlPrintable;
 
 /**
  * Ein umfangreicher Aspekt zum hierarchischen xml-Logging aller Ausfuehrungen
@@ -24,7 +25,7 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	/**
 	 * maximale Suchtiefe
 	 */
-	private final int maximalDepth = 3;
+	private final int maximalDepth = 5;
 
 	/**
 	 * @return the maximalDepth
@@ -72,19 +73,19 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	public Object recordMethodExecutionAdvise(final ProceedingJoinPoint pjp) throws Throwable {
 		return ProfilingAspect.super.recordMethodExecutionAdvise(pjp);
 	}
-	
+
 	/**
 	 * Hauptschalter. Nur wenn true, passiert irgend etwas
 	 */
 	private volatile Boolean enabled = true;
 
 	@Override
-	public Boolean isEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 
 	@Override
-	public void setEnabled(Boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
@@ -161,5 +162,23 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	@Override
 	public void setRunOnlyOnce(boolean runOnlyOnce) {
 		this.runOnlyOnce = runOnlyOnce;
+	}
+
+	@Override
+	public void register() {
+		ConcreteTestAspect.getInstance().getRelevantAspects().add(this);
+	}
+
+	@Override
+	public String stringOf(Object o) {
+		setRecording(false);
+		String ans = "";
+		if (o instanceof XmlPrintable) {
+			ans = ((XmlPrintable) o).toXml();
+		} else {
+			ans = ProfilingAspect.super.stringOf(o);
+		}
+		setRecording(true);
+		return ans;
 	}
 }

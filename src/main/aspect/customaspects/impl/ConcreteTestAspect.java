@@ -97,4 +97,9 @@ public class ConcreteTestAspect extends AbstractCustomAspect implements TestAspe
 		return null;
 	}
 
+	@Override
+	public void register() {
+		ConcreteTestAspect.getInstance().getRelevantAspects().add(this);
+	}
+
 }

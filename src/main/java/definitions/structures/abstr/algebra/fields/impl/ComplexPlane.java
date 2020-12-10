@@ -167,11 +167,12 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 //	public String toString() {
 //		return "the field of complex numbers, which is modelled as a 2-dimensional real vector space.";
 //	}
-
-//	@Override
-//	public String toXml() {
-//		return "Custom field of complex numbers.";
-//	}
+	
+	@Override
+	public String toXml() {
+		return "<ComplexPlane />\r";
+	}
+ 
 
 	@Override
 	public Complex getMinusOne() {

@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
+import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.FinitePrimeField;
@@ -28,7 +29,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.impl.Naturals;
 
 @Service
-public class GroupGenerator implements IGroupGenerator, Unweavable {
+public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable {
 
 	public static GroupGenerator instance;
 	private DiscreetSemiRing naturals;
@@ -495,7 +496,7 @@ public class GroupGenerator implements IGroupGenerator, Unweavable {
 	}
 	
 	@Override
-	public String toString() {
+	public String toXml() {
 		return "<GroupGenerator />\r";
 	}
 

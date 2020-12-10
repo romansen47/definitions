@@ -5,7 +5,7 @@ import java.util.Random;
 import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
-import processing.template.Gui;
+import processing.template.impl.Gui;
 
 /**
  * @author ro
