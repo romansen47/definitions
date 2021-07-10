@@ -1,4 +1,4 @@
-package definitions.aspectjtest;
+package definitions.prototypes;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

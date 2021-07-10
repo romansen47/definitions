@@ -63,7 +63,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 
 		this.setTrigonometricSpace(
 				getSpaceGenerator().getTrigonometricSpace(getRealLine(), this.getTrigonometricDegree()));
-		this.testValues = definitions.aspectjtest.Reader.readFile(this.getPath());
+		this.testValues = definitions.prototypes.Reader.readFile(this.getPath());
 		this.setStaircaseFunction(new GenericFunction() {
 
 			private static final long serialVersionUID = -8361584686661267908L;

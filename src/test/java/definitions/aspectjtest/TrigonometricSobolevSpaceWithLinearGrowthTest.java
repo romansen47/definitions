@@ -50,18 +50,12 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 	@Test
 	public void test2() {
 		final Function absolute = new GenericFunction() {
-
-			/**
-			 * 
-			 */
 			private static final long serialVersionUID = -5009775881103765610L;
-
 			@Override
 			public Scalar value(Scalar input) {
 				double x=input.getDoubleValue();
 				return RealLine.getInstance().get(Math.abs(x));
 			}
-			
 		};
 		final Function projectionOfAbsolute = absolute.getProjection(this.getTrigonometricSpace());
 		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);

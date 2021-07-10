@@ -37,6 +37,7 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 
 	public ConcreteProfilingAspect() {
 		register();
+//		setRecording(true);
 		setGenericName("ProfilingAspect");
 		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, List<String>>());
 	}
@@ -146,7 +147,7 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	/**
 	 * Methode soll nur einmal aufgezeichnet werden?
 	 */
-	private boolean runOnlyOnce = true;
+	private boolean runOnlyOnce = false;
 
 	/**
 	 * @return the runOnlyOnce
