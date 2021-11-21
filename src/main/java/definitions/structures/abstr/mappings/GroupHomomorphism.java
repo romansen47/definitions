@@ -1,5 +1,5 @@
 package definitions.structures.abstr.mappings;
 
-public interface GroupHomomorphism extends MonoidHomomorphism{
+public interface GroupHomomorphism extends MonoidHomomorphism {
 
 }

@@ -37,9 +37,8 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 
 	public ConcreteProfilingAspect() {
 		register();
-//		setRecording(true);
 		setGenericName("ProfilingAspect");
-		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, List<String>>());
+		setThreadToOutputMap(new ConcurrentHashMap<Thread, List<String>>());
 	}
 
 	/**
@@ -78,7 +77,7 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	/**
 	 * Hauptschalter. Nur wenn true, passiert irgend etwas
 	 */
-	private volatile Boolean enabled = true;
+	private volatile Boolean enabled = false;
 
 	@Override
 	public boolean isEnabled() {
@@ -123,7 +122,7 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	 */
 	@Override
 	public void setCurrentDepth(int depth) {
-		this.currentDepth = depth;
+		currentDepth = depth;
 	}
 
 	/**
@@ -147,7 +146,7 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	/**
 	 * Methode soll nur einmal aufgezeichnet werden?
 	 */
-	private boolean runOnlyOnce = false;
+	private boolean runOnlyOnce = true;
 
 	/**
 	 * @return the runOnlyOnce

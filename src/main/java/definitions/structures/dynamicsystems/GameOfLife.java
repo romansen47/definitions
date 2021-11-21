@@ -12,12 +12,12 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
- 
+
 public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	protected final int size;
 	protected PrimeField binaries;
-	
+
 	public PrimeField getBinaries() {
 		return binaries;
 	}
@@ -47,9 +47,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	public GameOfLife(int size) {
 		this.size = size;
-		this.setBinaries(GroupGenerator.getInstance().getBinaries());
-		this.grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getBinaries(),
-				size * size);
+		setBinaries(GroupGenerator.getInstance().getBinaries());
+		grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getBinaries(), size * size);
 		coordinates = grid.genericBaseToList();
 	}
 
@@ -67,12 +66,12 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 			@Override
 			public Element get(Element vec) {
-				FiniteVector ans = (FiniteVector) grid.nullVec();
+				final FiniteVector ans = (FiniteVector) grid.nullVec();
 				for (int i = 0; i < size; i++) {
 					for (int j = 0; j < size; j++) {
-						boolean survives = willBeAlive(vec, i, j);
+						final boolean survives = willBeAlive(vec, i, j);
 						if (survives) {
-							ans.getCoordinates().put(coordinates.get(i * size + j), getBinaries().getOne());
+							ans.getCoordinates().put(coordinates.get((i * size) + j), getBinaries().getOne());
 						}
 					}
 				}
@@ -80,13 +79,14 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 			}
 
 			private boolean willBeAlive(Element vec, int i, int j) {
-				int count = countNeighbours(vec, i, j);
+				final int count = countNeighbours(vec, i, j);
 				boolean ans = false;
-				if (((FiniteVector) vec).getCoordinates().get(coordinates.get(i * size + j)) == getBinaries().getZero()) {
+				if (((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j)) == getBinaries()
+						.getZero()) {
 					if (count == 3) {
 						ans = true;
 					}
-				} else if (count == 2 || count == 3) {
+				} else if ((count == 2) || (count == 3)) {
 					ans = true;
 				}
 				return ans;
@@ -101,7 +101,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	}
 
 	protected int countNeighbours(Element vec, int i, int j) {
-		int count = (int) -((FiniteVector) vec).getCoordinates().get(coordinates.get(i * size + j)).getRepresentant();
+		int count = (int) -((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j)).getRepresentant();
 		for (int u = -1; u < 2; u++) {
 			for (int v = -1; v < 2; v++) {
 				count += isAlive(vec, i + u, j + v);
@@ -114,8 +114,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	}
 
 	private int isAlive(Element vec, int i, int j) {
-		Element ans = ((FiniteVector) vec).getCoordinates()
-				.get(coordinates.get(((i + size) % size) * size + ((j + size) % size)));
+		final Element ans = ((FiniteVector) vec).getCoordinates()
+				.get(coordinates.get((((i + size) % size) * size) + ((j + size) % size)));
 		int toInt;
 		if (ans == getBinaries().getNeutralElement()) {
 			toInt = 0;
@@ -136,7 +136,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 		String ans = "";
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				if (gol.getCoordinates().get(coordinates.get(i * size + j)) == getBinaries().getNeutralElement()) {
+				if (gol.getCoordinates().get(coordinates.get((i * size) + j)) == getBinaries().getNeutralElement()) {
 					ans += " dead ";
 				} else {
 					ans += " alive ";
@@ -148,12 +148,12 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	}
 
 	public FiniteVector createRandomInitialCondition() {
-		FiniteVector initialCondition = (FiniteVector) getPhaseSpace().nullVec();
-		Random random = new Random();
+		final FiniteVector initialCondition = (FiniteVector) getPhaseSpace().nullVec();
+		final Random random = new Random();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (random.nextBoolean()) {
-					initialCondition.getCoordinates().put(coordinates.get(i * size + j), getBinaries().getOne());
+					initialCondition.getCoordinates().put(coordinates.get((i * size) + j), getBinaries().getOne());
 					// = (FiniteVector) grid.addition(initialCondition,
 					// grid.genericBaseToList().get(i * size + j));
 				}

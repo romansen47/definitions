@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
- * 
+ *
  * @author ro
  *
  *         Implementation of the field of complex numbers as a singleton class.
@@ -51,20 +51,20 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix = null;
 
 	public ComplexPlane() {
-		this.dim = 2;
-		this.base = new ArrayList<>();
-		this.one = new Complex(realLine.getOne(), realLine.getZero());
-		this.zero = new Complex(realLine.getZero(), realLine.getZero());
-		this.i = new Complex(realLine.getZero(), realLine.getOne());
-		this.base.add(this.one);
-		this.base.add(this.i);
+		dim = 2;
+		base = new ArrayList<>();
+		one = new Complex(realLine.getOne(), realLine.getZero());
+		zero = new Complex(realLine.getZero(), realLine.getZero());
+		i = new Complex(realLine.getZero(), realLine.getOne());
+		base.add(one);
+		base.add(i);
 	}
 
 	@Override
 	public Complex addition(final Vector vec1, final Vector vec2) {
 		final Vector ans = super.addition(vec1, vec2);
-		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(one),
+				((FiniteVectorMethods) ans).getCoordinates().get(i));
 	}
 
 	public Complex complex() {
@@ -79,30 +79,30 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return vec instanceof Complex || vec == this.zero || vec == this.one || vec == null;
+		return (vec instanceof Complex) || (vec == zero) || (vec == one) || (vec == null);
 	}
 
 	@Override
 	public Complex get(final double realValue) {
-		final Complex newComplex = this.complex();
+		final Complex newComplex = complex();
 		newComplex.setValue(realValue, 0);
 		return newComplex;
 	}
 
 	public Complex get(final double realValue, final double imValue) {
-		final Complex newComplex = this.complex();
+		final Complex newComplex = complex();
 		newComplex.setValue(realValue, imValue);
 		return newComplex;
 	}
 
 	public Complex getI() {
-		return this.i;
+		return i;
 	}
 
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
 
-		if (this.multiplicationMatrix == null) {
+		if (multiplicationMatrix == null) {
 
 			final Scalar realOne = RealLine.getInstance().getOne();
 			final Scalar realZero = RealLine.getInstance().getZero();
@@ -118,17 +118,17 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
-			newMap.put(this.one, oneHom);
-			newMap.put(this.i, iHom);
+			newMap.put(one, oneHom);
+			newMap.put(i, iHom);
 
-			this.setMultiplicationMatrix(newMap);
+			setMultiplicationMatrix(newMap);
 		}
-		return this.multiplicationMatrix;
+		return multiplicationMatrix;
 	}
 
 	@Override
 	public Complex getOne() {
-		return this.one;
+		return one;
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	@Override
 	public Complex nullVec() {
-		return this.zero;
+		return zero;
 	}
 
 	@Override
@@ -158,8 +158,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public Complex stretch(final Vector vec1, final Scalar r) {
 		final Vector ans = Field.super.stretch(vec1, r);
-		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(one),
+				((FiniteVectorMethods) ans).getCoordinates().get(i));
 
 	}
 
@@ -167,12 +167,11 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 //	public String toString() {
 //		return "the field of complex numbers, which is modelled as a 2-dimensional real vector space.";
 //	}
-	
+
 	@Override
 	public String toXml() {
 		return "<ComplexPlane />\r";
 	}
- 
 
 	@Override
 	public Complex getMinusOne() {

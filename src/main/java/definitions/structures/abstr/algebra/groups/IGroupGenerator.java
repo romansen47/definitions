@@ -26,24 +26,24 @@ import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 import settings.GlobalSettings;
 
 @SuppressWarnings("serial")
-public interface IGroupGenerator {	
-	
-	class Fraction extends ProductElement {
-		private final Monoid baseGroup;
+public interface IGroupGenerator {
 
-		public Fraction(Element k, Element v, Monoid baseGroup) {
+	class Fraction extends ProductElement {
+		private final Monoid baseMoniod;
+
+		public Fraction(Element k, Element v, Monoid baseMoniod) {
 			super(k, v);
-			this.baseGroup = baseGroup;
+			this.baseMoniod = baseMoniod;
 		}
 
 		@Override
-		public boolean equals(Object other) { 
+		public boolean equals(Object other) {
 			return Math.abs(
 					getRepresentant() - ((Element) other).getRepresentant()) < GlobalSettings.REAL_EQUALITY_FEINHEIT;
 		}
 
 		public Monoid getBaseGroup() {
-			return baseGroup;
+			return baseMoniod;
 		}
 
 		@Override
@@ -55,11 +55,11 @@ public interface IGroupGenerator {
 		public String toString() {
 			try {
 				return Double.toString(getRepresentant());
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				return "(" + getLeft().getRepresentant() + "," + getRight().getRepresentant() + ")";
 			}
 		}
-		 
+
 	}
 
 	class AdditionFraction extends Fraction {
@@ -70,12 +70,12 @@ public interface IGroupGenerator {
 
 	default Group completeToGroup(Monoid m) {
 		return new Group() {
-			
+
 			@Override
 			public String toXml() {
 				return "\r<group>\r<completion>\r" + m.toXml() + "\r</completion>\r</group>\r";
 			}
-			
+
 			class GroupElement extends Fraction {
 
 				public GroupElement(Element k, Element v, Monoid baseGroup) {
@@ -100,7 +100,7 @@ public interface IGroupGenerator {
 			@Override
 			public GroupElement getNeutralElement() {
 				if (neutralElement == null) {
-					GroupElement tmp = (GroupElement) monoid.getNeutralElement();
+					final GroupElement tmp = (GroupElement) monoid.getNeutralElement();
 					neutralElement = new GroupElement(tmp, tmp, monoid);
 				}
 				return neutralElement;
@@ -108,14 +108,15 @@ public interface IGroupGenerator {
 
 			@Override
 			public GroupElement operation(Element first, Element second) {
-				Element firstOp = monoid.operation(((Fraction) first).getLeft(), ((Fraction) second).getLeft());
-				Element secondOp = monoid.operation(((Fraction) first).getRight(), ((Fraction) second).getRight());
+				final Element firstOp = monoid.operation(((Fraction) first).getLeft(), ((Fraction) second).getLeft());
+				final Element secondOp = monoid.operation(((Fraction) first).getRight(),
+						((Fraction) second).getRight());
 				return new GroupElement(firstOp, secondOp, monoid);
 			}
 
 			@Override
 			public GroupElement getInverseElement(Element element) {
-				Fraction x = (Fraction) element;
+				final Fraction x = (Fraction) element;
 				return new GroupElement(x.getRight(), x.getLeft(), monoid);
 			}
 
@@ -129,38 +130,38 @@ public interface IGroupGenerator {
 			public String toXml() {
 				return "\r<discreet_group>\r<completion>\r" + m.toXml() + "\r</completion>\r</discreet_group>\r";
 			}
-			
+
 			final private DiscreetMonoid monoid = m;
 
 			@Override
 			public Element getNeutralElement() {
-				Element neutralElement = monoid.getNeutralElement();
+				final Element neutralElement = monoid.getNeutralElement();
 				return new AdditionFraction(neutralElement, neutralElement, monoid);
 			}
 
 			@Override
 			public Element operation(Element first, Element second) {
-				Element firstOp = monoid.operation(((AdditionFraction) first).getLeft(),
+				final Element firstOp = monoid.operation(((AdditionFraction) first).getLeft(),
 						((AdditionFraction) second).getLeft());
-				Element secondOp = monoid.operation(((AdditionFraction) first).getRight(),
+				final Element secondOp = monoid.operation(((AdditionFraction) first).getRight(),
 						((AdditionFraction) second).getRight());
 				return new AdditionFraction(firstOp, secondOp, monoid);
 			}
 
 			@Override
 			public Element getInverseElement(Element element) {
-				AdditionFraction x = (AdditionFraction) element;
+				final AdditionFraction x = (AdditionFraction) element;
 				return new AdditionFraction(x.getRight(), x.getLeft(), monoid);
 			}
 
 			@Override
 			public Element get(Double representant) {
-				Element neutral = monoid.getNeutralElement();
+				final Element neutral = monoid.getNeutralElement();
 				if (representant >= 0) {
-					Element element = monoid.get(representant);
+					final Element element = monoid.get(representant);
 					return new AdditionFraction(element, neutral, monoid);
 				} else {
-					Element element = monoid.get(-representant);
+					final Element element = monoid.get(-representant);
 					return new AdditionFraction(neutral, element, monoid);
 				}
 			}
@@ -176,21 +177,21 @@ public interface IGroupGenerator {
 		private double representant;
 
 		public ProductElement(final Element Element, final Element Element2) {
-			this.left = Element;
-			this.right = Element2;
+			left = Element;
+			right = Element2;
 			representant = left.getRepresentant() - right.getRepresentant();
 		}
 
 		@Override
 		public String toString() {
-			if (this.getLeft() instanceof Element && this.getRight() instanceof Element) {
-				final Element u = this.getLeft();
-				final Element w = this.getRight();
+			if ((getLeft() instanceof Element) && (getRight() instanceof Element)) {
+				final Element u = getLeft();
+				final Element w = getRight();
 				return " ( " + u.getRepresentant() + " , " + w.getRepresentant() + " ) ";
 			}
-			return " ( " + this.getLeft().toString() + " , " + this.getRight().toString() + " ) ";
+			return " ( " + getLeft().toString() + " , " + getRight().toString() + " ) ";
 		}
-		 
+
 		@Override
 		public Double getRepresentant() {
 			return representant;
@@ -219,15 +220,11 @@ public interface IGroupGenerator {
 
 	default FiniteMonoid outerProduct(final FiniteMonoid a, final FiniteMonoid b) {
 		FiniteMonoid ans = null;
-		if (a.getOrder() != null && b.getOrder() != null) {
+		if ((a.getOrder() != null) && (b.getOrder() != null)) {
 			ans = new FiniteMonoid() {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = -6631649574912990607L;
-				private Map<Double, Element> elements = new ConcurrentHashMap<>();
+				private final Map<Double, Element> elements = new ConcurrentHashMap<>();
 				private Map<Element, Map<Element, Element>> operationMap = null;
-				private int order = a.getOrder() * b.getOrder();
+				private final int order = a.getOrder() * b.getOrder();
 
 				@Override
 				public Element get(final Double representant) {
@@ -241,31 +238,31 @@ public interface IGroupGenerator {
 
 				@Override
 				public Map<Element, Map<Element, Element>> getOperationMap() {
-					if (this.operationMap == null) {
+					if (operationMap == null) {
 						for (double i = 0; i < a.getOrder(); i++) {
 							for (double j = 0; j < b.getOrder(); j++) {
 								final ProductElement tmp = new ProductElement(a.get(i), b.get(j));
-								getElements().put(i * b.getOrder() + j, tmp);
+								getElements().put((i * b.getOrder()) + j, tmp);
 							}
 						}
-						this.operationMap = new HashMap<>();
+						operationMap = new HashMap<>();
 						for (final Double key1 : getElements().keySet()) {
 							for (final Double key2 : getElements().keySet()) {
-								this.operation(getElements().get(key1), getElements().get(key2));
+								operation(getElements().get(key1), getElements().get(key2));
 							}
 						}
 					}
-					return this.operationMap;
+					return operationMap;
 				}
 
 				@Override
 				public Integer getOrder() {
-					return this.order;
+					return order;
 				}
 
 				@Override
 				public Element operation(final Element first, final Element second) {
-					Map<Element, Map<Element, Element>> u = operationMap;
+					final Map<Element, Map<Element, Element>> u = operationMap;
 					Map<Element, Element> x = u.get(first);
 					Element ans;
 					if (x == null) {
@@ -277,16 +274,14 @@ public interface IGroupGenerator {
 						return ans;
 					}
 					ans = new ProductElement(
-							a.operation(((ProductElement) first).getLeft(),
-									((ProductElement) second).getLeft()),
-							b.operation(((ProductElement) first).getRight(),
-									((ProductElement) second).getRight()));
-					Map<Element, Element> tmpMap = this.operationMap.get(first);
+							a.operation(((ProductElement) first).getLeft(), ((ProductElement) second).getLeft()),
+							b.operation(((ProductElement) first).getRight(), ((ProductElement) second).getRight()));
+					Map<Element, Element> tmpMap = operationMap.get(first);
 					if (tmpMap == null) {
 						tmpMap = new HashMap<>();
 					}
 					tmpMap.put(second, ans);
-					this.operationMap.put(first, tmpMap);
+					operationMap.put(first, tmpMap);
 					return ans;
 				}
 
@@ -307,27 +302,27 @@ public interface IGroupGenerator {
 		return new Ring() {
 
 			final private SemiRing monoid = semiRing;
+			Monoid multiplicativeMonoid;
 
 			@Override
 			public Element getNeutralElement() {
-				Element neutralElement = monoid.getNeutralElement();
+				final Element neutralElement = monoid.getNeutralElement();
 				return new Fraction(neutralElement, neutralElement, monoid);
 			}
 
 			@Override
 			public Element operation(Element first, Element second) {
-				Element firstOp = monoid.operation(((Fraction) first).getLeft(), ((Fraction) second).getLeft());
-				Element secondOp = monoid.operation(((Fraction) first).getRight(), ((Fraction) second).getRight());
+				final Element firstOp = monoid.operation(((Fraction) first).getLeft(), ((Fraction) second).getLeft());
+				final Element secondOp = monoid.operation(((Fraction) first).getRight(),
+						((Fraction) second).getRight());
 				return new Fraction(firstOp, secondOp, monoid);
 			}
 
 			@Override
 			public Element getInverseElement(Element element) {
-				Fraction x = (Fraction) element;
+				final Fraction x = (Fraction) element;
 				return new Fraction(x.getRight(), x.getLeft(), monoid);
 			}
-
-			Monoid multiplicativeMonoid;
 
 			@Override
 			public Monoid getMuliplicativeMonoid() {
@@ -336,12 +331,12 @@ public interface IGroupGenerator {
 
 						@Override
 						public Element operation(Element first, Element second) {
-							Element firstOp = monoid.operation(
+							final Element firstOp = monoid.operation(
 									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getLeft(),
 											((Fraction) second).getLeft()),
 									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getRight(),
 											((Fraction) second).getRight()));
-							Element secondOp = monoid.operation(
+							final Element secondOp = monoid.operation(
 									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getLeft(),
 											((Fraction) second).getRight()),
 									monoid.getMuliplicativeMonoid().operation(((Fraction) first).getRight(),
@@ -367,15 +362,15 @@ public interface IGroupGenerator {
 
 			@Override
 			public Element getOne() {
-				Element zero = monoid.getNeutralElement();
-				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				final Element zero = monoid.getNeutralElement();
+				final Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new Fraction(one, zero, monoid);
 			}
 
 			@Override
 			public Element getMinusOne() {
-				Element zero = monoid.getNeutralElement();
-				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				final Element zero = monoid.getNeutralElement();
+				final Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new Fraction(zero, one, monoid);
 			}
 
@@ -386,7 +381,7 @@ public interface IGroupGenerator {
 
 	default DiscreetDomain getIntegers() {
 		if (getIntegers() == null) {
-			DiscreetDomain integers = completeToDiscreetRing(getNaturals());
+			final DiscreetDomain integers = completeToDiscreetRing(getNaturals());
 			setIntegers(integers);
 			return integers;
 		}
@@ -405,7 +400,7 @@ public interface IGroupGenerator {
 			@Override
 			public Element getNeutralElement() {
 				if (neutralElement == null) {
-					Element oldNeutralElement = monoid.getNeutralElement();
+					final Element oldNeutralElement = monoid.getNeutralElement();
 					neutralElement = new AdditionFraction(oldNeutralElement, oldNeutralElement, monoid);
 				}
 				return neutralElement;
@@ -413,18 +408,19 @@ public interface IGroupGenerator {
 
 			@Override
 			public Element operation(Element first, Element second) {
-				Element ans = DiscreetDomain.super.operation(first, second);
+				final Element ans = DiscreetDomain.super.operation(first, second);
 				if (ans != null) {
 					return ans;
 				}
-				Element firstOp = monoid.operation(((Fraction) first).getLeft(), ((Fraction) second).getLeft());
-				Element secondOp = monoid.operation(((Fraction) first).getRight(), ((Fraction) second).getRight());
+				final Element firstOp = monoid.operation(((Fraction) first).getLeft(), ((Fraction) second).getLeft());
+				final Element secondOp = monoid.operation(((Fraction) first).getRight(),
+						((Fraction) second).getRight());
 				return new AdditionFraction(firstOp, secondOp, monoid);
 			}
 
 			@Override
 			public Element getInverseElement(Element element) {
-				Fraction x = (Fraction) element;
+				final Fraction x = (Fraction) element;
 				return new AdditionFraction(x.getRight(), x.getLeft(), monoid);
 			}
 
@@ -437,12 +433,12 @@ public interface IGroupGenerator {
 
 						@Override
 						public Element operation(Element first, Element second) {
-							Element firstOp = monoid.addition(
+							final Element firstOp = monoid.addition(
 									monoid.multiplication(((ProductElement) first).getLeft(),
 											((Fraction) second).getLeft()),
 									monoid.multiplication(((ProductElement) first).getRight(),
 											((ProductElement) second).getRight()));
-							Element secondOp = monoid.addition(
+							final Element secondOp = monoid.addition(
 									monoid.multiplication(((ProductElement) first).getLeft(),
 											((Fraction) second).getRight()),
 									monoid.multiplication(((ProductElement) first).getRight(),
@@ -468,14 +464,14 @@ public interface IGroupGenerator {
 
 			@Override
 			public boolean isUnit(Element element) {
-				AdditionFraction asFrac = (AdditionFraction) element;
+				final AdditionFraction asFrac = (AdditionFraction) element;
 				return false;
 			}
 
 			@Override
 			public Element getOne() {
-				Element zero = monoid.getNeutralElement();
-				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				final Element zero = monoid.getNeutralElement();
+				final Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new AdditionFraction(one, zero, monoid);
 			}
 
@@ -501,8 +497,8 @@ public interface IGroupGenerator {
 
 			@Override
 			public Element getMinusOne() {
-				Element zero = monoid.getNeutralElement();
-				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				final Element zero = monoid.getNeutralElement();
+				final Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new Fraction(zero, one, monoid);
 			}
 
@@ -518,7 +514,7 @@ public interface IGroupGenerator {
 		public MultiplicationFraction(Element k, Element v, Ring baseField) {
 			super(k, v);
 			monoid = baseField;
-			this.setRepresentant(k.getRepresentant() / v.getRepresentant());
+			setRepresentant(k.getRepresentant() / v.getRepresentant());
 			if (v.equals(baseField.getNeutralElement())) {
 				System.out.println("denominator is zero! such an element does not exist...");
 			}
@@ -549,23 +545,23 @@ public interface IGroupGenerator {
 			}
 			return ans;
 		}
-		
+
 		@Override
 		public String toXml() {
-			return "<MultiplicationFraction>\r"+getRepresentant()+"\r</MultiplicationFraction>\r";
+			return "<MultiplicationFraction>\r" + getRepresentant() + "\r</MultiplicationFraction>\r";
 		}
 
 		@Override
 		public boolean equals(Object o) {
 			boolean ans = true;
 			if (o instanceof MultiplicationFraction) {
-				MultiplicationFraction other = (MultiplicationFraction) o;
-				Element left = getLeft();
-				Element right = getRight();
-				Element otherLeft = other.getLeft();
-				Element otherRight = other.getRight();
-				Element leftSide = monoid.multiplication(left, otherRight);
-				Element rightSide = monoid.multiplication(right, otherLeft);
+				final MultiplicationFraction other = (MultiplicationFraction) o;
+				final Element left = getLeft();
+				final Element right = getRight();
+				final Element otherLeft = other.getLeft();
+				final Element otherRight = other.getRight();
+				final Element leftSide = monoid.multiplication(left, otherRight);
+				final Element rightSide = monoid.multiplication(right, otherLeft);
 				ans = leftSide.equals(rightSide);
 				return ans;
 			} else {
@@ -579,7 +575,7 @@ public interface IGroupGenerator {
 		if (domain instanceof Field) {
 			return (PrimeField) domain;
 		}
-		return this.completeToDiscreetField(domain);
+		return completeToDiscreetField(domain);
 	}
 
 	default PrimeField completeToDiscreetField(DiscreetDomain domain) {
@@ -591,9 +587,9 @@ public interface IGroupGenerator {
 
 			@Override
 			public FieldElement getNeutralElement() {
-				Element zero = monoid.getNeutralElement();
+				final Element zero = monoid.getNeutralElement();
 				if (neutralElement == null) {
-					Element monoidNeutralElement = monoid.getMuliplicativeMonoid().getNeutralElement();
+					final Element monoidNeutralElement = monoid.getMuliplicativeMonoid().getNeutralElement();
 					neutralElement = new MultiplicationFraction(zero, monoidNeutralElement, monoid);
 					Map<Vector, Scalar> tmpCoordinates = neutralElement.getCoordinates();
 					if (tmpCoordinates == null) {
@@ -630,8 +626,6 @@ public interface IGroupGenerator {
 			 */
 			@Override
 			public FieldElement getInverseElement(final Element element) {
-				final Field field = this.getField();
-				Element monoidNeutralElement = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new MultiplicationFraction(monoid.getInverseElement(((ProductElement) element).getLeft()),
 						((ProductElement) element).getRight(), monoid);
 			}
@@ -640,14 +634,14 @@ public interface IGroupGenerator {
 			public FieldElement operation(Element first, Element second) {
 				FieldElement ans = PrimeField.super.operation(first, second);
 				if (ans == null) {
-					Element a = ((MultiplicationFraction) first).getLeft();
-					Element b = ((MultiplicationFraction) first).getRight();
-					Element c = ((MultiplicationFraction) second).getLeft();
-					Element d = ((MultiplicationFraction) second).getRight();
-					Element mult1 = monoid.multiplication(a, d);
-					Element mult2 = monoid.multiplication(b, c);
-					Element firstOp = monoid.addition(mult1, mult2);
-					Element secondOp = monoid.multiplication(b, d);
+					final Element a = ((MultiplicationFraction) first).getLeft();
+					final Element b = ((MultiplicationFraction) first).getRight();
+					final Element c = ((MultiplicationFraction) second).getLeft();
+					final Element d = ((MultiplicationFraction) second).getRight();
+					final Element mult1 = monoid.multiplication(a, d);
+					final Element mult2 = monoid.multiplication(b, c);
+					final Element firstOp = monoid.addition(mult1, mult2);
+					final Element secondOp = monoid.multiplication(b, d);
 					ans = new MultiplicationFraction(firstOp, secondOp, monoid);
 				}
 				return ans;
@@ -667,7 +661,7 @@ public interface IGroupGenerator {
 
 						@Override
 						public MultiplicationFraction get(Double representant) {
-							double rounded = representant - (representant % 1.);
+							final double rounded = representant - (representant % 1.);
 							return new MultiplicationFraction(monoid.get(rounded), monoid.getNeutralElement(), monoid);
 						}
 
@@ -675,12 +669,12 @@ public interface IGroupGenerator {
 						public MultiplicationFraction operation(Element first, Element second) {
 							Element ans = DiscreetGroup.super.operation(first, second);
 							if (ans == null) {
-								Element l1 = ((MultiplicationFraction) first).getLeft();
-								Element l2 = ((MultiplicationFraction) second).getLeft();
-								Element a = monoid.multiplication(l1, l2);
-								Element r1 = ((MultiplicationFraction) first).getRight();
-								Element r2 = ((MultiplicationFraction) second).getRight();
-								Element b = monoid.multiplication(r1, r2);
+								final Element l1 = ((MultiplicationFraction) first).getLeft();
+								final Element l2 = ((MultiplicationFraction) second).getLeft();
+								final Element a = monoid.multiplication(l1, l2);
+								final Element r1 = ((MultiplicationFraction) first).getRight();
+								final Element r2 = ((MultiplicationFraction) second).getRight();
+								final Element b = monoid.multiplication(r1, r2);
 								ans = new MultiplicationFraction(a, b, monoid);
 							} else {
 								if (!(ans instanceof FieldElement)) {
@@ -692,7 +686,7 @@ public interface IGroupGenerator {
 
 						@Override
 						public MultiplicationFraction getInverseElement(Element element) {
-							MultiplicationFraction fieldElement = (MultiplicationFraction) element;
+							final MultiplicationFraction fieldElement = (MultiplicationFraction) element;
 							if (fieldElement.getLeft().equals(monoid.getNeutralElement())) {
 								return null;
 							}
@@ -747,7 +741,7 @@ public interface IGroupGenerator {
 
 			@Override
 			public List<Vector> getOrthonormalBase(List<Vector> base) {
-				List<Vector> ans = new ArrayList<>();
+				final List<Vector> ans = new ArrayList<>();
 				ans.add(getOne());
 				return ans;
 			}
@@ -759,8 +753,8 @@ public interface IGroupGenerator {
 
 			@Override
 			public Element getMinusOne() {
-				Element zero = monoid.getNeutralElement();
-				Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
+				final Element zero = monoid.getNeutralElement();
+				final Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
 				return new MultiplicationFraction(zero, one, monoid);
 			}
 

@@ -13,14 +13,14 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativ
 
 /**
  * Concrete implementation of a finite dimensional sobolev function space.
- * 
+ *
  * @author ro
  *
  */
 public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpace {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2547484050898391066L;
 	private DerivativeOperator derivativeBuilder;
@@ -32,7 +32,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	/**
 	 * Constructor. Converts function space to sobolev space.
-	 * 
+	 *
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
 	 */
@@ -41,14 +41,14 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
 		this.degree = degree;
 		if (ortho) {
-			this.setBase(this.getOrthonormalBase(this.base));
-			this.assignOrthonormalCoordinates(this.base, field);
+			setBase(getOrthonormalBase(base));
+			assignOrthonormalCoordinates(base, field);
 		}
 	}
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param degree the sobolev degree.
 	 */
 	protected FiniteDimensionalSobolevSpace(final Field field, final int degree) {
@@ -58,7 +58,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param genericBase the base
 	 * @param left        the inf of the interval.
 	 * @param right       the sup of the intervall.
@@ -68,12 +68,12 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			final double right, final int degree) {
 		super(field, genericBase, left, right, true);
 		this.degree = degree;
-		this.getDerivativeBuilder();
+		getDerivativeBuilder();
 	}
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param genericBase the base
 	 * @param left        the inf of the interval.
 	 * @param right       the sup of the intervall.
@@ -87,21 +87,21 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	/**
 	 * Getter for the sobolev degree.
-	 * 
+	 *
 	 * @return the sobolev degree
 	 */
 	public final Integer getDegree() {
-		if (this.degree == null) {
-			this.degree = this.base.size();
+		if (degree == null) {
+			degree = base.size();
 		}
-		return this.degree;
+		return degree;
 	}
 
 	public DerivativeOperator getDerivativeBuilder() {
-		if (this.derivativeBuilder == null) {
-			this.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
+		if (derivativeBuilder == null) {
+			setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
 		}
-		return this.derivativeBuilder;
+		return derivativeBuilder;
 	}
 
 	@Override
@@ -115,19 +115,18 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				Vector tmp1 = vec1;
 				Vector tmp2 = vec2;
 				product += super.innerProduct(tmp1, tmp2).getDoubleValue();
-				for (int i = 0; i < this.getDegree(); i++) {
-					if (((FiniteVectorMethods) tmp1).getCoordinates() == null
-							|| ((FiniteVectorMethods) tmp2).getCoordinates() == null
-							|| this.derivativeBuilder == null) {
+				for (int i = 0; i < getDegree(); i++) {
+					if ((((FiniteVectorMethods) tmp1).getCoordinates() == null)
+							|| (((FiniteVectorMethods) tmp2).getCoordinates() == null) || (derivativeBuilder == null)) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						tmp1 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
-						tmp2 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
+						tmp1 = derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
+						tmp2 = derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
 					}
 					product += super.innerProduct(tmp1, tmp2).getDoubleValue();
 				}
-				return this.getField().get(product);
+				return getField().get(product);
 			}
 		}
 		return super.innerProduct(vec1, vec2);

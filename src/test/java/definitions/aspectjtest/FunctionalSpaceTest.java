@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.aspectjtest;
 
@@ -27,25 +27,25 @@ public class FunctionalSpaceTest {
 	public static void setUpBeforeClass() throws Exception {
 	}
 
-	final EuclideanSpace space = ((SpringConfiguration) SpringConfiguration.getSpringConfiguration()).getApplicationContext()
-			.getBean(SpaceGenerator.class).getFiniteDimensionalVectorSpace(3);
-	final EuclideanSpace dualSpace = this.space.getDualSpace();
+	final EuclideanSpace space = ((SpringConfiguration) SpringConfiguration.getSpringConfiguration())
+			.getApplicationContext().getBean(SpaceGenerator.class).getFiniteDimensionalVectorSpace(3);
+	final EuclideanSpace dualSpace = space.getDualSpace();
 
-	final EuclideanSpace dualDualSpace = this.dualSpace.getDualSpace();
+	final EuclideanSpace dualDualSpace = dualSpace.getDualSpace();
 	final EuclideanSpace functionSpace = SpaceGenerator.getInstance().getTrigonometricSpace(RealLine.getInstance(), 1);
-	final EuclideanSpace dualFunctionSpace = this.functionSpace.getDualSpace();
+	final EuclideanSpace dualFunctionSpace = functionSpace.getDualSpace();
 
-	final EuclideanSpace dualDualFunctionSpace = this.dualFunctionSpace.getDualSpace();
+	final EuclideanSpace dualDualFunctionSpace = dualFunctionSpace.getDualSpace();
 	final EuclideanSpace sobolevSpace = SpaceGenerator.getInstance()
 			.getTrigonometricSobolevSpace(RealLine.getInstance(), 10, 10);
-	final EuclideanSpace dualSobolevSpace = this.sobolevSpace.getDualSpace();
+	final EuclideanSpace dualSobolevSpace = sobolevSpace.getDualSpace();
 
-	final EuclideanSpace dualDualSobolevSpace = this.dualSobolevSpace.getDualSpace();
+	final EuclideanSpace dualDualSobolevSpace = dualSobolevSpace.getDualSpace();
 
 	@Test
 	public void functionSpaceTest() {
-		final Vector a = this.functionSpace.genericBaseToList().get(1);
-		final Vector b = this.dualFunctionSpace.genericBaseToList().get(1);
+		final Vector a = functionSpace.genericBaseToList().get(1);
+		final Vector b = dualFunctionSpace.genericBaseToList().get(1);
 		final Functional x = (Functional) b;
 		final Vector c = x.get(a);
 		System.out.println(c.toString());
@@ -54,8 +54,8 @@ public class FunctionalSpaceTest {
 
 	@Test
 	public void sobolevSpaceTest() {
-		final Vector a = this.sobolevSpace.genericBaseToList().get(1);
-		final Vector b = this.dualSobolevSpace.genericBaseToList().get(1);
+		final Vector a = sobolevSpace.genericBaseToList().get(1);
+		final Vector b = dualSobolevSpace.genericBaseToList().get(1);
 		final Functional x = (Functional) b;
 		final Vector c = x.get(a);
 		System.out.println(c.toString());
@@ -64,8 +64,8 @@ public class FunctionalSpaceTest {
 
 	@Test
 	public void spaceTest() {
-		final Vector a = this.space.genericBaseToList().get(0);
-		final Vector b = this.dualSpace.genericBaseToList().get(0);
+		final Vector a = space.genericBaseToList().get(0);
+		final Vector b = dualSpace.genericBaseToList().get(0);
 		final Functional x = (Functional) b;
 		final Vector c = x.get(a);
 		Assert.assertTrue(c.equals(RealLine.getInstance().getOne()));

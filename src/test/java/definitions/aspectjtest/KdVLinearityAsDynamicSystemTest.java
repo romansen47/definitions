@@ -45,7 +45,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();
-	private int speed = (int) (1000*iterations * eps);
+	private final int speed = (int) (1000 * iterations * eps);
 
 	public static void main(String[] args) {
 		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
@@ -53,15 +53,15 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		test = new KdVLinearityAsDynamicSystemTest();
 		setFunctionSpace(
 				SpaceGenerator.getInstance().getTrigonometricSobolevSpace(getRealLine(), degree, sobolevDegree));
-		VectorSpaceSelfMapping map = ((TrigonometricSobolevSpace) getFunctionSpace()).getDerivativeBuilder();
-		VectorSpaceSelfMapping nonlinearity = new VectorSpaceSelfMapping() {
+		final VectorSpaceSelfMapping map = ((TrigonometricSobolevSpace) getFunctionSpace()).getDerivativeBuilder();
+		final VectorSpaceSelfMapping nonlinearity = new VectorSpaceSelfMapping() {
 
 			@Override
 			public Element get(Element vec) {
 				return new GenericFunction() {
 
 					/**
-					 * 
+					 *
 					 */
 					private static final long serialVersionUID = -1105085341775793307L;
 
@@ -80,13 +80,13 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			}
 
 		};
-		VectorSpaceSelfMapping newMap = new VectorSpaceSelfMapping() {
+		final VectorSpaceSelfMapping newMap = new VectorSpaceSelfMapping() {
 
 			@Override
 			public Element get(Element vec) {
 				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
 				newVec = getSource().stretch(newVec, getRealLine().get(-0.2));
-				newVec = getSource().addition(getSource().stretch((Vector) vec, getRealLine().get(0.2)),newVec);
+				newVec = getSource().addition(getSource().stretch((Vector) vec, getRealLine().get(0.2)), newVec);
 				if (!test.linear) {
 					newVec = getSource().addition(newVec,
 							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
@@ -100,20 +100,20 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			}
 
 		};
-		
+
 		setInitialCondition(new GenericFunction() {
 
 			/**
-			 * 
+			 *
 			 */
 			private static final long serialVersionUID = -4921080371690731611L;
 			double support = 0.9;
 
 			@Override
 			public Scalar value(Scalar input) {
-				double val = input.getDoubleValue();
-				double a = 10.0;
-				if (val <= -support / 2 || val >= support / 2) {
+				final double val = input.getDoubleValue();
+				final double a = 10.0;
+				if ((val <= (-support / 2)) || (val >= (support / 2))) {
 					return RealLine.getInstance().get(0);
 				}
 				return RealLine.getInstance().get(0.6 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
@@ -121,9 +121,9 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			}
 
 		});
-		
-		LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
-		
+
+		final LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
+
 		setDifferentialEquation(new DynamicSystem() {
 
 			@Override
@@ -152,13 +152,13 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	public void setup() {
 		frameRate(60);
 		drawPreparationsWindows();
-		int size = 20;
-		int sizeOfRect = (xScale - deltaX) / size;
-		int deltaIt = iterations / size;
+		final int size = 20;
+		final int sizeOfRect = (xScale - deltaX) / size;
+		final int deltaIt = iterations / size;
 		list.add(tmp);
 		int count = 0;
 		StdDraw.setPenColor(StdDraw.BLACK);
-		double it = iteration;
+		final double it = iteration;
 		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
 		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
@@ -166,14 +166,14 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 //		StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading... ");
 //		StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading... ");
 		for (int i = 0; i < iterations; i++) {
-			Function tmp2 = (Function) space.addition(tmp, space
+			final Function tmp2 = (Function) space.addition(tmp, space
 					.stretch((Function) differentialEquation.getDefiningMapping().get(tmp), getRealLine().get(eps)));
 			list.add(tmp2);
 			tmp = tmp2;
-			if (i % deltaIt == 0) {
+			if ((i % deltaIt) == 0) {
 				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.filledSquare(-xScale + 2 * deltaX + count * sizeOfRect, sizeOfRect, sizeOfRect / 2);
-				StdDraw.square(-xScale + 2 * deltaX + count * sizeOfRect, sizeOfRect, sizeOfRect / 2);
+				StdDraw.filledSquare(-xScale + (2 * deltaX) + (count * sizeOfRect), sizeOfRect, sizeOfRect / 2);
+				StdDraw.square(-xScale + (2 * deltaX) + (count * sizeOfRect), sizeOfRect, sizeOfRect / 2);
 				count++;
 			}
 		}
@@ -187,7 +187,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 	private void drawPreparationsWindows() {
 		stddraw = new StdDraw();
-		stddraw.setCanvasSize(2 * xScale + deltaX, yScale);
+		stddraw.setCanvasSize((2 * xScale) + deltaX, yScale);
 		StdDraw.setXscale(-xScale, xScale);
 		StdDraw.setYscale(-yScale, yScale);
 		StdDraw.setPenRadius(0.001);
@@ -202,11 +202,11 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 		stroke(0);
 		fill(0);
-		text("time: " + iteration + " * " + eps + " = " + iteration * eps, 200, 200, 15);
-		Function tmp = list.get(iteration++);
+		text("time: " + iteration + " * " + eps + " = " + (iteration * eps), 200, 200, 15);
+		final Function tmp = list.get(iteration++);
 
 		draw(tmp);
-		if (tmp.getDerivative().equals(getFunctionSpace().nullVec()) || iteration + speed >= iterations) {
+		if (tmp.getDerivative().equals(getFunctionSpace().nullVec()) || ((iteration + speed) >= iterations)) {
 			iteration = 0;
 		}
 		iteration += speed;
@@ -217,12 +217,13 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		Real realX1;
 		double x2 = x1 + eps;
 		Real realX2;
-		while (x1 + speed * eps < Math.PI) {
-			x2 = x1 + eps * speed;
+		while ((x1 + (speed * eps)) < Math.PI) {
+			x2 = x1 + (eps * speed);
 			realX1 = (Real) getRealLine().get(x1);
 			realX2 = (Real) getRealLine().get(x2);
-			line(500 + 100 * (float) x1, (float) (500 * (1 - 100 * ((Scalar) tmp2.value(realX1)).getDoubleValue())),
-					500 + 100 * (float) x2, (float) (500 * (1 - 100 * ((Scalar) tmp2.value(realX2)).getDoubleValue())));
+			line(500 + (100 * (float) x1), (float) (500 * (1 - (100 * ((Scalar) tmp2.value(realX1)).getDoubleValue()))),
+					500 + (100 * (float) x2),
+					(float) (500 * (1 - (100 * ((Scalar) tmp2.value(realX2)).getDoubleValue()))));
 			x1 = x2;
 		}
 	}

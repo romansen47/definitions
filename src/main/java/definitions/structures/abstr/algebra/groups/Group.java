@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.abstr.algebra.groups;
 
@@ -16,16 +16,16 @@ import definitions.structures.abstr.algebra.semigroups.Element;
  *
  *
  *         such that
- * 
+ *
  *         product(a,b) = product(b,a) = getIdentityElement().
  *
  */
 public interface Group extends Monoid {
-	
+
 	/**
 	 * Getter for the (by definition existing) inverse of an element within the
 	 * group.
-	 * 
+	 *
 	 * @param element the input
 	 * @return the inverse element of the input within the group.
 	 */

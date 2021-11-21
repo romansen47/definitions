@@ -54,10 +54,10 @@ public class CachingAspect implements CustomAspect {
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);
 		if (field.equals(RealLine.getInstance())) {
-			EuclideanSpace ans = coordinatesSpaces.get(dim);
+			final EuclideanSpace ans = coordinatesSpaces.get(dim);
 			if (ans != null) {
-				getLogger().info(
-						"Successfully restored from cache! " + dim + "-dimensional euclidean space " + ans.toString());
+				getLogger().info("Successfully restored " + dim + "-dimensional euclidean space " + ans.toString()
+						+ " from cache! ");
 				return ans;
 			}
 			switch (dim) {
@@ -77,11 +77,11 @@ public class CachingAspect implements CustomAspect {
 			 */
 			basetmp.add(new Tuple(dim));
 		}
-		FieldElement one = field.getOne();
-		Vector zero = field.getZero();
+		final FieldElement one = field.getOne();
+		final Vector zero = field.getZero();
 		for (int i = 0; i < dim; i++) {
-			Vector baseVec = basetmp.get(i);
-			Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) baseVec).getCoordinates();
+			final Vector baseVec = basetmp.get(i);
+			final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) baseVec).getCoordinates();
 			for (int j = 0; j < dim; j++) {
 				if (i == j) {
 					coordinates.put(baseVec, one);
@@ -90,8 +90,8 @@ public class CachingAspect implements CustomAspect {
 				}
 			}
 		}
-		EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		getLogger().info("Created new space: " + ans.toString());
+		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
+		getLogger().info("Created new " + dim + "-dimensional space over " + field.toXml() + ans.toXml());
 		if (field.equals(RealLine.getInstance())) {
 			coordinatesSpaces.put(dim, ans);
 		}

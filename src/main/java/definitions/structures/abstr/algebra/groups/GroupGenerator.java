@@ -29,7 +29,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.impl.Naturals;
 
 @Service
-public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable {
+public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable {
 
 	public static GroupGenerator instance;
 	private DiscreetSemiRing naturals;
@@ -99,9 +99,9 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 
 	public FinitePrimeField getBinaries() {
 		if (binaries == null) {
-			binaries = new FinitePrimeField() { 
+			binaries = new FinitePrimeField() {
 				private static final long serialVersionUID = 1L;
-				
+
 				@Override
 				public String toXml() {
 					return "<binaries />";
@@ -140,36 +140,36 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 
 					@Override
 					public Double getRepresentant() {
-						if (this==one) {
+						if (this == one) {
 							return 1.;
 						}
 						return 0.;
 					}
-					
+
 					@Override
 					public String toString() {
-						return "<binary>" + value+"</binary>";
+						return "<binary>" + value + "</binary>";
 					}
 
 				};
 
-				private Binary zero = new Binary(false);
-				private Binary one = new Binary(true);
+				private final Binary zero = new Binary(false);
+				private final Binary one = new Binary(true);
 				private List<Vector> base;
 				private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
 				private Map<Element, Map<Element, Element>> operationMap;
 				private Map<Double, Element> elements;
 
 				@Override
-				public Map<Double, Element> getElements(){
-					if (elements==null) {
-						elements=new ConcurrentHashMap<>();
-						elements.put(0d,zero);
-						elements.put(1d,one);
+				public Map<Double, Element> getElements() {
+					if (elements == null) {
+						elements = new ConcurrentHashMap<>();
+						elements.put(0d, zero);
+						elements.put(1d, one);
 					}
 					return elements;
 				}
-				
+
 				@Override
 				public Binary getOne() {
 					return one;
@@ -213,15 +213,15 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 
 				@Override
 				public boolean contains(Vector vec) {
-					return vec==one || vec==zero;
+					return (vec == one) || (vec == zero);
 				}
 
 				@Override
 				public Map<Element, Map<Element, Element>> getOperationMap() {
 					if (operationMap == null) {
 						operationMap = new ConcurrentHashMap<>();
-						Map<Element, Element> zeroMap = new ConcurrentHashMap<>();
-						Map<Element, Element> oneMap = new ConcurrentHashMap<>();
+						final Map<Element, Element> zeroMap = new ConcurrentHashMap<>();
+						final Map<Element, Element> oneMap = new ConcurrentHashMap<>();
 						zeroMap.put(zero, zero);
 						zeroMap.put(one, one);
 						oneMap.put(zero, one);
@@ -236,7 +236,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 				public FiniteVector addition(Vector a, Vector b) {
 					Vector ans = FinitePrimeField.super.operation(a, b);
 					if (ans == null) {
-						boolean tmp = ((Binary) a).value && ((Binary) b).value;
+						final boolean tmp = ((Binary) a).value && ((Binary) b).value;
 						ans = get(!tmp);
 					}
 					return (FiniteVector) ans;
@@ -244,7 +244,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 
 				@Override
 				public Vector multiplication(Element a, Element b) {
-					boolean ans = ((Binary) a).value && ((Binary) b).value;
+					final boolean ans = ((Binary) a).value && ((Binary) b).value;
 					return get(ans);
 				}
 
@@ -274,11 +274,11 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 				public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
 					if (multiplicationMatrix == null) {
 						multiplicationMatrix = new ConcurrentHashMap<>();
-						Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
-						Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
+						final Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
+						final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 						coordinates.put(one, one);
 						linearity.put(one, coordinates);
-						VectorSpaceHomomorphism ans = new LinearSelfMapping(this, linearity) {
+						final VectorSpaceHomomorphism ans = new LinearSelfMapping(this, linearity) {
 
 							@Override
 							public Vector get(Element vec) {
@@ -332,7 +332,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 	@Override
 	public PrimeField getConstructedBinaries() {
 		if (constructedBinaries == null) {
-			DiscreetSemiRing binaryGroup = new FiniteRing() {
+			final DiscreetSemiRing binaryGroup = new FiniteRing() {
 
 				private FiniteMonoid muliplicativeMonoid;
 				Map<Element, Map<Element, Element>> operationMap;
@@ -347,7 +347,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 
 				@Override
 				public Element operation(Element first, Element second) {
-					Element neutralElement = getNeutralElement();
+					final Element neutralElement = getNeutralElement();
 					if (first.equals(neutralElement)) {
 						return second;
 					}
@@ -389,16 +389,16 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 							public void setRepresentant(Double representant) {
 								this.representant = representant;
 							}
-							
+
 							@Override
 							public String toString() {
-								String ans="false";
-								if (this.representant==0.0) {
-									ans="true";
+								String ans = "false";
+								if (representant == 0.0) {
+									ans = "true";
 								}
-								return "constructed binary: "+ans;
+								return "constructed binary: " + ans;
 							}
-							
+
 						};
 						getElements().put(r, element);
 					}
@@ -433,7 +433,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 						public Map<Element, Map<Element, Element>> getOperationMap() {
 							if (multiplicationMap == null) {
 								multiplicationMap = new ConcurrentHashMap<>();
-								Map<Element, Element> entry = new HashMap<>();
+								final Map<Element, Element> entry = new HashMap<>();
 								entry.put(getOne(), getOne());
 								multiplicationMap.put(getOne(), entry);
 							}
@@ -453,8 +453,8 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 				public Map<Element, Map<Element, Element>> getOperationMap() {
 					if (operationMap == null) {
 						operationMap = new ConcurrentHashMap<>();
-						Map<Element, Element> entry = new HashMap<>();
-						Map<Element, Element> entry2 = new HashMap<>();
+						final Map<Element, Element> entry = new HashMap<>();
+						final Map<Element, Element> entry2 = new HashMap<>();
 						entry.put(getNeutralElement(), getNeutralElement());
 						entry.put(getOne(), getOne());
 						entry2.put(getNeutralElement(), getOne());
@@ -476,7 +476,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 				public Element getMinusOne() {
 					return getOne();
 				}
-				
+
 				@Override
 				public String toString() {
 					return "the group of binaries";
@@ -484,8 +484,8 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 
 			};
 
-			DiscreetSemiRing test = binaryGroup;
-			DiscreetDomain binaryDomain = GroupGenerator.getInstance().completeToDiscreetRing(test);
+			final DiscreetSemiRing test = binaryGroup;
+			final DiscreetDomain binaryDomain = GroupGenerator.getInstance().completeToDiscreetRing(test);
 			constructedBinaries = GroupGenerator.getInstance().completeToDiscreetField(binaryDomain);
 		}
 		return constructedBinaries;
@@ -494,7 +494,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable,Unweavable 
 	public void setBinaries(FinitePrimeField binaries) {
 		this.binaries = binaries;
 	}
-	
+
 	@Override
 	public String toXml() {
 		return "<GroupGenerator />\r";

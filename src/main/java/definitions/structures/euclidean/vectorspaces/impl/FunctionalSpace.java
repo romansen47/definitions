@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.euclidean.vectorspaces.impl;
 
@@ -24,14 +24,14 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2891504884821572359L;
 	final EuclideanSpace source;
 
 	public FunctionalSpace(final EuclideanSpace source) {
 		this.source = source;
-		this.dim = source.getDim();
+		dim = source.getDim();
 		final List<Vector> base = new ArrayList<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
 			final Vector functional = new Functional() {
@@ -42,19 +42,19 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Vector get(final Element vec) {
-					return this.sourceSpace.innerProduct(baseVec, (Vector) vec);
+					return sourceSpace.innerProduct(baseVec, (Vector) vec);
 				}
 
 				@Override
 				public Scalar[][] getGenericMatrix() {
-					final Scalar[][] mat = new Scalar[((EuclideanSpace) this.getSource())
-							.getDim()][((EuclideanSpace) this.getSource()).getDim()];
-					for (int i = 0; i < ((EuclideanSpace) this.getSource()).getDim(); i++) {
-						for (int j = 0; j < ((EuclideanSpace) this.getSource()).getDim(); j++) {
+					final Scalar[][] mat = new Scalar[((EuclideanSpace) getSource())
+							.getDim()][((EuclideanSpace) getSource()).getDim()];
+					for (int i = 0; i < ((EuclideanSpace) getSource()).getDim(); i++) {
+						for (int j = 0; j < ((EuclideanSpace) getSource()).getDim(); j++) {
 							if (i != j) {
-								mat[i][j] = (Scalar) this.getTarget().nullVec();
+								mat[i][j] = (Scalar) getTarget().nullVec();
 							} else {
-								mat[i][j] = ((Field) this.getTarget()).getOne();
+								mat[i][j] = ((Field) getTarget()).getOne();
 							}
 						}
 					}
@@ -64,13 +64,13 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 				@Override
 				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 					final Map<Vector, Map<Vector, Scalar>> newMap = new HashMap<>();
-					for (final Vector bv1 : this.sourceSpace.genericBaseToList()) {
+					for (final Vector bv1 : sourceSpace.genericBaseToList()) {
 						final Map<Vector, Scalar> coord = new HashMap<>();
-						for (final Vector bv2 : this.sourceSpace.genericBaseToList()) {
+						for (final Vector bv2 : sourceSpace.genericBaseToList()) {
 							if (bv1 != bv2) {
-								coord.put(bv2, (Scalar) this.target.nullVec());
+								coord.put(bv2, (Scalar) target.nullVec());
 							} else {
-								coord.put(bv2, ((Field) this.target).getOne());
+								coord.put(bv2, ((Field) target).getOne());
 							}
 						}
 						newMap.put(bv1, coord);
@@ -85,23 +85,23 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Vector getSourceVec() {
-					return this.sourceVec;
+					return sourceVec;
 				}
 
 				@Override
 				public EuclideanSpace getTarget() {
-					return this.target;
+					return target;
 				}
 
 			};
 			base.add(functional);
 		}
-		this.setBase(base);
+		setBase(base);
 	}
 
 	@Override
 	@Proceed
 	public EuclideanSpace getDualSpace() {
-		return this.source;
+		return source;
 	}
 }

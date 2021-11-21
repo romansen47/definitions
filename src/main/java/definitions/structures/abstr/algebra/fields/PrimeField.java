@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.abstr.algebra.fields;
 
@@ -25,15 +25,15 @@ public interface PrimeField extends Field {
 	 */
 	@Override
 	default Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
-		Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix = new ConcurrentHashMap<>();
-		Vector one=getOne();
-		VectorSpaceHomomorphism hom = new Identity(this) {
+		final Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix = new ConcurrentHashMap<>();
+		final Vector one = getOne();
+		final VectorSpaceHomomorphism hom = new Identity(this) {
 
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				if (genericMatrix==null) {
-					genericMatrix=new Scalar[1][1];
-					genericMatrix[0][0]=(Scalar) one;
+				if (genericMatrix == null) {
+					genericMatrix = new Scalar[1][1];
+					genericMatrix[0][0] = (Scalar) one;
 				}
 				return genericMatrix;
 			}
@@ -41,8 +41,8 @@ public interface PrimeField extends Field {
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				if (linearity == null) {
-					Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
-					Map<Vector, Scalar> map = new ConcurrentHashMap<>();
+					final Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
+					final Map<Vector, Scalar> map = new ConcurrentHashMap<>();
 					map.put(one, (Scalar) one);
 					linearity.put(one, map);
 				}
@@ -50,7 +50,7 @@ public interface PrimeField extends Field {
 			}
 
 		};
-		multiplicationMatrix.put(one,hom);
+		multiplicationMatrix.put(one, hom);
 		return multiplicationMatrix;
 	}
 
@@ -59,7 +59,7 @@ public interface PrimeField extends Field {
 	 */
 	@Override
 	default List<Vector> genericBaseToList() {
-		List<Vector> genericBaseToList = new ArrayList<>();
+		final List<Vector> genericBaseToList = new ArrayList<>();
 		genericBaseToList.add(getOne());
 		return genericBaseToList;
 	}
@@ -69,7 +69,7 @@ public interface PrimeField extends Field {
 	 */
 	@Override
 	default int getCharacteristic() {
-		return this.getOrder();
+		return getOrder();
 	}
 
 	/**

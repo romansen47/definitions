@@ -5,7 +5,7 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
- * 
+ *
  * @author RoManski
  *
  *         A normed space N is a vector space over a field F which is also a
@@ -19,7 +19,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 */
 	@Override
 	default Real distance(final Vector vec1, final Vector vec2) {
-		return this.norm(this.addition(vec1, this.stretch(vec2, this.getField().get(-1))));
+		return norm(addition(vec1, stretch(vec2, getField().get(-1))));
 	}
 
 	/**
@@ -30,7 +30,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 
 	/**
 	 * The defined norm.
-	 * 
+	 *
 	 * @param vec the vector to compute the norm for.
 	 * @return the norm of the vector.
 	 */
@@ -39,12 +39,12 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	/**
 	 * Any non-zero vector can be normalized. The normalization of a vector is a
 	 * vector pointing towards the same direction with norm 1.
-	 * 
+	 *
 	 * @param vec the vector to be normalized.
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return this.stretch(vec, this.getField().getInverseElement(this.norm(vec)));
+		return stretch(vec, getField().getInverseElement(norm(vec)));
 	}
 
 }

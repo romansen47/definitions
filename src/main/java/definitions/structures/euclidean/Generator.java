@@ -36,7 +36,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		if (instance == null) {
 			instance = new Generator();
 			if (instance.logger == null) {
-				instance.logger = LogManager.getLogger(SpaceGenerator.class); 
+				instance.logger = LogManager.getLogger(SpaceGenerator.class);
 			}
 		}
 		if (restoreFromCached) {
@@ -77,38 +77,38 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 
 	@Override
 	public FieldGenerator getFieldGenerator() {
-		return this.fieldGenerator;
+		return fieldGenerator;
 	}
 
 	@Override
 	public GroupGenerator getGroupGenerator() {
-		return this.groupGenerator;
+		return groupGenerator;
 	}
 
 	public Logger getLogger() {
-		if (this.logger == null) {
-			this.logger = LogManager.getLogger(this.getClass());
+		if (logger == null) {
+			logger = LogManager.getLogger(this.getClass());
 		}
-		return this.logger;
+		return logger;
 	}
 
 	@Override
 	public MappingGenerator getMappingGenerator() {
-		return this.mappingGenerator;
+		return mappingGenerator;
 	}
 
 	@Override
 	public SpaceGenerator getSpaceGenerator() {
-		return this.spaceGenerator;
+		return spaceGenerator;
 	}
 
 	@Override
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
 		try {
-			final FileInputStream f_in = new FileInputStream(this.PATH);
+			final FileInputStream f_in = new FileInputStream(PATH);
 			final ObjectInputStream obj_in = new ObjectInputStream(f_in);
 			final MyCache ans = (MyCache) obj_in.readObject();
-			this.spaceGenerator.setMyCache(ans);
+			spaceGenerator.setMyCache(ans);
 			obj_in.close();
 		} catch (final Exception e) {
 			e.addSuppressed(new Exception("failed to load myCache from local file"));
@@ -118,10 +118,10 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 
 	@Override
 	public void saveCoordinateSpaces() throws IOException {
-		final FileOutputStream f_out = new FileOutputStream(this.PATH);
+		final FileOutputStream f_out = new FileOutputStream(PATH);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(this.spaceGenerator.getMyCache());
-		this.getLogger().info("saved coordinates spaces to disk");
+		obj_out.writeObject(spaceGenerator.getMyCache());
+		getLogger().info("saved coordinates spaces to disk");
 		obj_out.close();
 	}
 

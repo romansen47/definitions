@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.euclidean.vectorspaces.impl;
 
@@ -12,7 +12,7 @@ import definitions.IWatcher;
 public class Watcher implements IWatcher {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private static IWatcher instance = null;

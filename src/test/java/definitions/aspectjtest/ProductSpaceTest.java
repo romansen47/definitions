@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.aspectjtest;
 
@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -39,16 +38,16 @@ public class ProductSpaceTest extends AspectJTest {
 
 	@Test
 	public void testproductSpaces() {
-		Vector tmp1 = testSpace(productLeftLeft);
-		Vector tmp2 = testSpace(productLeftRight);
-		Vector tmp3 = testSpace(compTimesComp);
-		Vector tmp4 = testSpace(compTimesThree);
-		int i = 0;
+		final Vector tmp1 = testSpace(productLeftLeft);
+		final Vector tmp2 = testSpace(productLeftRight);
+		final Vector tmp3 = testSpace(compTimesComp);
+		final Vector tmp4 = testSpace(compTimesThree);
+		final int i = 0;
 	}
 
 	public Vector testSpace(EuclideanSpace space) {
 		Vector tmp = space.nullVec();
-		for (Vector vec : space.genericBaseToList()) {
+		for (final Vector vec : space.genericBaseToList()) {
 			tmp = space.addition(tmp, vec);
 		}
 		return tmp;
@@ -56,17 +55,15 @@ public class ProductSpaceTest extends AspectJTest {
 
 	@Test
 	public void higherDimensionalVectorSpaceTest() {
-		int dim = 2;
-		EuclideanSpace space = spaceGenerator
-				.getFiniteDimensionalVectorSpaceAsProduct(complexNumbers, dim);
-		EuclideanSpace otherSpace = spaceGenerator
-				.getFiniteDimensionalVectorSpace(complexNumbers, dim); 
-		boolean ans=false;
-		for (Vector vec1 : space.genericBaseToList()) {
-			for (Vector vec2 : otherSpace.genericBaseToList()) {
+		final int dim = 2;
+		final EuclideanSpace otherSpace = spaceGenerator.getFiniteDimensionalVectorSpace(complexNumbers, dim);
+		final EuclideanSpace space = spaceGenerator.getFiniteDimensionalVectorSpaceAsProduct(complexNumbers, dim);
+		boolean ans = false;
+		for (final Vector vec1 : space.genericBaseToList()) {
+			for (final Vector vec2 : otherSpace.genericBaseToList()) {
 				ans = vec1.equals(vec2) || vec2.equals(vec1);
 				if (ans) {
-					System.out.println(vec1.toString()+" = "+vec2.toString());
+					System.out.println(vec1.toString() + " = " + vec2.toString());
 				}
 			}
 		}

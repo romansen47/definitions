@@ -91,9 +91,9 @@ public class ConcreteTestAspect extends AbstractCustomAspect implements TestAspe
 
 	@Around("execution(void plotter.Plotter.plotCompare(..))")
 	public synchronized Object suppressPloterProfiling(ProceedingJoinPoint pjp) throws Throwable {
-		((ProfilingAspect) this.getConcreteProfilingAspect()).setRecording(false);
+		((ProfilingAspect) getConcreteProfilingAspect()).setRecording(false);
 		pjp.proceed();
-		((ProfilingAspect) this.getConcreteProfilingAspect()).setRecording(true);
+		((ProfilingAspect) getConcreteProfilingAspect()).setRecording(true);
 		return null;
 	}
 

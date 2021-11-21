@@ -5,7 +5,7 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 public abstract class Monome extends GenericFunction {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6765574043986345237L;
 	final int degree;
@@ -20,7 +20,7 @@ public abstract class Monome extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "Monome of degree " + this.degree;
+		return "Monome of degree " + degree;
 	}
 
 	/**
@@ -28,7 +28,7 @@ public abstract class Monome extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(Math.pow(input.getDoubleValue(), this.degree));
+		return getField().get(Math.pow(input.getDoubleValue(), degree));
 	}
 
 }

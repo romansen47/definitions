@@ -45,7 +45,7 @@ public class GroupGeneratorTest extends AspectJTest {
 	}
 
 	public Group getGroup() {
-		return this.group;
+		return group;
 	}
 
 	public void setGroup(final Group group) {
@@ -54,55 +54,54 @@ public class GroupGeneratorTest extends AspectJTest {
 
 	@Test
 	public void completionTest() {
-		DiscreetMonoid NaturalsWithZero = new Naturals();
+		final DiscreetMonoid NaturalsWithZero = new Naturals();
 	}
 
 	@Test
 	public void completionTest2() {
-		DiscreetMonoid multiplicativeMonoid = GroupGenerator.getInstance().getNaturals().getMuliplicativeMonoid();
-		DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(multiplicativeMonoid);
-		Element neutralElement = rationals.getNeutralElement();
+		final DiscreetMonoid multiplicativeMonoid = GroupGenerator.getInstance().getNaturals().getMuliplicativeMonoid();
+		final DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(multiplicativeMonoid);
+		final Element neutralElement = rationals.getNeutralElement();
 		for (double i = 1; i < 10; i++) {
-			Element tmp = rationals.get(i);
-			Element inverse = rationals.getInverseElement(tmp);
-			Element product = rationals.operation(tmp, inverse);
-			boolean ans = neutralElement.equals(product);
+			final Element tmp = rationals.get(i);
+			final Element inverse = rationals.getInverseElement(tmp);
+			final Element product = rationals.operation(tmp, inverse);
+			final boolean ans = neutralElement.equals(product);
 
 			Assert.assertTrue(ans);
 			System.out.println(
 					"rational: " + tmp + ", inverse: " + inverse + ", product: " + product + "," + " check: " + ans);
 		}
-		Element a = rationals.get(-5.);
-		Element b = rationals.get(15.);
+		final Element a = rationals.get(-5.);
+		final Element b = rationals.get(15.);
 		System.out.print(a + "" + b + "=");
 		System.out.println(rationals.operation(a, b));
 	}
 
 	@Test
 	public void integersTest() {
-		boolean addSameAsMult = four1.equals(four2);
-		boolean sumIsZero = getIntegers().addition(four1, minusFour).equals(zero); 
+		final boolean addSameAsMult = four1.equals(four2);
+		final boolean sumIsZero = getIntegers().addition(four1, minusFour).equals(zero);
 		Assert.assertTrue(addSameAsMult);
-		Assert.assertTrue(sumIsZero); 
+		Assert.assertTrue(sumIsZero);
 	}
 
 	@Test
 	public void fieldsTest() {
-		FieldElement newZero = getRationals().getNeutralElement();
-		FieldElement newOne = (FieldElement) getRationals().getMuliplicativeMonoid().getNeutralElement();
-		FieldElement newMinusOne = getRationals()
+		final FieldElement newZero = getRationals().getNeutralElement();
+		final FieldElement newOne = (FieldElement) getRationals().getMuliplicativeMonoid().getNeutralElement();
+		final FieldElement newMinusOne = getRationals()
 				.getInverseElement(getRationals().getMuliplicativeMonoid().getNeutralElement());
-		FieldElement newTwo = (FieldElement) getRationals().addition(newOne, newOne);
-		FieldElement newMinusTwo = (FieldElement) getRationals().multiplication(newTwo, newMinusOne);
-		FieldElement newFour = (FieldElement) getRationals().multiplication(newMinusTwo, newMinusTwo);
-		FieldElement half = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newTwo);
-		FieldElement quarter = (FieldElement) getRationals().getMuliplicativeMonoid()
-				.getInverseElement(newFour);
+		final FieldElement newTwo = (FieldElement) getRationals().addition(newOne, newOne);
+		final FieldElement newMinusTwo = (FieldElement) getRationals().multiplication(newTwo, newMinusOne);
+		final FieldElement newFour = (FieldElement) getRationals().multiplication(newMinusTwo, newMinusTwo);
+		final FieldElement half = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newTwo);
+		final FieldElement quarter = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newFour);
 		FieldElement var = (FieldElement) getRationals().multiplication(newOne, newOne);
 		FieldElement tmp;
 		FieldElement debugTmp;
 		for (int i = 1; i < 10; i++) {
-			debugTmp=(FieldElement) getRationals().multiplication(var, half);
+			debugTmp = (FieldElement) getRationals().multiplication(var, half);
 			tmp = getRationals().getInverseElement(debugTmp);
 			var = (FieldElement) getRationals().addition(var, tmp);
 			System.out.println(i + ": " + var.toString());
@@ -113,11 +112,11 @@ public class GroupGeneratorTest extends AspectJTest {
 	@Test
 	public void testBinField() {
 
-		PrimeField field = GroupGenerator.getInstance().getBinaries();
+		final PrimeField field = GroupGenerator.getInstance().getBinaries();
 		System.out.println(field.toXml());
- 
-		Element zero = field.getZero();
-		Element one = field.getOne();
+
+		final Element zero = field.getZero();
+		final Element one = field.getOne();
 		System.out.println("zero " + zero.toString() + ", one " + one.toString());
 
 		System.out.println("zero + zero: " + field.addition(zero, zero));

@@ -18,7 +18,7 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 	public ConcreteDistributionAspect() {
 		register();
 		setGenericName("DistributionAspect");
-		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, Map<String, Integer>>());
+		setThreadToOutputMap(new ConcurrentHashMap<Thread, Map<String, Integer>>());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -32,7 +32,7 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 			for (final String str : stats.keySet()) {
 				final Integer times = stats.get(str);
 				if (times != 0) {
-					String s = "<" + str + ">" + times + "</" + str + ">\r";
+					final String s = "<" + str + ">" + times + "</" + str + ">\r";
 					getBufferedWriter().write(s);
 					getBufferedWriter().flush();
 				}

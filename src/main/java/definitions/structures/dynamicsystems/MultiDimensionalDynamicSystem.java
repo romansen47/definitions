@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.dynamicsystems;
 
@@ -13,10 +13,10 @@ public interface MultiDimensionalDynamicSystem extends DynamicSystem {
 
 	/**
 	 * the phase space of the dynamic system.
-	 * 
+	 *
 	 * @return the phase space
 	 */
 	@Override
 	EuclideanSpace getPhaseSpace();
-	
+
 }

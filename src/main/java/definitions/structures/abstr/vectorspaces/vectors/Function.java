@@ -22,7 +22,7 @@ import solver.StdDraw;
 
 /**
  * Function.
- * 
+ *
  * @author ro
  *
  */
@@ -41,26 +41,26 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	Function one = new Constant(RealLine.getInstance().getOne()) {
 
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = -8277397177374734951L;
-		Field ownfield = this.getField();
+		Field ownfield = getField();
 
 		@Override
 		public Field getField() {
-			return this.ownfield;
+			return ownfield;
 		}
 
 		@Override
 		public void setRepresentant(Double representant) {
-			this.getConstantValue().setRepresentant(1.0);
+			getConstantValue().setRepresentant(1.0);
 		}
 
 	};
 
 	/**
 	 * Method to determine whether another function produces the same values.
-	 * 
+	 *
 	 * @param other  the other function.
 	 * @param source the source vector space.
 	 * @return the equality.
@@ -72,7 +72,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(((Scalar) this.value(this.getField().get(x))).getDoubleValue()
+			if (Math.abs(((Scalar) value(getField().get(x))).getDoubleValue()
 					- ((Scalar) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > eps) {
 				return false;
 			}
@@ -82,22 +82,21 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the coordinates of the projection onto a vector space.
-	 * 
+	 *
 	 * @param space the vector space.
 	 * @return the coordinates of the projection.
 	 */
 
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
+		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
 		if (coordinatesMap != null) {
 			if (coordinatesMap.get(space) != null) {
 				return coordinatesMap.get(space);
 			}
 		}
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		for (final Vector baseVec : space.genericBaseToList()) {
-			newCoordinates.put(baseVec, space.innerProduct(this, baseVec));
-		}
+		space.genericBaseToList().stream()
+				.forEach(baseVec -> newCoordinates.put(baseVec, space.innerProduct(this, baseVec)));
 		return newCoordinates;
 	}
 
@@ -105,18 +104,18 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the derivative of the function.
-	 * 
+	 *
 	 * @return the derivative.
 	 */
 	@Proceed
 	default Function getDerivative() {
-		final Field f = this.getField();
+		final Field f = getField();
 		if (derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
 
 				/**
-				 * 
+				 *
 				 */
 				private static final long serialVersionUID = 6392391542994394745L;
 
@@ -145,7 +144,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the derivative of the function.
-	 * 
+	 *
 	 * @return the derivative.
 	 */
 
@@ -156,7 +155,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the n-th derivative.
-	 * 
+	 *
 	 * @param n the derivative degree.
 	 * @return the n-th derivative of the function.
 	 */
@@ -179,7 +178,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the projection onto another space.
-	 * 
+	 *
 	 * @param source the vector space.
 	 * @return the projection.
 	 */
@@ -198,7 +197,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the projection of the derivative onto a vector space.
-	 * 
+	 *
 	 * @param space the vector space.
 	 * @return the projection of the derivative.
 	 */
@@ -236,7 +235,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Evaluation of the function.
-	 * 
+	 *
 	 * @param input the input parameter.
 	 * @return the image of the input.
 	 */

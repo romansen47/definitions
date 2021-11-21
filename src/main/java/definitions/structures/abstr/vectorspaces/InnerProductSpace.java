@@ -6,7 +6,7 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
- * 
+ *
  * @author RoManski
  *
  *         A hilbert space is a normed space where the norm is induced by a
@@ -16,7 +16,7 @@ public interface InnerProductSpace extends NormedSpace {
 
 	/**
 	 * the scalar product of two vectors.
-	 * 
+	 *
 	 * @param vec1 the first vector
 	 * @param vec2 the second vector
 	 * @return the scalar product of vec1 and vec2
@@ -28,18 +28,18 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	@Override
 	default Real norm(final Vector vec) {
-		return RealLine.getInstance().get(Math.sqrt(this.innerProduct(vec, vec).getDoubleValue()));
+		return RealLine.getInstance().get(Math.sqrt(innerProduct(vec, vec).getDoubleValue()));
 	}
 
 	/**
 	 * Method to project one vector onto another.
-	 * 
+	 *
 	 * @param w reference vector.
 	 * @param v projected vector.
 	 * @return projection of v on w.
 	 */
 	default Vector projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
+		return stretch(v, innerProduct(w, v));
 	}
 
 }

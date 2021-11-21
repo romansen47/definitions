@@ -4,7 +4,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 /**
  * Automorphism.
- * 
+ *
  * @author ro
  *
  */

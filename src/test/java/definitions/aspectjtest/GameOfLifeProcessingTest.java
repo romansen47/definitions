@@ -16,12 +16,12 @@ import processing.template.impl.Gui;
  */
 public class GameOfLifeProcessingTest extends Gui {
 
-	private static ApplicationContextAware springConfiguration=SpringConfiguration.getSpringConfiguration();
-	
+	private static ApplicationContextAware springConfiguration = SpringConfiguration.getSpringConfiguration();
+
 	@Test
 	public void testGameOfLifeOnProcessing() {
 		GameOfLifeProcessingTest.main(args);
-	}	
+	}
 
 	final private static int size = 15;
 	private FiniteVector initialCondition;
@@ -46,33 +46,34 @@ public class GameOfLifeProcessingTest extends Gui {
 		((Gui) newGameOfLife).run("definitions.aspectjtest.GameOfLifeProcessingTest");
 	}
 
-	private int generation=0;
+	private int generation = 0;
+
 	@Override
 	public void draw() {
 		tmp = (FiniteVector) tmpgol.getDefiningMapping().get(tmp);
-		this.clear();
+		clear();
 		this.background(255);
 		stroke(0);
 		final int squareSize = (height / size) / 2;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				int x = squareSize * (1 + 2 * i);
-				int y = squareSize * (1 + 2 * j);
-				if (!(tmp.getCoordinates().get(tmpgol.getCoordinates()
-						.get((size - j - 1) * size + i)) == tmpgol.getBinaries().getNeutralElement())) {
-					//fill(255);
+				final int x = squareSize * (1 + (2 * i));
+				final int y = squareSize * (1 + (2 * j));
+				if (!(tmp.getCoordinates().get(tmpgol.getCoordinates().get(((size - j - 1) * size) + i)) == tmpgol
+						.getBinaries().getNeutralElement())) {
+					// fill(255);
 //				} else {
 //					fill(0);
 //				}
-				rect(x, y, 2*squareSize, 2*squareSize);
+					rect(x, y, 2 * squareSize, 2 * squareSize);
 				}
 			}
 		}
 		fill(0);
-		text("generation: "+generation++,2*squareSize*size+50, size);
-		if (generation==lifetime) {
+		text("generation: " + generation++, (2 * squareSize * size) + 50, size);
+		if (generation == lifetime) {
 			Assert.assertTrue(true);
-			exit();
+//			exit();
 		}
 	}
 

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.abstr.algebra.fields.impl;
 
@@ -22,7 +22,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
- * 
+ *
  * @author ro
  *
  *         Implementation of the field of quaternion numbers as a singleton
@@ -58,44 +58,45 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 		final Scalar realOne = RealLine.getInstance().getOne();
 		final Scalar realZero = RealLine.getInstance().getZero();
-		this.dim = 4;
-		this.base = new ArrayList<>();
-		this.one = new Quaternion(realOne, realZero, realZero, realZero);
-		this.zero = new Quaternion(realZero, realZero, realZero, realZero);
-		this.i = new Quaternion(realZero, realOne, realZero, realZero);
-		this.j = new Quaternion(realZero, realZero, realOne, realZero);
-		this.k = new Quaternion(realZero, realZero, realZero, realOne);
-		this.base.add(this.one);
-		this.base.add(this.i);
-		this.base.add(this.j);
-		this.base.add(this.k);
-		this.assignOrthonormalCoordinates(this.base, this.getField());
+		dim = 4;
+		base = new ArrayList<>();
+		one = new Quaternion(realOne, realZero, realZero, realZero);
+		zero = new Quaternion(realZero, realZero, realZero, realZero);
+		i = new Quaternion(realZero, realOne, realZero, realZero);
+		j = new Quaternion(realZero, realZero, realOne, realZero);
+		k = new Quaternion(realZero, realZero, realZero, realOne);
+		base.add(one);
+		base.add(i);
+		base.add(j);
+		base.add(k);
+		assignOrthonormalCoordinates(base, getField());
 	}
 
 	@Override
 	public Quaternion addition(final Vector vec1, final Vector vec2) {
-		if (vec1 == this.nullVec()) {
+		if (vec1 == nullVec()) {
 			return (Quaternion) vec2;
 		}
-		if (vec2 == this.nullVec()) {
+		if (vec2 == nullVec()) {
 			return (Quaternion) vec1;
 		}
 		final Vector ans = super.addition(vec1, vec2);
-		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.i),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.j),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
+		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(one),
+				((FiniteVectorMethods) ans).getCoordinates().get(i),
+				((FiniteVectorMethods) ans).getCoordinates().get(j),
+				((FiniteVectorMethods) ans).getCoordinates().get(k));
 	}
 
 	@Override
 	public Scalar conjugate(final Scalar value) {
 		final Quaternion v = (Quaternion) value;
-		return new Quaternion(v.getReal().getDoubleValue(), -v.getI().getDoubleValue(), -v.getJ().getDoubleValue(), -v.getK().getDoubleValue());
+		return new Quaternion(v.getReal().getDoubleValue(), -v.getI().getDoubleValue(), -v.getJ().getDoubleValue(),
+				-v.getK().getDoubleValue());
 	}
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return vec instanceof Quaternion || vec == this.zero || vec == this.one || vec == null;
+		return (vec instanceof Quaternion) || (vec == zero) || (vec == one) || (vec == null);
 	}
 
 	@Override
@@ -107,21 +108,21 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	 * @return the i
 	 */
 	public Vector getI() {
-		return this.i;
-	} 
+		return i;
+	}
 
 	/**
 	 * @return the j
 	 */
 	public Vector getJ() {
-		return this.j;
+		return j;
 	}
 
 	/**
 	 * @return the k
 	 */
 	public Vector getK() {
-		return this.k;
+		return k;
 	}
 
 	/**
@@ -129,7 +130,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	 */
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
-		if (this.multiplicationMatrix == null) {
+		if (multiplicationMatrix == null) {
 
 			final Scalar realOne = RealLine.getInstance().getOne();
 			final Scalar realZero = RealLine.getInstance().getZero();
@@ -165,14 +166,14 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
-			newMap.put(this.one, oneHom);
-			newMap.put(this.i, iHom);
-			newMap.put(this.j, jHom);
-			newMap.put(this.k, kHom);
+			newMap.put(one, oneHom);
+			newMap.put(i, iHom);
+			newMap.put(j, jHom);
+			newMap.put(k, kHom);
 
-			this.setMultiplicationMatrix(newMap);
+			setMultiplicationMatrix(newMap);
 		}
-		return this.multiplicationMatrix;
+		return multiplicationMatrix;
 	}
 
 	@Override
@@ -182,7 +183,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public Quaternion getOne() {
-		return this.one;
+		return one;
 	}
 
 	@Override
@@ -197,16 +198,16 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public Quaternion nullVec() {
-		return this.zero;
+		return zero;
 	}
 
 	@Override
 	public Quaternion product(final Vector vec1, final Vector vec2) {
 //		return stretch(vec1,(Scalar)vec2);
 		return (Quaternion) Field.super.product(vec1, vec2);
-		
+
 	}
- 
+
 	public QuaternionSpace quaternionSpace() {
 		return new QuaternionSpace();
 	}
@@ -222,20 +223,20 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	@Override
 	public Quaternion stretch(final Vector vec1, final Scalar r) {
 		if (r instanceof Quaternion) {
-			return (Quaternion) super.innerProduct(vec1,r);
+			return (Quaternion) super.innerProduct(vec1, r);
 //			return this.product(vec1, r);
 		}
-		if (r == this.getField().getOne()) {
+		if (r == getField().getOne()) {
 			return (Quaternion) vec1;
 		}
-		if (r == this.getField().getZero()) {
-			return this.nullVec();
+		if (r == getField().getZero()) {
+			return nullVec();
 		}
 		final Vector ans = super.stretch(vec1, r);
-		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.i),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.j),
-				((FiniteVectorMethods) ans).getCoordinates().get(this.k));
+		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(one),
+				((FiniteVectorMethods) ans).getCoordinates().get(i),
+				((FiniteVectorMethods) ans).getCoordinates().get(j),
+				((FiniteVectorMethods) ans).getCoordinates().get(k));
 	}
 
 //	@Override
@@ -244,8 +245,8 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 //	}
 
 	@Override
-	public Element getMinusOne() { 
-		return new Quaternion(-1,0,0,0);
+	public Element getMinusOne() {
+		return new Quaternion(-1, 0, 0, 0);
 	}
 
 	@Override

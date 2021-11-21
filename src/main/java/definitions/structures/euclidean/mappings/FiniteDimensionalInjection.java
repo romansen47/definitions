@@ -4,7 +4,7 @@ import definitions.structures.abstr.mappings.VectorSpaceMonomorphism;
 
 /**
  * Injective mapping.
- * 
+ *
  * @author ro
  *
  */

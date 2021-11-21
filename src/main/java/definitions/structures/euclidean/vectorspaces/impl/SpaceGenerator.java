@@ -2,9 +2,10 @@ package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.io.Serializable;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apache.logging.log4j.Logger;
+
 import definitions.cache.MyCache;
 import definitions.settings.XmlPrintable;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
@@ -34,17 +35,17 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintab
 
 	@Override
 	public Logger getLogger() {
-		return this.logger;
+		return logger;
 	}
 
 	@Override
 	public MyCache getMyCache() {
-		return this.myCache;
+		return myCache;
 	}
 
 	@Override
 	public void setMyCache(final MyCache ans) {
-		this.myCache = ans;
+		myCache = ans;
 	}
 
 	@Override

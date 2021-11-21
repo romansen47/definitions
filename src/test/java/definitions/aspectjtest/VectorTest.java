@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
- 
+
 public class VectorTest extends AspectJTest {
 
 	@Test

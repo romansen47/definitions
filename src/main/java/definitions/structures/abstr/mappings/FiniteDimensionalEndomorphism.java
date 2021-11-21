@@ -5,12 +5,13 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
-	
+
 	/**
 	 * method to get the adjugate matrix
+	 *
 	 * @param matrix the input matrix
-	 * @param a column index
-	 * @param b row index
+	 * @param a      column index
+	 * @param b      row index
 	 * @return the adjugate at (i,j)=(a,b)
 	 */
 	default Scalar[][] adjugateMatrix(final Scalar[][] matrix, final int a, final int b) {
@@ -37,7 +38,7 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 
 	/**
 	 * Method to compute the determinant of the linear self mapping.
-	 * 
+	 *
 	 * @return the determinant
 	 */
 	default Scalar det(final Scalar[][] matrix) {
@@ -46,13 +47,13 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
-			final Scalar[][] adj = this.adjugateMatrix(matrix, i, 0);
+			final Scalar[][] adj = adjugateMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = ((EuclideanSpace) this.getSource()).getField()
-						.get(det.getDoubleValue() + this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue());
+				det = ((EuclideanSpace) getSource()).getField()
+						.get(det.getDoubleValue() + (det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
 			} else {
-				det = ((EuclideanSpace) this.getSource()).getField()
-						.get(det.getDoubleValue() - this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue());
+				det = ((EuclideanSpace) getSource()).getField()
+						.get(det.getDoubleValue() - (det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
 			}
 		}
 		return det;

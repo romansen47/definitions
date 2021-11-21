@@ -19,7 +19,7 @@ public abstract class Identity extends LinearMapping implements VectorSpaceIsomo
 	public VectorSpaceIsomorphism getInverse() {
 		return this;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

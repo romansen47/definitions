@@ -5,14 +5,14 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**
  * Constant function.
- * 
+ *
  * @author ro
  *
  */
 public abstract class Constant extends GenericFunction {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -8572553792866612998L;
 	/**
@@ -22,11 +22,11 @@ public abstract class Constant extends GenericFunction {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param value the constant value.
 	 */
 	public Constant(final Scalar value) {
-		this.constantValue = value;
+		constantValue = value;
 	}
 
 	/**
@@ -34,7 +34,7 @@ public abstract class Constant extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "constant " + this.getConstantValue() + "-function ";
+		return "constant " + getConstantValue() + "-function ";
 	}
 
 	/**
@@ -42,7 +42,7 @@ public abstract class Constant extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getConstantValue();
+		return getConstantValue();
 	}
 
 	public Scalar getConstantValue() {

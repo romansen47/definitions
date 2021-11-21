@@ -10,7 +10,7 @@ public interface DiscreetField extends DiscreetRing, Field {
 
 	/**
 	 * the operation on the monoid.
-	 * 
+	 *
 	 * @param first  first monoid element
 	 * @param second second monoid element
 	 * @return product of both of them
@@ -27,7 +27,7 @@ public interface DiscreetField extends DiscreetRing, Field {
 	default DiscreetGroup getMuliplicativeMonoid() {
 
 		final Vector newOne = this.getOne();
-		final Integer newOrder = this.getOrder();
+		final Integer newOrder = getOrder();
 
 		final DiscreetGroup multiplicativeGroup = new DiscreetGroup() {
 
@@ -61,9 +61,9 @@ public interface DiscreetField extends DiscreetRing, Field {
 
 			@Override
 			public Element get(Double representant) {
-				Vector ans=getZero();
-				for (int i=0;i<representant;i++) {
-					ans=addition(ans,getOne());
+				Vector ans = getZero();
+				for (int i = 0; i < representant; i++) {
+					ans = addition(ans, getOne());
 				}
 				return ans;
 			}
@@ -71,5 +71,5 @@ public interface DiscreetField extends DiscreetRing, Field {
 
 		return multiplicativeGroup;
 	}
-	
+
 }

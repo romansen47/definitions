@@ -7,16 +7,16 @@ public interface MonoidHomomorphism extends Element {
 
 	/**
 	 * Getter for the source space.
-	 * 
+	 *
 	 * @return the source space.
 	 */
 	Monoid getSource();
 
 	/**
 	 * Getter for the target space.
-	 * 
+	 *
 	 * @return the target space.
 	 */
 	Monoid getTarget();
-	
+
 }

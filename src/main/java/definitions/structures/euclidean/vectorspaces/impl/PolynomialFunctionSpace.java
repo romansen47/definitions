@@ -9,29 +9,29 @@ import definitions.structures.euclidean.vectors.impl.Monome;
 public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 4394456226881571619L;
 
 	protected PolynomialFunctionSpace(final Field field, final int maxDegree, final double right) {
 		super(field);
-		this.base = new ArrayList<>();
-		this.prepare(maxDegree, right);
+		base = new ArrayList<>();
+		prepare(maxDegree, right);
 	}
 
 	public PolynomialFunctionSpace(final Field field, final int maxDegree, final double right, final boolean ortho) {
 		this(field, maxDegree, right);
 		if (ortho) {
-			this.base = this.getOrthonormalBase(this.base);
+			base = getOrthonormalBase(base);
 		}
 	}
 
 	private void prepare(final int maxDegree, final double right) {
-		final Field f = this.getField();
-		this.interval = new double[] { -right, right };
-		this.base.clear();
+		final Field f = getField();
+		interval = new double[] { -right, right };
+		base.clear();
 		for (int i = 0; i < (maxDegree + 1); i++) {
-			this.base.add(new Monome(i) {
+			base.add(new Monome(i) {
 				private static final long serialVersionUID = -3227300408323170816L;
 
 				@Override
@@ -40,7 +40,7 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 				}
 			});
 		}
-		this.dim = this.base.size();
+		dim = base.size();
 	}
 
 }

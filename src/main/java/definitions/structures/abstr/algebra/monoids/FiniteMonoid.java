@@ -4,8 +4,6 @@ import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
 
 public interface FiniteMonoid extends DiscreetMonoid, FiniteSemiGroup {
 
-	
-	
 //	/**
 //	 * method to present the monoid.
 //	 */
@@ -27,5 +25,5 @@ public interface FiniteMonoid extends DiscreetMonoid, FiniteSemiGroup {
 //			System.out.println(ans);
 //		}
 //	}
- 
+
 }

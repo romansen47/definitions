@@ -11,9 +11,9 @@
 	</weaver>
 	<aspects>
 		<aspect name="definitions.cache.CachingAspect" />
+		<!--
 		<aspect name="customaspects.impl.ConcreteTestAspect" />
-		<aspect name="customaspects.impl.ConcreteProfilingAspect" />
-		<!-- <aspect name="DistributionCollector" /> <aspect name="PointcutSearch" 
+		<aspect name="customaspects.impl.ConcreteProfilingAspect" /> <aspect name="DistributionCollector" /> <aspect name="PointcutSearch" 
 			/> <aspect name="customaspects.impl.ConcreteDistributionAspect" /> -->
 	</aspects>
 </aspectj>

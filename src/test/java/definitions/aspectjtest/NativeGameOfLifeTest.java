@@ -20,7 +20,7 @@ public class NativeGameOfLifeTest extends Gui {
 		frameRate(100);
 	}
 
-	final private static int size = 500;
+	final private static int size = 100;
 	private boolean[][] initialCondition;
 	private int lifetime = 10000;
 
@@ -29,8 +29,8 @@ public class NativeGameOfLifeTest extends Gui {
 	private boolean[][] tmp = createRandomInitialCondition();
 
 	public boolean[][] createRandomInitialCondition() {
-		boolean[][] initialCondition = new boolean[size][size];
-		Random random = new Random();
+		final boolean[][] initialCondition = new boolean[size][size];
+		final Random random = new Random();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (random.nextBoolean()) {
@@ -50,7 +50,7 @@ public class NativeGameOfLifeTest extends Gui {
 	}
 
 	public boolean[][] doStep(boolean[][] vec) {
-		boolean[][] ans = new boolean[size][size];
+		final boolean[][] ans = new boolean[size][size];
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				ans[i][j] = willBeAlive(vec, i, j);
@@ -60,13 +60,13 @@ public class NativeGameOfLifeTest extends Gui {
 	}
 
 	private boolean willBeAlive(boolean[][] vec, int i, int j) {
-		int count = countNeighbours(vec, i, j);
+		final int count = countNeighbours(vec, i, j);
 		boolean ans = false;
 		if (vec[i][j] == false) {
 			if (count == 3) {
 				ans = true;
 			}
-		} else if (count == 2 || count == 3) {
+		} else if ((count == 2) || (count == 3)) {
 			ans = true;
 		}
 		return ans;
@@ -89,7 +89,7 @@ public class NativeGameOfLifeTest extends Gui {
 	}
 
 	private int isAlive(boolean[][] vec, int i, int j) {
-		boolean ans = vec[(i + size) % size][(j + size) % size];
+		final boolean ans = vec[(i + size) % size][(j + size) % size];
 		int toInt;
 		if (ans == false) {
 			toInt = 0;
@@ -100,7 +100,7 @@ public class NativeGameOfLifeTest extends Gui {
 	}
 
 	boolean first = true;
-	private int generation=0;
+	private int generation = 0;
 
 	@Override
 	public void draw() {
@@ -109,13 +109,13 @@ public class NativeGameOfLifeTest extends Gui {
 		} else {
 			tmp = doStep(tmp);
 		}
-		this.clear();
+		clear();
 		this.background(255);
 		final int squareSize = (height / size) / 2;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				int x = squareSize * (1 + 2 * i);
-				int y = squareSize * (1 + 2 * j);
+				final int x = squareSize * (1 + (2 * i));
+				final int y = squareSize * (1 + (2 * j));
 				if (tmp[j][i]) {
 					fill(255);
 				} else {
@@ -125,8 +125,8 @@ public class NativeGameOfLifeTest extends Gui {
 			}
 		}
 		stroke(1);
-		text("generation: "+ ++generation,squareSize * (3 + 2 * size),squareSize);
-		if (generation==lifetime) {
+		text("generation: " + ++generation, squareSize * (3 + (2 * size)), squareSize);
+		if (generation == lifetime) {
 			exit();
 		}
 	}

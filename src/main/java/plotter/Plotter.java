@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package plotter;
 
@@ -22,7 +22,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		this.preparePlot(fun, left, right, stddraw, count, delta);
+		preparePlot(fun, left, right, stddraw, count, delta);
 		double z = 0;
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
@@ -31,8 +31,9 @@ public interface Plotter {
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
 				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().get(z));
 				StdDraw.line(z, sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)).getDoubleValue(),
-						z + delta, ((FiniteVectorMethods) ((Function) fun).value(((Function) fun).getField().get(z + delta))).getCoordinates()
-								.get(vec).getDoubleValue());
+						z + delta,
+						((FiniteVectorMethods) ((Function) fun).value(((Function) fun).getField().get(z + delta)))
+								.getCoordinates().get(vec).getDoubleValue());
 			}
 		}
 
@@ -42,7 +43,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		this.preparePlot(fun1, left, right, stddraw, count, delta);
+		preparePlot(fun1, left, right, stddraw, count, delta);
 		Scalar tmp = ((Function) fun1).getField().get(left);
 		double alpha = ((Scalar) ((Function) fun1).value(tmp)).getDoubleValue();
 		double beta = ((Scalar) ((Function) fun2).value(tmp)).getDoubleValue();
@@ -61,13 +62,14 @@ public interface Plotter {
 			alpha = alphaNext;
 			beta = betaNext;
 		}
-		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(this.hashCode()) + ".png");
+		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(hashCode()) + ".png");
 	}
 
 	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,
 			final int count, final double delta) {
 		double x = 0;
-		double min = ((Scalar) ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.))).getDoubleValue();
+		double min = ((Scalar) ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)))
+				.getDoubleValue();
 		double max = min;
 		for (double i = 0; i < (count - 1); i += 1) {
 			x = left + (delta * i);

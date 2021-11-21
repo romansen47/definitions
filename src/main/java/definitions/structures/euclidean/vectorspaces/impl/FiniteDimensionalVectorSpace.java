@@ -16,7 +16,7 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
- * 
+ *
  * @author RoManski
  *
  *         Conrete implementation of a finite dimensional vector space.
@@ -41,45 +41,45 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	private Field field;
 
 	public FiniteDimensionalVectorSpace() {
-		this.setField(RealLine.getInstance());
+		setField(RealLine.getInstance());
 	}
 
 	/**
 	 * Plain constructor.
-	 * 
+	 *
 	 * @param field the basic field
 	 */
 	protected FiniteDimensionalVectorSpace(final Field field) {
-		this.setField(field);
+		setField(field);
 	}
 
 	/**
 	 * Generator using a linear independent set of vectors.
-	 * 
+	 *
 	 * @param genericBase the set of vectors.
-	 * @param field the basic field
+	 * @param field       the basic field
 	 */
 	public FiniteDimensionalVectorSpace(final Field field, final List<Vector> genericBase) {
-		this.setField(field);
-		this.dim = genericBase.size();
-		this.base = genericBase;
+		setField(field);
+		dim = genericBase.size();
+		base = genericBase;
 	}
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return ((vec instanceof Tuple) && (vec.getDim().equals(this.getDim())));
+		return ((vec instanceof Tuple) && (vec.getDim().equals(getDim())));
 	}
 
 	@Override
 	public List<Vector> genericBaseToList() {
-		return this.base;
+		return base;
 	}
 
 	@Override
 	public FiniteVector getCoordinates(final Vector vec) {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
-		for (final Vector baseVec : this.genericBaseToList()) {
-			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
+		for (final Vector baseVec : genericBaseToList()) {
+			coordinates.put(baseVec, innerProduct(vec, baseVec));
 		}
 		if (vec instanceof GenericFunction) {
 			return new FunctionTuple(coordinates, this);
@@ -89,26 +89,26 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	/**
 	 * Getter for the dimension.
-	 * 
+	 *
 	 * @return the dimension.
 	 */
 	@Override
 	public Integer getDim() {
-		return this.dim;
+		return dim;
 	}
 
 	@Override
 	public EuclideanSpace getDualSpace() {
-		if (this.dualSpace == null) {
-			this.dualSpace = new FunctionalSpace(this);
+		if (dualSpace == null) {
+			dualSpace = new FunctionalSpace(this);
 		}
-		return this.dualSpace;
+		return dualSpace;
 	}
 
 	@Override
 	@Proceed
 	public Field getField() {
-		return this.field;
+		return field;
 	}
 
 //	@Override
@@ -128,22 +128,23 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	@Override
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
-		for (final Vector vec : this.genericBaseToList()) {
-			coordinates.put(vec, (Scalar) this.getField().getZero());
+		for (final Vector vec : genericBaseToList()) {
+			coordinates.put(vec, (Scalar) getField().getZero());
 		}
 		/*
-		 * Direct usage of constructor instead of get method in order to avoid cycles. Don't touch this.
+		 * Direct usage of constructor instead of get method in order to avoid cycles.
+		 * Don't touch this.
 		 */
 		return new Tuple(coordinates);
 	}
 
 	/**
 	 * setter for the base.
-	 * 
+	 *
 	 * @param newBase the new base.
 	 */
 	public void setBase(final List<Vector> newBase) {
-		this.base = newBase;
+		base = newBase;
 	}
 
 	public void setField(final Field field) {
@@ -159,7 +160,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	public String toString() {
 		String ans = "";
 		try {
-			for (final Vector vec : this.genericBaseToList()) {
+			for (final Vector vec : genericBaseToList()) {
 				ans += vec.toString();
 			}
 		} catch (final Throwable e) {
@@ -171,13 +172,14 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
 	@Override
 	public String toXml() {
-		String ans = "<" + this.getClass() + ">";
+		final String clazz = this.getClass().toString().split("class ")[1];
+		String ans = "<" + clazz + ">\r";
 		ans += "<base>";
-		for (final Vector baseVec : this.genericBaseToList()) {
-			ans += "<baseVec>" + this.genericBaseToList().indexOf(baseVec) + "</baseVec>\r";
+		for (final Vector baseVec : genericBaseToList()) {
+			ans += "<baseVec>" + genericBaseToList().indexOf(baseVec) + "</baseVec>\r";
 		}
 		ans += "</base>";
-		ans = "</" + this.getClass().toString().split("class ")[1] + ">";
+		ans += "</" + clazz + ">";
 		return ans;
 	}
 

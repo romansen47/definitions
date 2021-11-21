@@ -7,14 +7,14 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**
  * Exponential function y=exp(a+b*x).
- * 
+ *
  * @author ro
  *
  */
 public abstract class ExponentialFunction extends GenericFunction {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1297369141413774111L;
 
@@ -29,13 +29,13 @@ public abstract class ExponentialFunction extends GenericFunction {
 	final private Scalar b;
 
 	public ExponentialFunction() {
-		this.a = RealZero.getZero();
-		this.b = RealLine.getInstance().getOne();
+		a = RealZero.getZero();
+		b = RealLine.getInstance().getOne();
 	}
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param a the parameter a.
 	 * @param b the parameter b.
 	 */
@@ -49,7 +49,7 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "x -> exp(" + this.a + "+" + this.b + "*x ";
+		return "x -> exp(" + a + "+" + b + "*x ";
 	}
 
 	/**
@@ -57,6 +57,6 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(Math.exp(this.a.getDoubleValue() + (this.b.getDoubleValue() * input.getDoubleValue())));
+		return getField().get(Math.exp(a.getDoubleValue() + (b.getDoubleValue() * input.getDoubleValue())));
 	}
 }

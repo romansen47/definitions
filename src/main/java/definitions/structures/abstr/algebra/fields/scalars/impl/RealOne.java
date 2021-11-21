@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.abstr.algebra.fields.scalars.impl;
 
@@ -31,7 +31,7 @@ public class RealOne extends Real {
 
 	public RealOne() {
 		super();
-		this.setValue(1d);
+		setValue(1d);
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package definitions.structures.abstr.algebra.groups;
 
 /**
- * 
+ *
  * @author ro
  *
  */

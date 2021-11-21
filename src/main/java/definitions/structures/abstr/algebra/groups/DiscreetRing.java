@@ -10,5 +10,5 @@ public interface DiscreetRing extends DiscreetGroup, DiscreetSemiRing, Ring {
 	default Element getMinusOne() {
 		return get(-1.0);
 	}
-	
+
 }

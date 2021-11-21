@@ -11,5 +11,5 @@ public interface MonoidEndomorphism extends MonoidHomomorphism {
 	default Monoid getTarget() {
 		return getSource();
 	}
-	
+
 }

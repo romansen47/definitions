@@ -9,14 +9,14 @@ public interface FiniteGroup extends FiniteMonoid, DiscreetGroup {
 
 	@Override
 	default Element getInverseElement(Element element) {
-		Map<Element,Element> operations=getOperationMap().get(element);
-		for(double i=1;i<getOrder();i++) {
-			Element ans=operations.get(get(i));
+		final Map<Element, Element> operations = getOperationMap().get(element);
+		for (double i = 1; i < getOrder(); i++) {
+			final Element ans = operations.get(get(i));
 			if (ans.equals(getNeutralElement())) {
 				return ans;
 			}
 		}
 		return null;
 	}
-	
+
 }

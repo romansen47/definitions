@@ -23,7 +23,8 @@ public interface FieldMethods extends XmlPrintable, Serializable {
 			for (final Vector vec2 : base) {
 				products[i][j] = (Scalar) field.product(vec1, vec2);
 				if (field instanceof RealLine) {
-					System.out.print((products[i][j].getDoubleValue() - (products[i][j].getDoubleValue() % 0.001)) + ",");
+					System.out
+							.print((products[i][j].getDoubleValue() - (products[i][j].getDoubleValue() % 0.001)) + ",");
 				} else {
 					System.out.print(products[i][j].toString() + ", ");
 				}

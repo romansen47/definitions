@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.aspectjtest;
 
@@ -22,7 +22,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  * @author RoManski
  *
  */
-public class FunctionTest extends AspectJTest{
+public class FunctionTest extends AspectJTest {
 
 	static final int trigonometricDegree = 20;
 	static final int sobolevDegree = 20;
@@ -72,17 +72,17 @@ public class FunctionTest extends AspectJTest{
 		final EuclideanSpace space = trigSpace;
 		final Function newSine = sine.getProjection(space);
 
-		for (int i = 0; 4 * i < derivativeDegree; i++) {
-			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 1));
+		for (int i = 0; (4 * i) < derivativeDegree; i++) {
+			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 1));
 			cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
 
-			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 2));
+			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 2));
 			trigSpace.stretch(sine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
 
-			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 3));
+			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 3));
 			trigSpace.stretch(cosine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
 
-			highDerivative = ((Function) derivativeBuilder.get(newSine, 4 * i + 4));
+			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 4));
 			sine.plotCompare(-Math.PI, Math.PI, highDerivative);
 		}
 

@@ -6,7 +6,7 @@ public interface DiscreetSemiRing extends DiscreetMonoid, SemiRing {
 
 	/**
 	 * Getter for the multiplicative monoid of the ring.
-	 * 
+	 *
 	 * @return the multiplicative monoid of the ring
 	 */
 	@Override

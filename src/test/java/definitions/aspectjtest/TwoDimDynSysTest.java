@@ -23,20 +23,20 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 @SuppressWarnings("serial")
 public class TwoDimDynSysTest extends AspectJTest {
 
-	final int duration=1000;
+	final int duration = 1000;
 	final EuclideanSpace complexPhaseSpace = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
 	final EuclideanSpace realPhaseSpace = getSpaceGenerator().getFiniteDimensionalVectorSpace(2);
 
-	final Complex complexInitialCondition = ((ComplexPlane) complexPhaseSpace).get(0.9,0.1);
+	final Complex complexInitialCondition = ((ComplexPlane) complexPhaseSpace).get(0.9, 0.1);
 	final Vector realInitialCondition = realPhaseSpace.genericBaseToList().get(0);
 
 	final VectorSpaceSelfMapping complexMapping = new VectorSpaceSelfMapping() {
 
 		@Override
 		public Element get(Element vec) {
-			double a=((Complex) vec).getReal().getDoubleValue();
-			double b=((Complex) vec).getImag().getDoubleValue();
-			Element newVec = getComplexPlane().get(a-a*a,b);
+			final double a = ((Complex) vec).getReal().getDoubleValue();
+			final double b = ((Complex) vec).getImag().getDoubleValue();
+			final Element newVec = getComplexPlane().get(a - (a * a), b);
 			return getComplexPlane().multiplication(newVec,
 					getComplexPlane().multiplication(getComplexPlane().getMinusOne(), getComplexPlane().getI()));
 		}
@@ -64,14 +64,14 @@ public class TwoDimDynSysTest extends AspectJTest {
 
 	@Test
 	public void complexDynamicSystemTest() {
-		List<Complex> list = new ArrayList<>();
+		final List<Complex> list = new ArrayList<>();
 		list.add(complexInitialCondition);
 		Complex last;
 		for (int i = 0; i < duration; i++) {
 			last = list.get(list.size() - 1);
 			list.add((Complex) complexSystem.getEvolutionOperator(getIntegers().get((double) i)).get(last));
 		}
-		Function test = new GenericFunction() {
+		final Function test = new GenericFunction() {
 
 			@Override
 			public Field getField() {
@@ -80,7 +80,7 @@ public class TwoDimDynSysTest extends AspectJTest {
 
 			@Override
 			public Vector value(Scalar input) {
-				return list.get((int) (duration/2 * (1 + input.getDoubleValue() / Math.PI))).getReal();
+				return list.get((int) ((duration / 2) * (1 + (input.getDoubleValue() / Math.PI)))).getReal();
 			}
 
 		};

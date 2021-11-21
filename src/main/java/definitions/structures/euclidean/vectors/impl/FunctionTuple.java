@@ -16,7 +16,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotter;
 
 /**
- * 
+ *
  * @author RoManski
  *
  */
@@ -28,8 +28,8 @@ public class FunctionTuple extends Tuple implements Function {
 
 	public FunctionTuple(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		super(coordinates);
-		this.coordinatesMap.put(space, coordinates);
-		this.field = space.getField();
+		coordinatesMap.put(space, coordinates);
+		field = space.getField();
 	}
 
 	public FunctionTuple(final Scalar[] coordinates, final Field field) {
@@ -42,13 +42,13 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
-		return this.coordinatesMap;
+		return coordinatesMap;
 	}
 
 	public LinearMapping getDerivative(final VectorSpace space) {
 		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
 			/**
-			 * 
+			 *
 			 */
 			private static final long serialVersionUID = 8910643729270807923L;
 
@@ -69,7 +69,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public Field getField() {
-		return this.field;
+		return field;
 	}
 
 	/**
@@ -98,15 +98,15 @@ public class FunctionTuple extends Tuple implements Function {
 
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-		this.coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
+		coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
 	}
 
 	@Override
 	public Scalar value(final Scalar input) {
-		Scalar ans = (Scalar) this.getField().getZero();
+		Scalar ans = (Scalar) getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans = (Scalar) this.getField().addition(ans,
-					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
+			ans = (Scalar) getField().addition(ans,
+					getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
 		}
 		return ans;
 	}

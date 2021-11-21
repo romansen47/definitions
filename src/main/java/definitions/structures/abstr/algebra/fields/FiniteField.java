@@ -10,7 +10,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  *
  */
 public interface FiniteField extends DiscreetField, FiniteRing {
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -26,9 +26,9 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 	default FieldElement product(final Vector vec1, final Vector vec2) {
 		Element ans = DiscreetField.super.product(vec1, vec2);
 		if (ans == null) {
-			ans = this.getMuliplicativeMonoid().operation(vec1, vec2);
+			ans = getMuliplicativeMonoid().operation(vec1, vec2);
 		}
-		return (FieldElement)ans;
+		return (FieldElement) ans;
 	}
 
 	/**
@@ -37,11 +37,11 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 	@Override
 	default String toXml() {
 		String xmlString = "<FiniteField>";
-		xmlString += "<characteristic>" + this.getCharacteristic() + "</characteristic>";
-		if (this.getPrimeField() == this) {
+		xmlString += "<characteristic>" + getCharacteristic() + "</characteristic>";
+		if (getPrimeField() == this) {
 			xmlString += "<isPrimeField>yes</isPrimeField>";
 		} else {
-			xmlString += "<primeField>" + this.getPrimeField().toXml() + "</primeField>";
+			xmlString += "<primeField>" + getPrimeField().toXml() + "</primeField>";
 		}
 		return xmlString;
 	}

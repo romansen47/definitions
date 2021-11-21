@@ -7,10 +7,9 @@ public class GameOfLifeConstructedBinaries extends GameOfLife {
 
 	public GameOfLifeConstructedBinaries(int size) {
 		super(size);
-		this.binaries = Generator.getInstance().getGroupGenerator().getConstructedBinaries();
-		this.grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.binaries,
-				size * size);
-		this.coordinates = grid.genericBaseToList();
+		binaries = Generator.getInstance().getGroupGenerator().getConstructedBinaries();
+		grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(binaries, size * size);
+		coordinates = grid.genericBaseToList();
 	}
 
 }

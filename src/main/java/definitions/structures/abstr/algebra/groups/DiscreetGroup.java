@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.structures.abstr.algebra.groups;
 
@@ -15,7 +15,7 @@ public interface DiscreetGroup extends DiscreetMonoid, Group {
 	/**
 	 * In a discreet monoid we have countably many elements and can define a getter
 	 * for integers.
-	 * 
+	 *
 	 * @param representant the representant of the element.
 	 * @return the corresponding monoid element.
 	 */

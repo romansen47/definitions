@@ -8,7 +8,7 @@ public interface Plotable extends Serializable {
 
 	/**
 	 * Method to plot the function.
-	 * 
+	 *
 	 * @param left  the left.
 	 * @param right the right.
 	 */
@@ -16,7 +16,7 @@ public interface Plotable extends Serializable {
 
 	/**
 	 * Method to plot the function against another function.
-	 * 
+	 *
 	 * @param left  the left.
 	 * @param right the right.
 	 * @param fun   the other function.

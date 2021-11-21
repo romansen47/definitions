@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package exceptions;
 
@@ -12,7 +12,7 @@ import definitions.settings.XmlPrintable;
 public class MathException extends java.lang.Exception implements exceptions.Exception, XmlPrintable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	final private String message;
@@ -27,7 +27,7 @@ public class MathException extends java.lang.Exception implements exceptions.Exc
 
 	@Override
 	public String getMessage() {
-		return this.message;
+		return message;
 	}
 
 	@Override

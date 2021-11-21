@@ -24,31 +24,31 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	private DynamicSystem dinamicSystem;
 	private Vector startVector;
 	private final int iterations = 21;
- 
+
 	@Before
 	public void beforeTest() {
-		this.timeSpace = getIntegers();// new Naturals(); 
+		timeSpace = getIntegers();// new Naturals();
 	}
 
 	/**
 	 * @return the dinamicSystem
 	 */
 	public DynamicSystem getDinamicSystem() {
-		return this.dinamicSystem;
+		return dinamicSystem;
 	}
 
 	/**
 	 * @return the phasespace
 	 */
 	public VectorSpace getPhasespace() {
-		return this.phaseSpace;
+		return phaseSpace;
 	}
 
 	/**
 	 * @return the timespace
 	 */
 	public Group getTimespace() {
-		return this.timeSpace;
+		return timeSpace;
 	}
 
 	/**
@@ -60,10 +60,10 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	@Test
 	public void testExponentialLaw() {
-		this.phaseSpace = RealLine.getInstance();
-		this.startVector = ((RealLine) phaseSpace).get(1.);
+		phaseSpace = RealLine.getInstance();
+		startVector = ((RealLine) phaseSpace).get(1.);
 
-		this.dinamicSystem = new DynamicSystem() {
+		dinamicSystem = new DynamicSystem() {
 
 			@Override
 			public VectorSpace getPhaseSpace() {
@@ -88,23 +88,23 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 			}
 
 		};
-		Vector vec = this.startVector;
+		final Vector vec = startVector;
 		Element tmp;
-		Element ans;
+		final Element ans;
 		VectorSpaceMapping evolutionOp;
-		for (double i = 0; i < this.iterations; i++) {
-			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
-			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
+		for (double i = 0; i < iterations; i++) {
+			tmp = ((DiscreetMonoid) timeSpace).get(i);
+			evolutionOp = dinamicSystem.getEvolutionOperator(tmp);
 			getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get(vec)).toXml());
 		}
 	}
 
 	@Test
 	public void testFibbonacciLaw() {
-		this.phaseSpace = ComplexPlane.getInstance();
-		this.startVector = ((ComplexPlane) phaseSpace).get(1, 1);
+		phaseSpace = ComplexPlane.getInstance();
+		startVector = ((ComplexPlane) phaseSpace).get(1, 1);
 
-		this.dinamicSystem = new DynamicSystem() {
+		dinamicSystem = new DynamicSystem() {
 
 			@Override
 			public VectorSpace getPhaseSpace() {
@@ -118,7 +118,8 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 					@Override
 					public Element get(Element vec) {
 						return ((ComplexPlane) getPhaseSpace()).get(((Complex) vec).getImag().getDoubleValue(),
-								RealLine.getInstance().addition(((Complex) vec).getReal(), ((Complex) vec).getImag()).getDoubleValue());
+								RealLine.getInstance().addition(((Complex) vec).getReal(), ((Complex) vec).getImag())
+										.getDoubleValue());
 					}
 
 					@Override
@@ -130,22 +131,22 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 			}
 
 		};
-		Vector vec = this.startVector;
+		final Vector vec = startVector;
 		Element tmp;
-		Element ans;
+		final Element ans;
 		VectorSpaceMapping evolutionOp;
-		for (double i = 0; i < this.iterations; i++) {
-			tmp = ((DiscreetMonoid) this.timeSpace).get(i);
-			evolutionOp = this.dinamicSystem.getEvolutionOperator(tmp);
-			Complex toComplex = (Complex) evolutionOp.get(vec);
-			Real real=(Real) toComplex.getReal();
-			Real imag=(Real) toComplex.getImag();
-			String comp=real.toString();
-			if (imag.getDoubleValue()>0) {
-				comp+=" + "+imag.getDoubleValue()+"*i";
+		for (double i = 0; i < iterations; i++) {
+			tmp = ((DiscreetMonoid) timeSpace).get(i);
+			evolutionOp = dinamicSystem.getEvolutionOperator(tmp);
+			final Complex toComplex = (Complex) evolutionOp.get(vec);
+			final Real real = (Real) toComplex.getReal();
+			final Real imag = (Real) toComplex.getImag();
+			String comp = real.toString();
+			if (imag.getDoubleValue() > 0) {
+				comp += " + " + imag.getDoubleValue() + "*i";
 			}
-			if (imag.getDoubleValue()<0) {
-				comp+=" - "+Math.abs(imag.getDoubleValue())+"*i";
+			if (imag.getDoubleValue() < 0) {
+				comp += " - " + Math.abs(imag.getDoubleValue()) + "*i";
 			}
 			System.out.println(i + ": " + comp);
 		}

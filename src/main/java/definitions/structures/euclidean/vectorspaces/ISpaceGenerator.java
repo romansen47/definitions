@@ -162,7 +162,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right, final int degree, final boolean ortho) {
-		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(genericBase.hashCode());
+		final EuclideanSpace space = getMyCache().getConcreteCache().get(genericBase.hashCode());
 		final EuclideanFunctionSpace funSpace = (EuclideanFunctionSpace) space;
 		if ((space != null) && (funSpace instanceof FiniteDimensionalSobolevSpace)
 				&& (funSpace.getInterval()[0] == left) && (funSpace.getInterval()[1] == right)) {
@@ -176,7 +176,7 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getFiniteDimensionalVectorSpaceAsProduct(final Field field, final int dim) {
 		EuclideanSpace ans = field;
 		for (int i = 1; i < dim; i++) {
-			ans = this.getOuterProduct(ans, field);
+			ans = getOuterProduct(ans, field);
 		}
 		return ans;
 	}
@@ -212,7 +212,7 @@ public interface ISpaceGenerator {
 
 	default VectorSpace getPolynomialSobolevSpace(final Field field, final int maxDegree, final double right,
 			final int degree) {
-		final EuclideanFunctionSpace polynoms = this.getPolynomialFunctionSpace(field, maxDegree, right, false);
+		final EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
 		final VectorSpace ans = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
 		((FiniteDimensionalVectorSpace) ans)
 				.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
@@ -225,14 +225,14 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
 			throws Exception {
-		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
+		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
 		if (space != null) {
-			this.getLogger().info("Successfully restored from cache! " + (2 * n + 1)
+			getLogger().info("Successfully restored from cache! " + ((2 * n) + 1)
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
 		@SuppressWarnings("serial")
-		final EuclideanSpace newSpace = this.extend(this.getTrigonometricSpace(f, n, right),
+		final EuclideanSpace newSpace = extend(this.getTrigonometricSpace(f, n, right),
 				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine) f).get(1. / Math.sqrt(2 * Math.PI))) {
 					@Override
 					public Field getField() {
@@ -243,10 +243,10 @@ public interface ISpaceGenerator {
 					public void setRepresentant(Double representant) {
 					}
 				});
-		this.getMyCache().getConcreteCache().put(n, newSpace);
+		getMyCache().getConcreteCache().put(n, newSpace);
 		System.out.println(
-				"Saved " + (2 * n + 1) + "-dimensional trigonometric space equipped with linear functions to cache!");
-		return this.getMyCache().getConcreteCache().get(n);
+				"Saved " + ((2 * n) + 1) + "-dimensional trigonometric space equipped with linear functions to cache!");
+		return getMyCache().getConcreteCache().get(n);
 
 	}
 
@@ -255,7 +255,7 @@ public interface ISpaceGenerator {
 			return this.getTrigonometricSpace(field, n);
 		}
 		final EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(field, n, -Math.PI, Math.PI, degree);
-		this.createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
+		createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
 		return ans;
 	}
 
@@ -263,7 +263,7 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(final Field f, final int sobolevDegree,
 			final double right, final int fourierDegree) throws Exception {
 
-		return this.extend(this.getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
+		return extend(getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
 
 			@Override
 			public Field getField() {
@@ -295,10 +295,10 @@ public interface ISpaceGenerator {
 			return null;
 		}
 
-		EuclideanSpace product = new EuclideanSpace() {
+		final EuclideanSpace product = new EuclideanSpace() {
 
 			/**
-			 * 
+			 *
 			 */
 			private static final long serialVersionUID = -8654223590653694820L;
 			final protected EuclideanSpace outerThis = this;
@@ -314,14 +314,14 @@ public interface ISpaceGenerator {
 
 				@Override
 				public String toXml() {
-					return left.toXml()+right.toXml();
+					return left.toXml() + right.toXml();
 				}
-				
+
 				@Override
 				public String toString() {
 					return toXml();
 				}
-				
+
 				final private Vector left;
 				final private Vector right;
 				private Map<Vector, Scalar> coordinates;
@@ -355,15 +355,15 @@ public interface ISpaceGenerator {
 				public Map<Vector, Scalar> getCoordinates() {
 					if (coordinates == null) {
 						coordinates = new ConcurrentHashMap<>();
-						for (Vector vec : genericBaseToList()) {
-							FiniteVector tmpLeft = (FiniteVector) ((ProductVector) vec).left;
-							FiniteVector tmpRight = (FiniteVector) ((ProductVector) vec).right;
+						for (final Vector vec : genericBaseToList()) {
+							final FiniteVector tmpLeft = (FiniteVector) ((ProductVector) vec).left;
+							final FiniteVector tmpRight = (FiniteVector) ((ProductVector) vec).right;
 							Scalar val;
 							if (tmpRight.equals(second.nullVec())) {
-								Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft()).getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft()).getCoordinates();
 								val = tmpMap.get(tmpLeft);
 							} else {
-								Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight()).getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight()).getCoordinates();
 								val = tmpMap.get(tmpRight);
 							}
 							coordinates.put(vec, val);

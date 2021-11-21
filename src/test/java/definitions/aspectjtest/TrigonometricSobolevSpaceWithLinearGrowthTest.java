@@ -11,53 +11,54 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
-	/*
-	 * correct derivative computing algorithm here due to identity
-	 */
-
-	private int sobolevDegree = 3;
+	private int sobolevDegree = 1;
 	private final int trigDegree = 5;
 
 	public int getSobolevDegree() {
-		return this.sobolevDegree;
+		return sobolevDegree;
 	}
 
 	private void setSobolevDegree(final int degree) {
-		this.sobolevDegree = degree;
+		sobolevDegree = degree;
 	}
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 
-		this.setTrigonometricDegree(this.trigDegree);
-		this.setSobolevDegree(this.sobolevDegree);
+		setTrigonometricDegree(trigDegree);
+		setSobolevDegree(sobolevDegree);
 
-		this.setField(getRealLine());
+		setField(getRealLine());
 		super.setUp();
-		this.setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(getRealLine(),
-				this.getSobolevDegree(), Math.PI, this.getTrigonometricDegree()));
+		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(getRealLine(),
+				getSobolevDegree(), Math.PI, getTrigonometricDegree()));
 
 	}
 
 	@Test
 	public void test1() {
-		final Function staircaseFunctionProjection = this.getStaircaseFunction()
-				.getProjection(this.getTrigonometricSpace());
-		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunctionProjection);
+		final Function staircaseFunctionProjection = getStaircaseFunction().getProjection(getTrigonometricSpace());
+		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunctionProjection);
 	}
-	
+
 	@Test
 	public void test2() {
 		final Function absolute = new GenericFunction() {
+
+			/**
+			 *
+			 */
 			private static final long serialVersionUID = -5009775881103765610L;
+
 			@Override
 			public Scalar value(Scalar input) {
-				double x=input.getDoubleValue();
+				final double x = input.getDoubleValue();
 				return RealLine.getInstance().get(Math.abs(x));
 			}
+
 		};
-		final Function projectionOfAbsolute = absolute.getProjection(this.getTrigonometricSpace());
+		final Function projectionOfAbsolute = absolute.getProjection(getTrigonometricSpace());
 		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
 	}
 

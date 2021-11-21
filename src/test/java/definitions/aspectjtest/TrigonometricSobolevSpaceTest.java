@@ -14,55 +14,54 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	private int sobolevDegree;
 
 	public int getSobolevDegree() {
-		return this.sobolevDegree;
+		return sobolevDegree;
 	}
 
 	private void setSobolevDegree(final int degree) {
-		this.sobolevDegree = degree;
+		sobolevDegree = degree;
 	}
 
 	@Override
 	@Before
 	public void setUp() throws Exception {
 
-		this.setTrigonometricDegree(50);
-		this.setSobolevDegree(3);
+		setTrigonometricDegree(7);
+		setSobolevDegree(0);
 
-		this.setField(getRealLine());
+		setField(getRealLine());
 		super.setUp();
-		this.setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(),
-				this.getTrigonometricDegree(), this.getSobolevDegree()));
+		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(), getTrigonometricDegree(),
+				getSobolevDegree()));
 
 	}
 
 	@Test
 	public void test1() {
-		final Function staircaseFunction1Projection = this.getStaircaseFunction()
-				.getProjection(this.getTrigonometricSpace());
-		this.getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
+		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
 	}
 
 	@Test
 	public void testOnContinuousFunction() throws Exception {
-		Function h = new GenericFunction() {
+		final Function h = new GenericFunction() {
 			/**
-			 * 
+			 *
 			 */
 			private static final long serialVersionUID = 3842946945322219375L;
 
 			@Override
 			public Scalar value(Scalar input) {
-				Double inputValue = input.getRepresentant();
-				double abs = Math.abs(Math.sin(inputValue) * Math.cos(inputValue)-0.25);
+				final Double inputValue = input.getRepresentant();
+				final double abs = Math.abs((Math.sin(inputValue) * Math.cos(inputValue)) - 0.25);
 				return RealLine.getInstance().get(abs);
 			}
 		};
 		Function hProjection;
 		for (int i = 0; i < 5; i++) {
-			this.setSobolevDegree(i);
-			this.setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(),
-					this.getTrigonometricDegree(), this.getSobolevDegree()));
-			hProjection = h.getProjection(this.getTrigonometricSpace());
+			setSobolevDegree(i);
+			setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(),
+					getTrigonometricDegree(), getSobolevDegree()));
+			hProjection = h.getProjection(getTrigonometricSpace());
 			h.plotCompare(-Math.PI, Math.PI, hProjection);
 		}
 	}

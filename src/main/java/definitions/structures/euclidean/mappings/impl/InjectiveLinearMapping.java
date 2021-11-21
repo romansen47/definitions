@@ -10,20 +10,20 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * Implementation of finite dimensional embedding.
- * 
+ *
  * @author ro
  *
  */
 public class InjectiveLinearMapping extends FiniteDimensionalLinearMapping implements FiniteDimensionalInjection {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -5351009863618913969L;
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param source      the source vector space.
 	 * @param target      the target vector space.
 	 * @param coordinates the coordinates mapping.
@@ -35,7 +35,7 @@ public class InjectiveLinearMapping extends FiniteDimensionalLinearMapping imple
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param mapping the casted finite dimensional homomorphism.
 	 */
 	protected InjectiveLinearMapping(final FiniteDimensionalHomomorphism mapping) {

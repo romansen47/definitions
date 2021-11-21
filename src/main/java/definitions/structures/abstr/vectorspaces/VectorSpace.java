@@ -9,9 +9,9 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
- * 
+ *
  * @author RoManski
- * 
+ *
  *         We consider real vector spaces. A vector space is a non-empty
  *         collection of 'things', which can be added and streched.
  */
@@ -19,7 +19,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 
 	/**
 	 * Addition of vectors.
-	 * 
+	 *
 	 * @param vec1 summand a.
 	 * @param vec2 summand b.
 	 * @return the addition of a and b.
@@ -30,7 +30,7 @@ public interface VectorSpace extends Group, XmlPrintable {
 
 	/**
 	 * vector spaces are defined over fields.
-	 * 
+	 *
 	 * @return the field
 	 */
 	Field getField();
@@ -43,8 +43,8 @@ public interface VectorSpace extends Group, XmlPrintable {
 		if (element.equals(getNeutralElement())) {
 			return (Vector) element;
 		}
-		final Field field = this.getField();
-		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+		final Field field = getField();
+		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
 
 	/**
@@ -65,14 +65,14 @@ public interface VectorSpace extends Group, XmlPrintable {
 
 	/**
 	 * Scalar Multiplication by real numbers.
-	 * 
+	 *
 	 * @param vec1 the vector to stretch.
 	 * @param r    the factor.
 	 * @return the stretched vector.
 	 */
-	default	Vector stretch(Vector vec1, Scalar r) {
-		FieldElement zero = getField().getNeutralElement();
-		FieldElement one = getField().getOne();
+	default Vector stretch(Vector vec1, Scalar r) {
+		final FieldElement zero = getField().getNeutralElement();
+		final FieldElement one = getField().getOne();
 		if (r.equals(zero)) {
 			return (Vector) getNeutralElement();
 		}

@@ -8,7 +8,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 public abstract class LinearFunction extends GenericFunction {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1217714308801686785L;
 	final Scalar a;
@@ -24,9 +24,9 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "x -> " + this.a + "+" + this.b + "*x ";
+		return "x -> " + a + "+" + b + "*x ";
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -40,7 +40,7 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(this.a.getDoubleValue() + (this.b.getDoubleValue() * input.getDoubleValue()));
+		return getField().get(a.getDoubleValue() + (b.getDoubleValue() * input.getDoubleValue()));
 	}
 
 }

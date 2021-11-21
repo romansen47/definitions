@@ -1,10 +1,11 @@
 /**
- * 
+ *
  */
 package definitions.structures.abstr.algebra.fields.scalars.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,7 +34,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 
 	@XmlElement
 	private Double representant;
-	
+
 	@Override
 	public Double getRepresentant() {
 		return representant;
@@ -45,7 +46,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
 	public Real() {
-		this.representant = 0d;
+		representant = 0d;
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public double doubleValue() {
-		return this.getDoubleValue();
+		return getDoubleValue();
 	}
 
 //	public Real(double value) {
@@ -73,7 +74,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return (vec instanceof Real && Math.abs(((Real) vec).getDoubleValue() - this.getDoubleValue()) < this.eps);
+		return ((vec instanceof Real) && (Math.abs(((Real) vec).getDoubleValue() - getDoubleValue()) < eps));
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public float floatValue() {
-		return (float) this.getDoubleValue();
+		return (float) getDoubleValue();
 	}
 
 	/**
@@ -89,11 +90,11 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		if (this.coordinates == null) {
-			this.coordinates = new HashMap<>();
-			this.coordinates.put(RealLine.getInstance().getOne(), this);
+		if (coordinates == null) {
+			coordinates = new HashMap<>();
+			coordinates.put(RealLine.getInstance().getOne(), this);
 		}
-		return this.coordinates;
+		return coordinates;
 	}
 
 	/**
@@ -119,7 +120,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@Override
 	@XmlAttribute
 	public double getDoubleValue() {
-		return this.representant;
+		return representant;
 	}
 
 	/**
@@ -127,7 +128,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public int intValue() {
-		return (int) this.getDoubleValue();
+		return (int) getDoubleValue();
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public long longValue() {
-		return (long) this.getDoubleValue();
+		return (long) getDoubleValue();
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	}
 
 	public void setValue(final double value) {
-		this.representant = value;
+		representant = value;
 	}
 
 	// @Override
@@ -174,7 +175,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "" + this.getDoubleValue();
+		return "" + getDoubleValue();
 	}
 
 	/**
@@ -182,11 +183,11 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public String toXml() {
-		return "<real value=\"" + Double.toString(this.representant) + "\" />\r";
+		return "<real value=\"" + Double.toString(representant) + "\" />\r";
 	}
 
 	@Override
 	public void setRepresentant(Double representant) {
-		this.representant=representant;
+		this.representant = representant;
 	}
 }

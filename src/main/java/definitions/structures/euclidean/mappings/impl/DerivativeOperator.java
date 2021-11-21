@@ -21,9 +21,9 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
-		this.linearity = new HashMap<>();
-		this.fillCoordinates(source, target);
-		this.getGenericMatrix();
+		linearity = new HashMap<>();
+		fillCoordinates(source, target);
+		getGenericMatrix();
 	}
 
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
@@ -35,15 +35,15 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 		for (final Vector baseVec : source.genericBaseToList()) {
 			final Function derivative = ((Function) baseVec).getDerivative();
 			final Map<Vector, Scalar> derivativeOnSpace = derivative.getCoordinates(target);
-			this.linearity.put(baseVec, derivativeOnSpace);
+			linearity.put(baseVec, derivativeOnSpace);
 		}
 	}
-	
+
 	@Override
 	public Vector get(final Element vec) {
 		return super.get(vec);
 	}
-	
+
 	public Vector get(final Vector vec, final int degree) {
 		if (degree < 0) {
 			return null;
@@ -56,12 +56,12 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 			if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 				return (this.get(vec));
 			}
-			return ((Function) this.get(vec)).getProjection((EuclideanSpace) this.getSource());
+			return ((Function) this.get(vec)).getProjection((EuclideanSpace) getSource());
 		}
 		if (vec instanceof FunctionTuple) {
 			return this.get(this.get(vec), degree - 1);
 		}
-		Vector test = ((Function) vec).getProjection((EuclideanSpace) this.getSource());
+		Vector test = ((Function) vec).getProjection((EuclideanSpace) getSource());
 		for (int i = 0; i < degree; i++) {
 			test = this.get(test);
 		}
@@ -72,7 +72,7 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 	 * @return the cachedDerivatives
 	 */
 	public Map<Vector, Map<Integer, Vector>> getCachedDerivatives() {
-		return this.cachedDerivatives;
+		return cachedDerivatives;
 	}
 
 }

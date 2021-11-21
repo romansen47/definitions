@@ -18,14 +18,14 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
- 
+
 public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
 	@Override
-	default	FieldElement getNeutralElement() {
+	default FieldElement getNeutralElement() {
 		return (FieldElement) EuclideanAlgebra.super.getNeutralElement();
 	}
-	
+
 	default Scalar conjugate(Scalar value) {
 		return value;
 	}
@@ -35,7 +35,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 */
 	@Override
 	default boolean divides(final Element devisor, final Element devident) {
-		return this.isUnit(devisor);
+		return isUnit(devisor);
 	}
 
 	default int getCharacteristic() {
@@ -48,8 +48,8 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	@Override
 	default Group getMuliplicativeMonoid() {
 
-		final Vector newOne = this.getOne();
-		final Integer newOrder = this.getOrder();
+		final Vector newOne = getOne();
+		final Integer newOrder = getOrder();
 
 		final Group multiplicativeGroup = new Group() {
 
@@ -89,7 +89,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	default FieldElement getOne() {
 		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
 	}
-	
+
 	@Override
 	default FieldElement getInverseElement(Element element) {
 		if (element.equals(getOne())) {
@@ -97,10 +97,10 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 		}
 		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
 	};
-	
+
 	/**
 	 * Should return field of rational numbers in infinite case by default.
-	 * 
+	 *
 	 * @return the prime field.
 	 */
 	default PrimeField getPrimeField() {
@@ -108,7 +108,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	};
 
 	default Vector getZero() {
-		return this.nullVec();
+		return nullVec();
 	}
 
 	default Vector getMultiplicativeInverseElement(final Vector factor) {
@@ -117,12 +117,12 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 
 			@Override
 			public Vector get(final Element vec) {
-				return ((Field) this.getTarget()).nullVec();
+				return ((Field) getTarget()).nullVec();
 			}
 
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				final Scalar[][] mat = new Scalar[((Field) this.target).getDim()][((Field) this.source).getDim()];
+				final Scalar[][] mat = new Scalar[((Field) target).getDim()][((Field) source).getDim()];
 				for (final Scalar[] entry : mat) {
 					for (Scalar scalar : entry) {
 						scalar = RealLine.getInstance().getZero();
@@ -134,18 +134,18 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
-				for (final Vector vec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
-					coord.put(vec, ((FiniteVectorMethods) ((Field) this.target).nullVec()).getCoordinates());
+				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
+					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
 				}
 				return coord;
 			}
 		};
-		for (final Vector vec : this.genericBaseToList()) {
-			final Vector tmp = this.getMultiplicationMatrix().get(vec);
+		for (final Vector vec : genericBaseToList()) {
+			final Vector tmp = getMultiplicationMatrix().get(vec);
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
-		return hom.solve(this.getOne());
+		return hom.solve(getOne());
 	}
 
 	/**
@@ -161,7 +161,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 */
 	@Override
 	default boolean isPrimeElement(final Element element) {
-		return !this.isUnit(element);
+		return !isUnit(element);
 	}
 
 	/**
@@ -169,7 +169,7 @@ public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, Euclidean
 	 */
 	@Override
 	default boolean isUnit(final Element element) {
-		return !element.equals(this.getZero());
+		return !element.equals(getZero());
 	}
 
 	/**

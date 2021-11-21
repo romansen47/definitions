@@ -11,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 /**
  * Linear Mapping: mapping between two vector spaces preserving addition and
  * scalar multiplication.
- * 
+ *
  * @author ro
  *
  */
@@ -19,7 +19,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 
 	/**
 	 * Constructor. Called by instance of MappingGenerator.
-	 * 
+	 *
 	 * @param source the source vector space.
 	 * @param target the target vector space.
 	 */
@@ -27,7 +27,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 		this.source = source;
 		this.target = target;
 	}
-	
+
 	/**
 	 * generated serial version uid
 	 */
@@ -58,7 +58,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	 */
 	@Override
 	public VectorSpace getSource() {
-		return this.source;
+		return source;
 	}
 
 	/**
@@ -66,25 +66,23 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	 */
 	@Override
 	public VectorSpace getTarget() {
-		return this.target;
+		return target;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Map<Vector, Map<Vector, Scalar>> getLinearity(){
+	public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 		return linearity;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Scalar[][] getGenericMatrix(){
+	public Scalar[][] getGenericMatrix() {
 		return genericMatrix;
 	}
-	
-
 
 }

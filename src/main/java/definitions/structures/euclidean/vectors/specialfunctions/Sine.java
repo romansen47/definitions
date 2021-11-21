@@ -8,7 +8,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 public abstract class Sine extends GenericFunction {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 4429300404671715544L;
 	private final Scalar magnitude;
@@ -33,24 +33,24 @@ public abstract class Sine extends GenericFunction {
 	}
 
 	public Sine(final Scalar a, final Scalar b, final Scalar c, final Field field) {
-		this.setField(field);
-		this.magnitude = a;
-		this.translation = b;
-		this.frequency = c;
+		setField(field);
+		magnitude = a;
+		translation = b;
+		frequency = c;
 	}
 
 	/**
 	 * @return the frequency
 	 */
 	public Scalar getFrequency() {
-		return this.frequency;
+		return frequency;
 	}
 
 	/**
 	 * @return the translation
 	 */
 	public Scalar getTranslation() {
-		return this.translation;
+		return translation;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public abstract class Sine extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "x -> " + this.magnitude + "*sin(" + this.getTranslation() + "+" + this.getFrequency() + "*x) ";
+		return "x -> " + magnitude + "*sin(" + getTranslation() + "+" + getFrequency() + "*x) ";
 	}
 
 	/**
@@ -66,8 +66,8 @@ public abstract class Sine extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(this.magnitude.getDoubleValue()
-				* Math.sin(this.getTranslation().getDoubleValue() + (this.getFrequency().getDoubleValue() * input.getDoubleValue())));
+		return getField().get(magnitude.getDoubleValue() * Math
+				.sin(getTranslation().getDoubleValue() + (getFrequency().getDoubleValue() * input.getDoubleValue())));
 	}
 
 }

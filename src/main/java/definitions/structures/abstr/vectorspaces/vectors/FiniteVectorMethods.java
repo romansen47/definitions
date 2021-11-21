@@ -10,14 +10,14 @@ public interface FiniteVectorMethods extends XmlPrintable {
 
 	/**
 	 * Method to get the coordinates on the underlying vector space.
-	 * 
+	 *
 	 * @return the coordinates.
 	 */
 	Map<Vector, Scalar> getCoordinates();
 
 	/**
 	 * Setter for coordinates on a base.
-	 * 
+	 *
 	 * @param coordinates the coordinates.
 	 */
 	void setCoordinates(final Map<Vector, Scalar> coordinates);
@@ -26,7 +26,7 @@ public interface FiniteVectorMethods extends XmlPrintable {
 
 	/**
 	 * Coordinates as double[].
-	 * 
+	 *
 	 * @return the coordinates as double[].
 	 */
 	// Scalar[] getGenericCoordinates();

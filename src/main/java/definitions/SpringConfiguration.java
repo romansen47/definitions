@@ -30,7 +30,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 	@Bean(name = "springConfiguration")
 	public static ApplicationContextAware getSpringConfiguration() {
 		if (springConfiguration == null) {
-			springConfiguration = new SpringConfiguration(); 
+			springConfiguration = new SpringConfiguration();
 		}
 		return springConfiguration;
 	}
@@ -38,17 +38,17 @@ public class SpringConfiguration implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
-		this.setApplicationContext(this.applicationContext);
-		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
-		((AbstractApplicationContext) this.applicationContext).refresh();
-		Generator.setInstance((Generator) this.applicationContext.getBean("generator"));
-		logger=this.logger();
+		setApplicationContext(applicationContext);
+		((AnnotationConfigApplicationContext) applicationContext).scan("definitions..*");
+		((AbstractApplicationContext) applicationContext).refresh();
+		Generator.setInstance((Generator) applicationContext.getBean("generator"));
+		logger = logger();
 	}
 
 	@Bean(name = "annotationConfigApplicationContext")
 	public ApplicationContext annotationConfigApplicationContext() {
-		this.applicationContext = new AnnotationConfigApplicationContext();
-		return this.applicationContext;
+		applicationContext = new AnnotationConfigApplicationContext();
+		return applicationContext;
 	}
 
 	@Bean(name = "definitions.cache.CachingAspect")
@@ -62,7 +62,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 	}
 
 	public ApplicationContext getApplicationContext() {
-		return this.applicationContext;
+		return applicationContext;
 	}
 
 	@Bean(name = "logger")

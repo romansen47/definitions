@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
-import definitions.structures.abstr.algebra.fields.IFieldGenerator; 
+import definitions.structures.abstr.algebra.fields.IFieldGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Service
@@ -27,15 +27,14 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	@Autowired
 	private RealLine realLine;
- 
+
 	public FieldGenerator() {
-	} 
+	}
 
 	@Override
 	public RealLine getRealLine() {
-		return this.realLine;
+		return realLine;
 	}
-
 
 	public void setRealLine(final RealLine realLine) {
 		this.realLine = realLine;

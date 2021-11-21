@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package definitions.aspectjtest;
 
@@ -40,9 +40,9 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 	@Before
 	public void before() {
 
-		this.f = (Field) QuaternionSpace.getInstance();
+		f = (Field) QuaternionSpace.getInstance();
 
-		this.alpha = new GenericFunction() {
+		alpha = new GenericFunction() {
 			private static final long serialVersionUID = 6698998256903151087L;
 
 			@Override
@@ -53,12 +53,12 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double val = ((Quaternion) input).getReal().getDoubleValue();
-				final Quaternion tmp = (Quaternion) this.getField().addition(QuaternionFunctionSpaceTest.this.f.getOne(),
+				final Quaternion tmp = (Quaternion) getField().addition(f.getOne(),
 						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
-				return (Scalar) this.getField().normalize(tmp);
+				return (Scalar) getField().normalize(tmp);
 			}
 		};
-		this.beta = new GenericFunction() {
+		beta = new GenericFunction() {
 			private static final long serialVersionUID = -2624612868740391242L;
 
 			@Override
@@ -69,12 +69,12 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double val = ((Quaternion) input).getReal().getDoubleValue();
-				final Quaternion tmp = (Quaternion) this.getField().addition(this.getField().getOne(),
+				final Quaternion tmp = (Quaternion) getField().addition(getField().getOne(),
 						new Quaternion(val / 2, val / 2, 0.1 * Math.sin(val), 0.1 * Math.cos(val)));
-				return (Scalar) this.getField().normalize(tmp);
+				return (Scalar) getField().normalize(tmp);
 			}
 		};
-		this.gamma = new GenericFunction() {
+		gamma = new GenericFunction() {
 			private static final long serialVersionUID = -6598973940477311007L;
 
 			@Override
@@ -85,25 +85,25 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 			@Override
 			public Scalar value(final Scalar input) {
 				final double val = ((Quaternion) input).getReal().getDoubleValue();
-				final Quaternion tmp = (Quaternion) this.getField().addition(this.getField().getOne(),
+				final Quaternion tmp = (Quaternion) getField().addition(getField().getOne(),
 						new Quaternion(val, -val, val, 1 - val));
 				if (Math.abs(((Quaternion) input).getReal().getDoubleValue()) < 1.e-5) {
-					return (Scalar) this.getField().stretch(input, RealLine.getInstance().get(1.e5));
+					return (Scalar) getField().stretch(input, RealLine.getInstance().get(1.e5));
 				}
-				return (Scalar) this.getField().normalize(tmp);
+				return (Scalar) getField().normalize(tmp);
 			}
 		};
 
-		this.base.add(this.alpha);
-		this.base.add(this.beta);
+		base.add(alpha);
+		base.add(beta);
 
-		if (this.getSpace() == null) {
-			this.setSpace(new FiniteDimensionalFunctionSpace(this.f, this.base, -1, 1, true));
+		if (getSpace() == null) {
+			setSpace(new FiniteDimensionalFunctionSpace(f, base, -1, 1, true));
 		}
 	}
 
 	public FunctionSpace getSpace() {
-		return this.space;
+		return space;
 	}
 
 	public void setSpace(final FunctionSpace space) {
@@ -112,19 +112,19 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 
 	@Test
 	public void testFirstCoordinate() throws IOException {
-		this.alpha.plot(-Math.PI, Math.PI);
+		alpha.plot(-Math.PI, Math.PI);
 		getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
 	public void testSecondCoordinate() throws IOException {
-		this.beta.plot(-Math.PI, Math.PI);
+		beta.plot(-Math.PI, Math.PI);
 		getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
 	public void testThirdCoordinate() throws IOException {
-		this.gamma.plot(-Math.PI, Math.PI);
+		gamma.plot(-Math.PI, Math.PI);
 		getGenerator().saveCoordinateSpaces();
 	}
 

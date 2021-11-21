@@ -11,22 +11,22 @@ public class NewtonSolver {
 	final GenericFunction function;
 
 	public NewtonSolver(final double init, final double eps, final GenericFunction fun) {
-		this.initialData = init;
+		initialData = init;
 		this.eps = eps;
-		this.function = fun;
+		function = fun;
 	}
 
 	private double doStep(final double lastVal) throws Throwable {
-		return lastVal - (((Scalar) this.function.value(RealLine.getInstance().get(lastVal))).getDoubleValue()
-				/ ((Scalar) this.function.getDerivative().value(RealLine.getInstance().get(lastVal))).getDoubleValue());
+		return lastVal - (((Scalar) function.value(RealLine.getInstance().get(lastVal))).getDoubleValue()
+				/ ((Scalar) function.getDerivative().value(RealLine.getInstance().get(lastVal))).getDoubleValue());
 	}
 
 	public double solve() throws Throwable {
-		double lastVal = this.initialData;
-		double newVal = this.doStep(lastVal);
-		while (Math.abs(newVal - lastVal) > this.eps) {
+		double lastVal = initialData;
+		double newVal = doStep(lastVal);
+		while (Math.abs(newVal - lastVal) > eps) {
 			lastVal = newVal;
-			newVal = this.doStep(lastVal);
+			newVal = doStep(lastVal);
 		}
 		return newVal;
 	}

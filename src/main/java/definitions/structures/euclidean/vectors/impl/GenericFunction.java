@@ -44,7 +44,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		return this.coordinates;
+		return coordinates;
 	}
 
 	/**
@@ -52,17 +52,17 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		if (this.coordinatesMap == null) {
-			this.coordinatesMap = new ConcurrentHashMap<>();
+		if (coordinatesMap == null) {
+			coordinatesMap = new ConcurrentHashMap<>();
 		}
 		Map<Vector, Scalar> coordinates = coordinatesMap.get(space);
 		if (coordinates == null) {
 			coordinates = new ConcurrentHashMap<>();
 			for (final Vector baseVec : space.genericBaseToList()) {
-				Scalar tmp=((EuclideanFunctionSpace) space).innerProduct(this, baseVec);
+				final Scalar tmp = ((EuclideanFunctionSpace) space).innerProduct(this, baseVec);
 				coordinates.put(baseVec, tmp);
 			}
-		coordinatesMap.put(space, coordinates);
+			coordinatesMap.put(space, coordinates);
 		}
 		return coordinates;
 	}
@@ -72,7 +72,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
-		return this.coordinatesMap;
+		return coordinatesMap;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Field getField() {
-		return this.field;
+		return field;
 	}
 
 	/**
@@ -121,7 +121,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-		this.coordinatesMap.put(space, coordinates);
+		coordinatesMap.put(space, coordinates);
 		this.setCoordinates(coordinates);
 	}
 

@@ -7,7 +7,7 @@ public interface FiniteAbelianSemiGroup extends AbelianSemiGroup, FiniteSemiGrou
 
 	/**
 	 * {@inheritDoc}
-	 */ 
+	 */
 	@Override
 	Element operation(final Element first, final Element second);
 

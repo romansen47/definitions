@@ -13,13 +13,13 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 	/**
 	 * the evolution operator of the dynamic system.
-	 * 
+	 *
 	 * @return the evolution operator
 	 */
 	@Override
 	default VectorSpaceMapping getEvolutionOperator(Element time, Element start) {
-		Group timeSpace = getTimeSpace();
-		Element diff = timeSpace.operation(time, timeSpace.getInverseElement(start));
+		final Group timeSpace = getTimeSpace();
+		final Element diff = timeSpace.operation(time, timeSpace.getInverseElement(start));
 		return getEvolutionOperator(diff);
 	}
 
@@ -35,7 +35,7 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 			@Override
 			public Element get(Element vec) {
-				Group timeSpace = getTimeSpace();
+				final Group timeSpace = getTimeSpace();
 				Element ans;
 				if (time.equals(getTimeSpace().getNeutralElement())) {
 					ans = vec;
@@ -43,7 +43,7 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 					if (time.equals(((SemiRing) getTimeSpace()).getOne())) {
 						ans = getDefiningMapping().get(vec);
 					} else {
-						Element newTime = timeSpace.operation(time, ((Ring) timeSpace).getMinusOne());
+						final Element newTime = timeSpace.operation(time, ((Ring) timeSpace).getMinusOne());
 						ans = getEvolutionOperator(newTime)
 								.get(getEvolutionOperator(((Ring) timeSpace).getOne()).get(vec));
 					}

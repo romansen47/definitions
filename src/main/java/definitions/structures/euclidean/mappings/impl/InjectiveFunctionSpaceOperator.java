@@ -11,13 +11,13 @@ public class InjectiveFunctionSpaceOperator extends FiniteDimensionalLinearMappi
 		implements FiniteDimensionalInjection {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1601115668857737675L;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param source the source vector space.
 	 * @param target the target vector space.
 	 * @param matrix the matrix.

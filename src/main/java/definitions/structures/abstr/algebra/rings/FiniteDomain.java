@@ -12,20 +12,19 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	 */
 	@Override
 	default boolean divides(final Element devisor, final Element devident) {
-		return this.getCoFactor(devisor, devident) != null;
+		return getCoFactor(devisor, devident) != null;
 	}
 
 	/**
 	 * method to get co factor in a product
-	 * 
+	 *
 	 * @param divisor  the divisor
 	 * @param divident
 	 * @return the co factor
 	 */
 	default Element getCoFactor(final Element divisor, final Element divident) {
-		for (final Element el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
-				.keySet()) {
-			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
+		for (final Element el : ((FiniteMonoid) getMuliplicativeMonoid()).getOperationMap().get(divisor).keySet()) {
+			if (((FiniteMonoid) getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
 				return el;
 			}
 		}
@@ -33,7 +32,7 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	}
 
 	@Override
-	default FieldElement getInverseElement(Element element) { 
+	default FieldElement getInverseElement(Element element) {
 		return FiniteField.super.getInverseElement(element);
 	}
 

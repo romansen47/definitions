@@ -13,10 +13,11 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
-public class FunctionSpaceTest extends AspectJTest{
-	
-	final EuclideanSpace functionSpace=SpaceGenerator.getInstance().getTrigonometricSobolevSpace((Field) ComplexPlane.getInstance(), 3, 1);
-	
+public class FunctionSpaceTest extends AspectJTest {
+
+	final EuclideanSpace functionSpace = SpaceGenerator.getInstance()
+			.getTrigonometricSobolevSpace((Field) ComplexPlane.getInstance(), 3, 1);
+
 	@SuppressWarnings("serial")
 	final Function functio = new GenericFunction() {
 
@@ -24,20 +25,20 @@ public class FunctionSpaceTest extends AspectJTest{
 
 		@Override
 		public Scalar value(Scalar input) {
-			double val = input.getDoubleValue();
-			double a = 10.0;
-			if (val <= -support / 2 || val >= support / 2) {
+			final double val = input.getDoubleValue();
+			final double a = 10.0;
+			if ((val <= (-support / 2)) || (val >= (support / 2))) {
 				return RealLine.getInstance().get(0);
 			}
 			return RealLine.getInstance().get(1 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
 //			return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 		}
 	};
-	
+
 	DynamicSystem kdv = new DynamicSystem() {
 
 		@Override
-		public Group getPhaseSpace() { 
+		public Group getPhaseSpace() {
 			return functionSpace;
 		}
 
@@ -46,6 +47,6 @@ public class FunctionSpaceTest extends AspectJTest{
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 	};
 }

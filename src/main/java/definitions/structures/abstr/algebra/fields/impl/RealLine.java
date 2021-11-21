@@ -24,7 +24,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
 /**
- * 
+ *
  * @author ro
  *
  *         Implementation of the field of real numbers as a singleton class.
@@ -53,17 +53,17 @@ public class RealLine implements Field, RealSpace {
 	private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
 
 	public RealLine() {
-		this.base = new ArrayList<>();
-		this.base.add(this.getOne());
+		base = new ArrayList<>();
+		base.add(getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
-		this.coordinates = a;
+		coordinates = a;
 		multiplicationMap.put(RealLine.one, a);
 		final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 		newMap.put(one,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
-		this.setMultiplicationMatrix(newMap);
+		setMultiplicationMatrix(newMap);
 		ComplexPlane.setRealLine(this);
 	}
 
@@ -96,7 +96,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public List<Vector> genericBaseToList() {
-		return this.base;
+		return base;
 	}
 
 	/**
@@ -131,10 +131,10 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
-		if (this.dualSpace == null) {
-			this.dualSpace = new FunctionalSpace(this);
+		if (dualSpace == null) {
+			dualSpace = new FunctionalSpace(this);
 		}
-		return this.dualSpace;
+		return dualSpace;
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
-		return this.multiplicationMatrix;
+		return multiplicationMatrix;
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Vector nullVec() {
-		return this.getZero();
+		return getZero();
 	}
 
 	/**
@@ -235,9 +235,9 @@ public class RealLine implements Field, RealSpace {
 		final Real a = ((Real) v);
 		final Real b = ((Real) w);
 		if (b.getDoubleValue() != 0) {
-			return this.stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
+			return stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
 		}
-		return this.nullVec();
+		return nullVec();
 	}
 
 	/**
@@ -278,8 +278,8 @@ public class RealLine implements Field, RealSpace {
 	}
 
 	@Override
-	public FieldElement getInverseElement(Element element) { 
-		return get(-((Real)element).getDoubleValue());
+	public FieldElement getInverseElement(Element element) {
+		return get(-((Real) element).getDoubleValue());
 	}
 
 	@Override
@@ -288,8 +288,8 @@ public class RealLine implements Field, RealSpace {
 	}
 
 	@Override
-	public PrimeField getPrimeField() { 
-		 return Generator.getInstance().getGroupGenerator().getRationals();
+	public PrimeField getPrimeField() {
+		return Generator.getInstance().getGroupGenerator().getRationals();
 	}
 
 }

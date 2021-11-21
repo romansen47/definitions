@@ -44,7 +44,7 @@ public class Quaternion extends Tuple implements FieldElement {
 
 	public Quaternion(final Scalar re, final Scalar i, final Scalar j, final Scalar k) {
 		super(4);
-		this.real = re;
+		real = re;
 		this.i = i;
 		this.j = j;
 		this.k = k;
@@ -63,9 +63,9 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return vec instanceof Quaternion && ((Quaternion) vec).getReal().equals(this.getReal())
-				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
-				&& ((Quaternion) vec).getK().equals(this.getK());
+		return (vec instanceof Quaternion) && ((Quaternion) vec).getReal().equals(getReal())
+				&& ((Quaternion) vec).getI().equals(getI()) && ((Quaternion) vec).getJ().equals(getJ())
+				&& ((Quaternion) vec).getK().equals(getK());
 	}
 
 	/**
@@ -74,12 +74,12 @@ public class Quaternion extends Tuple implements FieldElement {
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		Map<Vector, Scalar> tmp = super.getCoordinates();
-		if (tmp == null || tmp.isEmpty()) {
+		if ((tmp == null) || tmp.isEmpty()) {
 			tmp = new HashMap<>();
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), getReal());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), getI());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), getJ());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), getK());
 		}
 		return tmp;
 	}
@@ -106,7 +106,7 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@XmlAttribute
 	public Scalar getI() {
-		return this.i;
+		return i;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@XmlAttribute
 	public Scalar getJ() {
-		return this.j;
+		return j;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@XmlAttribute
 	public Scalar getK() {
-		return this.k;
+		return k;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@XmlAttribute
 	public Scalar getReal() {
-		return this.real;
+		return real;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class Quaternion extends Tuple implements FieldElement {
 	@XmlAttribute
 	@Override
 	public double getDoubleValue() {
-		return this.getReal().getDoubleValue();
+		return getReal().getDoubleValue();
 	}
 
 	/**
@@ -155,8 +155,8 @@ public class Quaternion extends Tuple implements FieldElement {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "(" + this.getReal().getDoubleValue() + "," + this.getI().getDoubleValue() + "," + this.getJ().getDoubleValue() + ","
-				+ this.getK().getDoubleValue() + ")";
+		return "(" + getReal().getDoubleValue() + "," + getI().getDoubleValue() + "," + getJ().getDoubleValue() + ","
+				+ getK().getDoubleValue() + ")";
 	}
 
 }

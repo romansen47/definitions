@@ -18,7 +18,7 @@ public class PersistentDataManager {
 	ISpaceGenerator spaceGenerator;
 	Field realLine;
 	int funcSpaces = 1000;
-	
+
 	public static void main(final String[] args) throws Throwable {
 		new PersistentDataManager().load();
 	}
@@ -32,7 +32,8 @@ public class PersistentDataManager {
 
 	public void load() throws Throwable {
 		springConfiguration = SpringConfiguration.getSpringConfiguration();
-		generator = (Generator) ((SpringConfiguration) springConfiguration).getApplicationContext().getBean("generator");
+		generator = (Generator) ((SpringConfiguration) springConfiguration).getApplicationContext()
+				.getBean("generator");
 		groupGenerator = generator.getGroupGenerator();
 		fieldGenerator = generator.getFieldGenerator();
 		spaceGenerator = generator.getSpaceGenerator();
@@ -40,11 +41,11 @@ public class PersistentDataManager {
 		System.out.println("Regeneration of persistent data\r");
 		for (int i = 1; i < funcSpaces; i++) {
 			try {
-				System.out.println("Loading " + (2 * i + 1)
+				System.out.println("Loading " + ((2 * i) + 1)
 						+ "-dimensional trigonometric function space extended by linear functions");
 				spaceGenerator.getTrigonometricFunctionSpaceWithLinearGrowth(realLine, i);
 			} catch (final Exception e) {
-				System.out.println("Failed to reload cached " + (2 * i + 1)
+				System.out.println("Failed to reload cached " + ((2 * i) + 1)
 						+ "-dimensional trigonometric function space extended by linear functions");
 				e.printStackTrace();
 			}
