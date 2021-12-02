@@ -19,8 +19,6 @@ public interface Algebra extends VectorSpace, Ring {
 	 * @param vec2 second argument
 	 * @return the product
 	 */
-	default Vector product(final Vector vec1, final Vector vec2) {
-		return null;
-	}
+	Vector product(final Vector vec1, final Vector vec2);
 
 }

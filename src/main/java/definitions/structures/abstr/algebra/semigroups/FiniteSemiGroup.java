@@ -12,9 +12,7 @@ public interface FiniteSemiGroup extends DiscreetSemiGroup {
 	 *
 	 * @return the map.
 	 */
-	default Map<Double, Element> getElements() {
-		return null;
-	}
+	Map<Double, Element> getElements();
 
 	@Override
 	default Integer getOrder() {
@@ -26,15 +24,7 @@ public interface FiniteSemiGroup extends DiscreetSemiGroup {
 	 *
 	 * @return the multiplication matrix.
 	 */
-	default Map<Element, Map<Element, Element>> getOperationMap() {
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-//	@Override
-//	Element operation(final Element first, final Element second);
+	Map<Element, Map<Element, Element>> getOperationMap();
 
 	/**
 	 * method to present the monoid.

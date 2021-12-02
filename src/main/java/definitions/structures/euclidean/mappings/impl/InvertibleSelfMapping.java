@@ -16,11 +16,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class InvertibleSelfMapping extends InjectiveLinearMapping implements FiniteDimensionalAutomorphism {
 
 	/**
-	 *
-	 */
-	private static final long serialVersionUID = -8391047212917259227L;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param source      the source and target space.

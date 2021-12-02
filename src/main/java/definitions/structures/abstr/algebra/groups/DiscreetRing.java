@@ -6,9 +6,10 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 public interface DiscreetRing extends DiscreetGroup, DiscreetSemiRing, Ring {
 
+	@Deprecated
 	@Override
 	default Element getMinusOne() {
-		return get(-1.0);
+		return this.getInverseElement(this.getOne());
 	}
 
 }

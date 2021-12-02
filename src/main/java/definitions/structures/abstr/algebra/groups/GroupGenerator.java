@@ -153,6 +153,13 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				};
 
+				private DiscreetGroup multiplicativeMonoid = this.getMuliplicativeMonoid();
+				
+				@Override
+				public DiscreetGroup getMuliplicativeMonoid() {
+					return multiplicativeMonoid;
+				};
+
 				private final Binary zero = new Binary(false);
 				private final Binary one = new Binary(true);
 				private List<Vector> base;
@@ -197,8 +204,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public EuclideanSpace getDualSpace() {
-					// TODO Auto-generated method stub
-					return null;
+					return binaries;
 				}
 
 				@Override
@@ -322,6 +328,18 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 				@Override
 				public Vector nullVec() {
 					return getNeutralElement();
+				}
+
+				List<Element> elementsAsList;
+
+				@Override
+				public List<Element> getElementsAsList() {
+					if (elementsAsList == null) {
+						elementsAsList = new ArrayList<>();
+						elementsAsList.add(zero);
+						elementsAsList.add(one);
+					}
+					return elementsAsList;
 				}
 
 			};

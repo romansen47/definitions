@@ -34,12 +34,7 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 */
 	@Override
 	default Vector product(final Vector vec1, final Vector vec2) {
-		Vector ans = Algebra.super.product(vec1, vec2);
-		if (ans != null) {
-			return ans;
-		} else {
-			ans = nullVec();
-		}
+		Vector ans = nullVec();
 		VectorSpaceHomomorphism tmp;
 		for (final Vector vec : genericBaseToList()) {
 			final Vector vector = getBaseVec(vec);

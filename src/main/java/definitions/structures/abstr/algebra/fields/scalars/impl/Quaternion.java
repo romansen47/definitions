@@ -34,9 +34,6 @@ public class Quaternion extends Tuple implements FieldElement {
 	@XmlElement
 	private final Scalar k;
 
-//	@XmlElement
-//	private Map<Vector, Scalar> coordinates;
-
 	public Quaternion(final double r, final double i, final double j, final double k) {
 		this(RealLine.getInstance().get(r), RealLine.getInstance().get(i), RealLine.getInstance().get(j),
 				RealLine.getInstance().get(k));

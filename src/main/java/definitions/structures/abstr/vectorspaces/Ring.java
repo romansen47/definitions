@@ -25,12 +25,4 @@ public interface Ring extends Group, SemiRing {
 
 	Element getMinusOne();
 
-	default Element getMultiplicativeInverseElement(final Element element) {
-		final Element ans = getMuliplicativeMonoid().getNeutralElement();
-		if (element.equals(ans)) {
-			return ans;
-		}
-		return null;
-	}
-
 }

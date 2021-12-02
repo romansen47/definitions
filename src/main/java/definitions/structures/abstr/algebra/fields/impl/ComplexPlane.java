@@ -79,7 +79,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	@Override
 	public boolean contains(final Vector vec) {
-		return (vec instanceof Complex) || (vec == zero) || (vec == one) || (vec == null);
+		return (vec == zero) || (vec == one) || (vec == null) || (vec instanceof Complex);
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 			final Scalar realOne = RealLine.getInstance().getOne();
 			final Scalar realZero = RealLine.getInstance().getZero();
-			final Scalar neg = RealLine.getInstance().get(-1);
+			final Scalar neg = (Scalar) RealLine.getInstance().getMinusOne();
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero }, { realZero, realOne } };
 			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
@@ -162,11 +162,6 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 				((FiniteVectorMethods) ans).getCoordinates().get(i));
 
 	}
-
-//	@Override
-//	public String toString() {
-//		return "the field of complex numbers, which is modelled as a 2-dimensional real vector space.";
-//	}
 
 	@Override
 	public String toXml() {

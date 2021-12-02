@@ -9,7 +9,6 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface FiniteRing extends FiniteGroup, DiscreetRing {
 
-	@Override
 	default Element getMultiplicativeInverseElement(final Element element) {
 		final Element tmp = getMultiplicativeInverseElement(element);
 		if (tmp != null) {

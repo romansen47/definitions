@@ -25,9 +25,6 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	@XmlElement
 	private Scalar imag;
 
-//	@XmlElement
-//	private Map<Vector, Scalar> coordinates;
-
 	public Complex(final double x, final double y) {
 		this(RealLine.getInstance().get(x), RealLine.getInstance().get(y));
 	}

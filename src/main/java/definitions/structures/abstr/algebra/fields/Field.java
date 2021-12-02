@@ -7,7 +7,7 @@ import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
-import definitions.structures.abstr.algebra.monoids.AbelianSemiGroup;
+import definitions.structures.abstr.algebra.rings.CommutativeRing;
 import definitions.structures.abstr.algebra.rings.Domain;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.EuclideanAlgebra;
@@ -19,7 +19,14 @@ import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface Field extends AbelianSemiGroup, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
+/**
+ * 
+ * @author roman
+ * 
+ *         A field is a commutative ring where the maltiplicative semi group is
+ *         a group
+ */
+public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanAlgebra, FieldMethods {
 
 	@Override
 	default FieldElement getNeutralElement() {

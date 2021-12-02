@@ -13,7 +13,6 @@ import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.impl.Naturals;
 
 public class GroupGeneratorTest extends AspectJTest {
 
@@ -27,7 +26,6 @@ public class GroupGeneratorTest extends AspectJTest {
 	private Element minusOne;
 	private Element zero;
 	private Element two;
-	private Element three;
 	private Element four1;
 	private Element four2;
 	private Element minusFour;
@@ -38,7 +36,6 @@ public class GroupGeneratorTest extends AspectJTest {
 		minusOne = getIntegers().getInverseElement(getIntegers().getOne());
 		zero = getIntegers().getNeutralElement();
 		two = getIntegers().addition(one, one);
-		three = getIntegers().addition(one, two);
 		four1 = getIntegers().multiplication(two, two);
 		four2 = getIntegers().addition(two, two);
 		minusFour = getIntegers().multiplication(four2, minusOne);
@@ -53,12 +50,19 @@ public class GroupGeneratorTest extends AspectJTest {
 	}
 
 	@Test
+	/*
+	 * @TODO! This is still not working.
+	 * 
+	 * This completes with respect to (+). I think this originally this should
+	 * complete with respect to (*), since the multiplicatice monoid is used and
+	 * completion is called rationals.
+	 * 
+	 * The problem is the use of (+) for Double-representation in
+	 * getRepresentant-method.
+	 * 
+	 * getRepresentant should disappear soon.
+	 */
 	public void completionTest() {
-		final DiscreetMonoid NaturalsWithZero = new Naturals();
-	}
-
-	@Test
-	public void completionTest2() {
 		final DiscreetMonoid multiplicativeMonoid = GroupGenerator.getInstance().getNaturals().getMuliplicativeMonoid();
 		final DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(multiplicativeMonoid);
 		final Element neutralElement = rationals.getNeutralElement();
@@ -74,7 +78,7 @@ public class GroupGeneratorTest extends AspectJTest {
 		}
 		final Element a = rationals.get(-5.);
 		final Element b = rationals.get(15.);
-		System.out.print(a + "" + b + "=");
+		System.out.print(a + "+" + b + "=");
 		System.out.println(rationals.operation(a, b));
 	}
 
@@ -90,13 +94,8 @@ public class GroupGeneratorTest extends AspectJTest {
 	public void fieldsTest() {
 		final FieldElement newZero = getRationals().getNeutralElement();
 		final FieldElement newOne = (FieldElement) getRationals().getMuliplicativeMonoid().getNeutralElement();
-		final FieldElement newMinusOne = getRationals()
-				.getInverseElement(getRationals().getMuliplicativeMonoid().getNeutralElement());
 		final FieldElement newTwo = (FieldElement) getRationals().addition(newOne, newOne);
-		final FieldElement newMinusTwo = (FieldElement) getRationals().multiplication(newTwo, newMinusOne);
-		final FieldElement newFour = (FieldElement) getRationals().multiplication(newMinusTwo, newMinusTwo);
 		final FieldElement half = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newTwo);
-		final FieldElement quarter = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newFour);
 		FieldElement var = (FieldElement) getRationals().multiplication(newOne, newOne);
 		FieldElement tmp;
 		FieldElement debugTmp;

@@ -13,7 +13,6 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
-import definitions.structures.abstr.vectorspaces.LinearMappingsSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -32,7 +31,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 20;
+	private static int degree = 15;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
@@ -59,10 +58,6 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			@Override
 			public Element get(Element vec) {
 				return new GenericFunction() {
-
-					/**
-					 *
-					 */
 					private static final long serialVersionUID = -1105085341775793307L;
 
 					@Override
@@ -103,26 +98,19 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 		setInitialCondition(new GenericFunction() {
 
-			/**
-			 *
-			 */
 			private static final long serialVersionUID = -4921080371690731611L;
 			double support = 0.9;
 
 			@Override
 			public Scalar value(Scalar input) {
 				final double val = input.getDoubleValue();
-				final double a = 10.0;
 				if ((val <= (-support / 2)) || (val >= (support / 2))) {
 					return RealLine.getInstance().get(0);
 				}
 				return RealLine.getInstance().get(0.6 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
-//				return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 			}
 
 		});
-
-		final LinearMappingsSpace linearMappingsSpace = new LinearMappingsSpace(getFunctionSpace(), getFunctionSpace());
 
 		setDifferentialEquation(new DynamicSystem() {
 

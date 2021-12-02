@@ -1,6 +1,7 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -19,7 +20,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 */
 	@Override
 	default Real distance(final Vector vec1, final Vector vec2) {
-		return norm(addition(vec1, stretch(vec2, getField().get(-1))));
+		return norm(addition(vec1, stretch(vec2, (Scalar) getField().getMinusOne())));
 	}
 
 	/**

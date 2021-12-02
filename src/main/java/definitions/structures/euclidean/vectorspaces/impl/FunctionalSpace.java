@@ -23,9 +23,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 2891504884821572359L;
 	final EuclideanSpace source;
 
@@ -35,7 +32,6 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 		final List<Vector> base = new ArrayList<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
 			final Vector functional = new Functional() {
-				private static final long serialVersionUID = 1925595967834154425L;
 				final EuclideanSpace sourceSpace = source;
 				final EuclideanSpace target = source.getField();
 				final Vector sourceVec = baseVec;
