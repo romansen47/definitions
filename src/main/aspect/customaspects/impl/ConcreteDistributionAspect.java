@@ -16,32 +16,33 @@ import customaspects.DistributionAspect;
 public class ConcreteDistributionAspect extends AbstractCustomAspect implements DistributionAspect {
 
 	public ConcreteDistributionAspect() {
-		register();
-		setGenericName("DistributionAspect");
-		setThreadToOutputMap(new ConcurrentHashMap<Thread, Map<String, Integer>>());
+		this.register();
+		this.setGenericName("DistributionAspect");
+		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, Map<String, Integer>>());
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void write(Thread thread) throws IOException {
-		final String testcase = getTests().get(thread);
-		final Map<String, Integer> stats = (Map<String, Integer>) getThreadToOutputMap().get(Thread.currentThread());
+		final String testcase = this.getTests().get(thread);
+		final Map<String, Integer> stats = (Map<String, Integer>) this.getThreadToOutputMap()
+				.get(Thread.currentThread());
 		if (stats.isEmpty()) {
-			log("list empty");
+			this.log("list empty");
 		} else {
 			for (final String str : stats.keySet()) {
 				final Integer times = stats.get(str);
 				if (times != 0) {
 					final String s = "<" + str + ">" + times + "</" + str + ">\r";
-					getBufferedWriter().write(s);
-					getBufferedWriter().flush();
+					this.getBufferedWriter().write(s);
+					this.getBufferedWriter().flush();
 				}
 			}
 		}
-		getBufferedWriter().write("</" + testcase + ">");
-		getBufferedWriter().flush();
-		getBufferedWriter().close();
-		getFileWriter().close();
+		this.getBufferedWriter().write("</" + testcase + ">");
+		this.getBufferedWriter().flush();
+		this.getBufferedWriter().close();
+		this.getFileWriter().close();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,7 +50,7 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 	public void getStats(final JoinPoint jp) {
 		final String key = jp.toShortString().split(Pattern.quote("@"))[0].split(Pattern.quote("("))[1]
 				.replace(Pattern.quote("."), Pattern.quote("/"));
-		final Map<String, Integer> stats = ((Map<Thread, Map<String, Integer>>) getThreadToOutputMap())
+		final Map<String, Integer> stats = ((Map<Thread, Map<String, Integer>>) this.getThreadToOutputMap())
 				.getOrDefault(Thread.currentThread(), new ConcurrentHashMap<String, Integer>());
 		Integer ans = stats.get(key);
 		if (ans == null) {
@@ -58,7 +59,7 @@ public class ConcreteDistributionAspect extends AbstractCustomAspect implements 
 			ans += 1;
 		}
 		stats.put(key, ans);
-		((Map<Thread, Map<String, Integer>>) getThreadToOutputMap()).put(Thread.currentThread(), stats);
+		((Map<Thread, Map<String, Integer>>) this.getThreadToOutputMap()).put(Thread.currentThread(), stats);
 	}
 
 	@Override

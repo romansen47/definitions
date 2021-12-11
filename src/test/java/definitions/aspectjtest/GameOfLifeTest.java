@@ -3,12 +3,17 @@
  */
 package definitions.aspectjtest;
 
+import java.util.Map;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
+import definitions.structures.abstr.algebra.fields.FieldElement;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.semigroups.Element;
+import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.dynamicsystems.GameOfLife;
 import definitions.structures.dynamicsystems.GameOfLifeConstructedBinaries;
@@ -25,7 +30,7 @@ public class GameOfLifeTest extends Gui {
 
 	private static ApplicationContextAware springConfiguration;
 
-	final private int size = 20;
+	final private int size = 10;
 	private DynamicSystem gameOfLife;
 	private DynamicSystem gameOfLifeConstructedBinaries;
 	private FiniteVector initialCondition;
@@ -34,11 +39,11 @@ public class GameOfLifeTest extends Gui {
 	private FiniteVector initialConditionForConstructedBinaries;
 	private FiniteVector gol;
 	private FiniteVector golocb;
-	private int lifetime = 100;
+	private int lifetime = 50;
 
 	@BeforeClass
 	public static void prepare() {
-		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
+		GameOfLifeTest.setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 	}
 
 	private StdDraw stddraw;
@@ -47,6 +52,7 @@ public class GameOfLifeTest extends Gui {
 	public int getCanvasSize() {
 		return canvasSize;
 	}
+
 
 	public void draw(Element state) {
 		if (stddraw == null) {
@@ -57,43 +63,20 @@ public class GameOfLifeTest extends Gui {
 		}
 		final int squareSize = (canvasSize / size) / 2;
 		StdDraw.clear();
+		EuclideanSpace tmpES=grid!=null?grid:gridOverConstructedBinaries;
+		FieldElement zero=tmpES.getField().getNeutralElement();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				final int x = squareSize * (1 + (2 * i));
 				final int y = squareSize * (1 + (2 * j));
-				if (((FiniteVector) state).getCoordinates()
-						.get(grid.genericBaseToList().get(((size - j - 1) * size) + i))
-						.equals(tmpgol.getBinaries().getNeutralElement())) {
+				FiniteVector a=(FiniteVector) ((FiniteVector) state).getCoordinates()
+						.get(tmpES.genericBaseToList().get(((size - j - 1) * size) + i));
+				if (a.equals(zero)) {
 					StdDraw.setPenColor(StdDraw.WHITE);
 				} else {
 					StdDraw.setPenColor(StdDraw.BLACK);
 				}
 				StdDraw.filledSquare(x, y, squareSize);
-			}
-		}
-	}
-
-	public void drawOCB(Element state) {
-		if (stddraw == null) {
-			stddraw = new StdDraw();
-			stddraw.setCanvasSize(canvasSize, canvasSize);
-			StdDraw.setXscale(0, canvasSize);
-			StdDraw.setYscale(0, canvasSize);
-		}
-		final int squareSize = (canvasSize / size) / 2;
-		StdDraw.clear();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				final int x = squareSize * (1 + (2 * i));
-				final int y = squareSize * (1 + (2 * j));
-				if (((FiniteVector) state).getCoordinates()
-						.get(gridOverConstructedBinaries.genericBaseToList().get(((size - j - 1) * size) + i))
-						.getRepresentant() == 0d) {
-					StdDraw.setPenColor(StdDraw.WHITE);
-				} else {
-					StdDraw.setPenColor(StdDraw.BLACK);
-				}
-				StdDraw.circle(x, y, squareSize);
 			}
 		}
 	}
@@ -117,54 +100,15 @@ public class GameOfLifeTest extends Gui {
 		setGridOverConstructedBinaries((EuclideanSpace) getGameOfLifeConstructedBinaries().getPhaseSpace());
 		setInitialConditionForConstructedBinaries(
 				((GameOfLife) getGameOfLifeConstructedBinaries()).createRandomInitialCondition());
-		setGolocb(getInitialConditionForConstructedBinaries());
-		drawOCB(getGolocb());
+		setGolocb((FiniteVector) gridOverConstructedBinaries.addition(gridOverConstructedBinaries.nullVec(), initialConditionForConstructedBinaries));
+		draw(getGolocb());
 		for (int a = 0; a < getLifetime(); a++) {
-			setGolocb((FiniteVector) getGameOfLifeConstructedBinaries().getDefiningMapping().get(getGolocb()));
-			drawOCB(getGolocb());
+			Element newGame = getGameOfLifeConstructedBinaries().getDefiningMapping().get(getGolocb());
+			setGolocb((FiniteVector) newGame);
+			draw(getGolocb());
 		}
 	}
 
-	Gui template;
-
-	GameOfLife tmpgol = new GameOfLife(size);
-
-	private FiniteVector tmp = tmpgol.createRandomInitialCondition();
-
-	@Override
-	public void setup() {
-		frameRate(10);
-	}
-
-	static GameOfLifeTest newGameOfLife;
-
-	public static void main(String[] args) {
-		setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
-		newGameOfLife = new GameOfLifeTest();
-		((Gui) newGameOfLife).run("definitions.aspectjtest.GameOfLifeTest");
-	}
-
-	@Override
-	public void draw() {
-		tmp = (FiniteVector) tmpgol.getDefiningMapping().get(tmp);
-		clear();
-		this.background(255);
-		final int squareSize = (height / size) / 2;
-		StdDraw.clear();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				final int x = squareSize * (1 + (2 * i));
-				final int y = squareSize * (1 + (2 * j));
-				if (tmp.getCoordinates().get(tmpgol.getCoordinates().get(((size - j - 1) * size) + i))
-						.equals(tmpgol.getBinaries().getNeutralElement())) {
-					fill(255);
-				} else {
-					fill(0);
-				}
-				rect(x, y, squareSize, squareSize);
-			}
-		}
-	}
 
 	/**
 	 * @return the initialCondition
@@ -277,7 +221,37 @@ public class GameOfLifeTest extends Gui {
 	 * @param golocb the golocb to set
 	 */
 	public void setGolocb(FiniteVector golocb) {
-		this.golocb = golocb;
+		this.golocb = new FiniteVector() {
+
+			String toString=null;
+
+			@Override
+			public Map<Vector, Scalar> getCoordinates() {
+				return golocb.getCoordinates();
+			}
+
+			@Override
+			public void setCoordinates(Map<Vector, Scalar> coordinates) {
+				golocb.setCoordinates(coordinates);
+			}
+
+			@Override
+			public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
+				golocb.setCoordinates(coordinates, space);
+			}
+
+			@Override
+			public String toString() {
+				if (toString==null) {
+					toString = "";
+					for (Vector vec : getCoordinates().keySet()) {
+						toString += vec.toString() + " | ";
+					}
+				}
+				return toString;
+			}
+
+		};
 	}
 
 	/**
@@ -298,7 +272,7 @@ public class GameOfLifeTest extends Gui {
 	 * @return the springConfiguration
 	 */
 	public static ApplicationContextAware getSpringConfiguration() {
-		return springConfiguration;
+		return GameOfLifeTest.springConfiguration;
 	}
 
 	/**

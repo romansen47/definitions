@@ -27,7 +27,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	@Before
 	public void beforeTest() {
-		timeSpace = getIntegers();// new Naturals();
+		timeSpace = AspectJTest.getIntegers();// new Naturals();
 	}
 
 	/**
@@ -87,15 +87,19 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 				};
 			}
 
+			@Override
+			public Group getTimeSpace() {
+				return timeSpace;
+			}
+
 		};
 		final Vector vec = startVector;
 		Element tmp;
-		final Element ans;
 		VectorSpaceMapping evolutionOp;
 		for (double i = 0; i < iterations; i++) {
 			tmp = ((DiscreetMonoid) timeSpace).get(i);
 			evolutionOp = dinamicSystem.getEvolutionOperator(tmp);
-			getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get(vec)).toXml());
+			AspectJTest.getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get(vec)).toXml());
 		}
 	}
 
@@ -119,7 +123,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 					public Element get(Element vec) {
 						return ((ComplexPlane) getPhaseSpace()).get(((Complex) vec).getImag().getDoubleValue(),
 								RealLine.getInstance().addition(((Complex) vec).getReal(), ((Complex) vec).getImag())
-										.getDoubleValue());
+								.getDoubleValue());
 					}
 
 					@Override
@@ -130,10 +134,14 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 				};
 			}
 
+			@Override
+			public Group getTimeSpace() {
+				return timeSpace;
+			}
+
 		};
 		final Vector vec = startVector;
 		Element tmp;
-		final Element ans;
 		VectorSpaceMapping evolutionOp;
 		for (double i = 0; i < iterations; i++) {
 			tmp = ((DiscreetMonoid) timeSpace).get(i);

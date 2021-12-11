@@ -2,7 +2,6 @@ package definitions.structures.dynamicsystems;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.groups.Group;
-import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceMapping;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
@@ -28,9 +27,7 @@ public interface EvolutionSystem extends XmlPrintable {
 	 *
 	 * @return the time space
 	 */
-	default Group getTimeSpace() {
-		return GroupGenerator.getInstance().getIntegers();
-	}
+	Group getTimeSpace();
 
 	/**
 	 * {@inheritDoc}

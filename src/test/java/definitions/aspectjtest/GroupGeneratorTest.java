@@ -32,13 +32,13 @@ public class GroupGeneratorTest extends AspectJTest {
 
 	@Before
 	public void createStructures() {
-		one = getIntegers().getOne();
-		minusOne = getIntegers().getInverseElement(getIntegers().getOne());
-		zero = getIntegers().getNeutralElement();
-		two = getIntegers().addition(one, one);
-		four1 = getIntegers().multiplication(two, two);
-		four2 = getIntegers().addition(two, two);
-		minusFour = getIntegers().multiplication(four2, minusOne);
+		one = AspectJTest.getIntegers().getOne();
+		minusOne = AspectJTest.getIntegers().getInverseElement(AspectJTest.getIntegers().getOne());
+		zero = AspectJTest.getIntegers().getNeutralElement();
+		two = AspectJTest.getIntegers().addition(one, one);
+		four1 = AspectJTest.getIntegers().multiplication(two, two);
+		four2 = AspectJTest.getIntegers().addition(two, two);
+		minusFour = AspectJTest.getIntegers().multiplication(four2, minusOne);
 	}
 
 	public Group getGroup() {
@@ -52,14 +52,14 @@ public class GroupGeneratorTest extends AspectJTest {
 	@Test
 	/*
 	 * @TODO! This is still not working.
-	 * 
+	 *
 	 * This completes with respect to (+). I think this originally this should
 	 * complete with respect to (*), since the multiplicatice monoid is used and
 	 * completion is called rationals.
-	 * 
+	 *
 	 * The problem is the use of (+) for Double-representation in
 	 * getRepresentant-method.
-	 * 
+	 *
 	 * getRepresentant should disappear soon.
 	 */
 	public void completionTest() {
@@ -85,27 +85,27 @@ public class GroupGeneratorTest extends AspectJTest {
 	@Test
 	public void integersTest() {
 		final boolean addSameAsMult = four1.equals(four2);
-		final boolean sumIsZero = getIntegers().addition(four1, minusFour).equals(zero);
+		final boolean sumIsZero = AspectJTest.getIntegers().addition(four1, minusFour).equals(zero);
 		Assert.assertTrue(addSameAsMult);
 		Assert.assertTrue(sumIsZero);
 	}
 
 	@Test
 	public void fieldsTest() {
-		final FieldElement newZero = getRationals().getNeutralElement();
-		final FieldElement newOne = (FieldElement) getRationals().getMuliplicativeMonoid().getNeutralElement();
-		final FieldElement newTwo = (FieldElement) getRationals().addition(newOne, newOne);
-		final FieldElement half = (FieldElement) getRationals().getMuliplicativeMonoid().getInverseElement(newTwo);
-		FieldElement var = (FieldElement) getRationals().multiplication(newOne, newOne);
+		final FieldElement newZero = AspectJTest.getRationals().getNeutralElement();
+		final FieldElement newOne = (FieldElement) AspectJTest.getRationals().getMuliplicativeMonoid().getNeutralElement();
+		final FieldElement newTwo = (FieldElement) AspectJTest.getRationals().addition(newOne, newOne);
+		final FieldElement half = (FieldElement) AspectJTest.getRationals().getMuliplicativeMonoid().getInverseElement(newTwo);
+		FieldElement var = (FieldElement) AspectJTest.getRationals().multiplication(newOne, newOne);
 		FieldElement tmp;
 		FieldElement debugTmp;
 		for (int i = 1; i < 10; i++) {
-			debugTmp = (FieldElement) getRationals().multiplication(var, half);
-			tmp = getRationals().getInverseElement(debugTmp);
-			var = (FieldElement) getRationals().addition(var, tmp);
+			debugTmp = (FieldElement) AspectJTest.getRationals().multiplication(var, half);
+			tmp = AspectJTest.getRationals().getInverseElement(debugTmp);
+			var = (FieldElement) AspectJTest.getRationals().addition(var, tmp);
 			System.out.println(i + ": " + var.toString());
 		}
-		System.out.println(getRationals().getMuliplicativeMonoid().getInverseElement(newZero));
+		System.out.println(AspectJTest.getRationals().getMuliplicativeMonoid().getInverseElement(newZero));
 	}
 
 	@Test

@@ -6,6 +6,7 @@ import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
+import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.dynamicsystems.DynamicSystem;
@@ -26,12 +27,11 @@ public class FunctionSpaceTest extends AspectJTest {
 		@Override
 		public Scalar value(Scalar input) {
 			final double val = input.getDoubleValue();
-			final double a = 10.0;
 			if ((val <= (-support / 2)) || (val >= (support / 2))) {
 				return RealLine.getInstance().get(0);
 			}
 			return RealLine.getInstance().get(1 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
-//			return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
+			//			return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 		}
 	};
 
@@ -44,8 +44,12 @@ public class FunctionSpaceTest extends AspectJTest {
 
 		@Override
 		public VectorSpaceSelfMapping getDefiningMapping() {
-			// TODO Auto-generated method stub
 			return null;
+		}
+
+		@Override
+		public Group getTimeSpace() {
+			return GroupGenerator.getInstance().getIntegers();
 		}
 
 	};

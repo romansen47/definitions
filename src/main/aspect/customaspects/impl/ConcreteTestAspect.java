@@ -33,7 +33,7 @@ public class ConcreteTestAspect extends AbstractCustomAspect implements TestAspe
 	 * @return the instance
 	 */
 	public static TestAspect getInstance() {
-		return instance;
+		return ConcreteTestAspect.instance;
 	}
 
 	/**
@@ -45,10 +45,10 @@ public class ConcreteTestAspect extends AbstractCustomAspect implements TestAspe
 	 * constructor is private since in singleton scope
 	 */
 	private ConcreteTestAspect() {
-		synchronized (mutex) {
+		synchronized (ConcreteTestAspect.mutex) {
 			aspects = new ArrayList<>();
-			instance = this;
-			setGenericName("TestAspect");
+			ConcreteTestAspect.instance = this;
+			this.setGenericName("TestAspect");
 		}
 	}
 
@@ -91,9 +91,9 @@ public class ConcreteTestAspect extends AbstractCustomAspect implements TestAspe
 
 	@Around("execution(void plotter.Plotter.plotCompare(..))")
 	public synchronized Object suppressPloterProfiling(ProceedingJoinPoint pjp) throws Throwable {
-		((ProfilingAspect) getConcreteProfilingAspect()).setRecording(false);
+		((ProfilingAspect) this.getConcreteProfilingAspect()).setRecording(false);
 		pjp.proceed();
-		((ProfilingAspect) getConcreteProfilingAspect()).setRecording(true);
+		((ProfilingAspect) this.getConcreteProfilingAspect()).setRecording(true);
 		return null;
 	}
 

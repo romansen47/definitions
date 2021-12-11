@@ -4,8 +4,6 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -14,7 +12,6 @@ import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 
-@ExtendWith(MockitoExtension.class)
 public class ComplexPlaneMockitoTest extends AspectJTest {
 
 	ComplexPlane complexPlane = getComplexPlane();

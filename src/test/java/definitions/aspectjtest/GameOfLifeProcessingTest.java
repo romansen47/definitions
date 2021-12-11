@@ -17,19 +17,14 @@ import processing.template.impl.Gui;
 public class GameOfLifeProcessingTest extends Gui {
 
 	private static ApplicationContextAware springConfiguration = SpringConfiguration.getSpringConfiguration();
-
-	@Test
-	public void testGameOfLifeOnProcessing() {
-		GameOfLifeProcessingTest.main(args);
-	}
-
+ 
 	final private static int size = 15;
 	private FiniteVector initialCondition;
 	private int lifetime = 50;
 
 	Gui template;
 
-	GameOfLife tmpgol = new GameOfLifeConstructedBinaries(size);
+	GameOfLife tmpgol = new GameOfLifeConstructedBinaries(GameOfLifeProcessingTest.size);
 
 	private FiniteVector tmp = tmpgol.createRandomInitialCondition();
 
@@ -41,9 +36,14 @@ public class GameOfLifeProcessingTest extends Gui {
 	static GameOfLifeProcessingTest newGameOfLife;
 
 	public static void main(String[] args) {
-		setSpringConfiguration(springConfiguration);
-		newGameOfLife = new GameOfLifeProcessingTest();
-		((Gui) newGameOfLife).run("definitions.aspectjtest.GameOfLifeProcessingTest");
+		GameOfLifeProcessingTest.setSpringConfiguration(GameOfLifeProcessingTest.springConfiguration);
+		GameOfLifeProcessingTest.newGameOfLife = new GameOfLifeProcessingTest();
+		((Gui) GameOfLifeProcessingTest.newGameOfLife).run("definitions.aspectjtest.GameOfLifeProcessingTest");
+	} 
+	
+	@Test
+	public void testGameOfLifeOnProcessing() {
+		GameOfLifeProcessingTest.main(args);
 	}
 
 	private int generation = 0;
@@ -54,26 +54,26 @@ public class GameOfLifeProcessingTest extends Gui {
 		clear();
 		this.background(255);
 		stroke(0);
-		final int squareSize = (height / size) / 2;
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		final int squareSize = (height / GameOfLifeProcessingTest.size) / 2;
+		for (int i = 0; i < GameOfLifeProcessingTest.size; i++) {
+			for (int j = 0; j < GameOfLifeProcessingTest.size; j++) {
 				final int x = squareSize * (1 + (2 * i));
 				final int y = squareSize * (1 + (2 * j));
-				if (!(tmp.getCoordinates().get(tmpgol.getCoordinates().get(((size - j - 1) * size) + i)) == tmpgol
+				if (!(tmp.getCoordinates().get(tmpgol.getCoordinates().get(((GameOfLifeProcessingTest.size - j - 1) * GameOfLifeProcessingTest.size) + i)) == tmpgol
 						.getBinaries().getNeutralElement())) {
 					// fill(255);
-//				} else {
-//					fill(0);
-//				}
+					//				} else {
+					//					fill(0);
+					//				}
 					rect(x, y, 2 * squareSize, 2 * squareSize);
 				}
 			}
 		}
 		fill(0);
-		text("generation: " + generation++, (2 * squareSize * size) + 50, size);
+		text("generation: " + generation++, (2 * squareSize * GameOfLifeProcessingTest.size) + 50, GameOfLifeProcessingTest.size);
 		if (generation == lifetime) {
 			Assert.assertTrue(true);
-//			exit();
+			//			exit();
 		}
 	}
 
@@ -109,7 +109,7 @@ public class GameOfLifeProcessingTest extends Gui {
 	 * @return the springConfiguration
 	 */
 	public static ApplicationContextAware getSpringConfiguration() {
-		return springConfiguration;
+		return GameOfLifeProcessingTest.springConfiguration;
 	}
 
 	/**

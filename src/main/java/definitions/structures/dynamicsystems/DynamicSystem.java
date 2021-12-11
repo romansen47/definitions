@@ -37,10 +37,10 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 			public Element get(Element vec) {
 				final Group timeSpace = getTimeSpace();
 				Element ans;
-				if (time.equals(timeSpace.getNeutralElement())) {
+				if (timeSpace.getNeutralElement().equals(time)) {
 					ans = vec;
 				} else {
-					if (time.equals(((SemiRing) getTimeSpace()).getOne())) {
+					if (((SemiRing) timeSpace).getOne().equals(time)) {
 						ans = getDefiningMapping().get(vec);
 					} else {
 						final Element newTime = timeSpace.operation(time, ((Ring) timeSpace).getMinusOne());

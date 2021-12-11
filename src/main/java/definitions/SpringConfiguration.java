@@ -28,11 +28,11 @@ public class SpringConfiguration implements ApplicationContextAware {
 	private static Logger logger;
 
 	@Bean(name = "springConfiguration")
-	public static ApplicationContextAware getSpringConfiguration() {
-		if (springConfiguration == null) {
-			springConfiguration = new SpringConfiguration();
+	public static synchronized ApplicationContextAware getSpringConfiguration() {
+		if (SpringConfiguration.springConfiguration == null) {
+			SpringConfiguration.springConfiguration = new SpringConfiguration();
 		}
-		return springConfiguration;
+		return SpringConfiguration.springConfiguration;
 	}
 
 	private ApplicationContext applicationContext;
@@ -42,7 +42,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 		((AnnotationConfigApplicationContext) applicationContext).scan("definitions..*");
 		((AbstractApplicationContext) applicationContext).refresh();
 		Generator.setInstance((Generator) applicationContext.getBean("generator"));
-		logger = logger();
+		SpringConfiguration.logger = logger();
 	}
 
 	@Bean(name = "annotationConfigApplicationContext")
@@ -91,7 +91,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 	 * @return the logger
 	 */
 	public Logger getLogger() {
-		return logger;
+		return SpringConfiguration.logger;
 	}
 
 }

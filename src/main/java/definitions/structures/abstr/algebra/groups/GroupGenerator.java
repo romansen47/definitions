@@ -38,11 +38,11 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 	private FinitePrimeField binaries;
 
 	public static GroupGenerator getInstance() {
-		return instance;
+		return GroupGenerator.instance;
 	}
 
 	public static void setInstance(final GroupGenerator groupGenerator) {
-		instance = groupGenerator;
+		GroupGenerator.instance = groupGenerator;
 	}
 
 	Map<Integer, FiniteRing> map = new HashMap<>();
@@ -153,8 +153,8 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				};
 
-				private DiscreetGroup multiplicativeMonoid = this.getMuliplicativeMonoid();
-				
+				private DiscreetGroup multiplicativeMonoid = getMuliplicativeMonoid();
+
 				@Override
 				public DiscreetGroup getMuliplicativeMonoid() {
 					return multiplicativeMonoid;
@@ -425,7 +425,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public boolean isUnit(Element element) {
-					return element.equals(get(0.0));
+					return !element.equals(get(0.0));
 				}
 
 				@Override
@@ -460,7 +460,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 						@Override
 						public Element getNeutralElement() {
-							return get(1.0);
+							return getOne();
 						}
 
 					};
@@ -503,8 +503,18 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 			};
 
 			final DiscreetSemiRing test = binaryGroup;
+			binaryGroup.getNeutralElement();
+			binaryGroup.getOne();
+			binaryGroup.getMuliplicativeMonoid();
+			// Hier liegt das Problem! Die Vervollständigung bezieht sich hier auf die Addition... Historisch bedingter Fehler: Hier sollte der Halbring der Natürlichen Zahlen mit 0, welcher
 			final DiscreetDomain binaryDomain = GroupGenerator.getInstance().completeToDiscreetRing(test);
+			binaryDomain.getNeutralElement();
+			binaryDomain.getOne();
+			binaryDomain.getMuliplicativeMonoid();
 			constructedBinaries = GroupGenerator.getInstance().completeToDiscreetField(binaryDomain);
+			constructedBinaries.getNeutralElement();
+			constructedBinaries.getOne();
+			constructedBinaries.getMuliplicativeMonoid();
 		}
 		return constructedBinaries;
 	}

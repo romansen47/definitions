@@ -12,13 +12,18 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<aspectj.version>1.9.5</aspectj.version>
-		<spring.version>5.2.2.RELEASE</spring.version>
+		<aspectj.version>1.9.8.RC3</aspectj.version>
+		<spring.version>5.3.13</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
  		<dl4j.version>1.0.0-beta3</dl4j.version>
 	</properties>
 
-	<dependencies>
+	<dependencies> 
+		<dependency>
+		    <groupId>org.codehaus.mojo</groupId>
+		    <artifactId>aspectj-maven-plugin</artifactId>
+		    <version>1.14.0</version>
+		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -63,7 +68,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>5.2.2.RELEASE</version>
+			<version> ${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -81,15 +86,25 @@
 			<version>${aspectj.version}</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		    <scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjtools</artifactId>
-			<version>${aspectj.version}</version>
-			<scope>runtime</scope>
+			<version>${aspectj.version}</version> 
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
+		</dependency> 
+		<dependency>
+		    <groupId>javax.cache</groupId>
+		    <artifactId>cache-api</artifactId>
+		    <version>1.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>

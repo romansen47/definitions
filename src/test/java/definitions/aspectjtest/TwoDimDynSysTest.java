@@ -11,6 +11,7 @@ import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
 import definitions.structures.abstr.algebra.groups.Group;
+import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -24,8 +25,8 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class TwoDimDynSysTest extends AspectJTest {
 
 	final int duration = 1000;
-	final EuclideanSpace complexPhaseSpace = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
-	final EuclideanSpace realPhaseSpace = getSpaceGenerator().getFiniteDimensionalVectorSpace(2);
+	final EuclideanSpace complexPhaseSpace = (EuclideanSpace) AspectJTest.getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
+	final EuclideanSpace realPhaseSpace = AspectJTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(2);
 
 	final Complex complexInitialCondition = ((ComplexPlane) complexPhaseSpace).get(0.9, 0.1);
 	final Vector realInitialCondition = realPhaseSpace.genericBaseToList().get(0);
@@ -36,9 +37,9 @@ public class TwoDimDynSysTest extends AspectJTest {
 		public Element get(Element vec) {
 			final double a = ((Complex) vec).getReal().getDoubleValue();
 			final double b = ((Complex) vec).getImag().getDoubleValue();
-			final Element newVec = getComplexPlane().get(a - (a * a), b);
-			return getComplexPlane().multiplication(newVec,
-					getComplexPlane().multiplication(getComplexPlane().getMinusOne(), getComplexPlane().getI()));
+			final Element newVec = AspectJTest.getComplexPlane().get(a - (a * a), b);
+			return AspectJTest.getComplexPlane().multiplication(newVec,
+					AspectJTest.getComplexPlane().multiplication(AspectJTest.getComplexPlane().getMinusOne(), AspectJTest.getComplexPlane().getI()));
 		}
 
 		@Override
@@ -60,6 +61,11 @@ public class TwoDimDynSysTest extends AspectJTest {
 			return complexMapping;
 		}
 
+		@Override
+		public Group getTimeSpace() {
+			return GroupGenerator.getInstance().getIntegers();
+		}
+
 	};
 
 	@Test
@@ -69,13 +75,13 @@ public class TwoDimDynSysTest extends AspectJTest {
 		Complex last;
 		for (int i = 0; i < duration; i++) {
 			last = list.get(list.size() - 1);
-			list.add((Complex) complexSystem.getEvolutionOperator(getIntegers().get((double) i)).get(last));
+			list.add((Complex) complexSystem.getEvolutionOperator(AspectJTest.getIntegers().get((double) i)).get(last));
 		}
 		final Function test = new GenericFunction() {
 
 			@Override
 			public Field getField() {
-				return getRealLine();
+				return AspectJTest.getRealLine();
 			}
 
 			@Override

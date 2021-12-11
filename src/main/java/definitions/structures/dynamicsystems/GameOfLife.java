@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import definitions.structures.abstr.algebra.fields.PrimeField;
+import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
@@ -15,8 +17,11 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class GameOfLife implements MultiDimensionalDynamicSystem {
 
-	protected final int size;
+	protected int size;
 	protected PrimeField binaries;
+
+	protected GameOfLife() {
+		size = 0;}
 
 	public PrimeField getBinaries() {
 		return binaries;
@@ -101,7 +106,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	}
 
 	protected int countNeighbours(Element vec, int i, int j) {
-		int count = (int) -((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j)).getRepresentant();
+		int count = ((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j))
+				.equals(grid.getField().getNeutralElement()) ? 0 : -1;
 		for (int u = -1; u < 2; u++) {
 			for (int v = -1; v < 2; v++) {
 				count += isAlive(vec, i + u, j + v);
@@ -157,9 +163,17 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 					// = (FiniteVector) grid.addition(initialCondition,
 					// grid.genericBaseToList().get(i * size + j));
 				}
+				else {
+					initialCondition.getCoordinates().put(coordinates.get((i * size) + j), (Scalar) getBinaries().getZero());
+				}
 			}
 		}
 		return initialCondition;
+	}
+
+	@Override
+	public Group getTimeSpace() {
+		return GroupGenerator.getInstance().getIntegers();
 	}
 
 }

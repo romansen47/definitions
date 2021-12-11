@@ -36,9 +36,9 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 	}
 
 	public ConcreteProfilingAspect() {
-		register();
-		setGenericName("ProfilingAspect");
-		setThreadToOutputMap(new ConcurrentHashMap<Thread, List<String>>());
+		this.register();
+		this.setGenericName("ProfilingAspect");
+		this.setThreadToOutputMap(new ConcurrentHashMap<Thread, List<String>>());
 	}
 
 	/**
@@ -171,14 +171,14 @@ public class ConcreteProfilingAspect extends AbstractCustomAspect implements Pro
 
 	@Override
 	public String stringOf(Object o) {
-		setRecording(false);
+		this.setRecording(false);
 		String ans = "";
 		if (o instanceof XmlPrintable) {
 			ans = ((XmlPrintable) o).toXml();
 		} else {
 			ans = ProfilingAspect.super.stringOf(o);
 		}
-		setRecording(true);
+		this.setRecording(true);
 		return ans;
 	}
 }
