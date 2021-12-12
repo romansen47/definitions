@@ -3,6 +3,7 @@ package definitions.aspectjtest;
 import org.junit.Before;
 import org.junit.Test;
 
+import definitions.prototypes.AspectJTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -28,9 +29,9 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 		setTrigonometricDegree(7);
 		setSobolevDegree(0);
 
-		setField(getRealLine());
+		setField(AspectJTest.getRealLine());
 		super.setUp();
-		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(), getTrigonometricDegree(),
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(), getTrigonometricDegree(),
 				getSobolevDegree()));
 
 	}
@@ -51,7 +52,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 
 			@Override
 			public Scalar value(Scalar input) {
-				final Double inputValue = input.getRepresentant();
+				final Double inputValue = input.getDoubleValue();
 				final double abs = Math.abs((Math.sin(inputValue) * Math.cos(inputValue)) - 0.25);
 				return RealLine.getInstance().get(abs);
 			}
@@ -59,7 +60,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 		Function hProjection;
 		for (int i = 0; i < 5; i++) {
 			setSobolevDegree(i);
-			setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(),
+			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(),
 					getTrigonometricDegree(), getSobolevDegree()));
 			hProjection = h.getProjection(getTrigonometricSpace());
 			h.plotCompare(-Math.PI, Math.PI, hProjection);

@@ -22,7 +22,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		preparePlot(fun, left, right, stddraw, count, delta);
+		this.preparePlot(fun, left, right, stddraw, count, delta);
 		double z = 0;
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
@@ -43,7 +43,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		preparePlot(fun1, left, right, stddraw, count, delta);
+		this.preparePlot(fun1, left, right, stddraw, count, delta);
 		Scalar tmp = ((Function) fun1).getField().get(left);
 		double alpha = ((Scalar) ((Function) fun1).value(tmp)).getDoubleValue();
 		double beta = ((Scalar) ((Function) fun2).value(tmp)).getDoubleValue();

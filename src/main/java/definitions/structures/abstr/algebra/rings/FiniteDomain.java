@@ -12,7 +12,7 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	 */
 	@Override
 	default boolean divides(final Element devisor, final Element devident) {
-		return getCoFactor(devisor, devident) != null;
+		return this.getCoFactor(devisor, devident) != null;
 	}
 
 	/**
@@ -23,8 +23,9 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	 * @return the co factor
 	 */
 	default Element getCoFactor(final Element divisor, final Element divident) {
-		for (final Element el : ((FiniteMonoid) getMuliplicativeMonoid()).getOperationMap().get(divisor).keySet()) {
-			if (((FiniteMonoid) getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
+		for (final Element el : ((FiniteMonoid) this.getMuliplicativeMonoid()).getOperationMap().get(divisor)
+				.keySet()) {
+			if (((FiniteMonoid) this.getMuliplicativeMonoid()).operation(divisor, el).equals(divident)) {
 				return el;
 			}
 		}

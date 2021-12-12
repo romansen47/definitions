@@ -20,7 +20,7 @@ public interface Monoid extends SemiGroup {
 	 */
 	@Override
 	default Element operation(Element first, Element second) {
-		final Element neutralElement = getNeutralElement();
+		final Element neutralElement = this.getNeutralElement();
 		Element ans;
 		if (first.equals(neutralElement)) {
 			ans = second;

@@ -14,21 +14,22 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 	 */
 	@Override
 	default VectorSpaceIsomorphism getInverse() {
-		final Scalar[][] matrix = getGenericMatrix();
+		final Scalar[][] matrix = this.getGenericMatrix();
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final Scalar in = matrix[0][0];
 			if (in.equals(RealLine.getInstance().getZero())) {
 				Generator.getInstance().getLogger().info("devision by 0");
 				return null;
 			}
-			return (InvertibleSelfMapping) MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(
-					new Scalar[][] { { ((EuclideanSpace) getSource()).getField().get(1. / in.getDoubleValue()) } });
+			return (InvertibleSelfMapping) MappingGenerator.getInstance()
+					.getFiniteDimensionalLinearMapping(new Scalar[][] {
+							{ ((EuclideanSpace) this.getSource()).getField().get(1. / in.getDoubleValue()) } });
 		}
 		final int k = matrix.length;
 		final Scalar[][] inv = new Scalar[k][k];
 		double det;
 		try {
-			det = 1.0 / det(matrix).getDoubleValue();
+			det = 1.0 / this.det(matrix).getDoubleValue();
 		} catch (final Exception e) {
 			System.err.println("Division durch 0!");
 			return (InvertibleSelfMapping) MappingGenerator.getInstance()
@@ -36,8 +37,8 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 		}
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {
-				inv[i][j] = ((EuclideanSpace) getSource()).getField().get(Math.pow(-1, (double) i + (double) j)
-						* det(adjugateMatrix(matrix, j, i)).getDoubleValue() * det);
+				inv[i][j] = ((EuclideanSpace) this.getSource()).getField().get(Math.pow(-1, (double) i + (double) j)
+						* this.det(this.adjugateMatrix(matrix, j, i)).getDoubleValue() * det);
 			}
 		}
 		return (InvertibleSelfMapping) Generator.getInstance().getMappingGenerator()

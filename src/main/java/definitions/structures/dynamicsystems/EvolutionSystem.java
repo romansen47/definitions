@@ -34,8 +34,8 @@ public interface EvolutionSystem extends XmlPrintable {
 	 */
 	@Override
 	default String toXml() {
-		return "<dynamicSystem>\r" + "<timeSpace>\r" + getTimeSpace().toXml() + "</timeSpace>\r" + "<phaseSpace>\r"
-				+ getPhaseSpace().toXml() + "</phaseSpace>\r" + "</dynamicSystem>\r";
+		return "<dynamicSystem>\r" + "<timeSpace>\r" + this.getTimeSpace().toXml() + "</timeSpace>\r" + "<phaseSpace>\r"
+				+ this.getPhaseSpace().toXml() + "</phaseSpace>\r" + "</dynamicSystem>\r";
 	}
 
 	VectorSpaceSelfMapping getDefiningMapping(Element input);

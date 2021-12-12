@@ -59,7 +59,7 @@ public class Tuple implements FiniteVector {
 					ans = true;
 				}
 			}
-			if (ans == false) {
+			if (!ans) {
 				return false;
 			}
 		}
@@ -114,7 +114,7 @@ public class Tuple implements FiniteVector {
 //	@XmlAttribute
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		if (elementOf(source)) {
+		if (this.elementOf(source)) {
 			return this.getCoordinates();
 		} else {
 			for (final Vector baseVec : source.genericBaseToList()) {

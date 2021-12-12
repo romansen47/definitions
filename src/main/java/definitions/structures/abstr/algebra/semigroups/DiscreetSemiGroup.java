@@ -13,14 +13,14 @@ public interface DiscreetSemiGroup extends SemiGroup {
 
 	/**
 	 * Method to use associated double values, if present
-	 * 
+	 *
 	 * @param first the element
 	 * @return the corresponding Double value
-	 * 
+	 *
 	 * @deprecated Deprecated method - should be avoided. If You use this You don't
 	 *             need the whole project anymore.
 	 */
-	default Double getRepresentant(Element first) {
-		return first.getRepresentant();
-	};
+	// default Double getRepresentant(Element first) {
+	// return first.getRepresentant();
+	// };
 }

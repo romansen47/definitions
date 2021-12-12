@@ -22,8 +22,8 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 		linearity = new HashMap<>();
-		fillCoordinates(source, target);
-		getGenericMatrix();
+		this.fillCoordinates(source, target);
+		this.getGenericMatrix();
 	}
 
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
@@ -56,12 +56,12 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 			if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 				return (this.get(vec));
 			}
-			return ((Function) this.get(vec)).getProjection((EuclideanSpace) getSource());
+			return ((Function) this.get(vec)).getProjection((EuclideanSpace) this.getSource());
 		}
 		if (vec instanceof FunctionTuple) {
 			return this.get(this.get(vec), degree - 1);
 		}
-		Vector test = ((Function) vec).getProjection((EuclideanSpace) getSource());
+		Vector test = ((Function) vec).getProjection((EuclideanSpace) this.getSource());
 		for (int i = 0; i < degree; i++) {
 			test = this.get(test);
 		}

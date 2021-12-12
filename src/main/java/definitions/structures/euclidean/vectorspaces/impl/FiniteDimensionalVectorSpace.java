@@ -38,10 +38,13 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	protected int dim;
 
+	/**
+	 * The corresponding field.
+	 */
 	private Field field;
 
 	public FiniteDimensionalVectorSpace() {
-		setField(RealLine.getInstance());
+		this.setField(RealLine.getInstance());
 	}
 
 	/**
@@ -50,7 +53,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * @param field the basic field
 	 */
 	protected FiniteDimensionalVectorSpace(final Field field) {
-		setField(field);
+		this.setField(field);
 	}
 
 	/**
@@ -60,26 +63,40 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * @param field       the basic field
 	 */
 	public FiniteDimensionalVectorSpace(final Field field, final List<Vector> genericBase) {
-		setField(field);
+		this.setField(field);
 		dim = genericBase.size();
 		base = genericBase;
 	}
 
+	/**
+	 * checks whether the vector is an element of this space
+	 *
+	 * @param vector the given vector
+	 * @return true if given vector is an element of the given space
+	 * @depricated it should be discussed if we should throw this away. soon
+	 */
+	@Deprecated
 	@Override
 	public boolean contains(final Vector vec) {
-		return ((vec instanceof Tuple) && (vec.getDim().equals(getDim())));
+		return ((vec instanceof Tuple) && (vec.getDim().equals(this.getDim())));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Vector> genericBaseToList() {
 		return base;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public FiniteVector getCoordinates(final Vector vec) {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
-		for (final Vector baseVec : genericBaseToList()) {
-			coordinates.put(baseVec, innerProduct(vec, baseVec));
+		for (final Vector baseVec : this.genericBaseToList()) {
+			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
 		}
 		if (vec instanceof GenericFunction) {
 			return new FunctionTuple(coordinates, this);
@@ -97,6 +114,9 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return dim;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
 		if (dualSpace == null) {
@@ -105,31 +125,23 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return dualSpace;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@Proceed
 	public Field getField() {
 		return field;
 	}
 
-//	@Override
-//	public List<Vector> getOrthonormalBase(final List<Vector> base) {
-//		final List<Vector> newBase = new ArrayList<>();
-//		for (final Vector vec : base) {
-//			Vector tmp = this.nullVec();
-//			for (final Vector vec2 : newBase) {
-//				tmp = this.addition(tmp, this.projection(vec, vec2));
-//			}
-//			final Vector ans = this.normalize(this.addition(vec, this.stretch(tmp, this.getField().get(-1))));
-//			newBase.add(ans);
-//		}
-//		return newBase;
-//	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new HashMap<>();
-		for (final Vector vec : genericBaseToList()) {
-			coordinates.put(vec, (Scalar) getField().getZero());
+		for (final Vector vec : this.genericBaseToList()) {
+			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}
 		/*
 		 * Direct usage of constructor instead of get method in order to avoid cycles.
@@ -147,20 +159,31 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		base = newBase;
 	}
 
+	/**
+	 * setter for the field
+	 *
+	 * @param field the corresponding field
+	 */
 	public void setField(final Field field) {
 		this.field = field;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void show() {
 		EuclideanSpace.super.show();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		String ans = "";
 		try {
-			for (final Vector vec : genericBaseToList()) {
+			for (final Vector vec : this.genericBaseToList()) {
 				ans += vec.toString();
 			}
 		} catch (final Throwable e) {
@@ -170,31 +193,20 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 		return super.toString();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		final String clazz = this.getClass().toString().split("class ")[1];
 		String ans = "<" + clazz + ">\r";
 		ans += "<base>";
-		for (final Vector baseVec : genericBaseToList()) {
-			ans += "<baseVec>" + genericBaseToList().indexOf(baseVec) + "</baseVec>\r";
+		for (final Vector baseVec : this.genericBaseToList()) {
+			ans += "<baseVec>" + this.genericBaseToList().indexOf(baseVec) + "</baseVec>\r";
 		}
 		ans += "</base>";
 		ans += "</" + clazz + ">";
 		return ans;
 	}
-
-//	/*
-//	 * These overrides are for tracing purposes only
-//	 */
-//
-//	@Override
-//	public Vector add(final Vector vec1, final Vector vec2) {
-//		return EuclideanSpace.super.add(vec1, vec2);
-//	}
-//
-//	@Override
-//	public Vector stretch(final Vector vec, final Scalar r) {
-//		return EuclideanSpace.super.stretch(vec, r);
-//	}
 
 }

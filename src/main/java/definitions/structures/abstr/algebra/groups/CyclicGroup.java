@@ -18,7 +18,7 @@ public interface CyclicGroup extends Group, FiniteMonoid {
 
 	@Override
 	default Element getNeutralElement() {
-		return getElementsAsList().get(0);
+		return this.getElementsAsList().get(0);
 	}
 
 }

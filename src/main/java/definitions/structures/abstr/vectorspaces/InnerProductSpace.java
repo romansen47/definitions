@@ -28,7 +28,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	@Override
 	default Real norm(final Vector vec) {
-		return RealLine.getInstance().get(Math.sqrt(innerProduct(vec, vec).getDoubleValue()));
+		return RealLine.getInstance().get(Math.sqrt(this.innerProduct(vec, vec).getDoubleValue()));
 	}
 
 	/**
@@ -39,7 +39,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @return projection of v on w.
 	 */
 	default Vector projection(final Vector w, final Vector v) {
-		return stretch(v, innerProduct(w, v));
+		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 }

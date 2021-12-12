@@ -36,7 +36,7 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		dim = (2 * n) + 1;
 		interval = new double[] { left, right };
 		final Field f = field;
-		tmpBase.add(new Constant(getField().get(1. / Math.sqrt(2 * right))) {
+		tmpBase.add(new Constant(this.getField().get(1. / Math.sqrt(2 * right))) {
 			private static final long serialVersionUID = 7393292837814311224L;
 
 			@Override
@@ -44,10 +44,10 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 				return f;
 			}
 		});
-		getSineFunctions(n, Math.PI / right, tmpBase);
-		getCosineFunctions(n, Math.PI / right, tmpBase);
+		this.getSineFunctions(n, Math.PI / right, tmpBase);
+		this.getCosineFunctions(n, Math.PI / right, tmpBase);
 		base = tmpBase;
-		assignOrthonormalCoordinates(base, field);
+		this.assignOrthonormalCoordinates(base, field);
 	}
 
 }

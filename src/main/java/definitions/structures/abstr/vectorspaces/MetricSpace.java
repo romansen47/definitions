@@ -20,7 +20,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 public interface MetricSpace extends Serializable {
 
 	/**
-	 * method for distance between elements
+	 * method for measuring distance between elements
 	 *
 	 * @param vec1 first element
 	 * @param vec2 second element

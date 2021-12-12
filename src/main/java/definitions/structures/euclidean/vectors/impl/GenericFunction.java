@@ -96,7 +96,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public void plot(final double left, final double right) {
-		((Plotter) gen).plot(this, left, right);
+		((Plotter) Function.gen).plot(this, left, right);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public abstract class GenericFunction implements Function, Element {
 	@Override
 
 	public void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) gen).plotCompare(this, fun, left, right);
+		((Plotter) Function.gen).plotCompare(this, fun, left, right);
 	}
 
 	/**

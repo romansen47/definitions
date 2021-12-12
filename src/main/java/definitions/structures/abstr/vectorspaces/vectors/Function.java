@@ -44,16 +44,11 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		 *
 		 */
 		private static final long serialVersionUID = -8277397177374734951L;
-		Field ownfield = getField();
+		Field ownfield = this.getField();
 
 		@Override
 		public Field getField() {
 			return ownfield;
-		}
-
-		@Override
-		public void setRepresentant(Double representant) {
-			getConstantValue().setRepresentant(1.0);
 		}
 
 	};
@@ -72,8 +67,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(((Scalar) value(getField().get(x))).getDoubleValue()
-					- ((Scalar) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > eps) {
+			if (Math.abs(((Scalar) this.value(this.getField().get(x))).getDoubleValue()
+					- ((Scalar) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > Function.eps) {
 				return false;
 			}
 		}
@@ -88,7 +83,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
+		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
 		if (coordinatesMap != null) {
 			if (coordinatesMap.get(space) != null) {
 				return coordinatesMap.get(space);
@@ -109,8 +104,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Proceed
 	default Function getDerivative() {
-		final Field f = getField();
-		if (derivative == null) {
+		final Field f = this.getField();
+		if (Function.derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
 
@@ -126,19 +121,15 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = ((Scalar) fun.value(f.get(input.getDoubleValue() + eps))).getDoubleValue()
-							- ((Scalar) fun.value(input)).getDoubleValue();
-					final double dx = eps;
+					final double dy = ((Scalar) fun.value(f.get(input.getDoubleValue() + Function.eps)))
+							.getDoubleValue() - ((Scalar) fun.value(input)).getDoubleValue();
+					final double dx = Function.eps;
 					return f.get(dy / dx);
-				}
-
-				@Override
-				public void setRepresentant(Double representant) {
 				}
 
 			};
 		} else {
-			return derivative;
+			return Function.derivative;
 		}
 	}
 
@@ -211,7 +202,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Override
 	default void plot(final double left, final double right) {
-		((Plotter) gen).plot(this, left, right);
+		((Plotter) Function.gen).plot(this, left, right);
 	}
 
 	/**
@@ -219,12 +210,12 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) gen).plotCompare(this, fun, left, right);
+		((Plotter) Function.gen).plotCompare(this, fun, left, right);
 	}
 
 	default void preparePlot(final double left, final double right, final StdDraw stddraw, final int count,
 			final double delta) {
-		((Plotter) gen).preparePlot(this, left, right, stddraw, count, delta);
+		((Plotter) Function.gen).preparePlot(this, left, right, stddraw, count, delta);
 	}
 
 	/**

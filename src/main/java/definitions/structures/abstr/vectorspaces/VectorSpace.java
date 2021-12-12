@@ -40,11 +40,11 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 */
 	@Override
 	default Vector getInverseElement(final Element element) {
-		if (element.equals(getNeutralElement())) {
+		if (element.equals(this.getNeutralElement())) {
 			return (Vector) element;
 		}
-		final Field field = getField();
-		return stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
+		final Field field = this.getField();
+		return this.stretch((Vector) element, (Scalar) field.getInverseElement(field.getOne()));
 	}
 
 	/**
@@ -71,10 +71,10 @@ public interface VectorSpace extends Group, XmlPrintable {
 	 * @return the stretched vector.
 	 */
 	default Vector stretch(Vector vec1, Scalar r) {
-		final FieldElement zero = getField().getNeutralElement();
-		final FieldElement one = getField().getOne();
+		final FieldElement zero = this.getField().getNeutralElement();
+		final FieldElement one = this.getField().getOne();
 		if (r.equals(zero)) {
-			return (Vector) getNeutralElement();
+			return (Vector) this.getNeutralElement();
 		}
 		if (r.equals(one)) {
 			return vec1;

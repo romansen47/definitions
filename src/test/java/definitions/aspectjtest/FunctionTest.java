@@ -3,8 +3,7 @@
  */
 package definitions.aspectjtest;
 
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -26,7 +25,7 @@ public class FunctionTest extends AspectJTest {
 
 	static final int trigonometricDegree = 20;
 	static final int sobolevDegree = 20;
-	static int derivativeDegree = 4;
+	static int derivativeDegree = 10;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function sine;
@@ -40,13 +39,11 @@ public class FunctionTest extends AspectJTest {
 	public static void setUpBeforeClass() throws Exception {
 
 		final ISpaceGenerator spGen = SpaceGenerator.getInstance();
-		final EuclideanFunctionSpace tempSpace = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
-				trigonometricDegree, sobolevDegree);
+		FunctionTest.trigSpace  = spGen.getTrigonometricSobolevSpace(RealLine.getInstance(),
+				FunctionTest.trigonometricDegree, FunctionTest.sobolevDegree);
 
-		trigSpace = tempSpace;// (EuclideanFunctionSpace) spGen.extend(tempSpace, abs);
-
-		sine = (Function) trigSpace.genericBaseToList().get(1);
-		cosine = (Function) trigSpace.genericBaseToList().get(1 + trigonometricDegree);
+		FunctionTest.sine = (Function) FunctionTest.trigSpace.genericBaseToList().get(1);
+		FunctionTest.cosine = (Function) FunctionTest.trigSpace.genericBaseToList().get(1 + FunctionTest.trigonometricDegree);
 
 	}
 
@@ -54,10 +51,8 @@ public class FunctionTest extends AspectJTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(definitions.structures.euclidean.vectorspaces.EuclideanSpace)}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetDerivativeEuclideanSpace() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 	/**
@@ -66,24 +61,24 @@ public class FunctionTest extends AspectJTest {
 	 */
 	@Test
 	public final void testGetDerivativeInt() {
-		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) trigSpace).getDerivativeBuilder();
+		final DerivativeOperator derivativeBuilder = ((FiniteDimensionalSobolevSpace) FunctionTest.trigSpace).getDerivativeBuilder();
 
 		Function highDerivative;
-		final EuclideanSpace space = trigSpace;
-		final Function newSine = sine.getProjection(space);
+		final EuclideanSpace space = FunctionTest.trigSpace;
+		final Function newSine = FunctionTest.sine.getProjection(space);
 
-		for (int i = 0; (4 * i) < derivativeDegree; i++) {
+		for (int i = 0; (4 * i) < FunctionTest.derivativeDegree; i++) {
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 1));
-			cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
+			FunctionTest.cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 2));
-			trigSpace.stretch(sine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
+			FunctionTest.trigSpace.stretch(FunctionTest.sine, FunctionTest.trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 3));
-			trigSpace.stretch(cosine, trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
+			FunctionTest.trigSpace.stretch(FunctionTest.cosine, FunctionTest.trigSpace.getField().get(-1)).plotCompare(-Math.PI, Math.PI, highDerivative);
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 4));
-			sine.plotCompare(-Math.PI, Math.PI, highDerivative);
+			FunctionTest.sine.plotCompare(-Math.PI, Math.PI, highDerivative);
 		}
 
 	}
@@ -92,60 +87,48 @@ public class FunctionTest extends AspectJTest {
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral()}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetPrimitiveIntegral() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 	/**
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getPrimitiveIntegral(int)}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetPrimitiveIntegralInt() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 	/**
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getProjectionOfDerivative(definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace)}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testGetProjectionOfDerivative() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 	/**
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testPlot() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 	/**
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testPlotCompare() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 	/**
 	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.fields.scalars.Scalar)}.
 	 */
-	// @Test@settings.Trace(trace = settings.GlobalSettings.LOGGING, depth =
-	// settings.GlobalSettings.LOGGING_DEPTH, initial = true, transit = true)
 	public final void testValue() {
-		fail("Not yet implemented"); // TODO
+		Assert.fail("Not yet implemented"); // TODO
 	}
 
 }

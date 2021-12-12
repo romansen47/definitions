@@ -34,7 +34,7 @@ public abstract class Constant extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "constant " + getConstantValue() + "-function ";
+		return "constant " + this.getConstantValue() + "-function ";
 	}
 
 	/**
@@ -42,7 +42,7 @@ public abstract class Constant extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getConstantValue();
+		return this.getConstantValue();
 	}
 
 	public Scalar getConstantValue() {

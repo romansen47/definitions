@@ -40,12 +40,14 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		super(source, target);
 		linearity = coordinates;
-		genericMatrix = new Scalar[((EuclideanSpace) getTarget()).getDim()][((EuclideanSpace) getSource()).getDim()];
+		genericMatrix = new Scalar[((EuclideanSpace) this.getTarget()).getDim()][((EuclideanSpace) this.getSource())
+				.getDim()];
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
 			for (final Vector vec2 : target.genericBaseToList()) {
-				genericMatrix[j][i] = getImageVectorOfBaseVector(source.getBaseVec(vec1)).get(target.getBaseVec(vec2));
+				genericMatrix[j][i] = this.getImageVectorOfBaseVector(source.getBaseVec(vec1))
+						.get(target.getBaseVec(vec2));
 				j++;
 			}
 			i++;
@@ -69,17 +71,17 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		if (genericMatrix == null) {
 			if (linearity == null) {
 				linearity = new HashMap<>();
-				for (final Vector sourceVec : ((EuclideanSpace) getSource()).genericBaseToList()) {
+				for (final Vector sourceVec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 					linearity.put(sourceVec, ((Function) this.get(sourceVec)).getCoordinates((EuclideanSpace) target));
 				}
 			}
-			genericMatrix = new Scalar[((EuclideanSpace) getTarget()).getDim()][((EuclideanSpace) getSource())
+			genericMatrix = new Scalar[((EuclideanSpace) this.getTarget()).getDim()][((EuclideanSpace) this.getSource())
 					.getDim()];
 			int i = 0;
-			for (final Vector vec1 : ((EuclideanSpace) getSource()).genericBaseToList()) {
+			for (final Vector vec1 : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 				int j = 0;
-				for (final Vector vec2 : ((EuclideanSpace) getTarget()).genericBaseToList()) {
-					genericMatrix[j][i] = getImageVectorOfBaseVector(vec1).get(vec2);
+				for (final Vector vec2 : ((EuclideanSpace) this.getTarget()).genericBaseToList()) {
+					genericMatrix[j][i] = this.getImageVectorOfBaseVector(vec1).get(vec2);
 					j++;
 				}
 				i++;
@@ -139,11 +141,11 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 		String str = "";
 		Scalar[][] matrix;
 		try {
-			matrix = getGenericMatrix();
+			matrix = this.getGenericMatrix();
 			double x;
-			for (int i = 0; i < matrix.length; i++) {
-				for (int j = 0; j < matrix[i].length; j++) {
-					x = matrix[i][j].getDoubleValue();
+			for (final Scalar[] element : matrix) {
+				for (int j = 0; j < element.length; j++) {
+					x = element[j].getDoubleValue();
 					str += " " + (x - (x % 0.001)) + " ";
 				}
 				str += " \r";
@@ -174,7 +176,7 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 				ans += "</targetVector>";
 
 				ans += "<value>";
-				ans += getImageVectorOfBaseVector(vec1).get(vec2).toXml();
+				ans += this.getImageVectorOfBaseVector(vec1).get(vec2).toXml();
 				ans += "</value>";
 			}
 		}

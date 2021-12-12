@@ -35,14 +35,14 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	private static EuclideanSpace instance;
 
 	public static EuclideanSpace getInstance() {
-		if (instance == null) {
-			instance = new QuaternionSpace();
+		if (QuaternionSpace.instance == null) {
+			QuaternionSpace.instance = new QuaternionSpace();
 		}
-		return instance;
+		return QuaternionSpace.instance;
 	}
 
 	public static void setInstance(final EuclideanSpace space) {
-		instance = space;
+		QuaternionSpace.instance = space;
 	}
 
 	private final Quaternion zero;
@@ -69,15 +69,15 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		base.add(i);
 		base.add(j);
 		base.add(k);
-		assignOrthonormalCoordinates(base, getField());
+		this.assignOrthonormalCoordinates(base, this.getField());
 	}
 
 	@Override
 	public Quaternion addition(final Vector vec1, final Vector vec2) {
-		if (vec1 == nullVec()) {
+		if (vec1 == this.nullVec()) {
 			return (Quaternion) vec2;
 		}
-		if (vec2 == nullVec()) {
+		if (vec2 == this.nullVec()) {
 			return (Quaternion) vec1;
 		}
 		final Vector ans = super.addition(vec1, vec2);
@@ -171,7 +171,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 			newMap.put(j, jHom);
 			newMap.put(k, kHom);
 
-			setMultiplicationMatrix(newMap);
+			this.setMultiplicationMatrix(newMap);
 		}
 		return multiplicationMatrix;
 	}
@@ -225,11 +225,11 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		if (r instanceof Quaternion) {
 			return (Quaternion) super.innerProduct(vec1, r);
 		}
-		if (r == getField().getOne()) {
+		if (r == this.getField().getOne()) {
 			return (Quaternion) vec1;
 		}
-		if (r == getField().getZero()) {
-			return nullVec();
+		if (r == this.getField().getZero()) {
+			return this.nullVec();
 		}
 		final Vector ans = super.stretch(vec1, r);
 		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(one),

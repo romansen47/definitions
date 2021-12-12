@@ -32,7 +32,7 @@ public class FunctionalSpaceTest {
 	final EuclideanSpace dualSpace = space.getDualSpace();
 
 	final EuclideanSpace dualDualSpace = dualSpace.getDualSpace();
-	final EuclideanSpace functionSpace = SpaceGenerator.getInstance().getTrigonometricSpace(RealLine.getInstance(), 1);
+	final EuclideanSpace functionSpace = SpaceGenerator.getInstance().getNormedTrigonometricSpace(RealLine.getInstance(), 1);
 	final EuclideanSpace dualFunctionSpace = functionSpace.getDualSpace();
 
 	final EuclideanSpace dualDualFunctionSpace = dualFunctionSpace.getDualSpace();

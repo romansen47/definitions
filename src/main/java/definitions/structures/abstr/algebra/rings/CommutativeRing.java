@@ -8,7 +8,7 @@ import definitions.structures.abstr.vectorspaces.Ring;
 
 /**
  * @author ro
- * 
+ *
  *         A commutative ring is a ring where the additive group is commutative
  *
  */

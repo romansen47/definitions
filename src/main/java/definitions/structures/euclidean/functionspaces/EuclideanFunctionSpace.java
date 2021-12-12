@@ -31,10 +31,10 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	@Override
 	default Function addition(final Vector vec1, final Vector vec2) {
 		final Field f = this.getField();
-		if (vec1.equals(nullVec())) {
+		if (vec1.equals(this.nullVec())) {
 			return (Function) vec2;
 		}
-		if (vec2.equals(nullVec())) {
+		if (vec2.equals(this.nullVec())) {
 			return (Function) vec1;
 		}
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
@@ -49,19 +49,19 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 					@Override
 					public Scalar value(final Scalar input) {
-						return (Scalar) getField().addition(((Function) vec1).value(input),
+						return (Scalar) this.getField().addition(((Function) vec1).value(input),
 								((Function) vec2).value(input));
 					}
 				};
 			}
-			final List<Vector> base = genericBaseToList();
+			final List<Vector> base = this.genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new HashMap<>();
-			final Vector newVec1 = functionTuple(vec1);
-			final Vector newVec2 = functionTuple(vec2);
+			final Vector newVec1 = this.functionTuple(vec1);
+			final Vector newVec2 = this.functionTuple(vec2);
 			base.stream().forEach(vec -> {
 				coordinates.put(vec, this.getField()
-						.get(((FiniteVectorMethods) newVec1).getCoordinates().get(getBaseVec(vec)).getDoubleValue()
-								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(getBaseVec(vec))
+						.get(((FiniteVectorMethods) newVec1).getCoordinates().get(this.getBaseVec(vec)).getDoubleValue()
+								+ ((FiniteVectorMethods) newVec2).getCoordinates().get(this.getBaseVec(vec))
 										.getDoubleValue()));
 			});
 			return new FunctionTuple(coordinates, this);
@@ -93,7 +93,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	default Function nullFunction() {
 		final Map<Vector, Scalar> nul = new HashMap<>();
-		genericBaseToList().stream().forEach(baseVec -> nul.put(baseVec, RealLine.getInstance().getZero()));
+		this.genericBaseToList().stream().forEach(baseVec -> nul.put(baseVec, RealLine.getInstance().getZero()));
 		return new FunctionTuple(nul, this);
 	}
 
@@ -102,7 +102,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	@Override
 	default Function nullVec() {
-		return nullFunction();
+		return this.nullFunction();
 	}
 
 	/**
@@ -110,8 +110,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
-		if (vec.equals(nullVec()) || r.equals(this.getField().getZero())) {
-			return nullVec();
+		if (vec.equals(this.nullVec()) || r.equals(this.getField().getZero())) {
+			return this.nullVec();
 		}
 		if (r.equals(this.getField().getOne())) {
 			return (Function) vec;// ((Function) vec).getProjection(this);
@@ -127,7 +127,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 				@Override
 				public Scalar value(final Scalar input) {
-					return (Scalar) getField().product(((Function) vec).value(input), r);
+					return (Scalar) this.getField().product(((Function) vec).value(input), r);
 				}
 			};
 		} else {

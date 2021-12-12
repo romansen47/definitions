@@ -13,16 +13,16 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 	private static IFieldGenerator instance;
 
 	public static IFieldGenerator getInstance() {
-		return instance;
+		return FieldGenerator.instance;
 	}
 
 	public static IFieldGenerator getInstance(final FieldGenerator fieldGenerator) {
-		return instance;
+		return FieldGenerator.instance;
 	}
 
 	public static void setInstance(final FieldGenerator fieldGenerator) {
-		instance = fieldGenerator;
-		((FieldGenerator) instance).setRealLine(fieldGenerator.getRealLine());
+		FieldGenerator.instance = fieldGenerator;
+		((FieldGenerator) FieldGenerator.instance).setRealLine(fieldGenerator.getRealLine());
 	}
 
 	@Autowired

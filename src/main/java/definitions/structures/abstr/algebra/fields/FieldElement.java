@@ -5,9 +5,4 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 
 public interface FieldElement extends Scalar, FiniteVector {
 
-	@Override
-	default double getDoubleValue() {
-		return getRepresentant();
-	}
-
 }

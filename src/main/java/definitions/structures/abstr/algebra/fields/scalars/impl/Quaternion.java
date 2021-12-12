@@ -60,9 +60,9 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return (vec instanceof Quaternion) && ((Quaternion) vec).getReal().equals(getReal())
-				&& ((Quaternion) vec).getI().equals(getI()) && ((Quaternion) vec).getJ().equals(getJ())
-				&& ((Quaternion) vec).getK().equals(getK());
+		return (vec instanceof Quaternion) && ((Quaternion) vec).getReal().equals(this.getReal())
+				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
+				&& ((Quaternion) vec).getK().equals(this.getK());
 	}
 
 	/**
@@ -73,10 +73,10 @@ public class Quaternion extends Tuple implements FieldElement {
 		Map<Vector, Scalar> tmp = super.getCoordinates();
 		if ((tmp == null) || tmp.isEmpty()) {
 			tmp = new HashMap<>();
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), getReal());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), getI());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), getJ());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), getK());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
 		}
 		return tmp;
 	}
@@ -136,7 +136,7 @@ public class Quaternion extends Tuple implements FieldElement {
 	@XmlAttribute
 	@Override
 	public double getDoubleValue() {
-		return getReal().getDoubleValue();
+		return this.getReal().getDoubleValue();
 	}
 
 	/**
@@ -152,8 +152,8 @@ public class Quaternion extends Tuple implements FieldElement {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "(" + getReal().getDoubleValue() + "," + getI().getDoubleValue() + "," + getJ().getDoubleValue() + ","
-				+ getK().getDoubleValue() + ")";
+		return "(" + this.getReal().getDoubleValue() + "," + this.getI().getDoubleValue() + ","
+				+ this.getJ().getDoubleValue() + "," + this.getK().getDoubleValue() + ")";
 	}
 
 }

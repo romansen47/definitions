@@ -46,7 +46,7 @@ public interface VectorSpaceHomomorphism extends Vector, VectorSpaceMapping, Gro
 	 * @return the image of the base vector.
 	 */
 	default Map<Vector, Scalar> getImageVectorOfBaseVector(final Vector vec) {
-		return getLinearity().get(vec);
+		return this.getLinearity().get(vec);
 	}
 
 	/**

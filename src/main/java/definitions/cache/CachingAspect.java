@@ -42,21 +42,21 @@ public class CachingAspect implements CustomAspect {
 	}
 
 	public CachingAspect() {
-		logger = LogManager.getLogger(getGenericName());
+		logger = LogManager.getLogger(this.getGenericName());
 	}
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
 	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
-		return coordinateSpace(pjp);
+		return this.coordinateSpace(pjp);
 	}
 
 	private Object coordinateSpace(ProceedingJoinPoint pjp) {
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);
 		if (field.equals(RealLine.getInstance())) {
-			final EuclideanSpace ans = coordinatesSpaces.get(dim);
+			final EuclideanSpace ans = CachingAspect.coordinatesSpaces.get(dim);
 			if (ans != null) {
-				getLogger().info("Successfully restored " + dim + "-dimensional euclidean space " + ans.toString()
+				this.getLogger().info("Successfully restored " + dim + "-dimensional euclidean space " + ans.toString()
 						+ " from cache! ");
 				return ans;
 			}
@@ -91,9 +91,9 @@ public class CachingAspect implements CustomAspect {
 			}
 		}
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		getLogger().info("Created new " + dim + "-dimensional space over " + field.toXml() + ans.toXml());
+		this.getLogger().info("Created new " + dim + "-dimensional space over " + field.toXml() + ans.toXml());
 		if (field.equals(RealLine.getInstance())) {
-			coordinatesSpaces.put(dim, ans);
+			CachingAspect.coordinatesSpaces.put(dim, ans);
 		}
 		return ans;
 	}

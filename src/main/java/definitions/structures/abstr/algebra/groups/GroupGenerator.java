@@ -55,7 +55,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 	@Override
 	public DiscreetDomain getIntegers() {
 		if (integers == null) {
-			setIntegers(completeToDiscreetRing(getNaturals()));
+			this.setIntegers(this.completeToDiscreetRing(this.getNaturals()));
 		}
 		return integers;
 	}
@@ -63,7 +63,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 	@Override
 	public DiscreetSemiRing getNaturals() {
 		if (naturals == null) {
-			setNaturals(new Naturals());
+			this.setNaturals(new Naturals());
 		}
 		return naturals;
 	}
@@ -79,7 +79,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 	@Override
 	public PrimeField getRationals() {
 		if (rationals == null) {
-			setRationals(completeToDiscreetField(integers));
+			this.setRationals(this.completeToDiscreetField(integers));
 		}
 		return rationals;
 	}
@@ -139,26 +139,23 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 					}
 
 					@Override
-					public Double getRepresentant() {
-						if (this == one) {
-							return 1.;
-						}
-						return 0.;
-					}
-
-					@Override
 					public String toString() {
 						return "<binary>" + value + "</binary>";
 					}
 
-				};
+					@Override
+					public double getDoubleValue() {
+						return value ? 1d : 0d;
+					}
 
-				private DiscreetGroup multiplicativeMonoid = getMuliplicativeMonoid();
+				}
+
+				private final DiscreetGroup multiplicativeMonoid = this.getMuliplicativeMonoid();
 
 				@Override
 				public DiscreetGroup getMuliplicativeMonoid() {
 					return multiplicativeMonoid;
-				};
+				}
 
 				private final Binary zero = new Binary(false);
 				private final Binary one = new Binary(true);
@@ -209,7 +206,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public Vector stretch(Vector vec, Scalar r) {
-					return multiplication(vec, r);
+					return this.multiplication(vec, r);
 				}
 
 				@Override
@@ -240,18 +237,15 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public FiniteVector addition(Vector a, Vector b) {
-					Vector ans = FinitePrimeField.super.operation(a, b);
-					if (ans == null) {
-						final boolean tmp = ((Binary) a).value && ((Binary) b).value;
-						ans = get(!tmp);
-					}
+					final boolean tmp = a != b;
+					final Vector ans = this.get(tmp);
 					return (FiniteVector) ans;
 				}
 
 				@Override
 				public Vector multiplication(Element a, Element b) {
 					final boolean ans = ((Binary) a).value && ((Binary) b).value;
-					return get(ans);
+					return this.get(ans);
 				}
 
 				private Vector get(boolean b) {
@@ -273,7 +267,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 					if (representant != 0.) {
 						ans = true;
 					}
-					return get(ans);
+					return this.get(ans);
 				}
 
 				@Override
@@ -327,7 +321,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public Vector nullVec() {
-					return getNeutralElement();
+					return this.getNeutralElement();
 				}
 
 				List<Element> elementsAsList;
@@ -340,6 +334,14 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 						elementsAsList.add(one);
 					}
 					return elementsAsList;
+				}
+
+				@Override
+				public FieldElement operation(Element first, Element second) {
+					final FieldElement ans = ((Binary) first).getDoubleValue() + ((Binary) second).getDoubleValue() == 0
+							? this.getZero()
+							: this.getOne();
+					return ans;
 				}
 
 			};
@@ -360,12 +362,12 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public Element getNeutralElement() {
-					return get(0.0);
+					return this.get(0.0);
 				}
 
 				@Override
 				public Element operation(Element first, Element second) {
-					final Element neutralElement = getNeutralElement();
+					final Element neutralElement = this.getNeutralElement();
 					if (first.equals(neutralElement)) {
 						return second;
 					}
@@ -377,16 +379,16 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public Element get(Double r) {
-					FieldElement element = (FieldElement) getElements().get(r);
+					FieldElement element = (FieldElement) this.getElements().get(r);
 					if (element == null) {
 						element = new FieldElement() {
 
 							Double representant = r;
 
-							@Override
-							public Double getRepresentant() {
-								return representant;
-							}
+							// @Override
+							// public Double getRepresentant() {
+							// return representant;
+							// }
 
 							@Override
 							public Map<Vector, Scalar> getCoordinates() {
@@ -404,11 +406,6 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 							}
 
 							@Override
-							public void setRepresentant(Double representant) {
-								this.representant = representant;
-							}
-
-							@Override
 							public String toString() {
 								String ans = "false";
 								if (representant == 0.0) {
@@ -417,20 +414,25 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 								return "constructed binary: " + ans;
 							}
 
+							@Override
+							public double getDoubleValue() {
+								return representant;
+							}
+
 						};
-						getElements().put(r, element);
+						this.getElements().put(r, element);
 					}
 					return element;
 				}
 
 				@Override
 				public boolean isUnit(Element element) {
-					return !element.equals(get(0.0));
+					return !element.equals(this.get(0.0));
 				}
 
 				@Override
 				public Element getOne() {
-					return get(1.0);
+					return this.get(1.0);
 				}
 
 				@Override
@@ -473,11 +475,11 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 						operationMap = new ConcurrentHashMap<>();
 						final Map<Element, Element> entry = new HashMap<>();
 						final Map<Element, Element> entry2 = new HashMap<>();
-						entry.put(getNeutralElement(), getNeutralElement());
-						entry.put(getOne(), getOne());
-						entry2.put(getNeutralElement(), getOne());
-						entry2.put(getOne(), getNeutralElement());
-						operationMap.put(getOne(), entry);
+						entry.put(this.getNeutralElement(), this.getNeutralElement());
+						entry.put(this.getOne(), this.getOne());
+						entry2.put(this.getNeutralElement(), this.getOne());
+						entry2.put(this.getOne(), this.getNeutralElement());
+						operationMap.put(this.getOne(), entry);
 					}
 					return operationMap;
 				}
@@ -492,7 +494,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public Element getMinusOne() {
-					return getOne();
+					return this.getOne();
 				}
 
 				@Override
@@ -506,7 +508,9 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 			binaryGroup.getNeutralElement();
 			binaryGroup.getOne();
 			binaryGroup.getMuliplicativeMonoid();
-			// Hier liegt das Problem! Die Vervollständigung bezieht sich hier auf die Addition... Historisch bedingter Fehler: Hier sollte der Halbring der Natürlichen Zahlen mit 0, welcher
+			// Hier liegt das Problem! Die Vervollständigung bezieht sich hier auf die
+			// Addition... Historisch bedingter Fehler: Hier sollte der Halbring der
+			// Natürlichen Zahlen mit 0, welcher
 			final DiscreetDomain binaryDomain = GroupGenerator.getInstance().completeToDiscreetRing(test);
 			binaryDomain.getNeutralElement();
 			binaryDomain.getOne();

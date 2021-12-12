@@ -38,11 +38,11 @@ public class SpringConfiguration implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
-		setApplicationContext(applicationContext);
+		this.setApplicationContext(applicationContext);
 		((AnnotationConfigApplicationContext) applicationContext).scan("definitions..*");
 		((AbstractApplicationContext) applicationContext).refresh();
 		Generator.setInstance((Generator) applicationContext.getBean("generator"));
-		SpringConfiguration.logger = logger();
+		SpringConfiguration.logger = this.logger();
 	}
 
 	@Bean(name = "annotationConfigApplicationContext")

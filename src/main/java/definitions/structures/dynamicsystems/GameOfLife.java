@@ -21,7 +21,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	protected PrimeField binaries;
 
 	protected GameOfLife() {
-		size = 0;}
+		size = 0;
+	}
 
 	public PrimeField getBinaries() {
 		return binaries;
@@ -52,8 +53,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	public GameOfLife(int size) {
 		this.size = size;
-		setBinaries(GroupGenerator.getInstance().getBinaries());
-		grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(getBinaries(), size * size);
+		this.setBinaries(GroupGenerator.getInstance().getBinaries());
+		grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.getBinaries(), size * size);
 		coordinates = grid.genericBaseToList();
 	}
 
@@ -74,9 +75,10 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 				final FiniteVector ans = (FiniteVector) grid.nullVec();
 				for (int i = 0; i < size; i++) {
 					for (int j = 0; j < size; j++) {
-						final boolean survives = willBeAlive(vec, i, j);
+						final boolean survives = this.willBeAlive(vec, i, j);
 						if (survives) {
-							ans.getCoordinates().put(coordinates.get((i * size) + j), getBinaries().getOne());
+							ans.getCoordinates().put(coordinates.get((i * size) + j),
+									GameOfLife.this.getBinaries().getOne());
 						}
 					}
 				}
@@ -84,10 +86,10 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 			}
 
 			private boolean willBeAlive(Element vec, int i, int j) {
-				final int count = countNeighbours(vec, i, j);
+				final int count = GameOfLife.this.countNeighbours(vec, i, j);
 				boolean ans = false;
-				if (((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j)) == getBinaries()
-						.getZero()) {
+				if (((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j)) == GameOfLife.this
+						.getBinaries().getZero()) {
 					if (count == 3) {
 						ans = true;
 					}
@@ -110,7 +112,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 				.equals(grid.getField().getNeutralElement()) ? 0 : -1;
 		for (int u = -1; u < 2; u++) {
 			for (int v = -1; v < 2; v++) {
-				count += isAlive(vec, i + u, j + v);
+				count += this.isAlive(vec, i + u, j + v);
 				if (count > 3) {
 					return 4;
 				}
@@ -123,7 +125,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 		final Element ans = ((FiniteVector) vec).getCoordinates()
 				.get(coordinates.get((((i + size) % size) * size) + ((j + size) % size)));
 		int toInt;
-		if (ans == getBinaries().getNeutralElement()) {
+		if (ans == this.getBinaries().getNeutralElement()) {
 			toInt = 0;
 		} else {
 			toInt = 1;
@@ -142,7 +144,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 		String ans = "";
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				if (gol.getCoordinates().get(coordinates.get((i * size) + j)) == getBinaries().getNeutralElement()) {
+				if (gol.getCoordinates().get(coordinates.get((i * size) + j)) == this.getBinaries()
+						.getNeutralElement()) {
 					ans += " dead ";
 				} else {
 					ans += " alive ";
@@ -154,17 +157,17 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	}
 
 	public FiniteVector createRandomInitialCondition() {
-		final FiniteVector initialCondition = (FiniteVector) getPhaseSpace().nullVec();
+		final FiniteVector initialCondition = (FiniteVector) this.getPhaseSpace().nullVec();
 		final Random random = new Random();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				if (random.nextBoolean()) {
-					initialCondition.getCoordinates().put(coordinates.get((i * size) + j), getBinaries().getOne());
+					initialCondition.getCoordinates().put(coordinates.get((i * size) + j), this.getBinaries().getOne());
 					// = (FiniteVector) grid.addition(initialCondition,
 					// grid.genericBaseToList().get(i * size + j));
-				}
-				else {
-					initialCondition.getCoordinates().put(coordinates.get((i * size) + j), (Scalar) getBinaries().getZero());
+				} else {
+					initialCondition.getCoordinates().put(coordinates.get((i * size) + j),
+							(Scalar) this.getBinaries().getZero());
 				}
 			}
 		}

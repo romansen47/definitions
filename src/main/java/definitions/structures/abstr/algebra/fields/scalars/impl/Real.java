@@ -35,7 +35,6 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@XmlElement
 	private Double representant;
 
-	@Override
 	public Double getRepresentant() {
 		return representant;
 	}
@@ -54,12 +53,12 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public double doubleValue() {
-		return getDoubleValue();
+		return this.getDoubleValue();
 	}
 
-//	public Real(double value) {
-//		this.realValue = value;
-//	}
+	// public Real(double value) {
+	// this.realValue = value;
+	// }
 
 	/**
 	 * {@inheritDoc}
@@ -74,7 +73,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return ((vec instanceof Real) && (Math.abs(((Real) vec).getDoubleValue() - getDoubleValue()) < eps));
+		return ((vec instanceof Real) && (Math.abs(((Real) vec).getDoubleValue() - this.getDoubleValue()) < eps));
 	}
 
 	/**
@@ -82,7 +81,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public float floatValue() {
-		return (float) getDoubleValue();
+		return (float) this.getDoubleValue();
 	}
 
 	/**
@@ -128,7 +127,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public int intValue() {
-		return (int) getDoubleValue();
+		return (int) this.getDoubleValue();
 	}
 
 	/**
@@ -136,7 +135,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public long longValue() {
-		return (long) getDoubleValue();
+		return (long) this.getDoubleValue();
 	}
 
 	/**
@@ -175,7 +174,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "" + getDoubleValue();
+		return "" + this.getDoubleValue();
 	}
 
 	/**
@@ -186,7 +185,6 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 		return "<real value=\"" + Double.toString(representant) + "\" />\r";
 	}
 
-	@Override
 	public void setRepresentant(Double representant) {
 		this.representant = representant;
 	}

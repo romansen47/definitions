@@ -27,39 +27,74 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	private static final long serialVersionUID = -6528124823296735558L;
 
+	/*
+	 * this one is a singleton
+	 */
 	static private EuclideanSpace instance;
 
+	/*
+	 * complex plane here is modeeled as a 2 dimensional real vector space
+	 */
 	private static RealLine realLine;
 
+	/**
+	 * Getter for the instance
+	 *
+	 * @return the instance
+	 */
 	public static EuclideanSpace getInstance() {
-		if (instance == null) {
-			instance = new ComplexPlane();
+		if (ComplexPlane.instance == null) {
+			ComplexPlane.instance = new ComplexPlane();
 		}
-		return instance;
+		return ComplexPlane.instance;
 	}
 
+	/**
+	 * Setter for the field. We choose to work with the complex plane as a simple 2
+	 * dimensional real vector space equipped with a suitable product.
+	 *
+	 * @param realLine the real line
+	 */
 	public static void setRealLine(final RealLine realLine) {
 		ComplexPlane.realLine = realLine;
 	}
 
+	/**
+	 * the zero element (0,0)
+	 */
 	private final Complex zero;
 
+	/**
+	 * the unit (1,0)
+	 */
 	private final Complex one;
 
+	/**
+	 * the imaginary unit (0,1)
+	 */
 	private final Complex i;
 
+	/**
+	 * the maltrix used to multiply elements
+	 */
 	private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix = null;
 
+	/**
+	 * the constructor
+	 */
 	public ComplexPlane() {
 		dim = 2;
 		base = new ArrayList<>();
-		one = new Complex(realLine.getOne(), realLine.getZero());
-		zero = new Complex(realLine.getZero(), realLine.getZero());
-		i = new Complex(realLine.getZero(), realLine.getOne());
+		one = new Complex(ComplexPlane.realLine.getOne(), ComplexPlane.realLine.getZero());
+		zero = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getZero());
+		i = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getOne());
 		base.add(one);
 		base.add(i);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex addition(final Vector vec1, final Vector vec2) {
 		final Vector ans = super.addition(vec1, vec2);
@@ -67,34 +102,62 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 				((FiniteVectorMethods) ans).getCoordinates().get(i));
 	}
 
+	/**
+	 * Generic constructor, returns complex number equal to
+	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#getOne}
+	 *
+	 * @return
+	 */
 	public Complex complex() {
 		return new Complex(0, 0);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex conjugate(final Scalar value) {
 		final Complex v = (Complex) value;
 		return new Complex(v.getReal().getDoubleValue(), -v.getImag().getDoubleValue());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean contains(final Vector vec) {
 		return (vec == zero) || (vec == one) || (vec == null) || (vec instanceof Complex);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex get(final double realValue) {
-		final Complex newComplex = complex();
+		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, 0);
 		return newComplex;
 	}
 
+	/**
+	 * method to create a complex number using two real number as real and imaginary
+	 * parts
+	 *
+	 * @param realValue
+	 * @param imValue
+	 * @return
+	 */
 	public Complex get(final double realValue, final double imValue) {
-		final Complex newComplex = complex();
+		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, imValue);
 		return newComplex;
 	}
 
+	/**
+	 * get the imaginary unit
+	 *
+	 * @return the imaginary unit
+	 */
 	public Complex getI() {
 		return i;
 	}
@@ -121,27 +184,38 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 			newMap.put(one, oneHom);
 			newMap.put(i, iHom);
 
-			setMultiplicationMatrix(newMap);
+			this.setMultiplicationMatrix(newMap);
 		}
 		return multiplicationMatrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex getOne() {
 		return one;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-
 	public Complex getMultiplicativeInverseElement(final Vector factor) {
 		return (Complex) Field.super.getMultiplicativeInverseElement(factor);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex nullVec() {
 		return zero;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex product(final Vector vec1, final Vector vec2) {
 		return (Complex) Field.super.product(vec1, vec2);
@@ -155,6 +229,9 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 		this.multiplicationMatrix = multiplicationMatrix;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex stretch(final Vector vec1, final Scalar r) {
 		final Vector ans = Field.super.stretch(vec1, r);
@@ -163,21 +240,33 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toXml() {
 		return "<ComplexPlane />\r";
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex getMinusOne() {
 		return new Complex(-1., 0.);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Complex getNeutralElement() {
-		return (Complex) getZero();
+		return (Complex) this.getZero();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PrimeField getPrimeField() {
 		return Generator.getInstance().getGroupGenerator().getRationals();

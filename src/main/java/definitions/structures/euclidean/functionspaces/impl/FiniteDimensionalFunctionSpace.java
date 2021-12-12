@@ -14,7 +14,6 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
-import plotter.Plotable;
 import settings.GlobalSettings;
 
 /**
@@ -28,7 +27,10 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	private static final long serialVersionUID = -8669475459309858828L;
 
-	private Vector nullVec = null;
+	/**
+	 * the origin
+	 */
+	private Vector nullVec;
 
 	/**
 	 * the interval.
@@ -47,6 +49,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		super(field);
 	}
 
+	/**
+	 *
+	 * @param field          the field
+	 * @param genericBase    the given base
+	 * @param left           the left border
+	 * @param right          the right border
+	 * @param orthonormalize if true, also normalize the genericBase
+	 */
 	public FiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final boolean orthonormalize) {
 		super(field, genericBase);
@@ -55,12 +65,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		interval[1] = right;
 		final List<Vector> newBase;
 		if (orthonormalize) {
-			newBase = getOrthonormalBase(genericBase);
+			newBase = this.getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
-			assignOrthonormalCoordinates(newBase, field);
+			this.assignOrthonormalCoordinates(newBase, field);
 		}
-		setBase(newBase);
+		this.setBase(newBase);
 	}
 
 	/**
@@ -101,7 +111,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getLeft() {
-		return getInterval()[0];
+		return this.getInterval()[0];
 	}
 
 	/**
@@ -109,7 +119,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getRight() {
-		return getInterval()[1];
+		return this.getInterval()[1];
 	}
 
 	/**
@@ -138,7 +148,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
-			return integral((Function) vec1, (Function) vec2);
+			return this.integral((Function) vec1, (Function) vec2);
 		}
 	}
 
@@ -147,7 +157,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function normalize(final Vector vec) {
-		return stretch(vec, getField().getInverseElement(getField().get(norm(vec).getDoubleValue())));
+		return this.stretch(vec,
+				this.getField().getInverseElement(this.getField().get(this.norm(vec).getDoubleValue())));
 	}
 
 	/**
@@ -157,21 +168,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public Function nullVec() {
 		if (nullVec == null) {
 			final Map<Vector, Scalar> nul = new HashMap<>();
-			for (final Vector vec : genericBaseToList()) {
-				nul.put(vec, (Scalar) getField().getZero());
+			for (final Vector vec : this.genericBaseToList()) {
+				nul.put(vec, (Scalar) this.getField().getZero());
 			}
 			nullVec = new FunctionTuple(nul, this);
 		}
 		return (FunctionTuple) nullVec;
-	}
-
-	/*
-	 * These overrides are for tracing purposes only
-	 */
-	public void plotBase() {
-		for (final Vector vec : genericBaseToList()) {
-			((Plotable) vec).plot(getLeft(), getRight());
-		}
 	}
 
 	/**

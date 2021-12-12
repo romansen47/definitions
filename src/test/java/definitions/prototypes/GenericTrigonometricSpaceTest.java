@@ -61,7 +61,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 
 		f = getRealLine();
 
-		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSpace(getRealLine(), getTrigonometricDegree()));
+		setTrigonometricSpace(getSpaceGenerator().getNormedTrigonometricSpace(getRealLine(), getTrigonometricDegree()));
 		testValues = definitions.aspectjtest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() {
 

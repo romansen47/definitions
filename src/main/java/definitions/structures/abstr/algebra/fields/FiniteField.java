@@ -15,9 +15,7 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 	 * {@inheritDoc}
 	 */
 	@Override
-	default FieldElement operation(final Element first, final Element second) {
-		return (FieldElement) FiniteRing.super.operation(first, second);
-	}
+	FieldElement operation(final Element first, final Element second);
 
 	/**
 	 * {@inheritDoc}
@@ -26,7 +24,7 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 	default FieldElement product(final Vector vec1, final Vector vec2) {
 		Element ans = DiscreetField.super.product(vec1, vec2);
 		if (ans == null) {
-			ans = getMuliplicativeMonoid().operation(vec1, vec2);
+			ans = this.getMuliplicativeMonoid().operation(vec1, vec2);
 		}
 		return (FieldElement) ans;
 	}
@@ -37,11 +35,11 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 	@Override
 	default String toXml() {
 		String xmlString = "<FiniteField>";
-		xmlString += "<characteristic>" + getCharacteristic() + "</characteristic>";
-		if (getPrimeField() == this) {
+		xmlString += "<characteristic>" + this.getCharacteristic() + "</characteristic>";
+		if (this.getPrimeField() == this) {
 			xmlString += "<isPrimeField>yes</isPrimeField>";
 		} else {
-			xmlString += "<primeField>" + getPrimeField().toXml() + "</primeField>";
+			xmlString += "<primeField>" + this.getPrimeField().toXml() + "</primeField>";
 		}
 		return xmlString;
 	}

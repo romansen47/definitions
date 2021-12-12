@@ -26,7 +26,7 @@ public interface PrimeField extends Field {
 	@Override
 	default Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
 		final Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix = new ConcurrentHashMap<>();
-		final Vector one = getOne();
+		final Vector one = this.getOne();
 		final VectorSpaceHomomorphism hom = new Identity(this) {
 
 			@Override
@@ -60,7 +60,7 @@ public interface PrimeField extends Field {
 	@Override
 	default List<Vector> genericBaseToList() {
 		final List<Vector> genericBaseToList = new ArrayList<>();
-		genericBaseToList.add(getOne());
+		genericBaseToList.add(this.getOne());
 		return genericBaseToList;
 	}
 
@@ -69,7 +69,7 @@ public interface PrimeField extends Field {
 	 */
 	@Override
 	default int getCharacteristic() {
-		return getOrder();
+		return this.getOrder();
 	}
 
 	/**

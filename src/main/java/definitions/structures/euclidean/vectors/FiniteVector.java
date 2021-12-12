@@ -31,8 +31,8 @@ public interface FiniteVector extends Vector, FiniteVectorMethods {
 	 * @return the coordinates.
 	 */
 	default Map<Vector, Scalar> getCoordinates(EuclideanSpace source) {
-		return getCoordinates();
-	};
+		return this.getCoordinates();
+	}
 
 	/**
 	 * Method to compute the projection of the vector onto a vector space.

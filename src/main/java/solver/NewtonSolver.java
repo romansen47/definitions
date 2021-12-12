@@ -23,10 +23,10 @@ public class NewtonSolver {
 
 	public double solve() throws Throwable {
 		double lastVal = initialData;
-		double newVal = doStep(lastVal);
+		double newVal = this.doStep(lastVal);
 		while (Math.abs(newVal - lastVal) > eps) {
 			lastVal = newVal;
-			newVal = doStep(lastVal);
+			newVal = this.doStep(lastVal);
 		}
 		return newVal;
 	}

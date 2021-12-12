@@ -33,22 +33,22 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	private static Generator instance;
 
 	public static synchronized Generator getInstance() {
-		if (instance == null) {
-			instance = new Generator();
-			if (instance.logger == null) {
-				instance.logger = LogManager.getLogger(SpaceGenerator.class);
+		if (Generator.instance == null) {
+			Generator.instance = new Generator();
+			if (Generator.instance.logger == null) {
+				Generator.instance.logger = LogManager.getLogger(SpaceGenerator.class);
 			}
 		}
-		if (restoreFromCached) {
+		if (Generator.restoreFromCached) {
 			try {
-				instance.loadCoordinateSpaces();
+				Generator.instance.loadCoordinateSpaces();
 				System.out.println("Cached spaces loaded");
 			} catch (final Exception e) {
 				System.out.println("Cached spaces not loaded");
 			}
-			restoreFromCached = false;
+			Generator.restoreFromCached = false;
 		}
-		return instance;
+		return Generator.instance;
 	}
 
 	public static void setInstance(final Generator instance) {
@@ -112,7 +112,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 			obj_in.close();
 		} catch (final Exception e) {
 			e.addSuppressed(new Exception("failed to load myCache from local file"));
-			getLogger().info("Cached spaces not loaded");
+			this.getLogger().info("Cached spaces not loaded");
 		}
 	}
 
@@ -121,7 +121,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		final FileOutputStream f_out = new FileOutputStream(PATH);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
 		obj_out.writeObject(spaceGenerator.getMyCache());
-		getLogger().info("saved coordinates spaces to disk");
+		this.getLogger().info("saved coordinates spaces to disk");
 		obj_out.close();
 	}
 

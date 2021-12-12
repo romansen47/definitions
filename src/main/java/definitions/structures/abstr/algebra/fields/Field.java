@@ -20,9 +20,9 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMap
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
- * 
+ *
  * @author roman
- * 
+ *
  *         A field is a commutative ring where the maltiplicative semi group is
  *         a group
  */
@@ -42,7 +42,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	@Override
 	default boolean divides(final Element devisor, final Element devident) {
-		return isUnit(devisor);
+		return this.isUnit(devisor);
 	}
 
 	default int getCharacteristic() {
@@ -55,8 +55,8 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	@Override
 	default Group getMuliplicativeMonoid() {
 
-		final Vector newOne = getOne();
-		final Integer newOrder = getOrder();
+		final Vector newOne = this.getOne();
+		final Integer newOrder = this.getOrder();
 
 		final Group multiplicativeGroup = new Group() {
 
@@ -94,16 +94,16 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 
 	@Override
 	default FieldElement getOne() {
-		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
+		return (FieldElement) this.getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	@Override
 	default FieldElement getInverseElement(Element element) {
-		if (element.equals(getOne())) {
-			return (FieldElement) getMinusOne();
+		if (element.equals(this.getOne())) {
+			return (FieldElement) this.getMinusOne();
 		}
 		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
-	};
+	}
 
 	/**
 	 * Should return field of rational numbers in infinite case by default.
@@ -112,10 +112,10 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	default PrimeField getPrimeField() {
 		return null;
-	};
+	}
 
 	default Vector getZero() {
-		return nullVec();
+		return this.nullVec();
 	}
 
 	default Vector getMultiplicativeInverseElement(final Vector factor) {
@@ -124,7 +124,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 
 			@Override
 			public Vector get(final Element vec) {
-				return ((Field) getTarget()).nullVec();
+				return ((Field) this.getTarget()).nullVec();
 			}
 
 			@Override
@@ -141,18 +141,18 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
-				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
+				for (final Vector vec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
 					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
 				}
 				return coord;
 			}
 		};
-		for (final Vector vec : genericBaseToList()) {
-			final Vector tmp = getMultiplicationMatrix().get(vec);
+		for (final Vector vec : this.genericBaseToList()) {
+			final Vector tmp = this.getMultiplicationMatrix().get(vec);
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
 		}
-		return hom.solve(getOne());
+		return hom.solve(this.getOne());
 	}
 
 	/**
@@ -168,7 +168,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	@Override
 	default boolean isPrimeElement(final Element element) {
-		return !isUnit(element);
+		return !this.isUnit(element);
 	}
 
 	/**
@@ -176,7 +176,7 @@ public interface Field extends CommutativeRing, XmlPrintable, Domain, EuclideanA
 	 */
 	@Override
 	default boolean isUnit(final Element element) {
-		return !element.equals(getZero());
+		return !element.equals(this.getZero());
 	}
 
 	/**

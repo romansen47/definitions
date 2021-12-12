@@ -16,18 +16,18 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 	protected PolynomialFunctionSpace(final Field field, final int maxDegree, final double right) {
 		super(field);
 		base = new ArrayList<>();
-		prepare(maxDegree, right);
+		this.prepare(maxDegree, right);
 	}
 
 	public PolynomialFunctionSpace(final Field field, final int maxDegree, final double right, final boolean ortho) {
 		this(field, maxDegree, right);
 		if (ortho) {
-			base = getOrthonormalBase(base);
+			base = this.getOrthonormalBase(base);
 		}
 	}
 
 	private void prepare(final int maxDegree, final double right) {
-		final Field f = getField();
+		final Field f = this.getField();
 		interval = new double[] { -right, right };
 		base.clear();
 		for (int i = 0; i < (maxDegree + 1); i++) {

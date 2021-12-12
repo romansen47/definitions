@@ -18,9 +18,9 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 	 */
 	@Override
 	default VectorSpaceMapping getEvolutionOperator(Element time, Element start) {
-		final Group timeSpace = getTimeSpace();
+		final Group timeSpace = this.getTimeSpace();
 		final Element diff = timeSpace.operation(time, timeSpace.getInverseElement(start));
-		return getEvolutionOperator(diff);
+		return this.getEvolutionOperator(diff);
 	}
 
 	default VectorSpaceMapping getEvolutionOperator(Element t) {
@@ -30,22 +30,22 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 			@Override
 			public String toString() {
-				return "self mapping of " + getPhaseSpace().toString() + " at t = " + t.toString();
+				return "self mapping of " + DynamicSystem.this.getPhaseSpace().toString() + " at t = " + t.toString();
 			}
 
 			@Override
 			public Element get(Element vec) {
-				final Group timeSpace = getTimeSpace();
+				final Group timeSpace = DynamicSystem.this.getTimeSpace();
 				Element ans;
 				if (timeSpace.getNeutralElement().equals(time)) {
 					ans = vec;
 				} else {
 					if (((SemiRing) timeSpace).getOne().equals(time)) {
-						ans = getDefiningMapping().get(vec);
+						ans = DynamicSystem.this.getDefiningMapping().get(vec);
 					} else {
 						final Element newTime = timeSpace.operation(time, ((Ring) timeSpace).getMinusOne());
-						ans = getEvolutionOperator(newTime)
-								.get(getEvolutionOperator(((Ring) timeSpace).getOne()).get(vec));
+						ans = DynamicSystem.this.getEvolutionOperator(newTime)
+								.get(DynamicSystem.this.getEvolutionOperator(((Ring) timeSpace).getOne()).get(vec));
 					}
 				}
 				return ans;
@@ -54,16 +54,16 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 			@Override
 			public VectorSpace getSource() {
-				return (VectorSpace) getPhaseSpace();
+				return (VectorSpace) DynamicSystem.this.getPhaseSpace();
 			}
 
 		};
-	};
+	}
 
 	@Override
 	default VectorSpaceSelfMapping getDefiningMapping(Element input) {
-		return getDefiningMapping();
-	};
+		return this.getDefiningMapping();
+	}
 
 	VectorSpaceSelfMapping getDefiningMapping();
 

@@ -14,7 +14,7 @@ public interface SemiRing extends Monoid {
 	 * @return sum of both
 	 */
 	default Element addition(final Element first, final Element second) {
-		return operation(first, second);
+		return this.operation(first, second);
 	}
 
 	/**
@@ -32,13 +32,13 @@ public interface SemiRing extends Monoid {
 	 * @return the multiplication of the elements
 	 */
 	default Element multiplication(final Element element, final Element otherElement) {
-		final Element neutralElement = getNeutralElement();
+		final Element neutralElement = this.getNeutralElement();
 		final boolean cond1 = element.equals(neutralElement);
 		final boolean cond2 = otherElement.equals(neutralElement);
 		if (cond1 || cond2) {
 			return neutralElement;
 		}
-		return getMuliplicativeMonoid().operation(element, otherElement);
+		return this.getMuliplicativeMonoid().operation(element, otherElement);
 	}
 
 	/**

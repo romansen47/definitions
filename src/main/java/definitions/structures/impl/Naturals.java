@@ -25,7 +25,6 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 			representant = representant2;
 		}
 
-		@Override
 		public Double getRepresentant() {
 			return representant;
 		}
@@ -35,12 +34,12 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 
 	@Override
 	public Element getNeutralElement() {
-		return get(0.);
+		return this.get(0.);
 	}
 
 	@Override
 	public Element operation(Element first, Element second) {
-		return get(first.getRepresentant() + second.getRepresentant());
+		return this.get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
 	}
 
 	@Override
@@ -82,7 +81,8 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 
 				@Override
 				public Element operation(Element first, Element second) {
-					return Naturals.this.get(first.getRepresentant() * second.getRepresentant());
+					return Naturals.this.get(
+							((NaturalNumber) first).getRepresentant() * ((NaturalNumber) second).getRepresentant());
 				}
 
 				@Override
@@ -97,17 +97,17 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 
 	@Override
 	public boolean isUnit(Element element) {
-		return element.equals(getOne());
+		return element.equals(this.getOne());
 	}
 
 	@Override
 	public Element getOne() {
-		return getMuliplicativeMonoid().getNeutralElement();
+		return this.getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	@Override
 	public boolean isSmallerThan(Element smallerOne, Element biggerOne) {
-		return biggerOne.getRepresentant() > smallerOne.getRepresentant();
+		return ((NaturalNumber) biggerOne).getRepresentant() > ((NaturalNumber) smallerOne).getRepresentant();
 	}
 
 }

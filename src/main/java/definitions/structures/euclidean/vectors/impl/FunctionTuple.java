@@ -85,7 +85,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public void plot(final double left, final double right) {
-		((Plotter) gen).plot(this, left, right);
+		((Plotter) Function.gen).plot(this, left, right);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) gen).plotCompare(this, fun, left, right);
+		((Plotter) Function.gen).plotCompare(this, fun, left, right);
 	}
 
 	@Override
@@ -103,10 +103,10 @@ public class FunctionTuple extends Tuple implements Function {
 
 	@Override
 	public Scalar value(final Scalar input) {
-		Scalar ans = (Scalar) getField().getZero();
+		Scalar ans = (Scalar) this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
-			ans = (Scalar) getField().addition(ans,
-					getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
+			ans = (Scalar) this.getField().addition(ans,
+					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
 		}
 		return ans;
 	}

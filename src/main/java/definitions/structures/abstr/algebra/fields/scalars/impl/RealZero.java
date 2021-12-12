@@ -16,10 +16,10 @@ public class RealZero extends Real {
 	private static Real zero;
 
 	public static Real getZero() {
-		if (zero == null) {
-			zero = new RealZero();
+		if (RealZero.zero == null) {
+			RealZero.zero = new RealZero();
 		}
-		return zero;
+		return RealZero.zero;
 	}
 
 	public RealZero() {

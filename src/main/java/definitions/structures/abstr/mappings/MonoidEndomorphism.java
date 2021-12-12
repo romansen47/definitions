@@ -9,7 +9,7 @@ public interface MonoidEndomorphism extends MonoidHomomorphism {
 	 */
 	@Override
 	default Monoid getTarget() {
-		return getSource();
+		return this.getSource();
 	}
 
 }

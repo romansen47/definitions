@@ -9,7 +9,7 @@ public interface VectorSpaceSelfMapping extends VectorSpaceMapping {
 	 */
 	@Override
 	default VectorSpace getTarget() {
-		return getSource();
+		return this.getSource();
 	}
 
 }

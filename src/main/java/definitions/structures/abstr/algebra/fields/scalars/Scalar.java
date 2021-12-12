@@ -7,7 +7,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public interface Scalar extends Element, Vector, FiniteVectorMethods, XmlPrintable {
 
-//	Scalar getInverse();
+	// Scalar getInverse();
 
 	/**
 	 * This has practical reasons. Gives double value, if possible.
@@ -18,7 +18,7 @@ public interface Scalar extends Element, Vector, FiniteVectorMethods, XmlPrintab
 
 	@Override
 	default String toXml() {
-		return "<" + getClass().toString().split("class ")[1] + " value=\"" + getRepresentant().doubleValue() + "\" />";
+		return "<" + getClass().toString().split("class ")[1] + " value=\"" + this.getDoubleValue() + "\" />";
 	}
 
 }

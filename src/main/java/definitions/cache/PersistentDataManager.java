@@ -50,7 +50,7 @@ public class PersistentDataManager {
 				e.printStackTrace();
 			}
 		}
-		saveCoordinateSpacesTest();
+		this.saveCoordinateSpacesTest();
 	}
 
 	public void saveCoordinateSpacesTest() throws Throwable {

@@ -22,7 +22,7 @@ public class ProductSpaceTest extends AspectJTest {
 
 	ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
 	IGroupGenerator groupGenerator = GroupGenerator.getInstance();
-	Field complexNumbers = getComplexPlane();
+	Field complexNumbers = AspectJTest.getComplexPlane();
 
 	private final EuclideanSpace leftSpace = spaceGenerator.getFiniteDimensionalVectorSpace(2);
 	private final EuclideanSpace rightSpace = spaceGenerator.getFiniteDimensionalVectorSpace(3);

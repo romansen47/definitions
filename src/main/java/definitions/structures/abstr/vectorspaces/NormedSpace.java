@@ -20,7 +20,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 */
 	@Override
 	default Real distance(final Vector vec1, final Vector vec2) {
-		return norm(addition(vec1, stretch(vec2, (Scalar) getField().getMinusOne())));
+		return this.norm(this.addition(vec1, this.stretch(vec2, (Scalar) this.getField().getMinusOne())));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return stretch(vec, getField().getInverseElement(norm(vec)));
+		return this.stretch(vec, this.getField().getInverseElement(this.norm(vec)));
 	}
 
 }

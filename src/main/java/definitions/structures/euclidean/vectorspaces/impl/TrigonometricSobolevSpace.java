@@ -50,7 +50,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			 *
 			 */
 			private static final long serialVersionUID = -2594116178838181589L;
-			final Scalar value = getField().get(1. / Math.sqrt(2 * Math.PI));
+			final Scalar value = this.getField().get(1. / Math.sqrt(2 * Math.PI));
 
 			@Override
 			public Field getField() {
@@ -70,7 +70,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		this.getSineFunctions(n, tmpBase);
 		this.getCosineFunctions(n, tmpBase);
 		base = tmpBase;
-		setOrthoCoordinates();
+		this.setOrthoCoordinates();
 	}
 
 	/**
@@ -81,10 +81,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
-		final Field f = getField();
+		final Field f = this.getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
-			for (int j = 0; j < (getDegree() + 1); j++) {
+			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
@@ -140,10 +140,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
-		final Field f = getField();
+		final Field f = this.getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
-			for (int j = 0; j < (getDegree() + 1); j++) {
+			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
@@ -164,10 +164,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	}
 
 	private void setOrthoCoordinates() {
-		for (final Vector vec1 : genericBaseToList()) {
+		for (final Vector vec1 : this.genericBaseToList()) {
 			final Map<Vector, Scalar> map = new HashMap<>();
 			final Scalar zero = RealLine.getInstance().getZero();
-			for (final Vector vec2 : genericBaseToList()) {
+			for (final Vector vec2 : this.genericBaseToList()) {
 				if (vec2.equals(vec1)) {
 					map.put(vec1, RealLine.getInstance().getOne());
 				} else {

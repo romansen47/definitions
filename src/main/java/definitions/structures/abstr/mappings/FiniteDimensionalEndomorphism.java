@@ -47,13 +47,13 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
-			final Scalar[][] adj = adjugateMatrix(matrix, i, 0);
+			final Scalar[][] adj = this.adjugateMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = ((EuclideanSpace) getSource()).getField()
-						.get(det.getDoubleValue() + (det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
+				det = ((EuclideanSpace) this.getSource()).getField()
+						.get(det.getDoubleValue() + (this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
 			} else {
-				det = ((EuclideanSpace) getSource()).getField()
-						.get(det.getDoubleValue() - (det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
+				det = ((EuclideanSpace) this.getSource()).getField()
+						.get(det.getDoubleValue() - (this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
 			}
 		}
 		return det;

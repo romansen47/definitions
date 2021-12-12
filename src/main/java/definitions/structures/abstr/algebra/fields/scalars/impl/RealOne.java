@@ -23,15 +23,15 @@ public class RealOne extends Real {
 	private static Real one;
 
 	public static Real getOne() {
-		if (one == null) {
-			one = new RealOne();
+		if (RealOne.one == null) {
+			RealOne.one = new RealOne();
 		}
-		return one;
+		return RealOne.one;
 	}
 
 	public RealOne() {
 		super();
-		setValue(1d);
+		this.setValue(1d);
 	}
 
 	@Override

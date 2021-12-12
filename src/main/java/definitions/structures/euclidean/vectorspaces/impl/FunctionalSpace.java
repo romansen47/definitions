@@ -24,6 +24,10 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 	private static final long serialVersionUID = 2891504884821572359L;
+
+	/**
+	 * the source space
+	 */
 	final EuclideanSpace source;
 
 	public FunctionalSpace(final EuclideanSpace source) {
@@ -43,14 +47,14 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Scalar[][] getGenericMatrix() {
-					final Scalar[][] mat = new Scalar[((EuclideanSpace) getSource())
-							.getDim()][((EuclideanSpace) getSource()).getDim()];
-					for (int i = 0; i < ((EuclideanSpace) getSource()).getDim(); i++) {
-						for (int j = 0; j < ((EuclideanSpace) getSource()).getDim(); j++) {
+					final Scalar[][] mat = new Scalar[((EuclideanSpace) this.getSource())
+							.getDim()][((EuclideanSpace) this.getSource()).getDim()];
+					for (int i = 0; i < ((EuclideanSpace) this.getSource()).getDim(); i++) {
+						for (int j = 0; j < ((EuclideanSpace) this.getSource()).getDim(); j++) {
 							if (i != j) {
-								mat[i][j] = (Scalar) getTarget().nullVec();
+								mat[i][j] = (Scalar) this.getTarget().nullVec();
 							} else {
-								mat[i][j] = ((Field) getTarget()).getOne();
+								mat[i][j] = ((Field) this.getTarget()).getOne();
 							}
 						}
 					}
@@ -92,7 +96,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 			};
 			base.add(functional);
 		}
-		setBase(base);
+		this.setBase(base);
 	}
 
 	@Override

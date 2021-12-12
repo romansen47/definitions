@@ -162,7 +162,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right, final int degree, final boolean ortho) {
-		final EuclideanSpace space = getMyCache().getConcreteCache().get(genericBase.hashCode());
+		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(genericBase.hashCode());
 		final EuclideanFunctionSpace funSpace = (EuclideanFunctionSpace) space;
 		if ((space != null) && (funSpace instanceof FiniteDimensionalSobolevSpace)
 				&& (funSpace.getInterval()[0] == left) && (funSpace.getInterval()[1] == right)) {
@@ -176,14 +176,14 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getFiniteDimensionalVectorSpaceAsProduct(final Field field, final int dim) {
 		EuclideanSpace ans = field;
 		for (int i = 1; i < dim; i++) {
-			ans = getOuterProduct(ans, field);
+			ans = this.getOuterProduct(ans, field);
 		}
 		return ans;
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final int dim) {
 		throw new NullPointerException("Caching aspect missed!");
-//		return null;
+		// return null;
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final List<Vector> newBase) {
@@ -212,7 +212,7 @@ public interface ISpaceGenerator {
 
 	default VectorSpace getPolynomialSobolevSpace(final Field field, final int maxDegree, final double right,
 			final int degree) {
-		final EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
+		final EuclideanFunctionSpace polynoms = this.getPolynomialFunctionSpace(field, maxDegree, right, false);
 		final VectorSpace ans = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
 		((FiniteDimensionalVectorSpace) ans)
 				.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
@@ -225,37 +225,33 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
 			throws Exception {
-		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
+		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
 		if (space != null) {
-			getLogger().info("Successfully restored from cache! " + ((2 * n) + 1)
+			this.getLogger().info("Successfully restored from cache! " + ((2 * n) + 1)
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
 		@SuppressWarnings("serial")
-		final EuclideanSpace newSpace = extend(this.getTrigonometricSpace(f, n, right),
+		final EuclideanSpace newSpace = this.extend(this.getTrigonometricSpace(f, n, right),
 				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine) f).get(1. / Math.sqrt(2 * Math.PI))) {
 					@Override
 					public Field getField() {
 						return f;
 					}
-
-					@Override
-					public void setRepresentant(Double representant) {
-					}
 				});
-		getMyCache().getConcreteCache().put(n, newSpace);
+		this.getMyCache().getConcreteCache().put(n, newSpace);
 		System.out.println(
 				"Saved " + ((2 * n) + 1) + "-dimensional trigonometric space equipped with linear functions to cache!");
-		return getMyCache().getConcreteCache().get(n);
+		return this.getMyCache().getConcreteCache().get(n);
 
 	}
 
 	default EuclideanFunctionSpace getTrigonometricSobolevSpace(final Field field, final int n, final int degree) {
 		if (degree == 0) {
-			return this.getTrigonometricSpace(field, n);
+			return this.getNormedTrigonometricSpace(field, n);
 		}
 		final EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(field, n, -Math.PI, Math.PI, degree);
-		createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
+		this.createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
 		return ans;
 	}
 
@@ -263,7 +259,7 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(final Field f, final int sobolevDegree,
 			final double right, final int fourierDegree) throws Exception {
 
-		return extend(getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
+		return this.extend(this.getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
 
 			@Override
 			public Field getField() {
@@ -275,14 +271,10 @@ public interface ISpaceGenerator {
 				return input;
 			}
 
-			@Override
-			public void setRepresentant(Double representant) {
-			}
-
 		});
 	}
 
-	default EuclideanFunctionSpace getTrigonometricSpace(final Field field, final int n) {
+	default EuclideanFunctionSpace getNormedTrigonometricSpace(final Field field, final int n) {
 		return new TrigonometricSpace(field, n, Math.PI);
 	}
 
@@ -319,7 +311,7 @@ public interface ISpaceGenerator {
 
 				@Override
 				public String toString() {
-					return toXml();
+					return this.toXml();
 				}
 
 				final private Vector left;
@@ -360,16 +352,18 @@ public interface ISpaceGenerator {
 							final FiniteVector tmpRight = (FiniteVector) ((ProductVector) vec).right;
 							Scalar val;
 							if (tmpRight.equals(second.nullVec())) {
-								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft()).getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) this.getLeft())
+										.getCoordinates();
 								val = tmpMap.get(tmpLeft);
 							} else {
-								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight()).getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) this.getRight())
+										.getCoordinates();
 								val = tmpMap.get(tmpRight);
 							}
 							coordinates.put(vec, val);
 						}
 					}
-					setCoordinates(coordinates, outerThis);
+					this.setCoordinates(coordinates, outerThis);
 					return coordinates;
 				}
 
@@ -455,7 +449,7 @@ public interface ISpaceGenerator {
 			@Override
 			public EuclideanSpace getDualSpace() {
 				if (dualSpace == null) {
-					dualSpace = getOuterProduct(first.getDualSpace(), second.getDualSpace());
+					dualSpace = ISpaceGenerator.this.getOuterProduct(first.getDualSpace(), second.getDualSpace());
 				}
 				return dualSpace;
 			}

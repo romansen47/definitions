@@ -57,6 +57,6 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getField().get(Math.exp(a.getDoubleValue() + (b.getDoubleValue() * input.getDoubleValue())));
+		return this.getField().get(Math.exp(a.getDoubleValue() + (b.getDoubleValue() * input.getDoubleValue())));
 	}
 }

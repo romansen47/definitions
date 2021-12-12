@@ -38,11 +38,11 @@ public class RealLine implements Field, RealSpace {
 	private static RealLine instance;
 
 	public static RealLine getInstance() {
-		return instance;
+		return RealLine.instance;
 	}
 
 	public static void setInstance(final RealLine realLine) {
-		instance = realLine;
+		RealLine.instance = realLine;
 	}
 
 	private EuclideanSpace dualSpace;
@@ -54,16 +54,16 @@ public class RealLine implements Field, RealSpace {
 
 	public RealLine() {
 		base = new ArrayList<>();
-		base.add(getOne());
+		base.add(this.getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
 		coordinates = a;
 		multiplicationMap.put(RealLine.one, a);
 		final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
-		newMap.put(one,
+		newMap.put(RealLine.one,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
-		setMultiplicationMatrix(newMap);
+		this.setMultiplicationMatrix(newMap);
 		ComplexPlane.setRealLine(this);
 	}
 
@@ -158,7 +158,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public final Real getOne() {
-		return one;
+		return RealLine.one;
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public final Real getZero() {
-		return zero;
+		return RealLine.zero;
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Vector nullVec() {
-		return getZero();
+		return this.getZero();
 	}
 
 	/**
@@ -235,9 +235,9 @@ public class RealLine implements Field, RealSpace {
 		final Real a = ((Real) v);
 		final Real b = ((Real) w);
 		if (b.getDoubleValue() != 0) {
-			return stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
+			return this.stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
 		}
-		return nullVec();
+		return this.nullVec();
 	}
 
 	/**
@@ -274,17 +274,17 @@ public class RealLine implements Field, RealSpace {
 
 	@Override
 	public Real getNeutralElement() {
-		return get(0.);
+		return this.get(0.);
 	}
 
 	@Override
 	public FieldElement getInverseElement(Element element) {
-		return get(-((Real) element).getDoubleValue());
+		return this.get(-((Real) element).getDoubleValue());
 	}
 
 	@Override
 	public Element getMinusOne() {
-		return get(-1);
+		return this.get(-1);
 	}
 
 	@Override

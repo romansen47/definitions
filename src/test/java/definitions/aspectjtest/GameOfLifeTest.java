@@ -30,7 +30,7 @@ public class GameOfLifeTest extends Gui {
 
 	private static ApplicationContextAware springConfiguration;
 
-	final private int size = 10;
+	final private int size = 15;
 	private DynamicSystem gameOfLife;
 	private DynamicSystem gameOfLifeConstructedBinaries;
 	private FiniteVector initialCondition;
@@ -39,7 +39,7 @@ public class GameOfLifeTest extends Gui {
 	private FiniteVector initialConditionForConstructedBinaries;
 	private FiniteVector gol;
 	private FiniteVector golocb;
-	private int lifetime = 50;
+	private int lifetime = 200;
 
 	@BeforeClass
 	public static void prepare() {
@@ -106,6 +106,9 @@ public class GameOfLifeTest extends Gui {
 			Element newGame = getGameOfLifeConstructedBinaries().getDefiningMapping().get(getGolocb());
 			setGolocb((FiniteVector) newGame);
 			draw(getGolocb());
+			if(!getGolocb().equals(gridOverConstructedBinaries.nullVec())) {
+				continue;
+			}
 		}
 	}
 

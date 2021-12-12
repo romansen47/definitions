@@ -34,11 +34,11 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 */
 	@Override
 	default Vector product(final Vector vec1, final Vector vec2) {
-		Vector ans = nullVec();
+		Vector ans = this.nullVec();
 		VectorSpaceHomomorphism tmp;
-		for (final Vector vec : genericBaseToList()) {
-			final Vector vector = getBaseVec(vec);
-			tmp = getMultiplicationMatrix().get(vector);
+		for (final Vector vec : this.genericBaseToList()) {
+			final Vector vector = this.getBaseVec(vec);
+			tmp = this.getMultiplicationMatrix().get(vector);
 			final Vector first = tmp.get(vec2);
 			final Scalar factor = ((FiniteVectorMethods) vec1).getCoordinates().get(vector);
 			final Vector stretched = this.stretch(first, factor);
@@ -54,9 +54,12 @@ public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 	 */
 	void setMultiplicationMatrix(Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Vector nullVec() {
-		return (Vector) getNeutralElement();
+		return (Vector) this.getNeutralElement();
 	}
 
 }

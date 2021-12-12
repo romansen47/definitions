@@ -25,10 +25,10 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 	private static IMappingGenerator instance;
 
 	public static IMappingGenerator getInstance() {
-		if (instance == null) {
-			instance = new MappingGenerator();
+		if (MappingGenerator.instance == null) {
+			MappingGenerator.instance = new MappingGenerator();
 		}
-		return instance;
+		return MappingGenerator.instance;
 	}
 
 	public static void setInstance(final MappingGenerator mappingGenerator) {
