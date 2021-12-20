@@ -37,28 +37,13 @@ public interface IGroupGenerator {
 
 		@Override
 		public boolean equals(Object other) {
-			return baseMoniod.operation(this.getLeft(), ((Fraction) other).getRight())
-					.equals(baseMoniod.operation(this.getRight(), ((Fraction) other).getLeft()));
+			return baseMoniod.operation(getLeft(), ((Fraction) other).getRight())
+					.equals(baseMoniod.operation(getRight(), ((Fraction) other).getLeft()));
 		}
 
 		public Monoid getBaseGroup() {
 			return baseMoniod;
 		}
-
-		// @Override
-		// public Double getRepresentant() {
-		// return getLeft().getRepresentant() - getRight().getRepresentant();
-		// }
-		//
-		// @Override
-		// public String toString() {
-		// try {
-		// return Double.toString(getRepresentant());
-		// } catch (final Exception e) {
-		// return "(" + getLeft().getRepresentant() + "," + getRight().getRepresentant()
-		// + ")";
-		// }
-		// }
 
 	}
 
@@ -72,7 +57,7 @@ public interface IGroupGenerator {
 
 			@Override
 			public String toString() {
-				return this.toXml();
+				return toXml();
 			}
 
 			class GroupElement extends Fraction {
@@ -83,7 +68,7 @@ public interface IGroupGenerator {
 
 				@Override
 				public String toString() {
-					return "GroupElement (" + this.getLeft().toString() + "," + this.getRight().toString() + ")";
+					return "GroupElement (" + getLeft().toString() + "," + getRight().toString() + ")";
 				}
 
 			}
@@ -188,26 +173,6 @@ public interface IGroupGenerator {
 			right = Element2;
 		}
 
-		// @Override
-		// public String toString() {
-		// if ((getLeft() instanceof Element) && (getRight() instanceof Element)) {
-		// final Element u = getLeft();
-		// final Element w = getRight();
-		// return " ( " + u.getRepresentant() + " , " + w.getRepresentant() + " ) ";
-		// }
-		// return " ( " + getLeft().toString() + " , " + getRight().toString() + " ) ";
-		// }
-		//
-		// @Override
-		// public Double getRepresentant() {
-		// return representant;
-		// }
-
-		// @Override
-		// public void setRepresentant(Double representant) {
-		// this.representant = representant;
-		// }
-
 		/**
 		 * @return the left
 		 */
@@ -234,7 +199,7 @@ public interface IGroupGenerator {
 
 				@Override
 				public Element get(final Double representant) {
-					return this.getElements().get(representant);
+					return getElements().get(representant);
 				}
 
 				@Override
@@ -248,13 +213,13 @@ public interface IGroupGenerator {
 						for (double i = 0; i < a.getOrder(); i++) {
 							for (double j = 0; j < b.getOrder(); j++) {
 								final ProductElement tmp = new ProductElement(a.get(i), b.get(j));
-								this.getElements().put((i * b.getOrder()) + j, tmp);
+								getElements().put((i * b.getOrder()) + j, tmp);
 							}
 						}
 						operationMap = new HashMap<>();
-						for (final Double key1 : this.getElements().keySet()) {
-							for (final Double key2 : this.getElements().keySet()) {
-								this.operation(this.getElements().get(key1), this.getElements().get(key2));
+						for (final Double key1 : getElements().keySet()) {
+							for (final Double key2 : getElements().keySet()) {
+								operation(getElements().get(key1), getElements().get(key2));
 							}
 						}
 					}
@@ -386,9 +351,9 @@ public interface IGroupGenerator {
 	DiscreetSemiRing getNaturals();
 
 	default DiscreetDomain getIntegers() {
-		if (this.getIntegers() == null) {
-			final DiscreetDomain integers = this.completeToDiscreetRing(this.getNaturals());
-			this.setIntegers(integers);
+		if (getIntegers() == null) {
+			final DiscreetDomain integers = completeToDiscreetRing(getNaturals());
+			setIntegers(integers);
 			return integers;
 		}
 		return null;
@@ -480,7 +445,7 @@ public interface IGroupGenerator {
 
 			@Override
 			public Element get(Double representant) {
-				return this.getMuliplicativeMonoid().get(representant);
+				return getMuliplicativeMonoid().get(representant);
 			}
 
 			@Override
@@ -517,7 +482,6 @@ public interface IGroupGenerator {
 		public MultiplicationFraction(Element k, Element v, Ring baseField) {
 			super(k, v, baseField);
 			monoid = baseField;
-			// setRepresentant(k.getRepresentant() / v.getRepresentant());
 			if (v.equals(baseField.getNeutralElement())) {
 				System.out.println("denominator is zero! such an element does not exist...");
 			}
@@ -538,37 +502,13 @@ public interface IGroupGenerator {
 			coordinatesMap.put(space, coordinates);
 		}
 
-		// @Override
-		// public Double getRepresentant() {
-		// return representant;
-		// }
-
-		// @Override
-		// public String toString() {
-		// String ans = "";
-		// if (Math.abs(getRight().getRepresentant()) >
-		// GlobalSettings.REAL_EQUALITY_FEINHEIT) {
-		// ans = Double.toString(getLeft().getRepresentant() /
-		// getRight().getRepresentant());
-		// } else {
-		// ans = "Quotient " + getLeft().toString() + " / " + getRight().toString();
-		// }
-		// return ans;
-		// }
-
-		// @Override
-		// public String toXml() {
-		// return "<MultiplicationFraction>\r" + getRepresentant() +
-		// "\r</MultiplicationFraction>\r";
-		// }
-
 		@Override
 		public boolean equals(Object o) {
 			boolean ans = true;
 			if (o instanceof MultiplicationFraction) {
 				final MultiplicationFraction other = (MultiplicationFraction) o;
-				final Element left = this.getLeft();
-				final Element right = this.getRight();
+				final Element left = getLeft();
+				final Element right = getRight();
 				final Element otherLeft = other.getLeft();
 				final Element otherRight = other.getRight();
 				final Element leftSide = monoid.multiplication(left, otherRight);
@@ -592,7 +532,7 @@ public interface IGroupGenerator {
 		if (domain instanceof Field) {
 			return (PrimeField) domain;
 		}
-		return this.completeToDiscreetField(domain);
+		return completeToDiscreetField(domain);
 	}
 
 	default PrimeField completeToDiscreetField(DiscreetDomain domain) {
@@ -611,7 +551,7 @@ public interface IGroupGenerator {
 					Map<Vector, Scalar> tmpCoordinates = neutralElement.getCoordinates();
 					if (tmpCoordinates == null) {
 						tmpCoordinates = new ConcurrentHashMap<>();
-						tmpCoordinates.put(this.getOne(), neutralElement);
+						tmpCoordinates.put(getOne(), neutralElement);
 						neutralElement.setCoordinates(tmpCoordinates);
 					}
 				}
@@ -759,7 +699,7 @@ public interface IGroupGenerator {
 			@Override
 			public List<Vector> getOrthonormalBase(List<Vector> base) {
 				final List<Vector> ans = new ArrayList<>();
-				ans.add(this.getOne());
+				ans.add(getOne());
 				return ans;
 			}
 
@@ -777,12 +717,12 @@ public interface IGroupGenerator {
 
 			@Override
 			public Vector stretch(Vector vec1, Scalar r) {
-				return (Vector) this.getMuliplicativeMonoid().operation(vec1, r);
+				return (Vector) getMuliplicativeMonoid().operation(vec1, r);
 			}
 
 			@Override
 			public FiniteVector addition(Vector a, Vector b) {
-				return this.operation(a, b);
+				return operation(a, b);
 			}
 
 			@Override

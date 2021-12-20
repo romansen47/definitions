@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
  		<dl4j.version>1.0.0-beta3</dl4j.version>
 	</properties>
-
+ 
 	<dependencies> 
 		<dependency>
 		    <groupId>org.codehaus.mojo</groupId>
@@ -43,6 +43,12 @@
 			<artifactId>template</artifactId>
 			<groupId>prcssng</groupId>
 			<version>1.0.0-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>general</groupId>
+			<artifactId>logging</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

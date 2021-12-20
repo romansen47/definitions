@@ -49,19 +49,10 @@ public class GroupGeneratorTest extends AspectJTest {
 		this.group = group;
 	}
 
-	@Test
-	/*
-	 * @TODO! This is still not working.
-	 *
-	 * This completes with respect to (+). I think this originally this should
-	 * complete with respect to (*), since the multiplicatice monoid is used and
-	 * completion is called rationals.
-	 *
-	 * The problem is the use of (+) for Double-representation in
-	 * getRepresentant-method.
-	 *
-	 * getRepresentant should disappear soon.
+	/**
+	 * We test if we can create the
 	 */
+	@Test
 	public void completionTest() {
 		final DiscreetMonoid multiplicativeMonoid = GroupGenerator.getInstance().getNaturals().getMuliplicativeMonoid();
 		final DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(multiplicativeMonoid);
@@ -79,7 +70,8 @@ public class GroupGeneratorTest extends AspectJTest {
 		final Element a = rationals.get(-5.);
 		final Element b = rationals.get(15.);
 		System.out.print(a + "+" + b + "=");
-		System.out.println(rationals.operation(a, b));
+		Element ans=rationals.operation(a, b);
+		System.out.println(ans.equals(rationals.get(-1.d/3d)));
 	}
 
 	@Test
