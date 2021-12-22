@@ -25,7 +25,7 @@ public class FunctionTest extends AspectJTest {
 
 	static final int trigonometricDegree = 20;
 	static final int sobolevDegree = 20;
-	static int derivativeDegree = 10;
+	static int derivativeDegree = 4;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function sine;

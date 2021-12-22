@@ -44,9 +44,15 @@ public interface FiniteVector extends Vector, FiniteVectorMethods {
 		return new FunctionTuple(this.getCoordinates(source), source);
 	}
 
+	/**
+	  * {@inheritDoc}
+	  */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 
+	/**
+	  * {@inheritDoc}
+	  */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
 

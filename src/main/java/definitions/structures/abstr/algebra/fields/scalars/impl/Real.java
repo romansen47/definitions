@@ -35,6 +35,10 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@XmlElement
 	private Double representant;
 
+	/**
+	 * Getter for the representant
+	 * @return the double value
+	 */
 	public Double getRepresentant() {
 		return representant;
 	}
@@ -44,6 +48,9 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	@XmlElement
 	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
 
+	/**
+	 * Constructor of zero
+	 */
 	public Real() {
 		representant = 0d;
 	}
@@ -146,20 +153,12 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-	}
-
-	public void setValue(final double value) {
-		representant = value;
-	}
-
-	// @Override
-	// public boolean equals(Object obj) {
-	// if (obj.equals(this)) {
-	// return true;
-	// }
-	// return obj instanceof Real && ((Real) obj).getValue() == this.getValue();
-	// }
-
+	} 
+	
+	/**
+	 *  Complex version
+	 * @return
+	 */
 	public Scalar toComplex() {
 		return new Complex(this, RealLine.getInstance().getZero());
 	}

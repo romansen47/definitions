@@ -104,8 +104,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real get(final double value) {
-		final Real newReal = new Real();
-		newReal.setValue(value);
+		final Real newReal = new Real(); 
 		newReal.setRepresentant(value);
 		return newReal;
 	}
