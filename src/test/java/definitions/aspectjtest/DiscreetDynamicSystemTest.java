@@ -121,7 +121,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 					@Override
 					public Element get(Element vec) {
-						return ((ComplexPlane) getPhaseSpace()).get(((Complex) vec).getImag().getDoubleValue(),
+						return ((ComplexPlane) getPhaseSpace()).get(((Real) ((Complex) vec).getImag()).getDoubleValue(),
 								RealLine.getInstance().addition(((Complex) vec).getReal(), ((Complex) vec).getImag())
 								.getDoubleValue());
 					}

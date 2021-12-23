@@ -2,6 +2,7 @@ package definitions.structures.abstr.mappings;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
@@ -47,13 +48,13 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
-			final Scalar[][] adj = this.adjugateMatrix(matrix, i, 0);
+			final Scalar[][] adj = adjugateMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = ((EuclideanSpace) this.getSource()).getField()
-						.get(det.getDoubleValue() + (this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
+				det = ((EuclideanSpace) getSource()).getField()
+						.get(((Real) det).getDoubleValue() + (((Real) det(adj)).getDoubleValue() * ((Real) matrix[i][0]).getDoubleValue()));
 			} else {
-				det = ((EuclideanSpace) this.getSource()).getField()
-						.get(det.getDoubleValue() - (this.det(adj).getDoubleValue() * matrix[i][0].getDoubleValue()));
+				det = ((EuclideanSpace) getSource()).getField()
+						.get(((Real) det).getDoubleValue() - (((Real) det(adj)).getDoubleValue() * ((Real) matrix[i][0]).getDoubleValue()));
 			}
 		}
 		return det;

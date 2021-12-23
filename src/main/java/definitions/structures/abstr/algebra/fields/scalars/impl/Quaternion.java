@@ -60,9 +60,9 @@ public class Quaternion extends Tuple implements FieldElement {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return (vec instanceof Quaternion) && ((Quaternion) vec).getReal().equals(this.getReal())
-				&& ((Quaternion) vec).getI().equals(this.getI()) && ((Quaternion) vec).getJ().equals(this.getJ())
-				&& ((Quaternion) vec).getK().equals(this.getK());
+		return (vec instanceof Quaternion) && ((Quaternion) vec).getReal().equals(getReal())
+				&& ((Quaternion) vec).getI().equals(getI()) && ((Quaternion) vec).getJ().equals(getJ())
+				&& ((Quaternion) vec).getK().equals(getK());
 	}
 
 	/**
@@ -73,11 +73,12 @@ public class Quaternion extends Tuple implements FieldElement {
 		Map<Vector, Scalar> tmp = super.getCoordinates();
 		if ((tmp == null) || tmp.isEmpty()) {
 			tmp = new HashMap<>();
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), this.getReal());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), this.getI());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), this.getJ());
-			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), this.getK());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getOne(), getReal());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getI(), getI());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getJ(), getJ());
+			tmp.put(((QuaternionSpace) QuaternionSpace.getInstance()).getK(), getK());
 		}
+		this.setCoordinates(tmp);
 		return tmp;
 	}
 
@@ -130,14 +131,14 @@ public class Quaternion extends Tuple implements FieldElement {
 		return real;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@XmlAttribute
-	@Override
-	public double getDoubleValue() {
-		return this.getReal().getDoubleValue();
-	}
+	//	/**
+	//	 * {@inheritDoc}
+	//	 */
+	//	@XmlAttribute
+	//	@Override
+	//	public double getDoubleValue() {
+	//		return this.getReal().getDoubleValue();
+	//	}
 
 	/**
 	 * {@inheritDoc}
@@ -146,14 +147,14 @@ public class Quaternion extends Tuple implements FieldElement {
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@XmlAttribute
-	public String toString() {
-		return "(" + this.getReal().getDoubleValue() + "," + this.getI().getDoubleValue() + ","
-				+ this.getJ().getDoubleValue() + "," + this.getK().getDoubleValue() + ")";
-	}
+	//	/**
+	//	 * {@inheritDoc}
+	//	 */
+	//	@Override
+	//	@XmlAttribute
+	//	public String toString() {
+	//		return "(" + this.getReal().getDoubleValue() + "," + this.getI().getDoubleValue() + ","
+	//				+ this.getJ().getDoubleValue() + "," + this.getK().getDoubleValue() + ")";
+	//	}
 
 }

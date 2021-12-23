@@ -2,6 +2,8 @@ package definitions.structures.abstr.vectorspaces;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -27,8 +29,15 @@ public interface InnerProductSpace extends NormedSpace {
 	 * the norm in an inner product space is induced by the inner product
 	 */
 	@Override
-	default Real norm(final Vector vec) {
-		return RealLine.getInstance().get(Math.sqrt(this.innerProduct(vec, vec).getDoubleValue()));
+	default Scalar norm(final Vector vec) {
+		Scalar innerProduct=innerProduct(vec, vec);
+		if (innerProduct instanceof Complex) {
+			return RealLine.getInstance().get(Math.sqrt(((Real) ((Complex) innerProduct(vec, vec)).getReal()).getDoubleValue()));
+		}
+		if (innerProduct instanceof Quaternion) {
+			return RealLine.getInstance().get(Math.sqrt(((Real) ((Quaternion) innerProduct(vec, vec)).getReal()).getDoubleValue()));
+		}
+		return RealLine.getInstance().get(Math.sqrt(((Real) innerProduct(vec, vec)).getDoubleValue()));
 	}
 
 	/**
@@ -39,7 +48,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @return projection of v on w.
 	 */
 	default Vector projection(final Vector w, final Vector v) {
-		return this.stretch(v, this.innerProduct(w, v));
+		return stretch(v, innerProduct(w, v));
 	}
 
 }

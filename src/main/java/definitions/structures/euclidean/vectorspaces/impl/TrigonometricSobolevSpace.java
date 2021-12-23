@@ -1,14 +1,11 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -38,19 +35,16 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 	public TrigonometricSobolevSpace(final Field f, final int n, final double left, final double right,
 			final int degree) {
-		super(f,n* degree);
+		super(f, degree);
 		final List<Vector> tmpBase = new ArrayList<>();
 		dim = (2 * n) + 1;
-		// final EuclideanSpace space = (EuclideanSpace)
-		// Generator.getGenerator().getSpacegenerator()
-		// .getFiniteDimensionalVectorSpace(this.dim);
 		interval = new double[] { left, right };
 		tmpBase.add(new GenericFunction() {
 			/**
 			 *
 			 */
 			private static final long serialVersionUID = -2594116178838181589L;
-			final Scalar value = getField().get(1. / Math.sqrt(2 * Math.PI));
+			final Scalar value = getField().get(1. / Math.sqrt(2. * Math.PI));
 
 			@Override
 			public Field getField() {
@@ -59,7 +53,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 			@Override
 			public String toString() {
-				return "Normed constant Function: x -> " + value.getDoubleValue();
+				return "Normed constant Function: x -> " + ((Real) value).getDoubleValue();
 			}
 
 			@Override
@@ -71,7 +65,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		this.getCosineFunctions(n, tmpBase);
 		base = tmpBase;
 		assignOrthonormalCoordinates(tmpBase, f);
-		//		setOrthoCoordinates();
 	}
 
 	/**
@@ -105,34 +98,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 		}
 	}
-
-	// /**
-	// * Method to fill a list with sine functions.
-	// *
-	// * @param n the highest degree of the trigonometric polynomials.
-	// * @param tmpBase the list.
-	// */
-	// private void getSineFunctions(final int n, final List<Vector> tmpBase) {
-	// for (int i = 1; i < (n + 1); i++) {
-	// final Vector sin = new Sine(Math.sqrt(Math.PI * (1 + Math.pow(i, 2))), 0, i);
-	// tmpBase.add(sin);
-	// }
-	// }
-	//
-	// /**
-	// * Method to fill a list with cosine functions.
-	// *
-	// * @param n the highest degree of the trigonometric polynomials.
-	// * @param tmpBase the list.
-	// */
-	// private void getCosineFunctions(final int n, final List<Vector> tmpBase) {
-	// for (int i = 1; i < (n + 1); i++) {
-	// final Vector cos = new Sine(Math.sqrt(Math.PI * (1 + Math.pow(i, 2))), 0.5 *
-	// Math.PI, i);
-	// tmpBase.add(cos);
-	// }
-	// }
-
 	/**
 	 * Method to fill a list with sine functions.
 	 *
@@ -161,21 +126,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 				}
 			};
 			tmpBase.add(sin);
-		}
-	}
-
-	private void setOrthoCoordinates() {
-		for (final Vector vec1 : genericBaseToList()) {
-			final Map<Vector, Scalar> map = new HashMap<>();
-			final Scalar zero = RealLine.getInstance().getZero();
-			for (final Vector vec2 : genericBaseToList()) {
-				if (vec2.equals(vec1)) {
-					map.put(vec1, RealLine.getInstance().getOne());
-				} else {
-					map.put(vec2, zero);
-				}
-			}
-			((FiniteVectorMethods) vec1).setCoordinates(map);
 		}
 	}
 

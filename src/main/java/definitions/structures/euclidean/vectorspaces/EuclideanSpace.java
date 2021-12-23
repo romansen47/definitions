@@ -8,10 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
@@ -32,14 +32,14 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	@Override
 	@Proceed
 	default Vector addition(final Vector vec1, final Vector vec2) {
-		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(this.getDim()))) {
-			final List<Vector> base = this.genericBaseToList();
+		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(getDim()))) {
+			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			base.stream().forEach(vec -> {
-				final Vector baseVec = this.getBaseVec(vec);
-				final Vector firstSummand = ((FiniteVector) vec1).getCoordinates().get(this.getBaseVec(vec));
-				final Vector secondSummand = ((FiniteVector) vec2).getCoordinates().get(this.getBaseVec(vec));
-				final Scalar add = (Scalar) this.getField().addition(firstSummand, secondSummand);
+				final Vector baseVec = getBaseVec(vec);
+				final Vector firstSummand = ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec));
+				final Vector secondSummand = ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec));
+				final Scalar add = (Scalar) getField().addition(firstSummand, secondSummand);
 				coordinates.put(baseVec, add);
 			});
 			/*
@@ -65,9 +65,9 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return the corresponding vector @
 	 */
 	default Vector get(final Map<Vector, Scalar> tmp) {
-		Vector vec = this.nullVec();
-		for (final Vector basevec : this.genericBaseToList()) {
-			vec = this.addition(vec, this.stretch(basevec, tmp.get(basevec)));
+		Vector vec = nullVec();
+		for (final Vector basevec : genericBaseToList()) {
+			vec = addition(vec, stretch(basevec, tmp.get(basevec)));
 		}
 		return vec;
 	}
@@ -80,9 +80,9 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 */
 	@Proceed
 	default Vector get(final Scalar[] tmp) {
-		Vector vec = this.nullVec();
-		for (int i = 0; i < this.getDim(); i++) {
-			vec = this.addition(vec, this.stretch(this.genericBaseToList().get(i), tmp[i]));
+		Vector vec = nullVec();
+		for (int i = 0; i < getDim(); i++) {
+			vec = addition(vec, stretch(genericBaseToList().get(i), tmp[i]));
 		}
 		return vec;
 	}
@@ -94,7 +94,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return the base vector, if has same coordinates. Otherwise null.
 	 */
 	default Vector getBaseVec(final Vector vec) {
-		for (final Vector tmp : this.genericBaseToList()) {
+		for (final Vector tmp : genericBaseToList()) {
 			if (vec.equals(tmp)) {
 				return tmp;
 			}
@@ -127,11 +127,11 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @param vec2 second vector.
 	 * @return the distance. @
 	 */
-	@Override
-	default Real distance(final Vector vec1, final Vector vec2) {
-		final Vector diff = this.addition(vec1, (this.stretch(vec2, this.getField().get(-1))));
-		return this.norm(diff);
-	}
+	//	@Override
+	//	default Real distance(final Vector vec1, final Vector vec2) {
+	//		final Vector diff = this.addition(vec1, (this.stretch(vec2, this.getField().get(-1))));
+	//		return this.norm(diff);
+	//	}
 
 	EuclideanSpace getDualSpace();
 
@@ -144,11 +144,13 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	default List<Vector> getOrthonormalBase(List<Vector> base) {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
-			Vector tmp = this.nullVec();
-			for (final Vector vec2 : newBase) {
-				tmp = this.addition(tmp, this.projection(vec, vec2));
+			Vector tmp = nullVec();
+			for (final Vector vec2 : base) {
+				tmp = addition(tmp, projection(vec, vec2));
 			}
-			final Vector ans = this.normalize(this.addition(vec, this.stretch(tmp, this.getField().get(-1))));
+			((Function)vec).getCoordinates().clear();
+			((Function)tmp).getCoordinates().clear();
+			final Vector ans = normalize(addition(vec, stretch(tmp, getField().get(-1))));
 			newBase.add(ans);
 		}
 		return newBase;
@@ -159,7 +161,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 */
 	@Override
 	default Scalar innerProduct(final Vector vec1, final Vector vec2) {
-		Vector prod = this.getField().nullVec();
+		Vector prod = getField().nullVec();
 		final Map<Vector, Scalar> vecCoord1 = ((FiniteVectorMethods) vec1).getCoordinates();
 		final Map<Vector, Scalar> vecCoord2 = ((FiniteVectorMethods) vec2).getCoordinates();
 		Vector tmp1;
@@ -168,8 +170,8 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		for (final Vector vec : vecCoord1.keySet()) {
 			tmp1 = vecCoord1.get(vec);
 			tmp2 = vecCoord2.get(vec);
-			tmpProd = this.getField().product(tmp1, tmp2);
-			prod = this.getField().addition(prod, tmpProd);
+			tmpProd = getField().product(tmp1, tmp2);
+			prod = getField().addition(prod, tmpProd);
 		}
 		return (Scalar) prod;
 	}
@@ -178,13 +180,13 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * Method to show the matrix of scalar products between the base elements.
 	 */
 	default void show() {
-		final List<Vector> base = this.genericBaseToList();
+		final List<Vector> base = genericBaseToList();
 		final Scalar[][] scalarProducts = new Scalar[base.size()][base.size()];
 		int i = 0;
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = this.innerProduct(vec1, vec2);
+				scalarProducts[i][j] = innerProduct(vec1, vec2);
 				System.out.print((scalarProducts[i][j].toString()) + ",");
 				j++;
 			}
@@ -202,11 +204,11 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		final ComplexPlane compl = (ComplexPlane) ComplexPlane.getInstance();
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
-		final List<Vector> base = this.genericBaseToList();
+		final List<Vector> base = genericBaseToList();
 		base.stream().forEach(vec1 -> {
-			final Vector tmpBaseVec = this.getBaseVec(vec1);
+			final Vector tmpBaseVec = getBaseVec(vec1);
 			final Vector tmp = coordinates.get(tmpBaseVec);
-			final Scalar s = (Scalar) this.getField().multiplication(tmp, r);
+			final Scalar s = (Scalar) getField().multiplication(tmp, r);
 			stretched.put(vec1, s);
 		});
 		return new Tuple(stretched);

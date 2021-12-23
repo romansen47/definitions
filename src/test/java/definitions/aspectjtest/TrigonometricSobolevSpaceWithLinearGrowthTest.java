@@ -3,16 +3,19 @@ package definitions.aspectjtest;
 import org.junit.Before;
 import org.junit.Test;
 
+import definitions.prototypes.AspectJTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
+import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
-	private int sobolevDegree = 1;
-	private final int trigDegree = 5;
+	private int sobolevDegree = 2;
+	private final int trigDegree = 10;
 
 	public int getSobolevDegree() {
 		return sobolevDegree;
@@ -29,21 +32,14 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 		setTrigonometricDegree(trigDegree);
 		setSobolevDegree(sobolevDegree);
 
-		setField(getRealLine());
+		setField(AspectJTest.getRealLine());
 		super.setUp();
-		setTrigonometricSpace(getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(getRealLine(),
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(AspectJTest.getRealLine(),
 				getSobolevDegree(), Math.PI, getTrigonometricDegree()));
 
 	}
-
 	@Test
-	public void test1() {
-		final Function staircaseFunctionProjection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunctionProjection);
-	}
-
-	@Test
-	public void test2() {
+	public void test() {
 		final Function absolute = new GenericFunction() {
 
 			/**
@@ -52,8 +48,13 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 			private static final long serialVersionUID = -5009775881103765610L;
 
 			@Override
+			public Field getField() {
+				return AspectJTest.getRealLine();
+			}
+
+			@Override
 			public Scalar value(Scalar input) {
-				final double x = input.getDoubleValue();
+				final double x = ((Real) input).getDoubleValue();
 				return RealLine.getInstance().get(Math.abs(x));
 			}
 

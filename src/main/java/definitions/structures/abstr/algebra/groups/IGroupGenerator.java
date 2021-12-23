@@ -520,12 +520,6 @@ public interface IGroupGenerator {
 			}
 			return ans;
 		}
-
-		@Override
-		public double getDoubleValue() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
 	}
 
 	default PrimeField getPrimeField(DiscreetDomain domain) {

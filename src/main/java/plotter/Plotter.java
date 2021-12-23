@@ -6,6 +6,7 @@ package plotter;
 import java.awt.Color;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -22,7 +23,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		this.preparePlot(fun, left, right, stddraw, count, delta);
+		preparePlot(fun, left, right, stddraw, count, delta);
 		double z = 0;
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
@@ -30,10 +31,10 @@ public interface Plotter {
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
 				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().get(z));
-				StdDraw.line(z, sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)).getDoubleValue(),
+				StdDraw.line(z, ((Real) sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec))).getDoubleValue(),
 						z + delta,
-						((FiniteVectorMethods) ((Function) fun).value(((Function) fun).getField().get(z + delta)))
-								.getCoordinates().get(vec).getDoubleValue());
+						((Real) ((FiniteVectorMethods) ((Function) fun).value(((Function) fun).getField().get(z + delta)))
+								.getCoordinates().get(vec)).getDoubleValue());
 			}
 		}
 
@@ -43,16 +44,16 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		this.preparePlot(fun1, left, right, stddraw, count, delta);
+		preparePlot(fun1, left, right, stddraw, count, delta);
 		Scalar tmp = ((Function) fun1).getField().get(left);
-		double alpha = ((Scalar) ((Function) fun1).value(tmp)).getDoubleValue();
-		double beta = ((Scalar) ((Function) fun2).value(tmp)).getDoubleValue();
+		double alpha = ((Real) ((Function) fun1).value(tmp)).getDoubleValue();
+		double beta = ((Real) ((Function) fun2).value(tmp)).getDoubleValue();
 		double z = 0;
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
 			tmp = ((Function) fun1).getField().get(z + delta);
-			final double alphaNext = ((Scalar) ((Function) fun1).value(tmp)).getDoubleValue();
-			final double betaNext = ((Scalar) ((Function) fun2).value(tmp)).getDoubleValue();
+			final double alphaNext = ((Real) ((Function) fun1).value(tmp)).getDoubleValue();
+			final double betaNext = ((Real) ((Function) fun2).value(tmp)).getDoubleValue();
 			StdDraw.setPenRadius(0.0035);
 			StdDraw.setPenColor(Color.blue);
 			StdDraw.line(z, alpha, z + delta, alphaNext);
@@ -68,12 +69,12 @@ public interface Plotter {
 	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,
 			final int count, final double delta) {
 		double x = 0;
-		double min = ((Scalar) ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)))
+		double min = ((Real) ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)))
 				.getDoubleValue();
 		double max = min;
 		for (double i = 0; i < (count - 1); i += 1) {
 			x = left + (delta * i);
-			final double y = ((Scalar) ((Function) fun).value(((Function) fun).getField().get(x))).getDoubleValue();
+			final double y = ((Real) ((Function) fun).value(((Function) fun).getField().getField().get(x))).getDoubleValue();
 			if (y > max) {
 				max = y;
 			}

@@ -5,6 +5,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
@@ -26,7 +27,7 @@ public class FunctionSpaceTest extends AspectJTest {
 
 		@Override
 		public Scalar value(Scalar input) {
-			final double val = input.getDoubleValue();
+			final double val = ((Real) input).getDoubleValue();
 			if ((val <= (-support / 2)) || (val >= (support / 2))) {
 				return RealLine.getInstance().get(0);
 			}

@@ -14,6 +14,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.NormedSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -49,15 +50,15 @@ public interface ISpaceGenerator {
 			Map<Vector, Scalar> tmp = new HashMap<>();
 			if (vec instanceof Sine) {
 				final Scalar freq = ((Sine) vec).getFrequency();
-				final boolean isSine = ((Sine) vec).getTranslation().getDoubleValue() == 0.;
+				final boolean isSine = ((Real) ((Sine) vec).getTranslation()).getDoubleValue() == 0.;
 				for (final Vector otherVec : base) {
 					tmp.put(otherVec, zero);
 					if (otherVec instanceof Sine) {
 						final Scalar otherFreq = ((Sine) otherVec).getFrequency();
-						final boolean otherIsSine = ((Sine) otherVec).getTranslation().getDoubleValue() == 0.;
-						if (freq.getDoubleValue() == otherFreq.getDoubleValue()) {
+						final boolean otherIsSine = ((Real) ((Sine) otherVec).getTranslation()).getDoubleValue() == 0.;
+						if (((Real) freq).getDoubleValue() == ((Real) otherFreq).getDoubleValue()) {
 							if (!isSine && otherIsSine) {
-								tmp.put(otherVec, ((RealLine) realLine).get(-freq.getDoubleValue()));
+								tmp.put(otherVec, ((RealLine) realLine).get(-((Real) freq).getDoubleValue()));
 							}
 							if (isSine && !otherIsSine) {
 								tmp.put(otherVec, freq);

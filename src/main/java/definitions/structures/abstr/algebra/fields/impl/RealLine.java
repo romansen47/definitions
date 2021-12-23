@@ -54,7 +54,7 @@ public class RealLine implements Field, RealSpace {
 
 	public RealLine() {
 		base = new ArrayList<>();
-		base.add(this.getOne());
+		base.add(getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
@@ -63,7 +63,7 @@ public class RealLine implements Field, RealSpace {
 		final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 		newMap.put(RealLine.one,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
-		this.setMultiplicationMatrix(newMap);
+		setMultiplicationMatrix(newMap);
 		ComplexPlane.setRealLine(this);
 	}
 
@@ -104,7 +104,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real get(final double value) {
-		final Real newReal = new Real(); 
+		final Real newReal = new Real();
 		newReal.setRepresentant(value);
 		return newReal;
 	}
@@ -212,7 +212,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Vector nullVec() {
-		return this.getZero();
+		return getZero();
 	}
 
 	/**
@@ -234,9 +234,9 @@ public class RealLine implements Field, RealSpace {
 		final Real a = ((Real) v);
 		final Real b = ((Real) w);
 		if (b.getDoubleValue() != 0) {
-			return this.stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
+			return stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
 		}
-		return this.nullVec();
+		return nullVec();
 	}
 
 	/**
@@ -252,16 +252,16 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real stretch(final Vector vec1, final Scalar r) {
-		return this.get(((Real) vec1).getDoubleValue() * r.getDoubleValue());
+		return this.get(((Real) vec1).getDoubleValue() * ((Real)r).getDoubleValue());
 	}
 
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String toString() {
-//		return "the field of real numbers";
-//	}
+	//	/**
+	//	 * {@inheritDoc}
+	//	 */
+	//	@Override
+	//	public String toString() {
+	//		return "the field of real numbers";
+	//	}
 
 	/**
 	 * {@inheritDoc}

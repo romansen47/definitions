@@ -4,6 +4,7 @@ import org.junit.Before;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -59,9 +60,9 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 	@Before
 	public void setUp() throws Exception {
 
-		f = getRealLine();
+		f = AspectJTest.getRealLine();
 
-		setTrigonometricSpace(getSpaceGenerator().getNormedTrigonometricSpace(getRealLine(), getTrigonometricDegree()));
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getNormedTrigonometricSpace(AspectJTest.getRealLine(), getTrigonometricDegree()));
 		testValues = definitions.aspectjtest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() {
 
@@ -75,7 +76,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double newInput = ((length / (2 * Math.PI)) * input.getDoubleValue()) + (length / 2.);
+				final double newInput = ((length / (2 * Math.PI)) * ((Real) input).getDoubleValue()) + (length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
 				while (((k + 1) < testValues[0].length) && (testValues[0][k] < l)) {

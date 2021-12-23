@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
@@ -21,19 +22,19 @@ public interface ParameterizedSpace extends EuclideanSpace {
 	@Override
 	default Vector addition(final Vector vec1, final Vector vec2) {
 		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector)) {
-			final List<Vector> base = this.genericBaseToList();
+			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			base.stream().forEach(vec -> {
-				final double summand1 = ((FiniteVector) vec1).getCoordinates().get(this.getBaseVec(vec))
+				final double summand1 = ((Real) ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec)))
 						.getDoubleValue();
-				final double summand2 = ((FiniteVector) vec2).getCoordinates().get(this.getBaseVec(vec))
+				final double summand2 = ((Real) ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec)))
 						.getDoubleValue();
 				final double sumOnCoordinate = summand1 + summand2;
-				coordinates.put(vec, this.getField().get(sumOnCoordinate));
+				coordinates.put(vec, getField().get(sumOnCoordinate));
 			});
 			return this.get(coordinates);
 		} else {
-			return this.addition(vec1, vec2);
+			return addition(vec1, vec2);
 		}
 	}
 
@@ -48,19 +49,19 @@ public interface ParameterizedSpace extends EuclideanSpace {
 	 */
 	@Override
 	default Integer getDim() {
-		return this.getParametrization().getRank();
+		return getParametrization().getRank();
 	}
 
 	default Map<Vector, Scalar> getInverseCoordinates(final Vector vec2) {
-		final Vector ans = this.getNearestVector(vec2);
+		final Vector ans = getNearestVector(vec2);
 		return ((FiniteVectorMethods) ans).getCoordinates();
 	}
 
 	default FiniteVector getNearestVector(final Vector vec2) {
 		final FiniteDimensionalHomomorphism transposed = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance()
-				.getTransposedMapping(this.getParametrization());
+				.getTransposedMapping(getParametrization());
 		final FiniteDimensionalHomomorphism quadratic = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance()
-				.getComposition(transposed, this.getParametrization());
+				.getComposition(transposed, getParametrization());
 		final Vector transformed = transposed.get(vec2);
 		/*
 		 * Direct usage of constructor instead of get method in order to avoid cycles.

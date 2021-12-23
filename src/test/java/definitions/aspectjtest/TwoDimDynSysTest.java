@@ -10,6 +10,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
@@ -35,8 +36,8 @@ public class TwoDimDynSysTest extends AspectJTest {
 
 		@Override
 		public Element get(Element vec) {
-			final double a = ((Complex) vec).getReal().getDoubleValue();
-			final double b = ((Complex) vec).getImag().getDoubleValue();
+			final double a = ((Real) ((Complex) vec).getReal()).getDoubleValue();
+			final double b = ((Real) ((Complex) vec).getImag()).getDoubleValue();
 			final Element newVec = AspectJTest.getComplexPlane().get(a - (a * a), b);
 			return AspectJTest.getComplexPlane().multiplication(newVec,
 					AspectJTest.getComplexPlane().multiplication(AspectJTest.getComplexPlane().getMinusOne(), AspectJTest.getComplexPlane().getI()));
@@ -86,7 +87,7 @@ public class TwoDimDynSysTest extends AspectJTest {
 
 			@Override
 			public Vector value(Scalar input) {
-				return list.get((int) ((duration / 2) * (1 + (input.getDoubleValue() / Math.PI)))).getReal();
+				return list.get((int) ((duration / 2) * (1 + (((Real) input).getDoubleValue() / Math.PI)))).getReal();
 			}
 
 		};

@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
@@ -19,8 +20,8 @@ public interface IMappingGenerator extends Serializable {
 			for (int j = 0; j < scalars2[0].length; j++) {
 				matC[i][j] = RealLine.getInstance().getZero();
 				for (int k = 0; k < scalars[0].length; k++) {
-					matC[i][j] = RealLine.getInstance().get(matC[i][j].getDoubleValue()
-							+ (scalars[i][k].getDoubleValue() * scalars2[k][j].getDoubleValue()));
+					matC[i][j] = RealLine.getInstance().get(((Real) matC[i][j]).getDoubleValue()
+							+ (((Real) scalars[i][k]).getDoubleValue() * ((Real) scalars2[k][j]).getDoubleValue()));
 				}
 			}
 		}

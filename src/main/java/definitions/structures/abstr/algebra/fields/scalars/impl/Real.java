@@ -119,7 +119,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
+	//	@Override
 	@XmlAttribute
 	public double getDoubleValue() {
 		return representant;
@@ -153,8 +153,8 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-	} 
-	
+	}
+
 	/**
 	 *  Complex version
 	 * @return

@@ -143,11 +143,6 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 						return "<binary>" + value + "</binary>";
 					}
 
-					@Override
-					public double getDoubleValue() {
-						return value ? 1d : 0d;
-					}
-
 				}
 
 				private final DiscreetGroup multiplicativeMonoid = getMuliplicativeMonoid();
@@ -338,10 +333,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				@Override
 				public FieldElement operation(Element first, Element second) {
-					final FieldElement ans = (((Binary) first).getDoubleValue() + ((Binary) second).getDoubleValue())%2 == 0
-							? getZero()
-									: getOne();
-					return ans;
+					return (FieldElement) getOperationMap().get(first).get(second);
 				}
 
 			};
@@ -407,11 +399,6 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 									ans = "true";
 								}
 								return "constructed binary: " + ans;
-							}
-
-							@Override
-							public double getDoubleValue() {
-								return representant.doubleValue();
 							}
 
 						};

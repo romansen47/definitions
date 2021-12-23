@@ -101,6 +101,9 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		if (element.equals(getOne())) {
 			return (FieldElement) getMinusOne();
 		}
+		else if (element.equals(getZero())) {
+			return (FieldElement) getZero();
+		}
 		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
 	}
 

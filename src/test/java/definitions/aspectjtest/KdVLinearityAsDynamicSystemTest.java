@@ -104,7 +104,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 			@Override
 			public Scalar value(Scalar input) {
-				final double val = input.getDoubleValue();
+				final double val = ((Real) input).getDoubleValue();
 				if ((val <= (-support / 2)) || (val >= (support / 2))) {
 					return RealLine.getInstance().get(0);
 				}
@@ -215,9 +215,9 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			x2 = x1 + (eps * speed);
 			realX1 = (Real) KdVLinearityAsDynamicSystemTest.getRealLine().get(x1);
 			realX2 = (Real) KdVLinearityAsDynamicSystemTest.getRealLine().get(x2);
-			line(500 + (100 * (float) x1), (float) (500 * (1 - (100 * ((Scalar) tmp2.value(realX1)).getDoubleValue()))),
+			line(500 + (100 * (float) x1), (float) (500 * (1 - (100 * ((Real) tmp2.value(realX1)).getDoubleValue()))),
 					500 + (100 * (float) x2),
-					(float) (500 * (1 - (100 * ((Scalar) tmp2.value(realX2)).getDoubleValue()))));
+					(float) (500 * (1 - (100 * ((Real) tmp2.value(realX2)).getDoubleValue()))));
 			x1 = x2;
 		}
 	}

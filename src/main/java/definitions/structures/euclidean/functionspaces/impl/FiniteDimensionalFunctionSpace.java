@@ -7,6 +7,7 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -65,12 +66,12 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		interval[1] = right;
 		final List<Vector> newBase;
 		if (orthonormalize) {
-			newBase = this.getOrthonormalBase(genericBase);
+			newBase = getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
-			this.assignOrthonormalCoordinates(newBase, field);
+			assignOrthonormalCoordinates(newBase, field);
 		}
-		this.setBase(newBase);
+		setBase(newBase);
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getLeft() {
-		return this.getInterval()[0];
+		return getInterval()[0];
 	}
 
 	/**
@@ -119,7 +120,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getRight() {
-		return this.getInterval()[1];
+		return getInterval()[1];
 	}
 
 	/**
@@ -148,7 +149,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
-			return this.integral((Function) vec1, (Function) vec2);
+			return integral((Function) vec1, (Function) vec2);
 		}
 	}
 
@@ -157,8 +158,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function normalize(final Vector vec) {
-		return this.stretch(vec,
-				this.getField().getInverseElement(this.getField().get(this.norm(vec).getDoubleValue())));
+		return stretch(vec,
+				getField().getInverseElement(getField().get(((Real) norm(vec)).getDoubleValue())));
 	}
 
 	/**
@@ -168,8 +169,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public Function nullVec() {
 		if (nullVec == null) {
 			final Map<Vector, Scalar> nul = new HashMap<>();
-			for (final Vector vec : this.genericBaseToList()) {
-				nul.put(vec, (Scalar) this.getField().getZero());
+			for (final Vector vec : genericBaseToList()) {
+				nul.put(vec, (Scalar) getField().getZero());
 			}
 			nullVec = new FunctionTuple(nul, this);
 		}

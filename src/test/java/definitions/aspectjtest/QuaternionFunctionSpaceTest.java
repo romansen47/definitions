@@ -16,6 +16,7 @@ import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -47,12 +48,12 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return (Field) QuaternionSpace.getInstance();
+				return f;
 			}
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double val = ((Quaternion) input).getReal().getDoubleValue();
+				final double val = ((Real) input).getDoubleValue();
 				final Quaternion tmp = (Quaternion) getField().addition(f.getOne(),
 						new Quaternion(val, -val, 0.1 * Math.cos(val), 0.1 * Math.sin(val)));
 				return (Scalar) getField().normalize(tmp);
@@ -63,12 +64,12 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return (Field) QuaternionSpace.getInstance();
+				return f;
 			}
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double val = ((Quaternion) input).getReal().getDoubleValue();
+				final double val = ((Real) input).getDoubleValue();
 				final Quaternion tmp = (Quaternion) getField().addition(getField().getOne(),
 						new Quaternion(val / 2, val / 2, 0.1 * Math.sin(val), 0.1 * Math.cos(val)));
 				return (Scalar) getField().normalize(tmp);
@@ -79,15 +80,15 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return (Field) QuaternionSpace.getInstance();
+				return f;
 			}
 
 			@Override
 			public Scalar value(final Scalar input) {
-				final double val = ((Quaternion) input).getReal().getDoubleValue();
+				final double val = ((Real) input).getDoubleValue();
 				final Quaternion tmp = (Quaternion) getField().addition(getField().getOne(),
 						new Quaternion(val, -val, val, 1 - val));
-				if (Math.abs(((Quaternion) input).getReal().getDoubleValue()) < 1.e-5) {
+				if (Math.abs(((Real) ((Quaternion) input).getReal()).getDoubleValue()) < 1.e-5) {
 					return (Scalar) getField().stretch(input, RealLine.getInstance().get(1.e5));
 				}
 				return (Scalar) getField().normalize(tmp);
@@ -113,19 +114,19 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 	@Test
 	public void testFirstCoordinate() throws IOException {
 		alpha.plot(-Math.PI, Math.PI);
-		getGenerator().saveCoordinateSpaces();
+		AspectJTest.getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
 	public void testSecondCoordinate() throws IOException {
 		beta.plot(-Math.PI, Math.PI);
-		getGenerator().saveCoordinateSpaces();
+		AspectJTest.getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
 	public void testThirdCoordinate() throws IOException {
 		gamma.plot(-Math.PI, Math.PI);
-		getGenerator().saveCoordinateSpaces();
+		AspectJTest.getGenerator().saveCoordinateSpaces();
 	}
 
 }

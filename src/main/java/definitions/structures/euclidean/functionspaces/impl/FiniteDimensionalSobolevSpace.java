@@ -4,6 +4,7 @@ import java.util.List;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -41,8 +42,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
 		this.degree = degree;
 		if (ortho) {
-			this.setBase(this.getOrthonormalBase(base));
-			this.assignOrthonormalCoordinates(base, field);
+			setBase(getOrthonormalBase(base));
+			assignOrthonormalCoordinates(base, field);
 		}
 	}
 
@@ -68,7 +69,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			final double right, final int degree) {
 		super(field, genericBase, left, right, true);
 		this.degree = degree;
-		this.getDerivativeBuilder();
+		getDerivativeBuilder();
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 
 	public DerivativeOperator getDerivativeBuilder() {
 		if (derivativeBuilder == null) {
-			this.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
+			setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
 		}
 		return derivativeBuilder;
 	}
@@ -114,8 +115,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				double product = 0;
 				Vector tmp1 = vec1;
 				Vector tmp2 = vec2;
-				product += super.innerProduct(tmp1, tmp2).getDoubleValue();
-				for (int i = 0; i < this.getDegree(); i++) {
+				product += ((Real) super.innerProduct(tmp1, tmp2)).getDoubleValue();
+				for (int i = 0; i < getDegree(); i++) {
 					if ((((FiniteVectorMethods) tmp1).getCoordinates() == null)
 							|| (((FiniteVectorMethods) tmp2).getCoordinates() == null) || (derivativeBuilder == null)) {
 						tmp1 = ((Function) tmp1).getDerivative();
@@ -124,9 +125,9 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 						tmp1 = derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
 						tmp2 = derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
 					}
-					product += super.innerProduct(tmp1, tmp2).getDoubleValue();
+					product += ((Real) super.innerProduct(tmp1, tmp2)).getDoubleValue();
 				}
-				return this.getField().get(product);
+				return getField().get(product);
 			}
 		}
 		return super.innerProduct(vec1, vec2);

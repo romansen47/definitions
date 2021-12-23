@@ -8,9 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
@@ -69,18 +71,26 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 		base.add(i);
 		base.add(j);
 		base.add(k);
-		this.assignOrthonormalCoordinates(base, this.getField());
+		assignOrthonormalCoordinates(base, getField());
 	}
 
 	@Override
 	public Quaternion addition(final Vector vec1, final Vector vec2) {
-		if (vec1 == this.nullVec()) {
+		if (vec1 == nullVec()) {
 			return (Quaternion) vec2;
 		}
-		if (vec2 == this.nullVec()) {
+		if (vec2 == nullVec()) {
 			return (Quaternion) vec1;
 		}
 		final Vector ans = super.addition(vec1, vec2);
+		try {
+			Scalar test=new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(one),
+					((FiniteVectorMethods) ans).getCoordinates().get(i),
+					((FiniteVectorMethods) ans).getCoordinates().get(j),
+					((FiniteVectorMethods) ans).getCoordinates().get(k));
+		}catch(Exception e) {
+			int i=0;
+		}
 		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(one),
 				((FiniteVectorMethods) ans).getCoordinates().get(i),
 				((FiniteVectorMethods) ans).getCoordinates().get(j),
@@ -88,10 +98,27 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	}
 
 	@Override
+	public
+	FieldElement getInverseElement(Element element) {
+		if (element.equals(getOne())) {
+			return (FieldElement) getMinusOne();
+		}
+		else if (element.equals(getZero())) {
+			return (FieldElement) getZero();
+		}
+		Real r=(Real) ((Quaternion)element).getReal();
+		Real i=(Real) ((Quaternion)element).getI();
+		Real j=(Real) ((Quaternion)element).getJ();
+		Real k=(Real) ((Quaternion)element).getK();
+		return new Quaternion(r,i,j,k);
+	}
+
+	@Override
 	public Scalar conjugate(final Scalar value) {
+		Map<Vector, Scalar>  map = value.getCoordinates();
 		final Quaternion v = (Quaternion) value;
-		return new Quaternion(v.getReal().getDoubleValue(), -v.getI().getDoubleValue(), -v.getJ().getDoubleValue(),
-				-v.getK().getDoubleValue());
+		return new Quaternion(v.getReal(), getField().getInverseElement(v.getI()),  getField().getInverseElement(v.getJ()),
+				getField().getInverseElement(v.getK()));
 	}
 
 	@Override
@@ -137,41 +164,41 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 			final Scalar neg = RealLine.getInstance().get(-1);
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero, realZero, realZero },
-					{ realZero, realOne, realZero, realZero }, { realZero, realZero, realOne, realZero },
-					{ realZero, realZero, realZero, realOne } };
+				{ realZero, realOne, realZero, realZero }, { realZero, realZero, realOne, realZero },
+				{ realZero, realZero, realZero, realOne } };
 
-			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
-					.getFiniteDimensionalLinearMapping(this, this, oneMat);
+				final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
+						.getFiniteDimensionalLinearMapping(this, this, oneMat);
 
-			final Scalar[][] iMat = new Scalar[][] { { realZero, neg, realZero, realZero },
+				final Scalar[][] iMat = new Scalar[][] { { realZero, neg, realZero, realZero },
 					{ realOne, realZero, realZero, realZero }, { realZero, realZero, realZero, realOne },
 					{ realZero, realZero, neg, realZero } };
 
-			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, iMat);
+					final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+							this, iMat);
 
-			final Scalar[][] jMat = new Scalar[][] { { realZero, realZero, neg, realZero },
-					{ realZero, realZero, realZero, neg }, { realOne, realZero, realZero, realZero },
-					{ realZero, realOne, realZero, realZero } };
+					final Scalar[][] jMat = new Scalar[][] { { realZero, realZero, neg, realZero },
+						{ realZero, realZero, realZero, neg }, { realOne, realZero, realZero, realZero },
+						{ realZero, realOne, realZero, realZero } };
 
-			final VectorSpaceHomomorphism jHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, jMat);
+						final VectorSpaceHomomorphism jHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+								this, jMat);
 
-			final Scalar[][] kMat = new Scalar[][] { { realZero, realZero, realZero, neg },
-					{ realZero, realZero, realOne, realZero }, { realZero, neg, realZero, realZero },
-					{ realOne, realZero, realZero, realZero } };
+						final Scalar[][] kMat = new Scalar[][] { { realZero, realZero, realZero, neg },
+							{ realZero, realZero, realOne, realZero }, { realZero, neg, realZero, realZero },
+							{ realOne, realZero, realZero, realZero } };
 
-			final VectorSpaceHomomorphism kHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, kMat);
+							final VectorSpaceHomomorphism kHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
+									this, kMat);
 
-			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
+							final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
-			newMap.put(one, oneHom);
-			newMap.put(i, iHom);
-			newMap.put(j, jHom);
-			newMap.put(k, kHom);
+							newMap.put(one, oneHom);
+							newMap.put(i, iHom);
+							newMap.put(j, jHom);
+							newMap.put(k, kHom);
 
-			this.setMultiplicationMatrix(newMap);
+							setMultiplicationMatrix(newMap);
 		}
 		return multiplicationMatrix;
 	}
@@ -203,7 +230,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public Quaternion product(final Vector vec1, final Vector vec2) {
-//		return stretch(vec1,(Scalar)vec2);
+		//		return stretch(vec1,(Scalar)vec2);
 		return (Quaternion) Field.super.product(vec1, vec2);
 
 	}
@@ -222,14 +249,15 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public Quaternion stretch(final Vector vec1, final Scalar r) {
+		// ??????
 		if (r instanceof Quaternion) {
 			return (Quaternion) super.innerProduct(vec1, r);
 		}
-		if (r == this.getField().getOne()) {
+		if (r == getField().getOne()) {
 			return (Quaternion) vec1;
 		}
-		if (r == this.getField().getZero()) {
-			return this.nullVec();
+		if (r == getField().getZero()) {
+			return nullVec();
 		}
 		final Vector ans = super.stretch(vec1, r);
 		return new Quaternion(((FiniteVectorMethods) ans).getCoordinates().get(one),

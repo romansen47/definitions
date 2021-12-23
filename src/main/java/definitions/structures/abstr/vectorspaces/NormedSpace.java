@@ -20,7 +20,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 */
 	@Override
 	default Real distance(final Vector vec1, final Vector vec2) {
-		return this.norm(this.addition(vec1, this.stretch(vec2, (Scalar) this.getField().getMinusOne())));
+		return (Real) norm(addition(vec1, stretch(vec2, (Scalar) getField().getMinusOne())));
 	}
 
 	/**
@@ -35,7 +35,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @param vec the vector to compute the norm for.
 	 * @return the norm of the vector.
 	 */
-	Real norm(Vector vec);
+	Scalar norm(Vector vec);
 
 	/**
 	 * Any non-zero vector can be normalized. The normalization of a vector is a
@@ -45,7 +45,7 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return this.stretch(vec, this.getField().getInverseElement(this.norm(vec)));
+		return stretch(vec, getField().getInverseElement(norm(vec)));
 	}
 
 }

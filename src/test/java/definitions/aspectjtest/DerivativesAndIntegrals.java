@@ -10,6 +10,7 @@ import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -31,8 +32,8 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	private final List<Function> testfunctions = new ArrayList<>();
 
-	private final int degree = 2;
-	private final int sobolevDegree = 2;
+	private final int degree = 4;
+	private final int sobolevDegree = 3;
 
 	private EuclideanSpace sobolevSpace;
 
@@ -58,7 +59,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = ((InnerProductSpace) sobolevSpace).innerProduct(vec1, vec2).getDoubleValue();
+				scalarProducts[i][j] = ((Real) ((InnerProductSpace) sobolevSpace).innerProduct(vec1, vec2)).getDoubleValue();
 				System.out.print((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
 				j++;
 			}
@@ -78,17 +79,17 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	@Before
 	public void setUp() throws Throwable {
 
-		space = (EuclideanSpace) getGenerator().getTrigonometricSpace(getRealLine(), degree);
+		space = (EuclideanSpace) AspectJTest.getGenerator().getTrigonometricSpace(AspectJTest.getRealLine(), degree);
 		derivativeOperator = new FiniteDimensionalDerivativeOperator(space, space);
 
-		sobolevSpace = getSpaceGenerator().getTrigonometricSobolevSpace(getRealLine(), degree, sobolevDegree);
+		sobolevSpace = AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(), degree, sobolevDegree);
 
 		sine = new Sine(1, 0, 1) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
-				return getRealLine();
+				return AspectJTest.getRealLine();
 			}
 		};
 
@@ -97,13 +98,13 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return getRealLine();
+				return AspectJTest.getRealLine();
 			}
 
 			@Override
 			public Scalar value(final Scalar input) {
 				return RealLine.getInstance().get(
-						1 - super.value(RealLine.getInstance().get(input.getDoubleValue() / Math.PI)).getDoubleValue());
+						1 - ((Real) super.value(RealLine.getInstance().get(((Real) input).getDoubleValue() / Math.PI))).getDoubleValue());
 			}
 		};
 
@@ -111,7 +112,8 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	@Test
 	public void test() throws Throwable {
-		getLogger().info("Comparing implicite versus explicite derivative");
+		monome.plot(-Math.PI, Math.PI);
+		AspectJTest.getLogger().info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 2);
 		final Vector derivative2 = ((DerivativeOperator) derivativeOperator)
 				.get(((DerivativeOperator) derivativeOperator).get(monome));
@@ -120,16 +122,16 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	@Test
 	public void test2() throws Throwable {
-		final int sobDegree = 1000;
-		getLogger().info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
+		final int sobDegree = 4;
+		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(sine, sobDegree);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, sine);
 	}
 
 	@Test
 	public void test5() throws Throwable {
-		final int sobDegree = 1000;
-		getLogger().info("Plotting " + sobDegree + "-th derivative of sine in H^1:");
+		final int sobDegree = 4;
+		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in H^"+sobolevDegree+":");
 		final VectorSpaceHomomorphism derivativeOperatorSobToSob = new FiniteDimensionalDerivativeOperator(sobolevSpace,
 				sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(sine, sobDegree);

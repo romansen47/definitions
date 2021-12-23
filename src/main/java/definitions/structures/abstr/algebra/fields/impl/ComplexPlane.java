@@ -118,7 +118,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public Complex conjugate(final Scalar value) {
 		final Complex v = (Complex) value;
-		return new Complex(v.getReal().getDoubleValue(), -v.getImag().getDoubleValue());
+		return new Complex(v.getReal(), getField().getInverseElement(v.getImag()));
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public Complex get(final double realValue) {
-		final Complex newComplex = this.complex();
+		final Complex newComplex = complex();
 		newComplex.setValue(realValue, 0);
 		return newComplex;
 	}
@@ -148,7 +148,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * @return
 	 */
 	public Complex get(final double realValue, final double imValue) {
-		final Complex newComplex = this.complex();
+		final Complex newComplex = complex();
 		newComplex.setValue(realValue, imValue);
 		return newComplex;
 	}
@@ -184,7 +184,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 			newMap.put(one, oneHom);
 			newMap.put(i, iHom);
 
-			this.setMultiplicationMatrix(newMap);
+			setMultiplicationMatrix(newMap);
 		}
 		return multiplicationMatrix;
 	}
@@ -261,7 +261,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public Complex getNeutralElement() {
-		return (Complex) this.getZero();
+		return (Complex) getZero();
 	}
 
 	/**

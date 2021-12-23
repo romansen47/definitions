@@ -48,8 +48,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return (vec instanceof Complex) && ((Complex) vec).getReal().equals(this.getReal())
-				&& ((Complex) vec).getImag().equals(this.getImag());
+		return (vec instanceof Complex) && ((Complex) vec).getReal().equals(getReal())
+				&& ((Complex) vec).getImag().equals(getImag());
 	}
 
 	/**
@@ -59,8 +59,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	public Map<Vector, Scalar> getCoordinates() {
 		final Map<Vector, Scalar> tmp = super.getCoordinates();
 		if (tmp.isEmpty()) {
-			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), this.getReal());
-			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), this.getImag());
+			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), getReal());
+			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), getImag());
 		}
 		super.setCoordinates(tmp);
 		return tmp;
@@ -96,13 +96,13 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return real;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public double getDoubleValue() {
-		return this.getReal().getDoubleValue();
-	}
+	//	/**
+	//	 * {@inheritDoc}
+	//	 */
+	//	@Override
+	//	public double getDoubleValue() {
+	//		return this.getReal().getDoubleValue();
+	//	}
 
 	/**
 	 * {@inheritDoc}
@@ -128,8 +128,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@Override
 	public String toString() {
-//		return "("+getReal().getDoubleValue()+","+getImag().getDoubleValue()+")";
-		return this.toXml();
+		//		return "("+getReal().getDoubleValue()+","+getImag().getDoubleValue()+")";
+		return toXml();
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 */
 	@Override
 	public String toXml() {
-		return "<complex Re=\"" + real.getDoubleValue() + "\" Im=\"" + imag.getDoubleValue() + "\" />\r";
+		return "<complex Re=\"" + real.toString() + "\" Im=\"" + imag.toString() + "\" />\r";
 	}
 
 }

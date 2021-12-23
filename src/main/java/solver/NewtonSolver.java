@@ -1,7 +1,7 @@
 package solver;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class NewtonSolver {
@@ -17,16 +17,16 @@ public class NewtonSolver {
 	}
 
 	private double doStep(final double lastVal) throws Throwable {
-		return lastVal - (((Scalar) function.value(RealLine.getInstance().get(lastVal))).getDoubleValue()
-				/ ((Scalar) function.getDerivative().value(RealLine.getInstance().get(lastVal))).getDoubleValue());
+		return lastVal - (((Real) function.value(RealLine.getInstance().get(lastVal))).getDoubleValue()
+				/ ((Real) function.getDerivative().value(RealLine.getInstance().get(lastVal))).getDoubleValue());
 	}
 
 	public double solve() throws Throwable {
 		double lastVal = initialData;
-		double newVal = this.doStep(lastVal);
+		double newVal = doStep(lastVal);
 		while (Math.abs(newVal - lastVal) > eps) {
 			lastVal = newVal;
-			newVal = this.doStep(lastVal);
+			newVal = doStep(lastVal);
 		}
 		return newVal;
 	}

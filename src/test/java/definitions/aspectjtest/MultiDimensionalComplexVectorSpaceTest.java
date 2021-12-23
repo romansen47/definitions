@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
@@ -29,12 +30,12 @@ public class MultiDimensionalComplexVectorSpaceTest extends AspectJTest {
 			final Vector x = complexSpace.genericBaseToList().get(i);
 			vec = complexSpace.addition(vec, x);
 		}
-		final double doubleAns = complexSpace.norm(vec).doubleValue() - Math.sqrt(dim);
+		final double doubleAns = ((Real) complexSpace.norm(vec)).doubleValue() - Math.sqrt(dim);
 		final boolean newAns = Math.abs(doubleAns) < 0.1;
 
 		Assert.assertTrue(newAns);
-		System.out.println("norm = " + complexSpace.norm(vec).doubleValue() + "\rsquare root of dim = " + Math.sqrt(dim)
-				+ "\rdifference = " + doubleAns + "\r");
+		System.out.println("norm = " + ((Real) complexSpace.norm(vec)).doubleValue() + "\rsquare root of dim = " + Math.sqrt(dim)
+		+ "\rdifference = " + doubleAns + "\r");
 	}
 
 }

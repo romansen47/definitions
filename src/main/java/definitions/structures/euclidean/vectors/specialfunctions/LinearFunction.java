@@ -3,6 +3,7 @@ package definitions.structures.euclidean.vectors.specialfunctions;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class LinearFunction extends GenericFunction {
@@ -40,7 +41,7 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return this.getField().get(a.getDoubleValue() + (b.getDoubleValue() * input.getDoubleValue()));
+		return getField().get(((Real) a).getDoubleValue() + (((Real) b).getDoubleValue() * ((Real) input).getDoubleValue()));
 	}
 
 }

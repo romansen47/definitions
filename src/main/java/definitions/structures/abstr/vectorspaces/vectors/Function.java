@@ -8,6 +8,7 @@ import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -44,7 +45,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		 *
 		 */
 		private static final long serialVersionUID = -8277397177374734951L;
-		Field ownfield = this.getField();
+		Field ownfield = getField();
 
 		@Override
 		public Field getField() {
@@ -67,8 +68,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(((Scalar) this.value(this.getField().get(x))).getDoubleValue()
-					- ((Scalar) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > Function.eps) {
+			if (Math.abs(((Real) value(getField().get(x))).getDoubleValue()
+					- ((Real) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > Function.eps) {
 				return false;
 			}
 		}
@@ -83,7 +84,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
+		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
 		if (coordinatesMap != null) {
 			if (coordinatesMap.get(space) != null) {
 				return coordinatesMap.get(space);
@@ -91,7 +92,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		}
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		space.genericBaseToList().stream()
-				.forEach(baseVec -> newCoordinates.put(baseVec, space.innerProduct(this, baseVec)));
+		.forEach(baseVec -> newCoordinates.put(baseVec, space.innerProduct(this, baseVec)));
 		return newCoordinates;
 	}
 
@@ -104,7 +105,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Proceed
 	default Function getDerivative() {
-		final Field f = this.getField();
+		final Field f = getField();
 		if (Function.derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
@@ -121,8 +122,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = ((Scalar) fun.value(f.get(input.getDoubleValue() + Function.eps)))
-							.getDoubleValue() - ((Scalar) fun.value(input)).getDoubleValue();
+					final double dy = ((Real) fun.value(f.get(((Real)input).getDoubleValue() + Function.eps)))
+							.getDoubleValue() - ((Real) fun.value(input)).getDoubleValue();
 					final double dx = Function.eps;
 					return f.get(dy / dx);
 				}
