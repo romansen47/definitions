@@ -32,13 +32,13 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 15;
+	private static int degree = 20;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static KdVLinearityAsDynamicSystemTest test;
 	private static Function tmp;
-	boolean linear = true;
+	boolean linear = false;
 
 	final int iterations = (int) 1.e4;
 	final double eps = 1.e-5;
@@ -60,6 +60,11 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			public Element get(Element vec) {
 				return new GenericFunction() {
 					private static final long serialVersionUID = -1105085341775793307L;
+
+					@Override
+					public Field getField() {
+						return KdVLinearityAsDynamicSystemTest.realLine;
+					}
 
 					@Override
 					public Scalar value(Scalar input) {
@@ -101,6 +106,11 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 			private static final long serialVersionUID = -4921080371690731611L;
 			double support = 0.9;
+
+			@Override
+			public Field getField() {
+				return KdVLinearityAsDynamicSystemTest.realLine;
+			}
 
 			@Override
 			public Scalar value(Scalar input) {

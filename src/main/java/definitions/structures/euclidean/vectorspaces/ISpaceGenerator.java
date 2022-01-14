@@ -215,8 +215,7 @@ public interface ISpaceGenerator {
 			final int degree) {
 		final EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
 		final VectorSpace ans = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
-		((FiniteDimensionalVectorSpace) ans)
-		.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
+		((FiniteDimensionalVectorSpace) ans).setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
 		return ans;
 	}
 

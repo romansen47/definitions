@@ -111,7 +111,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	}
 
 	@Test
-	public void test() throws Throwable {
+	public void testLinearMonome() throws Throwable {
 		monome.plot(-Math.PI, Math.PI);
 		AspectJTest.getLogger().info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 2);
@@ -121,7 +121,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	}
 
 	@Test
-	public void test2() throws Throwable {
+	public void testDerivativeOfSineInL2() throws Throwable {
 		final int sobDegree = 4;
 		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(sine, sobDegree);
@@ -129,7 +129,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	}
 
 	@Test
-	public void test5() throws Throwable {
+	public void testDerivativeOfSineInSobolevSpace() throws Throwable {
 		final int sobDegree = 4;
 		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in H^"+sobolevDegree+":");
 		final VectorSpaceHomomorphism derivativeOperatorSobToSob = new FiniteDimensionalDerivativeOperator(sobolevSpace,

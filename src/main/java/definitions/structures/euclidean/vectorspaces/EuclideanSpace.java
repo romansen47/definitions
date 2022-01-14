@@ -11,7 +11,6 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
@@ -148,8 +147,6 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 			for (final Vector vec2 : base) {
 				tmp = addition(tmp, projection(vec, vec2));
 			}
-			((Function)vec).getCoordinates().clear();
-			((Function)tmp).getCoordinates().clear();
 			final Vector ans = normalize(addition(vec, stretch(tmp, getField().get(-1))));
 			newBase.add(ans);
 		}
