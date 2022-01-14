@@ -39,7 +39,7 @@ public class GameOfLifeTest extends Gui {
 	private FiniteVector initialConditionForConstructedBinaries;
 	private FiniteVector gol;
 	private FiniteVector golocb;
-	private int lifetime = 200;
+	private int lifetime = 100;
 
 	@BeforeClass
 	public static void prepare() {
@@ -53,7 +53,6 @@ public class GameOfLifeTest extends Gui {
 		return canvasSize;
 	}
 
-
 	public void draw(Element state) {
 		if (stddraw == null) {
 			stddraw = new StdDraw();
@@ -63,13 +62,13 @@ public class GameOfLifeTest extends Gui {
 		}
 		final int squareSize = (canvasSize / size) / 2;
 		StdDraw.clear();
-		EuclideanSpace tmpES=grid!=null?grid:gridOverConstructedBinaries;
-		FieldElement zero=tmpES.getField().getNeutralElement();
+		EuclideanSpace tmpES = grid != null ? grid : gridOverConstructedBinaries;
+		FieldElement zero = tmpES.getField().getNeutralElement();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				final int x = squareSize * (1 + (2 * i));
 				final int y = squareSize * (1 + (2 * j));
-				FiniteVector a=(FiniteVector) ((FiniteVector) state).getCoordinates()
+				FiniteVector a = (FiniteVector) ((FiniteVector) state).getCoordinates()
 						.get(tmpES.genericBaseToList().get(((size - j - 1) * size) + i));
 				if (a.equals(zero)) {
 					StdDraw.setPenColor(StdDraw.WHITE);
@@ -100,18 +99,18 @@ public class GameOfLifeTest extends Gui {
 		setGridOverConstructedBinaries((EuclideanSpace) getGameOfLifeConstructedBinaries().getPhaseSpace());
 		setInitialConditionForConstructedBinaries(
 				((GameOfLife) getGameOfLifeConstructedBinaries()).createRandomInitialCondition());
-		setGolocb((FiniteVector) gridOverConstructedBinaries.addition(gridOverConstructedBinaries.nullVec(), initialConditionForConstructedBinaries));
+		setGolocb((FiniteVector) gridOverConstructedBinaries.addition(gridOverConstructedBinaries.nullVec(),
+				initialConditionForConstructedBinaries));
 		draw(getGolocb());
 		for (int a = 0; a < getLifetime(); a++) {
 			Element newGame = getGameOfLifeConstructedBinaries().getDefiningMapping().get(getGolocb());
 			setGolocb((FiniteVector) newGame);
 			draw(getGolocb());
-			if(!getGolocb().equals(gridOverConstructedBinaries.nullVec())) {
+			if (!getGolocb().equals(gridOverConstructedBinaries.nullVec())) {
 				continue;
 			}
 		}
 	}
-
 
 	/**
 	 * @return the initialCondition
@@ -226,7 +225,7 @@ public class GameOfLifeTest extends Gui {
 	public void setGolocb(FiniteVector golocb) {
 		this.golocb = new FiniteVector() {
 
-			String toString=null;
+			String toString = null;
 
 			@Override
 			public Map<Vector, Scalar> getCoordinates() {
@@ -245,7 +244,7 @@ public class GameOfLifeTest extends Gui {
 
 			@Override
 			public String toString() {
-				if (toString==null) {
+				if (toString == null) {
 					toString = "";
 					for (Vector vec : getCoordinates().keySet()) {
 						toString += vec.toString() + " | ";

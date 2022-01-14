@@ -12,6 +12,12 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
+/**
+ * Sobolev tests make sense only on continuous functions.
+ * 
+ * @author roman
+ *
+ */
 public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest {
 
 	private int sobolevDegree;
@@ -28,7 +34,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(25);
+		setTrigonometricDegree(10);
 		setSobolevDegree(2);
 
 		setField(AspectJTest.getRealLine());
@@ -41,8 +47,12 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Test
 	public void test1() {
 		int sDegree = getSobolevDegree();
+		/*
+		 * It is sufficient to demonastrate the effect for sobolevDegree==1
+		 */
 		for (int i = 0; i < sDegree; i++) {
 			setSobolevDegree(i);
+			getStaircaseFunction().plot(-Math.PI, Math.PI);
 			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(
 					AspectJTest.getRealLine(), getTrigonometricDegree(), getSobolevDegree()));
 			final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
@@ -53,9 +63,6 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Test
 	public void testOnContinuousFunction() throws Exception {
 		final Function h = new GenericFunction() {
-			/**
-			 *
-			 */
 			private static final long serialVersionUID = 3842946945322219375L;
 
 			@Override
@@ -72,7 +79,12 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 		};
 		Function hProjection;
 		int sDegree = getSobolevDegree();
-		for (int i = 0; i < sDegree; i++) {
+		/*
+		 * for sobolevDegree==1 it's still working, function is continuous. for
+		 * sobolevDegree==2 the derivative of approximated function must be
+		 * continuous...
+		 */
+		for (int i = 0; i <= sDegree; i++) {
 			setSobolevDegree(i);
 			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(
 					AspectJTest.getRealLine(), getTrigonometricDegree(), getSobolevDegree()));

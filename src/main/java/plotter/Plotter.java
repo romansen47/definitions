@@ -30,12 +30,14 @@ public interface Plotter {
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
-			System.out.println(i);
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
 				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(z));
+				final Scalar sc2 = (Scalar) ((Function) fun)
+						.value(((Function) fun).getField().getField().get(z + delta));
 				StdDraw.line(z,
 						getValue(((Scalar) sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
-						z + delta, 0);
+						z + delta,
+						getValue(((Scalar) sc2.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))));
 			}
 		}
 

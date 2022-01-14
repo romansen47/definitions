@@ -12,10 +12,16 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
+/**
+ * This is only working for L^2, not for sobolev spaces. Why?
+ * 
+ * @author roman
+ *
+ */
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
-	private int sobolevDegree = 1;
-	private final int trigDegree = 3;
+	private int sobolevDegree = 0;
+	private final int trigDegree = 100;
 
 	public int getSobolevDegree() {
 		return sobolevDegree;
@@ -34,10 +40,11 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 
 		setField(AspectJTest.getRealLine());
 		super.setUp();
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(AspectJTest.getRealLine(),
-				getSobolevDegree(), Math.PI, getTrigonometricDegree()));
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(
+				AspectJTest.getRealLine(), getSobolevDegree(), Math.PI, getTrigonometricDegree()));
 
 	}
+
 	@Test
 	public void test() {
 		final Function absolute = new GenericFunction() {

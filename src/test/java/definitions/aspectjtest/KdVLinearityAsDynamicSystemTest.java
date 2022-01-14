@@ -19,6 +19,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.euclidean.mappings.impl.DerivativeOperator;
+import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativeOperator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
@@ -31,14 +32,16 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	private static ApplicationContextAware springConfiguration;
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
+	private static EuclideanSpace functionSpaceL2;
 	private static Function initialCondition;
-	private static int degree = 10;
+	private static int degree = 7;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static KdVLinearityAsDynamicSystemTest test;
 	private static Function tmp;
 	boolean linear = true;
+	private static DerivativeOperator derivatevieOperator;
 
 	final int iterations = (int) 1.e4;
 	final double eps = 1.e-5;
@@ -52,8 +55,14 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		KdVLinearityAsDynamicSystemTest.setRealLine(RealLine.getInstance());
 		KdVLinearityAsDynamicSystemTest.test = new KdVLinearityAsDynamicSystemTest();
 		KdVLinearityAsDynamicSystemTest.setFunctionSpace(
-				SpaceGenerator.getInstance().getTrigonometricSobolevSpace(KdVLinearityAsDynamicSystemTest.getRealLine(), KdVLinearityAsDynamicSystemTest.degree, KdVLinearityAsDynamicSystemTest.sobolevDegree));
-		final VectorSpaceSelfMapping map = ((TrigonometricSobolevSpace) KdVLinearityAsDynamicSystemTest.getFunctionSpace()).getDerivativeBuilder();
+				SpaceGenerator.getInstance().getTrigonometricSobolevSpace(KdVLinearityAsDynamicSystemTest.getRealLine(),
+						KdVLinearityAsDynamicSystemTest.degree, KdVLinearityAsDynamicSystemTest.sobolevDegree));
+		if (KdVLinearityAsDynamicSystemTest.sobolevDegree > 0) {
+			derivatevieOperator = ((TrigonometricSobolevSpace) KdVLinearityAsDynamicSystemTest.getFunctionSpace())
+					.getDerivativeBuilder();
+		} else {
+			derivatevieOperator = new FiniteDimensionalDerivativeOperator(functionSpace, functionSpace);
+		}
 		final VectorSpaceSelfMapping nonlinearity = new VectorSpaceSelfMapping() {
 
 			@Override
@@ -68,8 +77,8 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 					@Override
 					public Scalar value(Scalar input) {
-						return (Scalar) KdVLinearityAsDynamicSystemTest.getRealLine().product(((Function) vec).value(input),
-								((Function) vec).value(input));
+						return (Scalar) KdVLinearityAsDynamicSystemTest.getRealLine()
+								.product(((Function) vec).value(input), ((Function) vec).value(input));
 					}
 
 				};
@@ -85,14 +94,17 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 
 			@Override
 			public Element get(Element vec) {
-				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
+				Vector newVec;
+				newVec = derivatevieOperator.get((Vector) vec, 2);
 				newVec = getSource().stretch(newVec, KdVLinearityAsDynamicSystemTest.getRealLine().get(-0.5));
-				newVec = getSource().addition(getSource().stretch((Vector) vec, KdVLinearityAsDynamicSystemTest.getRealLine().get(0.9)), newVec);
+				newVec = getSource().addition(
+						getSource().stretch((Vector) vec, KdVLinearityAsDynamicSystemTest.getRealLine().get(0.9)),
+						newVec);
 				if (!KdVLinearityAsDynamicSystemTest.test.linear) {
 					newVec = getSource().addition(newVec,
 							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
 				}
-				return ((DerivativeOperator) map).get(newVec);
+				return derivatevieOperator.get(newVec);
 			}
 
 			@Override
@@ -141,9 +153,12 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			}
 
 		});
-		KdVLinearityAsDynamicSystemTest.space = (EuclideanSpace) KdVLinearityAsDynamicSystemTest.getDifferentialEquation().getPhaseSpace();
-		KdVLinearityAsDynamicSystemTest.tmp = (Function) KdVLinearityAsDynamicSystemTest.space.getCoordinates(KdVLinearityAsDynamicSystemTest.initialCondition);
-		KdVLinearityAsDynamicSystemTest.initialCondition.plotCompare(-Math.PI, Math.PI, KdVLinearityAsDynamicSystemTest.tmp);
+		KdVLinearityAsDynamicSystemTest.space = (EuclideanSpace) KdVLinearityAsDynamicSystemTest
+				.getDifferentialEquation().getPhaseSpace();
+		KdVLinearityAsDynamicSystemTest.tmp = (Function) KdVLinearityAsDynamicSystemTest.space
+				.getCoordinates(KdVLinearityAsDynamicSystemTest.initialCondition);
+		KdVLinearityAsDynamicSystemTest.initialCondition.plotCompare(-Math.PI, Math.PI,
+				KdVLinearityAsDynamicSystemTest.tmp);
 		((Gui) KdVLinearityAsDynamicSystemTest.test).run("definitions.aspectjtest.KdVLinearityAsDynamicSystemTest");
 	}
 
@@ -163,20 +178,24 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		int count = 0;
 		StdDraw.setPenColor(StdDraw.BLACK);
 		final double it = iteration;
-		//		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
-		//		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
-		//		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
-		//		StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading... ");
-		//		StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading... ");
-		for (int i = 0; i < iterations; i++) {
-			final Function tmp2 = (Function) KdVLinearityAsDynamicSystemTest.space.addition(KdVLinearityAsDynamicSystemTest.tmp, KdVLinearityAsDynamicSystemTest.space
-					.stretch((Function) KdVLinearityAsDynamicSystemTest.differentialEquation.getDefiningMapping().get(KdVLinearityAsDynamicSystemTest.tmp), KdVLinearityAsDynamicSystemTest.getRealLine().get(eps)));
+		// StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
+		// StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
+		// StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
+		// StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading... ");
+		// StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading... ");
+		for (int i = 0; i <= iterations; i++) {
+			final Function tmp2 = (Function) KdVLinearityAsDynamicSystemTest.space.addition(
+					KdVLinearityAsDynamicSystemTest.tmp,
+					KdVLinearityAsDynamicSystemTest.space.stretch(
+							(Function) KdVLinearityAsDynamicSystemTest.differentialEquation.getDefiningMapping()
+									.get(KdVLinearityAsDynamicSystemTest.tmp),
+							KdVLinearityAsDynamicSystemTest.getRealLine().get(eps)));
 			list.add(tmp2);
 
 			StdDraw.setPenColor(StdDraw.WHITE);
-			StdDraw.filledSquare(-xScale + deltaX, 5 * sizeOfRect, 5*sizeOfRect);
+			StdDraw.filledSquare(-xScale + deltaX, 5 * sizeOfRect, 5 * sizeOfRect);
 			StdDraw.setPenColor(StdDraw.BLACK);
-			StdDraw.text(-xScale + deltaX, 2.5 * sizeOfRect,(int)100.*i/iterations+" %");
+			StdDraw.text(-xScale + deltaX, 2.5 * sizeOfRect, (int) 100. * i / iterations + " %");
 			KdVLinearityAsDynamicSystemTest.tmp = tmp2;
 			if ((i % deltaIt) == 0) {
 				StdDraw.setPenColor(StdDraw.GREEN);
@@ -185,7 +204,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 				count++;
 			}
 		}
-		//		getInitialCondition().plot(-Math.PI, Math.PI);
+		// getInitialCondition().plot(-Math.PI, Math.PI);
 	}
 
 	StdDraw stddraw;
@@ -214,7 +233,8 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 		final Function tmp = list.get(iteration++);
 
 		draw(tmp);
-		if (tmp.getDerivative().equals(KdVLinearityAsDynamicSystemTest.getFunctionSpace().nullVec()) || ((iteration + speed) >= iterations)) {
+		if (tmp.getDerivative().equals(KdVLinearityAsDynamicSystemTest.getFunctionSpace().nullVec())
+				|| ((iteration + speed) >= iterations)) {
 			iteration = 0;
 		}
 		iteration += speed;
