@@ -45,6 +45,11 @@ public interface IGroupGenerator {
 			return baseMoniod;
 		}
 
+		@Override
+		public String toString() {
+			return "("+getLeft().toString()+","+getRight().toString()+")";
+		}
+
 	}
 
 	default Group completeToGroup(Monoid m) {

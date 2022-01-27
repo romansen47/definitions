@@ -8,8 +8,6 @@ import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
@@ -32,8 +30,8 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	private final List<Function> testfunctions = new ArrayList<>();
 
-	private final int degree = 4;
-	private final int sobolevDegree = 3;
+	private final int degree = 24;
+	private final int sobolevDegree = 1;
 
 	private EuclideanSpace sobolevSpace;
 
@@ -93,18 +91,12 @@ public class DerivativesAndIntegrals extends AspectJTest {
 			}
 		};
 
-		monome = new Monome(1) {
+		monome = new Monome(3) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
 				return AspectJTest.getRealLine();
-			}
-
-			@Override
-			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(
-						1 - ((Real) super.value(RealLine.getInstance().get(((Real) input).getDoubleValue() / Math.PI))).getDoubleValue());
 			}
 		};
 
@@ -114,9 +106,9 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	public void testLinearMonome() throws Throwable {
 		monome.plot(-Math.PI, Math.PI);
 		AspectJTest.getLogger().info("Comparing implicite versus explicite derivative");
-		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 2);
+		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 1);
 		final Vector derivative2 = ((DerivativeOperator) derivativeOperator)
-				.get(((DerivativeOperator) derivativeOperator).get(monome));
+				.get(monome);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, (Function) derivative2);
 	}
 

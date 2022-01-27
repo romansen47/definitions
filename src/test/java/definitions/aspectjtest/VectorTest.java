@@ -8,9 +8,9 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class VectorTest extends AspectJTest {
 
 	@Test
-	public void test() {
-		final EuclideanSpace space = (EuclideanSpace) getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
-		getLogger().info(space.genericBaseToList().get(0).toString());
+	public void euclideanSpaceTest() {
+		final EuclideanSpace space = (EuclideanSpace) AspectJTest.getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
+		AspectJTest.getLogger().info(space.genericBaseToList().get(0).toString());
 	}
 
 }

@@ -14,8 +14,8 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
-	private int sobolevDegree = 2;
-	private final int trigDegree = 10;
+	private int sobolevDegree = 1;
+	private final int trigDegree = 3;
 
 	public int getSobolevDegree() {
 		return sobolevDegree;
@@ -63,4 +63,34 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
 	}
 
+	@Test
+	public void test1() {
+		final Function absolute = new GenericFunction() {
+
+			/**
+			 *
+			 */
+			private static final long serialVersionUID = -5009775881103765610L;
+
+			@Override
+			public Field getField() {
+				return AspectJTest.getRealLine();
+			}
+
+			@Override
+			public Scalar value(Scalar input) {
+				final double x = ((Real) input).getDoubleValue();
+				return RealLine.getInstance().get(x);
+			}
+
+		};
+		final Function projectionOfAbsolute = absolute.getProjection(getTrigonometricSpace());
+		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
+	}
+
+	@Test
+	public void test2() {
+		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
+		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+	}
 }

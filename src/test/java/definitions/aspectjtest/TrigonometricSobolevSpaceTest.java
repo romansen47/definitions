@@ -28,8 +28,8 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(4);
-		setSobolevDegree(1);
+		setTrigonometricDegree(50);
+		setSobolevDegree(0);
 
 		setField(AspectJTest.getRealLine());
 		super.setUp();

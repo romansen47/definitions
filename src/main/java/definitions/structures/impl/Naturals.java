@@ -34,22 +34,20 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 
 	@Override
 	public Element getNeutralElement() {
-		return this.get(0.);
+		return get(0.);
 	}
 
 	@Override
 	public Element operation(Element first, Element second) {
-		return this.get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
+		return get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
 	}
 
 	@Override
 	public Element get(Number representant) {
 		return new NaturalNumber(representant) {
+
 			@Override
 			public Integer getRepresentant() {
-				if (representant.intValue() < 0.0) {
-					System.out.println("natural number must not be smaller 0!");
-				}
 				return representant.intValue();
 			}
 

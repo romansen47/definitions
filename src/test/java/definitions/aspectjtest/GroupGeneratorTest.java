@@ -11,7 +11,6 @@ import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
-import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
 public class GroupGeneratorTest extends AspectJTest {
@@ -54,24 +53,22 @@ public class GroupGeneratorTest extends AspectJTest {
 	 */
 	@Test
 	public void completionTest() {
-		final DiscreetMonoid multiplicativeMonoid = GroupGenerator.getInstance().getNaturals().getMuliplicativeMonoid();
-		final DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(multiplicativeMonoid);
+		final DiscreetGroup rationals = GroupGenerator.getInstance().completeToGroup(GroupGenerator.getInstance().getNaturals());
 		final Element neutralElement = rationals.getNeutralElement();
 		for (double i = 1; i < 10; i++) {
 			final Element tmp = rationals.get(i);
 			final Element inverse = rationals.getInverseElement(tmp);
-			final Element product = rationals.operation(tmp, inverse);
-			final boolean ans = neutralElement.equals(product);
-
+			final Element addition = rationals.operation(tmp, inverse);
+			final boolean ans = neutralElement.equals(addition);
 			Assert.assertTrue(ans);
 			System.out.println(
-					"rational: " + tmp + ", inverse: " + inverse + ", product: " + product + "," + " check: " + ans);
+					"rational: " + tmp.toString() + ", inverse: " + inverse + ", addition: " + addition + "," + " check: " + ans);
 		}
-		final Element a = rationals.get(-5.);
-		final Element b = rationals.get(15.);
-		System.out.print(a + "+" + b + "=");
+		final Element a = rationals.get(-5);
+		final Element b = rationals.get(15);
+		System.out.print(a + "+" + b + "= 10:");
 		Element ans=rationals.operation(a, b);
-		System.out.println(ans.equals(rationals.get(-1.d/3d)));
+		System.out.println(ans.equals(rationals.get(10)));
 	}
 
 	@Test
@@ -103,7 +100,7 @@ public class GroupGeneratorTest extends AspectJTest {
 	@Test
 	public void testBinField() {
 
-		final PrimeField field = GroupGenerator.getInstance().getBinaries();
+		final PrimeField field = GroupGenerator.getInstance().getConstructedBinaries();
 		System.out.println(field.toXml());
 
 		final Element zero = field.getZero();

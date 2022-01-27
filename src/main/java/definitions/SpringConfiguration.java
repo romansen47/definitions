@@ -38,17 +38,26 @@ public class SpringConfiguration implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
-		this.setApplicationContext(applicationContext);
+		setApplicationContext(applicationContext);
 		((AnnotationConfigApplicationContext) applicationContext).scan("definitions..*");
 		((AbstractApplicationContext) applicationContext).refresh();
 		Generator.setInstance((Generator) applicationContext.getBean("generator"));
-		SpringConfiguration.logger = this.logger();
+		SpringConfiguration.logger = logger();
 	}
 
 	@Bean(name = "annotationConfigApplicationContext")
 	public ApplicationContext annotationConfigApplicationContext() {
 		applicationContext = new AnnotationConfigApplicationContext();
 		return applicationContext;
+	}
+
+	public ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
+	@Override
+	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = new AnnotationConfigApplicationContext();
 	}
 
 	@Bean(name = "definitions.cache.CachingAspect")
@@ -60,16 +69,6 @@ public class SpringConfiguration implements ApplicationContextAware {
 	public Generator generator() {
 		return new Generator();
 	}
-
-	public ApplicationContext getApplicationContext() {
-		return applicationContext;
-	}
-
-	@Bean(name = "logger")
-	public Logger logger() {
-		return LogManager.getLogger("spring configuration");
-	}
-
 	@Bean
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public Real real() {
@@ -82,9 +81,9 @@ public class SpringConfiguration implements ApplicationContextAware {
 		return new RealLine();
 	}
 
-	@Override
-	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = new AnnotationConfigApplicationContext();
+	@Bean(name = "logger")
+	public Logger logger() {
+		return LogManager.getLogger("spring configuration");
 	}
 
 	/**

@@ -32,20 +32,20 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	private static DynamicSystem differentialEquation;
 	private static EuclideanSpace functionSpace;
 	private static Function initialCondition;
-	private static int degree = 20;
+	private static int degree = 10;
 	private static int sobolevDegree = 1;
 	private static Field realLine;
 	private static EuclideanSpace space;
 	private static KdVLinearityAsDynamicSystemTest test;
 	private static Function tmp;
-	boolean linear = false;
+	boolean linear = true;
 
 	final int iterations = (int) 1.e4;
 	final double eps = 1.e-5;
 	int iteration = 0;
 
 	List<Function> list = new ArrayList<>();
-	private final int speed = (int) (1000 * iterations * eps);
+	private final int speed = (int) (500 * iterations * eps);
 
 	public static void main(String[] args) {
 		KdVLinearityAsDynamicSystemTest.setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
@@ -86,8 +86,8 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 			@Override
 			public Element get(Element vec) {
 				Vector newVec = ((DerivativeOperator) map).get((Vector) vec, 2);
-				newVec = getSource().stretch(newVec, KdVLinearityAsDynamicSystemTest.getRealLine().get(-0.2));
-				newVec = getSource().addition(getSource().stretch((Vector) vec, KdVLinearityAsDynamicSystemTest.getRealLine().get(0.2)), newVec);
+				newVec = getSource().stretch(newVec, KdVLinearityAsDynamicSystemTest.getRealLine().get(-0.5));
+				newVec = getSource().addition(getSource().stretch((Vector) vec, KdVLinearityAsDynamicSystemTest.getRealLine().get(0.9)), newVec);
 				if (!KdVLinearityAsDynamicSystemTest.test.linear) {
 					newVec = getSource().addition(newVec,
 							((EuclideanSpace) getSource()).getCoordinates((Vector) nonlinearity.get(vec)));
@@ -156,23 +156,27 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	public void setup() {
 		frameRate(60);
 		drawPreparationsWindows();
-		final int size = 20;
+		final int size = 50;
 		final int sizeOfRect = (xScale - deltaX) / size;
 		final int deltaIt = iterations / size;
 		list.add(KdVLinearityAsDynamicSystemTest.tmp);
 		int count = 0;
 		StdDraw.setPenColor(StdDraw.BLACK);
 		final double it = iteration;
-		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
-		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
-		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
-		StdDraw.text(-xScale + deltaX, 2.5 * sizeOfRect, "loading... ");
+		//		StdDraw.text(-xScale + deltaX, 1 * sizeOfRect, "loading... ");
+		//		StdDraw.text(-xScale + deltaX, 1.5 * sizeOfRect, "loading... ");
+		//		StdDraw.text(-xScale + deltaX, 2 * sizeOfRect, "loading... ");
 		//		StdDraw.text(-xScale + deltaX, 3 * sizeOfRect, "loading... ");
 		//		StdDraw.text(-xScale + deltaX, 3.5 * sizeOfRect, "loading... ");
 		for (int i = 0; i < iterations; i++) {
 			final Function tmp2 = (Function) KdVLinearityAsDynamicSystemTest.space.addition(KdVLinearityAsDynamicSystemTest.tmp, KdVLinearityAsDynamicSystemTest.space
 					.stretch((Function) KdVLinearityAsDynamicSystemTest.differentialEquation.getDefiningMapping().get(KdVLinearityAsDynamicSystemTest.tmp), KdVLinearityAsDynamicSystemTest.getRealLine().get(eps)));
 			list.add(tmp2);
+
+			StdDraw.setPenColor(StdDraw.WHITE);
+			StdDraw.filledSquare(-xScale + deltaX, 5 * sizeOfRect, 5*sizeOfRect);
+			StdDraw.setPenColor(StdDraw.BLACK);
+			StdDraw.text(-xScale + deltaX, 2.5 * sizeOfRect,(int)100.*i/iterations+" %");
 			KdVLinearityAsDynamicSystemTest.tmp = tmp2;
 			if ((i % deltaIt) == 0) {
 				StdDraw.setPenColor(StdDraw.GREEN);

@@ -375,8 +375,6 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 					if (element == null) {
 						element = new FieldElement() {
 
-							Number representant = r;
-
 							@Override
 							public Map<Vector, Scalar> getCoordinates() {
 								return null;
@@ -394,11 +392,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 							@Override
 							public String toString() {
-								String ans = "false";
-								if (representant.intValue()!=0) {
-									ans = "true";
-								}
-								return "constructed binary: " + ans;
+								return r.toString();
 							}
 
 						};

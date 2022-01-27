@@ -88,8 +88,8 @@ public interface ISpaceGenerator {
 				newBase.add(vec);
 			}
 			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.addition(fun, space.stretch(projection, (space.getField()
-					.getInverseElement(space.getField().getMuliplicativeMonoid().getNeutralElement()))));
+			final Function diff = (Function) space.addition(fun, space.stretch(projection, (Scalar) (space.getField()
+					.getMinusOne())));
 			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 			newBase.add(newBaseElement);
 			if (space instanceof FunctionSpace) {

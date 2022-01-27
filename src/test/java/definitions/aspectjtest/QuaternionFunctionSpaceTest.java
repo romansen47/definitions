@@ -24,7 +24,7 @@ import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFun
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**
- * @author BAU12350
+ * @author ro
  *
  */
 public class QuaternionFunctionSpaceTest extends AspectJTest {

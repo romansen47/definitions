@@ -22,6 +22,7 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
+import settings.GlobalSettings;
 
 /**
  *
@@ -104,6 +105,9 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real get(final double value) {
+		if(Math.abs(value)<GlobalSettings.REAL_EQUALITY_FEINHEIT) {
+			return getZero();
+		}
 		final Real newReal = new Real();
 		newReal.setRepresentant(value);
 		return newReal;
