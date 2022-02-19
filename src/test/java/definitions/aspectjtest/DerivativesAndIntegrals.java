@@ -30,7 +30,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	private final List<Function> testfunctions = new ArrayList<>();
 
-	private final int degree = 24;
+	private final int degree = 15;
 	private final int sobolevDegree = 1;
 
 	private EuclideanSpace sobolevSpace;
@@ -57,7 +57,8 @@ public class DerivativesAndIntegrals extends AspectJTest {
 		for (final Vector vec1 : base) {
 			int j = 0;
 			for (final Vector vec2 : base) {
-				scalarProducts[i][j] = ((Real) ((InnerProductSpace) sobolevSpace).innerProduct(vec1, vec2)).getDoubleValue();
+				scalarProducts[i][j] = ((Real) ((InnerProductSpace) sobolevSpace).innerProduct(vec1, vec2))
+						.getDoubleValue();
 				System.out.print((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
 				j++;
 			}
@@ -80,7 +81,8 @@ public class DerivativesAndIntegrals extends AspectJTest {
 		space = (EuclideanSpace) AspectJTest.getGenerator().getTrigonometricSpace(AspectJTest.getRealLine(), degree);
 		derivativeOperator = new FiniteDimensionalDerivativeOperator(space, space);
 
-		sobolevSpace = AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(), degree, sobolevDegree);
+		sobolevSpace = AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(), degree,
+				sobolevDegree);
 
 		sine = new Sine(1, 0, 1) {
 			private static final long serialVersionUID = 1L;
@@ -107,8 +109,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 		monome.plot(-Math.PI, Math.PI);
 		AspectJTest.getLogger().info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 1);
-		final Vector derivative2 = ((DerivativeOperator) derivativeOperator)
-				.get(monome);
+		final Vector derivative2 = ((DerivativeOperator) derivativeOperator).get(monome);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, (Function) derivative2);
 	}
 
@@ -123,7 +124,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	@Test
 	public void testDerivativeOfSineInSobolevSpace() throws Throwable {
 		final int sobDegree = 4;
-		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in H^"+sobolevDegree+":");
+		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in H^" + sobolevDegree + ":");
 		final VectorSpaceHomomorphism derivativeOperatorSobToSob = new FiniteDimensionalDerivativeOperator(sobolevSpace,
 				sobolevSpace);
 		final Vector derivative = ((DerivativeOperator) derivativeOperatorSobToSob).get(sine, sobDegree);

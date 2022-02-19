@@ -28,20 +28,26 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(50);
-		setSobolevDegree(0);
+		setTrigonometricDegree(25);
+		setSobolevDegree(2);
 
 		setField(AspectJTest.getRealLine());
 		super.setUp();
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(), getTrigonometricDegree(),
-				getSobolevDegree()));
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(),
+				getTrigonometricDegree(), getSobolevDegree()));
 
 	}
 
 	@Test
 	public void test1() {
-		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+		int sDegree = getSobolevDegree();
+		for (int i = 0; i < sDegree; i++) {
+			setSobolevDegree(i);
+			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(
+					AspectJTest.getRealLine(), getTrigonometricDegree(), getSobolevDegree()));
+			final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
+			staircaseFunction1Projection.plotCompare(-Math.PI, Math.PI, getStaircaseFunction());
+		}
 	}
 
 	@Test
@@ -65,11 +71,11 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 			}
 		};
 		Function hProjection;
-		int sDegree=getSobolevDegree();
+		int sDegree = getSobolevDegree();
 		for (int i = 0; i < sDegree; i++) {
 			setSobolevDegree(i);
-			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(),
-					getTrigonometricDegree(), getSobolevDegree()));
+			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(
+					AspectJTest.getRealLine(), getTrigonometricDegree(), getSobolevDegree()));
 			hProjection = h.getProjection(getTrigonometricSpace());
 			h.plotCompare(-Math.PI, Math.PI, hProjection);
 		}

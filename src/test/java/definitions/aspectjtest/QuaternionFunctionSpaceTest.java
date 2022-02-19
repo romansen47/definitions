@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -88,8 +89,8 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 				final double val = ((Real) input).getDoubleValue();
 				final Quaternion tmp = (Quaternion) getField().addition(getField().getOne(),
 						new Quaternion(val, -val, val, 1 - val));
-				if (Math.abs(((Real) ((Quaternion) input).getReal()).getDoubleValue()) < 1.e-5) {
-					return (Scalar) getField().stretch(input, RealLine.getInstance().get(1.e5));
+				if (Math.abs(((Real) input).getDoubleValue()) < 1.e-5) {
+					return (Scalar) getField().getField().stretch(input, RealLine.getInstance().get(1.e5));
 				}
 				return (Scalar) getField().normalize(tmp);
 			}
@@ -112,20 +113,17 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 	}
 
 	@Test
-	public void testFirstCoordinate() throws IOException {
+	public void testFirstCoordinate() {
 		alpha.plot(-Math.PI, Math.PI);
-		AspectJTest.getGenerator().saveCoordinateSpaces();
 	}
 
 	@Test
-	public void testSecondCoordinate() throws IOException {
+	public void testSecondCoordinate() {
 		beta.plot(-Math.PI, Math.PI);
-		AspectJTest.getGenerator().saveCoordinateSpaces();
 	}
 
-	@Test
-	public void testThirdCoordinate() throws IOException {
-		gamma.plot(-Math.PI, Math.PI);
+	@After
+	public void saveCoordinates() throws IOException {
 		AspectJTest.getGenerator().saveCoordinateSpaces();
 	}
 

@@ -5,9 +5,10 @@ package plotter;
 
 import java.awt.Color;
 
+import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
-import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import settings.GlobalSettings;
@@ -29,12 +30,12 @@ public interface Plotter {
 		for (double i = 0; i < (count - 1); i += 1) {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
+			System.out.println(i);
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
-				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().get(z));
-				StdDraw.line(z, ((Real) sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec))).getDoubleValue(),
-						z + delta,
-						((Real) ((FiniteVectorMethods) ((Function) fun).value(((Function) fun).getField().get(z + delta)))
-								.getCoordinates().get(vec)).getDoubleValue());
+				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(z));
+				StdDraw.line(z,
+						getValue(((Scalar) sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
+						z + delta, 0);
 			}
 		}
 
@@ -69,12 +70,13 @@ public interface Plotter {
 	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,
 			final int count, final double delta) {
 		double x = 0;
-		double min = ((Real) ((Function) fun).value(((Function) fun).getField().get((right - left) / 2.)))
-				.getDoubleValue();
+		Field f = ((Function) fun).getField();
+		Scalar h = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get((right - left) / 2.));
+		double min = getValue(h);
 		double max = min;
 		for (double i = 0; i < (count - 1); i += 1) {
 			x = left + (delta * i);
-			final double y = ((Real) ((Function) fun).value(((Function) fun).getField().getField().get(x))).getDoubleValue();
+			final double y = getValue(((Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(x))));
 			if (y > max) {
 				max = y;
 			}
@@ -94,6 +96,16 @@ public interface Plotter {
 		StdDraw.setXscale(left, right);
 		StdDraw.setYscale(min, max);
 
+	}
+
+	default Double getValue(Scalar h) {
+		if (h instanceof Real) {
+			return ((Real) h).doubleValue();
+		}
+		if (h instanceof Quaternion) {
+			return ((Real) ((Quaternion) h).getReal()).doubleValue();
+		}
+		return null;
 	}
 
 }
