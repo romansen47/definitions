@@ -1,5 +1,7 @@
 package definitions.structures.abstr.vectorspaces.vectors;
 
+import java.io.Serializable;
+
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -10,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
  * @author ro
  *
  */
-public interface Vector extends Element, XmlPrintable {
+public interface Vector extends Element, XmlPrintable, Serializable {
 
 	/**
 	 * Method to verify that the vector is contained by a specific vector space.

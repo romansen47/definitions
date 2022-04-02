@@ -21,7 +21,8 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class AspectJTest {
 
-	private static final Logger logger = LogManager.getLogger(AspectJTest.class);
+	public static final Logger logger = LogManager.getLogger(AspectJTest.class);
+	
 	private static ApplicationContextAware springConfiguration;
 	private static Generator generator;
 	private static SpaceGenerator spaceGenerator;
@@ -57,11 +58,6 @@ public class AspectJTest {
 
 	@BeforeClass
 	public synchronized static void prepare() {
-		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-		final Configuration config = ctx.getConfiguration();
-		final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
-		loggerConfig.setLevel(Level.INFO);
-		ctx.updateLoggers();
 		springConfiguration = getSpringConfiguration();
 		if (springConfiguration == null) {
 			logger.info("Initializing Spring configuration\r");
@@ -78,8 +74,13 @@ public class AspectJTest {
 			for (final String beanName : ((SpringConfiguration) springConfiguration).getApplicationContext()
 					.getBeanNamesForType(Object.class)) {
 				logger.info("bean " + beanName);
-			}
-			System.out.println();
+			} 
+
+			final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+			final Configuration config = ctx.getConfiguration();
+			final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
+			loggerConfig.setLevel(Level.INFO);
+			ctx.updateLoggers();
 		}
 	}
 

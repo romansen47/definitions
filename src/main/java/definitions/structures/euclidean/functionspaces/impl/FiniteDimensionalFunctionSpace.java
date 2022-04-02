@@ -13,6 +13,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
+import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import settings.GlobalSettings;
@@ -48,7 +49,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	protected FiniteDimensionalFunctionSpace(final Field field) {
 		super(field);
-	}
+	} 
 
 	/**
 	 *
@@ -158,8 +159,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function normalize(final Vector vec) {
-		return stretch(vec,
-				getField().getInverseElement(getField().get(((Real) norm(vec)).getDoubleValue())));
+		Vector norm=norm(vec);
+		if (norm.equals(nullVec())) {
+			System.out.println("Devision by 0!");
+		}
+		return stretch(vec, (Scalar) getField().getMuliplicativeMonoid().getInverseElement(norm));
 	}
 
 	/**

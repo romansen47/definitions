@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import definitions.cache.MyCache;
@@ -38,7 +39,7 @@ import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
 
 public interface ISpaceGenerator {
 
-	EuclideanSpace realSpace = RealLine.getInstance();
+	EuclideanSpace realSpace = RealLine.getInstance(); 
 
 	default void createTrigonometricDerivativeBuilder(final EuclideanFunctionSpace ans) {
 		final List<Vector> base = ans.genericBaseToList();
@@ -83,15 +84,15 @@ public interface ISpaceGenerator {
 		final EuclideanSpace asEuclidean = (EuclideanSpace) space;
 		if (fun instanceof Function) {
 			final List<Vector> base = asEuclidean.genericBaseToList();
-			final List<Vector> newBase = new ArrayList<>();
-			for (final Vector vec : base) {
-				newBase.add(vec);
-			}
-			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
-			final Function diff = (Function) space.addition(fun, space.stretch(projection, (Scalar) (space.getField()
-					.getMinusOne())));
-			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
-			newBase.add(newBaseElement);
+			List<Vector> newBase = new ArrayList<>();
+			newBase.addAll(base);
+//			final Function projection = ((Function) fun).getProjection((EuclideanSpace) space);
+//			projection.plotCompare(-Math.PI, Math.PI, (Function) fun);
+//			final Function diff = (Function) space.addition(fun, space.stretch(projection, (space.getField().get(-1)))); 
+//			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
+//			newBaseElement.plotCompare(-Math.PI, Math.PI, diff);
+			newBase.add(fun);
+			newBase=((EuclideanSpace) space).getOrthonormalBase(newBase);
 			if (space instanceof FunctionSpace) {
 				if (space instanceof FiniteDimensionalSobolevSpace) {
 					return SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(space.getField(), newBase,
@@ -100,8 +101,8 @@ public interface ISpaceGenerator {
 				}
 				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
 						((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
-			}
-			((EuclideanSpace) space).assignOrthonormalCoordinates(newBase, space.getField());
+			} 
+//			((EuclideanSpace) space).assignOrthonormalCoordinates(newBase, space.getField());
 			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
 			throw new Exception("Input should be a function, not a vector.");
@@ -227,16 +228,20 @@ public interface ISpaceGenerator {
 			throws Exception {
 		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
 		if (space != null) {
-			getLogger().info("Successfully restored from cache! " + ((2 * n) + 1)
+			System.out.println("Successfully restored from cache! " + ((2 * n) + 1)
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
-		@SuppressWarnings("serial")
 		final EuclideanSpace newSpace = extend(getTrigonometricSpace(f, n, right),
-				new LinearFunction(RealLine.getInstance().getZero(), ((RealLine) f).get(1. / Math.sqrt(2 * Math.PI))) {
+				new GenericFunction() {
+					private static final long serialVersionUID = 1L; 
 			@Override
-			public Field getField() {
+			public Field getField() { 
 				return f;
+			} 
+			@Override
+			public Vector value(Scalar input) { 
+				return input;
 			}
 		});
 		getMyCache().getConcreteCache().put(n, newSpace);
@@ -310,6 +315,11 @@ public interface ISpaceGenerator {
 			}
 
 			class ProductVector implements FiniteVector {
+
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
 
 				@Override
 				public String toXml() {

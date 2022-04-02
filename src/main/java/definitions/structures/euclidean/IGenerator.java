@@ -55,9 +55,7 @@ public interface IGenerator extends Serializable {
 		return this.getSpaceGenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
-	IMappingGenerator getMappingGenerator();
-
-//	IVectorGenerator getVectorgenerator();
+	IMappingGenerator getMappingGenerator(); 
 
 	ISpaceGenerator getSpaceGenerator();
 

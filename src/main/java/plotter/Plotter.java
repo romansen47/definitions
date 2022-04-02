@@ -22,7 +22,7 @@ public interface Plotter {
 
 	default void plot(final Plotable fun, final double left, final double right) {
 		final StdDraw stddraw = new StdDraw();
-		final int count = 1000;
+		final int count = 500;
 		final double delta = (right - left) / count;
 		preparePlot(fun, left, right, stddraw, count, delta);
 		double z = 0;

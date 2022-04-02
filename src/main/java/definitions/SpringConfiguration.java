@@ -23,16 +23,16 @@ import definitions.structures.euclidean.Generator;
 @ComponentScan(basePackages = "definitions")
 public class SpringConfiguration implements ApplicationContextAware {
 
-	private static ApplicationContextAware springConfiguration;
+	private static ApplicationContextAware instance;
 
 	private static Logger logger;
 
 	@Bean(name = "springConfiguration")
 	public static synchronized ApplicationContextAware getSpringConfiguration() {
-		if (SpringConfiguration.springConfiguration == null) {
-			SpringConfiguration.springConfiguration = new SpringConfiguration();
+		if (SpringConfiguration.instance == null) {
+			SpringConfiguration.instance = new SpringConfiguration();
 		}
-		return SpringConfiguration.springConfiguration;
+		return SpringConfiguration.instance;
 	}
 
 	private ApplicationContext applicationContext;

@@ -45,7 +45,8 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the normalized vector.
 	 */
 	default Vector normalize(final Vector vec) {
-		return stretch(vec, getField().getInverseElement(norm(vec)));
+		Vector norm=norm(vec);
+		return stretch(vec, getField().getInverseElement(norm));
 	}
 
 }

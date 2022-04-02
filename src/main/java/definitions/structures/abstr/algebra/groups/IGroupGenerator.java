@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
@@ -23,10 +24,14 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger; 
 
 @SuppressWarnings("serial")
 public interface IGroupGenerator {
 
+	static Logger logger =LogManager.getLogger(IGroupGenerator.class);
+	
 	class Fraction extends ProductElement {
 		private final Monoid baseMoniod;
 
@@ -38,7 +43,7 @@ public interface IGroupGenerator {
 		@Override
 		public boolean equals(Object other) {
 			return baseMoniod.operation(getLeft(), ((Fraction) other).getRight())
-					.equals(baseMoniod.operation(getRight(), ((Fraction) other).getLeft()));
+					.equals(baseMoniod.operation(((Fraction) other).getLeft(), getRight()));
 		}
 
 		public Monoid getBaseGroup() {
@@ -487,8 +492,8 @@ public interface IGroupGenerator {
 		public MultiplicationFraction(Element k, Element v, Ring baseField) {
 			super(k, v, baseField);
 			monoid = baseField;
-			if (v.equals(baseField.getNeutralElement())) {
-				System.out.println("denominator is zero! such an element does not exist...");
+			if (baseField.getNeutralElement().equals(v)) {
+				logger.info("denominator is zero! such an element does not exist...");
 			}
 		}
 

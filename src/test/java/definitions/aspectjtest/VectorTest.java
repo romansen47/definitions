@@ -10,7 +10,7 @@ public class VectorTest extends AspectJTest {
 	@Test
 	public void euclideanSpaceTest() {
 		final EuclideanSpace space = (EuclideanSpace) AspectJTest.getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
-		AspectJTest.getLogger().info(space.genericBaseToList().get(0).toString());
+		logger.info(space.genericBaseToList().get(0).toString());
 	}
 
 }

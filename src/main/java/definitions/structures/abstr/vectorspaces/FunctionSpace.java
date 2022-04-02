@@ -86,12 +86,8 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 		return getIntegral(vec1, vec2, getInterval()[0], getInterval()[1], getEpsilon());
 	}
 
-	@SuppressWarnings("serial")
-	static Function nullVec = new Constant(RealLine.getInstance().get(0)) {
-	};
-
-	default Function nullVec() {
-		return FunctionSpace.nullVec;
-	}
+//	default Function nullVec() {
+//		return FunctionSpace.nullVec;
+//	}
 
 }

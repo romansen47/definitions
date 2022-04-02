@@ -141,14 +141,19 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return an orthonormal base of same span.
 	 */
 	default List<Vector> getOrthonormalBase(List<Vector> base) {
-		final List<Vector> newBase = new ArrayList<>();
+		final List<Vector> newBase = new ArrayList<>(); 
 		for (final Vector vec : base) {
-			Vector tmp = nullVec();
-			for (final Vector vec2 : base) {
-				tmp = addition(tmp, projection(vec, vec2));
+			if (newBase.isEmpty()) {
+				newBase.add(normalize(vec));
 			}
-			final Vector ans = normalize(addition(vec, stretch(tmp, getField().get(-1))));
-			newBase.add(ans);
+			else {
+				Vector tmp = nullVec();
+				for (final Vector vec2 : newBase) {
+					tmp = addition(tmp, projection(vec, vec2));
+				}
+				final Vector ans = addition(vec, stretch(tmp, getField().get(-1)));
+				newBase.add(normalize(ans)); 
+			}
 		}
 		return newBase;
 	}

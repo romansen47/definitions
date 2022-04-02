@@ -121,10 +121,4 @@ public class QuaternionFunctionSpaceTest extends AspectJTest {
 	public void testSecondCoordinate() {
 		beta.plot(-Math.PI, Math.PI);
 	}
-
-	@After
-	public void saveCoordinates() throws IOException {
-		AspectJTest.getGenerator().saveCoordinateSpaces();
-	}
-
 }
