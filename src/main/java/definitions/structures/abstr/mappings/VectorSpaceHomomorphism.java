@@ -5,7 +5,6 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import exceptions.MathException;
 
 /**
  * The homomorphism interface.
@@ -20,7 +19,6 @@ public interface VectorSpaceHomomorphism extends Vector, VectorSpaceMapping, Gro
 	 *
 	 * @param vec the vector.
 	 * @return the image on the vector.
-	 * @throws MathException
 	 */
 	@Override
 	Vector get(final Element vec);

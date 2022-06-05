@@ -9,15 +9,15 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 /**
  * @author ro
  *
- *         A Group G is a semi group, such that for every group element a there
- *         exists an inverse element
+ *         A Group G is a monoid, such that for every element there exists a so
+ *         called inverse element
  *
  *         b = getInverseElement(a),
  *
  *
  *         such that
  *
- *         product(a,b) = product(b,a) = getIdentityElement().
+ *         operation(a,b) = operation(b,a) = getIdentityElement().
  *
  */
 public interface Group extends Monoid {

@@ -34,13 +34,13 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(10);
-		setSobolevDegree(2);
+		setTrigonometricDegree(50);
+		setSobolevDegree(1);
 
 		setField(AspectJTest.getRealLine());
 		super.setUp();
 		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(),
-				getTrigonometricDegree(), getSobolevDegree()));
+				this.getTrigonometricDegree(), sobolevDegree));
 
 	}
 
@@ -50,13 +50,12 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 		/*
 		 * It is sufficient to demonastrate the effect for sobolevDegree==1
 		 */
-		for (int i = 0; i < sDegree; i++) {
+		for (int i = 0; i <= sDegree; i++) {
 			setSobolevDegree(i);
-			getStaircaseFunction().plot(-Math.PI, Math.PI);
-			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(
-					AspectJTest.getRealLine(), getTrigonometricDegree(), getSobolevDegree()));
+			setTrigonometricSpace(AspectJTest.getSpaceGenerator()
+					.getTrigonometricSobolevSpace(AspectJTest.getRealLine(), getTrigonometricDegree(), i));
 			final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-			staircaseFunction1Projection.plotCompare(-Math.PI, Math.PI, getStaircaseFunction());
+			getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
 		}
 	}
 

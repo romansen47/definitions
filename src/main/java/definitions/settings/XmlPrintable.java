@@ -4,7 +4,8 @@ public interface XmlPrintable {
 
 	/**
 	 * Defining own xml-strings
-	 * @return
+	 * 
+	 * @return the toString as an xml tag.
 	 */
 	default String toXml() {
 		return toString();

@@ -106,7 +106,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * Generic constructor, returns complex number equal to
 	 * {@link definitions.structures.abstr.algebra.fields.impl.ComplexPlane#getOne}
 	 *
-	 * @return
+	 * @return zero as a complex number
 	 */
 	public Complex complex() {
 		return new Complex(0, 0);
@@ -143,9 +143,9 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * method to create a complex number using two real number as real and imaginary
 	 * parts
 	 *
-	 * @param realValue
-	 * @param imValue
-	 * @return
+	 * @param realValue the real part
+	 * @param imValue   the imaginary part
+	 * @return the complex number realValue+i*imValue
 	 */
 	public Complex get(final double realValue, final double imValue) {
 		final Complex newComplex = complex();

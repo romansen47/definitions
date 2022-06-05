@@ -7,10 +7,13 @@ import definitions.structures.abstr.algebra.semigroups.SemiGroup;
  *
  * @author ro
  *
- *         A monoid is a set of things, which can be 'multiplied'.
+ *         A monoid M is a special semi group with an Element called identity
+ *         element. The mappings
  *
- *         In detail, we have a method
- *         (MonoidElement,MonoidElement)-MonoidElement.
+ *         alpha: Vector vec - product(Vector vec,identityElement) beta: Vector
+ *         vec - product(identityElement,Vector vec)
+ *
+ *         are identically equal to the identity mapping on M.
  */
 
 public interface Monoid extends SemiGroup {

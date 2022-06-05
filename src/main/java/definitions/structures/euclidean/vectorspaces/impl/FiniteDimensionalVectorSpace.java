@@ -71,9 +71,9 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	/**
 	 * checks whether the vector is an element of this space
 	 *
-	 * @param vector the given vector
+	 * @param vec the given vector
 	 * @return true if given vector is an element of the given space
-	 * @depricated it should be discussed if we should throw this away. soon
+	 * @deprecated it should be discussed if we should throw this away. soon
 	 */
 	@Deprecated
 	@Override

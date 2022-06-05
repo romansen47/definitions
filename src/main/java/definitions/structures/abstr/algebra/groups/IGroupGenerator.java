@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.SpringConfiguration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
@@ -24,14 +26,12 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger; 
 
 @SuppressWarnings("serial")
 public interface IGroupGenerator {
 
-	static Logger logger =LogManager.getLogger(IGroupGenerator.class);
-	
+	static Logger logger = LogManager.getLogger(IGroupGenerator.class);
+
 	class Fraction extends ProductElement {
 		private final Monoid baseMoniod;
 
@@ -52,7 +52,7 @@ public interface IGroupGenerator {
 
 		@Override
 		public String toString() {
-			return "("+getLeft().toString()+","+getRight().toString()+")";
+			return "(" + getLeft().toString() + "," + getRight().toString() + ")";
 		}
 
 	}
@@ -118,13 +118,13 @@ public interface IGroupGenerator {
 	 * In order to achieve this we define an equivalence relation on MxM where M is
 	 * the given monoid
 	 *
-	 * (a,b) ~ (x,y) <=> a*y=b*x
+	 * (a,b) ~ (x,y) is equivalent to a*y=b*x
 	 *
 	 * Then this is a group with neutral element {(a,a):a element of M} and for
 	 * given (x,y) the inverse element is given by (y,x).
 	 *
-	 * @param m
-	 * @return
+	 * @param m the discreet monoid
+	 * @return the discreet group
 	 */
 	default DiscreetGroup completeToGroup(DiscreetMonoid m) {
 		return new DiscreetGroup() {

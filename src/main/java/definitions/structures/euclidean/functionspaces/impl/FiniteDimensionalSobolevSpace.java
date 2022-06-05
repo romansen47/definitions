@@ -34,8 +34,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor. Converts function space to sobolev space.
 	 *
+	 * @param field  the base field
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
+	 * @param ortho  tells if base should be normalized
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space, final int degree,
 			final boolean ortho) {
@@ -50,6 +52,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 *
+	 * @param field  the base field
 	 * @param degree the sobolev degree.
 	 */
 	protected FiniteDimensionalSobolevSpace(final Field field, final int degree) {
@@ -60,6 +63,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 *
+	 * @param field       the base field
 	 * @param genericBase the base
 	 * @param left        the inf of the interval.
 	 * @param right       the sup of the intervall.
@@ -75,10 +79,12 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * Constructor.
 	 *
+	 * @param field       the base field
 	 * @param genericBase the base
 	 * @param left        the inf of the interval.
 	 * @param right       the sup of the intervall.
 	 * @param degree      the sobolev degree.
+	 * @param ortho       tells if base should be normalized.
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final int degree, final boolean ortho) {

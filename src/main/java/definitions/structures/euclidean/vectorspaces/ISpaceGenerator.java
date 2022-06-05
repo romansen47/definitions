@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import definitions.cache.MyCache;
@@ -17,7 +16,6 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
-import definitions.structures.abstr.vectorspaces.NormedSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -29,7 +27,6 @@ import definitions.structures.euclidean.mappings.impl.FiniteDimensionalDerivativ
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Tuple;
-import definitions.structures.euclidean.vectors.specialfunctions.LinearFunction;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.euclidean.vectorspaces.impl.PolynomialFunctionSpace;
@@ -39,7 +36,7 @@ import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
 
 public interface ISpaceGenerator {
 
-	EuclideanSpace realSpace = RealLine.getInstance(); 
+	EuclideanSpace realSpace = RealLine.getInstance();
 
 	default void createTrigonometricDerivativeBuilder(final EuclideanFunctionSpace ans) {
 		final List<Vector> base = ans.genericBaseToList();
@@ -77,7 +74,7 @@ public interface ISpaceGenerator {
 			coordinatesMap.put(vec, tmp);
 		}
 		((TrigonometricSobolevSpace) ans)
-		.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(ans, ans, coordinatesMap));
+				.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(ans, ans, coordinatesMap));
 	}
 
 	default EuclideanSpace extend(final VectorSpace space, final Vector fun) throws Exception {
@@ -92,7 +89,7 @@ public interface ISpaceGenerator {
 //			final Function newBaseElement = (Function) ((NormedSpace) space).normalize(diff);
 //			newBaseElement.plotCompare(-Math.PI, Math.PI, diff);
 			newBase.add(fun);
-			newBase=((EuclideanSpace) space).getOrthonormalBase(newBase);
+			newBase = ((EuclideanSpace) space).getOrthonormalBase(newBase);
 			if (space instanceof FunctionSpace) {
 				if (space instanceof FiniteDimensionalSobolevSpace) {
 					return SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(space.getField(), newBase,
@@ -101,7 +98,7 @@ public interface ISpaceGenerator {
 				}
 				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
 						((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
-			} 
+			}
 //			((EuclideanSpace) space).assignOrthonormalCoordinates(newBase, space.getField());
 			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
@@ -216,7 +213,8 @@ public interface ISpaceGenerator {
 			final int degree) {
 		final EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
 		final VectorSpace ans = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
-		((FiniteDimensionalVectorSpace) ans).setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
+		((FiniteDimensionalVectorSpace) ans)
+				.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
 		return ans;
 	}
 
@@ -232,15 +230,16 @@ public interface ISpaceGenerator {
 					+ "-dimensional trigonometric space with linear functions " + space.toString());
 			return space;
 		}
-		final EuclideanSpace newSpace = extend(getTrigonometricSpace(f, n, right),
-				new GenericFunction() {
-					private static final long serialVersionUID = 1L; 
+		final EuclideanSpace newSpace = extend(getTrigonometricSpace(f, n, right), new GenericFunction() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
-			public Field getField() { 
+			public Field getField() {
 				return f;
-			} 
+			}
+
 			@Override
-			public Vector value(Scalar input) { 
+			public Vector value(Scalar input) {
 				return input;
 			}
 		});
@@ -283,7 +282,7 @@ public interface ISpaceGenerator {
 	 * "Normed" here means the domain of this function space is (-pi,pi)
 	 *
 	 * @param field the given field
-	 * @param n the trigonometric degree
+	 * @param n     the trigonometric degree
 	 * @return the trigonometric space with respect to (-pi,pi)
 	 */
 	default EuclideanFunctionSpace getNormedTrigonometricSpace(final Field field, final int n) {
@@ -299,7 +298,7 @@ public interface ISpaceGenerator {
 			return null;
 		}
 
-		final EuclideanSpace product = new EuclideanSpace() {
+		return new EuclideanSpace() {
 
 			/**
 			 *
@@ -369,12 +368,10 @@ public interface ISpaceGenerator {
 							final FiniteVector tmpRight = (FiniteVector) ((ProductVector) vec).right;
 							Scalar val;
 							if (tmpRight.equals(second.nullVec())) {
-								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft())
-										.getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft()).getCoordinates();
 								val = tmpMap.get(tmpLeft);
 							} else {
-								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight())
-										.getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight()).getCoordinates();
 								val = tmpMap.get(tmpRight);
 							}
 							coordinates.put(vec, val);
@@ -472,7 +469,6 @@ public interface ISpaceGenerator {
 			}
 
 		};
-		return product;
 
 	}
 

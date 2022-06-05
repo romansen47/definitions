@@ -22,7 +22,6 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ParameterizedSpace;
-import exceptions.MathException;
 
 /**
  * Finite dimensional homomorphism.
@@ -101,7 +100,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 	 */
 	default int getRank() {
 		final double[][] mat = new double[((EuclideanSpace) getTarget()).genericBaseToList()
-		                                  .size()][((EuclideanSpace) getSource()).genericBaseToList().size()];
+				.size()][((EuclideanSpace) getSource()).genericBaseToList().size()];
 		int m = 0;
 		for (final Vector vec1 : ((EuclideanSpace) getSource()).genericBaseToList()) {
 			int n = 0;
@@ -150,7 +149,6 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 	 *
 	 * @param image the vector y.
 	 * @return x, the source image of y with respect to the mapping.
-	 * @throws MathException
 	 */
 	default FiniteVector solve(final FiniteVector image) {
 
@@ -181,7 +179,12 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 	}
 
 	/**
-	 * method to swap columns and rows.
+	 * to be documented
+	 * 
+	 * @param mat  the matrix
+	 * @param row1 the first row
+	 * @param row2 the second row
+	 * @param col  the column method to swap columns and rows.
 	 */
 	default void swap(final double[][] mat, final int row1, final int row2, final int col) {
 		for (int i = 0; i < col; i++) {

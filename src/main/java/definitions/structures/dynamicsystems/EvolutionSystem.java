@@ -10,6 +10,9 @@ public interface EvolutionSystem extends XmlPrintable {
 
 	/**
 	 * the evolution operator of the dynamic system.
+	 * 
+	 * @param time  the time element
+	 * @param start the start element
 	 *
 	 * @return the evolution operator
 	 */

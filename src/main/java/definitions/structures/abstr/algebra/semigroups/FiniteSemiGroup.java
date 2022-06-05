@@ -4,6 +4,12 @@ import java.util.Map;
 
 import definitions.structures.euclidean.Generator;
 
+/**
+ * @author ro
+ *
+ *         A finite semi group is a semi group with finite amount of elements
+ *
+ */
 public interface FiniteSemiGroup extends DiscreetSemiGroup {
 
 	/**

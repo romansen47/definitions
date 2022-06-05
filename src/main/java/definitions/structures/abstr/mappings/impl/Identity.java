@@ -2,11 +2,12 @@ package definitions.structures.abstr.mappings.impl;
 
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorField;
+import definitions.structures.abstr.mappings.VectorSpaceAutomorphism;
 import definitions.structures.abstr.mappings.VectorSpaceIsomorphism;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
-public abstract class Identity extends LinearMapping implements VectorSpaceIsomorphism, VectorField {
+public abstract class Identity extends LinearMapping implements VectorSpaceAutomorphism, VectorField {
 
 	public Identity(final VectorSpace source) {
 		super(source, source);

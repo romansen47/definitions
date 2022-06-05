@@ -6,7 +6,9 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
- * @author RoManski
+ * @author ro
+ *
+ *         A finite field is a field with finite amount of elements
  *
  */
 public interface FiniteField extends DiscreetField, FiniteRing {

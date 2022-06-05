@@ -7,6 +7,7 @@ import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
 public interface FiniteDomain extends IntegralDomain, FiniteField {
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -19,7 +20,7 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 	 * method to get co factor in a product
 	 *
 	 * @param divisor  the divisor
-	 * @param divident
+	 * @param divident the devident
 	 * @return the co factor
 	 */
 	default Element getCoFactor(final Element divisor, final Element divident) {
@@ -32,11 +33,17 @@ public interface FiniteDomain extends IntegralDomain, FiniteField {
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default FieldElement getInverseElement(Element element) {
 		return FiniteField.super.getInverseElement(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	FiniteGroup getMuliplicativeMonoid();
 

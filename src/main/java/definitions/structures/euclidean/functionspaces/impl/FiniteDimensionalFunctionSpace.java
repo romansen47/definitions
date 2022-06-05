@@ -7,13 +7,11 @@ import java.util.Map;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
-import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import settings.GlobalSettings;
@@ -45,11 +43,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	protected final double eps = GlobalSettings.INTEGRAL_FEINHEIT;
 
 	/**
-	 * Plain constructor. @
+	 * Plain constructor.
+	 * 
+	 * @param field the base field
+	 * 
 	 */
 	protected FiniteDimensionalFunctionSpace(final Field field) {
 		super(field);
-	} 
+	}
 
 	/**
 	 *
@@ -159,7 +160,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function normalize(final Vector vec) {
-		Vector norm=norm(vec);
+		Vector norm = norm(vec);
 		if (norm.equals(nullVec())) {
 			System.out.println("Devision by 0!");
 		}

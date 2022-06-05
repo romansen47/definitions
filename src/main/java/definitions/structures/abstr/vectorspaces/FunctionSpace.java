@@ -1,12 +1,10 @@
 package definitions.structures.abstr.vectorspaces;
 
 import definitions.Unweavable;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 
 /**
  *
@@ -43,8 +41,8 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 		while (((Real) x).getDoubleValue() < right) {
 			final Vector tmp1 = vec1.value(x);
 			final Vector tmp2 = vec2.value(x);
-			ans = (Scalar) (getField().addition(ans, getField()
-					.product(getField().product(tmp1, getField().conjugate((Scalar) tmp2)), newEps)));
+			ans = (Scalar) (getField().addition(ans,
+					getField().product(getField().product(tmp1, getField().conjugate((Scalar) tmp2)), newEps)));
 			x = (Scalar) getField().getField().addition(x, getField().getField().get(eps));
 		}
 		return ans;
@@ -85,9 +83,5 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	default Scalar integral(final Function vec1, final Function vec2) {
 		return getIntegral(vec1, vec2, getInterval()[0], getInterval()[1], getEpsilon());
 	}
-
-//	default Function nullVec() {
-//		return FunctionSpace.nullVec;
-//	}
 
 }

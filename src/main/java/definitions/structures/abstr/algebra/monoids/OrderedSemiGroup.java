@@ -8,8 +8,8 @@ public interface OrderedSemiGroup extends SemiGroup {
 	/**
 	 * Method to create or get elements
 	 *
-	 * @param representant
-	 * @return
+	 * @param representant the real representant, if exists
+	 * @return the element
 	 */
 	Element get(Number representant);
 

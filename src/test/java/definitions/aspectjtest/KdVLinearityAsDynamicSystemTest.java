@@ -292,7 +292,7 @@ public class KdVLinearityAsDynamicSystemTest extends Gui {
 	}
 
 	/**
-	 * @param initialConditio)n the initialCondition to set
+	 * @param initialCondition the initialCondition to set
 	 */
 	public static void setInitialCondition(Function initialCondition) {
 		KdVLinearityAsDynamicSystemTest.initialCondition = initialCondition;

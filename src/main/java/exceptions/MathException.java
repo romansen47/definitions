@@ -19,6 +19,8 @@ public class MathException extends java.lang.Exception implements exceptions.Exc
 
 	/**
 	 * Root type for custom exceptions
+	 * 
+	 * @param message the message
 	 */
 	public MathException(final String message) {
 		super(message);

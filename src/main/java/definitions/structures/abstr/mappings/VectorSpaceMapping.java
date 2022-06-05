@@ -5,7 +5,6 @@ package definitions.structures.abstr.mappings;
 
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
-import exceptions.MathException;
 
 /**
  * @author ro
@@ -18,7 +17,6 @@ public interface VectorSpaceMapping extends MonoidHomomorphism {
 	 *
 	 * @param vec the vector.
 	 * @return the image on the vector.
-	 * @throws MathException
 	 */
 	Element get(Element vec);
 

@@ -66,9 +66,9 @@ public class GroupGeneratorTest extends AspectJTest {
 		}
 		final Element a = rationals.get(-5);
 		final Element b = rationals.get(15);
-		System.out.print(a + "+" + b + "= 10:");
+		logger.info(a + "+" + b + "= 10:");
 		Element ans=rationals.operation(a, b);
-		System.out.println(ans.equals(rationals.get(10)));
+		logger.info(ans.equals(rationals.get(10)));
 	}
 
 	@Test
@@ -102,21 +102,21 @@ public class GroupGeneratorTest extends AspectJTest {
 	public void testBinField() {
 
 		final PrimeField field = GroupGenerator.getInstance().getConstructedBinaries();
-		System.out.println(field.toXml());
+		logger.info(field.toXml());
 
 		final Element zero = field.getZero();
 		final Element one = field.getOne();
-		System.out.println("zero " + zero.toString() + ", one " + one.toString());
+		logger.info("zero " + zero.toString() + ", one " + one.toString());
 
-		System.out.println("zero + zero: " + field.addition(zero, zero));
-		System.out.println("zero + one: " + field.addition(zero, one));
-		System.out.println("one + zero: " + field.addition(one, zero));
-		System.out.println("one + one: " + field.addition(one, one) + "\r");
+		logger.info("zero + zero: " + field.addition(zero, zero));
+		logger.info("zero + one: " + field.addition(zero, one));
+		logger.info("one + zero: " + field.addition(one, zero));
+		logger.info("one + one: " + field.addition(one, one) + "\r");
 
-		System.out.println("zero * zero: " + field.multiplication(zero, zero));
-		System.out.println("zero * one: " + field.multiplication(zero, one));
-		System.out.println("one * zero: " + field.multiplication(one, zero));
-		System.out.println("one * one: " + field.multiplication(one, one));
+		logger.info("zero * zero: " + field.multiplication(zero, zero));
+		logger.info("zero * one: " + field.multiplication(zero, one));
+		logger.info("one * zero: " + field.multiplication(one, zero));
+		logger.info("one * one: " + field.multiplication(one, one));
 
 	}
 

@@ -23,17 +23,17 @@ public class GlobalSettings {
 	/**
 	 * fineness parameter for aequidistant summation for integration
 	 */
-	public final static double INTEGRAL_FEINHEIT = 1.e-4;
+	public final static double INTEGRAL_FEINHEIT = 5.e-5;
 
 	/**
 	 * fineness parameter for differentiation
 	 */
-	public final static double DERIVATIVE_FEINHEIT = 1.e-5;
+	public final static double DERIVATIVE_FEINHEIT = 1.e-6;
 
 	/**
 	 * fineness on real line
 	 */
-	public final static double REAL_EQUALITY_FEINHEIT = 1.e-6;
+	public final static double REAL_EQUALITY_FEINHEIT = 1.e-7;
 
 	/**
 	 * pointwise equality
@@ -43,7 +43,7 @@ public class GlobalSettings {
 	/**
 	 * should cached spaces be restored?
 	 */
-	public static final boolean RESTORE_FROM_CACHED = false;
+	public static final boolean RESTORE_FROM_CACHED = true;
 
 	/**
 	 * path to cached spaces

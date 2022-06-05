@@ -37,6 +37,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 
 	/**
 	 * Getter for the representant
+	 * 
 	 * @return the double value
 	 */
 	public Double getRepresentant() {
@@ -119,7 +120,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	/**
 	 * {@inheritDoc}
 	 */
-	//	@Override
+	// @Override
 	@XmlAttribute
 	public double getDoubleValue() {
 		return representant;
@@ -156,8 +157,9 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	}
 
 	/**
-	 *  Complex version
-	 * @return
+	 * Complex version of the real number
+	 * 
+	 * @return the given number as a complex number
 	 */
 	public Scalar toComplex() {
 		return new Complex(this, RealLine.getInstance().getZero());

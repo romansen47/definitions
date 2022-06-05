@@ -205,7 +205,11 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * User and screen coordinate systems
 	 *************************************************************************/
 
-	// create the menu bar (changed to private)
+	/**
+	 * Create the menu bar
+	 * 
+	 * @return the menu bar
+	 */
 	private static JMenuBar createMenuBar() {
 		final JMenuBar menuBar = new JMenuBar();
 		final JMenu menu = new JMenu("File");
@@ -299,6 +303,12 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 *************************************************************************/
 
 	// get an image from the given filename
+	/**
+	 * Get the image
+	 *
+	 * @param filename the file location
+	 * @return the image
+	 */
 	private static Image getImage(final String filename) {
 
 		// to read from file
@@ -394,6 +404,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	}
 
 	/**
+	 * @param args the arguments
 	 * @deprecated
 	 */
 	// test client
@@ -795,7 +806,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 	 * picture.
 	 *
 	 * @param t number of milliseconds
-	 * @throws InterruptedException
+	 * @throws InterruptedException an exception
 	 */
 	public static void show(final int t) throws InterruptedException {
 		StdDraw.defer = true;

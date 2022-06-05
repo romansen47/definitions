@@ -3,6 +3,13 @@ package definitions.structures.abstr.algebra.rings;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
+/**
+ *
+ * @author ro
+ *
+ *         A semi ring is a monoid (M,+), that can be restricted to a Monoid
+ *         (M\{0}, * ) and where we find distributive laws are being respected
+ */
 public interface SemiRing extends Monoid {
 
 	/**
@@ -34,8 +41,8 @@ public interface SemiRing extends Monoid {
 	default Element multiplication(final Element element, final Element otherElement) {
 		final Element neutralElement = this.getNeutralElement();
 		final boolean cond1 = element.equals(neutralElement);
-		if (otherElement==null) {
-			int i=0;
+		if (otherElement == null) {
+			int i = 0;
 		}
 		final boolean cond2 = otherElement.equals(neutralElement);
 		if (cond1 || cond2) {

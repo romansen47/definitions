@@ -8,15 +8,12 @@ import java.util.regex.Pattern;
 import definitions.settings.XmlPrintable;
 
 /**
- * @author RoManski
+ * @author ro
  *
- *         A semi group G is a special monoid with an Element called identity
- *         element. The mappings
- *
- *         alpha: Vector vec - product(Vector vec,identityElement) beta: Vector
- *         vec - product(identityElement,Vector vec)
- *
- *         are identically equal to the identity mapping on G.
+ *         A semi group is a set of things, which can be 'multiplied'.
+ * 
+ *         In detail, we have a mapping (Element,Element)-Element.
+ * 
  */
 public interface SemiGroup extends XmlPrintable {
 
@@ -30,10 +27,10 @@ public interface SemiGroup extends XmlPrintable {
 	}
 
 	/**
-	 * the operation on the monoid.
+	 * the operation on the semi group.
 	 *
-	 * @param first  first monoid element
-	 * @param second second monoid element
+	 * @param first  first element
+	 * @param second second element
 	 * @return product of both of them
 	 */
 	default Element operation(Element first, Element second) {

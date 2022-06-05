@@ -4,6 +4,12 @@ import definitions.structures.abstr.algebra.groups.DiscreetRing;
 import definitions.structures.abstr.algebra.groups.FiniteGroup;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
+/**
+ * @author ro
+ *
+ *         A finite ring is a ring with finite amount of elements
+ *
+ */
 public interface FiniteRing extends FiniteGroup, DiscreetRing {
 
 	default Element getMultiplicativeInverseElement(final Element element) {

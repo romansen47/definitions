@@ -86,6 +86,11 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		}
 		return (Function) this.get(((FiniteVectorMethods) vec).getCoordinates());
 	}
+	
+	@Override
+	default Vector get(final Map<Vector, Scalar> tmp) {
+		return new FunctionTuple(tmp,this);
+	}
 
 	/**
 	 * Method to get the zero function.

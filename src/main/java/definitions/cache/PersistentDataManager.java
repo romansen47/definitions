@@ -16,16 +16,16 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 
-public class PersistentDataManager { 
-	
+public class PersistentDataManager {
+
 	IGenerator generator;
 	IGroupGenerator groupGenerator;
 	IFieldGenerator fieldGenerator;
 	ISpaceGenerator spaceGenerator;
 	Field realLine;
-	int funcSpaces = 50;
-	
-	public static final Logger logger=LogManager.getLogger(PersistentDataManager.class);
+	int funcSpaces = 20;
+
+	public static final Logger logger = LogManager.getLogger(PersistentDataManager.class);
 
 	public static void main(final String[] args) throws Throwable {
 		new PersistentDataManager().load();
@@ -46,14 +46,14 @@ public class PersistentDataManager {
 		fieldGenerator = generator.getFieldGenerator();
 		spaceGenerator = generator.getSpaceGenerator();
 		realLine = fieldGenerator.getRealLine();
-		
+
 		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 		final Configuration config = ctx.getConfiguration();
 		final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
 		loggerConfig.setLevel(Level.INFO);
 		ctx.updateLoggers();
-		
-		System.out.println("Regeneration of persistent data\r"); 
+
+		System.out.println("Regeneration of persistent data\r");
 		for (int i = 1; i < funcSpaces; i++) {
 			try {
 				System.out.println("Loading " + ((2 * i) + 1)
@@ -66,7 +66,7 @@ public class PersistentDataManager {
 			}
 		}
 		this.saveCoordinateSpacesTest();
-		
+
 		System.out.println("Persistance job done ;)");
 	}
 

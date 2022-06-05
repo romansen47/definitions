@@ -18,8 +18,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintab
 	private static SpaceGenerator instance;
 
 	public static SpaceGenerator getInstance() {
-		if (SpaceGenerator.instance.logger == null) {
-			SpaceGenerator.instance.logger = org.apache.logging.log4j.LogManager.getLogger(SpaceGenerator.class);
+		if (SpaceGenerator.logger == null) {
+			SpaceGenerator.logger = org.apache.logging.log4j.LogManager.getLogger(SpaceGenerator.class);
 		}
 		return SpaceGenerator.instance;
 	}

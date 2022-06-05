@@ -119,18 +119,19 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	@Override
 	Integer getDim();
 
-	/**
-	 * Method to compute the distance between two vectors.
-	 *
-	 * @param vec1 first vector.
-	 * @param vec2 second vector.
-	 * @return the distance. @
-	 */
-	//	@Override
-	//	default Real distance(final Vector vec1, final Vector vec2) {
-	//		final Vector diff = this.addition(vec1, (this.stretch(vec2, this.getField().get(-1))));
-	//		return this.norm(diff);
-	//	}
+//	/**
+//	 * Method to compute the distance between two vectors.
+//	 *
+//	 * @param vec1 first vector.
+//	 * @param vec2 second vector.
+//	 * @return the distance. @
+//	 */
+	// @Override
+	// default Real distance(final Vector vec1, final Vector vec2) {
+	// final Vector diff = this.addition(vec1, (this.stretch(vec2,
+	// this.getField().get(-1))));
+	// return this.norm(diff);
+	// }
 
 	EuclideanSpace getDualSpace();
 
@@ -141,18 +142,17 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * @return an orthonormal base of same span.
 	 */
 	default List<Vector> getOrthonormalBase(List<Vector> base) {
-		final List<Vector> newBase = new ArrayList<>(); 
+		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
 			if (newBase.isEmpty()) {
 				newBase.add(normalize(vec));
-			}
-			else {
+			} else {
 				Vector tmp = nullVec();
 				for (final Vector vec2 : newBase) {
 					tmp = addition(tmp, projection(vec, vec2));
 				}
 				final Vector ans = addition(vec, stretch(tmp, getField().get(-1)));
-				newBase.add(normalize(ans)); 
+				newBase.add(normalize(ans));
 			}
 		}
 		return newBase;

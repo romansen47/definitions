@@ -92,7 +92,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		}
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		space.genericBaseToList().stream()
-		.forEach(baseVec -> newCoordinates.put(baseVec, space.innerProduct(this, baseVec)));
+				.forEach(baseVec -> newCoordinates.put(baseVec, space.innerProduct(this, baseVec)));
 		return newCoordinates;
 	}
 
@@ -122,7 +122,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = ((Real) fun.value(f.get(((Real)input).getDoubleValue() + Function.eps)))
+					final double dy = ((Real) fun.value(f.get(((Real) input).getDoubleValue() + Function.eps)))
 							.getDoubleValue() - ((Real) fun.value(input)).getDoubleValue();
 					final double dx = Function.eps;
 					return f.get(dy / dx);
@@ -136,10 +136,10 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the derivative of the function.
-	 *
+	 * 
+	 * @param space the given space
 	 * @return the derivative.
 	 */
-
 	@Proceed
 	default Function getDerivative(final EuclideanSpace space) {
 		return this.getDerivative().getProjection(space);
@@ -154,9 +154,6 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	@Proceed
 	default Function getDerivative(final int n) {
-		// if (n < 0) {
-		// return getPrimitiveIntegral(-n);
-		// }
 		if (n == 0) {
 			return this;
 		} else {

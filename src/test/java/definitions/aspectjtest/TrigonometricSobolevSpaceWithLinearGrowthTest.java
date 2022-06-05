@@ -6,9 +6,7 @@ import org.junit.Test;
 import definitions.prototypes.AspectJTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Real; 
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -21,7 +19,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
 	private int sobolevDegree = 1;
-	private final int trigDegree = 15;
+	private final int trigDegree = 4;
 
 	public int getSobolevDegree() {
 		return sobolevDegree;
@@ -40,14 +38,14 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 
 		setField(AspectJTest.getRealLine());
 		super.setUp();
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(AspectJTest.getRealLine(),
-				sobolevDegree,getTrigonometricDegree(), trigDegree));
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(
+				AspectJTest.getRealLine(), sobolevDegree, Math.PI, trigDegree));
 
 	}
 
 	@Test
 	public void test() {
-		final Function absolute = new GenericFunction() { 
+		final Function absolute = new GenericFunction() {
 			private static final long serialVersionUID = -5009775881103765610L;
 
 			@Override
@@ -56,22 +54,22 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 			}
 
 			@Override
-			public Scalar value(Scalar input) { 
+			public Scalar value(Scalar input) {
 				return input;
-			} 
+			}
 		};
 		final Function projectionOfAbsolute = absolute.getProjection(getTrigonometricSpace());
-//		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
-		
-		EuclideanSpace L2 = AspectJTest.getSpaceGenerator().getTrigonometricSpace(
-				AspectJTest.getRealLine(),getTrigonometricDegree(),Math.PI);
+		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
+
+		EuclideanSpace L2 = AspectJTest.getSpaceGenerator().getTrigonometricSpace(AspectJTest.getRealLine(),
+				getTrigonometricDegree(), Math.PI);
 		final Function projectionOfAbsolute2 = absolute.getProjection(L2);
 		projectionOfAbsolute2.plotCompare(-Math.PI, Math.PI, projectionOfAbsolute);
 	}
 
 	@Test
 	public void test1() {
-		final Function absolute = new GenericFunction() { 
+		final Function absolute = new GenericFunction() {
 			private static final long serialVersionUID = -5009775881103765610L;
 
 			@Override
@@ -80,7 +78,7 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 			}
 
 			@Override
-			public Scalar value(Scalar input) { 
+			public Scalar value(Scalar input) {
 				return input;
 			}
 
@@ -91,7 +89,14 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 
 	@Test
 	public void test2() {
+
+		EuclideanSpace L2 = AspectJTest.getSpaceGenerator().getTrigonometricSpace(AspectJTest.getRealLine(),
+				getTrigonometricDegree(), Math.PI);
 		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
+
+		final Function projectionOfAbsolute2 = getStaircaseFunction().getProjection(L2);
 		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
+		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, projectionOfAbsolute2);
+		staircaseFunction1Projection.plotCompare(-Math.PI, Math.PI, projectionOfAbsolute2);
 	}
 }
