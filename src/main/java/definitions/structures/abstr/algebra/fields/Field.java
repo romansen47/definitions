@@ -100,8 +100,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	default FieldElement getInverseElement(Element element) {
 		if (element.equals(getOne())) {
 			return (FieldElement) getMinusOne();
-		}
-		else if (element.equals(getZero())) {
+		} else if (element.equals(getZero())) {
 			return (FieldElement) getZero();
 		}
 		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
@@ -121,7 +120,28 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	}
 
 	default Vector getMultiplicativeInverseElement(final Vector factor) {
-		final VectorSpace multLinMaps = new LinearMappingsSpace(this, this);
+		final Field field = this;
+		final VectorSpace multLinMaps = new LinearMappingsSpace() {
+
+			final Field source = field;
+			final Field target = field;
+
+			@Override
+			public Field getField() {
+				return field;
+			}
+
+			@Override
+			public EuclideanSpace getSource() {
+				return source;
+			}
+
+			@Override
+			public EuclideanSpace getTarget() {
+				return target;
+			}
+
+		};
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
 
 			@Override

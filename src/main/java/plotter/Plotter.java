@@ -7,7 +7,6 @@ import java.awt.Color;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -104,9 +103,9 @@ public interface Plotter {
 		if (h instanceof Real) {
 			return ((Real) h).doubleValue();
 		}
-		if (h instanceof Quaternion) {
-			return ((Real) ((Quaternion) h).getReal()).doubleValue();
-		}
+//		if (h instanceof Quaternion) {
+//			return ((Real) ((Quaternion) h).getReal()).doubleValue();
+//		}
 		return null;
 	}
 

@@ -3,7 +3,6 @@ package definitions.structures.abstr.vectorspaces;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
-import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -30,13 +29,14 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	@Override
 	default Scalar norm(final Vector vec) {
-		Scalar innerProduct=innerProduct(vec, vec);
+		Scalar innerProduct = innerProduct(vec, vec);
 		if (innerProduct instanceof Complex) {
-			return RealLine.getInstance().get(Math.sqrt(((Real) ((Complex) innerProduct(vec, vec)).getReal()).getDoubleValue()));
+			return RealLine.getInstance()
+					.get(Math.sqrt(((Real) ((Complex) innerProduct(vec, vec)).getReal()).getDoubleValue()));
 		}
-		if (innerProduct instanceof Quaternion) {
-			return RealLine.getInstance().get(Math.sqrt(((Real) ((Quaternion) innerProduct(vec, vec)).getReal()).getDoubleValue()));
-		}
+//		if (innerProduct instanceof Quaternion) {
+//			return RealLine.getInstance().get(Math.sqrt(((Real) ((Quaternion) innerProduct(vec, vec)).getReal()).getDoubleValue()));
+//		}
 		return RealLine.getInstance().get(Math.sqrt(((Real) innerProduct).getDoubleValue()));
 	}
 

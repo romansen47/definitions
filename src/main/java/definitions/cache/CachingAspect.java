@@ -15,7 +15,6 @@ import customaspects.CustomAspect;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
-import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -43,6 +42,7 @@ public class CachingAspect implements CustomAspect {
 
 	public CachingAspect() {
 		logger = LogManager.getLogger(this.getGenericName());
+//		Configurator.setLevel(logger, Level.INFO);
 	}
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
@@ -65,8 +65,8 @@ public class CachingAspect implements CustomAspect {
 				return RealLine.getInstance();
 			case 2:
 				return ComplexPlane.getInstance();
-			case 4:
-				return QuaternionSpace.getInstance();
+//			case 4:
+//				return QuaternionSpace.getInstance();
 			}
 		}
 		final List<Vector> basetmp = new ArrayList<>();

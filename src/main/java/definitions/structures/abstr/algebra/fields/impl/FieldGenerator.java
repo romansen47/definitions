@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.IFieldGenerator;
-import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Service
 public class FieldGenerator implements IFieldGenerator, Unweavable {
@@ -40,7 +39,7 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 		this.realLine = realLine;
 		RealLine.setInstance(realLine);
 		ComplexPlane.setRealLine(realLine);
-		((FiniteDimensionalVectorSpace) QuaternionSpace.getInstance()).setField(realLine);
+//		((FiniteDimensionalVectorSpace) QuaternionSpace.getInstance()).setField(realLine);
 	}
 
 }
