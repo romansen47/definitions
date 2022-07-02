@@ -12,6 +12,13 @@ import definitions.structures.abstr.algebra.semigroups.Element;
  */
 public interface FiniteRing extends FiniteGroup, DiscreetRing {
 
+	/**
+	 * method to determine the inverse element wrt multiplication. returns null if
+	 * not exists
+	 * 
+	 * @param element the given element
+	 * @return the multiplicative inverse or null if not exists
+	 */
 	default Element getMultiplicativeInverseElement(final Element element) {
 		final Element tmp = getMultiplicativeInverseElement(element);
 		if (tmp != null) {

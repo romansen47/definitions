@@ -1,4 +1,4 @@
-package solver;
+package solver.impl;
 
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 

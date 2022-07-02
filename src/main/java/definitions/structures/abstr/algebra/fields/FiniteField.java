@@ -46,24 +46,39 @@ public interface FiniteField extends DiscreetField, FiniteRing {
 		return xmlString;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	FieldElement getNeutralElement();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default boolean isUnit(Element element) {
 		return DiscreetField.super.isUnit(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default FieldElement getInverseElement(Element element) {
 		return (FieldElement) FiniteRing.super.getInverseElement(element);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default DiscreetGroup getMuliplicativeMonoid() {
 		return DiscreetField.super.getMuliplicativeMonoid();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default Integer getOrder() {
 		return FiniteRing.super.getOrder();

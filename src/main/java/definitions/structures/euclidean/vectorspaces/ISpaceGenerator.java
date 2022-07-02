@@ -182,7 +182,6 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final int dim) {
 		throw new NullPointerException("Caching aspect missed!");
-		// return null;
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final Field field, final List<Vector> newBase) {

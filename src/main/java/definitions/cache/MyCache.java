@@ -16,6 +16,7 @@ public class MyCache implements ICache, XmlPrintable, Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
+
 	private Map<Integer, EuclideanSpace> coordinateSpaces = new ConcurrentHashMap<>();
 
 	@Override

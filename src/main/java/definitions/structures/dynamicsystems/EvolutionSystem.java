@@ -41,6 +41,12 @@ public interface EvolutionSystem extends XmlPrintable {
 				+ this.getPhaseSpace().toXml() + "</phaseSpace>\r" + "</dynamicSystem>\r";
 	}
 
+	/**
+	 * the right hand side function F the defining equation y'=F(y)
+	 * 
+	 * @param input the input vector
+	 * @return the evaluation of y under F
+	 */
 	VectorSpaceSelfMapping getDefiningMapping(Element input);
 
 }

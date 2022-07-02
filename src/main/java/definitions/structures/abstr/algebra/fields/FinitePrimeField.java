@@ -6,8 +6,10 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 /**
  * @author ro
  *
- *         A finite prime field is a finite field that is is isomorphic to its
- *         prime field
+ *         A finite prime field is a finite field that is also isomorphic to its
+ *         prime field. Q is a prime field. Z/2Z are prime field but no other
+ *         finite field of even order is. R and C are not prime fields either
+ *         (their prime field is Q)
  *
  */
 public interface FinitePrimeField extends FiniteField, PrimeField, CyclicGroup {

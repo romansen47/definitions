@@ -26,9 +26,9 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 @Aspect
 public class CachingAspect implements CustomAspect {
 
-	final static Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
+	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
 
-	final Logger logger;
+	private final Logger logger;
 
 	@Override
 	public String getGenericName() {
@@ -42,7 +42,6 @@ public class CachingAspect implements CustomAspect {
 
 	public CachingAspect() {
 		logger = LogManager.getLogger(this.getGenericName());
-//		Configurator.setLevel(logger, Level.INFO);
 	}
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
@@ -56,8 +55,7 @@ public class CachingAspect implements CustomAspect {
 		if (field.equals(RealLine.getInstance())) {
 			final EuclideanSpace ans = CachingAspect.coordinatesSpaces.get(dim);
 			if (ans != null) {
-				this.getLogger().info("Successfully restored " + dim + "-dimensional euclidean space " + ans.toString()
-						+ " from cache! ");
+				this.getLogger().info("Successfully restored {}-dimensional euclidean space {} from cache! ", dim, ans);
 				return ans;
 			}
 			switch (dim) {
@@ -65,8 +63,6 @@ public class CachingAspect implements CustomAspect {
 				return RealLine.getInstance();
 			case 2:
 				return ComplexPlane.getInstance();
-//			case 4:
-//				return QuaternionSpace.getInstance();
 			}
 		}
 		final List<Vector> basetmp = new ArrayList<>();
@@ -91,7 +87,7 @@ public class CachingAspect implements CustomAspect {
 			}
 		}
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		this.getLogger().info("Created new " + dim + "-dimensional space over " + field.toXml() + ans.toXml());
+		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field.toXml(), ans.toXml());
 		if (field.equals(RealLine.getInstance())) {
 			CachingAspect.coordinatesSpaces.put(dim, ans);
 		}
