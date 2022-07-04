@@ -1,8 +1,8 @@
 package definitions.structures.euclidean.functionspaces.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
@@ -173,7 +173,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public Function nullVec() {
 		if (nullVec == null) {
-			final Map<Vector, Scalar> nul = new HashMap<>();
+			final Map<Vector, Scalar> nul = new ConcurrentHashMap<>();
 			for (final Vector vec : genericBaseToList()) {
 				nul.put(vec, (Scalar) getField().getZero());
 			}

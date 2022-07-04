@@ -1,7 +1,6 @@
 package definitions.structures.abstr.algebra.groups;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,7 +44,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 		GroupGenerator.instance = groupGenerator;
 	}
 
-	Map<Integer, FiniteRing> map = new HashMap<>();
+	Map<Integer, FiniteRing> map = new ConcurrentHashMap<>();
 	private PrimeField constructedBinaries;
 
 	public void setIntegers(final DiscreetDomain integers) {
@@ -259,7 +258,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 				@Override
 				public Element get(Number representant) {
 					boolean ans = false;
-					if (representant.intValue()!=0) {
+					if (representant.intValue() != 0) {
 						ans = true;
 					}
 					return this.get(ans);
@@ -429,7 +428,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 						public Map<Element, Map<Element, Element>> getOperationMap() {
 							if (multiplicationMap == null) {
 								multiplicationMap = new ConcurrentHashMap<>();
-								final Map<Element, Element> entry = new HashMap<>();
+								final Map<Element, Element> entry = new ConcurrentHashMap<>();
 								entry.put(getOne(), getOne());
 								multiplicationMap.put(getOne(), entry);
 							}
@@ -449,8 +448,8 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 				public Map<Element, Map<Element, Element>> getOperationMap() {
 					if (operationMap == null) {
 						operationMap = new ConcurrentHashMap<>();
-						final Map<Element, Element> entry = new HashMap<>();
-						final Map<Element, Element> entry2 = new HashMap<>();
+						final Map<Element, Element> entry = new ConcurrentHashMap<>();
+						final Map<Element, Element> entry2 = new ConcurrentHashMap<>();
 						entry.put(getNeutralElement(), getNeutralElement());
 						entry.put(getOne(), getOne());
 						entry2.put(getNeutralElement(), getOne());

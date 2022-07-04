@@ -3,8 +3,8 @@
  */
 package definitions.structures.abstr.algebra.fields.scalars.impl;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
@@ -36,7 +36,7 @@ public class RealOne extends Real {
 
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		final Map<Vector, Scalar> ans = new HashMap<>();
+		final Map<Vector, Scalar> ans = new ConcurrentHashMap<>();
 		ans.put(this, this);
 		return ans;
 	}

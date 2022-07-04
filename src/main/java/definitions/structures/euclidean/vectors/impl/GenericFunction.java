@@ -1,6 +1,5 @@
 package definitions.structures.euclidean.vectors.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,7 +18,7 @@ public abstract class GenericFunction implements Function, Element {
 
 	private static final long serialVersionUID = 1L;
 	private Field field;
-	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
+	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 	private Map<Vector, Scalar> coordinates;
 
 	/**

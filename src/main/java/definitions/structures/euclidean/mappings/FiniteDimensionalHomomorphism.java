@@ -1,6 +1,5 @@
 package definitions.structures.euclidean.mappings;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -170,7 +169,7 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 		final double[] ans = new LUDecomposition(MatrixUtils.createRealMatrix(matrixAsDoubles)).getSolver()
 				.solve(MatrixUtils.createRealVector(imageVectorAsDoubles)).toArray();
 		final Scalar[] ansAsScalars = new Scalar[ans.length];
-		final Map<Vector, Scalar> ansAsCoordinates = new HashMap<>();
+		final Map<Vector, Scalar> ansAsCoordinates = new ConcurrentHashMap<>();
 		for (int i = 0; i < ans.length; i++) {
 			ansAsScalars[i] = ((EuclideanSpace) getSource()).getField().get(ans[i]);
 			ansAsCoordinates.put(((EuclideanSpace) getTarget()).genericBaseToList().get(i), ansAsScalars[i]);

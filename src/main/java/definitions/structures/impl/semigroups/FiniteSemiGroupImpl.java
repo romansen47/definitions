@@ -1,14 +1,14 @@
 package definitions.structures.impl.semigroups;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.algebra.semigroups.FiniteSemiGroup;
 
 public abstract class FiniteSemiGroupImpl extends DiscreetSemiGroupImpl implements FiniteSemiGroup {
 
-	Map<Double, Element> elements = new HashMap<>();
+	Map<Double, Element> elements = new ConcurrentHashMap<>();
 	Map<Element, Map<Element, Element>> operationMap;
 
 	@Override

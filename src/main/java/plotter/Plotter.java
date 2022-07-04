@@ -33,10 +33,8 @@ public interface Plotter {
 				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(z));
 				final Scalar sc2 = (Scalar) ((Function) fun)
 						.value(((Function) fun).getField().getField().get(z + delta));
-				StdDraw.line(z,
-						getValue(((Scalar) sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
-						z + delta,
-						getValue(((Scalar) sc2.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))));
+				StdDraw.line(z, getValue((sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
+						z + delta, getValue(sc2.getCoordinates().get(((Function) fun).getField().getBaseVec(vec))));
 			}
 		}
 
@@ -103,9 +101,6 @@ public interface Plotter {
 		if (h instanceof Real) {
 			return ((Real) h).doubleValue();
 		}
-//		if (h instanceof Quaternion) {
-//			return ((Real) ((Quaternion) h).getReal()).doubleValue();
-//		}
 		return null;
 	}
 

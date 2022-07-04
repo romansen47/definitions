@@ -1,23 +1,28 @@
 package definitions.structures.impl;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
 import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
+import definitions.structures.abstr.algebra.rings.SemiDomain;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.impl.semigroups.DiscreetSemiGroupImpl;
 import settings.GlobalSettings;
 
 @Component
-public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid {
+public class Naturals extends DiscreetSemiGroupImpl
+		implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid, SemiDomain {
 
 	@Override
 	public String toString() {
 		return "the implementation of the ordered discreet semi ring of natural numbers with 0 ";
 	}
 
-	class NaturalNumber implements Element {
+	public class NaturalNumber implements Element {
 
 		private final int representant;
 
@@ -26,6 +31,17 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 		}
 
 		public Integer getRepresentant() {
+			return representant;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			return this == o
+					|| (o instanceof NaturalNumber && ((NaturalNumber) o).getRepresentant() == this.getRepresentant());
+		}
+
+		@Override
+		public int hashCode() {
 			return representant;
 		}
 	}
@@ -106,6 +122,37 @@ public class Naturals extends DiscreetSemiGroupImpl implements DiscreetSemiRing,
 	@Override
 	public boolean isSmallerThan(Element smallerOne, Element biggerOne) {
 		return ((NaturalNumber) biggerOne).getRepresentant() > ((NaturalNumber) smallerOne).getRepresentant();
+	}
+
+	@Override
+	public boolean divides(Element divisor, Element divident) {
+		return ((NaturalNumber) divident).representant % ((NaturalNumber) divisor).getRepresentant() == 0;
+	}
+
+	@Override
+	public boolean isIrreducible(Element element) {
+		return isPrimeElement(element);
+	}
+
+	private Map<NaturalNumber, Boolean> primes = new ConcurrentHashMap<>();
+
+	@Override
+	public boolean isPrimeElement(Element element) {
+
+		NaturalNumber number = ((NaturalNumber) element);
+		if (primes.get(element) == null) {
+			for (NaturalNumber i = (NaturalNumber) this.get(2); i.getRepresentant() < ((NaturalNumber) element)
+					.getRepresentant(); i = (NaturalNumber) this.addition(i, this.getOne())) {
+				if (this.divides(i, element) && this.isPrimeElement(i)) {// - correctly implemented this would be
+					// faster.
+					primes.put(i, false);
+					return false;
+				}
+			}
+			primes.put(number, true);
+		}
+		return true;
+
 	}
 
 }

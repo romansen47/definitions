@@ -1,7 +1,7 @@
 package definitions.structures.euclidean.vectors.impl;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -23,8 +23,8 @@ import plotter.Plotter;
 public class FunctionTuple extends Tuple implements Function {
 
 	private static final long serialVersionUID = -3953250098421804886L;
-	final private Field field;
-	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
+	private final Field field;
+	private final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 
 	public FunctionTuple(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		super(coordinates);

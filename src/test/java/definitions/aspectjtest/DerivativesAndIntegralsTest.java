@@ -3,6 +3,9 @@ package definitions.aspectjtest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +22,9 @@ import definitions.structures.euclidean.vectors.impl.Monome;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class DerivativesAndIntegrals extends AspectJTest {
+public class DerivativesAndIntegralsTest extends AspectJTest {
+
+	public static final Logger logger = LogManager.getLogger(DerivativesAndIntegralsTest.class);
 
 	private Sine sine;
 	private Function cosine;
@@ -30,7 +35,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 
 	private final List<Function> testfunctions = new ArrayList<>();
 
-	private final int degree = 5;
+	private final int degree = 2;
 	private final int sobolevDegree = 1;
 
 	private EuclideanSpace sobolevSpace;
@@ -87,25 +92,36 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	}
 
 	@Test
-	public void scalarProducts() throws Throwable {
+	public void testScalarProducts() throws Throwable {
 		final List<Vector> base = sobolevSpace.genericBaseToList();
 		final double[][] scalarProducts = new double[base.size()][base.size()];
 		int i = 0;
+		logger.info("real sobolev space {}", space);
+		base.stream().forEachOrdered(baseElement -> logger.info(baseElement));
+		boolean isIdMatrix = true;
 		for (final Vector vec1 : base) {
 			int j = 0;
+			String s = "";
 			for (final Vector vec2 : base) {
 				scalarProducts[i][j] = ((Real) ((InnerProductSpace) sobolevSpace).innerProduct(vec1, vec2))
 						.getDoubleValue();
-				logger.info((scalarProducts[i][j] - (scalarProducts[i][j] % 0.001)) + ",");
+				if (i == j) {
+					isIdMatrix = isIdMatrix && (Math.abs(scalarProducts[i][j] - 1) < 1e-2);
+				} else {
+					isIdMatrix = isIdMatrix && Math.abs(scalarProducts[i][j]) < 1e-2;
+				}
+				s += scalarProducts[i][j] + " ";
 				j++;
 			}
-			logger.info("");
+			logger.info(s);
 			i++;
 		}
+		logger.info("matrix is id matrix: {}", isIdMatrix);
+		Assert.assertTrue(isIdMatrix);
 	}
 
 	@Test
-	public void testLinearMonome() throws Throwable {
+	public synchronized void testLinearMonome() {
 		AspectJTest.getLogger().info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 1);
 		final Vector derivative2 = ((DerivativeOperator) derivativeOperator).get(monome);
@@ -113,7 +129,7 @@ public class DerivativesAndIntegrals extends AspectJTest {
 	}
 
 	@Test
-	public void testDerivativeOfSineInL2() throws Throwable {
+	public void testDerivativeOfSineInL2() {
 		final int sobDegree = 4;
 		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(sine, sobDegree);

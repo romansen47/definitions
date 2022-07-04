@@ -1,6 +1,5 @@
 package definitions.structures.euclidean.mappings.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,7 +20,7 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 
 	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
-		linearity = new HashMap<>();
+		linearity = new ConcurrentHashMap<>();
 		this.fillCoordinates(source, target);
 		this.getGenericMatrix();
 	}

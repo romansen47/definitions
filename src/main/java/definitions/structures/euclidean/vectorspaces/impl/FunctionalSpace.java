@@ -4,9 +4,9 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -63,9 +63,9 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-					final Map<Vector, Map<Vector, Scalar>> newMap = new HashMap<>();
+					final Map<Vector, Map<Vector, Scalar>> newMap = new ConcurrentHashMap<>();
 					for (final Vector bv1 : sourceSpace.genericBaseToList()) {
-						final Map<Vector, Scalar> coord = new HashMap<>();
+						final Map<Vector, Scalar> coord = new ConcurrentHashMap<>();
 						for (final Vector bv2 : sourceSpace.genericBaseToList()) {
 							if (bv1 != bv2) {
 								coord.put(bv2, (Scalar) target.nullVec());

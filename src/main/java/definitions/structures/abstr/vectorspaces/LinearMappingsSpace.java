@@ -1,7 +1,7 @@
 package definitions.structures.abstr.vectorspaces;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.mappings.VectorSpaceEndomorphism;
@@ -27,7 +27,7 @@ public interface LinearMappingsSpace extends VectorSpace, RealSpace {
 	 */
 	@Override
 	default Vector addition(final Vector vec1, final Vector vec2) {
-		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
+		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
 		getSource().genericBaseToList().stream().forEach(vec -> {
 			coordinates.put(vec, ((FiniteVectorMethods) getTarget().addition(((VectorSpaceHomomorphism) vec1).get(vec),
 					((VectorSpaceHomomorphism) vec2).get(vec))).getCoordinates());
@@ -43,7 +43,7 @@ public interface LinearMappingsSpace extends VectorSpace, RealSpace {
 	 */
 	@Override
 	public default Vector stretch(final Vector vec1, final Scalar r) {
-		final Map<Vector, Map<Vector, Scalar>> coordinates = new HashMap<>();
+		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
 		getSource().genericBaseToList().stream().forEach(vec -> {
 			coordinates.put(vec,
 					((FiniteVectorMethods) getTarget().stretch(((VectorSpaceHomomorphism) vec1).get(vec), r))

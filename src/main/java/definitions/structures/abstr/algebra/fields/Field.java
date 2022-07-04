@@ -1,7 +1,7 @@
 package definitions.structures.abstr.algebra.fields;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -162,7 +162,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-				final Map<Vector, Map<Vector, Scalar>> coord = new HashMap<>();
+				final Map<Vector, Map<Vector, Scalar>> coord = new ConcurrentHashMap<>();
 				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
 					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
 				}

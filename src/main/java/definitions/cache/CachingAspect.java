@@ -1,9 +1,9 @@
 package definitions.cache;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +26,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 @Aspect
 public class CachingAspect implements CustomAspect {
 
-	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new HashMap<>();
+	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new ConcurrentHashMap<>();
 
 	private final Logger logger;
 

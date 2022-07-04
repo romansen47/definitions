@@ -1,7 +1,6 @@
 package definitions.structures.euclidean.vectorspaces;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -43,9 +42,9 @@ public interface ISpaceGenerator {
 		final Field realLine = RealLine.getInstance();
 		realLine.getOne();
 		final Scalar zero = (Scalar) realLine.getZero();
-		final Map<Vector, Map<Vector, Scalar>> coordinatesMap = new HashMap<>();
+		final Map<Vector, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 		for (final Vector vec : base) {
-			Map<Vector, Scalar> tmp = new HashMap<>();
+			Map<Vector, Scalar> tmp = new ConcurrentHashMap<>();
 			if (vec instanceof Sine) {
 				final Scalar freq = ((Sine) vec).getFrequency();
 				final boolean isSine = ((Real) ((Sine) vec).getTranslation()).getDoubleValue() == 0.;
@@ -66,7 +65,7 @@ public interface ISpaceGenerator {
 				}
 				coordinatesMap.put(vec, tmp);
 			} else {
-				tmp = new HashMap<>();
+				tmp = new ConcurrentHashMap<>();
 				for (final Vector otherVec : base) {
 					tmp.put(otherVec, zero);
 				}
@@ -99,10 +98,16 @@ public interface ISpaceGenerator {
 				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
 						((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
 			}
-//			((EuclideanSpace) space).assignOrthonormalCoordinates(newBase, space.getField());
 			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
-			throw new Exception("Input should be a function, not a vector.");
+			class ExtendingFailedException extends Exception {
+				private static final long serialVersionUID = 8045812065455777899L;
+
+				ExtendingFailedException() {
+					super("Extention for " + space + " by " + fun + " failed for some reason");
+				}
+			}
+			throw new ExtendingFailedException();
 		}
 	}
 

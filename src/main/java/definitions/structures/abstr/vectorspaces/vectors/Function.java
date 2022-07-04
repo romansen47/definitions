@@ -29,11 +29,7 @@ import solver.StdDraw;
  */
 public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweavable {
 
-	IGenerator gen = Generator.getInstance();
-	/**
-	 * Functions carry around a correctness parameter.
-	 */
-	double eps = GlobalSettings.DERIVATIVE_FEINHEIT;
+	final static IGenerator gen = Generator.getInstance();
 
 	Function derivative = null;
 	/**
@@ -69,7 +65,8 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
 			if (Math.abs(((Real) value(getField().get(x))).getDoubleValue()
-					- ((Real) other.value(RealLine.getInstance().get(x))).getDoubleValue()) > Function.eps) {
+					- ((Real) other.value(RealLine.getInstance().get(x)))
+							.getDoubleValue()) > GlobalSettings.DERIVATIVE_FEINHEIT) {
 				return false;
 			}
 		}
@@ -122,9 +119,11 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 				@Override
 				public Scalar value(final Scalar input) {
-					final double dy = ((Real) fun.value(f.get(((Real) input).getDoubleValue() + Function.eps)))
-							.getDoubleValue() - ((Real) fun.value(input)).getDoubleValue();
-					final double dx = Function.eps;
+					final double dy = ((Real) fun
+							.value(f.get(((Real) input).getDoubleValue() + GlobalSettings.DERIVATIVE_FEINHEIT)))
+									.getDoubleValue()
+							- ((Real) fun.value(input)).getDoubleValue();
+					final double dx = GlobalSettings.DERIVATIVE_FEINHEIT;
 					return f.get(dy / dx);
 				}
 

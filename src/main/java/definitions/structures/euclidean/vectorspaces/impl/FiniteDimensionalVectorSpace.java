@@ -1,8 +1,8 @@
 package definitions.structures.euclidean.vectorspaces.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -94,7 +94,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	@Override
 	public FiniteVector getCoordinates(final Vector vec) {
-		final Map<Vector, Scalar> coordinates = new HashMap<>();
+		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.innerProduct(vec, baseVec));
 		}
@@ -139,7 +139,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	@Override
 	public Vector nullVec() {
-		final Map<Vector, Scalar> coordinates = new HashMap<>();
+		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
 			coordinates.put(vec, (Scalar) this.getField().getZero());
 		}

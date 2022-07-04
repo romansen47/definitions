@@ -1,7 +1,6 @@
 package definitions.structures.abstr.algebra.groups;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -226,7 +225,7 @@ public interface IGroupGenerator {
 								getElements().put((i * b.getOrder()) + j, tmp);
 							}
 						}
-						operationMap = new HashMap<>();
+						operationMap = new ConcurrentHashMap<>();
 						for (final Double key1 : getElements().keySet()) {
 							for (final Double key2 : getElements().keySet()) {
 								operation(getElements().get(key1), getElements().get(key2));
@@ -259,7 +258,7 @@ public interface IGroupGenerator {
 							b.operation(((ProductElement) first).getRight(), ((ProductElement) second).getRight()));
 					Map<Element, Element> tmpMap = operationMap.get(first);
 					if (tmpMap == null) {
-						tmpMap = new HashMap<>();
+						tmpMap = new ConcurrentHashMap<>();
 					}
 					tmpMap.put(second, ans);
 					operationMap.put(first, tmpMap);

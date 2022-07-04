@@ -1,6 +1,5 @@
 package definitions.structures.euclidean.mappings.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -71,11 +70,11 @@ public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 	@Override
 	public VectorSpaceHomomorphism getFiniteDimensionalLinearMapping(final EuclideanSpace source,
 			final EuclideanSpace target, final Scalar[][] genericMatrix) {
-		final Map<Vector, Map<Vector, Scalar>> map = new HashMap<>();
+		final Map<Vector, Map<Vector, Scalar>> map = new ConcurrentHashMap<>();
 		int i = 0;
 		for (final Vector vec1 : source.genericBaseToList()) {
 			int j = 0;
-			final Map<Vector, Scalar> coordinates = new HashMap<>();
+			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 			for (final Vector vec2 : target.genericBaseToList()) {
 				coordinates.put(vec2, genericMatrix[j][i]);
 				j++;

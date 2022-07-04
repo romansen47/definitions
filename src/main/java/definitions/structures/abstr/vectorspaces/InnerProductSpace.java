@@ -34,9 +34,6 @@ public interface InnerProductSpace extends NormedSpace {
 			return RealLine.getInstance()
 					.get(Math.sqrt(((Real) ((Complex) innerProduct(vec, vec)).getReal()).getDoubleValue()));
 		}
-//		if (innerProduct instanceof Quaternion) {
-//			return RealLine.getInstance().get(Math.sqrt(((Real) ((Quaternion) innerProduct(vec, vec)).getReal()).getDoubleValue()));
-//		}
 		return RealLine.getInstance().get(Math.sqrt(((Real) innerProduct).getDoubleValue()));
 	}
 
