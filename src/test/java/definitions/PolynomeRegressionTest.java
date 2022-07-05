@@ -12,6 +12,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.NormedSpace.DevisionByZeroException;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
@@ -41,7 +42,7 @@ public class PolynomeRegressionTest extends AspectJTest {
 			.getBean(RealLine.class);
 
 	@BeforeClass
-	public static void setUpBeforeClass() {
+	public static void setUpBeforeClass() throws DevisionByZeroException {
 
 		sin = new GenericFunction() {
 			/**

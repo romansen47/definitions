@@ -1,5 +1,7 @@
 package definitions.aspectjtest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +21,8 @@ import definitions.structures.dynamicsystems.DynamicSystem;
 
 public class DiscreetDynamicSystemTest extends AspectJTest {
 
+	public static final Logger logger = LogManager.getLogger(DiscreetDynamicSystemTest.class);
+
 	private Group timeSpace;
 	private VectorSpace phaseSpace;
 	private DynamicSystem dinamicSystem;
@@ -27,7 +31,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	@Before
 	public void beforeTest() {
-		timeSpace = AspectJTest.getIntegers();// new Naturals();
+		timeSpace = AspectJTest.getIntegers();
 	}
 
 	/**
@@ -48,7 +52,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 	 * @return the timespace
 	 */
 	public Group getTimespace() {
-		return timeSpace;
+		return (Group) timeSpace;
 	}
 
 	/**
@@ -89,17 +93,18 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 			@Override
 			public Group getTimeSpace() {
-				return timeSpace;
+				return (Group) timeSpace;
 			}
 
 		};
 		final Vector vec = startVector;
 		Element tmp;
 		VectorSpaceMapping evolutionOp;
+		String s = "";
 		for (double i = 0; i < iterations; i++) {
 			tmp = ((DiscreetMonoid) timeSpace).get(i);
 			evolutionOp = dinamicSystem.getEvolutionOperator(tmp);
-			AspectJTest.getLogger().info("\r" + i + ": " + ((Vector) evolutionOp.get(vec)).toXml());
+			logger.info(i + ": " + ((Vector) evolutionOp.get(vec)).toXml());
 		}
 	}
 
@@ -123,7 +128,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 					public Element get(Element vec) {
 						return ((ComplexPlane) getPhaseSpace()).get(((Real) ((Complex) vec).getImag()).getDoubleValue(),
 								RealLine.getInstance().addition(((Complex) vec).getReal(), ((Complex) vec).getImag())
-								.getDoubleValue());
+										.getDoubleValue());
 					}
 
 					@Override
@@ -136,7 +141,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 			@Override
 			public Group getTimeSpace() {
-				return timeSpace;
+				return (Group) timeSpace;
 			}
 
 		};
@@ -156,7 +161,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 			if (imag.getDoubleValue() < 0) {
 				comp += " - " + Math.abs(imag.getDoubleValue()) + "*i";
 			}
-			System.out.println(i + ": " + comp);
+			logger.info("{}: {}", i, comp);
 		}
 
 	}

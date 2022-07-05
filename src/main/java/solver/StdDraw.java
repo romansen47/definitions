@@ -40,6 +40,8 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.WindowConstants;
 
+import org.apache.logging.log4j.LogManager;
+
 /**
  * <i>Standard draw</i>. Our class StdDraw provides a basic capability for
  * creating drawings with your programs. It uses a simple graphics model that
@@ -665,10 +667,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}
-		}
-
-		else {
-			System.out.println("Invalid image file type: " + suffix);
+		} else {
+			LogManager.getLogger(StdDraw.class).info("Invalid image file type: " + suffix);
 		}
 	}
 
@@ -813,7 +813,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 		StdDraw.onscreen.drawImage(StdDraw.offscreenImage, 0, 0, null);
 		StdDraw.frame.repaint();
 		Thread.sleep(t);
-		System.out.println("Error sleeping");
+		LogManager.getLogger(StdDraw.class).error("Error sleeping");
 	}
 
 	/**

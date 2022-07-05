@@ -3,6 +3,8 @@
  */
 package definitions.aspectjtest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,6 +19,8 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  *
  */
 public class MultiDimensionalComplexVectorSpaceTest extends AspectJTest {
+
+	public static final Logger logger = LogManager.getLogger(MultiDimensionalComplexVectorSpaceTest.class);
 
 	@Test
 	public void testNorm() {
@@ -34,8 +38,8 @@ public class MultiDimensionalComplexVectorSpaceTest extends AspectJTest {
 		final boolean newAns = Math.abs(doubleAns) < 0.1;
 
 		Assert.assertTrue(newAns);
-		System.out.println("norm = " + ((Real) complexSpace.norm(vec)).doubleValue() + "\rsquare root of dim = " + Math.sqrt(dim)
-		+ "\rdifference = " + doubleAns + "\r");
+		logger.info("norm = {}, square root of dim = {}, difference = {}",
+				((Real) complexSpace.norm(vec)).doubleValue(), Math.sqrt(dim), doubleAns);
 	}
 
 }

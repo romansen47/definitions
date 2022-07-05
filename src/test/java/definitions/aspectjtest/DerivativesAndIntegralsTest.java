@@ -24,8 +24,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class DerivativesAndIntegralsTest extends AspectJTest {
 
-	public static final Logger logger = LogManager.getLogger(DerivativesAndIntegralsTest.class);
-
 	private Sine sine;
 	private Function cosine;
 	private Function monome;
@@ -96,6 +94,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 		final List<Vector> base = sobolevSpace.genericBaseToList();
 		final double[][] scalarProducts = new double[base.size()][base.size()];
 		int i = 0;
+		Logger logger = LogManager.getLogger(DerivativesAndIntegralsTest.class);
 		logger.info("real sobolev space {}", space);
 		base.stream().forEachOrdered(baseElement -> logger.info(baseElement));
 		boolean isIdMatrix = true;
@@ -122,7 +121,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 
 	@Test
 	public synchronized void testLinearMonome() {
-		AspectJTest.getLogger().info("Comparing implicite versus explicite derivative");
+		LogManager.getLogger(DerivativesAndIntegralsTest.class).info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 1);
 		final Vector derivative2 = ((DerivativeOperator) derivativeOperator).get(monome);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, (Function) derivative2);
@@ -131,7 +130,8 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 	@Test
 	public void testDerivativeOfSineInL2() {
 		final int sobDegree = 4;
-		AspectJTest.getLogger().info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
+		LogManager.getLogger(DerivativesAndIntegralsTest.class)
+				.info("Plotting " + sobDegree + "-th derivative of sine in L^2:");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(sine, sobDegree);
 		((Function) derivative).plotCompare(-Math.PI, Math.PI, sine);
 	}

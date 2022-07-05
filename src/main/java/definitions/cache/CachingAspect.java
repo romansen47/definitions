@@ -87,7 +87,7 @@ public class CachingAspect implements CustomAspect {
 			}
 		}
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field.toXml(), ans.toXml());
+		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field, ans);
 		if (field.equals(RealLine.getInstance())) {
 			CachingAspect.coordinatesSpaces.put(dim, ans);
 		}

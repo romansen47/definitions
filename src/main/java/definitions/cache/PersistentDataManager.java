@@ -53,21 +53,21 @@ public class PersistentDataManager {
 		loggerConfig.setLevel(Level.INFO);
 		ctx.updateLoggers();
 
-		System.out.println("Regeneration of persistent data\r");
+		logger.info("Regeneration of persistent data\r");
 		for (int i = 1; i < funcSpaces; i++) {
 			try {
-				System.out.println("Loading " + ((2 * i) + 1)
-						+ "-dimensional trigonometric function space extended by linear functions");
+				logger.info("Loading {}-dimensional trigonometric function space extended by linear functions",
+						(2 * i) + 1);
 				spaceGenerator.getTrigonometricFunctionSpaceWithLinearGrowth(realLine, i);
 			} catch (final Exception e) {
-				System.out.println("Failed to reload cached " + ((2 * i) + 1)
-						+ "-dimensional trigonometric function space extended by linear functions");
+				logger.error(
+						"Failed to reload cached {}-dimensional trigonometric function space extended by linear functions",
+						(2 * i) + 1);
 				e.printStackTrace();
 			}
 		}
 		this.saveCoordinateSpacesTest();
-
-		System.out.println("Persistance job done ;)");
+		logger.info("job done");
 	}
 
 	public void saveCoordinateSpacesTest() throws Throwable {

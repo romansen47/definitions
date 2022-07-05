@@ -42,9 +42,9 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		if (Generator.restoreFromCached) {
 			try {
 				Generator.instance.loadCoordinateSpaces();
-				System.out.println("Cached spaces loaded");
+				LogManager.getLogger(IGenerator.class).info("Cached spaces loaded");
 			} catch (final Exception e) {
-				System.out.println("Cached spaces not loaded");
+				LogManager.getLogger(IGenerator.class).warn("Cached spaces not loaded");
 			}
 			Generator.restoreFromCached = false;
 		}
@@ -111,7 +111,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 			spaceGenerator.setMyCache(ans);
 			obj_in.close();
 		} catch (final Exception e) {
-			e.addSuppressed(new Exception("failed to load myCache from local file")); 
+			e.addSuppressed(new Exception("failed to load myCache from local file"));
 		}
 	}
 
@@ -120,7 +120,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		final FileOutputStream f_out = new FileOutputStream(PATH);
 		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
 		obj_out.writeObject(spaceGenerator.getMyCache());
-		System.out.println("saved coordinates spaces to disk");
+		LogManager.getLogger(IGenerator.class).info("saved coordinates spaces to disk");
 		obj_out.close();
 	}
 

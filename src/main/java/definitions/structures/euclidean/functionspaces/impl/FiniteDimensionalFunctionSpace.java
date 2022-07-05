@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -59,9 +61,10 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param left           the left border
 	 * @param right          the right border
 	 * @param orthonormalize if true, also normalize the genericBase
+	 * @throws DevisionByZeroException
 	 */
 	public FiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase, final double left,
-			final double right, final boolean orthonormalize) {
+			final double right, final boolean orthonormalize) throws DevisionByZeroException {
 		super(field, genericBase);
 		interval = new double[2];
 		interval[0] = left;
@@ -162,7 +165,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public Function normalize(final Vector vec) {
 		Vector norm = norm(vec);
 		if (norm.equals(nullVec())) {
-			System.out.println("Devision by 0!");
+			LogManager.getLogger(FiniteDimensionalFunctionSpace.class).error("Devision by 0!");
 		}
 		return stretch(vec, (Scalar) getField().getMuliplicativeMonoid().getInverseElement(norm));
 	}

@@ -10,6 +10,7 @@ import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
+import definitions.structures.abstr.vectorspaces.NormedSpace.DevisionByZeroException;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -28,7 +29,7 @@ public interface IGenerator extends Serializable {
 	FieldGenerator getFieldGenerator();
 
 	default VectorSpace getFiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase,
-			final double left, final double right) {
+			final double left, final double right) throws DevisionByZeroException {
 		return this.getSpaceGenerator().getFiniteDimensionalFunctionSpace(field, genericBase, left, right);
 	}
 
@@ -42,7 +43,7 @@ public interface IGenerator extends Serializable {
 	}
 
 	default VectorSpace getFiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space,
-			final int degree) {
+			final int degree) throws DevisionByZeroException {
 		return this.getSpaceGenerator().getFiniteDimensionalSobolevSpace(field, space, degree);
 	}
 
@@ -55,7 +56,7 @@ public interface IGenerator extends Serializable {
 		return this.getSpaceGenerator().getFiniteDimensionalVectorSpace(dim);
 	}
 
-	IMappingGenerator getMappingGenerator(); 
+	IMappingGenerator getMappingGenerator();
 
 	ISpaceGenerator getSpaceGenerator();
 

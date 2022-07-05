@@ -3,6 +3,8 @@
  */
 package definitions.aspectjtest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
@@ -19,6 +21,8 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  *
  */
 public class ProductSpaceTest extends AspectJTest {
+
+	public static final Logger logger = LogManager.getLogger(ProductSpaceTest.class);
 
 	ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
 	IGroupGenerator groupGenerator = GroupGenerator.getInstance();
@@ -63,7 +67,7 @@ public class ProductSpaceTest extends AspectJTest {
 			for (final Vector vec2 : otherSpace.genericBaseToList()) {
 				ans = vec1.equals(vec2) || vec2.equals(vec1);
 				if (ans) {
-					System.out.println(vec1.toString() + " = " + vec2.toString());
+					logger.info("{} = {}", vec1, vec2);
 				}
 			}
 		}

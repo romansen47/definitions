@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+
 import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -119,20 +121,6 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	@Override
 	Integer getDim();
 
-//	/**
-//	 * Method to compute the distance between two vectors.
-//	 *
-//	 * @param vec1 first vector.
-//	 * @param vec2 second vector.
-//	 * @return the distance. @
-//	 */
-	// @Override
-	// default Real distance(final Vector vec1, final Vector vec2) {
-	// final Vector diff = this.addition(vec1, (this.stretch(vec2,
-	// this.getField().get(-1))));
-	// return this.norm(diff);
-	// }
-
 	EuclideanSpace getDualSpace();
 
 	/**
@@ -140,8 +128,9 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 *
 	 * @param base the original base.
 	 * @return an orthonormal base of same span.
+	 * @throws DevisionByZeroException
 	 */
-	default List<Vector> getOrthonormalBase(List<Vector> base) {
+	default List<Vector> getOrthonormalBase(List<Vector> base) throws DevisionByZeroException {
 		final List<Vector> newBase = new ArrayList<>();
 		for (final Vector vec : base) {
 			if (newBase.isEmpty()) {
@@ -187,12 +176,13 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		int i = 0;
 		for (final Vector vec1 : base) {
 			int j = 0;
+			String s = "";
 			for (final Vector vec2 : base) {
 				scalarProducts[i][j] = innerProduct(vec1, vec2);
-				System.out.print((scalarProducts[i][j].toString()) + ",");
+				s += scalarProducts[i][j] + " ";
 				j++;
 			}
-			System.out.println("");
+			LogManager.getLogger(EuclideanSpace.class).info(s);
 			i++;
 		}
 	}

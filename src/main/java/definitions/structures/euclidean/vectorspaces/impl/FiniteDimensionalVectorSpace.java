@@ -199,14 +199,14 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	@Override
 	public String toXml() {
 		final String clazz = this.getClass().toString().split("class ")[1];
-		String ans = "<" + clazz + ">\r";
-		ans += "<base>";
+		StringBuilder s = new StringBuilder("<" + clazz + ">\r");
+		s.append("<base>");
 		for (final Vector baseVec : this.genericBaseToList()) {
-			ans += "<baseVec>" + this.genericBaseToList().indexOf(baseVec) + "</baseVec>\r";
+			s.append("<baseVec>" + this.genericBaseToList().indexOf(baseVec) + "</baseVec>\r");
 		}
-		ans += "</base>";
-		ans += "</" + clazz + ">";
-		return ans;
+		s.append("</base>");
+		s.append("</" + clazz + ">");
+		return s.toString();
 	}
 
 }

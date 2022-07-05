@@ -179,7 +179,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 */
 	@Override
 	public String toXml() {
-		return "<real value=\"" + Double.toString(representant) + "\" />\r";
+		return "<real value=\"" + Double.toString(representant) + "\" />";
 	}
 
 	public void setRepresentant(Double representant) {

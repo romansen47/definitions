@@ -38,9 +38,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
 	 * @param ortho  tells if base should be normalized
+	 * @throws DevisionByZeroException
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space, final int degree,
-			final boolean ortho) {
+			final boolean ortho) throws DevisionByZeroException {
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
 		this.degree = degree;
 		if (ortho) {
@@ -68,9 +69,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param left        the inf of the interval.
 	 * @param right       the sup of the intervall.
 	 * @param degree      the sobolev degree.
+	 * @throws DevisionByZeroException
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
-			final double right, final int degree) {
+			final double right, final int degree) throws DevisionByZeroException {
 		super(field, genericBase, left, right, true);
 		this.degree = degree;
 		getDerivativeBuilder();
@@ -85,9 +87,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param right       the sup of the intervall.
 	 * @param degree      the sobolev degree.
 	 * @param ortho       tells if base should be normalized.
+	 * @throws DevisionByZeroException
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
-			final double right, final int degree, final boolean ortho) {
+			final double right, final int degree, final boolean ortho) throws DevisionByZeroException {
 		super(field, genericBase, left, right, ortho);
 		this.degree = degree;
 	}
