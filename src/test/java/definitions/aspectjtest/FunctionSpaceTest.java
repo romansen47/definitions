@@ -21,7 +21,7 @@ public class FunctionSpaceTest extends AspectJTest {
 			.getTrigonometricSobolevSpace((Field) ComplexPlane.getInstance(), 3, 1);
 
 	@SuppressWarnings("serial")
-	final Function functio = new GenericFunction() {
+	final Function function = new GenericFunction() {
 
 		double support = 10.0;
 
@@ -32,7 +32,7 @@ public class FunctionSpaceTest extends AspectJTest {
 				return RealLine.getInstance().get(0);
 			}
 			return RealLine.getInstance().get(1 * Math.exp(-1 / (Math.pow(support / 2, 2) - Math.pow(val, 2))));
-			//			return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
+			// return RealLine.getInstance().get(0.5+0.2*Math.cos(input.getDoubleValue()));
 		}
 	};
 

@@ -1,10 +1,12 @@
 package definitions.prototypes;
 
+import org.junit.Assert;
 import org.junit.Before;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -62,7 +64,7 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 
 		f = AspectJTest.getRealLine();
 
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getNormedTrigonometricSpace(AspectJTest.getRealLine(), getTrigonometricDegree()));
+		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getNormedTrigonometricSpace(f, getTrigonometricDegree()));
 		testValues = definitions.aspectjtest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() {
 
@@ -85,5 +87,30 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 				return getField().get(testValues[1][k]);
 			}
 		});
+	}
+
+	protected void testOnFunction(Function f, int degree, Integer sobolevDegree, double eps) {
+		Function fProjection = f.getProjection(getTrigonometricSpace());
+		f.plotCompare(-Math.PI, Math.PI, fProjection);
+
+		long time1 = System.nanoTime();
+		double distance = ((Real) getTrigonometricSpace().distance(fProjection, f)).getRepresentant();
+		time1 = System.nanoTime() - time1;
+		getLogger().info("time for computing distance = {}", time1);
+		long time2 = System.nanoTime();
+		double norm_of_function = ((Real) getTrigonometricSpace().norm(f)).getRepresentant();
+		time2 = System.nanoTime() - time2;
+		getLogger().info("time for computing norm of the function  = {}", time2);
+		long time3 = System.nanoTime();
+		double norm_of_projection = ((Real) getTrigonometricSpace().norm(fProjection)).getRepresentant();
+		time3 = System.nanoTime() - time3;
+		getLogger().info("time for computing norm of projection = {}", time3);
+		getLogger().info("distance = {}", distance);
+		getLogger().info("norm of function = {}", norm_of_function);
+		getLogger().info("norm of its projection = {}", norm_of_projection);
+		String s = sobolevDegree == null ? "Trig(" + degree + ")" : "on SobTrig(" + degree + "," + sobolevDegree + ")";
+		getLogger().info("distance / norm = {} / {} = {}  {}", distance, norm_of_function, distance / norm_of_function,
+				s);
+		Assert.assertTrue(distance / norm_of_function < eps);
 	}
 }

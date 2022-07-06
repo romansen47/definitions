@@ -9,7 +9,6 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**
@@ -20,7 +19,9 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  */
 public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest {
 
-	private int sobolevDegree;
+	private int degree = 6;
+	private int sobolevDegree = 1;
+	final double eps = 1d;
 
 	public int getSobolevDegree() {
 		return sobolevDegree;
@@ -34,34 +35,24 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricDegree(50);
-		setSobolevDegree(1);
+		setTrigonometricDegree(degree);
+		setSobolevDegree(sobolevDegree);
 
 		setField(AspectJTest.getRealLine());
 		super.setUp();
 		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(AspectJTest.getRealLine(),
-				this.getTrigonometricDegree(), sobolevDegree));
+				degree, sobolevDegree));
 
 	}
 
 	@Test
-	public void test1() {
-		int sDegree = getSobolevDegree();
-		/*
-		 * It is sufficient to demonastrate the effect for sobolevDegree==1
-		 */
-		for (int i = 0; i <= sDegree; i++) {
-			setSobolevDegree(i);
-			setTrigonometricSpace(AspectJTest.getSpaceGenerator()
-					.getTrigonometricSobolevSpace(AspectJTest.getRealLine(), getTrigonometricDegree(), i));
-			final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-			getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
-		}
+	public void testOnStairCaseFunction() {
+		testOnFunction(getStaircaseFunction(), degree, sobolevDegree, eps);
 	}
 
 	@Test
 	public void testOnContinuousFunction() throws Exception {
-		final Function h = new GenericFunction() {
+		testOnFunction(new GenericFunction() {
 			private static final long serialVersionUID = 3842946945322219375L;
 
 			@Override
@@ -75,21 +66,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 				final double abs = Math.abs((Math.sin(inputValue) * Math.cos(inputValue)) - 0.25);
 				return RealLine.getInstance().get(abs);
 			}
-		};
-		Function hProjection;
-		int sDegree = getSobolevDegree();
-		/*
-		 * for sobolevDegree==1 it's still working, function is continuous. for
-		 * sobolevDegree==2 the derivative of approximated function must be
-		 * continuous...
-		 */
-		for (int i = 0; i <= sDegree; i++) {
-			setSobolevDegree(i);
-			setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpace(
-					AspectJTest.getRealLine(), getTrigonometricDegree(), getSobolevDegree()));
-			hProjection = h.getProjection(getTrigonometricSpace());
-			h.plotCompare(-Math.PI, Math.PI, hProjection);
-		}
+		}, degree, sobolevDegree, eps);
 	}
 
 }

@@ -5,6 +5,7 @@ package definitions.aspectjtest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 import definitions.prototypes.AspectJTest;
@@ -17,6 +18,8 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
+ * Not clear what this is supposed to show, maybe just remained after debugging
+ * 
  * @author RoManski
  *
  */
@@ -42,11 +45,10 @@ public class ProductSpaceTest extends AspectJTest {
 
 	@Test
 	public void testproductSpaces() {
-		final Vector tmp1 = testSpace(productLeftLeft);
-		final Vector tmp2 = testSpace(productLeftRight);
-		final Vector tmp3 = testSpace(compTimesComp);
-		final Vector tmp4 = testSpace(compTimesThree);
-		final int i = 0;
+		Assert.assertNotNull(testSpace(productLeftLeft)); // this seemas not to work
+		Assert.assertNotNull(testSpace(productLeftRight));// this neither
+		Assert.assertNotNull(testSpace(compTimesComp));
+		Assert.assertNotNull(testSpace(compTimesThree));
 	}
 
 	public Vector testSpace(EuclideanSpace space) {
@@ -54,6 +56,7 @@ public class ProductSpaceTest extends AspectJTest {
 		for (final Vector vec : space.genericBaseToList()) {
 			tmp = space.addition(tmp, vec);
 		}
+		logger.info(tmp);
 		return tmp;
 	}
 
@@ -62,15 +65,17 @@ public class ProductSpaceTest extends AspectJTest {
 		final int dim = 2;
 		final EuclideanSpace otherSpace = spaceGenerator.getFiniteDimensionalVectorSpace(complexNumbers, dim);
 		final EuclideanSpace space = spaceGenerator.getFiniteDimensionalVectorSpaceAsProduct(complexNumbers, dim);
-		boolean ans = false;
+		int i = 0;
 		for (final Vector vec1 : space.genericBaseToList()) {
 			for (final Vector vec2 : otherSpace.genericBaseToList()) {
-				ans = vec1.equals(vec2) || vec2.equals(vec1);
+				boolean ans = vec1.equals(vec2) || vec2.equals(vec1);
 				if (ans) {
 					logger.info("{} = {}", vec1, vec2);
+					i++;
 				}
 			}
 		}
+		Assert.assertEquals(i, 0);
 	}
 
 	/**

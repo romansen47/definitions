@@ -14,11 +14,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 
-	final int dim = 2;
+	final int dim = 5;
 	PrimeField f = AspectJTest.getGenerator().getGroupGenerator().getBinaries();
 
 	@Test
-	public void test() {
+	public void testShowBase() {
 
 		boolean ans = true;
 		final EuclideanSpace modulo2Space = AspectJTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(f, dim);
@@ -39,7 +39,7 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 	PrimeField cf = AspectJTest.getGenerator().getGroupGenerator().getConstructedBinaries();
 
 	@Test
-	public void test2() {
+	public void testWithConstructedBinaries() {
 
 		boolean ans = true;
 		final EuclideanSpace modulo2Space = AspectJTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(cf, dim);
@@ -55,13 +55,6 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 		}
 
 		Assert.assertTrue(ans);
-	}
-
-	@Test
-	public void test3() {
-
-		final EuclideanSpace modulo2Space = AspectJTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(cf, dim);
-		modulo2Space.genericBaseToList().get(0).toString();
 	}
 
 }

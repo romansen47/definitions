@@ -22,7 +22,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 public class AspectJTest {
 
 	public static final Logger logger = LogManager.getLogger(AspectJTest.class);
-	
+
 	private static ApplicationContextAware springConfiguration;
 	private static Generator generator;
 	private static SpaceGenerator spaceGenerator;
@@ -40,7 +40,7 @@ public class AspectJTest {
 		return generator;
 	}
 
-	public static Logger getLogger() {
+	public Logger getLogger() {
 		return logger;
 	}
 
@@ -74,7 +74,7 @@ public class AspectJTest {
 			for (final String beanName : ((SpringConfiguration) springConfiguration).getApplicationContext()
 					.getBeanNamesForType(Object.class)) {
 				logger.info("bean " + beanName);
-			} 
+			}
 
 			final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 			final Configuration config = ctx.getConfiguration();

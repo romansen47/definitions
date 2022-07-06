@@ -7,19 +7,19 @@ import definitions.prototypes.AspectJTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * 
- * @author roman
+ * @author ro
  *
  */
 public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
 
 	private int sobolevDegree = 1;
-	private final int trigDegree = 4;
+	private final int trigDegree = 7;
 
 	public int getSobolevDegree() {
 		return sobolevDegree;
@@ -44,8 +44,32 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 	}
 
 	@Test
-	public void test() {
+	public void testOnStaircaseFunction() {
+		testOnFunction(getStaircaseFunction(), trigDegree, sobolevDegree, 1d);
+	}
+
+	@Test
+	public void testOnAbsolute() {
 		final Function absolute = new GenericFunction() {
+			private static final long serialVersionUID = -5009775881103765610L;
+
+			@Override
+			public Field getField() {
+				return AspectJTest.getRealLine();
+			}
+
+			@Override
+			public Scalar value(Scalar input) {
+				return getRealLine().get(Math.abs(((Real) input).getRepresentant()));
+			}
+		};
+
+		testOnFunction(absolute, trigDegree, sobolevDegree, 1d);
+	}
+
+	@Test
+	public void testOnIdentity() {
+		final Function identity = new GenericFunction() {
 			private static final long serialVersionUID = -5009775881103765610L;
 
 			@Override
@@ -57,46 +81,9 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 			public Scalar value(Scalar input) {
 				return input;
 			}
-		};
-		final Function projectionOfAbsolute = absolute.getProjection(getTrigonometricSpace());
-		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
-
-		EuclideanSpace L2 = AspectJTest.getSpaceGenerator().getTrigonometricSpace(AspectJTest.getRealLine(),
-				getTrigonometricDegree(), Math.PI);
-		final Function projectionOfAbsolute2 = absolute.getProjection(L2);
-		projectionOfAbsolute2.plotCompare(-Math.PI, Math.PI, projectionOfAbsolute);
-	}
-
-	@Test
-	public void test1() {
-		final Function absolute = new GenericFunction() {
-			private static final long serialVersionUID = -5009775881103765610L;
-
-			@Override
-			public Field getField() {
-				return AspectJTest.getRealLine();
-			}
-
-			@Override
-			public Scalar value(Scalar input) {
-				return input;
-			}
 
 		};
-		final Function projectionOfAbsolute = absolute.getProjection(getTrigonometricSpace());
-		projectionOfAbsolute.plotCompare(-Math.PI, Math.PI, absolute);
+		testOnFunction(identity, trigDegree, sobolevDegree, 1e-3);
 	}
 
-	@Test
-	public void test2() {
-
-		EuclideanSpace L2 = AspectJTest.getSpaceGenerator().getTrigonometricSpace(AspectJTest.getRealLine(),
-				getTrigonometricDegree(), Math.PI);
-		final Function staircaseFunction1Projection = getStaircaseFunction().getProjection(getTrigonometricSpace());
-
-		final Function projectionOfAbsolute2 = getStaircaseFunction().getProjection(L2);
-		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, staircaseFunction1Projection);
-		getStaircaseFunction().plotCompare(-Math.PI, Math.PI, projectionOfAbsolute2);
-		staircaseFunction1Projection.plotCompare(-Math.PI, Math.PI, projectionOfAbsolute2);
-	}
 }
