@@ -4,11 +4,11 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  *
+ * An algebra is a vector space with an additional associative mapping
+ * (Vector,Vector) - Vector.
+ * 
  * @author ro
- *
- *         An algebra is a vector space with an additional associative mapping
- *         (Vector,Vector) - Vector.
- *
+ * 
  */
 public interface Algebra extends VectorSpace, Ring {
 

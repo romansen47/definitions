@@ -310,7 +310,7 @@ public interface ISpaceGenerator {
 			@Override
 			public String toString() {
 				String ans = "Product space UxV, where\r";
-				ans += "U is " + first.toString() + "\rans\r" + "V is " + second.toString();
+				ans += "U is " + first.toString() + "\rand\r" + "V is " + second.toString();
 				return ans;
 			}
 

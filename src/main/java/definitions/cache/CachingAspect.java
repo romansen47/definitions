@@ -14,8 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.FieldElement;
-import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
+import definitions.structures.abstr.algebra.fields.FieldElement; 
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -51,11 +50,8 @@ public class CachingAspect {
 				this.getLogger().info("Successfully restored {}-dimensional euclidean space {} from cache! ", dim, ans);
 				return ans;
 			}
-			switch (dim) {
-			case 1:
+			if(dim==1) {
 				return RealLine.getInstance();
-			case 2:
-				return ComplexPlane.getInstance();
 			}
 		}
 		final List<Vector> basetmp = new ArrayList<>();

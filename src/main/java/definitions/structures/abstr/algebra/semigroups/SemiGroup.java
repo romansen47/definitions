@@ -31,7 +31,8 @@ public interface SemiGroup extends XmlPrintable {
 	 *
 	 * @param first  first element
 	 * @param second second element
-	 * @return product of both of them
+	 * @return operation applied to both of them; for additive semi groups this will
+	 *         be the sum, for multiplicative semi group this will be multiplication
 	 */
 	default Element operation(Element first, Element second) {
 		return null;

@@ -13,6 +13,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
@@ -45,37 +46,23 @@ public class ProductSpaceTest extends AspectJTest {
 
 	@Test
 	public void testproductSpaces() {
-		Assert.assertNotNull(testSpace(productLeftLeft)); // this seemas not to work
-		Assert.assertNotNull(testSpace(productLeftRight));// this neither
-		Assert.assertNotNull(testSpace(compTimesComp));
-		Assert.assertNotNull(testSpace(compTimesThree));
+		Assert.assertTrue(testSpace(productLeftLeft));
+		Assert.assertTrue(testSpace(productLeftRight));
+		Assert.assertTrue(testSpace(compTimesComp));
+		Assert.assertTrue(testSpace(compTimesThree));
 	}
 
-	public Vector testSpace(EuclideanSpace space) {
+	public boolean testSpace(EuclideanSpace space) {
 		Vector tmp = space.nullVec();
 		for (final Vector vec : space.genericBaseToList()) {
 			tmp = space.addition(tmp, vec);
 		}
-		logger.info(tmp);
-		return tmp;
-	}
-
-	@Test
-	public void higherDimensionalVectorSpaceTest() {
-		final int dim = 2;
-		final EuclideanSpace otherSpace = spaceGenerator.getFiniteDimensionalVectorSpace(complexNumbers, dim);
-		final EuclideanSpace space = spaceGenerator.getFiniteDimensionalVectorSpaceAsProduct(complexNumbers, dim);
-		int i = 0;
-		for (final Vector vec1 : space.genericBaseToList()) {
-			for (final Vector vec2 : otherSpace.genericBaseToList()) {
-				boolean ans = vec1.equals(vec2) || vec2.equals(vec1);
-				if (ans) {
-					logger.info("{} = {}", vec1, vec2);
-					i++;
-				}
-			}
+		boolean onlyOnes = true;
+		FiniteVector newTmp = ((FiniteVector) tmp);
+		for (final Vector vec : space.genericBaseToList()) {
+			onlyOnes = onlyOnes && newTmp.getCoordinates().get(vec).equals(space.getField().getOne());
 		}
-		Assert.assertEquals(i, 0);
+		return onlyOnes;
 	}
 
 	/**

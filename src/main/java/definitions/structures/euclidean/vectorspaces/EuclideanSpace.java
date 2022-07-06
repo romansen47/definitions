@@ -18,12 +18,12 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 
 /**
- *
+ * An euclidean vector space is a finite dimensional hilbert space. It is
+ * equipped with a base. The scalar product can be used to normalize vectors,
+ * compute angles and distances between vectors and generate an orthonormal
+ * base.
+ * 
  * @author RoManski
- *
- *         An euclidean vector space is a finite dimensional hilbert space. It
- *         is equipped with a base. The norm can be used to normalize vectors,
- *         compute distances between vectors and generate an orthonormal base.
  */
 public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 

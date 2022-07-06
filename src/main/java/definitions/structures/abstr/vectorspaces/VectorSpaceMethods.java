@@ -38,7 +38,8 @@ public interface VectorSpaceMethods {
 	}
 
 	/**
-	 * Vector space is not empty.
+	 * Vector space is not empty, at least we have the neutral element w.r.t.
+	 * addition
 	 *
 	 * @return the zero vector.
 	 */

@@ -118,9 +118,10 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * real numbers "have" a double value
+	 * 
+	 * @return the double value
 	 */
-	// @Override
 	@XmlAttribute
 	public double getDoubleValue() {
 		return representant;

@@ -13,7 +13,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * @author RoManski
- *
  */
 public interface EuclideanAlgebra extends Algebra, EuclideanSpace {
 
