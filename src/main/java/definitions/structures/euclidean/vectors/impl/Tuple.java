@@ -15,6 +15,8 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class Tuple implements FiniteVector {
 
+	private static final long serialVersionUID = 1L;
+
 	final int dim;
 
 	private Map<Vector, Scalar> coordinates;

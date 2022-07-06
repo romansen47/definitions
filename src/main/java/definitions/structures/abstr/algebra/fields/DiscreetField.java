@@ -34,7 +34,7 @@ public interface DiscreetField extends DiscreetRing, Field {
 		final Vector newOne = this.getOne();
 		final Integer newOrder = getOrder();
 
-		final DiscreetGroup multiplicativeGroup = new DiscreetGroup() {
+		return new DiscreetGroup() {
 
 			@Override
 			public Element getInverseElement(final Element element) {
@@ -74,7 +74,6 @@ public interface DiscreetField extends DiscreetRing, Field {
 			}
 		};
 
-		return multiplicativeGroup;
 	}
 
 }

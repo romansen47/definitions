@@ -3,7 +3,6 @@ package definitions.structures.abstr.algebra.fields;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.rings.CommutativeRing;
@@ -125,8 +124,13 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		return null;
 	}
 
-	default Vector getZero() {
-		return nullVec();
+	/**
+	 * getter for zero scalar
+	 * 
+	 * @return
+	 */
+	default Scalar getZero() {
+		return (Scalar) nullVec();
 	}
 
 	default Vector getMultiplicativeInverseElement(final Vector factor) {
@@ -165,9 +169,10 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 			@Override
 			public Scalar[][] getGenericMatrix() {
 				final Scalar[][] mat = new Scalar[((Field) target).getDim()][((Field) source).getDim()];
-				for (final Scalar[] entry : mat) {
-					for (Scalar scalar : entry) {
-						scalar = RealLine.getInstance().getZero();
+				for (int i = 0; i < mat.length; i++) {
+					for (int j = 0; j < mat.length; j++) {
+						Scalar scalar = i == j ? getOne() : (Scalar) getZero();
+						mat[i][j] = scalar;
 					}
 				}
 				return mat;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.IntStream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,26 +56,26 @@ public class CachingAspect {
 			}
 		}
 		final List<Vector> basetmp = new ArrayList<>();
-		for (int i = 0; i < dim; i++) {
-			/*
-			 * Direct usage of constructor instead of get method in order to avoid cycles.
-			 * Don't touch this
-			 */
-			basetmp.add(new Tuple(dim));
-		}
+		/*
+		 * Direct usage of constructor instead of get method in order to avoid cycles.
+		 * Don't touch this
+		 */
+		IntStream.range(0, dim).forEach(i -> basetmp.add(new Tuple(dim)));
 		final FieldElement one = field.getOne();
 		final Vector zero = field.getZero();
-		for (int i = 0; i < dim; i++) {
+		IntStream.range(0, dim).forEach(i -> {
 			final Vector baseVec = basetmp.get(i);
 			final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) baseVec).getCoordinates();
-			for (int j = 0; j < dim; j++) {
+			IntStream.range(0, dim).forEach(j -> {
 				if (i == j) {
 					coordinates.put(baseVec, one);
 				} else {
 					coordinates.put(basetmp.get(j), (Scalar) zero);
 				}
-			}
-		}
+			});
+
+		});
+
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
 		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field, ans);
 		if (field.equals(RealLine.getInstance())) {

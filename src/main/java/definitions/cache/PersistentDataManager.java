@@ -1,5 +1,7 @@
 package definitions.cache;
 
+import java.util.stream.IntStream;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,7 +56,7 @@ public class PersistentDataManager {
 		ctx.updateLoggers();
 
 		logger.info("Regeneration of persistent data\r");
-		for (int i = 1; i < funcSpaces; i++) {
+		IntStream.range(1, funcSpaces).forEach(i -> {
 			try {
 				logger.info("Loading {}-dimensional trigonometric function space extended by linear functions",
 						(2 * i) + 1);
@@ -65,7 +67,7 @@ public class PersistentDataManager {
 						(2 * i) + 1);
 				e.printStackTrace();
 			}
-		}
+		});
 		this.saveCoordinateSpacesTest();
 		logger.info("job done");
 	}
