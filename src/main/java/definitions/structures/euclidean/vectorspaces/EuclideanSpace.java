@@ -128,7 +128,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 *
 	 * @param base the original base.
 	 * @return an orthonormal base of same span.
-	 * @throws DevisionByZeroException
+	 * @throws DevisionByZeroException if devision by zero occures
 	 */
 	default List<Vector> getOrthonormalBase(List<Vector> base) throws DevisionByZeroException {
 		final List<Vector> newBase = new ArrayList<>();

@@ -2,7 +2,6 @@ package definitions;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -25,10 +24,9 @@ public class SpringConfiguration implements ApplicationContextAware {
 
 	private static ApplicationContextAware instance;
 
-	private static Logger logger;
+	private static Logger logger = LogManager.getLogger(SpringConfiguration.class);;
 
-	@Bean(name = "springConfiguration")
-	public static synchronized ApplicationContextAware getSpringConfiguration() {
+	public static ApplicationContextAware getSpringConfiguration() {
 		if (SpringConfiguration.instance == null) {
 			SpringConfiguration.instance = new SpringConfiguration();
 		}
@@ -38,17 +36,13 @@ public class SpringConfiguration implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
-		setApplicationContext(applicationContext);
+		setApplicationContext(new AnnotationConfigApplicationContext());
+		logger.info("applicationContext {} scanning in definitions..*", applicationContext);
 		((AnnotationConfigApplicationContext) applicationContext).scan("definitions..*");
+		logger.info("applicationContext {} refreshing", applicationContext);
 		((AbstractApplicationContext) applicationContext).refresh();
+		logger.info("applicationContext {} getting bean generator", applicationContext);
 		Generator.setInstance((Generator) applicationContext.getBean("generator"));
-		SpringConfiguration.logger = logger();
-	}
-
-	@Bean(name = "annotationConfigApplicationContext")
-	public ApplicationContext annotationConfigApplicationContext() {
-		applicationContext = new AnnotationConfigApplicationContext();
-		return applicationContext;
 	}
 
 	public ApplicationContext getApplicationContext() {
@@ -56,19 +50,22 @@ public class SpringConfiguration implements ApplicationContextAware {
 	}
 
 	@Override
-	public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = new AnnotationConfigApplicationContext();
+	public void setApplicationContext(final ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
 	}
 
 	@Bean(name = "definitions.cache.CachingAspect")
+	@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public CachingAspect cachingAspect() {
 		return new CachingAspect();
 	}
 
 	@Bean(name = "generator")
 	public Generator generator() {
+		cachingAspect();
 		return new Generator();
 	}
+
 	@Bean
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public Real real() {
@@ -79,18 +76,6 @@ public class SpringConfiguration implements ApplicationContextAware {
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public RealLine realLine() {
 		return new RealLine();
-	}
-
-	@Bean(name = "logger")
-	public Logger logger() {
-		return LogManager.getLogger("spring configuration");
-	}
-
-	/**
-	 * @return the logger
-	 */
-	public Logger getLogger() {
-		return SpringConfiguration.logger;
 	}
 
 }

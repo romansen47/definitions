@@ -38,7 +38,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param space  the function space.
 	 * @param degree the sobolev degree of the converted space.
 	 * @param ortho  tells if base should be normalized
-	 * @throws DevisionByZeroException
+	 * @throws DevisionByZeroException if devision by zero occures
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space, final int degree,
 			final boolean ortho) throws DevisionByZeroException {
@@ -69,7 +69,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param left        the inf of the interval.
 	 * @param right       the sup of the intervall.
 	 * @param degree      the sobolev degree.
-	 * @throws DevisionByZeroException
+	 * @throws DevisionByZeroException if devision by zero occures
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final int degree) throws DevisionByZeroException {
@@ -87,7 +87,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @param right       the sup of the intervall.
 	 * @param degree      the sobolev degree.
 	 * @param ortho       tells if base should be normalized.
-	 * @throws DevisionByZeroException
+	 * @throws DevisionByZeroException if devision by zero occures
 	 */
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final int degree, final boolean ortho) throws DevisionByZeroException {

@@ -1,9 +1,10 @@
 package definitions.structures.abstr.algebra.semigroups;
 
 /**
+ * An element of a semi group, a monoid, a ring, field vector space etc...
+ * 
  * @author roman
  *
- * An element of a semi group, a monoid, a ring, field vector space etc...
  */
 public interface Element {
 }

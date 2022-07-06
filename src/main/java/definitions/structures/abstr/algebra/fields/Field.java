@@ -32,6 +32,13 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		return (FieldElement) EuclideanAlgebra.super.getNeutralElement();
 	}
 
+	/**
+	 * actually not a native method of a field. to be removed in future
+	 * 
+	 * @param value the input scalar
+	 * @return the conjugated scalar
+	 */
+	@Deprecated
 	default Scalar conjugate(Scalar value) {
 		return value;
 	}
@@ -44,6 +51,11 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		return isUnit(devisor);
 	}
 
+	/**
+	 * by default the characteristic is 0. we also have a FiniteField-class
+	 * 
+	 * @return the characteristic
+	 */
 	default int getCharacteristic() {
 		return 0;
 	}
@@ -57,7 +69,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		final Vector newOne = getOne();
 		final Integer newOrder = getOrder();
 
-		final Group multiplicativeGroup = new Group() {
+		return new Group() {
 
 			@Override
 			public Element getInverseElement(final Element element) {
@@ -87,8 +99,6 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 				return "Multiplicative group of " + Field.this.getField().toString();
 			}
 		};
-
-		return multiplicativeGroup;
 	}
 
 	@Override
@@ -142,7 +152,10 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 			}
 
 		};
+
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
+
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Vector get(final Element vec) {

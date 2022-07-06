@@ -105,7 +105,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real get(final double value) {
-		if(Math.abs(value)<GlobalSettings.REAL_EQUALITY_FEINHEIT) {
+		if (Math.abs(value) < GlobalSettings.REAL_EQUALITY_FEINHEIT) {
 			return getZero();
 		}
 		final Real newReal = new Real();
@@ -256,16 +256,16 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Real stretch(final Vector vec1, final Scalar r) {
-		return this.get(((Real) vec1).getDoubleValue() * ((Real)r).getDoubleValue());
+		return this.get(((Real) vec1).getDoubleValue() * ((Real) r).getDoubleValue());
 	}
 
-	//	/**
-	//	 * {@inheritDoc}
-	//	 */
-	//	@Override
-	//	public String toString() {
-	//		return "the field of real numbers";
-	//	}
+	// /**
+	// * {@inheritDoc}
+	// */
+	// @Override
+	// public String toString() {
+	// return "the field of real numbers";
+	// }
 
 	/**
 	 * {@inheritDoc}

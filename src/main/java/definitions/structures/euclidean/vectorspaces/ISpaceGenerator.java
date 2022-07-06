@@ -170,9 +170,7 @@ public interface ISpaceGenerator {
 				&& (funSpace.getInterval()[0] == left) && (funSpace.getInterval()[1] == right)) {
 			return funSpace;
 		}
-		final FiniteDimensionalFunctionSpace newSpace = new FiniteDimensionalSobolevSpace(field, genericBase, left,
-				right, degree, ortho);
-		return newSpace;
+		return new FiniteDimensionalSobolevSpace(field, genericBase, left, right, degree, ortho);
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpaceAsProduct(final Field field, final int dim) {

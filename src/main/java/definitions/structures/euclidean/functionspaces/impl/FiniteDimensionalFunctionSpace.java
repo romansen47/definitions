@@ -61,7 +61,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param left           the left border
 	 * @param right          the right border
 	 * @param orthonormalize if true, also normalize the genericBase
-	 * @throws DevisionByZeroException
+	 * @throws DevisionByZeroException if devision by zero occures
 	 */
 	public FiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final boolean orthonormalize) throws DevisionByZeroException {

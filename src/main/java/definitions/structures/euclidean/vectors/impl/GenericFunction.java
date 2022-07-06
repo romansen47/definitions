@@ -14,6 +14,14 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotter;
 
+/**
+ * a generic function is DEFINED without coordinates but using
+ * value()-implementation, yet may be carrying coordinates around later in the
+ * process
+ * 
+ * @author roman
+ *
+ */
 public abstract class GenericFunction implements Function, Element {
 
 	private static final long serialVersionUID = 1L;

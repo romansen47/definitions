@@ -10,8 +10,9 @@ import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import customaspects.CustomAspect;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
@@ -24,24 +25,16 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Aspect
-public class CachingAspect implements CustomAspect {
+@ComponentScan(basePackages = "definitions")
+@EnableAspectJAutoProxy
+public class CachingAspect {
 
 	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new ConcurrentHashMap<>();
 
-	private final Logger logger;
+	private final Logger logger = LogManager.getLogger(this.getClass());;
 
-	@Override
-	public String getGenericName() {
-		return "CachingAspect";
-	}
-
-	@Override
 	public Logger getLogger() {
 		return logger;
-	}
-
-	public CachingAspect() {
-		logger = LogManager.getLogger(this.getGenericName());
 	}
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")

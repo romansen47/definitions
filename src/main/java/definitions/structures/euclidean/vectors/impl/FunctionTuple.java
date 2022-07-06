@@ -16,6 +16,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotter;
 
 /**
+ * technically a tuple. elements of a finite dimensional function space
  *
  * @author RoManski
  *
@@ -47,9 +48,6 @@ public class FunctionTuple extends Tuple implements Function {
 
 	public LinearMapping getDerivative(final VectorSpace space) {
 		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
-			/**
-			 *
-			 */
 			private static final long serialVersionUID = 8910643729270807923L;
 
 			@Override

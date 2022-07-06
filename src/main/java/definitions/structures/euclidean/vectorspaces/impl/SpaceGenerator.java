@@ -18,9 +18,6 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintab
 	private static SpaceGenerator instance;
 
 	public static SpaceGenerator getInstance() {
-		if (SpaceGenerator.logger == null) {
-			SpaceGenerator.logger = org.apache.logging.log4j.LogManager.getLogger(SpaceGenerator.class);
-		}
 		return SpaceGenerator.instance;
 	}
 
@@ -28,7 +25,8 @@ public class SpaceGenerator implements ISpaceGenerator, Serializable, XmlPrintab
 		SpaceGenerator.instance = gen;
 	}
 
-	public static org.apache.logging.log4j.Logger logger;
+	public static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager
+			.getLogger(SpaceGenerator.class);;
 
 	@Autowired(required = true)
 	private MyCache myCache;

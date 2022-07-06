@@ -10,8 +10,8 @@ import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 /**
- * Dynamic systems are given by an vector space mapping F: V -> V and the
- * corresponding first order system y' = F(y), y(0)=y_0.
+ * Dynamic systems are given by a V-valued mapping F on V and the corresponding
+ * first order system y' = F(y), y(0)=y_0.
  * 
  * @author ro
  *
@@ -24,9 +24,9 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 	}
 
 	/**
-	 * a dnamic system is an autonomous evolution system
+	 * a dynamic system is an autonomous evolution system
 	 * 
-	 * @return
+	 * @return the defining mapping
 	 */
 	VectorSpaceSelfMapping getDefiningMapping();
 
@@ -43,9 +43,10 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 	}
 
 	/**
+	 * provides the evolution operator at time t
 	 * 
-	 * @param t
-	 * @return
+	 * @param t the time
+	 * @return the evolution operator at time t
 	 */
 	default VectorSpaceMapping getEvolutionOperator(Element t) {
 		return new VectorSpaceSelfMapping() {
@@ -83,6 +84,5 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 		};
 	}
-
 
 }

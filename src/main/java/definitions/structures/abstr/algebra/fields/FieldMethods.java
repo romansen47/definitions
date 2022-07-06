@@ -10,14 +10,32 @@ import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
+/**
+ * Interface that provides convenience methods for fields
+ * 
+ * @author roman
+ *
+ */
 public interface FieldMethods extends XmlPrintable, Serializable {
 
 	public static final Logger logger = LogManager.getLogger(FieldMethods.class);
 
+	/**
+	 * method to obtain an element. not really consistent since this makes no sence
+	 * for finite fields that are no prime fields
+	 * 
+	 * @param value the input
+	 * @return the field element
+	 */
 	default Scalar get(final double value) {
 		return null;
 	}
 
+	/**
+	 * Method to show the product matrix of base vectors of the field
+	 * 
+	 * @param field the field
+	 */
 	default void show(final Field field) {
 		final List<Vector> base = field.genericBaseToList();
 		final Scalar[][] products = new Scalar[base.size()][base.size()];

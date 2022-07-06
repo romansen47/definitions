@@ -38,15 +38,16 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	 */
 	protected EuclideanSpace grid;
 
-
 	/**
 	 * the coordinates
 	 */
 	protected List<Vector> coordinates;
 
-
 	/**
 	 * Constructor
+	 * 
+	 * @param size the size
+	 * 
 	 */
 	public GameOfLife(int size) {
 		this.size = size;

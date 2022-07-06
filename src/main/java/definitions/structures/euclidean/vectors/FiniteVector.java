@@ -10,7 +10,7 @@ import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
- * Finite vector.
+ * Finite vectors are elements of a finite dimensional vector space
  *
  * @author ro
  *
@@ -45,14 +45,14 @@ public interface FiniteVector extends Vector, FiniteVectorMethods {
 	}
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates);
 
 	/**
-	  * {@inheritDoc}
-	  */
+	 * {@inheritDoc}
+	 */
 	@Override
 	void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space);
 

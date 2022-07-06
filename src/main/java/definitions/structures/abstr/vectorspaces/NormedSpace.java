@@ -37,6 +37,11 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 */
 	Scalar norm(Vector vec);
 
+	/**
+	 * custom exception for devision by zero
+	 * 
+	 * @author roman
+	 */
 	class DevisionByZeroException extends Exception {
 		private static final long serialVersionUID = 1L;
 
@@ -50,7 +55,8 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * vector pointing towards the same direction with norm 1.
 	 *
 	 * @param vec the vector to be normalized.
-	 * @return the normalized vector.
+	 * @return the normalized vector. *
+	 * @throws DevisionByZeroException if devision by zero occures
 	 */
 	default Vector normalize(final Vector vec) throws DevisionByZeroException {
 		Vector norm = norm(vec);

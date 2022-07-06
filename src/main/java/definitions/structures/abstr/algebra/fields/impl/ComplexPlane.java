@@ -27,15 +27,10 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	private static final long serialVersionUID = -6528124823296735558L;
 
-	/*
+	/**
 	 * this one is a singleton
 	 */
-	static private EuclideanSpace instance;
-
-	/*
-	 * complex plane here is modeeled as a 2 dimensional real vector space
-	 */
-	private static RealLine realLine;
+	private static EuclideanSpace instance;
 
 	/**
 	 * Getter for the instance
@@ -48,6 +43,11 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 		}
 		return ComplexPlane.instance;
 	}
+
+	/**
+	 * the field of real numbers
+	 */
+	private static RealLine realLine;
 
 	/**
 	 * Setter for the field. We choose to work with the complex plane as a simple 2
