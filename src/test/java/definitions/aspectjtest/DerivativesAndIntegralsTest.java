@@ -120,7 +120,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 	}
 
 	@Test
-	public synchronized void testLinearMonome() {
+	public void testLinearMonome() {
 		LogManager.getLogger(DerivativesAndIntegralsTest.class).info("Comparing implicite versus explicite derivative");
 		final Vector derivative = ((DerivativeOperator) derivativeOperator).get(monome, 1);
 		final Vector derivative2 = ((DerivativeOperator) derivativeOperator).get(monome);

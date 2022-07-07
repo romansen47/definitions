@@ -32,21 +32,32 @@ public interface IGroupGenerator {
 	static Logger logger = LogManager.getLogger(IGroupGenerator.class);
 
 	class Fraction extends ProductElement {
-		private final Monoid baseMoniod;
+		private final Monoid baseMonoid;
 
 		public Fraction(Element k, Element v, Monoid baseMoniod) {
 			super(k, v);
-			this.baseMoniod = baseMoniod;
+			this.baseMonoid = baseMoniod;
 		}
 
 		@Override
 		public boolean equals(Object other) {
-			return baseMoniod.operation(getLeft(), ((Fraction) other).getRight())
-					.equals(baseMoniod.operation(((Fraction) other).getLeft(), getRight()));
+			if (other == null)
+				return false;
+
+			if (this.getClass() != other.getClass())
+				return false;
+
+			return baseMonoid.operation(getLeft(), ((Fraction) other).getRight())
+					.equals(baseMonoid.operation(((Fraction) other).getLeft(), getRight()));
+		}
+
+		@Override
+		public int hashCode() {
+			return getLeft().hashCode() + getRight().hashCode() + baseMonoid.hashCode();
 		}
 
 		public Monoid getBaseGroup() {
-			return baseMoniod;
+			return baseMonoid;
 		}
 
 		@Override

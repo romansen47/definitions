@@ -100,11 +100,17 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		};
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default FieldElement getOne() {
 		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	default FieldElement getInverseElement(Element element) {
 		if (element.equals(getOne())) {
@@ -133,7 +139,13 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		return (Scalar) nullVec();
 	}
 
-	default Vector getMultiplicativeInverseElement(final Vector factor) {
+	/**
+	 * method to get the inverse element w.r.t. multiplication, if exists
+	 * 
+	 * @param element the element
+	 * @return the multiplicative inverse, if exists, null otherwise
+	 */
+	default Vector getMultiplicativeInverseElement(final Vector element) {
 		final Field field = this;
 		final VectorSpace multLinMaps = new LinearMappingsSpace() {
 
@@ -190,7 +202,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		for (final Vector vec : genericBaseToList()) {
 			final Vector tmp = getMultiplicationMatrix().get(vec);
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
-					multLinMaps.stretch(tmp, ((FiniteVectorMethods) factor).getCoordinates().get(vec)));
+					multLinMaps.stretch(tmp, ((FiniteVectorMethods) element).getCoordinates().get(vec)));
 		}
 		return hom.solve(getOne());
 	}

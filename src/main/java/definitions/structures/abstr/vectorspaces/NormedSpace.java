@@ -4,6 +4,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import exceptions.DevisionByZeroException;
 
 /**
  *
@@ -36,19 +37,6 @@ public interface NormedSpace extends VectorSpace, MetricSpace {
 	 * @return the norm of the vector.
 	 */
 	Scalar norm(Vector vec);
-
-	/**
-	 * custom exception for devision by zero
-	 * 
-	 * @author roman
-	 */
-	class DevisionByZeroException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		DevisionByZeroException() {
-			super("division by zero exception");
-		}
-	}
 
 	/**
 	 * Any non-zero vector can be normalized. The normalization of a vector is a

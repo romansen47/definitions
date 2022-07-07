@@ -16,7 +16,6 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
-import definitions.structures.abstr.vectorspaces.NormedSpace.DevisionByZeroException;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -34,6 +33,7 @@ import definitions.structures.euclidean.vectorspaces.impl.PolynomialFunctionSpac
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
+import exceptions.DevisionByZeroException;
 
 public interface ISpaceGenerator {
 

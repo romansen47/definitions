@@ -3,18 +3,13 @@
 <aspectj>
 	<weaver options="-Xset:weaveJavaxPackages=true -verbose ">
 		<!-- -showWeaveInfo -debug -verbose -->
-		<include within="org.springframework..*" />
-		<include within="definitions.cache.CachingAspect" />
+		<include within="org.springframework..*" /> 
 		<include within="definitions..*" />
 		<exclude within="plotter.Plotter" />
 		<include within="customaspects..*" />
 		<exclude within="org.apache..*" />
 	</weaver>
 	<aspects>
-		<aspect name="definitions.cache.CachingAspect" />
-		<!--
-		<aspect name="customaspects.impl.ConcreteTestAspect" />
-		<aspect name="customaspects.impl.ConcreteProfilingAspect" /> <aspect name="DistributionCollector" /> <aspect name="PointcutSearch" 
-			/> <aspect name="customaspects.impl.ConcreteDistributionAspect" /> -->
+		<aspect name="definitions.cache.CachingAspect" /> 
 	</aspects>
 </aspectj>

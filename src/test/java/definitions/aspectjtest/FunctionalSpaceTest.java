@@ -40,6 +40,46 @@ public class FunctionalSpaceTest extends AspectJTest {
 
 	final EuclideanSpace dualDualSobolevSpace = dualSobolevSpace.getDualSpace();
 
+	@Test
+	public void spaceEqualsBidualSpaceTest() {
+		Assert.assertEquals(space, dualDualSpace);
+	}
+
+	@Test
+	public void functionSpaceEqualsBidualFunctionSpaceTest() {
+		Assert.assertEquals(functionSpace, dualDualFunctionSpace);
+	}
+
+	@Test
+	public void sobolevFunctionSpaceEqualsBidualSobolevFunctionSpaceTest() {
+		Assert.assertEquals(sobolevSpace, dualDualSobolevSpace);
+	}
+
+	@Test
+	public void spaceTest() {
+		Assert.assertTrue(testEuclideanSpace(space));
+	}
+
+	@Test
+	public void functionSpaceTest() {
+		Assert.assertTrue(testEuclideanSpace(functionSpace));
+	}
+
+	@Test
+	public void sobolevSpaceTest() {
+		Assert.assertTrue(testEuclideanSpace(sobolevSpace));
+	}
+
+	@Test
+	public void spaceDualDualTest() {
+		Assert.assertTrue(testDualSpace(dualFunctionSpace));
+	}
+
+	@Test
+	public void spaceSobolevDualDualTest() {
+		Assert.assertTrue(testDualSpace(dualSobolevSpace));
+	}
+
 	public boolean testEuclideanSpace(EuclideanSpace space) {
 		boolean ans = true;
 		for (Vector a : space.genericBaseToList()) {
@@ -76,31 +116,6 @@ public class FunctionalSpaceTest extends AspectJTest {
 			logger.info(s);
 		}
 		return ans;
-	}
-
-	@Test
-	public void spaceTest() {
-		Assert.assertTrue(testEuclideanSpace(space));
-	}
-
-	@Test
-	public void functionSpaceTest() {
-		Assert.assertTrue(testEuclideanSpace(functionSpace));
-	}
-
-	@Test
-	public void sobolevSpaceTest() {
-		Assert.assertTrue(testEuclideanSpace(sobolevSpace));
-	}
-
-	@Test
-	public void spaceDualDualTest() {
-		Assert.assertTrue(testDualSpace(dualFunctionSpace));
-	}
-
-	@Test
-	public void spaceSobolevDualDualTest() {
-		Assert.assertTrue(testDualSpace(dualSobolevSpace));
 	}
 
 }

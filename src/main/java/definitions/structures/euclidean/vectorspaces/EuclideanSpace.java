@@ -16,6 +16,7 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
+import exceptions.DevisionByZeroException;
 
 /**
  * An euclidean vector space is a finite dimensional hilbert space. It is

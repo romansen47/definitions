@@ -1,11 +1,8 @@
 package definitions.prototypes;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.springframework.context.ApplicationContextAware;
 
@@ -52,15 +49,14 @@ public class AspectJTest {
 		return spaceGenerator;
 	}
 
-	public static ApplicationContextAware getSpringConfiguration() {
-		return springConfiguration;
+	@BeforeClass
+	public static void prepare() {
+		springConfiguration = getSpringConfiguration();
 	}
 
-	@BeforeClass
-	public synchronized static void prepare() {
-		springConfiguration = getSpringConfiguration();
+	public static ApplicationContextAware getSpringConfiguration() {
 		if (springConfiguration == null) {
-			logger.info("Initializing Spring configuration\r");
+			logger.debug("Initializing Spring configuration\r");
 			setSpringConfiguration(SpringConfiguration.getSpringConfiguration());
 			setGenerator((Generator) ((SpringConfiguration) springConfiguration).getApplicationContext()
 					.getBean("generator"));
@@ -70,18 +66,18 @@ public class AspectJTest {
 			setRationals(GroupGenerator.getInstance().getRationals());
 			setRealLine(RealLine.getInstance());
 			setComplexPlane((ComplexPlane) ComplexPlane.getInstance());
-			logger.info("Created beans:");
+			logger.debug("Created beans:");
 			for (final String beanName : ((SpringConfiguration) springConfiguration).getApplicationContext()
 					.getBeanNamesForType(Object.class)) {
-				logger.info("bean " + beanName);
+				logger.debug("bean " + beanName);
 			}
-
-			final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-			final Configuration config = ctx.getConfiguration();
-			final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
-			loggerConfig.setLevel(Level.INFO);
-			ctx.updateLoggers();
 		}
+		return springConfiguration;
+	}
+
+	@Before
+	public void logNameOfTest() {
+		getLogger().info("test class: {}", getClass());
 	}
 
 	public static void setComplexPlane(final ComplexPlane complexPlane) {
@@ -105,24 +101,10 @@ public class AspectJTest {
 	}
 
 	/**
-	 * @return the naturals
-	 */
-	public static DiscreetSemiRing getNaturals() {
-		return naturals;
-	}
-
-	/**
 	 * @param naturals the naturals to set
 	 */
 	public static void setNaturals(DiscreetSemiRing naturals) {
 		AspectJTest.naturals = naturals;
-	}
-
-	/**
-	 * @return the integers
-	 */
-	public static DiscreetDomain getIntegers() {
-		return integers;
 	}
 
 	/**
@@ -133,6 +115,20 @@ public class AspectJTest {
 	}
 
 	/**
+	 * @param rationals the rationals to set
+	 */
+	public static void setRationals(PrimeField rationals) {
+		AspectJTest.rationals = rationals;
+	}
+
+	/**
+	 * @return the integers
+	 */
+	public static DiscreetDomain getIntegers() {
+		return integers;
+	}
+
+	/**
 	 * @return the rationals
 	 */
 	public static PrimeField getRationals() {
@@ -140,10 +136,10 @@ public class AspectJTest {
 	}
 
 	/**
-	 * @param rationals the rationals to set
+	 * @return the naturals
 	 */
-	public static void setRationals(PrimeField rationals) {
-		AspectJTest.rationals = rationals;
+	public static DiscreetSemiRing getNaturals() {
+		return naturals;
 	}
 
 }

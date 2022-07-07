@@ -32,7 +32,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 
 	private static Generator instance;
 
-	public static synchronized Generator getInstance() {
+	public static Generator getInstance() {
 		if (Generator.instance == null) {
 			Generator.instance = new Generator();
 			if (Generator.instance.logger == null) {
