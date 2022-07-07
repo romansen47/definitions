@@ -8,11 +8,10 @@ import java.util.regex.Pattern;
 import definitions.settings.XmlPrintable;
 
 /**
- * @author ro
- *
- *         A semi group is a set of things, which can be 'multiplied'.
+ * A semi group is a set of things, which can be 'multiplied' or 'added'. In
+ * detail, we have a mapping (Element,Element)-Element.
  * 
- *         In detail, we have a mapping (Element,Element)-Element.
+ * @author ro
  * 
  */
 public interface SemiGroup extends XmlPrintable {

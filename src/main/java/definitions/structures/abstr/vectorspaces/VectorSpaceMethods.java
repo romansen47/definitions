@@ -9,6 +9,12 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
+/**
+ * interface providing convenience methods for vector spaces
+ * 
+ * @author ro
+ *
+ */
 public interface VectorSpaceMethods {
 
 	default void assignOrthonormalCoordinates(final List<Vector> newBase, final Field field) {

@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.FieldElement;
+import definitions.structures.abstr.algebra.fields.RepresentableElement;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
@@ -27,7 +28,7 @@ import settings.GlobalSettings;
  */
 @XmlRootElement
 @Component
-public class Real extends Number implements Scalar, FieldElement, FiniteVector {
+public class Real extends Number implements Scalar, FieldElement, FiniteVector, RepresentableElement {
 
 	@XmlElement
 	private static final long serialVersionUID = 448447488896787384L;
@@ -40,6 +41,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector {
 	 * 
 	 * @return the double value
 	 */
+	@Override
 	public Double getRepresentant() {
 		return representant;
 	}

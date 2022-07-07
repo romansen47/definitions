@@ -7,10 +7,9 @@ import org.apache.logging.log4j.LogManager;
 import definitions.structures.euclidean.Generator;
 
 /**
+ * A finite semi group is a semi group with finite amount of elements
+ * 
  * @author ro
- *
- *         A finite semi group is a semi group with finite amount of elements
- *
  */
 public interface FiniteSemiGroup extends DiscreetSemiGroup {
 

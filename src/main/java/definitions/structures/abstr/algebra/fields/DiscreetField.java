@@ -6,6 +6,11 @@ import definitions.structures.abstr.algebra.groups.DiscreetRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
+/**
+ * a field that also is a discreet ring
+ * 
+ * @author ro
+ */
 public interface DiscreetField extends DiscreetRing, Field {
 
 	/**

@@ -1,5 +1,7 @@
 package definitions.aspectjtest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,6 +31,13 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 
 	private void setSobolevDegree(final int degree) {
 		sobolevDegree = degree;
+	}
+
+	public static final Logger logger = LogManager.getLogger(TrigonometricSobolevSpaceTest.class);
+
+	@Override
+	public Logger getLogger() {
+		return logger;
 	}
 
 	@Override

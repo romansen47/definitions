@@ -31,9 +31,13 @@ import definitions.structures.impl.Naturals;
 public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable {
 
 	public static GroupGenerator instance;
+
 	private DiscreetSemiRing naturals;
+
 	private DiscreetDomain integers;
+
 	private PrimeField rationals;
+
 	private FinitePrimeField binaries;
 
 	public static GroupGenerator getInstance() {
@@ -108,6 +112,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 				class Binary implements FieldElement {
 
+					private static final long serialVersionUID = 1L;
 					private Map<Vector, Scalar> coordinates;
 					private final boolean value;
 

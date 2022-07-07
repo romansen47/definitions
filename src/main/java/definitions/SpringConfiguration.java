@@ -24,7 +24,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 
 	private static ApplicationContextAware instance;
 
-	private static Logger logger = LogManager.getLogger(SpringConfiguration.class);;
+	private static Logger logger = LogManager.getLogger(SpringConfiguration.class);
 
 	public static ApplicationContextAware getSpringConfiguration() {
 		if (SpringConfiguration.instance == null) {

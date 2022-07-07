@@ -5,10 +5,9 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.Ring;
 
 /**
+ * A discreet ring is a ring that is finite or countably infinite.
  *
  * @author ro
- *
- *         A discreet ring is a ring that is finite or countably infinite.
  */
 public interface DiscreetRing extends DiscreetGroup, DiscreetSemiRing, Ring {
 

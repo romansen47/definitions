@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
+import definitions.structures.abstr.algebra.fields.RepresentableElement;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
 import definitions.structures.abstr.algebra.monoids.OrderedMonoid;
 import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
@@ -22,7 +23,7 @@ public class Naturals extends DiscreetSemiGroupImpl
 		return "the implementation of the ordered discreet semi ring of natural numbers with 0 ";
 	}
 
-	public class NaturalNumber implements Element {
+	public class NaturalNumber implements RepresentableElement {
 
 		private final int representant;
 
@@ -30,6 +31,7 @@ public class Naturals extends DiscreetSemiGroupImpl
 			representant = representant2.intValue();
 		}
 
+		@Override
 		public Integer getRepresentant() {
 			return representant;
 		}

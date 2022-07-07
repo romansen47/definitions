@@ -6,10 +6,9 @@ import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
+ * A finite group is a group with finite amount of elements
+ * 
  * @author ro
- *
- *         A finite group is a group with finite amount of elements
- *
  */
 public interface FiniteGroup extends FiniteMonoid, DiscreetGroup {
 

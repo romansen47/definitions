@@ -7,18 +7,16 @@ import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
+ * A Group G is a monoid, such that for every element there exists a so called
+ * inverse element
+ *
+ * b = getInverseElement(a),
+ *
+ * such that
+ *
+ * operation(a,b) = operation(b,a) = getIdentityElement().
+ * 
  * @author ro
- *
- *         A Group G is a monoid, such that for every element there exists a so
- *         called inverse element
- *
- *         b = getInverseElement(a),
- *
- *
- *         such that
- *
- *         operation(a,b) = operation(b,a) = getIdentityElement().
- *
  */
 public interface Group extends Monoid {
 

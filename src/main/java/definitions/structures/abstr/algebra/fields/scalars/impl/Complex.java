@@ -96,13 +96,13 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return real;
 	}
 
-	//	/**
-	//	 * {@inheritDoc}
-	//	 */
-	//	@Override
-	//	public double getDoubleValue() {
-	//		return this.getReal().getDoubleValue();
-	//	}
+	// /**
+	// * {@inheritDoc}
+	// */
+	// @Override
+	// public double getDoubleValue() {
+	// return this.getReal().getDoubleValue();
+	// }
 
 	/**
 	 * {@inheritDoc}
@@ -128,7 +128,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@Override
 	public String toString() {
-		//		return "("+getReal().getDoubleValue()+","+getImag().getDoubleValue()+")";
+		// return "("+getReal().getDoubleValue()+","+getImag().getDoubleValue()+")";
 		return toXml();
 	}
 
