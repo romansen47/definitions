@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.FieldElement; 
+import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
@@ -51,7 +51,7 @@ public class CachingAspect {
 				this.getLogger().info("Successfully restored {}-dimensional euclidean space {} from cache! ", dim, ans);
 				return ans;
 			}
-			if(dim==1) {
+			if (dim == 1) {
 				return RealLine.getInstance();
 			}
 		}
@@ -79,6 +79,7 @@ public class CachingAspect {
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
 		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field, ans);
 		if (field.equals(RealLine.getInstance())) {
+			this.getLogger().info("Saved {} to cached spaces on cachingAspect", ans);
 			CachingAspect.coordinatesSpaces.put(dim, ans);
 		}
 		return ans;

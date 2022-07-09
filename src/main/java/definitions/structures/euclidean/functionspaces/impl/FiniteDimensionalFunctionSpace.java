@@ -3,6 +3,7 @@ package definitions.structures.euclidean.functionspaces.impl;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.IntStream;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -16,6 +17,7 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import exceptions.DevisionByZeroException;
 import settings.GlobalSettings;
 
 /**
@@ -87,13 +89,32 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 * @param tmpBase the list.
 	 */
 	protected void getCosineFunctions(final int n, final double d, final List<Vector> tmpBase) {
-		for (int i = 1; i < (n + 1); i++) {
-			final Vector cos = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
-					RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(d * i)) {
-				private static final long serialVersionUID = 7151322718389633337L;
-			};
-			tmpBase.add(cos);
-		}
+		/*
+		 * be careful, no parallel streams allowed here!
+		 */
+		IntStream.range(1, n + 1)
+				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
+						RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(d * i)) {
+					private static final long serialVersionUID = 7151322718389633337L;
+				}));
+	}
+
+	/**
+	 * Method to fill a list with sine functions.
+	 *
+	 * @param n       the highest degree of the trigonometric polynomials.
+	 * @param d       frequency
+	 * @param tmpBase the list.
+	 */
+	protected void getSineFunctions(final int n, final double d, final List<Vector> tmpBase) {
+		/*
+		 * be careful, no parallel streams allowed here!
+		 */
+		IntStream.range(1, n + 1)
+				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
+						RealLine.getInstance().getZero(), RealLine.getInstance().get(d * i)) {
+					private static final long serialVersionUID = 7151322718389633337L;
+				}));
 	}
 
 	/**
@@ -126,23 +147,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public double getRight() {
 		return getInterval()[1];
-	}
-
-	/**
-	 * Method to fill a list with sine functions.
-	 *
-	 * @param n       the highest degree of the trigonometric polynomials.
-	 * @param d       frequency
-	 * @param tmpBase the list.
-	 */
-	protected void getSineFunctions(final int n, final double d, final List<Vector> tmpBase) {
-		for (int i = 1; i < (n + 1); i++) {
-			final Vector sin = new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
-					RealLine.getInstance().getZero(), RealLine.getInstance().get(d * i)) {
-				private static final long serialVersionUID = -6683701759680058862L;
-			};
-			tmpBase.add(sin);
-		}
 	}
 
 	/**

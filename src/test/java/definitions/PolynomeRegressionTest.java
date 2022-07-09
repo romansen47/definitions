@@ -12,13 +12,13 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
-import definitions.structures.abstr.vectorspaces.NormedSpace.DevisionByZeroException;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Monome;
+import exceptions.DevisionByZeroException;
 
 public class PolynomeRegressionTest extends AspectJTest {
 
@@ -36,7 +36,7 @@ public class PolynomeRegressionTest extends AspectJTest {
 	private final double toleranceExp = 1.5;
 	private final double toleranceSine = 0.75;
 
-	private static final int polynomialDegree = 7;
+	private static final int polynomialDegree = 4;
 
 	protected static final Field realLine = ((SpringConfiguration) getSpringConfiguration()).getApplicationContext()
 			.getBean(RealLine.class);
@@ -74,7 +74,7 @@ public class PolynomeRegressionTest extends AspectJTest {
 
 			@Override
 			public Scalar value(final Scalar input) {
-				Scalar x = (Scalar) realLine.product((Vector) input, (Vector) realLine.get(1 / right));
+				Scalar x = (Scalar) realLine.product((Vector) input, (Vector) realLine.get(1));
 				return realLine.get(Math.exp(((Real) x).getRepresentant()));
 			}
 		};
@@ -101,7 +101,7 @@ public class PolynomeRegressionTest extends AspectJTest {
 	@Test
 	public void regressionExpByPolynomialsTest() throws Throwable {
 		final Function ans = exp.getProjection(space);
-		ans.plotCompare(left, right, exp);
+		exp.plotCompare(left, right, ans);
 		double distance = ((Real) space.distance(ans, exp)).getRepresentant();
 		logger.info("distance to exp is {}", distance);
 		Assert.assertTrue(distance < toleranceExp);

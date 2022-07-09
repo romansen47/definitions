@@ -10,6 +10,7 @@ import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotter;
@@ -26,7 +27,7 @@ public abstract class GenericFunction implements Function, Element {
 
 	private static final long serialVersionUID = 1L;
 	private Field field;
-	Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
+	private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 	private Map<Vector, Scalar> coordinates;
 
 	/**
@@ -102,7 +103,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public void plot(final double left, final double right) {
-		((Plotter) Function.gen).plot(this, left, right);
+		((Plotter) Generator.getInstance()).plot(this, left, right);
 	}
 
 	/**
@@ -111,7 +112,7 @@ public abstract class GenericFunction implements Function, Element {
 	@Override
 
 	public void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) Function.gen).plotCompare(this, fun, left, right);
+		((Plotter) Generator.getInstance()).plotCompare(this, fun, left, right);
 	}
 
 	/**

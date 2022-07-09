@@ -10,7 +10,6 @@ import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.IGenerator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -28,8 +27,6 @@ import solver.StdDraw;
  *
  */
 public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweavable {
-
-	final static IGenerator gen = Generator.getInstance();
 
 	Function derivative = null;
 	/**
@@ -199,7 +196,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Override
 	default void plot(final double left, final double right) {
-		((Plotter) Function.gen).plot(this, left, right);
+		((Plotter) Generator.getInstance()).plot(this, left, right);
 	}
 
 	/**
@@ -207,12 +204,12 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Override
 	default void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) Function.gen).plotCompare(this, fun, left, right);
+		((Plotter) Generator.getInstance()).plotCompare(this, fun, left, right);
 	}
 
 	default void preparePlot(final double left, final double right, final StdDraw stddraw, final int count,
 			final double delta) {
-		((Plotter) Function.gen).preparePlot(this, left, right, stddraw, count, delta);
+		((Plotter) Generator.getInstance()).preparePlot(this, left, right, stddraw, count, delta);
 	}
 
 	/**

@@ -11,43 +11,30 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.springframework.context.ApplicationContextAware;
 
 import definitions.SpringConfiguration;
-import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.IFieldGenerator;
-import definitions.structures.abstr.algebra.groups.IGroupGenerator;
+import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.IGenerator;
+import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class PersistentDataManager {
+	ApplicationContextAware springConfiguration = SpringConfiguration.getSpringConfiguration();
+	Generator generator = (Generator) ((SpringConfiguration) springConfiguration).getApplicationContext()
+			.getBean("generator");
+	FieldGenerator fieldGenerator = generator.getFieldGenerator();
+	SpaceGenerator spaceGenerator = generator.getSpaceGenerator();
+	RealLine realLine = fieldGenerator.getRealLine();
+	private int funcSpaces = 20;
 
-	IGenerator generator;
-	IGroupGenerator groupGenerator;
-	IFieldGenerator fieldGenerator;
-	ISpaceGenerator spaceGenerator;
-	Field realLine;
-	int funcSpaces = 20;
-
-	public static final Logger logger = LogManager.getLogger(PersistentDataManager.class);
+	private static final Logger logger = LogManager.getLogger(PersistentDataManager.class);
 
 	public static void main(final String[] args) throws Throwable {
 		new PersistentDataManager().load();
 	}
 
-	/**
-	 * @param realLine the realLine to set
-	 */
-	public void setRealLine(Field realLine) {
-		this.realLine = realLine;
-	}
-
-	public void load() throws Throwable {
-		springConfiguration = SpringConfiguration.getSpringConfiguration();
-		generator = (Generator) ((SpringConfiguration) springConfiguration).getApplicationContext()
-				.getBean("generator");
-		groupGenerator = generator.getGroupGenerator();
-		fieldGenerator = generator.getFieldGenerator();
-		spaceGenerator = generator.getSpaceGenerator();
-		realLine = fieldGenerator.getRealLine();
+	private void load() throws Throwable {
+		Generator.getInstance();
 
 		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 		final Configuration config = ctx.getConfiguration();
@@ -56,11 +43,18 @@ public class PersistentDataManager {
 		ctx.updateLoggers();
 
 		logger.info("Regeneration of persistent data\r");
-		IntStream.range(1, funcSpaces).forEach(i -> {
+
+		IntStream.range(1, funcSpaces).forEachOrdered(i -> {
 			try {
 				logger.info("Loading {}-dimensional trigonometric function space extended by linear functions",
 						(2 * i) + 1);
-				spaceGenerator.getTrigonometricFunctionSpaceWithLinearGrowth(realLine, i);
+				EuclideanFunctionSpace space = (EuclideanFunctionSpace) spaceGenerator
+						.getTrigonometricFunctionSpaceWithLinearGrowth(realLine, i);
+
+				SpaceGenerator.getInstance().getMyCache().getConcreteCache().put(i, space);
+				LogManager.getLogger(ISpaceGenerator.class).info(
+						"Saved {}-dimensional trigonometric space {} with linear functions to cache", 2 * i + 1, space);
+
 			} catch (final Exception e) {
 				logger.error(
 						"Failed to reload cached {}-dimensional trigonometric function space extended by linear functions",
@@ -72,101 +66,8 @@ public class PersistentDataManager {
 		logger.info("job done");
 	}
 
-	public void saveCoordinateSpacesTest() throws Throwable {
-		generator.saveCoordinateSpaces();
-	}
-
-	ApplicationContextAware springConfiguration;
-
-	/**
-	 * @return the funcSpaces
-	 */
-	public int getFuncSpaces() {
-		return funcSpaces;
-	}
-
-	/**
-	 * @param funcSpaces the funcSpaces to set
-	 */
-	public void setFuncSpaces(int funcSpaces) {
-		this.funcSpaces = funcSpaces;
-	}
-
-	/**
-	 * @return the springConfiguration
-	 */
-	public ApplicationContextAware getSpringConfiguration() {
-		return springConfiguration;
-	}
-
-	/**
-	 * @param springConfiguration the springConfiguration to set
-	 */
-	public void setSpringConfiguration(SpringConfiguration springConfiguration) {
-		this.springConfiguration = springConfiguration;
-	}
-
-	/**
-	 * @return the generator
-	 */
-	public IGenerator getGenerator() {
-		return generator;
-	}
-
-	/**
-	 * @param generator the generator to set
-	 */
-	public void setGenerator(IGenerator generator) {
-		this.generator = generator;
-	}
-
-	/**
-	 * @return the groupGenerator
-	 */
-	public IGroupGenerator getGroupGenerator() {
-		return groupGenerator;
-	}
-
-	/**
-	 * @param groupGenerator the groupGenerator to set
-	 */
-	public void setGroupGenerator(IGroupGenerator groupGenerator) {
-		this.groupGenerator = groupGenerator;
-	}
-
-	/**
-	 * @return the fieldGenerator
-	 */
-	public IFieldGenerator getFieldGenerator() {
-		return fieldGenerator;
-	}
-
-	/**
-	 * @param fieldGenerator the fieldGenerator to set
-	 */
-	public void setFieldGenerator(IFieldGenerator fieldGenerator) {
-		this.fieldGenerator = fieldGenerator;
-	}
-
-	/**
-	 * @return the spaceGenerator
-	 */
-	public ISpaceGenerator getSpaceGenerator() {
-		return spaceGenerator;
-	}
-
-	/**
-	 * @param spaceGenerator the spaceGenerator to set
-	 */
-	public void setSpaceGenerator(ISpaceGenerator spaceGenerator) {
-		this.spaceGenerator = spaceGenerator;
-	}
-
-	/**
-	 * @return the realLine
-	 */
-	public Field getRealLine() {
-		return realLine;
+	private void saveCoordinateSpacesTest() throws Throwable {
+		Generator.getInstance().saveCoordinateSpaces();
 	}
 
 }

@@ -25,7 +25,7 @@ public class FunctionTest extends AspectJTest {
 
 	static final int trigonometricDegree = 20;
 	static final int sobolevDegree = 20;
-	static int derivativeDegree = 4;
+	static int derivativeDegree = 2;
 
 	static EuclideanFunctionSpace trigSpace;
 	static Function sine;
@@ -50,14 +50,6 @@ public class FunctionTest extends AspectJTest {
 
 	/**
 	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(definitions.structures.euclidean.vectorspaces.EuclideanSpace)}.
-	 */
-	public final void testGetDerivativeEuclideanSpace() {
-		Assert.fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
 	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getDerivative(int)}.
 	 */
 	@Test
@@ -68,55 +60,28 @@ public class FunctionTest extends AspectJTest {
 		Function highDerivative;
 		final EuclideanSpace space = FunctionTest.trigSpace;
 		final Function newSine = FunctionTest.sine.getProjection(space);
-
-		for (int i = 0; (4 * i) < FunctionTest.derivativeDegree; i++) {
+		double sumOfDistances = 0;
+		for (int i = 0; i < FunctionTest.derivativeDegree; i++) {
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 1));
 			FunctionTest.cosine.plotCompare(-Math.PI, Math.PI, highDerivative);
+			sumOfDistances += space.distance(highDerivative, newSine).getRepresentant();
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 2));
-			FunctionTest.trigSpace.stretch(FunctionTest.sine, FunctionTest.trigSpace.getField().get(-1))
-					.plotCompare(-Math.PI, Math.PI, highDerivative);
+			Function tmp = FunctionTest.trigSpace.stretch(FunctionTest.sine, FunctionTest.trigSpace.getField().get(-1));
+			tmp.plotCompare(-Math.PI, Math.PI, highDerivative);
+			sumOfDistances += space.distance(highDerivative, tmp).getRepresentant();
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 3));
-			FunctionTest.trigSpace.stretch(FunctionTest.cosine, FunctionTest.trigSpace.getField().get(-1))
-					.plotCompare(-Math.PI, Math.PI, highDerivative);
+			tmp = FunctionTest.trigSpace.stretch(FunctionTest.cosine, FunctionTest.trigSpace.getField().get(-1));
+			tmp.plotCompare(-Math.PI, Math.PI, highDerivative);
+			sumOfDistances += space.distance(highDerivative, tmp).getRepresentant();
 
 			highDerivative = ((Function) derivativeBuilder.get(newSine, (4 * i) + 4));
 			FunctionTest.sine.plotCompare(-Math.PI, Math.PI, highDerivative);
+			sumOfDistances += space.distance(highDerivative, FunctionTest.sine).getRepresentant();
 		}
+		Assert.assertEquals(0d, sumOfDistances / (trigonometricDegree * sobolevDegree), 1e-2);
 
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#getProjectionOfDerivative(definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace)}.
-	 */
-	public final void testGetProjectionOfDerivative() {
-		Assert.fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plot(double, double)}.
-	 */
-	public final void testPlot() {
-		Assert.fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#plotCompare(double, double, definitions.structures.abstr.vectorspaces.vectors.Function)}.
-	 */
-	public final void testPlotCompare() {
-		Assert.fail("Not yet implemented"); // TODO
-	}
-
-	/**
-	 * Test method for
-	 * {@link definitions.structures.abstr.vectorspaces.vectors.Function#value(definitions.structures.abstr.algebra.fields.scalars.Scalar)}.
-	 */
-	public final void testValue() {
-		Assert.fail("Not yet implemented"); // TODO
 	}
 
 }

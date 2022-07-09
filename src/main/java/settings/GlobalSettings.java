@@ -33,7 +33,7 @@ public class GlobalSettings {
 	/**
 	 * should cached spaces be restored?
 	 */
-	public static final boolean RESTORE_FROM_CACHED = true;
+	public static final boolean RESTORE_FROM_CACHED = false;
 
 	/**
 	 * path to cached spaces

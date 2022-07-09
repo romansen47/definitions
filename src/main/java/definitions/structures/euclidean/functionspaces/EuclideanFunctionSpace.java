@@ -18,11 +18,11 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  *
+ * An euclidean function spaceis a finite dimensional function space.
+ * 
  * @author RoManski
  *
- *         A finite dimensional function space is an euclidean function space.
  */
-@SuppressWarnings("serial")
 public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 
 	/**
@@ -41,6 +41,7 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
 					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
 				return new GenericFunction() {
+					private static final long serialVersionUID = 1L;
 
 					@Override
 					public Field getField() {
@@ -66,6 +67,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 										.getDoubleValue()));
 			}
 			return new FunctionTuple(coordinates, this) {
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public Field getField() {
 					return f;
@@ -121,19 +124,16 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	@Override
 	default Function stretch(final Vector vec, final Scalar r) {
-		try {
-			if (vec.equals(nullVec()) || r.equals(this.getField().getZero())) {
-				return nullVec();
-			}
-		} catch (Exception e) {
-			int i = 0;
+		if (vec.equals(nullVec()) || r.equals(this.getField().getZero())) {
+			return nullVec();
 		}
 		if (r.equals(this.getField().getOne())) {
-			return (Function) vec;// ((Function) vec).getProjection(this);
+			return (Function) vec;
 		}
 		final Field f = this.getField();
 		if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 			return new GenericFunction() {
+				private static final long serialVersionUID = 1L;
 
 				@Override
 				public Field getField() {

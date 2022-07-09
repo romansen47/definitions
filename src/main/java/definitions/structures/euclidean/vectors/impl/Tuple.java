@@ -85,7 +85,6 @@ public class Tuple implements FiniteVector {
 	 * {@inheritDoc}
 	 */
 	@Override
-//	@XmlAttribute
 	public Map<Vector, Scalar> getCoordinates() {
 		return coordinates;
 	}
@@ -98,18 +97,6 @@ public class Tuple implements FiniteVector {
 		}
 		str += "</Tuple>\r";
 		return str;
-//		try {
-//			for (int i = 0; i < this.dim; i++) {
-//				str += this.getCoordinates()
-//						.get(((EuclideanSpace) SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim))
-//								.genericBaseToList().get(i))
-//						+ "\r";
-//			}
-//			return str;
-//		} catch (final Throwable e) {
-//			e.printStackTrace();
-//			return "Problems occured...";
-//		}
 	}
 
 	@Override

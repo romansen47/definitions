@@ -36,7 +36,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		if (Generator.instance == null) {
 			Generator.instance = new Generator();
 			if (Generator.instance.logger == null) {
-				Generator.instance.logger = LogManager.getLogger(SpaceGenerator.class);
+				Generator.instance.logger = LogManager.getLogger(Generator.class);
 			}
 		}
 		if (Generator.restoreFromCached) {
@@ -111,7 +111,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 			spaceGenerator.setMyCache(ans);
 			obj_in.close();
 		} catch (final Exception e) {
-			e.addSuppressed(new Exception("failed to load myCache from local file"));
+			logger.info("failed to load myCache from local file");
 		}
 	}
 

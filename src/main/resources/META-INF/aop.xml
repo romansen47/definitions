@@ -8,8 +8,9 @@
 		<exclude within="plotter.Plotter" />
 		<include within="customaspects..*" />
 		<exclude within="org.apache..*" />
+		<exclude within="org.junit.Test" /> 
 	</weaver>
 	<aspects>
-		<aspect name="definitions.cache.CachingAspect" /> 
+		<aspect name="definitions.cache.CachingAspect" />  
 	</aspects>
 </aspectj>

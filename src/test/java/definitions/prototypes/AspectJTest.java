@@ -51,7 +51,9 @@ public class AspectJTest {
 
 	@BeforeClass
 	public static void prepare() {
-		springConfiguration = getSpringConfiguration();
+		if (springConfiguration == null) {
+			springConfiguration = getSpringConfiguration();
+		}
 	}
 
 	public static ApplicationContextAware getSpringConfiguration() {
@@ -69,7 +71,7 @@ public class AspectJTest {
 			logger.debug("Created beans:");
 			for (final String beanName : ((SpringConfiguration) springConfiguration).getApplicationContext()
 					.getBeanNamesForType(Object.class)) {
-				logger.debug("bean " + beanName);
+				logger.info("bean " + beanName);
 			}
 		}
 		return springConfiguration;

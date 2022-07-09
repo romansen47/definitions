@@ -37,7 +37,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		if ((vec1 instanceof FiniteVector) && (vec2 instanceof FiniteVector) && (vec1.getDim().equals(getDim()))) {
 			final List<Vector> base = genericBaseToList();
 			final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
-			base.stream().forEach(vec -> {
+			base.stream().forEach(vec -> { // no parallel stream here?
 				final Vector baseVec = getBaseVec(vec);
 				final Vector firstSummand = ((FiniteVector) vec1).getCoordinates().get(getBaseVec(vec));
 				final Vector secondSummand = ((FiniteVector) vec2).getCoordinates().get(getBaseVec(vec));
@@ -101,6 +101,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 				return tmp;
 			}
 		}
+		LogManager.getLogger(EuclideanSpace.class).error("no corresponding base vector found for {}", vec);
 		return null;
 	}
 
@@ -171,7 +172,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	/**
 	 * Method to show the matrix of scalar products between the base elements.
 	 */
-	default void show() {
+	default Scalar[][] show() {
 		final List<Vector> base = genericBaseToList();
 		final Scalar[][] scalarProducts = new Scalar[base.size()][base.size()];
 		int i = 0;
@@ -186,6 +187,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 			LogManager.getLogger(EuclideanSpace.class).info(s);
 			i++;
 		}
+		return scalarProducts;
 	}
 
 	/**

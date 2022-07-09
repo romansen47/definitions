@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.velocity.texen.Generator;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -34,6 +35,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
 import exceptions.DevisionByZeroException;
+import exceptions.ExtendingFailedException;
 
 public interface ISpaceGenerator {
 
@@ -99,14 +101,6 @@ public interface ISpaceGenerator {
 			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
 		} else {
 			throw new ExtendingFailedException(space, fun);
-		}
-	}
-
-	class ExtendingFailedException extends Exception {
-		private static final long serialVersionUID = 8045812065455777899L;
-
-		ExtendingFailedException(VectorSpace space, Vector fun) {
-			super("Extention for " + space + " by " + fun + " failed for some reason");
 		}
 	}
 
@@ -224,6 +218,7 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
 			throws DevisionByZeroException, ExtendingFailedException {
+		Generator.getInstance();
 		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
 		if (space != null) {
 			LogManager.getLogger(ISpaceGenerator.class).info(
@@ -231,7 +226,7 @@ public interface ISpaceGenerator {
 					((2 * n) + 1), space);
 			return space;
 		}
-		final EuclideanSpace newSpace = extend(getTrigonometricSpace(f, n, right), new GenericFunction() {
+		return extend(getTrigonometricSpace(f, n, right), new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -244,10 +239,6 @@ public interface ISpaceGenerator {
 				return input;
 			}
 		});
-		getMyCache().getConcreteCache().put(n, newSpace);
-		LogManager.getLogger(ISpaceGenerator.class).info(
-				"Saved {}-dimensional trigonometric space {} with linear functions to cache", ((2 * n) + 1), space);
-		return getMyCache().getConcreteCache().get(n);
 
 	}
 

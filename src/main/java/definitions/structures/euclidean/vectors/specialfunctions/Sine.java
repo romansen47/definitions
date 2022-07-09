@@ -1,5 +1,7 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
+import java.util.Objects;
+
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -8,9 +10,6 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class Sine extends GenericFunction {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 4429300404671715544L;
 	private final Scalar magnitude;
 	private final Scalar translation;
@@ -22,11 +21,6 @@ public abstract class Sine extends GenericFunction {
 		 */
 		this(RealLine.getInstance().get(a), RealLine.getInstance().get(b), RealLine.getInstance().get(c),
 				RealLine.getInstance());
-
-		//		this.setField(RealLine.getInstance());
-		//		this.magnitude = this.getField().get(a);
-		//		this.translation = this.getField().get(b);
-		//		this.frequency = this.getField().get(c);
 	}
 
 	public Sine(final Scalar a, final Scalar b, final Scalar c) {
@@ -69,6 +63,24 @@ public abstract class Sine extends GenericFunction {
 	public Scalar value(final Scalar input) {
 		return getField().get(((Real) magnitude).getDoubleValue() * Math.sin(((Real) getTranslation()).getDoubleValue()
 				+ (((Real) getFrequency()).getDoubleValue() * ((Real) input).getDoubleValue())));
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(frequency, magnitude, translation);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sine other = (Sine) obj;
+		return Objects.equals(frequency, other.frequency) && Objects.equals(magnitude, other.magnitude)
+				&& Objects.equals(translation, other.translation);
 	}
 
 }

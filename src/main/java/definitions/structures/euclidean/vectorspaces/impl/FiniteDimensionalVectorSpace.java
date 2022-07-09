@@ -172,14 +172,6 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void show() {
-		EuclideanSpace.super.show();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public String toString() {
 		String ans = "";
 		try {

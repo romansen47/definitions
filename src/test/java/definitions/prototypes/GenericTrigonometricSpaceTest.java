@@ -2,78 +2,83 @@ package definitions.prototypes;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class GenericTrigonometricSpaceTest extends AspectJTest {
+/**
+ * generic abstract test class for trigonometric spaces
+ * 
+ * @author roman
+ *
+ */
+public abstract class GenericTrigonometricSpaceTest extends AspectJTest {
 
-	private int trigonometricDegree;
-	private EuclideanSpace trigonometricSpace;
-	private String path = "src/main/resources/test.csv";
-	private double[][] testValues;
-	private GenericFunction staircaseFunction;
-	private Field f;
+	/**
+	 * a tolerance parameter
+	 */
+	protected double eps = 1d;
 
-	public Field getField() {
-		return f;
-	}
+	/**
+	 * the trigonometric degree of tested space
+	 */
+	protected int trigonometricDegree;
+	/**
+	 * the sobolev degree of tested space
+	 */
+	protected Integer sobolevDegree;
+	/**
+	 * the trigonometric space
+	 */
+	protected EuclideanSpace trigonometricSpace;
+	/**
+	 * path to prepared values of input function
+	 */
+	protected String path = "src/main/resources/test2.csv";
 
+	/**
+	 * the values
+	 */
+	protected double[][] testValues;
+
+	/**
+	 * the 'stair case function'.
+	 */
+	protected GenericFunction staircaseFunction;
+
+	/**
+	 * the field
+	 */
+	protected Field f;
+
+	/**
+	 * getter for path of input values
+	 * 
+	 * @return the path for input values
+	 */
 	public String getPath() {
 		return path;
-	}
-
-	public GenericFunction getStaircaseFunction() {
-		return staircaseFunction;
-	}
-
-	public int getTrigonometricDegree() {
-		return trigonometricDegree;
-	}
-
-	public EuclideanSpace getTrigonometricSpace() {
-		return trigonometricSpace;
-	}
-
-	public void setField(final Field f) {
-		this.f = f;
-	}
-
-	public void setPath(final String path) {
-		this.path = path;
-	}
-
-	public void setStaircaseFunction(final GenericFunction staircaseFunction) {
-		this.staircaseFunction = staircaseFunction;
-	}
-
-	public void setTrigonometricDegree(final int trigonometricDegree) {
-		this.trigonometricDegree = trigonometricDegree;
-	}
-
-	public void setTrigonometricSpace(final EuclideanSpace trigonometricSpace) {
-		this.trigonometricSpace = trigonometricSpace;
 	}
 
 	@Before
 	public void setUp() throws Exception {
 
-		f = AspectJTest.getRealLine();
-
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getNormedTrigonometricSpace(f, getTrigonometricDegree()));
+		setTrigonometricSpace(
+				AspectJTest.getSpaceGenerator().getNormedTrigonometricSpace(getField(), getTrigonometricDegree()));
 		testValues = definitions.aspectjtest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() {
-
-			private static final long serialVersionUID = -8361584686661267908L;
+			private static final long serialVersionUID = 1L;
 			private final int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
 			public Field getField() {
-				return f;
+				return GenericTrigonometricSpaceTest.this.getField();
 			}
 
 			@Override
@@ -87,6 +92,49 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 				return getField().get(testValues[1][k]);
 			}
 		});
+	}
+
+	@Test
+	public void testOnContinuousFunction() throws Exception {
+		testOnFunction(new GenericFunction() {
+			private static final long serialVersionUID = 3842946945322219375L;
+
+			@Override
+			public Field getField() {
+				return AspectJTest.getRealLine();
+			}
+
+			@Override
+			public Scalar value(Scalar input) {
+				final Double inputValue = ((Real) input).getDoubleValue();
+				final double abs = Math.abs((Math.sin(inputValue) * Math.cos(inputValue)) - 0.25);
+				return RealLine.getInstance().get(abs);
+			}
+		}, getTrigonometricDegree(), getSobolevDegree(), getEps());
+	}
+
+	public GenericFunction getStaircaseFunction() {
+		staircaseFunction = new GenericFunction() {
+			private static final long serialVersionUID = 1L;
+			private final int length = (int) testValues[0][testValues[0].length - 1];
+
+			@Override
+			public Field getField() {
+				return GenericTrigonometricSpaceTest.this.getField();
+			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newInput = ((length / (2 * Math.PI)) * ((Real) input).getDoubleValue()) + (length / 2.);
+				int k = 0;
+				final int l = (int) (newInput - (newInput % 1));
+				while (((k + 1) < testValues[0].length) && (testValues[0][k] < l)) {
+					k++;
+				}
+				return getField().get(testValues[1][k]);
+			}
+		};
+		return staircaseFunction;
 	}
 
 	protected void testOnFunction(Function f, int degree, Integer sobolevDegree, double eps) {
@@ -112,5 +160,88 @@ public class GenericTrigonometricSpaceTest extends AspectJTest {
 		getLogger().info("distance / norm = {} / {} = {}  {}", distance, norm_of_function, distance / norm_of_function,
 				s);
 		Assert.assertTrue(distance / norm_of_function < eps);
+	}
+
+	@Test
+	public void testOnStairCaseFunction() {
+		testOnFunction(getStaircaseFunction(), getTrigonometricDegree(), getSobolevDegree(), getEps());
+	}
+
+	@Test
+	public void testOnAbsolute() {
+		final Function absolute = new GenericFunction() {
+			private static final long serialVersionUID = -5009775881103765610L;
+
+			@Override
+			public Field getField() {
+				return AspectJTest.getRealLine();
+			}
+
+			@Override
+			public Scalar value(Scalar input) {
+				return getRealLine().get(Math.abs(((Real) input).getRepresentant()));
+			}
+		};
+
+		testOnFunction(absolute, getTrigonometricDegree(), getSobolevDegree(), getEps());
+	}
+
+	@Test
+	public void testOnIdentity() {
+		final Function identity = new GenericFunction() {
+			private static final long serialVersionUID = -5009775881103765610L;
+
+			@Override
+			public Field getField() {
+				return AspectJTest.getRealLine();
+			}
+
+			@Override
+			public Scalar value(Scalar input) {
+				return input;
+			}
+
+		};
+		testOnFunction(identity, getTrigonometricDegree(), getSobolevDegree(), getEps());
+	}
+
+	protected Field getField() {
+		return f;
+	}
+
+	protected void setField(Field f) {
+		this.f = f;
+	}
+
+	protected double getEps() {
+		return eps;
+	};
+
+	protected int getTrigonometricDegree() {
+		return trigonometricDegree;
+	}
+
+	protected void setTrigonometricDegree(Integer trigDegree) {
+		this.trigonometricDegree = trigDegree;
+	}
+
+	protected EuclideanSpace getTrigonometricSpace() {
+		return trigonometricSpace;
+	}
+
+	protected void setTrigonometricSpace(EuclideanSpace space) {
+		this.trigonometricSpace = space;
+	}
+
+	protected void setPath(final String path) {
+		this.path = path;
+	}
+
+	protected void setStaircaseFunction(final GenericFunction staircaseFunction) {
+		this.staircaseFunction = staircaseFunction;
+	}
+
+	protected Integer getSobolevDegree() {
+		return this.sobolevDegree;
 	}
 }

@@ -10,21 +10,15 @@ import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
-import definitions.structures.abstr.vectorspaces.NormedSpace.DevisionByZeroException;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
+import exceptions.DevisionByZeroException;
 
 public interface IGenerator extends Serializable {
-
-//	Map<Integer, EuclideanSpace> getCachedSpaces();
-
-//	default Vector getFiniteVector(int dim) {
-//		return getVectorgenerator().getFiniteVector(dim);
-//	}
 
 	FieldGenerator getFieldGenerator();
 

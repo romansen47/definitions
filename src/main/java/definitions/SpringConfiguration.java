@@ -44,6 +44,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 		((AbstractApplicationContext) applicationContext).refresh();
 		logger.info("applicationContext {} getting bean generator", applicationContext);
 		Generator.setInstance((Generator) applicationContext.getBean("generator"));
+		Generator.getInstance();
 	}
 
 	public void updateLoggers() {

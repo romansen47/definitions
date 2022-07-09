@@ -24,50 +24,40 @@ public class ComplexPlaneMockitoTest extends AspectJTest {
 
 	@Test
 	public void complexTest() {
-		Assert.assertTrue(complexPlane.complex().equals(complexPlane.getZero()));
+		Assert.assertEquals(complexPlane.complex(), complexPlane.getZero());
 	}
 
 	@Test
 	public void conjugateTest() {
-		Assert.assertTrue(complexPlane.conjugate((Scalar) baseVector1).equals(baseVector1));
-		Assert.assertTrue(complexPlane.conjugate((Scalar) baseVector2)
-				.equals(complexPlane.product(complexPlane.getMinusOne(), baseVector2)));
-	}
-
-	@Test
-	public void getTest() {
-		for (double x = -10.; x < 10; x++) {
-			Complex y = complexPlane.get(x);
-			Assert.assertTrue(y.getImag().equals(realLine.getZero()));
-			Assert.assertTrue(y.getReal().equals(realLine.get(x)));
-		}
+		Assert.assertEquals(complexPlane.conjugate((Scalar) baseVector1), baseVector1);
+		Assert.assertEquals(complexPlane.conjugate((Scalar) baseVector2),
+				complexPlane.product(complexPlane.getMinusOne(), baseVector2));
 	}
 
 	@Test
 	public void getMultiplicationMatrixTest() {
-		Assert.assertTrue(identity.get(baseVector1).equals(baseVector1));
-		Assert.assertTrue(identity.get(baseVector2).equals(baseVector2));
-		Assert.assertTrue(rotation.get(baseVector1).equals(baseVector2));
-		Assert.assertTrue(rotation.get(baseVector2)
-				.equals(complexPlane.multiplication(getComplexPlane().getMinusOne(), baseVector1)));
+		Assert.assertEquals(identity.get(baseVector1), baseVector1);
+		Assert.assertEquals(identity.get(baseVector2), baseVector2);
+		Assert.assertEquals(rotation.get(baseVector1), baseVector2);
+		Assert.assertEquals(rotation.get(baseVector2),
+				complexPlane.multiplication(getComplexPlane().getMinusOne(), baseVector1));
 	}
 
 	@Test
 	public void getMultiplicativeInverseElementTest() {
 		Complex y = complexPlane.getMultiplicativeInverseElement(complexPlane.get(2, 0));
-		Assert.assertTrue(y.getReal().equals(realLine.get(0.5)));
-		Assert.assertTrue(y.getImag().equals(realLine.getZero()));
+		Assert.assertEquals(y.getReal(), realLine.get(0.5));
+		Assert.assertEquals(y.getImag(), realLine.getZero());
 
 		Complex z = complexPlane.getMultiplicativeInverseElement(complexPlane.getI());
-		Assert.assertTrue(z.getReal().equals(realLine.getZero()));
-		Assert.assertTrue(z.getImag().equals(realLine.get(-1)));
+		Assert.assertEquals(z.getReal(), realLine.getZero());
+		Assert.assertEquals(z.getImag(), realLine.get(-1));
 
 	}
 
 	@Test
 	public void getPrimeFieldTest() {
-		Assert.assertTrue(
-				complexPlane.getPrimeField().equals(Generator.getInstance().getGroupGenerator().getRationals()));
+		Assert.assertEquals(complexPlane.getPrimeField(), Generator.getInstance().getGroupGenerator().getRationals());
 	}
 
 }

@@ -8,6 +8,7 @@ import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * interface providing convenience methods for vector spaces
@@ -23,6 +24,8 @@ public interface VectorSpaceMethods {
 			newBase.stream().forEach(
 					otherVec -> tmpCoord.put(otherVec, vec == otherVec ? field.getOne() : (Scalar) field.getZero()));
 			((FiniteVectorMethods) vec).setCoordinates(tmpCoord);
+			((FiniteVectorMethods) vec).setCoordinates(tmpCoord, (EuclideanSpace) this);
+
 		}
 	}
 

@@ -10,6 +10,7 @@ import definitions.structures.abstr.mappings.impl.LinearMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -83,7 +84,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public void plot(final double left, final double right) {
-		((Plotter) Function.gen).plot(this, left, right);
+		((Plotter) Generator.getInstance()).plot(this, left, right);
 	}
 
 	/**
@@ -91,7 +92,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) Function.gen).plotCompare(this, fun, left, right);
+		((Plotter) Generator.getInstance()).plotCompare(this, fun, left, right);
 	}
 
 	@Override
@@ -101,7 +102,7 @@ public class FunctionTuple extends Tuple implements Function {
 
 	@Override
 	public Scalar value(final Scalar input) {
-		Scalar ans = (Scalar) this.getField().getZero();
+		Scalar ans = this.getField().getZero();
 		for (final Vector fun : this.getCoordinates().keySet()) {
 			ans = (Scalar) this.getField().addition(ans,
 					this.getField().product(((Function) fun).value(input), this.getCoordinates().get(fun)));
