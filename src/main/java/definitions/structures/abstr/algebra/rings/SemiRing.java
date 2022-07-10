@@ -41,9 +41,6 @@ public interface SemiRing extends Monoid {
 	default Element multiplication(final Element element, final Element otherElement) {
 		final Element neutralElement = this.getNeutralElement();
 		final boolean cond1 = element.equals(neutralElement);
-		if (otherElement == null) {
-			int i = 0;
-		}
 		final boolean cond2 = otherElement.equals(neutralElement);
 		if (cond1 || cond2) {
 			return neutralElement;

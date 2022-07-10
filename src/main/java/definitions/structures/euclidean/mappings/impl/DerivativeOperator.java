@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceAutomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
@@ -18,14 +17,14 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 
 	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
 
-	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
+	protected DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 		linearity = new ConcurrentHashMap<>();
 		this.fillCoordinates(source, target);
 		this.getGenericMatrix();
 	}
 
-	public DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
+	protected DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target,
 			final Map<Vector, Map<Vector, Scalar>> coordinates) {
 		super(source, target, coordinates);
 	}
@@ -36,11 +35,6 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 			final Map<Vector, Scalar> derivativeOnSpace = derivative.getCoordinates(target);
 			linearity.put(baseVec, derivativeOnSpace);
 		}
-	}
-
-	@Override
-	public Vector get(final Element vec) {
-		return super.get(vec);
 	}
 
 	public Vector get(final Vector vec, final int degree) {

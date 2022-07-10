@@ -8,8 +8,6 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
- * {@link https://en.wikipedia.org/wiki/Vector_space}
- *
  * We consider real vector spaces. A F-vectorspace V is a group V and a field F
  * operating on it. There exist laws for this operation. In detail we have
  * 

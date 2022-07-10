@@ -3,6 +3,7 @@ package definitions.structures.abstr.algebra.groups;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -17,10 +18,10 @@ import definitions.structures.abstr.algebra.monoids.FiniteMonoid;
 import definitions.structures.abstr.algebra.monoids.Monoid;
 import definitions.structures.abstr.algebra.rings.DiscreetDomain;
 import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
+import definitions.structures.abstr.algebra.rings.Ring;
 import definitions.structures.abstr.algebra.rings.SemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
-import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -31,12 +32,17 @@ public interface IGroupGenerator {
 
 	static Logger logger = LogManager.getLogger(IGroupGenerator.class);
 
-	class Fraction extends ProductElement {
+	public class Fraction extends ProductElement {
 		private final Monoid baseMonoid;
 
 		public Fraction(Element k, Element v, Monoid baseMoniod) {
 			super(k, v);
 			this.baseMonoid = baseMoniod;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(baseMonoid, getLeft(), getRight());
 		}
 
 		@Override
@@ -49,11 +55,6 @@ public interface IGroupGenerator {
 
 			return baseMonoid.operation(getLeft(), ((Fraction) other).getRight())
 					.equals(baseMonoid.operation(((Fraction) other).getLeft(), getRight()));
-		}
-
-		@Override
-		public int hashCode() {
-			return getLeft().hashCode() + getRight().hashCode() + baseMonoid.hashCode();
 		}
 
 		public Monoid getBaseGroup() {
@@ -185,8 +186,6 @@ public interface IGroupGenerator {
 
 		private final Element left;
 		private final Element right;
-
-		// protected double representant;
 
 		public ProductElement(final Element Element, final Element Element2) {
 			left = Element;
@@ -493,11 +492,11 @@ public interface IGroupGenerator {
 		};
 	}
 
-	class MultiplicationFraction extends Fraction implements FieldElement {
+	public class MultiplicationFraction extends Fraction implements FieldElement {
 
-		Map<Vector, Scalar> coordinates;
-		Ring monoid;
-		Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
+		protected Map<Vector, Scalar> coordinates;
+		protected Ring monoid;
+		protected Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
 
 		public MultiplicationFraction(Element k, Element v, Ring baseField) {
 			super(k, v, baseField);
@@ -522,6 +521,11 @@ public interface IGroupGenerator {
 			coordinatesMap.put(space, coordinates);
 		}
 
+//		@Override
+//		public int hashCode() {
+//			return Objects.hash(coordinates, coordinatesMap, monoid, getLeft(), getRight());
+//		}
+
 		@Override
 		public boolean equals(Object o) {
 			boolean ans = true;
@@ -540,6 +544,7 @@ public interface IGroupGenerator {
 			}
 			return ans;
 		}
+
 	}
 
 	default PrimeField getPrimeField(DiscreetDomain domain) {
@@ -552,7 +557,7 @@ public interface IGroupGenerator {
 	default PrimeField completeToDiscreetField(DiscreetDomain domain) {
 		return new PrimeField() {
 
-			final private DiscreetDomain monoid = domain;
+			final DiscreetDomain monoid = domain;
 			private FieldElement neutralElement;
 			private FieldElement one;
 

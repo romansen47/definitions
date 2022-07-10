@@ -15,6 +15,8 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class LinearSelfMapping extends FiniteDimensionalLinearMapping implements VectorSpaceEndomorphism {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constructor.
 	 *

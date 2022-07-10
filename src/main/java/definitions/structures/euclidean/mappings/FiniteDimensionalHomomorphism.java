@@ -28,6 +28,7 @@ import definitions.structures.euclidean.vectorspaces.ParameterizedSpace;
  * @author ro
  *
  */
+@SuppressWarnings("deprecation")
 public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 
 	/**

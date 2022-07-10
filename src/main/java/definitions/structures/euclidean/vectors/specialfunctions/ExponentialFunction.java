@@ -1,5 +1,7 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
+import java.util.Objects;
+
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
@@ -14,22 +16,19 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
  */
 public abstract class ExponentialFunction extends GenericFunction {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1297369141413774111L;
 
 	/**
 	 * the parameter a.
 	 */
-	final private Scalar a;
+	private final Scalar a;
 
 	/**
 	 * the parameter b.
 	 */
-	final private Scalar b;
+	private final Scalar b;
 
-	public ExponentialFunction() {
+	protected ExponentialFunction() {
 		a = RealZero.getZero();
 		b = RealLine.getInstance().getOne();
 	}
@@ -40,7 +39,7 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 * @param a the parameter a.
 	 * @param b the parameter b.
 	 */
-	public ExponentialFunction(final Scalar a, final Scalar b) {
+	protected ExponentialFunction(final Scalar a, final Scalar b) {
 		this.a = a;
 		this.b = b;
 	}
@@ -58,6 +57,24 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getField().get(Math.exp(((Real) a).getDoubleValue() + (((Real) b).getDoubleValue() * ((Real) input).getDoubleValue())));
+		return getField().get(Math
+				.exp(((Real) a).getDoubleValue() + (((Real) b).getDoubleValue() * ((Real) input).getDoubleValue())));
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(a, b);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ExponentialFunction other = (ExponentialFunction) obj;
+		return Objects.equals(a, other.a) && Objects.equals(b, other.b);
 	}
 }

@@ -159,28 +159,29 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	 */
 	@Override
 	public String toXml() {
-		String ans = "<linearMapping>";
-		ans += "<source>" + source.toXml() + "</source>";
-		ans += "<target>" + target.toXml() + "</target>";
-		ans += "<base>";
+		final StringBuilder builder = new StringBuilder();
+		builder.append("<linearMapping>");
+		builder.append("<source>" + source.toXml() + "</source>");
+		builder.append("<target>" + target.toXml() + "</target>");
+		builder.append("<base>");
 		for (final Vector vec1 : ((EuclideanSpace) source).genericBaseToList()) {
 			for (final Vector vec2 : ((EuclideanSpace) target).genericBaseToList()) {
-				ans += "<sourceVector>";
-				ans += vec1.toXml();
-				ans += "</sourceVector>";
+				builder.append("<sourceVector>");
+				builder.append(vec1.toXml());
+				builder.append("</sourceVector>");
 
-				ans += "<targetVector>";
-				ans += vec2.toXml();
-				ans += "</targetVector>";
+				builder.append("<targetVector>");
+				builder.append(vec2.toXml());
+				builder.append("</targetVector>");
 
-				ans += "<value>";
-				ans += getImageVectorOfBaseVector(vec1).get(vec2).toXml();
-				ans += "</value>";
+				builder.append("<value>");
+				builder.append(getImageVectorOfBaseVector(vec1).get(vec2).toXml());
+				builder.append("</value>");
 			}
 		}
-		ans += "</base>";
-		ans += "</linearMapping>";
-		return ans;
+		builder.append("</base>");
+		builder.append("</linearMapping>");
+		return builder.toString();
 	}
 
 }

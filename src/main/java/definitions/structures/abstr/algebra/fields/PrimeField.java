@@ -28,6 +28,7 @@ public interface PrimeField extends Field {
 		final Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix = new ConcurrentHashMap<>();
 		final Vector one = this.getOne();
 		final VectorSpaceHomomorphism hom = new Identity(this) {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Scalar[][] getGenericMatrix() {

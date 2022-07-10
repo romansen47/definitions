@@ -171,6 +171,8 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 
 	/**
 	 * Method to show the matrix of scalar products between the base elements.
+	 * 
+	 * @return an matrix of the products of the base elements
 	 */
 	default Scalar[][] show() {
 		final List<Vector> base = genericBaseToList();

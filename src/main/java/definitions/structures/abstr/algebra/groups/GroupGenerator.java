@@ -278,6 +278,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 						coordinates.put(one, one);
 						linearity.put(one, coordinates);
 						final VectorSpaceHomomorphism ans = new LinearSelfMapping(this, linearity) {
+							private static final long serialVersionUID = 1L;
 
 							@Override
 							public Vector get(Element vec) {
@@ -378,6 +379,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 					FieldElement element = (FieldElement) getElements().get(r);
 					if (element == null) {
 						element = new FieldElement() {
+							private static final long serialVersionUID = 1L;
 
 							@Override
 							public Map<Vector, Scalar> getCoordinates() {

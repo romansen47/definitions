@@ -1,5 +1,6 @@
 package definitions.structures.abstr.vectorspaces;
 
+import definitions.structures.abstr.algebra.rings.Ring;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**

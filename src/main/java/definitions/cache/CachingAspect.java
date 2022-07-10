@@ -31,7 +31,7 @@ public class CachingAspect {
 
 	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new ConcurrentHashMap<>();
 
-	private final Logger logger = LogManager.getLogger(this.getClass());;
+	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	public Logger getLogger() {
 		return logger;

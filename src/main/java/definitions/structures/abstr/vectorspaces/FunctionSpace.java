@@ -33,6 +33,7 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	 * @param eps   the correctness parameter..
 	 * @return the integral over vec1*vec2.
 	 */
+	@SuppressWarnings("deprecation")
 	default Scalar getIntegral(final Function vec1, final Function vec2, final double left, final double right,
 			final double eps) {
 		Scalar ans = (Scalar) getField().nullVec();

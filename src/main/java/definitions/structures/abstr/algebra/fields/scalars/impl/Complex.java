@@ -1,6 +1,7 @@
 package definitions.structures.abstr.algebra.fields.scalars.impl;
 
 import java.util.Map;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -43,13 +44,21 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return space == ComplexPlane.getInstance();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public boolean equals(final Object vec) {
-		return (vec instanceof Complex) && ((Complex) vec).getReal().equals(getReal())
-				&& ((Complex) vec).getImag().equals(getImag());
+	public int hashCode() {
+		return Objects.hash(real, imag);
+	}
+
+	@Override
+	public boolean equals(Object vec) {
+		if (this == vec)
+			return true;
+		if (!super.equals(vec))
+			return false;
+		if (getClass() != vec.getClass())
+			return false;
+		Complex other = (Complex) vec;
+		return real.equals(other.real) && imag.equals(other.imag);
 	}
 
 	/**
@@ -96,14 +105,6 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 		return real;
 	}
 
-	// /**
-	// * {@inheritDoc}
-	// */
-	// @Override
-	// public double getDoubleValue() {
-	// return this.getReal().getDoubleValue();
-	// }
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -118,6 +119,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		// for complex numbers we won't need a coordinates map
 	}
 
 	public void setValue(final double realValue, final double imValue) {
@@ -128,7 +130,6 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@Override
 	public String toString() {
-		// return "("+getReal().getDoubleValue()+","+getImag().getDoubleValue()+")";
 		return toXml();
 	}
 

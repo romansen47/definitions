@@ -1,5 +1,7 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
+import java.util.Objects;
+
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
@@ -15,14 +17,14 @@ public abstract class Constant extends GenericFunction {
 	/**
 	 * The constant value.
 	 */
-	private final Scalar constantValue;
+	protected final Scalar constantValue;
 
 	/**
 	 * Constructor
 	 *
 	 * @param value the constant value.
 	 */
-	public Constant(final Scalar value) {
+	protected Constant(final Scalar value) {
 		constantValue = value;
 	}
 
@@ -42,8 +44,30 @@ public abstract class Constant extends GenericFunction {
 		return this.getConstantValue();
 	}
 
+	/**
+	 * getter for the value
+	 * 
+	 * @return the constant value
+	 */
 	public Scalar getConstantValue() {
 		return constantValue;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(constantValue);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Constant other = (Constant) obj;
+		return Objects.equals(constantValue, other.constantValue);
 	}
 
 }

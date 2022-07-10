@@ -21,7 +21,7 @@ public class FiniteDimensionalEndomorphismMockitoTest extends AspectJTest {
 		matrix[1][1] = getRealLine().get(0);
 		VectorSpaceMapping x = getGenerator().getFiniteDimensionalLinearMapping(matrix);
 		Assert.assertTrue(x instanceof FiniteDimensionalEndomorphism);
-		Assert.assertTrue(((FiniteDimensionalEndomorphism) x).det(matrix).equals(getRealLine().get(1)));
+		Assert.assertEquals(((FiniteDimensionalEndomorphism) x).det(matrix), getRealLine().get(1));
 
 		final Scalar[][] matrix2 = new Scalar[3][3];
 		matrix2[0][0] = getRealLine().get(1);
@@ -34,7 +34,7 @@ public class FiniteDimensionalEndomorphismMockitoTest extends AspectJTest {
 		matrix2[2][1] = getRealLine().get(8);
 		matrix2[2][2] = getRealLine().get(9);
 		VectorSpaceMapping y = getGenerator().getFiniteDimensionalLinearMapping(matrix2);
-		Assert.assertTrue(!(y instanceof FiniteDimensionalEndomorphism));
-		Assert.assertTrue(((FiniteDimensionalEndomorphism) x).det(matrix2).equals(getRealLine().get(0)));
+		Assert.assertFalse(y instanceof FiniteDimensionalEndomorphism);
+		Assert.assertEquals(((FiniteDimensionalEndomorphism) x).det(matrix2), getRealLine().get(0));
 	}
 }

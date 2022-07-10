@@ -133,7 +133,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	/**
 	 * getter for zero scalar
 	 * 
-	 * @return
+	 * @return zero scalar
 	 */
 	default Scalar getZero() {
 		return (Scalar) nullVec();

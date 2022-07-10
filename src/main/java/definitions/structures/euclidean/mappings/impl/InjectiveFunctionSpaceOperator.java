@@ -8,7 +8,8 @@ import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.mappings.FiniteDimensionalInjection;
 
 public class InjectiveFunctionSpaceOperator extends FiniteDimensionalLinearMapping
-implements FiniteDimensionalInjection {
+		implements FiniteDimensionalInjection {
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Constructor

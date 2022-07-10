@@ -2,11 +2,11 @@ package definitions.structures.dynamicsystems;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.groups.Group;
+import definitions.structures.abstr.algebra.rings.Ring;
 import definitions.structures.abstr.algebra.rings.SemiRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceMapping;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
-import definitions.structures.abstr.vectorspaces.Ring;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 
 /**

@@ -36,7 +36,7 @@ public interface Monoid extends SemiGroup {
 	}
 
 	/**
-	 * Getter for the identity element
+	 * Getter for the neutral element
 	 *
 	 * @return the neutral element of the semi group
 	 */
