@@ -44,7 +44,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	/**
 	 * The correctness parameter.
 	 */
-	protected final double eps = GlobalSettings.INTEGRAL_FEINHEIT;
+	protected static final double eps = GlobalSettings.INTEGRAL_FEINHEIT;
 
 	/**
 	 * Plain constructor.

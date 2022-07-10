@@ -51,7 +51,7 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 	default VectorSpaceMapping getEvolutionOperator(Element t) {
 		return new VectorSpaceSelfMapping() {
 
-			final Element time = t;
+			private Element time = t;
 
 			@Override
 			public String toString() {

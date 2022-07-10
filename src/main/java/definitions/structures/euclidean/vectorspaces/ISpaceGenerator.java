@@ -45,7 +45,7 @@ public interface ISpaceGenerator {
 		final List<Vector> base = ans.genericBaseToList();
 		final Field realLine = RealLine.getInstance();
 		realLine.getOne();
-		final Scalar zero = (Scalar) realLine.getZero();
+		final Scalar zero = realLine.getZero();
 		final Map<Vector, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 		for (final Vector vec : base) {
 			Map<Vector, Scalar> tmp = new ConcurrentHashMap<>();
@@ -122,12 +122,11 @@ public interface ISpaceGenerator {
 				if (i == j) {
 					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(i), field.getOne());
 				} else {
-					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(j),
-							(Scalar) field.getZero());
+					((FiniteVectorMethods) basetmp.get(i)).getCoordinates().put(basetmp.get(j), field.getZero());
 				}
 			}
 		}
-		return new FiniteDimensionalVectorSpace(field, basetmp);// getCachedCoordinateSpaces().get(-dim);
+		return new FiniteDimensionalVectorSpace(field, basetmp);
 	}
 
 	default EuclideanFunctionSpace getFiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase,
@@ -212,7 +211,8 @@ public interface ISpaceGenerator {
 		return ans;
 	}
 
-	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n) throws Exception {
+	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n)
+			throws DevisionByZeroException, ExtendingFailedException {
 		return this.getTrigonometricFunctionSpaceWithLinearGrowth(f, n, Math.PI);
 	}
 
@@ -253,7 +253,7 @@ public interface ISpaceGenerator {
 
 	@SuppressWarnings("serial")
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(final Field f, final int sobolevDegree,
-			final double right, final int fourierDegree) throws Exception {
+			final double right, final int fourierDegree) throws DevisionByZeroException, ExtendingFailedException {
 
 		return extend(getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
 
@@ -322,8 +322,8 @@ public interface ISpaceGenerator {
 					return toXml();
 				}
 
-				final private Vector left;
-				final private Vector right;
+				private final Vector left;
+				private final Vector right;
 				private Map<Vector, Scalar> coordinates;
 				private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
 
@@ -413,7 +413,7 @@ public interface ISpaceGenerator {
 				return nullVec;
 			}
 
-			List<Vector> base;
+			private List<Vector> base;
 
 			@Override
 			public List<Vector> genericBaseToList() {

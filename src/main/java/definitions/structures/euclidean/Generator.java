@@ -26,6 +26,8 @@ import settings.GlobalSettings;
 @ComponentScan(basePackages = "definitions")
 public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable {
 
+	private static final Logger logger = LogManager.getLogger(Generator.class);
+
 	private static boolean restoreFromCached = GlobalSettings.RESTORE_FROM_CACHED;
 
 	private static final long serialVersionUID = -5553433829703982950L;
@@ -35,9 +37,6 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	public static Generator getInstance() {
 		if (Generator.instance == null) {
 			Generator.instance = new Generator();
-			if (Generator.instance.logger == null) {
-				Generator.instance.logger = LogManager.getLogger(Generator.class);
-			}
 		}
 		if (Generator.restoreFromCached) {
 			try {
@@ -59,9 +58,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 		GroupGenerator.setInstance(instance.groupGenerator);
 	}
 
-	private Logger logger;
-
-	private final String PATH = GlobalSettings.CACHEDSPACES;
+	private static final String PATH = GlobalSettings.CACHEDSPACES;
 
 	@Autowired(required = true)
 	private MappingGenerator mappingGenerator;
@@ -86,10 +83,7 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	}
 
 	public Logger getLogger() {
-		if (Generator.instance.logger == null) {
-			Generator.instance.logger = LogManager.getLogger(this.getClass());
-		}
-		return Generator.instance.logger;
+		return Generator.logger;
 	}
 
 	@Override
@@ -104,24 +98,42 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 
 	@Override
 	public void loadCoordinateSpaces() throws IOException, ClassNotFoundException {
+		FileInputStream fin = null;
+		ObjectInputStream objin = null;
 		try {
-			final FileInputStream f_in = new FileInputStream(PATH);
-			final ObjectInputStream obj_in = new ObjectInputStream(f_in);
-			final MyCache ans = (MyCache) obj_in.readObject();
+			fin = new FileInputStream(PATH);
+			objin = new ObjectInputStream(fin);
+			final MyCache ans = (MyCache) objin.readObject();
 			spaceGenerator.setMyCache(ans);
-			obj_in.close();
 		} catch (final Exception e) {
 			logger.info("failed to load myCache from local file");
+		} finally {
+			if (objin != null) {
+				objin.close();
+			}
+			if (fin != null) {
+				fin.close();
+			}
 		}
 	}
 
 	@Override
 	public void saveCoordinateSpaces() throws IOException {
-		final FileOutputStream f_out = new FileOutputStream(PATH);
-		final ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-		obj_out.writeObject(spaceGenerator.getMyCache());
-		LogManager.getLogger(IGenerator.class).info("saved coordinates spaces to disk");
-		obj_out.close();
+		FileOutputStream fout = null;
+		ObjectOutputStream objout = null;
+		try {
+			fout = new FileOutputStream(PATH);
+			objout = new ObjectOutputStream(fout);
+			objout.writeObject(spaceGenerator.getMyCache());
+			LogManager.getLogger(IGenerator.class).info("saved coordinates spaces to disk");
+		} finally {
+			if (objout != null) {
+				objout.close();
+			}
+			if (fout != null) {
+				fout.close();
+			}
+		}
 	}
 
 	@Override

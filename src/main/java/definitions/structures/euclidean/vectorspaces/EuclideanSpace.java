@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.logging.log4j.LogManager;
 
 import definitions.Proceed;
-import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.InnerProductSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
@@ -180,13 +179,13 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 		int i = 0;
 		for (final Vector vec1 : base) {
 			int j = 0;
-			String s = "";
+			StringBuilder s = new StringBuilder();
 			for (final Vector vec2 : base) {
 				scalarProducts[i][j] = innerProduct(vec1, vec2);
-				s += scalarProducts[i][j] + " ";
+				s.append(scalarProducts[i][j] + " ");
 				j++;
 			}
-			LogManager.getLogger(EuclideanSpace.class).info(s);
+			LogManager.getLogger(EuclideanSpace.class).info(s.toString());
 			i++;
 		}
 		return scalarProducts;
@@ -198,7 +197,6 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	@Override
 	@Proceed
 	default Vector stretch(final Vector vec, final Scalar r) {
-		final ComplexPlane compl = (ComplexPlane) ComplexPlane.getInstance();
 		final Map<Vector, Scalar> stretched = new ConcurrentHashMap<>();
 		final Map<Vector, Scalar> coordinates = ((FiniteVectorMethods) vec).getCoordinates();
 		final List<Vector> base = genericBaseToList();

@@ -136,22 +136,18 @@ public class FiniteDimensionalLinearMapping extends LinearMapping implements Fin
 	 */
 	@Override
 	public String toString() {
-		String str = "";
+		StringBuilder str = new StringBuilder();
 		Scalar[][] matrix;
-		try {
-			matrix = getGenericMatrix();
-			double x;
-			for (final Scalar[] element : matrix) {
-				for (int j = 0; j < element.length; j++) {
-					x = ((Real) element[j]).getDoubleValue();
-					str += " " + (x - (x % 0.001)) + " ";
-				}
-				str += " \r";
+		matrix = getGenericMatrix();
+		double x;
+		for (final Scalar[] element : matrix) {
+			for (int j = 0; j < element.length; j++) {
+				x = ((Real) element[j]).getDoubleValue();
+				str.append(" " + (x - (x % 0.001)) + " ");
 			}
-		} catch (final Throwable e) {
-			e.printStackTrace();
+			str.append(" \r");
 		}
-		return str;
+		return str.toString();
 	}
 
 	/**

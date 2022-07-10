@@ -94,8 +94,8 @@ public interface IGroupGenerator {
 
 			}
 
-			final private Monoid monoid = m;
-			GroupElement neutralElement;
+			private Monoid monoid = m;
+			private GroupElement neutralElement;
 
 			@Override
 			public GroupElement getNeutralElement() {
@@ -145,7 +145,7 @@ public interface IGroupGenerator {
 				return "\r<discreet_group>\r<completion>\r" + m.toXml() + "\r</completion>\r</discreet_group>\r";
 			}
 
-			final private DiscreetMonoid monoid = m;
+			private DiscreetMonoid monoid = m;
 
 			@Override
 			public Element getNeutralElement() {
@@ -187,9 +187,9 @@ public interface IGroupGenerator {
 		private final Element left;
 		private final Element right;
 
-		public ProductElement(final Element Element, final Element Element2) {
-			left = Element;
-			right = Element2;
+		public ProductElement(final Element element, final Element element2) {
+			left = element;
+			right = element2;
 		}
 
 		/**
@@ -253,23 +253,16 @@ public interface IGroupGenerator {
 				@Override
 				public Element operation(final Element first, final Element second) {
 					final Map<Element, Map<Element, Element>> u = operationMap;
-					Map<Element, Element> x = u.get(first);
-					Element ans;
-					if (x == null) {
-						x = new ConcurrentHashMap<>();
-						u.put(first, x);
-					}
-					ans = x.get(second);
+					Map<Element, Element> x = u.computeIfAbsent(first, element -> new ConcurrentHashMap<>());
+					Element ans = x.get(second);
 					if (ans != null) {
 						return ans;
 					}
 					ans = new ProductElement(
 							a.operation(((ProductElement) first).getLeft(), ((ProductElement) second).getLeft()),
 							b.operation(((ProductElement) first).getRight(), ((ProductElement) second).getRight()));
-					Map<Element, Element> tmpMap = operationMap.get(first);
-					if (tmpMap == null) {
-						tmpMap = new ConcurrentHashMap<>();
-					}
+					Map<Element, Element> tmpMap = operationMap.computeIfAbsent(first,
+							element -> new ConcurrentHashMap<>());
 					tmpMap.put(second, ans);
 					operationMap.put(first, tmpMap);
 					return ans;
@@ -291,8 +284,8 @@ public interface IGroupGenerator {
 	default Ring completeToRing(SemiRing semiRing) {
 		return new Ring() {
 
-			final private SemiRing monoid = semiRing;
-			Monoid multiplicativeMonoid;
+			private SemiRing monoid = semiRing;
+			private Monoid multiplicativeMonoid;
 
 			@Override
 			public Element getNeutralElement() {
@@ -383,9 +376,9 @@ public interface IGroupGenerator {
 	default DiscreetDomain completeToDiscreetRing(DiscreetSemiRing semiRing) {
 		return new DiscreetDomain() {
 
-			Element neutralElement;
+			private Element neutralElement;
 
-			final private DiscreetSemiRing monoid = semiRing;
+			private DiscreetSemiRing monoid = semiRing;
 
 			@Override
 			public Element getNeutralElement() {
@@ -451,7 +444,7 @@ public interface IGroupGenerator {
 
 			@Override
 			public boolean isUnit(Element element) {
-				final Fraction asFrac = (Fraction) element;
+				final Fraction asFrac = (Fraction) element; // TODO
 				return false;
 			}
 
@@ -495,8 +488,8 @@ public interface IGroupGenerator {
 	public class MultiplicationFraction extends Fraction implements FieldElement {
 
 		protected Map<Vector, Scalar> coordinates;
-		protected Ring monoid;
-		protected Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
+		private Ring monoid;
+		private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
 
 		public MultiplicationFraction(Element k, Element v, Ring baseField) {
 			super(k, v, baseField);
@@ -557,7 +550,7 @@ public interface IGroupGenerator {
 	default PrimeField completeToDiscreetField(DiscreetDomain domain) {
 		return new PrimeField() {
 
-			final DiscreetDomain monoid = domain;
+			private DiscreetDomain monoid = domain;
 			private FieldElement neutralElement;
 			private FieldElement one;
 
@@ -674,7 +667,7 @@ public interface IGroupGenerator {
 				return multiplicativeMonoid;
 			}
 
-			Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
+			private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
 
 			@Override
 			public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
@@ -689,7 +682,7 @@ public interface IGroupGenerator {
 				this.multiplicationMatrix = multiplicationMatrix;
 			}
 
-			List<Vector> genericBaseToList;
+			private List<Vector> genericBaseToList;
 
 			@Override
 			public List<Vector> genericBaseToList() {
@@ -729,9 +722,8 @@ public interface IGroupGenerator {
 
 			@Override
 			public Element getMinusOne() {
-				final Element zero = monoid.getNeutralElement();
-				final Element one = monoid.getMuliplicativeMonoid().getNeutralElement();
-				return new MultiplicationFraction(zero, one, monoid);
+				return new MultiplicationFraction(monoid.getNeutralElement(),
+						monoid.getMuliplicativeMonoid().getNeutralElement(), monoid);
 			}
 
 			@Override

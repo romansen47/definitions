@@ -27,9 +27,6 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 	@Autowired
 	private RealLine realLine;
 
-	public FieldGenerator() {
-	}
-
 	@Override
 	public RealLine getRealLine() {
 		return realLine;
@@ -39,7 +36,6 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 		this.realLine = realLine;
 		RealLine.setInstance(realLine);
 		ComplexPlane.setRealLine(realLine);
-//		((FiniteDimensionalVectorSpace) QuaternionSpace.getInstance()).setField(realLine);
 	}
 
 }

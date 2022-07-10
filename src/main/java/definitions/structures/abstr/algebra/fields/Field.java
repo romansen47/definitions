@@ -149,8 +149,8 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 		final Field field = this;
 		final VectorSpace multLinMaps = new LinearMappingsSpace() {
 
-			final Field source = field;
-			final Field target = field;
+			private Field source = field;
+			private Field target = field;
 
 			@Override
 			public Field getField() {

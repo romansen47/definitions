@@ -24,13 +24,6 @@ public interface FiniteVectorMethods extends XmlPrintable {
 
 	void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space);
 
-	/**
-	 * Coordinates as double[].
-	 *
-	 * @return the coordinates as double[].
-	 */
-	// Scalar[] getGenericCoordinates();
-
 	@Override
 	String toString();
 
