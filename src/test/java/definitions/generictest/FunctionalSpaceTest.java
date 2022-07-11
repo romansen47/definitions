@@ -1,14 +1,14 @@
 /**
  *
  */
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.semigroups.Element;
@@ -21,7 +21,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  * @author ro
  *
  */
-public class FunctionalSpaceTest extends AspectJTest {
+public class FunctionalSpaceTest extends GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(FunctionalSpaceTest.class);
 

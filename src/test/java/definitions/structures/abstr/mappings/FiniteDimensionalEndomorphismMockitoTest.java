@@ -5,10 +5,10 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 
-public class FiniteDimensionalEndomorphismMockitoTest extends AspectJTest {
+public class FiniteDimensionalEndomorphismMockitoTest extends GenericTest {
 
 	final static public Random random = new Random();
 

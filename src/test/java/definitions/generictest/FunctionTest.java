@@ -1,13 +1,13 @@
 /**
  *
  */
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -21,7 +21,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  * @author RoManski
  *
  */
-public class FunctionTest extends AspectJTest {
+public class FunctionTest extends GenericTest {
 
 	static final int trigonometricDegree = 20;
 	static final int sobolevDegree = 20;

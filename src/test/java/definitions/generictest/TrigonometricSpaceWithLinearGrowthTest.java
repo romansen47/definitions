@@ -1,10 +1,10 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 
 public class TrigonometricSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
@@ -21,9 +21,9 @@ public class TrigonometricSpaceWithLinearGrowthTest extends GenericTrigonometric
 	public void setUp() throws Exception {
 
 		trigonometricDegree = 5;
-		setField(AspectJTest.getRealLine());
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricFunctionSpaceWithLinearGrowth(
-				AspectJTest.getRealLine(), getTrigonometricDegree(), Math.PI));
+		setField(GenericTest.getRealLine());
+		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricFunctionSpaceWithLinearGrowth(
+				GenericTest.getRealLine(), getTrigonometricDegree(), Math.PI));
 		super.setUp();
 	}
 }

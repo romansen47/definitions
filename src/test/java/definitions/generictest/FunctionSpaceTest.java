@@ -1,6 +1,6 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
@@ -15,7 +15,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
-public class FunctionSpaceTest extends AspectJTest {
+public class FunctionSpaceTest extends GenericTest {
 
 	final EuclideanSpace functionSpace = SpaceGenerator.getInstance()
 			.getTrigonometricSobolevSpace((Field) ComplexPlane.getInstance(), 3, 1);

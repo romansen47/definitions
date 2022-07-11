@@ -1,4 +1,4 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.groups.DiscreetGroup;
@@ -15,13 +15,13 @@ import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
 
-public class GroupGeneratorTest extends AspectJTest {
+public class GroupGeneratorTest extends GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(GroupGeneratorTest.class);
 
 	@BeforeClass
 	public static void prepare() {
-		AspectJTest.prepare();
+		GenericTest.prepare();
 	}
 
 	private Group group;
@@ -35,13 +35,13 @@ public class GroupGeneratorTest extends AspectJTest {
 
 	@Before
 	public void createStructures() {
-		one = AspectJTest.getIntegers().getOne();
-		minusOne = AspectJTest.getIntegers().getInverseElement(AspectJTest.getIntegers().getOne());
-		zero = AspectJTest.getIntegers().getNeutralElement();
-		two = AspectJTest.getIntegers().addition(one, one);
-		four1 = AspectJTest.getIntegers().multiplication(two, two);
-		four2 = AspectJTest.getIntegers().addition(two, two);
-		minusFour = AspectJTest.getIntegers().multiplication(four2, minusOne);
+		one = GenericTest.getIntegers().getOne();
+		minusOne = GenericTest.getIntegers().getInverseElement(GenericTest.getIntegers().getOne());
+		zero = GenericTest.getIntegers().getNeutralElement();
+		two = GenericTest.getIntegers().addition(one, one);
+		four1 = GenericTest.getIntegers().multiplication(two, two);
+		four2 = GenericTest.getIntegers().addition(two, two);
+		minusFour = GenericTest.getIntegers().multiplication(four2, minusOne);
 	}
 
 	public Group getGroup() {
@@ -77,30 +77,30 @@ public class GroupGeneratorTest extends AspectJTest {
 	@Test
 	public void integersTest() {
 		final boolean addSameAsMult = four1.equals(four2);
-		final boolean sumIsZero = AspectJTest.getIntegers().addition(four1, minusFour).equals(zero);
+		final boolean sumIsZero = GenericTest.getIntegers().addition(four1, minusFour).equals(zero);
 		Assert.assertTrue(addSameAsMult);
 		Assert.assertTrue(sumIsZero);
 	}
 
 	@Test
 	public void fieldsTest() {
-		final FieldElement newZero = AspectJTest.getRationals().getNeutralElement();
-		final FieldElement newOne = (FieldElement) AspectJTest.getRationals().getMuliplicativeMonoid()
+		final FieldElement newZero = GenericTest.getRationals().getNeutralElement();
+		final FieldElement newOne = (FieldElement) GenericTest.getRationals().getMuliplicativeMonoid()
 				.getNeutralElement();
-		final FieldElement newTwo = (FieldElement) AspectJTest.getRationals().addition(newOne, newOne);
-		final FieldElement half = (FieldElement) AspectJTest.getRationals().getMuliplicativeMonoid()
+		final FieldElement newTwo = (FieldElement) GenericTest.getRationals().addition(newOne, newOne);
+		final FieldElement half = (FieldElement) GenericTest.getRationals().getMuliplicativeMonoid()
 				.getInverseElement(newTwo);
-		FieldElement var = (FieldElement) AspectJTest.getRationals().multiplication(newOne, newOne);
+		FieldElement var = (FieldElement) GenericTest.getRationals().multiplication(newOne, newOne);
 		FieldElement tmp;
 		FieldElement debugTmp;
 		for (int i = 1; i < 5; i++) {
-			debugTmp = (FieldElement) AspectJTest.getRationals().multiplication(var, half);
-			tmp = AspectJTest.getRationals().getInverseElement(debugTmp);
-			var = (FieldElement) AspectJTest.getRationals().addition(var, tmp);
+			debugTmp = (FieldElement) GenericTest.getRationals().multiplication(var, half);
+			tmp = GenericTest.getRationals().getInverseElement(debugTmp);
+			var = (FieldElement) GenericTest.getRationals().addition(var, tmp);
 			logger.info(i + ": " + var.toString());
 		}
 		logger.info("Inverse of new zero is "
-				+ AspectJTest.getRationals().getMuliplicativeMonoid().getInverseElement(newZero));
+				+ GenericTest.getRationals().getMuliplicativeMonoid().getInverseElement(newZero));
 		logger.info("for i==5 we get an error. to be fixed, e.g. by replacing (224,208) by (16,0) somewhere...");
 	}
 

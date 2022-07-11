@@ -1,10 +1,10 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 
 /**
@@ -27,9 +27,9 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericTrigon
 
 		trigonometricDegree = 7;
 		sobolevDegree = 1;
-		setField(AspectJTest.getRealLine());
-		setTrigonometricSpace(AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(
-				AspectJTest.getRealLine(), sobolevDegree, Math.PI, trigonometricDegree));
+		setField(GenericTest.getRealLine());
+		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(
+				GenericTest.getRealLine(), sobolevDegree, Math.PI, trigonometricDegree));
 		super.setUp();
 
 	}

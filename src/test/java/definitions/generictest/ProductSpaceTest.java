@@ -1,14 +1,14 @@
 /**
  *
  */
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
@@ -24,13 +24,13 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
  * @author RoManski
  *
  */
-public class ProductSpaceTest extends AspectJTest {
+public class ProductSpaceTest extends GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(ProductSpaceTest.class);
 
 	ISpaceGenerator spaceGenerator = SpaceGenerator.getInstance();
 	IGroupGenerator groupGenerator = GroupGenerator.getInstance();
-	Field complexNumbers = AspectJTest.getComplexPlane();
+	Field complexNumbers = GenericTest.getComplexPlane();
 
 	private final EuclideanSpace leftSpace = spaceGenerator.getFiniteDimensionalVectorSpace(2);
 	private final EuclideanSpace rightSpace = spaceGenerator.getFiniteDimensionalVectorSpace(3);

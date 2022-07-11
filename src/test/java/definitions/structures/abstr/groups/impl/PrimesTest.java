@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
@@ -19,7 +19,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.impl.Naturals;
 import definitions.structures.impl.Naturals.NaturalNumber;
 
-public class PrimesTest extends AspectJTest {
+public class PrimesTest extends GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(PrimesTest.class);
 

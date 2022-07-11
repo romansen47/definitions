@@ -1,4 +1,4 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
@@ -20,7 +20,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.dynamicsystems.DynamicSystem;
 
-public class DiscreetDynamicSystemTest extends AspectJTest {
+public class DiscreetDynamicSystemTest extends GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(DiscreetDynamicSystemTest.class);
 
@@ -32,7 +32,7 @@ public class DiscreetDynamicSystemTest extends AspectJTest {
 
 	@Before
 	public void beforeTest() {
-		timeSpace = AspectJTest.getIntegers();
+		timeSpace = GenericTest.getIntegers();
 	}
 
 	/**

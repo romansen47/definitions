@@ -1,9 +1,9 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -12,16 +12,16 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author ro
  *
  */
-public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
+public class MultiDimensionalSpaceOverBinaryFieldTest extends GenericTest {
 
 	final int dim = 5;
-	PrimeField f = AspectJTest.getGenerator().getGroupGenerator().getBinaries();
+	PrimeField f = GenericTest.getGenerator().getGroupGenerator().getBinaries();
 
 	@Test
 	public void testShowBase() {
 
 		boolean ans = true;
-		final EuclideanSpace modulo2Space = AspectJTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(f, dim);
+		final EuclideanSpace modulo2Space = GenericTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(f, dim);
 		modulo2Space.show();
 
 		for (int i = 1; i < dim; i++) {
@@ -36,13 +36,13 @@ public class MultiDimensionalSpaceOverBinaryFieldTest extends AspectJTest {
 		Assert.assertTrue(ans);
 	}
 
-	PrimeField cf = AspectJTest.getGenerator().getGroupGenerator().getConstructedBinaries();
+	PrimeField cf = GenericTest.getGenerator().getGroupGenerator().getConstructedBinaries();
 
 	@Test
 	public void testWithConstructedBinaries() {
 
 		boolean ans = true;
-		final EuclideanSpace modulo2Space = AspectJTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(cf, dim);
+		final EuclideanSpace modulo2Space = GenericTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(cf, dim);
 		modulo2Space.show();
 
 		for (int i = 1; i < dim; i++) {

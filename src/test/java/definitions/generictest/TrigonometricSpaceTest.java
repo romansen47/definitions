@@ -1,10 +1,10 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.prototypes.GenericTrigonometricSpaceTest;
 
 public class TrigonometricSpaceTest extends GenericTrigonometricSpaceTest {
@@ -22,7 +22,7 @@ public class TrigonometricSpaceTest extends GenericTrigonometricSpaceTest {
 		eps = 2e-1;
 		trigonometricDegree = 15;
 		sobolevDegree = null;
-		setField(AspectJTest.getRealLine());
+		setField(GenericTest.getRealLine());
 		super.setUp();
 	}
 }

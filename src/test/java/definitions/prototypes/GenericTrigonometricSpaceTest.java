@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author roman
  *
  */
-public abstract class GenericTrigonometricSpaceTest extends AspectJTest {
+public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 
 	/**
 	 * a tolerance parameter
@@ -70,8 +70,8 @@ public abstract class GenericTrigonometricSpaceTest extends AspectJTest {
 	public void setUp() throws Exception {
 
 		setTrigonometricSpace(
-				AspectJTest.getSpaceGenerator().getNormedTrigonometricSpace(getField(), getTrigonometricDegree()));
-		testValues = definitions.aspectjtest.Reader.readFile(getPath());
+				GenericTest.getSpaceGenerator().getNormedTrigonometricSpace(getField(), getTrigonometricDegree()));
+		testValues = definitions.generictest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() {
 			private static final long serialVersionUID = 1L;
 			private final int length = (int) testValues[0][testValues[0].length - 1];
@@ -101,7 +101,7 @@ public abstract class GenericTrigonometricSpaceTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 
 			@Override
@@ -174,7 +174,7 @@ public abstract class GenericTrigonometricSpaceTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 
 			@Override
@@ -193,7 +193,7 @@ public abstract class GenericTrigonometricSpaceTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 
 			@Override

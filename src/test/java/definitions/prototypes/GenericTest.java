@@ -16,9 +16,9 @@ import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
-public class AspectJTest {
+public class GenericTest {
 
-	public static final Logger logger = LogManager.getLogger(AspectJTest.class);
+	public static final Logger logger = LogManager.getLogger(GenericTest.class);
 
 	private static ApplicationContextAware springConfiguration;
 	private static Generator generator;
@@ -83,44 +83,44 @@ public class AspectJTest {
 	}
 
 	public static void setComplexPlane(final ComplexPlane complexPlane) {
-		AspectJTest.complexPlane = complexPlane;
+		GenericTest.complexPlane = complexPlane;
 	}
 
 	public static void setGenerator(final Generator generator) {
-		AspectJTest.generator = generator;
+		GenericTest.generator = generator;
 	}
 
 	public static void setRealLine(final RealLine realLine) {
-		AspectJTest.realLine = realLine;
+		GenericTest.realLine = realLine;
 	}
 
 	public static void setSpaceGenerator(final SpaceGenerator spaceGenerator) {
-		AspectJTest.spaceGenerator = spaceGenerator;
+		GenericTest.spaceGenerator = spaceGenerator;
 	}
 
 	public static void setSpringConfiguration(final ApplicationContextAware springConfiguration) {
-		AspectJTest.springConfiguration = springConfiguration;
+		GenericTest.springConfiguration = springConfiguration;
 	}
 
 	/**
 	 * @param naturals the naturals to set
 	 */
 	public static void setNaturals(DiscreetSemiRing naturals) {
-		AspectJTest.naturals = naturals;
+		GenericTest.naturals = naturals;
 	}
 
 	/**
 	 * @param integers the integers to set
 	 */
 	public static void setIntegers(DiscreetDomain integers) {
-		AspectJTest.integers = integers;
+		GenericTest.integers = integers;
 	}
 
 	/**
 	 * @param rationals the rationals to set
 	 */
 	public static void setRationals(PrimeField rationals) {
-		AspectJTest.rationals = rationals;
+		GenericTest.rationals = rationals;
 	}
 
 	/**

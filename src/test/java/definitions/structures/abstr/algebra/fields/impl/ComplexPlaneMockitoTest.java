@@ -5,14 +5,14 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 
-public class ComplexPlaneMockitoTest extends AspectJTest {
+public class ComplexPlaneMockitoTest extends GenericTest {
 
 	ComplexPlane complexPlane = getComplexPlane();
 	RealLine realLine = getRealLine();

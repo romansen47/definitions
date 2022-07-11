@@ -1,4 +1,4 @@
-package definitions;
+package generictest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.SpringConfiguration;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -20,7 +21,7 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Monome;
 import exceptions.DevisionByZeroException;
 
-public class PolynomeRegressionTest extends AspectJTest {
+public class PolynomeRegressionTest extends GenericTest {
 
 	// for smaller intervalls we do get greater distances
 	private static final double left = -Math.PI;

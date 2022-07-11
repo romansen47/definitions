@@ -1,4 +1,4 @@
-package definitions.aspectjtest;
+package definitions.generictest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import definitions.prototypes.AspectJTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -21,7 +21,7 @@ import definitions.structures.euclidean.vectors.impl.Monome;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public class DerivativesAndIntegralsTest extends AspectJTest {
+public class DerivativesAndIntegralsTest extends GenericTest {
 
 	private static final Logger logger = LogManager.getLogger(DerivativesAndIntegralsTest.class);
 
@@ -49,15 +49,15 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 	@BeforeClass
 	public static void setUp() throws Throwable {
 		logger.info("loading {}", "space");
-		space = (EuclideanSpace) AspectJTest.getGenerator().getTrigonometricSpace(AspectJTest.getRealLine(), degree);
+		space = (EuclideanSpace) GenericTest.getGenerator().getTrigonometricSpace(GenericTest.getRealLine(), degree);
 
 		logger.info("loading {}", "extendedSpace");
-		extendedSpace = (EuclideanSpace) AspectJTest.getGenerator()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(AspectJTest.getRealLine(), degree);
+		extendedSpace = (EuclideanSpace) GenericTest.getGenerator()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(GenericTest.getRealLine(), degree);
 
 		logger.info("loading {}", "extendedSobolevSpace");
-		extendedSobolevSpace = AspectJTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(
-				AspectJTest.getRealLine(), sobolevDegree, Math.PI, degree);
+		extendedSobolevSpace = GenericTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(
+				GenericTest.getRealLine(), sobolevDegree, Math.PI, degree);
 
 		logger.info("loading {}", "derivativeOperatorOnExtendedSpace");
 		derivativeOperatorOnExtendedSpace = new FiniteDimensionalDerivativeOperator(extendedSpace, extendedSpace);
@@ -72,7 +72,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 		};
 
@@ -82,7 +82,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 		};
 
@@ -113,7 +113,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 		};
 
@@ -144,7 +144,7 @@ public class DerivativesAndIntegralsTest extends AspectJTest {
 
 			@Override
 			public Field getField() {
-				return AspectJTest.getRealLine();
+				return GenericTest.getRealLine();
 			}
 		};
 
