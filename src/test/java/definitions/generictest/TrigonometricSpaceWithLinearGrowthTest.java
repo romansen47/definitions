@@ -20,7 +20,7 @@ public class TrigonometricSpaceWithLinearGrowthTest extends GenericTrigonometric
 	@Before
 	public void setUp() throws Exception {
 
-		trigonometricDegree = 5;
+		trigonometricDegree = 7;
 		sobolevDegree = null;
 		setField(GenericTest.getRealLine());
 		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricFunctionSpaceWithLinearGrowth(

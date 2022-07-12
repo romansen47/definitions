@@ -46,9 +46,9 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 
 	/**
 	 * Plain constructor.
-	 * 
+	 *
 	 * @param field the base field
-	 * 
+	 *
 	 */
 	protected FiniteDimensionalFunctionSpace(final Field field) {
 		super(field);
@@ -66,17 +66,17 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public FiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final boolean orthonormalize) throws DevisionByZeroException {
 		super(field, genericBase);
-		interval = new double[2];
-		interval[0] = left;
-		interval[1] = right;
+		this.interval = new double[2];
+		this.interval[0] = left;
+		this.interval[1] = right;
 		final List<Vector> newBase;
 		if (orthonormalize) {
-			newBase = getOrthonormalBase(genericBase);
+			newBase = this.getOrthonormalBase(genericBase);
 		} else {
 			newBase = genericBase;
-			assignOrthonormalCoordinates(newBase, field);
+			this.assignOrthonormalCoordinates(newBase, field);
 		}
-		setBase(newBase);
+		this.setBase(newBase);
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getEpsilon() {
-		return eps;
+		return FiniteDimensionalFunctionSpace.eps;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double[] getInterval() {
-		return interval;
+		return this.interval;
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getLeft() {
-		return getInterval()[0];
+		return this.getInterval()[0];
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public double getRight() {
-		return getInterval()[1];
+		return this.getInterval()[1];
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 				&& (((FiniteVectorMethods) vec2).getCoordinates() != null)) {
 			return super.innerProduct(vec1, vec2);
 		} else {
-			return integral((Function) vec1, (Function) vec2);
+			return this.integral((Function) vec1, (Function) vec2);
 		}
 	}
 
@@ -163,11 +163,11 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function normalize(final Vector vec) {
-		Vector norm = norm(vec);
-		if (norm.equals(nullVec())) {
+		Vector norm = this.norm(vec);
+		if (norm.equals(this.nullVec())) {
 			LogManager.getLogger(FiniteDimensionalFunctionSpace.class).error("Devision by 0!");
 		}
-		return stretch(vec, (Scalar) getField().getMuliplicativeMonoid().getInverseElement(norm));
+		return this.stretch(vec, (Scalar) this.getField().getMuliplicativeMonoid().getInverseElement(norm));
 	}
 
 	/**
@@ -175,14 +175,14 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	 */
 	@Override
 	public Function nullVec() {
-		if (nullVec == null) {
+		if (this.nullVec == null) {
 			final Map<Vector, Scalar> nul = new ConcurrentHashMap<>();
-			for (final Vector vec : genericBaseToList()) {
-				nul.put(vec, (Scalar) getField().getZero());
+			for (final Vector vec : this.genericBaseToList()) {
+				nul.put(vec, this.getField().getZero());
 			}
-			nullVec = new FunctionTuple(nul, this);
+			this.nullVec = new FunctionTuple(nul, this);
 		}
-		return (FunctionTuple) nullVec;
+		return (FunctionTuple) this.nullVec;
 	}
 
 	/**

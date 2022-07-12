@@ -24,7 +24,7 @@ public abstract class Constant extends GenericFunction {
 	 * @param value the constant value.
 	 */
 	protected Constant(final Scalar value) {
-		constantValue = value;
+		this.constantValue = value;
 	}
 
 	/**
@@ -45,28 +45,28 @@ public abstract class Constant extends GenericFunction {
 
 	/**
 	 * getter for the value
-	 * 
+	 *
 	 * @return the constant value
 	 */
 	public Scalar getConstantValue() {
-		return constantValue;
+		return this.constantValue;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(constantValue);
+		return Objects.hash(this.constantValue);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj) || (this.getClass() != obj.getClass())) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		Constant other = (Constant) obj;
-		return Objects.equals(constantValue, other.constantValue);
+		return Objects.equals(this.constantValue, other.constantValue);
 	}
 
 }

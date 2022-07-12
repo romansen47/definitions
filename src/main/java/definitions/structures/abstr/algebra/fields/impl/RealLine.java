@@ -53,17 +53,17 @@ public class RealLine implements Field, RealSpace {
 	private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
 
 	public RealLine() {
-		base = new ArrayList<>();
-		base.add(getOne());
+		this.base = new ArrayList<>();
+		this.base.add(this.getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
 		a.put(RealLine.one, RealLine.one);
-		coordinates = a;
+		this.coordinates = a;
 		multiplicationMap.put(RealLine.one, a);
 		final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 		newMap.put(RealLine.one,
 				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
-		setMultiplicationMatrix(newMap);
+		this.setMultiplicationMatrix(newMap);
 		ComplexPlane.setRealLine(this);
 	}
 
@@ -96,7 +96,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public List<Vector> genericBaseToList() {
-		return base;
+		return this.base;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class RealLine implements Field, RealSpace {
 	@Override
 	public Real get(final double value) {
 		if (Math.abs(value) < GlobalSettings.REAL_EQUALITY_FEINHEIT) {
-			return getZero();
+			return this.getZero();
 		}
 		final Real newReal = new Real();
 		newReal.setRepresentant(value);
@@ -133,10 +133,10 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
-		if (dualSpace == null) {
-			dualSpace = new FunctionalSpace(this);
+		if (this.dualSpace == null) {
+			this.dualSpace = new FunctionalSpace(this);
 		}
-		return dualSpace;
+		return this.dualSpace;
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
-		return multiplicationMatrix;
+		return this.multiplicationMatrix;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public Vector nullVec() {
-		return getZero();
+		return this.getZero();
 	}
 
 	/**
@@ -237,9 +237,9 @@ public class RealLine implements Field, RealSpace {
 		final Real a = ((Real) v);
 		final Real b = ((Real) w);
 		if (b.getDoubleValue() != 0) {
-			return stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
+			return this.stretch(w, this.get(a.getDoubleValue() / b.getDoubleValue()));
 		}
-		return nullVec();
+		return this.nullVec();
 	}
 
 	/**

@@ -35,15 +35,15 @@ public class SpringConfiguration implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
-		updateLoggers();
-		setApplicationContext(new AnnotationConfigApplicationContext());
-		Configurator.setLevel(logger, Level.INFO);
-		logger.info("applicationContext {} scanning in definitions..*", applicationContext);
-		((AnnotationConfigApplicationContext) applicationContext).scan("definitions..*");
-		logger.info("applicationContext {} refreshing", applicationContext);
-		((AbstractApplicationContext) applicationContext).refresh();
-		logger.info("applicationContext {} getting bean generator", applicationContext);
-		Generator.setInstance((Generator) applicationContext.getBean("generator"));
+		this.updateLoggers();
+		this.setApplicationContext(new AnnotationConfigApplicationContext());
+		Configurator.setLevel(SpringConfiguration.logger, Level.INFO);
+		SpringConfiguration.logger.info("applicationContext {} scanning in definitions..*", this.applicationContext);
+		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
+		SpringConfiguration.logger.info("applicationContext {} refreshing", this.applicationContext);
+		((AbstractApplicationContext) this.applicationContext).refresh();
+		SpringConfiguration.logger.info("applicationContext {} getting bean generator", this.applicationContext);
+		Generator.setInstance((Generator) this.applicationContext.getBean("generator"));
 		Generator.getInstance();
 	}
 
@@ -56,7 +56,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 	}
 
 	public ApplicationContext getApplicationContext() {
-		return applicationContext;
+		return this.applicationContext;
 	}
 
 	@Override

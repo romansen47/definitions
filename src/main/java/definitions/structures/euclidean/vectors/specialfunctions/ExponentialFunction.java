@@ -27,8 +27,8 @@ public abstract class ExponentialFunction extends GenericFunction {
 	private final Scalar b;
 
 	protected ExponentialFunction() {
-		a = RealZero.getZero();
-		b = RealLine.getInstance().getOne();
+		this.a = RealZero.getZero();
+		this.b = RealLine.getInstance().getOne();
 	}
 
 	/**
@@ -47,7 +47,7 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "x -> exp(" + a + "+" + b + "*x ";
+		return "x -> exp(" + this.a + "+" + this.b + "*x ";
 	}
 
 	/**
@@ -55,24 +55,24 @@ public abstract class ExponentialFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getField().get(Math
-				.exp(((Real) a).getDoubleValue() + (((Real) b).getDoubleValue() * ((Real) input).getDoubleValue())));
+		return this.getField().get(Math.exp(((Real) this.a).getDoubleValue()
+				+ (((Real) this.b).getDoubleValue() * ((Real) input).getDoubleValue())));
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(a, b);
+		return Objects.hash(this.a, this.b);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj) || (this.getClass() != obj.getClass())) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		ExponentialFunction other = (ExponentialFunction) obj;
-		return Objects.equals(a, other.a) && Objects.equals(b, other.b);
+		return Objects.equals(this.a, other.a) && Objects.equals(this.b, other.b);
 	}
 }

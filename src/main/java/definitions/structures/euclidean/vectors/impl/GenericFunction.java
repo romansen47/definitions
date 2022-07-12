@@ -19,7 +19,7 @@ import plotter.Plotter;
  * a generic function is DEFINED without coordinates but using
  * value()-implementation, yet may be carrying coordinates around later in the
  * process
- * 
+ *
  * @author roman
  *
  */
@@ -50,7 +50,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		return coordinates;
+		return this.coordinates;
 	}
 
 	/**
@@ -58,17 +58,17 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		if (coordinatesMap == null) {
-			coordinatesMap = new ConcurrentHashMap<>();
+		if (this.coordinatesMap == null) {
+			this.coordinatesMap = new ConcurrentHashMap<>();
 		}
-		Map<Vector, Scalar> tmpCoordinates = coordinatesMap.getOrDefault(space, null);
+		Map<Vector, Scalar> tmpCoordinates = this.coordinatesMap.getOrDefault(space, null);
 		if (tmpCoordinates == null) {
 			tmpCoordinates = new ConcurrentHashMap<>();
 			for (final Vector baseVec : space.genericBaseToList()) {
 				final Scalar tmp = ((EuclideanFunctionSpace) space).innerProduct(this, baseVec);
 				tmpCoordinates.put(baseVec, tmp);
 			}
-			coordinatesMap.put(space, tmpCoordinates);
+			this.coordinatesMap.put(space, tmpCoordinates);
 		}
 		return tmpCoordinates;
 	}
@@ -78,7 +78,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
-		return coordinatesMap;
+		return this.coordinatesMap;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public Field getField() {
-		return field;
+		return this.field;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public abstract class GenericFunction implements Function, Element {
 	 */
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-		coordinatesMap.put(space, coordinates);
+		this.coordinatesMap.put(space, coordinates);
 		this.setCoordinates(coordinates);
 	}
 

@@ -29,17 +29,17 @@ public class SpaceGenerator implements ISpaceGenerator, XmlPrintable {
 
 	@Override
 	public Logger getLogger() {
-		return logger;
+		return SpaceGenerator.logger;
 	}
 
 	@Override
 	public MyCache getMyCache() {
-		return myCache;
+		return this.myCache;
 	}
 
 	@Override
 	public void setMyCache(final MyCache ans) {
-		myCache = ans;
+		this.myCache = ans;
 	}
 
 	@Override

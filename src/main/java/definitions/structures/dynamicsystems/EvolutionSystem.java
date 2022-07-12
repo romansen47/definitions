@@ -10,7 +10,7 @@ public interface EvolutionSystem extends XmlPrintable {
 
 	/**
 	 * the evolution operator of the dynamic system.
-	 * 
+	 *
 	 * @param time  the time element
 	 * @param start the start element
 	 *
@@ -43,7 +43,7 @@ public interface EvolutionSystem extends XmlPrintable {
 
 	/**
 	 * the right hand side function F the defining equation y'=F(y)
-	 * 
+	 *
 	 * @param input the input vector
 	 * @return the evaluation of y under F
 	 */

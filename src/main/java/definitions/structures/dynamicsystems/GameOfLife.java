@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import definitions.structures.abstr.algebra.fields.PrimeField;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
@@ -18,7 +17,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 /**
  * Implementationof Conway's Game Of Life as a
  * {@link definitions.structures.dynamicsystems.MultiDimensionalDynamicSystem}
- * 
+ *
  * @author ro
  */
 public class GameOfLife implements MultiDimensionalDynamicSystem {
@@ -45,15 +44,15 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param size the size
-	 * 
+	 *
 	 */
 	public GameOfLife(int size) {
 		this.size = size;
 		this.setBinaries(GroupGenerator.getInstance().getBinaries());
-		grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.getBinaries(), size * size);
-		coordinates = grid.genericBaseToList();
+		this.grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.getBinaries(), size * size);
+		this.coordinates = this.grid.genericBaseToList();
 	}
 
 	/**
@@ -69,12 +68,12 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 			@Override
 			public Element get(Element vec) {
-				final FiniteVector ans = (FiniteVector) grid.nullVec();
-				for (int i = 0; i < size; i++) {
-					for (int j = 0; j < size; j++) {
+				final FiniteVector ans = (FiniteVector) GameOfLife.this.grid.nullVec();
+				for (int i = 0; i < GameOfLife.this.size; i++) {
+					for (int j = 0; j < GameOfLife.this.size; j++) {
 						final boolean survives = this.willBeAlive(vec, i, j);
 						if (survives) {
-							ans.getCoordinates().put(coordinates.get((i * size) + j),
+							ans.getCoordinates().put(GameOfLife.this.coordinates.get((i * GameOfLife.this.size) + j),
 									GameOfLife.this.getBinaries().getOne());
 						}
 					}
@@ -85,7 +84,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 			/**
 			 * method to determine if a given cell will survice/be reborn depending on given
 			 * civilization
-			 * 
+			 *
 			 * @param vec the given civilization
 			 * @param i   vertical coordinate of the cell
 			 * @param j   horizontal coordinate of the cell
@@ -94,8 +93,8 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 			private boolean willBeAlive(Element vec, int i, int j) {
 				final int count = GameOfLife.this.countNeighbours(vec, i, j);
 				boolean ans = false;
-				if (((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j)) == GameOfLife.this
-						.getBinaries().getZero()) {
+				if (((FiniteVector) vec).getCoordinates().get(GameOfLife.this.coordinates
+						.get((i * GameOfLife.this.size) + j)) == GameOfLife.this.getBinaries().getZero()) {
 					if (count == 3) {
 						ans = true;
 					}
@@ -107,7 +106,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 			@Override
 			public VectorSpace getSource() {
-				return grid;
+				return GameOfLife.this.grid;
 			}
 
 		};
@@ -115,15 +114,15 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	/**
 	 * method to count the amount of neigbours.
-	 * 
+	 *
 	 * @param vec the vector of states of the cell
 	 * @param i   vertical coordinate of the cell
 	 * @param j   horizontal coordinate of the cell
 	 * @return the amount of living neighbours
 	 */
 	protected int countNeighbours(Element vec, int i, int j) {
-		int count = ((FiniteVector) vec).getCoordinates().get(coordinates.get((i * size) + j))
-				.equals(grid.getField().getNeutralElement()) ? 0 : -1;
+		int count = ((FiniteVector) vec).getCoordinates().get(this.coordinates.get((i * this.size) + j))
+				.equals(this.grid.getField().getNeutralElement()) ? 0 : -1;
 		for (int u = -1; u < 2; u++) {
 			for (int v = -1; v < 2; v++) {
 				count += this.isAlive(vec, i + u, j + v);
@@ -137,7 +136,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	/**
 	 * method to determine if a given cell is alive in given civilization
-	 * 
+	 *
 	 * @param vec the civilization
 	 * @param i   vertical coordinate of the cell
 	 * @param j   horizontal coordinate of the cell
@@ -145,7 +144,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	 */
 	private int isAlive(Element vec, int i, int j) {
 		final Element ans = ((FiniteVector) vec).getCoordinates()
-				.get(coordinates.get((((i + size) % size) * size) + ((j + size) % size)));
+				.get(this.coordinates.get((((i + this.size) % this.size) * this.size) + ((j + this.size) % this.size)));
 		return ans == this.getBinaries().getNeutralElement() ? 0 : 1;
 	}
 
@@ -153,19 +152,20 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	 * @return the size of the games
 	 */
 	public int getSize() {
-		return size;
+		return this.size;
 	}
 
 	public FiniteVector createRandomInitialCondition() {
 		final FiniteVector initialCondition = (FiniteVector) this.getPhaseSpace().nullVec();
 		final Random random = new Random();
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
+		for (int i = 0; i < this.size; i++) {
+			for (int j = 0; j < this.size; j++) {
 				if (random.nextBoolean()) {
-					initialCondition.getCoordinates().put(coordinates.get((i * size) + j), this.getBinaries().getOne());
+					initialCondition.getCoordinates().put(this.coordinates.get((i * this.size) + j),
+							this.getBinaries().getOne());
 				} else {
-					initialCondition.getCoordinates().put(coordinates.get((i * size) + j),
-							(Scalar) this.getBinaries().getZero());
+					initialCondition.getCoordinates().put(this.coordinates.get((i * this.size) + j),
+							this.getBinaries().getZero());
 				}
 			}
 		}
@@ -179,16 +179,16 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	/**
 	 * getter for binaries
-	 * 
+	 *
 	 * @return the binaries
 	 */
 	public PrimeField getBinaries() {
-		return binaries;
+		return this.binaries;
 	}
 
 	/**
 	 * setter for binaries
-	 * 
+	 *
 	 * @param binaries the binaries to set
 	 */
 	public void setBinaries(PrimeField binaries) {
@@ -197,16 +197,16 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	/**
 	 * getter for the grid
-	 * 
+	 *
 	 * @return the grid
 	 */
 	public EuclideanSpace getGrid() {
-		return grid;
+		return this.grid;
 	}
 
 	/**
 	 * Setter for the grid
-	 * 
+	 *
 	 * @param grid the grid
 	 */
 	public void setGrid(EuclideanSpace grid) {
@@ -215,16 +215,16 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	/**
 	 * getter for the coordinates
-	 * 
+	 *
 	 * @return the coordinates
 	 */
 	public List<Vector> getCoordinates() {
-		return coordinates;
+		return this.coordinates;
 	}
 
 	/**
 	 * setter for the coordinates
-	 * 
+	 *
 	 * @param coordinates the coordinates to set
 	 */
 	public void setCoordinates(List<Vector> coordinates) {
@@ -236,7 +236,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	 */
 	@Override
 	public EuclideanSpace getPhaseSpace() {
-		return grid;
+		return this.grid;
 	}
 
 }

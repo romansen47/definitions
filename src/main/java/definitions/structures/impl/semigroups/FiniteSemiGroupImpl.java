@@ -13,22 +13,22 @@ public abstract class FiniteSemiGroupImpl extends DiscreetSemiGroupImpl implemen
 
 	@Override
 	public Element get(Number representant) {
-		return elements.get(representant);
+		return this.elements.get(representant);
 	}
 
 	@Override
 	public Map<Double, Element> getElements() {
-		return elements;
+		return this.elements;
 	}
 
 	@Override
 	public Map<Element, Map<Element, Element>> getOperationMap() {
-		return operationMap;
+		return this.operationMap;
 	}
 
 	@Override
 	public Element operation(Element first, Element second) {
-		return operationMap.get(first).get(second);
+		return this.operationMap.get(first).get(second);
 	}
 
 }

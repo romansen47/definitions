@@ -34,7 +34,7 @@ public class CachingAspect {
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	public Logger getLogger() {
-		return logger;
+		return this.logger;
 	}
 
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")

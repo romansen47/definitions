@@ -12,7 +12,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 /**
  * Dynamic systems are given by a V-valued mapping F on V and the corresponding
  * first order system y' = F(y), y(0)=y_0.
- * 
+ *
  * @author ro
  *
  */
@@ -25,7 +25,7 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 	/**
 	 * a dynamic system is an autonomous evolution system
-	 * 
+	 *
 	 * @return the defining mapping
 	 */
 	VectorSpaceSelfMapping getDefiningMapping();
@@ -44,7 +44,7 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 
 	/**
 	 * provides the evolution operator at time t
-	 * 
+	 *
 	 * @param t the time
 	 * @return the evolution operator at time t
 	 */
@@ -62,13 +62,13 @@ public interface DynamicSystem extends EvolutionSystem, XmlPrintable {
 			public Element get(Element vec) {
 				final Group timeSpace = DynamicSystem.this.getTimeSpace();
 				Element ans;
-				if (timeSpace.getNeutralElement().equals(time)) {
+				if (timeSpace.getNeutralElement().equals(this.time)) {
 					ans = vec;
 				} else {
-					if (((SemiRing) timeSpace).getOne().equals(time)) {
+					if (((SemiRing) timeSpace).getOne().equals(this.time)) {
 						ans = DynamicSystem.this.getDefiningMapping().get(vec);
 					} else {
-						final Element newTime = timeSpace.operation(time, ((Ring) timeSpace).getMinusOne());
+						final Element newTime = timeSpace.operation(this.time, ((Ring) timeSpace).getMinusOne());
 						ans = DynamicSystem.this.getEvolutionOperator(newTime)
 								.get(DynamicSystem.this.getEvolutionOperator(((Ring) timeSpace).getOne()).get(vec));
 					}

@@ -62,8 +62,8 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	public FiniteDimensionalVectorSpace(final Field field, final List<Vector> genericBase) {
 		this.setField(field);
-		dim = genericBase.size();
-		base = genericBase;
+		this.dim = genericBase.size();
+		this.base = genericBase;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	@Override
 	public List<Vector> genericBaseToList() {
-		return base;
+		return this.base;
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	@Override
 	public Integer getDim() {
-		return dim;
+		return this.dim;
 	}
 
 	/**
@@ -117,10 +117,10 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 */
 	@Override
 	public EuclideanSpace getDualSpace() {
-		if (dualSpace == null) {
-			dualSpace = new FunctionalSpace(this);
+		if (this.dualSpace == null) {
+			this.dualSpace = new FunctionalSpace(this);
 		}
-		return dualSpace;
+		return this.dualSpace;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	@Override
 	@Proceed
 	public Field getField() {
-		return field;
+		return this.field;
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	public Vector nullVec() {
 		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 		for (final Vector vec : this.genericBaseToList()) {
-			coordinates.put(vec, (Scalar) this.getField().getZero());
+			coordinates.put(vec, this.getField().getZero());
 		}
 		/*
 		 * Direct usage of constructor instead of get method in order to avoid cycles.
@@ -154,7 +154,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * @param newBase the new base.
 	 */
 	public void setBase(final List<Vector> newBase) {
-		base = newBase;
+		this.base = newBase;
 	}
 
 	/**

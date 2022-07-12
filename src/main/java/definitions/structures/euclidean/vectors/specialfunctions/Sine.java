@@ -27,24 +27,24 @@ public abstract class Sine extends GenericFunction {
 	}
 
 	public Sine(final Scalar a, final Scalar b, final Scalar c, final Field field) {
-		setField(field);
-		magnitude = a;
-		translation = b;
-		frequency = c;
+		this.setField(field);
+		this.magnitude = a;
+		this.translation = b;
+		this.frequency = c;
 	}
 
 	/**
 	 * @return the frequency
 	 */
 	public Scalar getFrequency() {
-		return frequency;
+		return this.frequency;
 	}
 
 	/**
 	 * @return the translation
 	 */
 	public Scalar getTranslation() {
-		return translation;
+		return this.translation;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public abstract class Sine extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "x -> " + magnitude + "*sin(" + getTranslation() + "+" + getFrequency() + "*x) ";
+		return "x -> " + this.magnitude + "*sin(" + this.getTranslation() + "+" + this.getFrequency() + "*x) ";
 	}
 
 	/**
@@ -60,26 +60,27 @@ public abstract class Sine extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getField().get(((Real) magnitude).getDoubleValue() * Math.sin(((Real) getTranslation()).getDoubleValue()
-				+ (((Real) getFrequency()).getDoubleValue() * ((Real) input).getDoubleValue())));
+		return this.getField()
+				.get(((Real) this.magnitude).getDoubleValue() * Math.sin(((Real) this.getTranslation()).getDoubleValue()
+						+ (((Real) this.getFrequency()).getDoubleValue() * ((Real) input).getDoubleValue())));
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(frequency, magnitude, translation);
+		return Objects.hash(this.frequency, this.magnitude, this.translation);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj) || (this.getClass() != obj.getClass())) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		Sine other = (Sine) obj;
-		return Objects.equals(frequency, other.frequency) && Objects.equals(magnitude, other.magnitude)
-				&& Objects.equals(translation, other.translation);
+		return Objects.equals(this.frequency, other.frequency) && Objects.equals(this.magnitude, other.magnitude)
+				&& Objects.equals(this.translation, other.translation);
 	}
 
 }

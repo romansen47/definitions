@@ -30,22 +30,22 @@ public interface PrimeField extends Field {
 		final VectorSpaceHomomorphism hom = new Identity(this) {
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				if (genericMatrix == null) {
-					genericMatrix = new Scalar[1][1];
-					genericMatrix[0][0] = (Scalar) one;
+				if (this.genericMatrix == null) {
+					this.genericMatrix = new Scalar[1][1];
+					this.genericMatrix[0][0] = (Scalar) one;
 				}
-				return genericMatrix;
+				return this.genericMatrix;
 			}
 
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-				if (linearity == null) {
+				if (this.linearity == null) {
 					final Map<Vector, Map<Vector, Scalar>> linearity = new ConcurrentHashMap<>();
 					final Map<Vector, Scalar> map = new ConcurrentHashMap<>();
 					map.put(one, (Scalar) one);
 					linearity.put(one, map);
 				}
-				return linearity;
+				return this.linearity;
 			}
 
 		};

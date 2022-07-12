@@ -29,8 +29,8 @@ public class FunctionTuple extends Tuple implements Function {
 
 	public FunctionTuple(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		super(coordinates);
-		coordinatesMap.put(space, coordinates);
-		field = space.getField();
+		this.coordinatesMap.put(space, coordinates);
+		this.field = space.getField();
 	}
 
 	public FunctionTuple(final Scalar[] coordinates, final Field field) {
@@ -43,7 +43,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public Map<EuclideanSpace, Map<Vector, Scalar>> getCoordinatesMap() {
-		return coordinatesMap;
+		return this.coordinatesMap;
 	}
 
 	public LinearMapping getDerivative(final VectorSpace space) {
@@ -65,7 +65,7 @@ public class FunctionTuple extends Tuple implements Function {
 	 */
 	@Override
 	public Field getField() {
-		return field;
+		return this.field;
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class FunctionTuple extends Tuple implements Function {
 
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
-		coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
+		this.coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
 	}
 
 	@Override

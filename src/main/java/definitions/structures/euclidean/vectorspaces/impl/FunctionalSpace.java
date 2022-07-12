@@ -30,7 +30,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 	public FunctionalSpace(final EuclideanSpace source) {
 		this.source = source;
-		dim = source.getDim();
+		this.dim = source.getDim();
 		final List<Vector> base = new ArrayList<>();
 		for (final Vector baseVec : source.genericBaseToList()) {
 			final Vector functional = new Functional() {
@@ -40,7 +40,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Vector get(final Element vec) {
-					return sourceSpace.innerProduct(baseVec, (Vector) vec);
+					return this.sourceSpace.innerProduct(baseVec, (Vector) vec);
 				}
 
 				@Override
@@ -62,13 +62,13 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 				@Override
 				public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 					final Map<Vector, Map<Vector, Scalar>> newMap = new ConcurrentHashMap<>();
-					for (final Vector bv1 : sourceSpace.genericBaseToList()) {
+					for (final Vector bv1 : this.sourceSpace.genericBaseToList()) {
 						final Map<Vector, Scalar> coord = new ConcurrentHashMap<>();
-						for (final Vector bv2 : sourceSpace.genericBaseToList()) {
+						for (final Vector bv2 : this.sourceSpace.genericBaseToList()) {
 							if (bv1 != bv2) {
-								coord.put(bv2, (Scalar) target.nullVec());
+								coord.put(bv2, (Scalar) this.target.nullVec());
 							} else {
-								coord.put(bv2, ((Field) target).getOne());
+								coord.put(bv2, ((Field) this.target).getOne());
 							}
 						}
 						newMap.put(bv1, coord);
@@ -83,12 +83,12 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 
 				@Override
 				public Vector getSourceVec() {
-					return sourceVec;
+					return this.sourceVec;
 				}
 
 				@Override
 				public EuclideanSpace getTarget() {
-					return target;
+					return this.target;
 				}
 
 			};
@@ -100,6 +100,6 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 	@Override
 	@Proceed
 	public EuclideanSpace getDualSpace() {
-		return source;
+		return this.source;
 	}
 }

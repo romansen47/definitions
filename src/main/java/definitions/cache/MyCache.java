@@ -18,12 +18,12 @@ public class MyCache implements ICache, XmlPrintable, Serializable {
 
 	@Override
 	public Map<Integer, EuclideanSpace> getConcreteCache() {
-		return coordinateSpaces;
+		return this.coordinateSpaces;
 	}
 
 	@Override
 	public void setConcreteCache(final Map<Integer, EuclideanSpace> cache) {
-		coordinateSpaces = cache;
+		this.coordinateSpaces = cache;
 	}
 
 	@Override

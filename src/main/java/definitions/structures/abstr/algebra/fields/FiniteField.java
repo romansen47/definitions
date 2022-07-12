@@ -7,7 +7,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * A finite field is a field with finite amount of elements
- * 
+ *
  * @author ro
  */
 public interface FiniteField extends DiscreetField, FiniteRing {

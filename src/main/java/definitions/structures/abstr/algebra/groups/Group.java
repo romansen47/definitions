@@ -15,7 +15,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
  * such that
  *
  * operation(a,b) = operation(b,a) = getIdentityElement().
- * 
+ *
  * @author ro
  */
 public interface Group extends Monoid {

@@ -42,8 +42,8 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
 		this.degree = degree;
 		if (ortho) {
-			setBase(getOrthonormalBase(base));
-			assignOrthonormalCoordinates(base, field);
+			this.setBase(this.getOrthonormalBase(this.base));
+			this.assignOrthonormalCoordinates(this.base, field);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 			final double right, final int degree) throws DevisionByZeroException {
 		super(field, genericBase, left, right, true);
 		this.degree = degree;
-		getDerivativeBuilder();
+		this.getDerivativeBuilder();
 	}
 
 	/**
@@ -98,17 +98,17 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @return the sobolev degree
 	 */
 	public final Integer getDegree() {
-		if (degree == null) {
-			degree = base.size();
+		if (this.degree == null) {
+			this.degree = this.base.size();
 		}
-		return degree;
+		return this.degree;
 	}
 
 	public DerivativeOperator getDerivativeBuilder() {
-		if (derivativeBuilder == null) {
-			setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
+		if (this.derivativeBuilder == null) {
+			this.setDerivativeBuilder(new FiniteDimensionalDerivativeOperator(this, this));
 		}
-		return derivativeBuilder;
+		return this.derivativeBuilder;
 	}
 
 	@Override
@@ -122,18 +122,19 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 				Vector tmp1 = vec1;
 				Vector tmp2 = vec2;
 				product += ((Real) super.innerProduct(tmp1, tmp2)).getDoubleValue();
-				for (int i = 0; i < getDegree(); i++) {
+				for (int i = 0; i < this.getDegree(); i++) {
 					if ((((FiniteVectorMethods) tmp1).getCoordinates() == null)
-							|| (((FiniteVectorMethods) tmp2).getCoordinates() == null) || (derivativeBuilder == null)) {
+							|| (((FiniteVectorMethods) tmp2).getCoordinates() == null)
+							|| (this.derivativeBuilder == null)) {
 						tmp1 = ((Function) tmp1).getDerivative();
 						tmp2 = ((Function) tmp2).getDerivative();
 					} else {
-						tmp1 = derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
-						tmp2 = derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
+						tmp1 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp1).getCoordinates()));
+						tmp2 = this.derivativeBuilder.get(this.get(((FiniteVectorMethods) tmp2).getCoordinates()));
 					}
 					product += ((Real) super.innerProduct(tmp1, tmp2)).getDoubleValue();
 				}
-				return getField().get(product);
+				return this.getField().get(product);
 			}
 		}
 		return super.innerProduct(vec1, vec2);

@@ -7,7 +7,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 
 /**
  * A finite group is a group with finite amount of elements
- * 
+ *
  * @author ro
  */
 public interface FiniteGroup extends FiniteMonoid, DiscreetGroup {

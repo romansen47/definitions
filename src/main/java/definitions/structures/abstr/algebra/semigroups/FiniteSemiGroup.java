@@ -8,7 +8,7 @@ import definitions.structures.euclidean.Generator;
 
 /**
  * A finite semi group is a semi group with finite amount of elements
- * 
+ *
  * @author ro
  */
 public interface FiniteSemiGroup extends DiscreetSemiGroup {

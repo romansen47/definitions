@@ -10,7 +10,7 @@ package definitions.structures.abstr.algebra.rings;
  *         mapping
  *
  *         a maps to a*x
- * 
+ *
  *         is injective for every non-zero x.
  *
  */

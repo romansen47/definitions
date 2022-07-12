@@ -51,12 +51,12 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 
 	@Override
 	public FieldGenerator getFieldGenerator() {
-		return fieldGenerator;
+		return this.fieldGenerator;
 	}
 
 	@Override
 	public GroupGenerator getGroupGenerator() {
-		return groupGenerator;
+		return this.groupGenerator;
 	}
 
 	public Logger getLogger() {
@@ -65,12 +65,12 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 
 	@Override
 	public MappingGenerator getMappingGenerator() {
-		return mappingGenerator;
+		return this.mappingGenerator;
 	}
 
 	@Override
 	public SpaceGenerator getSpaceGenerator() {
-		return spaceGenerator;
+		return this.spaceGenerator;
 	}
 
 	@Override

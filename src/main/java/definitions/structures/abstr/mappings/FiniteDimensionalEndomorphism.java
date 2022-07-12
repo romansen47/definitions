@@ -39,7 +39,7 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 
 	/**
 	 * Method to compute the determinant of the linear self mapping.
-	 * 
+	 *
 	 * @param matrix the given matrix
 	 * @return the determinant
 	 */
@@ -49,13 +49,13 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 			return matrix[0][0];
 		}
 		for (int i = 0; i < matrix.length; i++) {
-			final Scalar[][] adj = adjugateMatrix(matrix, i, 0);
+			final Scalar[][] adj = this.adjugateMatrix(matrix, i, 0);
 			if ((i % 2) == 0) {
-				det = ((EuclideanSpace) getSource()).getField().get(((Real) det).getDoubleValue()
-						+ (((Real) det(adj)).getDoubleValue() * ((Real) matrix[i][0]).getDoubleValue()));
+				det = ((EuclideanSpace) this.getSource()).getField().get(((Real) det).getDoubleValue()
+						+ (((Real) this.det(adj)).getDoubleValue() * ((Real) matrix[i][0]).getDoubleValue()));
 			} else {
-				det = ((EuclideanSpace) getSource()).getField().get(((Real) det).getDoubleValue()
-						- (((Real) det(adj)).getDoubleValue() * ((Real) matrix[i][0]).getDoubleValue()));
+				det = ((EuclideanSpace) this.getSource()).getField().get(((Real) det).getDoubleValue()
+						- (((Real) this.det(adj)).getDoubleValue() * ((Real) matrix[i][0]).getDoubleValue()));
 			}
 		}
 		return det;

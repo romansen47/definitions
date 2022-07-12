@@ -33,7 +33,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 	/**
 	 * actually not a native method of a field. to be removed in future
-	 * 
+	 *
 	 * @param value the input scalar
 	 * @return the conjugated scalar
 	 */
@@ -47,12 +47,12 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 */
 	@Override
 	default boolean divides(final Element devisor, final Element devident) {
-		return isUnit(devisor);
+		return this.isUnit(devisor);
 	}
 
 	/**
 	 * by default the characteristic is 0. we also have a FiniteField-class
-	 * 
+	 *
 	 * @return the characteristic
 	 */
 	default int getCharacteristic() {
@@ -65,8 +65,8 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	@Override
 	default Group getMuliplicativeMonoid() {
 
-		final Vector newOne = getOne();
-		final Integer newOrder = getOrder();
+		final Vector newOne = this.getOne();
+		final Integer newOrder = this.getOrder();
 
 		return new Group() {
 
@@ -105,7 +105,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 */
 	@Override
 	default FieldElement getOne() {
-		return (FieldElement) getMuliplicativeMonoid().getNeutralElement();
+		return (FieldElement) this.getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	/**
@@ -113,10 +113,10 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 */
 	@Override
 	default FieldElement getInverseElement(Element element) {
-		if (element.equals(getOne())) {
-			return (FieldElement) getMinusOne();
-		} else if (element.equals(getZero())) {
-			return (FieldElement) getZero();
+		if (element.equals(this.getOne())) {
+			return (FieldElement) this.getMinusOne();
+		} else if (element.equals(this.getZero())) {
+			return (FieldElement) this.getZero();
 		}
 		return (FieldElement) EuclideanAlgebra.super.getInverseElement(element);
 	}
@@ -132,16 +132,16 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 	/**
 	 * getter for zero scalar
-	 * 
+	 *
 	 * @return zero scalar
 	 */
 	default Scalar getZero() {
-		return (Scalar) nullVec();
+		return (Scalar) this.nullVec();
 	}
 
 	/**
 	 * method to get the inverse element w.r.t. multiplication, if exists
-	 * 
+	 *
 	 * @param element the element
 	 * @return the multiplicative inverse, if exists, null otherwise
 	 */
@@ -159,12 +159,12 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 			@Override
 			public EuclideanSpace getSource() {
-				return source;
+				return this.source;
 			}
 
 			@Override
 			public EuclideanSpace getTarget() {
-				return target;
+				return this.target;
 			}
 
 		};
@@ -173,15 +173,15 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 			@Override
 			public Vector get(final Element vec) {
-				return ((Field) getTarget()).nullVec();
+				return ((Field) this.getTarget()).nullVec();
 			}
 
 			@Override
 			public Scalar[][] getGenericMatrix() {
-				final Scalar[][] mat = new Scalar[((Field) target).getDim()][((Field) source).getDim()];
+				final Scalar[][] mat = new Scalar[((Field) this.target).getDim()][((Field) this.source).getDim()];
 				for (int i = 0; i < mat.length; i++) {
 					for (int j = 0; j < mat.length; j++) {
-						Scalar scalar = i == j ? getOne() : (Scalar) getZero();
+						Scalar scalar = i == j ? Field.this.getOne() : (Scalar) Field.this.getZero();
 						mat[i][j] = scalar;
 					}
 				}
@@ -191,18 +191,18 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new ConcurrentHashMap<>();
-				for (final Vector vec : ((EuclideanSpace) getSource()).genericBaseToList()) {
-					coord.put(vec, ((FiniteVectorMethods) ((Field) target).nullVec()).getCoordinates());
+				for (final Vector vec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
+					coord.put(vec, ((FiniteVectorMethods) ((Field) this.target).nullVec()).getCoordinates());
 				}
 				return coord;
 			}
 		};
-		for (final Vector vec : genericBaseToList()) {
-			final Vector tmp = getMultiplicationMatrix().get(vec);
+		for (final Vector vec : this.genericBaseToList()) {
+			final Vector tmp = this.getMultiplicationMatrix().get(vec);
 			hom = (FiniteDimensionalHomomorphism) multLinMaps.addition(hom,
 					multLinMaps.stretch(tmp, ((FiniteVectorMethods) element).getCoordinates().get(vec)));
 		}
-		return hom.solve(getOne());
+		return hom.solve(this.getOne());
 	}
 
 	/**
@@ -218,7 +218,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 */
 	@Override
 	default boolean isPrimeElement(final Element element) {
-		return !isUnit(element);
+		return !this.isUnit(element);
 	}
 
 	/**
@@ -226,7 +226,7 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 */
 	@Override
 	default boolean isUnit(final Element element) {
-		return !element.equals(getZero());
+		return !element.equals(this.getZero());
 	}
 
 	/**

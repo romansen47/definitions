@@ -32,10 +32,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			final int degree) {
 		super(f, degree);
 		final List<Vector> tmpBase = new ArrayList<>();
-		dim = (2 * n) + 1;
-		interval = new double[] { left, right };
+		this.dim = (2 * n) + 1;
+		this.interval = new double[] { left, right };
 		tmpBase.add(new GenericFunction() {
-			final Scalar value = getField().get(1. / Math.sqrt(2. * Math.PI));
+			final Scalar value = this.getField().get(1. / Math.sqrt(2. * Math.PI));
 
 			@Override
 			public Field getField() {
@@ -44,18 +44,18 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 			@Override
 			public String toString() {
-				return "Normed constant Function: x -> " + ((Real) value).getDoubleValue();
+				return "Normed constant Function: x -> " + ((Real) this.value).getDoubleValue();
 			}
 
 			@Override
 			public Scalar value(final Scalar input) {
-				return value;
+				return this.value;
 			}
 		});
 		this.getSineFunctions(n, tmpBase);
 		this.getCosineFunctions(n, tmpBase);
-		base = tmpBase;
-		assignOrthonormalCoordinates(tmpBase, f);
+		this.base = tmpBase;
+		this.assignOrthonormalCoordinates(tmpBase, f);
 	}
 
 	/**
@@ -66,10 +66,10 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 
 	protected void getCosineFunctions(final int n, final List<Vector> tmpBase) {
-		final Field f = getField();
+		final Field f = this.getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
-			for (int j = 0; j < (getDegree() + 1); j++) {
+			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
@@ -84,6 +84,7 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 		}
 	}
+
 	/**
 	 * Method to fill a list with sine functions.
 	 *
@@ -92,14 +93,14 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 	 */
 
 	protected void getSineFunctions(final int n, final List<Vector> tmpBase) {
-		final Field f = getField();
+		final Field f = this.getField();
 		for (int i = 1; i < (n + 1); i++) {
 			double factor = 0;
-			for (int j = 0; j < (getDegree() + 1); j++) {
+			for (int j = 0; j < (this.getDegree() + 1); j++) {
 				factor += Math.pow(i, 2 * j);
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
-			final Vector sin = new Sine(f.get(factor), (Scalar) f.getZero(), f.get(i)) {
+			final Vector sin = new Sine(f.get(factor), f.getZero(), f.get(i)) {
 
 				@Override
 				public Field getField() {

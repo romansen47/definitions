@@ -22,12 +22,12 @@ public interface CyclicGroup extends Group, FiniteMonoid {
 
 	@Override
 	default Element get(Number representant) {
-		return getElementsAsList().get((Integer) representant);
+		return this.getElementsAsList().get((Integer) representant);
 	}
 
 	@Override
 	default Element getNeutralElement() {
-		return getElementsAsList().get(0);
+		return this.getElementsAsList().get(0);
 	}
 
 }

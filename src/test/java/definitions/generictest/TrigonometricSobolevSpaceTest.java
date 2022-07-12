@@ -25,7 +25,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		trigonometricDegree = 6;
+		trigonometricDegree = 3;
 		sobolevDegree = 1;
 		eps = 1d;
 

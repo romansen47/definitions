@@ -13,9 +13,9 @@ public interface Ring extends Group, SemiRing {
 	/**
 	 * A ring is an additive group, therefore every element in the ring is
 	 * invertible wrt to addition. In detail we have
-	 * 
+	 *
 	 * (-x)=(-1)x, so we actually only need the additive inverse of one.
-	 * 
+	 *
 	 * @return the additive inverse of one
 	 */
 	Element getMinusOne();

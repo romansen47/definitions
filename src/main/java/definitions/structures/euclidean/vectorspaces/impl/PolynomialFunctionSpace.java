@@ -11,7 +11,7 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
 	protected PolynomialFunctionSpace(final Field field, final int maxDegree, final double right) {
 		super(field);
-		base = new ArrayList<>();
+		this.base = new ArrayList<>();
 		this.prepare(maxDegree, right);
 	}
 
@@ -19,23 +19,23 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 			throws DevisionByZeroException {
 		this(field, maxDegree, right);
 		if (ortho) {
-			base = this.getOrthonormalBase(base);
+			this.base = this.getOrthonormalBase(this.base);
 		}
 	}
 
 	private void prepare(final int maxDegree, final double right) {
 		final Field f = this.getField();
-		interval = new double[] { -right, right };
-		base.clear();
+		this.interval = new double[] { -right, right };
+		this.base.clear();
 		for (int i = 0; i < (maxDegree + 1); i++) {
-			base.add(new Monome(i) {
+			this.base.add(new Monome(i) {
 				@Override
 				public Field getField() {
 					return f;
 				}
 			});
 		}
-		dim = base.size();
+		this.dim = this.base.size();
 	}
 
 }

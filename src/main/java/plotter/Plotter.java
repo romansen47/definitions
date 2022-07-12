@@ -23,7 +23,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 500;
 		final double delta = (right - left) / count;
-		preparePlot(fun, left, right, stddraw, count, delta);
+		this.preparePlot(fun, left, right, stddraw, count, delta);
 		double z = 0;
 		StdDraw.setPenRadius(0.001);
 		for (double i = 0; i < (count - 1); i += 1) {
@@ -33,8 +33,9 @@ public interface Plotter {
 				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(z));
 				final Scalar sc2 = (Scalar) ((Function) fun)
 						.value(((Function) fun).getField().getField().get(z + delta));
-				StdDraw.line(z, getValue((sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
-						z + delta, getValue(sc2.getCoordinates().get(((Function) fun).getField().getBaseVec(vec))));
+				StdDraw.line(z, this.getValue((sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
+						z + delta,
+						this.getValue(sc2.getCoordinates().get(((Function) fun).getField().getBaseVec(vec))));
 			}
 		}
 
@@ -44,7 +45,7 @@ public interface Plotter {
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
-		preparePlot(fun1, left, right, stddraw, count, delta);
+		this.preparePlot(fun1, left, right, stddraw, count, delta);
 		Scalar tmp = ((Function) fun1).getField().get(left);
 		double alpha = ((Real) ((Function) fun1).value(tmp)).getDoubleValue();
 		double beta = ((Real) ((Function) fun2).value(tmp)).getDoubleValue();
@@ -71,11 +72,12 @@ public interface Plotter {
 		double x = 0;
 		Field f = ((Function) fun).getField();
 		Scalar h = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get((right - left) / 2.));
-		double min = getValue(h);
+		double min = this.getValue(h);
 		double max = min;
 		for (double i = 0; i < (count - 1); i += 1) {
 			x = left + (delta * i);
-			final double y = getValue(((Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(x))));
+			final double y = this
+					.getValue(((Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(x))));
 			if (y > max) {
 				max = y;
 			}

@@ -157,7 +157,7 @@ public interface ISpaceGenerator {
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right, final int degree, final boolean ortho)
 			throws DevisionByZeroException {
-		final EuclideanSpace space = getMyCache().getConcreteCache().get(genericBase.hashCode());
+		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(genericBase.hashCode());
 		final EuclideanFunctionSpace funSpace = (EuclideanFunctionSpace) space;
 		if ((space != null) && (funSpace instanceof FiniteDimensionalSobolevSpace)
 				&& (funSpace.getInterval()[0] == left) && (funSpace.getInterval()[1] == right)) {
@@ -169,7 +169,7 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getFiniteDimensionalVectorSpaceAsProduct(final Field field, final int dim) {
 		EuclideanSpace ans = field;
 		for (int i = 1; i < dim; i++) {
-			ans = getOuterProduct(ans, field);
+			ans = this.getOuterProduct(ans, field);
 		}
 		return ans;
 	}
@@ -204,7 +204,7 @@ public interface ISpaceGenerator {
 
 	default VectorSpace getPolynomialSobolevSpace(final Field field, final int maxDegree, final double right,
 			final int degree) throws DevisionByZeroException {
-		final EuclideanFunctionSpace polynoms = getPolynomialFunctionSpace(field, maxDegree, right, false);
+		final EuclideanFunctionSpace polynoms = this.getPolynomialFunctionSpace(field, maxDegree, right, false);
 		final VectorSpace ans = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
 		((FiniteDimensionalVectorSpace) ans)
 				.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
@@ -219,14 +219,14 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
 			throws DevisionByZeroException, ExtendingFailedException {
 		Generator.getInstance();
-		final EuclideanSpace space = getMyCache().getConcreteCache().get(n);
+		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
 		if (space != null) {
 			LogManager.getLogger(ISpaceGenerator.class).info(
 					"Successfully restored {}-dimensional trigonometric space {} with linear functions from cache",
 					((2 * n) + 1), space);
 			return space;
 		}
-		return extend(getTrigonometricSpace(f, n, right), new GenericFunction() {
+		return this.extend(this.getTrigonometricSpace(f, n, right), new GenericFunction() {
 			@Override
 			public Field getField() {
 				return f;
@@ -242,17 +242,17 @@ public interface ISpaceGenerator {
 
 	default EuclideanFunctionSpace getTrigonometricSobolevSpace(final Field field, final int n, final int degree) {
 		if (degree == 0) {
-			return getNormedTrigonometricSpace(field, n);
+			return this.getNormedTrigonometricSpace(field, n);
 		}
 		final EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(field, n, -Math.PI, Math.PI, degree);
-		createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
+		this.createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
 		return ans;
 	}
 
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(final Field f, final int sobolevDegree,
 			final double right, final int fourierDegree) throws DevisionByZeroException, ExtendingFailedException {
 
-		return extend(getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
+		return this.extend(this.getTrigonometricSobolevSpace(f, fourierDegree, sobolevDegree), new GenericFunction() {
 
 			@Override
 			public Field getField() {
@@ -302,12 +302,12 @@ public interface ISpaceGenerator {
 
 				@Override
 				public String toXml() {
-					return left.toXml() + right.toXml();
+					return this.left.toXml() + this.right.toXml();
 				}
 
 				@Override
 				public String toString() {
-					return toXml();
+					return this.toXml();
 				}
 
 				private final Vector left;
@@ -316,8 +316,8 @@ public interface ISpaceGenerator {
 				private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap;
 
 				ProductVector(Vector l, Vector r) {
-					left = l;
-					right = r;
+					this.left = l;
+					this.right = r;
 				}
 
 				@Override
@@ -329,36 +329,38 @@ public interface ISpaceGenerator {
 				 * @return the left
 				 */
 				public Vector getLeft() {
-					return left;
+					return this.left;
 				}
 
 				/**
 				 * @return the right
 				 */
 				public Vector getRight() {
-					return right;
+					return this.right;
 				}
 
 				@Override
 				public Map<Vector, Scalar> getCoordinates() {
-					if (coordinates == null) {
-						coordinates = new ConcurrentHashMap<>();
+					if (this.coordinates == null) {
+						this.coordinates = new ConcurrentHashMap<>();
 						for (final Vector vec : genericBaseToList()) {
 							final FiniteVector tmpLeft = (FiniteVector) ((ProductVector) vec).left;
 							final FiniteVector tmpRight = (FiniteVector) ((ProductVector) vec).right;
 							Scalar val;
 							if (tmpRight.equals(second.nullVec())) {
-								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getLeft()).getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) this.getLeft())
+										.getCoordinates();
 								val = tmpMap.get(tmpLeft);
 							} else {
-								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) getRight()).getCoordinates();
+								final Map<Vector, Scalar> tmpMap = ((FiniteVectorMethods) this.getRight())
+										.getCoordinates();
 								val = tmpMap.get(tmpRight);
 							}
-							coordinates.put(vec, val);
+							this.coordinates.put(vec, val);
 						}
 					}
-					this.setCoordinates(coordinates, outerThis);
-					return coordinates;
+					this.setCoordinates(this.coordinates, outerThis);
+					return this.coordinates;
 				}
 
 				@Override
@@ -368,10 +370,10 @@ public interface ISpaceGenerator {
 
 				@Override
 				public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-					if (coordinatesMap == null) {
-						coordinatesMap = new ConcurrentHashMap<>();
+					if (this.coordinatesMap == null) {
+						this.coordinatesMap = new ConcurrentHashMap<>();
 					}
-					coordinatesMap.putIfAbsent(space, coordinates);
+					this.coordinatesMap.putIfAbsent(space, coordinates);
 				}
 
 			}
@@ -395,26 +397,26 @@ public interface ISpaceGenerator {
 
 			@Override
 			public Vector nullVec() {
-				if (nullVec == null) {
-					nullVec = new ProductVector(first.nullVec(), second.nullVec());
+				if (this.nullVec == null) {
+					this.nullVec = new ProductVector(first.nullVec(), second.nullVec());
 				}
-				return nullVec;
+				return this.nullVec;
 			}
 
 			private List<Vector> base;
 
 			@Override
 			public List<Vector> genericBaseToList() {
-				if (base == null) {
-					base = new ArrayList<>();
+				if (this.base == null) {
+					this.base = new ArrayList<>();
 					for (int i = 0; i < first.getDim(); i++) {
-						base.add(new ProductVector(first.genericBaseToList().get(i), second.nullVec()));
+						this.base.add(new ProductVector(first.genericBaseToList().get(i), second.nullVec()));
 					}
 					for (int j = 0; j < second.getDim(); j++) {
-						base.add(new ProductVector(first.nullVec(), second.genericBaseToList().get(j)));
+						this.base.add(new ProductVector(first.nullVec(), second.genericBaseToList().get(j)));
 					}
 				}
-				return base;
+				return this.base;
 			}
 
 			@Override
@@ -442,10 +444,10 @@ public interface ISpaceGenerator {
 
 			@Override
 			public EuclideanSpace getDualSpace() {
-				if (dualSpace == null) {
-					dualSpace = ISpaceGenerator.this.getOuterProduct(first.getDualSpace(), second.getDualSpace());
+				if (this.dualSpace == null) {
+					this.dualSpace = ISpaceGenerator.this.getOuterProduct(first.getDualSpace(), second.getDualSpace());
 				}
-				return dualSpace;
+				return this.dualSpace;
 			}
 
 		};

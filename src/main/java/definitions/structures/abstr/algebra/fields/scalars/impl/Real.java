@@ -38,12 +38,12 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 
 	/**
 	 * Getter for the representant
-	 * 
+	 *
 	 * @return the double value
 	 */
 	@Override
 	public Double getRepresentant() {
-		return representant;
+		return this.representant;
 	}
 
 	private Map<Vector, Scalar> coordinates;
@@ -55,7 +55,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 * Constructor of zero
 	 */
 	public Real() {
-		representant = 0d;
+		this.representant = 0d;
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public double doubleValue() {
-		return getDoubleValue();
+		return this.getDoubleValue();
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public boolean equals(final Object vec) {
-		return ((vec instanceof Real) && (Math.abs(((Real) vec).getDoubleValue() - getDoubleValue()) < eps));
+		return ((vec instanceof Real) && (Math.abs(((Real) vec).getDoubleValue() - this.getDoubleValue()) < this.eps));
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public float floatValue() {
-		return (float) getDoubleValue();
+		return (float) this.getDoubleValue();
 	}
 
 	/**
@@ -95,11 +95,11 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		if (coordinates == null) {
-			coordinates = new ConcurrentHashMap<>();
-			coordinates.put(RealLine.getInstance().getOne(), this);
+		if (this.coordinates == null) {
+			this.coordinates = new ConcurrentHashMap<>();
+			this.coordinates.put(RealLine.getInstance().getOne(), this);
 		}
-		return coordinates;
+		return this.coordinates;
 	}
 
 	/**
@@ -121,12 +121,12 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 
 	/**
 	 * real numbers "have" a double value
-	 * 
+	 *
 	 * @return the double value
 	 */
 	@XmlAttribute
 	public double getDoubleValue() {
-		return representant;
+		return this.representant;
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public int intValue() {
-		return (int) getDoubleValue();
+		return (int) this.getDoubleValue();
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public long longValue() {
-		return (long) getDoubleValue();
+		return (long) this.getDoubleValue();
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 
 	/**
 	 * Complex version of the real number
-	 * 
+	 *
 	 * @return the given number as a complex number
 	 */
 	public Scalar toComplex() {
@@ -174,7 +174,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "" + getDoubleValue();
+		return "" + this.getDoubleValue();
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public String toXml() {
-		return "<real value=\"" + Double.toString(representant) + "\" />";
+		return "<real value=\"" + Double.toString(this.representant) + "\" />";
 	}
 
 	public void setRepresentant(Double representant) {

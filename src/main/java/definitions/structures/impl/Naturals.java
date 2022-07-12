@@ -28,12 +28,12 @@ public class Naturals extends DiscreetSemiGroupImpl
 		private final int representant;
 
 		public NaturalNumber(Number representant2) {
-			representant = representant2.intValue();
+			this.representant = representant2.intValue();
 		}
 
 		@Override
 		public Integer getRepresentant() {
-			return representant;
+			return this.representant;
 		}
 
 		@Override
@@ -44,7 +44,7 @@ public class Naturals extends DiscreetSemiGroupImpl
 
 		@Override
 		public int hashCode() {
-			return representant;
+			return this.representant;
 		}
 	}
 
@@ -52,12 +52,12 @@ public class Naturals extends DiscreetSemiGroupImpl
 
 	@Override
 	public Element getNeutralElement() {
-		return get(0.);
+		return this.get(0.);
 	}
 
 	@Override
 	public Element operation(Element first, Element second) {
-		return get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
+		return this.get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
 	}
 
 	@Override
@@ -87,8 +87,8 @@ public class Naturals extends DiscreetSemiGroupImpl
 
 	@Override
 	public DiscreetMonoid getMuliplicativeMonoid() {
-		if (multiplicativeMonoid == null) {
-			multiplicativeMonoid = new DiscreetMonoid() {
+		if (this.multiplicativeMonoid == null) {
+			this.multiplicativeMonoid = new DiscreetMonoid() {
 
 				@Override
 				public Element getNeutralElement() {
@@ -108,17 +108,17 @@ public class Naturals extends DiscreetSemiGroupImpl
 
 			};
 		}
-		return multiplicativeMonoid;
+		return this.multiplicativeMonoid;
 	}
 
 	@Override
 	public boolean isUnit(Element element) {
-		return element.equals(getOne());
+		return element.equals(this.getOne());
 	}
 
 	@Override
 	public Element getOne() {
-		return getMuliplicativeMonoid().getNeutralElement();
+		return this.getMuliplicativeMonoid().getNeutralElement();
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class Naturals extends DiscreetSemiGroupImpl
 
 	@Override
 	public boolean isIrreducible(Element element) {
-		return isPrimeElement(element);
+		return this.isPrimeElement(element);
 	}
 
 	private Map<NaturalNumber, Boolean> primes = new ConcurrentHashMap<>();
@@ -142,16 +142,16 @@ public class Naturals extends DiscreetSemiGroupImpl
 	public boolean isPrimeElement(Element element) {
 
 		NaturalNumber number = ((NaturalNumber) element);
-		if (primes.get(element) == null) {
+		if (this.primes.get(element) == null) {
 			for (NaturalNumber i = (NaturalNumber) this.get(2); i.getRepresentant() < ((NaturalNumber) element)
 					.getRepresentant(); i = (NaturalNumber) this.addition(i, this.getOne())) {
 				if (this.divides(i, element) && this.isPrimeElement(i)) {// - correctly implemented this would be
 					// faster.
-					primes.put(i, false);
+					this.primes.put(i, false);
 					return false;
 				}
 			}
-			primes.put(number, true);
+			this.primes.put(number, true);
 		}
 		return true;
 

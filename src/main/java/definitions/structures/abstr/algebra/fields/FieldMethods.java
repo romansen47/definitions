@@ -11,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * Interface that provides convenience methods for fields
- * 
+ *
  * @author roman
  *
  */
@@ -22,7 +22,7 @@ public interface FieldMethods extends XmlPrintable {
 	/**
 	 * method to obtain an element. not really consistent since this makes no sence
 	 * for finite fields that are no prime fields
-	 * 
+	 *
 	 * @param value the input
 	 * @return the field element
 	 */
@@ -32,7 +32,7 @@ public interface FieldMethods extends XmlPrintable {
 
 	/**
 	 * Method to show the product matrix of base vectors of the field
-	 * 
+	 *
 	 * @param field the field
 	 */
 	default void show(final Field field) {
@@ -47,7 +47,7 @@ public interface FieldMethods extends XmlPrintable {
 				s += products[i][j] + " ";
 				j++;
 			}
-			logger.info(s);
+			FieldMethods.logger.info(s);
 			i++;
 		}
 	}

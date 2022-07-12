@@ -21,7 +21,7 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "x -> " + a + "+" + b + "*x ";
+		return "x -> " + this.a + "+" + this.b + "*x ";
 	}
 
 	/**
@@ -37,7 +37,8 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getField().get(((Real) a).getDoubleValue() + (((Real) b).getDoubleValue() * ((Real) input).getDoubleValue()));
+		return this.getField().get(((Real) this.a).getDoubleValue()
+				+ (((Real) this.b).getDoubleValue() * ((Real) input).getDoubleValue()));
 	}
 
 }

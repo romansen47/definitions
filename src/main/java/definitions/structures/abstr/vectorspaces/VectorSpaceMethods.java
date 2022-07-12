@@ -12,7 +12,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 /**
  * interface providing convenience methods for vector spaces
- * 
+ *
  * @author ro
  *
  */

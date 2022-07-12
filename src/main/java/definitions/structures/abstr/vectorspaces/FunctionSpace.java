@@ -36,15 +36,15 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	@SuppressWarnings("deprecation")
 	default Scalar getIntegral(final Function vec1, final Function vec2, final double left, final double right,
 			final double eps) {
-		Scalar ans = (Scalar) getField().nullVec();
-		final Scalar newEps = getField().get(eps);
-		Scalar x = getField().getField().get(left);
+		Scalar ans = (Scalar) this.getField().nullVec();
+		final Scalar newEps = this.getField().get(eps);
+		Scalar x = this.getField().getField().get(left);
 		while (((Real) x).getDoubleValue() < right) {
 			final Vector tmp1 = vec1.value(x);
 			final Vector tmp2 = vec2.value(x);
-			ans = (Scalar) (getField().addition(ans,
-					getField().product(getField().product(tmp1, getField().conjugate((Scalar) tmp2)), newEps)));
-			x = (Scalar) getField().getField().addition(x, getField().getField().get(eps));
+			ans = (Scalar) (this.getField().addition(ans, this.getField()
+					.product(this.getField().product(tmp1, this.getField().conjugate((Scalar) tmp2)), newEps)));
+			x = (Scalar) this.getField().getField().addition(x, this.getField().getField().get(eps));
 		}
 		return ans;
 	}
@@ -62,7 +62,7 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	 * @return the inf of the interval.
 	 */
 	default double getLeft() {
-		return getInterval()[0];
+		return this.getInterval()[0];
 	}
 
 	/**
@@ -71,7 +71,7 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	 * @return the sup of the interval.
 	 */
 	default double getRight() {
-		return getInterval()[1];
+		return this.getInterval()[1];
 	}
 
 	/**
@@ -82,7 +82,7 @@ public interface FunctionSpace extends VectorSpace, Unweavable {
 	 * @return the integral over vec1*vec2.
 	 */
 	default Scalar integral(final Function vec1, final Function vec2) {
-		return getIntegral(vec1, vec2, getInterval()[0], getInterval()[1], getEpsilon());
+		return this.getIntegral(vec1, vec2, this.getInterval()[0], this.getInterval()[1], this.getEpsilon());
 	}
 
 }

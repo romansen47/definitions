@@ -209,7 +209,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 
 	/**
 	 * Create the menu bar
-	 * 
+	 *
 	 * @return the menu bar
 	 */
 	@SuppressWarnings("deprecation")

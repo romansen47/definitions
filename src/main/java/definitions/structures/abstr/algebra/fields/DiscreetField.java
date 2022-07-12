@@ -8,7 +8,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 /**
  * a field that also is a discreet ring
- * 
+ *
  * @author ro
  */
 public interface DiscreetField extends DiscreetRing, Field {
@@ -32,7 +32,7 @@ public interface DiscreetField extends DiscreetRing, Field {
 	default DiscreetGroup getMuliplicativeMonoid() {
 
 		final Vector newOne = this.getOne();
-		final Integer newOrder = getOrder();
+		final Integer newOrder = this.getOrder();
 
 		return new DiscreetGroup() {
 

@@ -6,7 +6,7 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 /**
  * Implementation of Conway's Game Of Life using the constructed version of
  * binaries
- * 
+ *
  * @author ro
  *
  */

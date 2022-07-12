@@ -29,10 +29,10 @@ public interface InnerProductSpace extends NormedSpace {
 	 */
 	@Override
 	default Scalar norm(final Vector vec) {
-		Scalar innerProduct = innerProduct(vec, vec);
+		Scalar innerProduct = this.innerProduct(vec, vec);
 		if (innerProduct instanceof Complex) {
 			return RealLine.getInstance()
-					.get(Math.sqrt(((Real) ((Complex) innerProduct(vec, vec)).getReal()).getDoubleValue()));
+					.get(Math.sqrt(((Real) ((Complex) this.innerProduct(vec, vec)).getReal()).getDoubleValue()));
 		}
 		return RealLine.getInstance().get(Math.sqrt(((Real) innerProduct).getDoubleValue()));
 	}
@@ -45,7 +45,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 * @return projection of v on w.
 	 */
 	default Vector projection(final Vector w, final Vector v) {
-		return stretch(v, innerProduct(w, v));
+		return this.stretch(v, this.innerProduct(w, v));
 	}
 
 }

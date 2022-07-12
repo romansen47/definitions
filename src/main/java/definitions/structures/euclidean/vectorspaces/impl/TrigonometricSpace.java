@@ -28,8 +28,8 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		super(field);
 		final double left = -right;
 		final List<Vector> tmpBase = new ArrayList<>();
-		dim = (2 * n) + 1;
-		interval = new double[] { left, right };
+		this.dim = (2 * n) + 1;
+		this.interval = new double[] { left, right };
 		final Field f = field;
 		tmpBase.add(new Constant(this.getField().get(1. / Math.sqrt(2 * right))) {
 			@Override
@@ -39,8 +39,8 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		});
 		this.getSineFunctions(n, Math.PI / right, tmpBase);
 		this.getCosineFunctions(n, Math.PI / right, tmpBase);
-		base = tmpBase;
-		this.assignOrthonormalCoordinates(base, field);
+		this.base = tmpBase;
+		this.assignOrthonormalCoordinates(this.base, field);
 	}
 
 }

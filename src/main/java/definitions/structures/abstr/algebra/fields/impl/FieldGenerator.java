@@ -29,7 +29,7 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	@Override
 	public RealLine getRealLine() {
-		return realLine;
+		return this.realLine;
 	}
 
 	public void setRealLine(final RealLine realLine) {

@@ -32,8 +32,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	public Complex(final Scalar re, final Scalar im) {
 		super(2);
-		real = re;
-		imag = im;
+		this.real = re;
+		this.imag = im;
 	}
 
 	/**
@@ -46,19 +46,19 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(real, imag);
+		return Objects.hash(this.real, this.imag);
 	}
 
 	@Override
 	public boolean equals(Object vec) {
-		if (this == vec)
+		if (this == vec) {
 			return true;
-		if (!super.equals(vec))
+		}
+		if (!super.equals(vec) || (this.getClass() != vec.getClass())) {
 			return false;
-		if (getClass() != vec.getClass())
-			return false;
+		}
 		Complex other = (Complex) vec;
-		return real.equals(other.real) && imag.equals(other.imag);
+		return this.real.equals(other.real) && this.imag.equals(other.imag);
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	public Map<Vector, Scalar> getCoordinates() {
 		final Map<Vector, Scalar> tmp = super.getCoordinates();
 		if (tmp.isEmpty()) {
-			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), getReal());
-			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), getImag());
+			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), this.getReal());
+			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), this.getImag());
 		}
 		super.setCoordinates(tmp);
 		return tmp;
@@ -95,14 +95,14 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 * @return the imag
 	 */
 	public Scalar getImag() {
-		return imag;
+		return this.imag;
 	}
 
 	/**
 	 * @return the real
 	 */
 	public Scalar getReal() {
-		return real;
+		return this.real;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 		super.setCoordinates(coordinates);
-		real = coordinates.get(((Field) ComplexPlane.getInstance()).getOne());
+		this.real = coordinates.get(((Field) ComplexPlane.getInstance()).getOne());
 	}
 
 	/**
@@ -123,14 +123,14 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	}
 
 	public void setValue(final double realValue, final double imValue) {
-		real = RealLine.getInstance().get(realValue);
-		imag = RealLine.getInstance().get(imValue);
+		this.real = RealLine.getInstance().get(realValue);
+		this.imag = RealLine.getInstance().get(imValue);
 
 	}
 
 	@Override
 	public String toString() {
-		return toXml();
+		return this.toXml();
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 */
 	@Override
 	public String toXml() {
-		return "<complex Re=\"" + real.toString() + "\" Im=\"" + imag.toString() + "\" />\r";
+		return "<complex Re=\"" + this.real.toString() + "\" Im=\"" + this.imag.toString() + "\" />\r";
 	}
 
 }

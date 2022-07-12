@@ -20,24 +20,25 @@ public class Tuple implements FiniteVector {
 	private Map<Vector, Scalar> coordinates;
 
 	public Tuple() {
-		dim = 0;
+		this.dim = 0;
 	}
 
 	public Tuple(final int dim) {
 		this.dim = dim;
-		coordinates = new ConcurrentHashMap<>();
+		this.coordinates = new ConcurrentHashMap<>();
 	}
 
 	public Tuple(final Map<Vector, Scalar> coordinates) {
 		this.setCoordinates(coordinates);
-		dim = coordinates.keySet().size();
+		this.dim = coordinates.keySet().size();
 	}
 
 	public Tuple(final Scalar[] coordinates) {
-		dim = coordinates.length;
+		this.dim = coordinates.length;
 		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim).genericBaseToList()) {
+		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
+				.genericBaseToList()) {
 			this.getCoordinates().put(vec, coordinates[i++]);
 		}
 	}
@@ -48,11 +49,11 @@ public class Tuple implements FiniteVector {
 	@Override
 	public boolean elementOf(final VectorSpace space) {
 		if (!(space instanceof FiniteDimensionalVectorSpace)
-				&& (((FiniteDimensionalVectorSpace) space).getDim() == dim)) {
+				&& (((FiniteDimensionalVectorSpace) space).getDim() == this.dim)) {
 			return false;
 		}
 		final List<Vector> base = ((EuclideanSpace) space).genericBaseToList();
-		for (final Vector vec : coordinates.keySet()) {
+		for (final Vector vec : this.coordinates.keySet()) {
 			boolean ans = false;
 			for (final Vector spaceBaseVec : base) {
 				if (vec.equals(spaceBaseVec)) {
@@ -73,7 +74,7 @@ public class Tuple implements FiniteVector {
 	public boolean equals(final Object vec) {
 		if (!(vec instanceof Vector)) {
 			return false;
-		} else if (((Vector) vec).getDim() == dim) {
+		} else if (((Vector) vec).getDim() == this.dim) {
 			return this.getCoordinates().equals(((FiniteVector) vec).getCoordinates());
 		}
 		return false;
@@ -84,13 +85,13 @@ public class Tuple implements FiniteVector {
 	 */
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
-		return coordinates;
+		return this.coordinates;
 	}
 
 	@Override
 	public String toString() {
 		String str = "<Tuple>\r";
-		for (final Entry<Vector, Scalar> entry : coordinates.entrySet()) {
+		for (final Entry<Vector, Scalar> entry : this.coordinates.entrySet()) {
 			str += entry.getValue().toXml() + "\r";
 		}
 		str += "</Tuple>\r";
@@ -116,7 +117,7 @@ public class Tuple implements FiniteVector {
 	 */
 	@Override
 	public Integer getDim() {
-		return dim;
+		return this.dim;
 	}
 
 	// @Override
@@ -152,7 +153,8 @@ public class Tuple implements FiniteVector {
 	@Override
 	public String toXml() {
 		String ans = "<tuple>\r";
-		for (final Vector x : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(dim).genericBaseToList()) {
+		for (final Vector x : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
+				.genericBaseToList()) {
 //			String name=x.getClass().toString().split("class ")[1];
 			ans += this.getCoordinates().toString();// .get(x).toXml();
 		}

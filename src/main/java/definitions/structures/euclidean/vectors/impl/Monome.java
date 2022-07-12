@@ -17,7 +17,7 @@ public abstract class Monome extends GenericFunction {
 	 */
 	@Override
 	public String toString() {
-		return "Monome of degree " + degree;
+		return "Monome of degree " + this.degree;
 	}
 
 	/**
@@ -25,7 +25,7 @@ public abstract class Monome extends GenericFunction {
 	 */
 	@Override
 	public Scalar value(final Scalar input) {
-		return getField().get(Math.pow(((Real) input).getDoubleValue(), degree));
+		return this.getField().get(Math.pow(((Real) input).getDoubleValue(), this.degree));
 	}
 
 }

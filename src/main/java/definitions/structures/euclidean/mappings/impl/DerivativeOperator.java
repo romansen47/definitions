@@ -17,7 +17,7 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 
 	protected DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
-		linearity = new ConcurrentHashMap<>();
+		this.linearity = new ConcurrentHashMap<>();
 		this.fillCoordinates(source, target);
 		this.getGenericMatrix();
 	}
@@ -31,7 +31,7 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 		for (final Vector baseVec : source.genericBaseToList()) {
 			final Function derivative = ((Function) baseVec).getDerivative();
 			final Map<Vector, Scalar> derivativeOnSpace = derivative.getCoordinates(target);
-			linearity.put(baseVec, derivativeOnSpace);
+			this.linearity.put(baseVec, derivativeOnSpace);
 		}
 	}
 
@@ -63,7 +63,7 @@ public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping 
 	 * @return the cachedDerivatives
 	 */
 	public Map<Vector, Map<Integer, Vector>> getCachedDerivatives() {
-		return cachedDerivatives;
+		return this.cachedDerivatives;
 	}
 
 }

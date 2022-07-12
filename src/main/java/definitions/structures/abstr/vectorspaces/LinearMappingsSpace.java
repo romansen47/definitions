@@ -28,14 +28,15 @@ public interface LinearMappingsSpace extends VectorSpace, RealSpace {
 	@Override
 	default Vector addition(final Vector vec1, final Vector vec2) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
-		getSource().genericBaseToList().stream().forEach(vec -> {
-			coordinates.put(vec, ((FiniteVectorMethods) getTarget().addition(((VectorSpaceHomomorphism) vec1).get(vec),
-					((VectorSpaceHomomorphism) vec2).get(vec))).getCoordinates());
+		this.getSource().genericBaseToList().stream().forEach(vec -> {
+			coordinates.put(vec,
+					((FiniteVectorMethods) this.getTarget().addition(((VectorSpaceHomomorphism) vec1).get(vec),
+							((VectorSpaceHomomorphism) vec2).get(vec))).getCoordinates());
 		});
 		if ((vec1 instanceof VectorSpaceEndomorphism) && (vec1 instanceof VectorSpaceEndomorphism)) {
-			return new LinearSelfMapping(getSource(), coordinates);
+			return new LinearSelfMapping(this.getSource(), coordinates);
 		}
-		return new FiniteDimensionalLinearMapping(getSource(), getTarget(), coordinates);
+		return new FiniteDimensionalLinearMapping(this.getSource(), this.getTarget(), coordinates);
 	}
 
 	/**
@@ -44,12 +45,12 @@ public interface LinearMappingsSpace extends VectorSpace, RealSpace {
 	@Override
 	public default Vector stretch(final Vector vec1, final Scalar r) {
 		final Map<Vector, Map<Vector, Scalar>> coordinates = new ConcurrentHashMap<>();
-		getSource().genericBaseToList().stream().forEach(vec -> {
+		this.getSource().genericBaseToList().stream().forEach(vec -> {
 			coordinates.put(vec,
-					((FiniteVectorMethods) getTarget().stretch(((VectorSpaceHomomorphism) vec1).get(vec), r))
+					((FiniteVectorMethods) this.getTarget().stretch(((VectorSpaceHomomorphism) vec1).get(vec), r))
 							.getCoordinates());
 		});
-		return new FiniteDimensionalLinearMapping(getSource(), getTarget(), coordinates);
+		return new FiniteDimensionalLinearMapping(this.getSource(), this.getTarget(), coordinates);
 	}
 
 	/**
@@ -58,8 +59,8 @@ public interface LinearMappingsSpace extends VectorSpace, RealSpace {
 	@Override
 	public default String toXml() {
 		String ans = "<linearMappingSpace>";
-		ans += "<source>" + getSource().toXml() + "</source>";
-		ans += "<target>" + getTarget().toXml() + "</target>";
+		ans += "<source>" + this.getSource().toXml() + "</source>";
+		ans += "<target>" + this.getTarget().toXml() + "</target>";
 		ans += "</linearMappingSpace>";
 		return ans;
 	}

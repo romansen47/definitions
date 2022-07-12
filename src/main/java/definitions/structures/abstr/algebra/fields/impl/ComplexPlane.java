@@ -81,13 +81,13 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * the constructor
 	 */
 	public ComplexPlane() {
-		dim = 2;
-		base = new ArrayList<>();
-		one = new Complex(ComplexPlane.realLine.getOne(), ComplexPlane.realLine.getZero());
-		zero = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getZero());
-		i = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getOne());
-		base.add(one);
-		base.add(i);
+		this.dim = 2;
+		this.base = new ArrayList<>();
+		this.one = new Complex(ComplexPlane.realLine.getOne(), ComplexPlane.realLine.getZero());
+		this.zero = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getZero());
+		this.i = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getOne());
+		this.base.add(this.one);
+		this.base.add(this.i);
 	}
 
 	/**
@@ -96,8 +96,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public Complex addition(final Vector vec1, final Vector vec2) {
 		final Vector ans = super.addition(vec1, vec2);
-		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(one),
-				((FiniteVectorMethods) ans).getCoordinates().get(i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public Complex conjugate(final Scalar value) {
 		final Complex v = (Complex) value;
-		return new Complex(v.getReal(), getField().getInverseElement(v.getImag()));
+		return new Complex(v.getReal(), this.getField().getInverseElement(v.getImag()));
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public boolean contains(final Vector vec) {
-		return (vec == zero) || (vec == one) || (vec == null) || (vec instanceof Complex);
+		return (vec == this.zero) || (vec == this.one) || (vec == null) || (vec instanceof Complex);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public Complex get(final double realValue) {
-		final Complex newComplex = complex();
+		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, 0);
 		return newComplex;
 	}
@@ -146,7 +146,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * @return the complex number realValue+i*imValue
 	 */
 	public Complex get(final double realValue, final double imValue) {
-		final Complex newComplex = complex();
+		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, imValue);
 		return newComplex;
 	}
@@ -157,13 +157,13 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * @return the imaginary unit
 	 */
 	public Complex getI() {
-		return i;
+		return this.i;
 	}
 
 	@Override
 	public Map<Vector, VectorSpaceHomomorphism> getMultiplicationMatrix() {
 
-		if (multiplicationMatrix == null) {
+		if (this.multiplicationMatrix == null) {
 
 			final Scalar realOne = RealLine.getInstance().getOne();
 			final Scalar realZero = RealLine.getInstance().getZero();
@@ -179,12 +179,12 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
-			newMap.put(one, oneHom);
-			newMap.put(i, iHom);
+			newMap.put(this.one, oneHom);
+			newMap.put(this.i, iHom);
 
-			setMultiplicationMatrix(newMap);
+			this.setMultiplicationMatrix(newMap);
 		}
-		return multiplicationMatrix;
+		return this.multiplicationMatrix;
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public Complex getOne() {
-		return one;
+		return this.one;
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public Complex nullVec() {
-		return zero;
+		return this.zero;
 	}
 
 	/**
@@ -233,8 +233,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Override
 	public Complex stretch(final Vector vec1, final Scalar r) {
 		final Vector ans = Field.super.stretch(vec1, r);
-		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(one),
-				((FiniteVectorMethods) ans).getCoordinates().get(i));
+		return new Complex(((FiniteVectorMethods) ans).getCoordinates().get(this.one),
+				((FiniteVectorMethods) ans).getCoordinates().get(this.i));
 
 	}
 
@@ -259,7 +259,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	@Override
 	public Complex getNeutralElement() {
-		return (Complex) getZero();
+		return (Complex) this.getZero();
 	}
 
 	/**

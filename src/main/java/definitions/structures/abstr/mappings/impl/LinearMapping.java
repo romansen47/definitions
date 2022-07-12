@@ -53,7 +53,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	 */
 	@Override
 	public VectorSpace getSource() {
-		return source;
+		return this.source;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	 */
 	@Override
 	public VectorSpace getTarget() {
-		return target;
+		return this.target;
 	}
 
 	/**
@@ -69,7 +69,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	 */
 	@Override
 	public Map<Vector, Map<Vector, Scalar>> getLinearity() {
-		return linearity;
+		return this.linearity;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	 */
 	@Override
 	public Scalar[][] getGenericMatrix() {
-		return genericMatrix;
+		return this.genericMatrix;
 	}
 
 }

@@ -25,7 +25,7 @@ import exceptions.DevisionByZeroException;
 
 public class PolynomeRegressionTest extends GenericTest {
 
-	public static final Logger logger = LogManager.getLogger(GenericTest.class);
+	public static final Logger logger = LogManager.getLogger(PolynomeRegressionTest.class);
 
 	@Override
 	public Logger getLogger() {

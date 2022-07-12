@@ -34,11 +34,11 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	Function one = new Constant(RealLine.getInstance().getOne()) {
 
-		Field ownfield = getField();
+		Field ownfield = this.getField();
 
 		@Override
 		public Field getField() {
-			return ownfield;
+			return this.ownfield;
 		}
 
 	};
@@ -57,7 +57,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		double x;
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
-			if (Math.abs(((Real) value(getField().get(x))).getDoubleValue()
+			if (Math.abs(((Real) this.value(this.getField().get(x))).getDoubleValue()
 					- ((Real) other.value(RealLine.getInstance().get(x)))
 							.getDoubleValue()) > GlobalSettings.DERIVATIVE_FEINHEIT) {
 				return false;
@@ -74,7 +74,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
-		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = getCoordinatesMap();
+		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
 		if (coordinatesMap != null) {
 			if (coordinatesMap.get(space) != null) {
 				return coordinatesMap.get(space);
@@ -95,7 +95,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 */
 	@Proceed
 	default Function getDerivative() {
-		final Field f = getField();
+		final Field f = this.getField();
 		if (Function.derivative == null) {
 			final Function fun = this;
 			return new GenericFunction() {
@@ -123,7 +123,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	/**
 	 * Method to compute the derivative of the function.
-	 * 
+	 *
 	 * @param space the given space
 	 * @return the derivative.
 	 */
