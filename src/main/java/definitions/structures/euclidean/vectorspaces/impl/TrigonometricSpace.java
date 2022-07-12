@@ -18,11 +18,6 @@ import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 
 	/**
-	 *
-	 */
-	private static final long serialVersionUID = 6752082006058465558L;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param field the field.
@@ -37,8 +32,6 @@ public class TrigonometricSpace extends FiniteDimensionalFunctionSpace {
 		interval = new double[] { left, right };
 		final Field f = field;
 		tmpBase.add(new Constant(this.getField().get(1. / Math.sqrt(2 * right))) {
-			private static final long serialVersionUID = 7393292837814311224L;
-
 			@Override
 			public Field getField() {
 				return f;

@@ -33,7 +33,6 @@ import settings.GlobalSettings;
 @Component
 public class RealLine implements Field, RealSpace {
 
-	private static final long serialVersionUID = -1444063003774915383L;
 	final private static Real one = RealOne.getOne();
 	final private static Real zero = RealZero.getZero();
 	private static RealLine instance;

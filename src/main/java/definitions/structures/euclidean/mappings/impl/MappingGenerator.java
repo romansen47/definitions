@@ -20,7 +20,6 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 @Service
 public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 
-	private static final long serialVersionUID = 1L;
 	private static IMappingGenerator instance;
 
 	public static IMappingGenerator getInstance() {

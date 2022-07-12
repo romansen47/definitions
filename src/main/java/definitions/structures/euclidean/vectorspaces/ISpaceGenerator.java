@@ -227,8 +227,6 @@ public interface ISpaceGenerator {
 			return space;
 		}
 		return extend(getTrigonometricSpace(f, n, right), new GenericFunction() {
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public Field getField() {
 				return f;
@@ -251,7 +249,6 @@ public interface ISpaceGenerator {
 		return ans;
 	}
 
-	@SuppressWarnings("serial")
 	default EuclideanSpace getTrigonometricSobolevSpaceWithLinearGrowth(final Field f, final int sobolevDegree,
 			final double right, final int fourierDegree) throws DevisionByZeroException, ExtendingFailedException {
 
@@ -292,10 +289,6 @@ public interface ISpaceGenerator {
 
 		return new EuclideanSpace() {
 
-			/**
-			 *
-			 */
-			private static final long serialVersionUID = -8654223590653694820L;
 			final protected EuclideanSpace outerThis = this;
 
 			@Override
@@ -306,11 +299,6 @@ public interface ISpaceGenerator {
 			}
 
 			class ProductVector implements FiniteVector {
-
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public String toXml() {

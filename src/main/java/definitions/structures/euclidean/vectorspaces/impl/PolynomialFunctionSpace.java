@@ -9,11 +9,6 @@ import exceptions.DevisionByZeroException;
 
 public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 4394456226881571619L;
-
 	protected PolynomialFunctionSpace(final Field field, final int maxDegree, final double right) {
 		super(field);
 		base = new ArrayList<>();
@@ -34,8 +29,6 @@ public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 		base.clear();
 		for (int i = 0; i < (maxDegree + 1); i++) {
 			base.add(new Monome(i) {
-				private static final long serialVersionUID = -3227300408323170816L;
-
 				@Override
 				public Field getField() {
 					return f;

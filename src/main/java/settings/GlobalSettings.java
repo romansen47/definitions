@@ -38,6 +38,7 @@ public class GlobalSettings {
 	/**
 	 * path to cached spaces
 	 */
+	@Deprecated
 	public static final String CACHEDSPACES = "src/main/resources/coordinateSpaces.data";
 
 	/**

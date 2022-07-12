@@ -20,7 +20,6 @@ public class FunctionSpaceTest extends GenericTest {
 	final EuclideanSpace functionSpace = SpaceGenerator.getInstance()
 			.getTrigonometricSobolevSpace((Field) ComplexPlane.getInstance(), 3, 1);
 
-	@SuppressWarnings("serial")
 	final Function function = new GenericFunction() {
 
 		double support = 10.0;

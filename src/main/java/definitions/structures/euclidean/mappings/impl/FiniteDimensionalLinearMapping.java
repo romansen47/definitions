@@ -20,11 +20,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  */
 public class FiniteDimensionalLinearMapping extends LinearMapping implements FiniteDimensionalHomomorphism {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -261334109954833773L;
-
 	public FiniteDimensionalLinearMapping(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 	}

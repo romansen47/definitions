@@ -9,8 +9,6 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
 public abstract class Identity extends LinearMapping implements VectorSpaceAutomorphism, VectorField {
 
-	private static final long serialVersionUID = 1L;
-
 	protected Identity(final VectorSpace source) {
 		super(source, source);
 	}

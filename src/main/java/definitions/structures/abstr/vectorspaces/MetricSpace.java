@@ -1,7 +1,5 @@
 package definitions.structures.abstr.vectorspaces;
 
-import java.io.Serializable;
-
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 
@@ -17,7 +15,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @TODO: triangle inequality check.
  */
 
-public interface MetricSpace extends Serializable {
+public interface MetricSpace {
 
 	/**
 	 * method for measuring distance between elements

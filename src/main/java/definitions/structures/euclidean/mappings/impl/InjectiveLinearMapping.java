@@ -17,11 +17,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 public class InjectiveLinearMapping extends FiniteDimensionalLinearMapping implements FiniteDimensionalInjection {
 
 	/**
-	 *
-	 */
-	private static final long serialVersionUID = -5351009863618913969L;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param source      the source vector space.

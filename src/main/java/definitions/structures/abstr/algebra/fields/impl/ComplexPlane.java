@@ -25,8 +25,6 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  */
 public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
-	private static final long serialVersionUID = -6528124823296735558L;
-
 	/**
 	 * this one is a singleton
 	 */

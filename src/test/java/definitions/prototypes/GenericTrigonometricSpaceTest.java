@@ -28,15 +28,19 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	/**
 	 * the trigonometric degree of tested space
 	 */
+
 	protected int trigonometricDegree;
+
 	/**
 	 * the sobolev degree of tested space
 	 */
 	protected Integer sobolevDegree;
+
 	/**
 	 * the trigonometric space
 	 */
 	protected EuclideanSpace trigonometricSpace;
+
 	/**
 	 * path to prepared values of input function
 	 */
@@ -69,11 +73,8 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	@Before
 	public void setUp() throws Exception {
 
-		setTrigonometricSpace(
-				GenericTest.getSpaceGenerator().getNormedTrigonometricSpace(getField(), getTrigonometricDegree()));
 		testValues = definitions.generictest.Reader.readFile(getPath());
 		setStaircaseFunction(new GenericFunction() {
-			private static final long serialVersionUID = 1L;
 			private final int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -97,7 +98,6 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	@Test
 	public void testOnContinuousFunction() throws Exception {
 		testOnFunction(new GenericFunction() {
-			private static final long serialVersionUID = 3842946945322219375L;
 
 			@Override
 			public Field getField() {
@@ -115,7 +115,6 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 
 	public GenericFunction getStaircaseFunction() {
 		staircaseFunction = new GenericFunction() {
-			private static final long serialVersionUID = 1L;
 			private final int length = (int) testValues[0][testValues[0].length - 1];
 
 			@Override
@@ -157,8 +156,8 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 		getLogger().info("norm of function = {}", norm_of_function);
 		getLogger().info("norm of its projection = {}", norm_of_projection);
 		String s = sobolevDegree == null ? "Trig(" + degree + ")" : "on SobTrig(" + degree + "," + sobolevDegree + ")";
-		getLogger().info("distance / norm = {} / {} = {}  {}", distance, norm_of_function, distance / norm_of_function,
-				s);
+		getLogger().info("distance / norm = {} / {} = {}  {}, expected tolerance: {}", distance, norm_of_function,
+				distance / norm_of_function, s, getEps());
 		Assert.assertTrue(distance / norm_of_function < eps);
 	}
 
@@ -170,8 +169,6 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	@Test
 	public void testOnAbsolute() {
 		final Function absolute = new GenericFunction() {
-			private static final long serialVersionUID = -5009775881103765610L;
-
 			@Override
 			public Field getField() {
 				return GenericTest.getRealLine();
@@ -189,8 +186,6 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	@Test
 	public void testOnIdentity() {
 		final Function identity = new GenericFunction() {
-			private static final long serialVersionUID = -5009775881103765610L;
-
 			@Override
 			public Field getField() {
 				return GenericTest.getRealLine();

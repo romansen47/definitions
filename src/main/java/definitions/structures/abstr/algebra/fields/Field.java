@@ -171,8 +171,6 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 		FiniteDimensionalHomomorphism hom = new FiniteDimensionalLinearMapping(this, this) {
 
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public Vector get(final Element vec) {
 				return ((Field) getTarget()).nullVec();

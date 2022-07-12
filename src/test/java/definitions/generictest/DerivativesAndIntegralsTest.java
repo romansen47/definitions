@@ -25,6 +25,11 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 
 	private static final Logger logger = LogManager.getLogger(DerivativesAndIntegralsTest.class);
 
+	@Override
+	public Logger getLogger() {
+		return logger;
+	}
+
 	private static Sine sine;
 	private static Sine cosine;
 	private static Monome monome;
@@ -68,7 +73,6 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 
 		logger.info("loading {}", "sine");
 		sine = new Sine(1, 0, 1) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -78,7 +82,6 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 
 		logger.info("loading {}", "cosine");
 		cosine = new Sine(1, Math.PI / 2, 1) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -109,7 +112,6 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 		logger.info("testLinearMonomeOnExtendedSpace");
 
 		monome = new Monome(monomeDegree) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -119,7 +121,6 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 
 		logger.info("loading {}", "derivative of the monome");
 		exactDerivative = new Monome(monomeDegree - 1) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -140,7 +141,6 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 		logger.info("testMonomeOnExtendedSobolevSpace");
 
 		monome = new Monome(monomeDegree) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -150,7 +150,6 @@ public class DerivativesAndIntegralsTest extends GenericTest {
 
 		logger.info("loading {}", "derivative of the monome");
 		exactDerivative = new Monome(monomeDegree - 1) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {

@@ -3,6 +3,8 @@ package generictest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -23,6 +25,13 @@ import exceptions.DevisionByZeroException;
 
 public class PolynomeRegressionTest extends GenericTest {
 
+	public static final Logger logger = LogManager.getLogger(GenericTest.class);
+
+	@Override
+	public Logger getLogger() {
+		return PolynomeRegressionTest.logger;
+	}
+
 	// for smaller intervalls we do get greater distances
 	private static final double left = -Math.PI;
 	private static final double right = -left;
@@ -37,7 +46,7 @@ public class PolynomeRegressionTest extends GenericTest {
 	private final double toleranceExp = 1.5;
 	private final double toleranceSine = 0.75;
 
-	private static final int polynomialDegree = 4;
+	private static final int polynomialDegree = 5;
 
 	protected static final Field realLine = ((SpringConfiguration) getSpringConfiguration()).getApplicationContext()
 			.getBean(RealLine.class);
@@ -46,10 +55,6 @@ public class PolynomeRegressionTest extends GenericTest {
 	public static void setUpBeforeClass() throws DevisionByZeroException {
 
 		sin = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -63,10 +68,6 @@ public class PolynomeRegressionTest extends GenericTest {
 		};
 
 		exp = new GenericFunction() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Field getField() {
@@ -82,10 +83,6 @@ public class PolynomeRegressionTest extends GenericTest {
 
 		for (int i = 0; i < (polynomialDegree + 1); i++) {
 			base.add(new Monome(i) {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				public Field getField() {

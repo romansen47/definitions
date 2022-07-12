@@ -8,10 +8,6 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class LinearFunction extends GenericFunction {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1217714308801686785L;
 	final Scalar a;
 	final Scalar b;
 

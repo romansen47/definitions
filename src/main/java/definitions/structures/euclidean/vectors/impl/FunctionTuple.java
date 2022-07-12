@@ -24,7 +24,6 @@ import plotter.Plotter;
  */
 public class FunctionTuple extends Tuple implements Function {
 
-	private static final long serialVersionUID = -3953250098421804886L;
 	private final Field field;
 	private final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 
@@ -49,8 +48,6 @@ public class FunctionTuple extends Tuple implements Function {
 
 	public LinearMapping getDerivative(final VectorSpace space) {
 		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
-			private static final long serialVersionUID = 8910643729270807923L;
-
 			@Override
 			public Vector get(final Element vec2) {
 				return ((Function) vec2).getDerivative();

@@ -9,8 +9,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FiniteDimensionalDerivativeOperator extends DerivativeOperator implements FiniteDimensionalAutomorphism {
 
-	private static final long serialVersionUID = -6105857651030763798L;
-
 	public FiniteDimensionalDerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);
 	}

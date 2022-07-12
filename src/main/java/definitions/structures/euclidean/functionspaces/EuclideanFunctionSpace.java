@@ -41,8 +41,6 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
 					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
 				return new GenericFunction() {
-					private static final long serialVersionUID = 1L;
-
 					@Override
 					public Field getField() {
 						return f;
@@ -67,8 +65,6 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 										.getDoubleValue()));
 			}
 			return new FunctionTuple(coordinates, this) {
-				private static final long serialVersionUID = 1L;
-
 				@Override
 				public Field getField() {
 					return f;
@@ -133,8 +129,6 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		final Field f = this.getField();
 		if (((FiniteVectorMethods) vec).getCoordinates() == null) {
 			return new GenericFunction() {
-				private static final long serialVersionUID = 1L;
-
 				@Override
 				public Field getField() {
 					return f;

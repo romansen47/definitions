@@ -1,6 +1,5 @@
 package definitions.structures.abstr.algebra.fields;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +15,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
  * @author roman
  *
  */
-public interface FieldMethods extends XmlPrintable, Serializable {
+public interface FieldMethods extends XmlPrintable {
 
 	public static final Logger logger = LogManager.getLogger(FieldMethods.class);
 

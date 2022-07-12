@@ -22,11 +22,11 @@ import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-@SuppressWarnings("serial")
 public class TwoDimDynSysTest extends GenericTest {
 
 	final int duration = 1000;
-	final EuclideanSpace complexPhaseSpace = (EuclideanSpace) GenericTest.getSpaceGenerator().getFiniteDimensionalComplexSpace(1);
+	final EuclideanSpace complexPhaseSpace = (EuclideanSpace) GenericTest.getSpaceGenerator()
+			.getFiniteDimensionalComplexSpace(1);
 	final EuclideanSpace realPhaseSpace = GenericTest.getSpaceGenerator().getFiniteDimensionalVectorSpace(2);
 
 	final Complex complexInitialCondition = ((ComplexPlane) complexPhaseSpace).get(0.9, 0.1);
@@ -39,8 +39,8 @@ public class TwoDimDynSysTest extends GenericTest {
 			final double a = ((Real) ((Complex) vec).getReal()).getDoubleValue();
 			final double b = ((Real) ((Complex) vec).getImag()).getDoubleValue();
 			final Element newVec = GenericTest.getComplexPlane().get(a - (a * a), b);
-			return GenericTest.getComplexPlane().multiplication(newVec,
-					GenericTest.getComplexPlane().multiplication(GenericTest.getComplexPlane().getMinusOne(), GenericTest.getComplexPlane().getI()));
+			return GenericTest.getComplexPlane().multiplication(newVec, GenericTest.getComplexPlane()
+					.multiplication(GenericTest.getComplexPlane().getMinusOne(), GenericTest.getComplexPlane().getI()));
 		}
 
 		@Override

@@ -1,6 +1,5 @@
 package definitions.structures.euclidean.mappings;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +11,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-public interface IMappingGenerator extends Serializable {
+public interface IMappingGenerator {
 
 	default Scalar[][] composition(final Scalar[][] scalars, final Scalar[][] scalars2) {
 		final Scalar[][] matC = new Scalar[scalars.length][scalars2[0].length];

@@ -24,8 +24,6 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 
-	private static final long serialVersionUID = -7678979021442720279L;
-
 	private EuclideanSpace dualSpace;
 
 	/**

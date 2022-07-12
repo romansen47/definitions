@@ -29,8 +29,6 @@ public class PrimesTest extends GenericTest {
 
 	final Function distribution = new Function() {
 
-		private static final long serialVersionUID = 1L;
-
 		/**
 		 * {@inheritDoc}
 		 */

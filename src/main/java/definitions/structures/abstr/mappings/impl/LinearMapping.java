@@ -29,11 +29,6 @@ public abstract class LinearMapping implements Element, VectorSpaceHomomorphism 
 	}
 
 	/**
-	 * generated serial version uid
-	 */
-	private static final long serialVersionUID = -2515190501525767017L;
-
-	/**
 	 * The source vector space.
 	 */
 	protected final VectorSpace source;

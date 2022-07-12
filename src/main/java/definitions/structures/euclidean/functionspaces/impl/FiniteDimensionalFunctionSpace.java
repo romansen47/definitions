@@ -29,8 +29,6 @@ import settings.GlobalSettings;
 
 public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace implements EuclideanFunctionSpace {
 
-	private static final long serialVersionUID = -8669475459309858828L;
-
 	/**
 	 * the origin
 	 */
@@ -95,7 +93,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		IntStream.range(1, n + 1)
 				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
 						RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(d * i)) {
-					private static final long serialVersionUID = 7151322718389633337L;
 				}));
 	}
 
@@ -113,7 +110,6 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		IntStream.range(1, n + 1)
 				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
 						RealLine.getInstance().getZero(), RealLine.getInstance().get(d * i)) {
-					private static final long serialVersionUID = 7151322718389633337L;
 				}));
 	}
 

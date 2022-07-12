@@ -19,10 +19,12 @@ public class TrigonometricSpaceTest extends GenericTrigonometricSpaceTest {
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		eps = 2e-1;
-		trigonometricDegree = 15;
+		eps = 3e-1;
+		trigonometricDegree = 7;
 		sobolevDegree = null;
 		setField(GenericTest.getRealLine());
+		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricSpace(GenericTest.getRealLine(),
+				getTrigonometricDegree(), Math.PI));
 		super.setUp();
 	}
 }

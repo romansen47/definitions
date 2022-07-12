@@ -1,7 +1,5 @@
 package definitions.structures.euclidean;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +16,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import exceptions.DevisionByZeroException;
 
-public interface IGenerator extends Serializable {
+public interface IGenerator {
 
 	FieldGenerator getFieldGenerator();
 
@@ -68,10 +66,6 @@ public interface IGenerator extends Serializable {
 	default VectorSpace getTrigonometricSpace(final Field field, final int n) {
 		return this.getSpaceGenerator().getNormedTrigonometricSpace(field, n);
 	}
-
-	void loadCoordinateSpaces() throws IOException, ClassNotFoundException;
-
-	void saveCoordinateSpaces() throws IOException;
 
 	void setFieldGenerator(FieldGenerator fieldGenerator);
 

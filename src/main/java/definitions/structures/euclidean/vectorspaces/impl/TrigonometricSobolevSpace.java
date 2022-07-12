@@ -20,11 +20,6 @@ import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 
 	/**
-	 *
-	 */
-	private static final long serialVersionUID = -6195850038689778521L;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param f      the field.
@@ -40,10 +35,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 		dim = (2 * n) + 1;
 		interval = new double[] { left, right };
 		tmpBase.add(new GenericFunction() {
-			/**
-			 *
-			 */
-			private static final long serialVersionUID = -2594116178838181589L;
 			final Scalar value = getField().get(1. / Math.sqrt(2. * Math.PI));
 
 			@Override
@@ -84,11 +75,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			factor = 1 / Math.sqrt(factor * Math.PI);
 			final Vector cos = new Sine(f.get(factor), f.get(0.5 * Math.PI), f.get(i)) {
 
-				/**
-				 *
-				 */
-				private static final long serialVersionUID = -344838499735956273L;
-
 				@Override
 				public Field getField() {
 					return TrigonometricSobolevSpace.this.getField();
@@ -114,11 +100,6 @@ public class TrigonometricSobolevSpace extends FiniteDimensionalSobolevSpace {
 			}
 			factor = 1 / Math.sqrt(factor * Math.PI);
 			final Vector sin = new Sine(f.get(factor), (Scalar) f.getZero(), f.get(i)) {
-
-				/**
-				 *
-				 */
-				private static final long serialVersionUID = -3675768767280698458L;
 
 				@Override
 				public Field getField() {

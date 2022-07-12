@@ -25,7 +25,6 @@ import plotter.Plotter;
  */
 public abstract class GenericFunction implements Function, Element {
 
-	private static final long serialVersionUID = 1L;
 	private Field field;
 	private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
 	private Map<Vector, Scalar> coordinates;
@@ -62,16 +61,16 @@ public abstract class GenericFunction implements Function, Element {
 		if (coordinatesMap == null) {
 			coordinatesMap = new ConcurrentHashMap<>();
 		}
-		Map<Vector, Scalar> coordinates = coordinatesMap.get(space);
-		if (coordinates == null) {
-			coordinates = new ConcurrentHashMap<>();
+		Map<Vector, Scalar> tmpCoordinates = coordinatesMap.getOrDefault(space, null);
+		if (tmpCoordinates == null) {
+			tmpCoordinates = new ConcurrentHashMap<>();
 			for (final Vector baseVec : space.genericBaseToList()) {
 				final Scalar tmp = ((EuclideanFunctionSpace) space).innerProduct(this, baseVec);
-				coordinates.put(baseVec, tmp);
+				tmpCoordinates.put(baseVec, tmp);
 			}
-			coordinatesMap.put(space, coordinates);
+			coordinatesMap.put(space, tmpCoordinates);
 		}
-		return coordinates;
+		return tmpCoordinates;
 	}
 
 	/**

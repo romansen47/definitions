@@ -13,9 +13,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public abstract class DerivativeOperator extends FiniteDimensionalLinearMapping implements VectorSpaceAutomorphism {
 
-	private static final long serialVersionUID = -5103583236895270490L;
-
-	final private Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
+	private final Map<Vector, Map<Integer, Vector>> cachedDerivatives = new ConcurrentHashMap<>();
 
 	protected DerivativeOperator(final EuclideanSpace source, final EuclideanSpace target) {
 		super(source, target);

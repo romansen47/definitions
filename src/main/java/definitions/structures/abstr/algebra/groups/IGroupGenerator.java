@@ -27,7 +27,6 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 
-@SuppressWarnings("serial")
 public interface IGroupGenerator {
 
 	static Logger logger = LogManager.getLogger(IGroupGenerator.class);

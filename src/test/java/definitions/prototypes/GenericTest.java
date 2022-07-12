@@ -16,7 +16,7 @@ import definitions.structures.abstr.algebra.rings.DiscreetSemiRing;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
-public class GenericTest {
+public abstract class GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(GenericTest.class);
 
@@ -52,7 +52,7 @@ public class GenericTest {
 	@BeforeClass
 	public static void prepare() {
 		if (springConfiguration == null) {
-			springConfiguration = getSpringConfiguration();
+			setSpringConfiguration(getSpringConfiguration());
 		}
 	}
 
