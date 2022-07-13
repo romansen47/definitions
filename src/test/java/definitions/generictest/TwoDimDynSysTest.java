@@ -22,6 +22,12 @@ import definitions.structures.dynamicsystems.DynamicSystem;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
+/**
+ * what is this for?
+ * 
+ * @author roman
+ *
+ */
 public class TwoDimDynSysTest extends GenericTest {
 
 	final int duration = 1000;

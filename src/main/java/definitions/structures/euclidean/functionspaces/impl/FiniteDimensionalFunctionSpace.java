@@ -90,7 +90,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		/*
 		 * be careful, no parallel streams allowed here!
 		 */
-		IntStream.range(1, n + 1)
+		IntStream.range(1, n + 1).parallel()
 				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
 						RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(d * i)) {
 				}));
@@ -107,7 +107,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		/*
 		 * be careful, no parallel streams allowed here!
 		 */
-		IntStream.range(1, n + 1)
+		IntStream.range(1, n + 1).parallel()
 				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
 						RealLine.getInstance().getZero(), RealLine.getInstance().get(d * i)) {
 				}));
@@ -177,9 +177,8 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	public Function nullVec() {
 		if (this.nullVec == null) {
 			final Map<Vector, Scalar> nul = new ConcurrentHashMap<>();
-			for (final Vector vec : this.genericBaseToList()) {
-				nul.put(vec, this.getField().getZero());
-			}
+			final Scalar zero = this.getField().getZero();
+			this.genericBaseToList().parallelStream().forEach(vec -> nul.put(vec, zero));
 			this.nullVec = new FunctionTuple(nul, this);
 		}
 		return (FunctionTuple) this.nullVec;

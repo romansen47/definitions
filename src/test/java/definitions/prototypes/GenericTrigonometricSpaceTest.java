@@ -44,7 +44,7 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	/**
 	 * path to prepared values of input function
 	 */
-	protected String path = "src/main/resources/test2.csv";
+	protected String path = "src/main/resources/test.csv";
 
 	/**
 	 * the values
@@ -186,9 +186,12 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	@Test
 	public void testOnIdentity() {
 		final Function identity = new GenericFunction() {
+
+			private Field f = GenericTest.getRealLine();
+
 			@Override
 			public Field getField() {
-				return GenericTest.getRealLine();
+				return f;
 			}
 
 			@Override

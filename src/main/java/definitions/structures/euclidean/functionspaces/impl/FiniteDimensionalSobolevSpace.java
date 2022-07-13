@@ -26,7 +26,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	/**
 	 * The sobolev degree.
 	 */
-	private Integer degree;
+	private Integer sobolevDegree;
 
 	/**
 	 * Constructor. Converts function space to sobolev space.
@@ -40,7 +40,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	public FiniteDimensionalSobolevSpace(final Field field, final EuclideanFunctionSpace space, final int degree,
 			final boolean ortho) throws DevisionByZeroException {
 		super(field, space.genericBaseToList(), space.getInterval()[0], space.getInterval()[1], false);
-		this.degree = degree;
+		this.sobolevDegree = degree;
 		if (ortho) {
 			this.setBase(this.getOrthonormalBase(this.base));
 			this.assignOrthonormalCoordinates(this.base, field);
@@ -55,7 +55,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 */
 	protected FiniteDimensionalSobolevSpace(final Field field, final int degree) {
 		super(field);
-		this.degree = degree;
+		this.sobolevDegree = degree;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final int degree) throws DevisionByZeroException {
 		super(field, genericBase, left, right, true);
-		this.degree = degree;
+		this.sobolevDegree = degree;
 		this.getDerivativeBuilder();
 	}
 
@@ -89,7 +89,7 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	public FiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase, final double left,
 			final double right, final int degree, final boolean ortho) throws DevisionByZeroException {
 		super(field, genericBase, left, right, ortho);
-		this.degree = degree;
+		this.sobolevDegree = degree;
 	}
 
 	/**
@@ -98,10 +98,10 @@ public class FiniteDimensionalSobolevSpace extends FiniteDimensionalFunctionSpac
 	 * @return the sobolev degree
 	 */
 	public final Integer getDegree() {
-		if (this.degree == null) {
-			this.degree = this.base.size();
+		if (this.sobolevDegree == null) {
+			this.sobolevDegree = this.base.size();
 		}
-		return this.degree;
+		return this.sobolevDegree;
 	}
 
 	public DerivativeOperator getDerivativeBuilder() {

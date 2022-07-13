@@ -74,6 +74,7 @@ public abstract class GenericTest {
 				logger.info("bean " + beanName);
 			}
 		}
+		Generator.getInstance();
 		return springConfiguration;
 	}
 

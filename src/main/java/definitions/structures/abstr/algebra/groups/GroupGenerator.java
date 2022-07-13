@@ -346,7 +346,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 		if (this.constructedBinaries == null) {
 			final DiscreetSemiRing binaryGroup = new FiniteRing() {
 
-				private FiniteMonoid muliplicativeMonoid;
+				FiniteMonoid muliplicativeMonoid;
 				Map<Element, Map<Element, Element>> operationMap;
 
 				Map<Element, Map<Element, Element>> multiplicationMap;
@@ -381,12 +381,12 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 							@Override
 							public void setCoordinates(Map<Vector, Scalar> coordinates) {
-
+								// no coordinates will be used here
 							}
 
 							@Override
 							public void setCoordinates(Map<Vector, Scalar> coordinates, EuclideanSpace space) {
-
+								// no coordinates will be used here
 							}
 
 							@Override

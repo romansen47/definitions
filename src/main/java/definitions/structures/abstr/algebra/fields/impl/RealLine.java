@@ -33,8 +33,9 @@ import settings.GlobalSettings;
 @Component
 public class RealLine implements Field, RealSpace {
 
-	final private static Real one = RealOne.getOne();
-	final private static Real zero = RealZero.getZero();
+	private static final Real one = RealOne.getOne();
+	private static final Real zero = RealZero.getZero();
+
 	private static RealLine instance;
 
 	public static RealLine getInstance() {

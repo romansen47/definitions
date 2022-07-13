@@ -3,7 +3,6 @@ package definitions.structures.euclidean.vectorspaces;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -157,12 +156,6 @@ public interface ISpaceGenerator {
 	default EuclideanFunctionSpace getFiniteDimensionalSobolevSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right, final int degree, final boolean ortho)
 			throws DevisionByZeroException {
-		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(genericBase.hashCode());
-		final EuclideanFunctionSpace funSpace = (EuclideanFunctionSpace) space;
-		if ((space != null) && (funSpace instanceof FiniteDimensionalSobolevSpace)
-				&& (funSpace.getInterval()[0] == left) && (funSpace.getInterval()[1] == right)) {
-			return funSpace;
-		}
 		return new FiniteDimensionalSobolevSpace(field, genericBase, left, right, degree, ortho);
 	}
 
@@ -183,14 +176,7 @@ public interface ISpaceGenerator {
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
-		RealLine.getInstance();
 		return this.getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
-	}
-
-	default int getHashCode(final Field field, final List<Vector> base, final Double[] interval) {
-		int result = 1;
-		result = Objects.hash(field, base, interval);
-		return result;
 	}
 
 	Logger getLogger();
@@ -218,15 +204,18 @@ public interface ISpaceGenerator {
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
 			throws DevisionByZeroException, ExtendingFailedException {
+		if (Math.abs(right - Math.PI) > 1e-3) {
+			this.getLogger().info("intervall is wrong for this method : [{},{}]", -right, right);
+		}
 		Generator.getInstance();
-		final EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
+		EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
 		if (space != null) {
 			LogManager.getLogger(ISpaceGenerator.class).info(
 					"Successfully restored {}-dimensional trigonometric space {} with linear functions from cache",
 					((2 * n) + 1), space);
 			return space;
 		}
-		return this.extend(this.getTrigonometricSpace(f, n, right), new GenericFunction() {
+		EuclideanSpace answer = this.extend(this.getTrigonometricSpace(f, n, right), new GenericFunction() {
 			@Override
 			public Field getField() {
 				return f;
@@ -238,6 +227,14 @@ public interface ISpaceGenerator {
 			}
 		});
 
+		space = this.getMyCache().getConcreteCache().putIfAbsent(n, answer);
+		if (space == null) {
+			space = answer;
+		}
+		LogManager.getLogger(ISpaceGenerator.class).info(
+				"Successfully saved {}-dimensional trigonometric space {} with linear functions to cache",
+				((2 * n) + 1), space);
+		return space;
 	}
 
 	default EuclideanFunctionSpace getTrigonometricSobolevSpace(final Field field, final int n, final int degree) {
@@ -245,7 +242,7 @@ public interface ISpaceGenerator {
 			return this.getNormedTrigonometricSpace(field, n);
 		}
 		final EuclideanFunctionSpace ans = new TrigonometricSobolevSpace(field, n, -Math.PI, Math.PI, degree);
-		this.createTrigonometricDerivativeBuilder(ans);// ((FiniteDimensionalSobolevSpace) ans).getDerivativeBuilder();
+		this.createTrigonometricDerivativeBuilder(ans);
 		return ans;
 	}
 

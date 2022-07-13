@@ -191,9 +191,8 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 			@Override
 			public Map<Vector, Map<Vector, Scalar>> getLinearity() {
 				final Map<Vector, Map<Vector, Scalar>> coord = new ConcurrentHashMap<>();
-				for (final Vector vec : ((EuclideanSpace) this.getSource()).genericBaseToList()) {
-					coord.put(vec, ((FiniteVectorMethods) ((Field) this.target).nullVec()).getCoordinates());
-				}
+				((EuclideanSpace) this.getSource()).genericBaseToList().parallelStream().forEach(vec -> coord.put(vec,
+						((FiniteVectorMethods) ((Field) this.target).nullVec()).getCoordinates()));
 				return coord;
 			}
 		};

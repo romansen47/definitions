@@ -4,9 +4,12 @@
 package plotter;
 
 import java.awt.Color;
+import java.util.Map;
 
-import definitions.structures.abstr.algebra.fields.Field;
+import org.apache.logging.log4j.LogManager;
+
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
+import definitions.structures.abstr.algebra.fields.scalars.impl.Quaternion;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -20,6 +23,7 @@ import solver.StdDraw;
 public interface Plotter {
 
 	default void plot(final Plotable fun, final double left, final double right) {
+		LogManager.getLogger(getClass()).info("plotting {} over [{},{}]", fun, left, right);
 		final StdDraw stddraw = new StdDraw();
 		final int count = 500;
 		final double delta = (right - left) / count;
@@ -30,18 +34,19 @@ public interface Plotter {
 			z = left + (delta * i);
 			StdDraw.setPenColor(Color.blue);
 			for (final Vector vec : ((Function) fun).getField().genericBaseToList()) {
-				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get(z));
-				final Scalar sc2 = (Scalar) ((Function) fun)
-						.value(((Function) fun).getField().getField().get(z + delta));
-				StdDraw.line(z, this.getValue((sc.getCoordinates().get(((Function) fun).getField().getBaseVec(vec)))),
-						z + delta,
-						this.getValue(sc2.getCoordinates().get(((Function) fun).getField().getBaseVec(vec))));
+				final Scalar sc = (Scalar) ((Function) fun).value(((Function) fun).getField().get(z));
+				final Scalar sc2 = (Scalar) ((Function) fun).value(((Function) fun).getField().get(z + delta));
+				Map<Vector, Scalar> scCoordinates = sc.getCoordinates();
+				Map<Vector, Scalar> sc2Coordinates = sc2.getCoordinates();
+				Double x1 = this.getValue(scCoordinates.get(((Function) fun).getField().getBaseVec(vec)));
+				Double x2 = this.getValue(sc2Coordinates.get(((Function) fun).getField().getBaseVec(vec)));
+				StdDraw.line(z, x1, z + delta, x2);
 			}
 		}
-
 	}
 
 	default void plotCompare(final Plotable fun1, final Plotable fun2, final double left, final double right) {
+		LogManager.getLogger(getClass()).info("plotting {} against {} over [{},{}]", fun1, fun2, left, right);
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
@@ -70,7 +75,6 @@ public interface Plotter {
 	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,
 			final int count, final double delta) {
 		double x = 0;
-		Field f = ((Function) fun).getField();
 		Scalar h = (Scalar) ((Function) fun).value(((Function) fun).getField().getField().get((right - left) / 2.));
 		double min = this.getValue(h);
 		double max = min;
@@ -102,6 +106,10 @@ public interface Plotter {
 	default Double getValue(Scalar h) {
 		if (h instanceof Real) {
 			return ((Real) h).doubleValue();
+		} else {
+			if (h instanceof Quaternion) {
+				return ((Real) ((Quaternion) h).getReal()).getRepresentant();
+			}
 		}
 		return null;
 	}

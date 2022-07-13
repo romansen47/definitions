@@ -13,7 +13,6 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
-import definitions.structures.euclidean.vectors.specialfunctions.Constant;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotable;
 import plotter.Plotter;
@@ -29,19 +28,6 @@ import solver.StdDraw;
 public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweavable {
 
 	Function derivative = null;
-	/**
-	 * static constant 1-function.
-	 */
-	Function one = new Constant(RealLine.getInstance().getOne()) {
-
-		Field ownfield = this.getField();
-
-		@Override
-		public Field getField() {
-			return this.ownfield;
-		}
-
-	};
 
 	/**
 	 * Method to determine whether another function produces the same values.
@@ -75,13 +61,11 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
 		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
-		if (coordinatesMap != null) {
-			if (coordinatesMap.get(space) != null) {
-				return coordinatesMap.get(space);
-			}
+		if (coordinatesMap != null && coordinatesMap.get(space) != null) {
+			return coordinatesMap.get(space);
 		}
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
-		space.genericBaseToList().stream()
+		space.genericBaseToList().parallelStream()
 				.forEach(baseVec -> newCoordinates.put(baseVec, space.innerProduct(this, baseVec)));
 		return newCoordinates;
 	}

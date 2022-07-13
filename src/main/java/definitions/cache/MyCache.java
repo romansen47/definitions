@@ -1,18 +1,23 @@
 package definitions.cache;
 
-import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 @Component
-public class MyCache implements ICache, XmlPrintable, Serializable {
+public class MyCache implements ICache, XmlPrintable {
 
-	private static final long serialVersionUID = 1L;
+	private final Logger logger = LogManager.getLogger(this.getClass());
+
+	public Logger getLogger() {
+		return this.logger;
+	}
 
 	private Map<Integer, EuclideanSpace> coordinateSpaces = new ConcurrentHashMap<>();
 
@@ -23,6 +28,7 @@ public class MyCache implements ICache, XmlPrintable, Serializable {
 
 	@Override
 	public void setConcreteCache(final Map<Integer, EuclideanSpace> cache) {
+		logger.info("setter triggered: {}", "concrete cache");
 		this.coordinateSpaces = cache;
 	}
 
