@@ -25,8 +25,18 @@ import plotter.Plotter;
  */
 public abstract class GenericFunction implements Function, Element {
 
+	/**
+	 * generic functions are root elements of function spaces. generation needs no
+	 * coordinates but at least a field. open for discussion
+	 */
 	private Field field;
+
+	/**
+	 * coordinate in L^2 and H^1 may differ
+	 */
 	private Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
+
+	@Deprecated
 	private Map<Vector, Scalar> coordinates;
 
 	/**
@@ -103,15 +113,6 @@ public abstract class GenericFunction implements Function, Element {
 	@Override
 	public void plot(final double left, final double right) {
 		((Plotter) Generator.getInstance()).plot(this, left, right);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-
-	public void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) Generator.getInstance()).plotCompare(this, fun, left, right);
 	}
 
 	/**

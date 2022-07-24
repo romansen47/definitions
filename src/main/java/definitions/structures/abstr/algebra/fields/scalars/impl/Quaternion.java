@@ -140,7 +140,7 @@ public class Quaternion extends Tuple implements FieldElement {
 
 	@Override
 	public String toString() {
-		return "quaternion (" + real + "," + i + "," + j + "," + k + ")";
+		return "quaternion " + real + " + " + i + " * i + " + j + " * j + " + k + " * k";
 	}
 
 }

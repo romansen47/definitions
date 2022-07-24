@@ -5,14 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
-import definitions.structures.abstr.algebra.semigroups.Element;
-import definitions.structures.abstr.mappings.impl.LinearMapping;
-import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import plotter.Plotter;
 
@@ -46,20 +41,6 @@ public class FunctionTuple extends Tuple implements Function {
 		return this.coordinatesMap;
 	}
 
-	public LinearMapping getDerivative(final VectorSpace space) {
-		return new FiniteDimensionalLinearMapping((EuclideanFunctionSpace) space, (EuclideanFunctionSpace) space) {
-			@Override
-			public Vector get(final Element vec2) {
-				return ((Function) vec2).getDerivative();
-			}
-
-			@Override
-			public Map<Vector, Scalar> getImageVectorOfBaseVector(final Vector vec1) {
-				return null;
-			}
-		};
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -88,15 +69,13 @@ public class FunctionTuple extends Tuple implements Function {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void plotCompare(final double left, final double right, final Function fun) {
-		((Plotter) Generator.getInstance()).plotCompare(this, fun, left, right);
-	}
-
-	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
 		this.coordinatesMap.put(space, ((Function) coordinates).getCoordinates(space));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Scalar value(final Scalar input) {
 		Scalar ans = this.getField().getZero();

@@ -120,17 +120,6 @@ public class Tuple implements FiniteVector {
 		return this.dim;
 	}
 
-	// @Override
-	// public Boolean equals(final Vector vec) {
-	// for (final Vector key : this.getCoordinates().keySet()) {
-	// if (!(this.coordinates.get(key).getValue() ==
-	// vec.getCoordinates().get(key).getValue())) {
-	// return false;
-	// }
-	// }
-	// return true;
-	// }
-
 	/**
 	 * {@inheritDoc}
 	 */

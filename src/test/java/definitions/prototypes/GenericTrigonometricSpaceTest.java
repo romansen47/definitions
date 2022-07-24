@@ -44,12 +44,22 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	/**
 	 * path to prepared values of input function
 	 */
-	protected String path = "src/main/resources/test.csv";
+	protected String path1 = "src/main/resources/test.csv";
+
+	/**
+	 * path to prepared values of input function
+	 */
+	protected String path2 = "src/main/resources/test2.csv";
 
 	/**
 	 * the values
 	 */
-	protected double[][] testValues;
+	protected double[][] testValues1;
+
+	/**
+	 * the values
+	 */
+	protected double[][] testValues2;
 
 	/**
 	 * the 'stair case function'.
@@ -66,16 +76,36 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	 * 
 	 * @return the path for input values
 	 */
-	public String getPath() {
-		return path;
+	protected String getPath1() {
+		return path1;
 	}
+
+	/**
+	 * getter for path of input values
+	 * 
+	 * @return the path for input values
+	 */
+	protected String getPath2() {
+		return path2;
+	}
+
+	/**
+	 * stair case function 1
+	 */
+	protected Function sFunction1;
+
+	/**
+	 * stair case function 2
+	 */
+	protected Function sFunction2;
 
 	@Before
 	public void setUp() throws Exception {
 
-		testValues = definitions.generictest.Reader.readFile(getPath());
-		setStaircaseFunction(new GenericFunction() {
-			private final int length = (int) testValues[0][testValues[0].length - 1];
+		testValues1 = definitions.generictest.Reader.readFile(getPath1());
+		testValues2 = definitions.generictest.Reader.readFile(getPath2());
+		sFunction1 = new GenericFunction() {
+			private final int length = (int) testValues1[0][testValues1[0].length - 1];
 
 			@Override
 			public Field getField() {
@@ -87,12 +117,83 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 				final double newInput = ((length / (2 * Math.PI)) * ((Real) input).getDoubleValue()) + (length / 2.);
 				int k = 0;
 				final int l = (int) (newInput - (newInput % 1));
-				while (((k + 1) < testValues[0].length) && (testValues[0][k] < l)) {
+				while (((k + 1) < testValues1[0].length) && (testValues1[0][k] < l)) {
 					k++;
 				}
-				return getField().get(testValues[1][k]);
+				return getField().get(testValues1[1][k]);
 			}
-		});
+		};
+		sFunction2 = new GenericFunction() {
+			private final int length = (int) testValues2[0][testValues2[0].length - 1];
+
+			@Override
+			public Field getField() {
+				return GenericTrigonometricSpaceTest.this.getField();
+			}
+
+			@Override
+			public Scalar value(final Scalar input) {
+				final double newInput = ((length / (2 * Math.PI)) * ((Real) input).getDoubleValue()) + (length / 2.);
+				int k = 0;
+				final int l = (int) (newInput - (newInput % 1));
+				while (((k + 1) < testValues2[0].length) && (testValues2[0][k] < l)) {
+					k++;
+				}
+				return getField().get(testValues2[1][k]);
+			}
+		};
+	}
+
+	protected GenericFunction getStaircaseFunction() {
+		return staircaseFunction;
+	}
+
+	protected void testOnFunction(Function f, int degree, Integer sobolevDegree, double eps) {
+
+		org.apache.logging.log4j.Logger logger = getLogger();
+
+		EuclideanSpace whatTheFuck = getTrigonometricSpace();
+		if (whatTheFuck == null) {
+			logger.info("comm on!");
+		}
+		Function fProjection = f.getProjection(getTrigonometricSpace());
+
+		f.plotCompare(-Math.PI, Math.PI, fProjection);
+
+		long time1 = System.nanoTime();
+		double distance = ((Real) getTrigonometricSpace().distance(fProjection, f)).getRepresentant();
+		time1 = System.nanoTime() - time1;
+		logger.info("time for computing distance = {}", time1);
+
+		long time2 = System.nanoTime();
+		double norm_of_function = ((Real) getTrigonometricSpace().norm(f)).getRepresentant();
+		time2 = System.nanoTime() - time2;
+		logger.info("time for computing norm of the function  = {}", time2);
+
+		long time3 = System.nanoTime();
+		double norm_of_projection = ((Real) getTrigonometricSpace().norm(fProjection)).getRepresentant();
+		time3 = System.nanoTime() - time3;
+		logger.info("time for computing norm of projection = {}", time3);
+
+		logger.info("distance = {}", distance);
+		logger.info("norm of function = {}", norm_of_function);
+		logger.info("norm of its projection = {}", norm_of_projection);
+		String s = sobolevDegree == null ? "Trig(" + degree + ")" : "on SobTrig(" + degree + "," + sobolevDegree + ")";
+		logger.info("distance / norm = {} / {} = {}  {}, expected tolerance: {}", distance, norm_of_function,
+				distance / norm_of_function, s, getEps());
+		Assert.assertTrue(distance / norm_of_function < eps);
+	}
+
+	@Test
+	public void testOnStairCaseFunction1() {
+		this.setStaircaseFunction((GenericFunction) sFunction1);
+		testOnFunction(getStaircaseFunction(), getTrigonometricDegree(), getSobolevDegree(), getEps());
+	}
+
+	@Test
+	public void testOnStairCaseFunction2() {
+		this.setStaircaseFunction((GenericFunction) sFunction2);
+		testOnFunction(getStaircaseFunction(), getTrigonometricDegree(), getSobolevDegree(), getEps());
 	}
 
 	@Test
@@ -111,59 +212,6 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 				return RealLine.getInstance().get(abs);
 			}
 		}, getTrigonometricDegree(), getSobolevDegree(), getEps());
-	}
-
-	public GenericFunction getStaircaseFunction() {
-		staircaseFunction = new GenericFunction() {
-			private final int length = (int) testValues[0][testValues[0].length - 1];
-
-			@Override
-			public Field getField() {
-				return GenericTrigonometricSpaceTest.this.getField();
-			}
-
-			@Override
-			public Scalar value(final Scalar input) {
-				final double newInput = ((length / (2 * Math.PI)) * ((Real) input).getDoubleValue()) + (length / 2.);
-				int k = 0;
-				final int l = (int) (newInput - (newInput % 1));
-				while (((k + 1) < testValues[0].length) && (testValues[0][k] < l)) {
-					k++;
-				}
-				return getField().get(testValues[1][k]);
-			}
-		};
-		return staircaseFunction;
-	}
-
-	protected void testOnFunction(Function f, int degree, Integer sobolevDegree, double eps) {
-		Function fProjection = f.getProjection(getTrigonometricSpace());
-		f.plotCompare(-Math.PI, Math.PI, fProjection);
-
-		long time1 = System.nanoTime();
-		double distance = ((Real) getTrigonometricSpace().distance(fProjection, f)).getRepresentant();
-		time1 = System.nanoTime() - time1;
-		getLogger().info("time for computing distance = {}", time1);
-		long time2 = System.nanoTime();
-		double norm_of_function = ((Real) getTrigonometricSpace().norm(f)).getRepresentant();
-		time2 = System.nanoTime() - time2;
-		getLogger().info("time for computing norm of the function  = {}", time2);
-		long time3 = System.nanoTime();
-		double norm_of_projection = ((Real) getTrigonometricSpace().norm(fProjection)).getRepresentant();
-		time3 = System.nanoTime() - time3;
-		getLogger().info("time for computing norm of projection = {}", time3);
-		getLogger().info("distance = {}", distance);
-		getLogger().info("norm of function = {}", norm_of_function);
-		getLogger().info("norm of its projection = {}", norm_of_projection);
-		String s = sobolevDegree == null ? "Trig(" + degree + ")" : "on SobTrig(" + degree + "," + sobolevDegree + ")";
-		getLogger().info("distance / norm = {} / {} = {}  {}, expected tolerance: {}", distance, norm_of_function,
-				distance / norm_of_function, s, getEps());
-		Assert.assertTrue(distance / norm_of_function < eps);
-	}
-
-	@Test
-	public void testOnStairCaseFunction() {
-		testOnFunction(getStaircaseFunction(), getTrigonometricDegree(), getSobolevDegree(), getEps());
 	}
 
 	@Test
@@ -231,8 +279,12 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 		this.trigonometricSpace = space;
 	}
 
-	protected void setPath(final String path) {
-		this.path = path;
+	protected void setPath1(final String path) {
+		this.path1 = path;
+	}
+
+	protected void setPath2(final String path) {
+		this.path2 = path;
 	}
 
 	protected void setStaircaseFunction(final GenericFunction staircaseFunction) {

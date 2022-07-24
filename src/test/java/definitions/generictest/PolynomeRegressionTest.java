@@ -23,6 +23,13 @@ import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectors.impl.Monome;
 import exceptions.DevisionByZeroException;
 
+/**
+ * example for polynomial regression. extensions by linear functions must be
+ * avoided (since they make no sense)
+ * 
+ * @author ro
+ *
+ */
 public class PolynomeRegressionTest extends GenericTest {
 
 	public static final Logger logger = LogManager.getLogger(PolynomeRegressionTest.class);

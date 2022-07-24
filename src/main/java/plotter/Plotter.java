@@ -4,6 +4,7 @@
 package plotter;
 
 import java.awt.Color;
+import java.sql.Timestamp;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -69,7 +70,11 @@ public interface Plotter {
 			alpha = alphaNext;
 			beta = betaNext;
 		}
-		StdDraw.save(GlobalSettings.PLOTS + Integer.toString(hashCode()) + ".png");
+		String name = new Timestamp(System.currentTimeMillis()).toString();
+		LogManager.getLogger(this.getClass()).info(name);
+		name = name.replaceAll("\\s", "_").replaceAll("\\:", ".");
+		LogManager.getLogger(this.getClass()).info("plotting {} to file {}.png", this, name);
+		StdDraw.save(GlobalSettings.PLOTS + name + ".png");
 	}
 
 	default void preparePlot(final Plotable fun, final double left, final double right, final StdDraw stddraw,

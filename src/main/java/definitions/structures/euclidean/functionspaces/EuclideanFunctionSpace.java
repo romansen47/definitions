@@ -39,7 +39,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 		}
 		if ((vec1 instanceof Function) && (vec2 instanceof Function)) {
 			if ((((FiniteVectorMethods) vec1).getCoordinates() == null)
-					|| (((FiniteVectorMethods) vec2).getCoordinates() == null)) {
+					|| (((FiniteVectorMethods) vec2).getCoordinates() == null) || (((FiniteVectorMethods) vec1)
+							.getCoordinates().size() != ((FiniteVectorMethods) vec2).getCoordinates().size())) {
 				return new GenericFunction() {
 					@Override
 					public Field getField() {

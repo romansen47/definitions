@@ -25,7 +25,7 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		trigonometricDegree = 3;
+		trigonometricDegree = 15;
 		sobolevDegree = 1;
 		eps = 1d;
 
@@ -33,7 +33,6 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricSobolevSpace(getField(),
 				getTrigonometricDegree(), getSobolevDegree()));
 		super.setUp();
-
 	}
 
 }
