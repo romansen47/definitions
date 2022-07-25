@@ -6,24 +6,23 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import definitions.prototypes.GenericPolynomeRegressionTest;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.Monome;
 
-public class PolynomeRegressionTest extends GenericPolynomeRegressionTest {
+public class PolynomeRegressionSobolevTest extends PolynomeRegressionTest {
 
-	public static final Logger logger = LogManager.getLogger(PolynomeRegressionTest.class);
+	public static final Logger logger = LogManager.getLogger(PolynomeRegressionSobolevTest.class);
 
 	@Override
 	public Logger getLogger() {
-		return PolynomeRegressionTest.logger;
+		return PolynomeRegressionSobolevTest.logger;
 	}
 
-	protected int degree = 4;
-	protected int sobolevDegree = 0;
+	protected int degree = 2;
+	protected int sobolevDegree = 1;
 
 	@Override
 	public void setUp() throws Exception {

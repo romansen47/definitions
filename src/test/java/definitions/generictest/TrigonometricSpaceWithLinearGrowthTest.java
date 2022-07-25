@@ -4,10 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
+import definitions.prototypes.GenericSpaceTest;
 import definitions.prototypes.GenericTest;
-import definitions.prototypes.GenericTrigonometricSpaceTest;
 
-public class TrigonometricSpaceWithLinearGrowthTest extends GenericTrigonometricSpaceTest {
+public class TrigonometricSpaceWithLinearGrowthTest extends GenericSpaceTest {
 
 	public static final Logger logger = LogManager.getLogger(TrigonometricSpaceWithLinearGrowthTest.class);
 
@@ -20,11 +20,11 @@ public class TrigonometricSpaceWithLinearGrowthTest extends GenericTrigonometric
 	@Before
 	public void setUp() throws Exception {
 		eps = 1d;
-		trigonometricDegree = 3;
+		degree = 4;
 		sobolevDegree = null;
 		setField(GenericTest.getRealLine());
-		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricFunctionSpaceWithLinearGrowth(
-				GenericTest.getRealLine(), getTrigonometricDegree(), Math.PI));
+		setSpace(GenericTest.getSpaceGenerator()
+				.getTrigonometricFunctionSpaceWithLinearGrowth(GenericTest.getRealLine(), getDegree(), Math.PI));
 		super.setUp();
 	}
 }

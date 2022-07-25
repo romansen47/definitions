@@ -211,8 +211,8 @@ public interface ISpaceGenerator {
 		EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
 		if (space != null) {
 			LogManager.getLogger(ISpaceGenerator.class).info(
-					"Successfully restored {}-dimensional trigonometric space {} with linear functions from cache",
-					((2 * n) + 1), space);
+					"restored {}-dimensional trigonometric space {} with linear functions from cache", ((2 * n) + 1),
+					space);
 			return space;
 		}
 		EuclideanSpace answer = this.extend(this.getTrigonometricSpace(f, n, right), new GenericFunction() {
@@ -232,8 +232,7 @@ public interface ISpaceGenerator {
 			space = answer;
 		}
 		LogManager.getLogger(ISpaceGenerator.class).info(
-				"Successfully saved {}-dimensional trigonometric space {} with linear functions to cache",
-				((2 * n) + 1), space);
+				"saved {}-dimensional trigonometric space {} with linear functions to cache", ((2 * n) + 1), space);
 		return space;
 	}
 
@@ -417,8 +416,8 @@ public interface ISpaceGenerator {
 			}
 
 			@Override
-			public Vector getCoordinates(Vector vec) {
-				return new ProductVector(first.getCoordinates(vec), second.getCoordinates(vec));
+			public Vector getProjection(Vector vec) {
+				return new ProductVector(first.getProjection(vec), second.getProjection(vec));
 			}
 
 			@Override

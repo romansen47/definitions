@@ -48,7 +48,7 @@ public class CachingAspect {
 		if (field.equals(RealLine.getInstance())) {
 			final EuclideanSpace ans = CachingAspect.coordinatesSpaces.get(dim);
 			if (ans != null) {
-				this.getLogger().info("Successfully restored {}-dimensional euclidean space {} from cache! ", dim, ans);
+				this.getLogger().info("restored {}-dimensional euclidean space {} from cache! ", dim, ans);
 				return ans;
 			}
 			if (dim == 1) {

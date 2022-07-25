@@ -18,7 +18,7 @@ import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
  * @author roman
  *
  */
-public abstract class GenericTrigonometricSpaceTest extends GenericTest {
+public abstract class GenericSpaceTest extends GenericTest {
 
 	/**
 	 * a tolerance parameter
@@ -26,10 +26,11 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	protected double eps = 1d;
 
 	/**
-	 * the trigonometric degree of tested space
+	 * the degree of tested space. in case of trigonometric space this is the
+	 * trigonometric degree. this will lead to a space ofdimension 2*degree +1
 	 */
 
-	protected int trigonometricDegree;
+	protected int degree;
 
 	/**
 	 * the sobolev degree of tested space
@@ -37,9 +38,9 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	protected Integer sobolevDegree;
 
 	/**
-	 * the trigonometric space
+	 * the space
 	 */
-	protected EuclideanSpace trigonometricSpace;
+	protected EuclideanSpace space;
 
 	/**
 	 * path to prepared values of input function
@@ -109,7 +110,7 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 
 			@Override
 			public Field getField() {
-				return GenericTrigonometricSpaceTest.this.getField();
+				return GenericSpaceTest.this.getField();
 			}
 
 			@Override
@@ -128,7 +129,7 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 
 			@Override
 			public Field getField() {
-				return GenericTrigonometricSpaceTest.this.getField();
+				return GenericSpaceTest.this.getField();
 			}
 
 			@Override
@@ -152,26 +153,26 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 
 		org.apache.logging.log4j.Logger logger = getLogger();
 
-		EuclideanSpace whatTheFuck = getTrigonometricSpace();
+		EuclideanSpace whatTheFuck = getSpace();
 		if (whatTheFuck == null) {
 			logger.info("comm on!");
 		}
-		Function fProjection = f.getProjection(getTrigonometricSpace());
+		Function fProjection = f.getProjection(getSpace());
 
 		f.plotCompare(-Math.PI, Math.PI, fProjection);
 
 		long time1 = System.nanoTime();
-		double distance = ((Real) getTrigonometricSpace().distance(fProjection, f)).getRepresentant();
+		double distance = ((Real) getSpace().distance(fProjection, f)).getRepresentant();
 		time1 = System.nanoTime() - time1;
 		logger.info("time for computing distance = {}", time1);
 
 		long time2 = System.nanoTime();
-		double norm_of_function = ((Real) getTrigonometricSpace().norm(f)).getRepresentant();
+		double norm_of_function = ((Real) getSpace().norm(f)).getRepresentant();
 		time2 = System.nanoTime() - time2;
 		logger.info("time for computing norm of the function  = {}", time2);
 
 		long time3 = System.nanoTime();
-		double norm_of_projection = ((Real) getTrigonometricSpace().norm(fProjection)).getRepresentant();
+		double norm_of_projection = ((Real) getSpace().norm(fProjection)).getRepresentant();
 		time3 = System.nanoTime() - time3;
 		logger.info("time for computing norm of projection = {}", time3);
 
@@ -187,13 +188,13 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 	@Test
 	public void testOnStairCaseFunction1() {
 		this.setStaircaseFunction((GenericFunction) sFunction1);
-		testOnFunction(getStaircaseFunction(), getTrigonometricDegree(), getSobolevDegree(), getEps());
+		testOnFunction(getStaircaseFunction(), getDegree(), getSobolevDegree(), getEps());
 	}
 
 	@Test
 	public void testOnStairCaseFunction2() {
 		this.setStaircaseFunction((GenericFunction) sFunction2);
-		testOnFunction(getStaircaseFunction(), getTrigonometricDegree(), getSobolevDegree(), getEps());
+		testOnFunction(getStaircaseFunction(), getDegree(), getSobolevDegree(), getEps());
 	}
 
 	@Test
@@ -211,7 +212,7 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 				final double abs = Math.abs((Math.sin(inputValue) * Math.cos(inputValue)) - 0.25);
 				return RealLine.getInstance().get(abs);
 			}
-		}, getTrigonometricDegree(), getSobolevDegree(), getEps());
+		}, getDegree(), getSobolevDegree(), getEps());
 	}
 
 	@Test
@@ -228,7 +229,7 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 			}
 		};
 
-		testOnFunction(absolute, getTrigonometricDegree(), getSobolevDegree(), getEps());
+		testOnFunction(absolute, getDegree(), getSobolevDegree(), getEps());
 	}
 
 	@Test
@@ -248,7 +249,7 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 			}
 
 		};
-		testOnFunction(identity, getTrigonometricDegree(), getSobolevDegree(), getEps());
+		testOnFunction(identity, getDegree(), getSobolevDegree(), getEps());
 	}
 
 	protected Field getField() {
@@ -263,20 +264,20 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 		return eps;
 	};
 
-	protected int getTrigonometricDegree() {
-		return trigonometricDegree;
+	protected int getDegree() {
+		return degree;
 	}
 
-	protected void setTrigonometricDegree(Integer trigDegree) {
-		this.trigonometricDegree = trigDegree;
+	protected void setDegree(Integer trigDegree) {
+		this.degree = trigDegree;
 	}
 
-	protected EuclideanSpace getTrigonometricSpace() {
-		return trigonometricSpace;
+	protected EuclideanSpace getSpace() {
+		return space;
 	}
 
-	protected void setTrigonometricSpace(EuclideanSpace space) {
-		this.trigonometricSpace = space;
+	protected void setSpace(EuclideanSpace space) {
+		this.space = space;
 	}
 
 	protected void setPath1(final String path) {
@@ -293,5 +294,9 @@ public abstract class GenericTrigonometricSpaceTest extends GenericTest {
 
 	protected Integer getSobolevDegree() {
 		return this.sobolevDegree;
+	}
+
+	protected void setSobolevDegree(Integer sDegree) {
+		this.sobolevDegree = sDegree;
 	}
 }

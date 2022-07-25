@@ -91,7 +91,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public FiniteVector getCoordinates(final Vector vec) {
+	public FiniteVector getProjection(final Vector vec) {
 		final Map<Vector, Scalar> coordinates = new ConcurrentHashMap<>();
 		for (final Vector baseVec : this.genericBaseToList()) {
 			coordinates.put(baseVec, this.innerProduct(vec, baseVec));

@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import definitions.prototypes.GenericTest;
-import definitions.prototypes.GenericTrigonometricSpaceTest;
+import definitions.prototypes.GenericSpaceTest;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -21,7 +21,7 @@ import exceptions.ExtendingFailedException;
  * @author roman
  *
  */
-public class CompareTrigonometricSpaceTest extends GenericTrigonometricSpaceTest {
+public class CompareTrigonometricSpaceTest extends GenericSpaceTest {
 
 	protected static final Logger logger = LogManager.getLogger(CompareTrigonometricSpaceTest.class);
 
@@ -38,13 +38,13 @@ public class CompareTrigonometricSpaceTest extends GenericTrigonometricSpaceTest
 	@Before
 	public void setUp() throws Exception {
 		eps = 9e-1;
-		trigonometricDegree = 4;
+		degree = 4;
 		sobolevDegree = null;
 		setField(GenericTest.getRealLine());
 		space = (EuclideanFunctionSpace) GenericTest.getSpaceGenerator()
-				.getTrigonometricSpace(GenericTest.getRealLine(), getTrigonometricDegree(), Math.PI);
+				.getTrigonometricSpace(GenericTest.getRealLine(), getDegree(), Math.PI);
 		extendedSpace = (EuclideanFunctionSpace) GenericTest.getSpaceGenerator()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(GenericTest.getRealLine(), getTrigonometricDegree(),
+				.getTrigonometricFunctionSpaceWithLinearGrowth(GenericTest.getRealLine(), getDegree(),
 						Math.PI);
 		super.setUp();
 	}

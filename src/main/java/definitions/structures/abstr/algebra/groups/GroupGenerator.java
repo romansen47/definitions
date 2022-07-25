@@ -191,7 +191,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 				}
 
 				@Override
-				public Vector getCoordinates(Vector vec) {
+				public Vector getProjection(Vector vec) {
 					return ((FiniteVector) vec).getProjection(this);
 				}
 

@@ -4,8 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
+import definitions.prototypes.GenericSpaceTest;
 import definitions.prototypes.GenericTest;
-import definitions.prototypes.GenericTrigonometricSpaceTest;
 
 /**
  * Sobolev tests make sense only on continuous functions.
@@ -13,7 +13,7 @@ import definitions.prototypes.GenericTrigonometricSpaceTest;
  * @author roman
  *
  */
-public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest {
+public class TrigonometricSobolevSpaceTest extends GenericSpaceTest {
 
 	public static final Logger logger = LogManager.getLogger(TrigonometricSobolevSpaceTest.class);
 
@@ -25,13 +25,13 @@ public class TrigonometricSobolevSpaceTest extends GenericTrigonometricSpaceTest
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		trigonometricDegree = 15;
+		degree = 3;
 		sobolevDegree = 1;
 		eps = 1d;
 
 		setField(GenericTest.getRealLine());
-		setTrigonometricSpace(GenericTest.getSpaceGenerator().getTrigonometricSobolevSpace(getField(),
-				getTrigonometricDegree(), getSobolevDegree()));
+		setSpace(GenericTest.getSpaceGenerator().getTrigonometricSobolevSpace(getField(), getDegree(),
+				getSobolevDegree()));
 		super.setUp();
 	}
 

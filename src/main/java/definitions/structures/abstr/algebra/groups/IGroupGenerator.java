@@ -694,7 +694,7 @@ public interface IGroupGenerator {
 			}
 
 			@Override
-			public Vector getCoordinates(Vector vec) {
+			public Vector getProjection(Vector vec) {
 				return vec;
 			}
 

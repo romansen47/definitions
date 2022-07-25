@@ -117,7 +117,7 @@ public class RealLine implements Field, RealSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Vector getCoordinates(final Vector vec) {
+	public Vector getProjection(final Vector vec) {
 		return vec;
 	}
 

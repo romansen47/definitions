@@ -108,11 +108,11 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 	 * Method to project a vector. Transformes instances of generic functions to
 	 * function tuples in concrete space.
 	 *
-	 * @param vec the vector to clone.
-	 * @return copy of vec.
+	 * @param vec the vector to project.
+	 * @return projection of vec.
 	 */
 	@Proceed
-	Vector getCoordinates(Vector vec);
+	Vector getProjection(Vector vec);
 
 	/**
 	 * The dimension of the space. This is the size of the base.
