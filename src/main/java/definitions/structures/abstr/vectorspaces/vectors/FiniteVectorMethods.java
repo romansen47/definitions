@@ -19,11 +19,14 @@ public interface FiniteVectorMethods extends XmlPrintable {
 	@Deprecated
 	Map<Vector, Scalar> getCoordinates();
 
+	Map<Vector, Scalar> getCoordinates(EuclideanSpace source);
+
 	/**
 	 * Setter for coordinates on a base.
 	 *
 	 * @param coordinates the coordinates.
 	 */
+	@Deprecated
 	void setCoordinates(final Map<Vector, Scalar> coordinates);
 
 	void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space);

@@ -145,9 +145,6 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 
 	@Proceed
 	default Function getProjection(final EuclideanSpace source) {
-		if (this instanceof FunctionTuple) {
-			return this;
-		}
 		final Map<Vector, Scalar> coord = this.getCoordinates(source);
 		if (coord != null) {
 			return (Function) source.get(coord);

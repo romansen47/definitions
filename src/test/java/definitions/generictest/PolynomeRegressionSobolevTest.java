@@ -1,18 +1,17 @@
 package definitions.generictest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
+import definitions.prototypes.GenericPolynomeRegressionTest;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.euclidean.vectors.impl.Monome;
+import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import exceptions.DevisionByZeroException;
+import exceptions.ExtendingFailedException;
 
-public class PolynomeRegressionSobolevTest extends PolynomeRegressionTest {
+public class PolynomeRegressionSobolevTest extends GenericPolynomeRegressionTest {
 
 	public static final Logger logger = LogManager.getLogger(PolynomeRegressionSobolevTest.class);
 
@@ -21,28 +20,21 @@ public class PolynomeRegressionSobolevTest extends PolynomeRegressionTest {
 		return PolynomeRegressionSobolevTest.logger;
 	}
 
-	protected int degree = 2;
-	protected int sobolevDegree = 1;
+	@Override
+	public void setUp() throws IOException, DevisionByZeroException, ExtendingFailedException {
+		eps = 1e1;
+		super.setUp();
+		setSpace((EuclideanFunctionSpace) SpaceGenerator.getInstance().getPolynomialSobolevSpace(realLine, getDegree(),
+				right, getSobolevDegree()));
+	}
 
 	@Override
-	public void setUp() throws Exception {
-		setDegree(degree);
-		setSobolevDegree(sobolevDegree);
-		setField(realLine);
+	public int getDegree() {
+		return 5;
+	}
 
-		final List<Vector> base = new ArrayList<>();
-		for (int i = 0; i < (degree + 1); i++) {
-			base.add(new Monome(i) {
-
-				@Override
-				public Field getField() {
-					return realLine;
-				}
-			});
-		}
-
-		setSpace((EuclideanFunctionSpace) Generator.getInstance().getFiniteDimensionalFunctionSpace(realLine, base,
-				left, right));
-		super.setUp();
+	@Override
+	public Integer getSobolevDegree() {
+		return 1;
 	}
 }

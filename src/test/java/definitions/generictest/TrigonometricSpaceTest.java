@@ -1,11 +1,15 @@
 package definitions.generictest;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
 import definitions.prototypes.GenericSpaceTest;
 import definitions.prototypes.GenericTest;
+import exceptions.DevisionByZeroException;
+import exceptions.ExtendingFailedException;
 
 public class TrigonometricSpaceTest extends GenericSpaceTest {
 
@@ -18,10 +22,10 @@ public class TrigonometricSpaceTest extends GenericSpaceTest {
 
 	@Override
 	@Before
-	public void setUp() throws Exception {
-		eps = 4e-1;
-		degree = 5;
-		sobolevDegree = null;
+	public void setUp() throws DevisionByZeroException, IOException, ExtendingFailedException {
+		eps = 1e1;
+		setDegree(3);
+		setSobolevDegree(0);
 		setField(GenericTest.getRealLine());
 		setSpace(
 				GenericTest.getSpaceGenerator().getTrigonometricSpace(GenericTest.getRealLine(), getDegree(), Math.PI));

@@ -1,5 +1,7 @@
 package definitions.prototypes;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
@@ -9,11 +11,12 @@ import org.junit.Test;
 import definitions.SpringConfiguration;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
-import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
-import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.vectors.impl.GenericFunction;
+import definitions.structures.euclidean.vectors.specialfunctions.ExponentialFunction;
+import definitions.structures.euclidean.vectors.specialfunctions.Sine;
+import exceptions.DevisionByZeroException;
+import exceptions.ExtendingFailedException;
 
 /**
  * example for polynomial regression. extensions by linear functions must be
@@ -32,45 +35,32 @@ public abstract class GenericPolynomeRegressionTest extends GenericSpaceTest {
 	}
 
 	// for smaller intervalls we do get greater distances
-	protected double left = -Math.PI;
-	protected double right = -left;
+	protected double intervallSize = Math.PI;
+	protected double left = -intervallSize;
+	protected double right = intervallSize;
 
 	private Function sin;
 	private Function exp;
-
-	private double toleranceExp = 1.5;
-	private double toleranceSine = 0.75;
 
 	protected static final Field realLine = ((SpringConfiguration) getSpringConfiguration()).getApplicationContext()
 			.getBean(RealLine.class);
 
 	@Before
 	@Override
-	public void setUp() throws Exception {
-
-		sin = new GenericFunction() {
+	public void setUp() throws IOException, DevisionByZeroException, ExtendingFailedException {
+		sin = new Sine(1, 0, Math.PI / right) {
 
 			@Override
 			public Field getField() {
-				return realLine;
-			}
-
-			@Override
-			public Scalar value(final Scalar input) {
-				return RealLine.getInstance().get(Math.sin(((Real) input).getRepresentant() * Math.PI / right));
+				return GenericTest.getRealLine();
 			}
 		};
 
-		exp = new GenericFunction() {
-			@Override
-			public Field getField() {
-				return realLine;
-			}
+		exp = new ExponentialFunction() {
 
 			@Override
-			public Scalar value(final Scalar input) {
-				Scalar x = (Scalar) realLine.product((Vector) input, (Vector) realLine.get(1));
-				return realLine.get(Math.exp(((Real) x).getRepresentant()));
+			public Field getField() {
+				return GenericTest.getRealLine();
 			}
 		};
 
@@ -83,7 +73,9 @@ public abstract class GenericPolynomeRegressionTest extends GenericSpaceTest {
 		exp.plotCompare(left, right, ans);
 		double distance = ((Real) space.distance(ans, exp)).getRepresentant();
 		logger.info("distance to exp is {}", distance);
-		Assert.assertTrue(distance < toleranceExp);
+		double norm = space.norm(ans).getDoubleValue();
+		logger.info("relative distance to exp is {}", distance / norm);
+		Assert.assertTrue(distance / norm < getEps());
 	}
 
 	@Test
@@ -92,7 +84,9 @@ public abstract class GenericPolynomeRegressionTest extends GenericSpaceTest {
 		ans.plotCompare(left, right, sin);
 		double distance = ((Real) space.distance(ans, sin)).getRepresentant();
 		logger.info("distance to sin is {}", distance);
-		Assert.assertTrue(distance < toleranceSine);
+		double norm = space.norm(ans).getDoubleValue();
+		logger.info("relative distance to sin is {}", distance / norm);
+		Assert.assertTrue(distance / norm < getEps());
 	}
 
 }

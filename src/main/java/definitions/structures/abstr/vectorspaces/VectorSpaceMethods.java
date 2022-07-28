@@ -25,7 +25,6 @@ public interface VectorSpaceMethods {
 					otherVec -> tmpCoord.put(otherVec, vec == otherVec ? field.getOne() : (Scalar) field.getZero()));
 			((FiniteVectorMethods) vec).setCoordinates(tmpCoord);
 			((FiniteVectorMethods) vec).setCoordinates(tmpCoord, (EuclideanSpace) this);
-
 		}
 	}
 

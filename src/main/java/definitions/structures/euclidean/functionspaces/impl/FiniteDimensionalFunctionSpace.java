@@ -164,7 +164,7 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 	@Override
 	public Function normalize(final Vector vec) {
 		Vector norm = this.norm(vec);
-		if (norm.equals(this.nullVec())) {
+		if (norm.equals(getField().nullVec())) {
 			LogManager.getLogger(FiniteDimensionalFunctionSpace.class).error("Devision by 0!");
 		}
 		return this.stretch(vec, (Scalar) this.getField().getMuliplicativeMonoid().getInverseElement(norm));

@@ -1,5 +1,7 @@
 package definitions.prototypes;
 
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +13,8 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import exceptions.DevisionByZeroException;
+import exceptions.ExtendingFailedException;
 
 /**
  * generic abstract test class for trigonometric spaces
@@ -35,7 +39,7 @@ public abstract class GenericSpaceTest extends GenericTest {
 	/**
 	 * the sobolev degree of tested space
 	 */
-	protected Integer sobolevDegree;
+	protected int sobolevDegree = 0;
 
 	/**
 	 * the space
@@ -101,8 +105,9 @@ public abstract class GenericSpaceTest extends GenericTest {
 	protected Function sFunction2;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws IOException, DevisionByZeroException, ExtendingFailedException {
 
+		setField(GenericTest.getRealLine());
 		testValues1 = definitions.generictest.Reader.readFile(getPath1());
 		testValues2 = definitions.generictest.Reader.readFile(getPath2());
 		sFunction1 = new GenericFunction() {

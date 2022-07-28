@@ -28,7 +28,7 @@ public interface InnerProductSpace extends NormedSpace {
 	 * the norm in an inner product space is induced by the inner product
 	 */
 	@Override
-	default Scalar norm(final Vector vec) {
+	default Real norm(final Vector vec) {
 		Scalar innerProduct = this.innerProduct(vec, vec);
 		if (innerProduct instanceof Complex) {
 			return RealLine.getInstance()

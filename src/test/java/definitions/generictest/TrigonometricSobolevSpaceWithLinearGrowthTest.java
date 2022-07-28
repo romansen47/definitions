@@ -1,11 +1,15 @@
 package definitions.generictest;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 
 import definitions.prototypes.GenericSpaceTest;
 import definitions.prototypes.GenericTest;
+import exceptions.DevisionByZeroException;
+import exceptions.ExtendingFailedException;
 
 /**
  * 
@@ -23,13 +27,13 @@ public class TrigonometricSobolevSpaceWithLinearGrowthTest extends GenericSpaceT
 
 	@Override
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws DevisionByZeroException, IOException, ExtendingFailedException {
 
-		degree = 3;
-		sobolevDegree = 1;
-		setField(GenericTest.getRealLine());
+		eps = 1e2;
+		setDegree(3);
+		setSobolevDegree(1);
 		setSpace(GenericTest.getSpaceGenerator().getTrigonometricSobolevSpaceWithLinearGrowth(GenericTest.getRealLine(),
-				sobolevDegree, Math.PI, degree));
+				getSobolevDegree(), Math.PI, getDegree()));
 		super.setUp();
 
 	}

@@ -99,7 +99,6 @@ public class Tuple implements FiniteVector {
 	}
 
 	@Override
-//	@XmlAttribute
 	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
 		final Map<Vector, Scalar> newCoordinates = new ConcurrentHashMap<>();
 		if (this.elementOf(source)) {
@@ -145,7 +144,7 @@ public class Tuple implements FiniteVector {
 		for (final Vector x : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
 				.genericBaseToList()) {
 //			String name=x.getClass().toString().split("class ")[1];
-			ans += this.getCoordinates().toString();// .get(x).toXml();
+			ans += x.toString();// .get(x).toXml();
 		}
 		ans += "</tuple>\r";
 		return ans;

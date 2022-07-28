@@ -1,13 +1,15 @@
 package definitions.generictest;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import definitions.prototypes.GenericTest;
 import definitions.prototypes.GenericSpaceTest;
+import definitions.prototypes.GenericTest;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -31,21 +33,35 @@ public class CompareTrigonometricSpaceTest extends GenericSpaceTest {
 	}
 
 	EuclideanFunctionSpace space;
-
 	EuclideanFunctionSpace extendedSpace;
+	EuclideanFunctionSpace sobolevSpace;
+
+	EuclideanFunctionSpace extendedSobolevSpace;
+
+	@Override
+	public int getDegree() {
+		return 3;
+	}
+
+	@Override
+	public Integer getSobolevDegree() {
+		return 1;
+	}
 
 	@Override
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws DevisionByZeroException, IOException, ExtendingFailedException {
 		eps = 9e-1;
-		degree = 4;
-		sobolevDegree = null;
-		setField(GenericTest.getRealLine());
 		space = (EuclideanFunctionSpace) GenericTest.getSpaceGenerator()
 				.getTrigonometricSpace(GenericTest.getRealLine(), getDegree(), Math.PI);
+		setSpace(space);
+		sobolevSpace = (EuclideanFunctionSpace) GenericTest.getSpaceGenerator()
+				.getTrigonometricSobolevSpace(GenericTest.getRealLine(), getDegree(), getSobolevDegree());
 		extendedSpace = (EuclideanFunctionSpace) GenericTest.getSpaceGenerator()
-				.getTrigonometricFunctionSpaceWithLinearGrowth(GenericTest.getRealLine(), getDegree(),
-						Math.PI);
+				.getTrigonometricFunctionSpaceWithLinearGrowth(GenericTest.getRealLine(), getDegree(), Math.PI);
+		extendedSobolevSpace = (EuclideanFunctionSpace) GenericTest.getSpaceGenerator()
+				.getTrigonometricSobolevSpaceWithLinearGrowth(GenericTest.getRealLine(), getSobolevDegree(), Math.PI,
+						getDegree());
 		super.setUp();
 	}
 
@@ -83,28 +99,18 @@ public class CompareTrigonometricSpaceTest extends GenericSpaceTest {
 		Assert.assertTrue(distance / sum < eps);
 	}
 
+	// this one shows problems.
 	@Test
-	public void testOnStairCaseFunction1() {
-		Assert.assertTrue(true);
+	public void compareAgainstSobolev() {
+		Function f = sFunction1.getProjection(space);
+		Function fSobolev = sFunction1.getProjection(sobolevSpace);
+		f.plotCompare(-Math.PI, Math.PI, fSobolev);
+		double distance1 = space.distance(f, sFunction1).getDoubleValue();
+		double distance2 = space.distance(fSobolev, sFunction1).getDoubleValue();
+		logger.info("distance1={}, distance2={}", distance1, distance2);
+		Function f2 = sFunction1.getProjection(extendedSpace);
+		Function fSobolev2 = sFunction1.getProjection(extendedSobolevSpace);
+		f2.plotCompare(-Math.PI, Math.PI, fSobolev2);
 	}
 
-	@Test
-	public void testOnStairCaseFunction2() {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testOnAbsolute() {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testOnIdentity() {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testOnContinuousFunction() {
-		Assert.assertTrue(true);
-	}
 }

@@ -9,15 +9,15 @@ import exceptions.DevisionByZeroException;
 
 public class PolynomialFunctionSpace extends FiniteDimensionalFunctionSpace {
 
-	protected PolynomialFunctionSpace(final Field field, final int maxDegree, final double right) {
+	protected PolynomialFunctionSpace(final Field field, final int fourierDegree, final double right) {
 		super(field);
 		this.base = new ArrayList<>();
-		this.prepare(maxDegree, right);
+		this.prepare(fourierDegree, right);
 	}
 
-	public PolynomialFunctionSpace(final Field field, final int maxDegree, final double right, final boolean ortho)
+	public PolynomialFunctionSpace(final Field field, final int fourierDegree, final double right, final boolean ortho)
 			throws DevisionByZeroException {
-		this(field, maxDegree, right);
+		this(field, fourierDegree, right);
 		if (ortho) {
 			this.base = this.getOrthonormalBase(this.base);
 		}

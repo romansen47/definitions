@@ -1,5 +1,6 @@
 package definitions.structures.euclidean.vectorspaces;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -190,20 +191,20 @@ public interface ISpaceGenerator {
 
 	default VectorSpace getPolynomialSobolevSpace(final Field field, final int maxDegree, final double right,
 			final int degree) throws DevisionByZeroException {
-		final EuclideanFunctionSpace polynoms = this.getPolynomialFunctionSpace(field, maxDegree, right, false);
-		final VectorSpace ans = SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(field, polynoms, degree);
-		((FiniteDimensionalVectorSpace) ans)
-				.setBase(((EuclideanSpace) ans).getOrthonormalBase(((EuclideanSpace) ans).genericBaseToList()));
-		return ans;
+		if (degree == 0) {
+			return getPolynomialFunctionSpace(field, maxDegree, right, true);
+		}
+		return new FiniteDimensionalSobolevSpace(field, getPolynomialFunctionSpace(field, maxDegree, right, true),
+				degree, true);
 	}
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n)
-			throws DevisionByZeroException, ExtendingFailedException {
+			throws DevisionByZeroException, IOException, ExtendingFailedException {
 		return this.getTrigonometricFunctionSpaceWithLinearGrowth(f, n, Math.PI);
 	}
 
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
-			throws DevisionByZeroException, ExtendingFailedException {
+			throws DevisionByZeroException, IOException, ExtendingFailedException {
 		if (Math.abs(right - Math.PI) > 1e-3) {
 			this.getLogger().info("intervall is wrong for this method : [{},{}]", -right, right);
 		}
@@ -285,7 +286,7 @@ public interface ISpaceGenerator {
 
 		return new EuclideanSpace() {
 
-			final protected EuclideanSpace outerThis = this;
+			protected final EuclideanSpace outerThis = this;
 
 			@Override
 			public String toString() {
