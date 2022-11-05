@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.Proceed;
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
@@ -42,7 +42,7 @@ public class FiniteDimensionalVectorSpace implements EuclideanSpace {
 	private Field field;
 
 	public FiniteDimensionalVectorSpace() {
-		this.setField(RealLine.getInstance());
+		this.setField(Generator.getInstance().getFieldGenerator().getRealLine());
 	}
 
 	/**

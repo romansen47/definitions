@@ -14,7 +14,6 @@ import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
@@ -78,10 +77,10 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	 * the constructor
 	 */
 	public QuaternionSpace() {
-		super(RealLine.getInstance());
+		super(Generator.getInstance().getFieldGenerator().getRealLine());
 
-		final Scalar realOne = RealLine.getInstance().getOne();
-		final Scalar realZero = RealLine.getInstance().getZero();
+		final Scalar realOne = Generator.getInstance().getFieldGenerator().getRealLine().getOne();
+		final Scalar realZero = Generator.getInstance().getFieldGenerator().getRealLine().getZero();
 		dim = 4;
 		base = new ArrayList<>();
 		one = new Quaternion(realOne, realZero, realZero, realZero) {
@@ -191,37 +190,37 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 		if (this.multiplicationMatrix == null) {
 
-			final Scalar realOne = RealLine.getInstance().getOne();
-			final Scalar realZero = RealLine.getInstance().getZero();
-			final Scalar neg = RealLine.getInstance().get(-1);
+			final Scalar realOne = Generator.getInstance().getFieldGenerator().getRealLine().getOne();
+			final Scalar realZero = Generator.getInstance().getFieldGenerator().getRealLine().getZero();
+			final Scalar neg = Generator.getInstance().getFieldGenerator().getRealLine().get(-1);
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero, realZero, realZero },
 					{ realZero, realOne, realZero, realZero }, { realZero, realZero, realOne, realZero },
 					{ realZero, realZero, realZero, realOne } };
 
-			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
+			final VectorSpaceHomomorphism oneHom = Generator.getInstance().getMappingGenerator()
 					.getFiniteDimensionalLinearMapping(this, this, oneMat);
 
 			final Scalar[][] iMat = new Scalar[][] { { realZero, neg, realZero, realZero },
 					{ realOne, realZero, realZero, realZero }, { realZero, realZero, realZero, realOne },
 					{ realZero, realZero, neg, realZero } };
 
-			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, iMat);
+			final VectorSpaceHomomorphism iHom = Generator.getInstance().getMappingGenerator()
+					.getFiniteDimensionalLinearMapping(this, this, iMat);
 
 			final Scalar[][] jMat = new Scalar[][] { { realZero, realZero, neg, realZero },
 					{ realZero, realZero, realZero, neg }, { realOne, realZero, realZero, realZero },
 					{ realZero, realOne, realZero, realZero } };
 
-			final VectorSpaceHomomorphism jHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, jMat);
+			final VectorSpaceHomomorphism jHom = Generator.getInstance().getMappingGenerator()
+					.getFiniteDimensionalLinearMapping(this, this, jMat);
 
 			final Scalar[][] kMat = new Scalar[][] { { realZero, realZero, realZero, neg },
 					{ realZero, realZero, realOne, realZero }, { realZero, neg, realZero, realZero },
 					{ realOne, realZero, realZero, realZero } };
 
-			final VectorSpaceHomomorphism kHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, kMat);
+			final VectorSpaceHomomorphism kHom = Generator.getInstance().getMappingGenerator()
+					.getFiniteDimensionalLinearMapping(this, this, kMat);
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 
@@ -322,7 +321,7 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	@Override
 	public Field getField() {
-		return RealLine.getInstance();
+		return Generator.getInstance().getFieldGenerator().getRealLine();
 	}
 
 	/**

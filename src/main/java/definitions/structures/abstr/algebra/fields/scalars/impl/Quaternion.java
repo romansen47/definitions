@@ -9,10 +9,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.QuaternionSpace;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -35,8 +35,10 @@ public class Quaternion extends Tuple implements FieldElement {
 	private final Scalar k;
 
 	public Quaternion(final double r, final double i, final double j, final double k) {
-		this(RealLine.getInstance().get(r), RealLine.getInstance().get(i), RealLine.getInstance().get(j),
-				RealLine.getInstance().get(k));
+		this(Generator.getInstance().getFieldGenerator().getRealLine().get(r),
+				Generator.getInstance().getFieldGenerator().getRealLine().get(i),
+				Generator.getInstance().getFieldGenerator().getRealLine().get(j),
+				Generator.getInstance().getFieldGenerator().getRealLine().get(k));
 	}
 
 	public Quaternion(final Scalar re, final Scalar i, final Scalar j, final Scalar k) {

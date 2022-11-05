@@ -3,12 +3,11 @@ package definitions.structures.euclidean.mappings;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface IMappingGenerator {
@@ -17,9 +16,10 @@ public interface IMappingGenerator {
 		final Scalar[][] matC = new Scalar[scalars.length][scalars2[0].length];
 		for (int i = 0; i < scalars.length; i++) {
 			for (int j = 0; j < scalars2[0].length; j++) {
-				matC[i][j] = RealLine.getInstance().getZero();
+				matC[i][j] = Generator.getInstance().getFieldGenerator().getRealLine().getZero();
 				for (int k = 0; k < scalars[0].length; k++) {
-					matC[i][j] = RealLine.getInstance().get(((Real) matC[i][j]).getDoubleValue()
+					matC[i][j] = Generator.getInstance().getFieldGenerator().getRealLine().get(((Real) matC[i][j])
+							.getDoubleValue()
 							+ (((Real) scalars[i][k]).getDoubleValue() * ((Real) scalars2[k][j]).getDoubleValue()));
 				}
 			}
@@ -28,7 +28,7 @@ public interface IMappingGenerator {
 	}
 
 	default VectorSpaceHomomorphism getComposition(final VectorSpaceHomomorphism a, final VectorSpaceHomomorphism b) {
-		final Scalar[][] genericMatrix = MappingGenerator.getInstance().composition(a.getGenericMatrix(),
+		final Scalar[][] genericMatrix = Generator.getInstance().getMappingGenerator().composition(a.getGenericMatrix(),
 				b.getGenericMatrix());
 		return this.getFiniteDimensionalLinearMapping(((EuclideanSpace) b.getSource()),
 				((EuclideanSpace) a.getSource()), genericMatrix);

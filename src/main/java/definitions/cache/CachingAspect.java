@@ -16,10 +16,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
@@ -45,14 +45,14 @@ public class CachingAspect {
 	private Object coordinateSpace(ProceedingJoinPoint pjp) {
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);
-		if (field.equals(RealLine.getInstance())) {
+		if (field.equals(Generator.getInstance().getFieldGenerator().getRealLine())) {
 			final EuclideanSpace ans = CachingAspect.coordinatesSpaces.get(dim);
 			if (ans != null) {
 				this.getLogger().info("restored {}-dimensional euclidean space {} from cache! ", dim, ans);
 				return ans;
 			}
 			if (dim == 1) {
-				return RealLine.getInstance();
+				return Generator.getInstance().getFieldGenerator().getRealLine();
 			}
 		}
 		final List<Vector> basetmp = new ArrayList<>();
@@ -78,7 +78,7 @@ public class CachingAspect {
 
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
 		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field, ans);
-		if (field.equals(RealLine.getInstance())) {
+		if (field.equals(Generator.getInstance().getFieldGenerator().getRealLine())) {
 			this.getLogger().info("Saved {} to cached spaces on cachingAspect", ans);
 			CachingAspect.coordinatesSpaces.put(dim, ans);
 		}

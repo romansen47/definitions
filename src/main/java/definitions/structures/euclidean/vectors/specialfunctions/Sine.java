@@ -3,9 +3,9 @@ package definitions.structures.euclidean.vectors.specialfunctions;
 import java.util.Objects;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class Sine extends GenericFunction {
@@ -18,8 +18,10 @@ public abstract class Sine extends GenericFunction {
 		/*
 		 * by default sine is defined
 		 */
-		this(RealLine.getInstance().get(a), RealLine.getInstance().get(b), RealLine.getInstance().get(c),
-				RealLine.getInstance());
+		this(Generator.getInstance().getFieldGenerator().getRealLine().get(a),
+				Generator.getInstance().getFieldGenerator().getRealLine().get(b),
+				Generator.getInstance().getFieldGenerator().getRealLine().get(c),
+				Generator.getInstance().getFieldGenerator().getRealLine());
 	}
 
 	public Sine(final Scalar a, final Scalar b, final Scalar c) {

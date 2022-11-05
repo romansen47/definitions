@@ -8,11 +8,11 @@ import java.util.stream.IntStream;
 import org.apache.logging.log4j.LogManager;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
@@ -91,8 +91,10 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		 * be careful, no parallel streams allowed here!
 		 */
 		IntStream.range(1, n + 1).parallel()
-				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
-						RealLine.getInstance().get(0.5 * Math.PI), RealLine.getInstance().get(d * i)) {
+				.forEach(i -> tmpBase.add(new Sine(
+						Generator.getInstance().getFieldGenerator().getRealLine().get(Math.sqrt(Math.abs(d) / Math.PI)),
+						Generator.getInstance().getFieldGenerator().getRealLine().get(0.5 * Math.PI),
+						Generator.getInstance().getFieldGenerator().getRealLine().get(d * i)) {
 				}));
 	}
 
@@ -108,8 +110,10 @@ public class FiniteDimensionalFunctionSpace extends FiniteDimensionalVectorSpace
 		 * be careful, no parallel streams allowed here!
 		 */
 		IntStream.range(1, n + 1).parallel()
-				.forEach(i -> tmpBase.add(new Sine(RealLine.getInstance().get(Math.sqrt(Math.abs(d) / Math.PI)),
-						RealLine.getInstance().getZero(), RealLine.getInstance().get(d * i)) {
+				.forEach(i -> tmpBase.add(new Sine(
+						Generator.getInstance().getFieldGenerator().getRealLine().get(Math.sqrt(Math.abs(d) / Math.PI)),
+						Generator.getInstance().getFieldGenerator().getRealLine().getZero(),
+						Generator.getInstance().getFieldGenerator().getRealLine().get(d * i)) {
 				}));
 	}
 

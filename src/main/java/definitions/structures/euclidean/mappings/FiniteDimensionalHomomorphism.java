@@ -15,8 +15,8 @@ import definitions.structures.abstr.vectorspaces.VectorSpaceMethods;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -81,11 +81,11 @@ public interface FiniteDimensionalHomomorphism extends VectorSpaceHomomorphism {
 		 * Don't touch this
 		 */
 		final Vector inverseVector = new Tuple(space.getInverseCoordinates(vec2));
-		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) MappingGenerator
-				.getInstance().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
+		final FiniteDimensionalHomomorphism mapOnSourceSpaces = (FiniteDimensionalHomomorphism) Generator.getInstance()
+				.getMappingGenerator().getFiniteDimensionalLinearMapping(this.getGenericMatrix());
 		FiniteDimensionalHomomorphism composedMapping;
 		if (this.getTarget() instanceof ParameterizedSpace) {
-			composedMapping = (FiniteDimensionalHomomorphism) MappingGenerator.getInstance()
+			composedMapping = (FiniteDimensionalHomomorphism) Generator.getInstance().getMappingGenerator()
 					.getComposition(((ParameterizedSpace) this.getTarget()).getParametrization(), mapOnSourceSpaces);
 		} else {
 			composedMapping = mapOnSourceSpaces;

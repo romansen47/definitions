@@ -11,16 +11,6 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 @Service
 public class SpaceGenerator implements ISpaceGenerator, XmlPrintable {
 
-	private static SpaceGenerator instance;
-
-	public static SpaceGenerator getInstance() {
-		return SpaceGenerator.instance;
-	}
-
-	public static void setInstance(final SpaceGenerator gen) {
-		SpaceGenerator.instance = gen;
-	}
-
 	public static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager
 			.getLogger(SpaceGenerator.class);
 

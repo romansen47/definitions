@@ -5,7 +5,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -21,33 +20,36 @@ import definitions.structures.euclidean.Generator;
 @ComponentScan(basePackages = "definitions")
 public class SpringConfiguration implements ApplicationContextAware {
 
-	private static ApplicationContextAware instance;
-
 	private static Logger logger = LogManager.getLogger(SpringConfiguration.class);
-
-	public static ApplicationContextAware getSpringConfiguration() {
-		if (SpringConfiguration.instance == null) {
-			SpringConfiguration.instance = new SpringConfiguration();
-		}
-		return SpringConfiguration.instance;
-	}
-
+	private static ApplicationContextAware instance;
 	private ApplicationContext applicationContext;
 
 	public SpringConfiguration() {
-		this.updateLoggers();
 		this.setApplicationContext(new AnnotationConfigApplicationContext());
-		Configurator.setLevel(SpringConfiguration.logger, Level.INFO);
-		SpringConfiguration.logger.info("applicationContext {} scanning in definitions..*", this.applicationContext);
-		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
-		SpringConfiguration.logger.info("applicationContext {} refreshing", this.applicationContext);
-		((AbstractApplicationContext) this.applicationContext).refresh();
-		SpringConfiguration.logger.info("applicationContext {} getting bean generator", this.applicationContext);
-		Generator.setInstance((Generator) this.applicationContext.getBean("generator"));
-		Generator.getInstance();
+		this.updateLoggers();
+		this.getBeans();
+		this.setInstances();
 	}
 
-	public void updateLoggers() {
+	private void setInstances() {
+		Generator.setInstance(this.applicationContext.getBean(Generator.class));
+	}
+
+	private void getBeans() {
+		SpringConfiguration.logger.info("applicationContext {} scanning in definitions..*",
+				this.applicationContext.toString().split(",")[0]);
+		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
+		SpringConfiguration.logger.info("applicationContext {} refreshing",
+				this.applicationContext.toString().split(",")[0]);
+		((AbstractApplicationContext) this.applicationContext).refresh();
+		logger.info("Beans we are aware of:");
+		for (final String beanName : applicationContext.getBeanNamesForType(Object.class)) {
+			logger.info("bean " + beanName);
+		}
+		logger.info("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
+	}
+
+	private void updateLoggers() {
 		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 		final Configuration config = ctx.getConfiguration();
 		final LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
@@ -55,8 +57,11 @@ public class SpringConfiguration implements ApplicationContextAware {
 		ctx.updateLoggers();
 	}
 
-	public ApplicationContext getApplicationContext() {
-		return this.applicationContext;
+	public static ApplicationContextAware getSpringConfiguration() {
+		if (instance == null) {
+			instance = new SpringConfiguration();
+		}
+		return instance;
 	}
 
 	@Override

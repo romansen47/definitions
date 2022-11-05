@@ -22,6 +22,7 @@ import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.LinearSelfMapping;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -29,8 +30,6 @@ import definitions.structures.impl.Naturals;
 
 @Service
 public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable {
-
-	public static GroupGenerator instance;
 
 	private DiscreetSemiRing naturals;
 
@@ -40,15 +39,8 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 
 	private FinitePrimeField binaries;
 
-	public static GroupGenerator getInstance() {
-		return GroupGenerator.instance;
-	}
-
-	public static void setInstance(final GroupGenerator groupGenerator) {
-		GroupGenerator.instance = groupGenerator;
-	}
-
 	Map<Integer, FiniteRing> map = new ConcurrentHashMap<>();
+
 	private PrimeField constructedBinaries;
 
 	public void setIntegers(final DiscreetDomain integers) {
@@ -485,12 +477,14 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 			binaryGroup.getMuliplicativeMonoid();
 			// Hier liegt das Problem! Die Vervollständigung bezieht sich hier auf die
 			// Addition... Historisch bedingter Fehler: Hier sollte der Halbring der
-			// Natürlichen Zahlen mit 0, welcher
-			final DiscreetDomain binaryDomain = GroupGenerator.getInstance().completeToDiscreetRing(test);
+			// Natürlichen Zahlen mit 0, welcher ... ( was?? )
+			final DiscreetDomain binaryDomain = Generator.getInstance().getGroupGenerator()
+					.completeToDiscreetRing(test);
 			binaryDomain.getNeutralElement();
 			binaryDomain.getOne();
 			binaryDomain.getMuliplicativeMonoid();
-			this.constructedBinaries = GroupGenerator.getInstance().completeToDiscreetField(binaryDomain);
+			this.constructedBinaries = Generator.getInstance().getGroupGenerator()
+					.completeToDiscreetField(binaryDomain);
 			this.constructedBinaries.getNeutralElement();
 			this.constructedBinaries.getOne();
 			this.constructedBinaries.getMuliplicativeMonoid();

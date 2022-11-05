@@ -2,10 +2,10 @@ package definitions.structures.euclidean.vectors.specialfunctions;
 
 import java.util.Objects;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.algebra.fields.scalars.impl.RealZero;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 /**
@@ -28,7 +28,7 @@ public abstract class ExponentialFunction extends GenericFunction {
 
 	protected ExponentialFunction() {
 		this.a = RealZero.getZero();
-		this.b = RealLine.getInstance().getOne();
+		this.b = Generator.getInstance().getFieldGenerator().getRealLine().getOne();
 	}
 
 	/**

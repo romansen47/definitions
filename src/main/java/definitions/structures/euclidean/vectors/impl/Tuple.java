@@ -8,10 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 public class Tuple implements FiniteVector {
 
@@ -37,7 +37,7 @@ public class Tuple implements FiniteVector {
 		this.dim = coordinates.length;
 		this.setCoordinates(new ConcurrentHashMap<>());
 		int i = 0;
-		for (final Vector vec : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
+		for (final Vector vec : Generator.getInstance().getSpaceGenerator().getFiniteDimensionalVectorSpace(this.dim)
 				.genericBaseToList()) {
 			this.getCoordinates().put(vec, coordinates[i++]);
 		}
@@ -141,7 +141,7 @@ public class Tuple implements FiniteVector {
 	@Override
 	public String toXml() {
 		String ans = "<tuple>\r";
-		for (final Vector x : SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.dim)
+		for (final Vector x : Generator.getInstance().getSpaceGenerator().getFiniteDimensionalVectorSpace(this.dim)
 				.genericBaseToList()) {
 //			String name=x.getClass().toString().split("class ")[1];
 			ans += x.toString();// .get(x).toXml();

@@ -1,8 +1,8 @@
 package definitions.structures.abstr.mappings;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
 public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
@@ -44,7 +44,7 @@ public interface FiniteDimensionalEndomorphism extends VectorSpaceEndomorphism {
 	 * @return the determinant
 	 */
 	default Scalar det(final Scalar[][] matrix) {
-		Scalar det = RealLine.getInstance().getZero();
+		Scalar det = Generator.getInstance().getFieldGenerator().getRealLine().getZero();
 		if (matrix.length == 1) {
 			return matrix[0][0];
 		}

@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.RepresentableElement;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import settings.GlobalSettings;
@@ -71,7 +71,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
-		return space == RealLine.getInstance();
+		return space == Generator.getInstance().getFieldGenerator().getRealLine();
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	public Map<Vector, Scalar> getCoordinates() {
 		if (this.coordinates == null) {
 			this.coordinates = new ConcurrentHashMap<>();
-			this.coordinates.put(RealLine.getInstance().getOne(), this);
+			this.coordinates.put(Generator.getInstance().getFieldGenerator().getRealLine().getOne(), this);
 		}
 		return this.coordinates;
 	}
@@ -165,7 +165,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 * @return the given number as a complex number
 	 */
 	public Scalar toComplex() {
-		return new Complex(this, RealLine.getInstance().getZero());
+		return new Complex(this, Generator.getInstance().getFieldGenerator().getRealLine().getZero());
 	}
 
 	/**

@@ -5,13 +5,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.FunctionTuple;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -104,7 +104,8 @@ public interface EuclideanFunctionSpace extends EuclideanSpace, FunctionSpace {
 	 */
 	default Function nullFunction() {
 		final Map<Vector, Scalar> nul = new ConcurrentHashMap<>();
-		this.genericBaseToList().stream().forEach(baseVec -> nul.put(baseVec, RealLine.getInstance().getZero()));
+		this.genericBaseToList().stream().forEach(
+				baseVec -> nul.put(baseVec, Generator.getInstance().getFieldGenerator().getRealLine().getZero()));
 		return new FunctionTuple(nul, this);
 	}
 

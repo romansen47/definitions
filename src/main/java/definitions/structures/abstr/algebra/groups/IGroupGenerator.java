@@ -515,11 +515,6 @@ public interface IGroupGenerator {
 			this.coordinatesMap.put(space, coordinates);
 		}
 
-//		@Override
-//		public int hashCode() {
-//			return Objects.hash(coordinates, coordinatesMap, monoid, getLeft(), getRight());
-//		}
-
 		@Override
 		public boolean equals(Object o) {
 			boolean ans = true;

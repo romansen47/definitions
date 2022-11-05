@@ -8,10 +8,10 @@ import javax.xml.bind.annotation.XmlElement;
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
 import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
@@ -27,7 +27,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	private Scalar imag;
 
 	public Complex(final double x, final double y) {
-		this(RealLine.getInstance().get(x), RealLine.getInstance().get(y));
+		this(Generator.getInstance().getFieldGenerator().getRealLine().get(x),
+				Generator.getInstance().getFieldGenerator().getRealLine().get(y));
 	}
 
 	public Complex(final Scalar re, final Scalar im) {
@@ -123,8 +124,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	}
 
 	public void setValue(final double realValue, final double imValue) {
-		this.real = RealLine.getInstance().get(realValue);
-		this.imag = RealLine.getInstance().get(imValue);
+		this.real = Generator.getInstance().getFieldGenerator().getRealLine().get(realValue);
+		this.imag = Generator.getInstance().getFieldGenerator().getRealLine().get(imValue);
 
 	}
 

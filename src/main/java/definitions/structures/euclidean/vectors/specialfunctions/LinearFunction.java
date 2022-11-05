@@ -1,9 +1,9 @@
 package definitions.structures.euclidean.vectors.specialfunctions;
 
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
 public abstract class LinearFunction extends GenericFunction {
@@ -29,7 +29,7 @@ public abstract class LinearFunction extends GenericFunction {
 	 */
 	@Override
 	public Field getField() {
-		return RealLine.getInstance();
+		return Generator.getInstance().getFieldGenerator().getRealLine();
 	}
 
 	/**

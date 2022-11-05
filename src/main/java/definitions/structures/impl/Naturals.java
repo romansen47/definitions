@@ -3,7 +3,7 @@ package definitions.structures.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import definitions.structures.abstr.algebra.fields.RepresentableElement;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
@@ -14,7 +14,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.impl.semigroups.DiscreetSemiGroupImpl;
 import settings.GlobalSettings;
 
-@Component
+@Service
 public class Naturals extends DiscreetSemiGroupImpl
 		implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid, SemiDomain {
 

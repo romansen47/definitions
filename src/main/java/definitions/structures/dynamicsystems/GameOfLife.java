@@ -5,14 +5,13 @@ import java.util.Random;
 
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.groups.Group;
-import definitions.structures.abstr.algebra.groups.GroupGenerator;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceSelfMapping;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 
 /**
  * Implementationof Conway's Game Of Life as a
@@ -50,8 +49,9 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 	 */
 	public GameOfLife(int size) {
 		this.size = size;
-		this.setBinaries(GroupGenerator.getInstance().getBinaries());
-		this.grid = SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(this.getBinaries(), size * size);
+		this.setBinaries(Generator.getInstance().getGroupGenerator().getBinaries());
+		this.grid = Generator.getInstance().getSpaceGenerator().getFiniteDimensionalVectorSpace(this.getBinaries(),
+				size * size);
 		this.coordinates = this.grid.genericBaseToList();
 	}
 
@@ -174,7 +174,7 @@ public class GameOfLife implements MultiDimensionalDynamicSystem {
 
 	@Override
 	public Group getTimeSpace() {
-		return GroupGenerator.getInstance().getIntegers();
+		return Generator.getInstance().getGroupGenerator().getIntegers();
 	}
 
 	/**

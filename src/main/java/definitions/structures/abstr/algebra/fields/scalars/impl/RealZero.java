@@ -5,9 +5,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 
 @Component
 public class RealZero extends Real {
@@ -29,7 +29,7 @@ public class RealZero extends Real {
 	@Override
 	public Map<Vector, Scalar> getCoordinates() {
 		final Map<Vector, Scalar> ans = new ConcurrentHashMap<>();
-		ans.put(RealLine.getInstance().getOne(), this);
+		ans.put(Generator.getInstance().getFieldGenerator().getRealLine().getOne(), this);
 		return ans;
 	}
 

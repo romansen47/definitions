@@ -3,7 +3,6 @@ package definitions.structures.euclidean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import definitions.Unweavable;
@@ -15,7 +14,6 @@ import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;
 
 @Service
-@ComponentScan(basePackages = "definitions")
 public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable {
 
 	private static final Logger logger = LogManager.getLogger(Generator.class);
@@ -23,24 +21,17 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	private static Generator instance;
 
 	public static Generator getInstance() {
-		if (Generator.instance == null) {
-			Generator.instance = new Generator();
-		}
-		return Generator.instance;
+		return instance;
 	}
 
 	public static void setInstance(final Generator instance) {
 		Generator.instance = instance;
-		MappingGenerator.setInstance(instance.mappingGenerator);
-		SpaceGenerator.setInstance(instance.spaceGenerator);
-		FieldGenerator.setInstance(instance.fieldGenerator);
-		GroupGenerator.setInstance(instance.groupGenerator);
 	}
 
-	@Autowired(required = true)
+	@Autowired
 	private MappingGenerator mappingGenerator;
 
-	@Autowired(required = true)
+	@Autowired
 	private SpaceGenerator spaceGenerator;
 
 	@Autowired
@@ -79,7 +70,6 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	}
 
 	public void setGroupGenerator(final GroupGenerator groupGenerator) {
-		GroupGenerator.setInstance(groupGenerator);
 		this.groupGenerator = groupGenerator;
 	}
 

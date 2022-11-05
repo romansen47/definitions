@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -13,7 +15,6 @@ import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
@@ -36,15 +37,18 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * @return the instance
 	 */
 	public static EuclideanSpace getInstance() {
-		if (ComplexPlane.instance == null) {
-			ComplexPlane.instance = new ComplexPlane();
-		}
 		return ComplexPlane.instance;
+	}
+
+	public static void setInstance(ComplexPlane complexPlane) {
+		logger.info(complexPlane);
+		instance = complexPlane;
 	}
 
 	/**
 	 * the field of real numbers
 	 */
+	@Autowired
 	private static RealLine realLine;
 
 	/**
@@ -88,6 +92,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 		this.i = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getOne());
 		this.base.add(this.one);
 		this.base.add(this.i);
+		ComplexPlane.instance = this;
 	}
 
 	/**
@@ -165,17 +170,17 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 		if (this.multiplicationMatrix == null) {
 
-			final Scalar realOne = RealLine.getInstance().getOne();
-			final Scalar realZero = RealLine.getInstance().getZero();
-			final Scalar neg = (Scalar) RealLine.getInstance().getMinusOne();
+			final Scalar realOne = realLine.getOne();
+			final Scalar realZero = realLine.getZero();
+			final Scalar neg = (Scalar) realLine.getMinusOne();
 
 			final Scalar[][] oneMat = new Scalar[][] { { realOne, realZero }, { realZero, realOne } };
-			final VectorSpaceHomomorphism oneHom = MappingGenerator.getInstance()
+			final VectorSpaceHomomorphism oneHom = Generator.getInstance().getMappingGenerator()
 					.getFiniteDimensionalLinearMapping(this, this, oneMat);
 
 			final Scalar[][] iMat = new Scalar[][] { { realZero, neg }, { realOne, realZero } };
-			final VectorSpaceHomomorphism iHom = MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this,
-					this, iMat);
+			final VectorSpaceHomomorphism iHom = Generator.getInstance().getMappingGenerator()
+					.getFiniteDimensionalLinearMapping(this, this, iMat);
 
 			final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
 

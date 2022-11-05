@@ -1,10 +1,10 @@
 package definitions.structures.abstr.vectorspaces;
 
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Complex;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 
 /**
  *
@@ -31,10 +31,11 @@ public interface InnerProductSpace extends NormedSpace {
 	default Real norm(final Vector vec) {
 		Scalar innerProduct = this.innerProduct(vec, vec);
 		if (innerProduct instanceof Complex) {
-			return RealLine.getInstance()
+			return Generator.getInstance().getFieldGenerator().getRealLine()
 					.get(Math.sqrt(((Real) ((Complex) this.innerProduct(vec, vec)).getReal()).getDoubleValue()));
 		}
-		return RealLine.getInstance().get(Math.sqrt(((Real) innerProduct).getDoubleValue()));
+		return Generator.getInstance().getFieldGenerator().getRealLine()
+				.get(Math.sqrt(((Real) innerProduct).getDoubleValue()));
 	}
 
 	/**

@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import definitions.Proceed;
 import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
@@ -44,7 +43,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 		for (int i = 0; i < n; i++) {
 			x = a + ((i * (b - a)) / 99.);
 			if (Math.abs(((Real) this.value(this.getField().get(x))).getDoubleValue()
-					- ((Real) other.value(RealLine.getInstance().get(x)))
+					- ((Real) other.value(Generator.getInstance().getFieldGenerator().getRealLine().get(x)))
 							.getDoubleValue()) > GlobalSettings.DERIVATIVE_FEINHEIT) {
 				return false;
 			}
@@ -59,6 +58,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	 * @return the coordinates of the projection.
 	 */
 
+	@Override
 	default Map<Vector, Scalar> getCoordinates(final EuclideanSpace space) {
 		final Map<EuclideanSpace, Map<Vector, Scalar>> coordinatesMap = this.getCoordinatesMap();
 		if (coordinatesMap != null && coordinatesMap.get(space) != null) {
@@ -133,7 +133,7 @@ public interface Function extends Vector, Plotable, FiniteVectorMethods, Unweava
 	}
 
 	default Field getField() {
-		return RealLine.getInstance();
+		return Generator.getInstance().getFieldGenerator().getRealLine();
 	}
 
 	/**

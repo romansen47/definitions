@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.velocity.texen.Generator;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.algebra.fields.Field;
@@ -21,6 +20,7 @@ import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalFunctionSpace;
 import definitions.structures.euclidean.functionspaces.impl.FiniteDimensionalSobolevSpace;
@@ -31,7 +31,6 @@ import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectors.specialfunctions.Sine;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 import definitions.structures.euclidean.vectorspaces.impl.PolynomialFunctionSpace;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSobolevSpace;
 import definitions.structures.euclidean.vectorspaces.impl.TrigonometricSpace;
 import exceptions.DevisionByZeroException;
@@ -39,11 +38,9 @@ import exceptions.ExtendingFailedException;
 
 public interface ISpaceGenerator {
 
-	EuclideanSpace realSpace = RealLine.getInstance();
-
 	default void createTrigonometricDerivativeBuilder(final EuclideanFunctionSpace ans) {
 		final List<Vector> base = ans.genericBaseToList();
-		final Field realLine = RealLine.getInstance();
+		final Field realLine = Generator.getInstance().getFieldGenerator().getRealLine();
 		realLine.getOne();
 		final Scalar zero = realLine.getZero();
 		final Map<Vector, Map<Vector, Scalar>> coordinatesMap = new ConcurrentHashMap<>();
@@ -91,14 +88,16 @@ public interface ISpaceGenerator {
 			newBase = ((EuclideanSpace) space).getOrthonormalBase(newBase);
 			if (space instanceof FunctionSpace) {
 				if (space instanceof FiniteDimensionalSobolevSpace) {
-					return SpaceGenerator.getInstance().getFiniteDimensionalSobolevSpace(space.getField(), newBase,
-							((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(),
-							((FiniteDimensionalSobolevSpace) space).getDegree(), false);
+					return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalSobolevSpace(
+							space.getField(), newBase, ((FunctionSpace) space).getLeft(),
+							((FunctionSpace) space).getRight(), ((FiniteDimensionalSobolevSpace) space).getDegree(),
+							false);
 				}
-				return SpaceGenerator.getInstance().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
-						((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
+				return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalFunctionSpace(space.getField(),
+						newBase, ((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
 			}
-			return SpaceGenerator.getInstance().getFiniteDimensionalVectorSpace(space.getField(), newBase);
+			return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalVectorSpace(space.getField(),
+					newBase);
 		} else {
 			throw new ExtendingFailedException(space, fun);
 		}
@@ -177,7 +176,7 @@ public interface ISpaceGenerator {
 	}
 
 	default EuclideanSpace getFiniteDimensionalVectorSpace(final int dim) {
-		return this.getFiniteDimensionalVectorSpace(RealLine.getInstance(), dim);
+		return this.getFiniteDimensionalVectorSpace(Generator.getInstance().getFieldGenerator().getRealLine(), dim);
 	}
 
 	Logger getLogger();

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
@@ -19,7 +21,7 @@ import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
+import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
 import settings.GlobalSettings;
@@ -30,27 +32,14 @@ import settings.GlobalSettings;
  *
  *         Implementation of the field of real numbers as a singleton class.
  */
-@Component
+@Service
 public class RealLine implements Field, RealSpace {
 
 	private static final Real one = RealOne.getOne();
 	private static final Real zero = RealZero.getZero();
-
-	private static RealLine instance;
-
-	public static RealLine getInstance() {
-		return RealLine.instance;
-	}
-
-	public static void setInstance(final RealLine realLine) {
-		RealLine.instance = realLine;
-	}
-
 	private EuclideanSpace dualSpace;
 	final Map<Vector, Scalar> coordinates;
-
 	private final List<Vector> base;
-
 	private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
 
 	public RealLine() {
@@ -62,10 +51,8 @@ public class RealLine implements Field, RealSpace {
 		this.coordinates = a;
 		multiplicationMap.put(RealLine.one, a);
 		final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
-		newMap.put(RealLine.one,
-				MappingGenerator.getInstance().getFiniteDimensionalLinearMapping(this, this, multiplicationMap));
+		newMap.put(RealLine.one, new FiniteDimensionalLinearMapping(this, this, multiplicationMap));
 		this.setMultiplicationMatrix(newMap);
-		ComplexPlane.setRealLine(this);
 	}
 
 	/**
@@ -74,6 +61,21 @@ public class RealLine implements Field, RealSpace {
 	@Override
 	public Real addition(final Vector vec1, final Vector vec2) {
 		return this.get(((Real) vec1).getDoubleValue() + ((Real) vec2).getDoubleValue());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Bean
+	@Scope("prototype")
+	public Real get(final double value) {
+		if (Math.abs(value) < GlobalSettings.REAL_EQUALITY_FEINHEIT) {
+			return this.getZero();
+		}
+		final Real newReal = new Real();
+		newReal.setRepresentant(value);
+		return newReal;
 	}
 
 	/**
@@ -98,19 +100,6 @@ public class RealLine implements Field, RealSpace {
 	@Override
 	public List<Vector> genericBaseToList() {
 		return this.base;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Real get(final double value) {
-		if (Math.abs(value) < GlobalSettings.REAL_EQUALITY_FEINHEIT) {
-			return this.getZero();
-		}
-		final Real newReal = new Real();
-		newReal.setRepresentant(value);
-		return newReal;
 	}
 
 	/**
@@ -258,14 +247,6 @@ public class RealLine implements Field, RealSpace {
 	public Real stretch(final Vector vec1, final Scalar r) {
 		return this.get(((Real) vec1).getDoubleValue() * ((Real) r).getDoubleValue());
 	}
-
-	// /**
-	// * {@inheritDoc}
-	// */
-	// @Override
-	// public String toString() {
-	// return "the field of real numbers";
-	// }
 
 	/**
 	 * {@inheritDoc}
