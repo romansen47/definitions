@@ -496,7 +496,7 @@ public interface IGroupGenerator {
 			super(k, v, baseField);
 			this.monoid = baseField;
 			if (baseField.getNeutralElement().equals(v)) {
-				IGroupGenerator.logger.info("denominator is zero! such an element does not exist...");
+				IGroupGenerator.logger.debug("denominator is zero! such an element does not exist...");
 			}
 		}
 

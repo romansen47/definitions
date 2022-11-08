@@ -41,7 +41,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	}
 
 	public static void setInstance(ComplexPlane complexPlane) {
-		logger.info(complexPlane);
+		logger.debug(complexPlane);
 		instance = complexPlane;
 	}
 

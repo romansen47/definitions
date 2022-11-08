@@ -24,7 +24,7 @@ import solver.StdDraw;
 public interface Plotter {
 
 	default void plot(final Plotable fun, final double left, final double right) {
-		LogManager.getLogger(getClass()).info("plotting {} over [{},{}]", fun, left, right);
+		LogManager.getLogger(getClass()).debug("plotting {} over [{},{}]", fun, left, right);
 		final StdDraw stddraw = new StdDraw();
 		final int count = 500;
 		final double delta = (right - left) / count;
@@ -47,7 +47,7 @@ public interface Plotter {
 	}
 
 	default void plotCompare(final Plotable fun1, final Plotable fun2, final double left, final double right) {
-		LogManager.getLogger(getClass()).info("plotting {} against {} over [{},{}]", fun1, fun2, left, right);
+		LogManager.getLogger(getClass()).debug("plotting {} against {} over [{},{}]", fun1, fun2, left, right);
 		final StdDraw stddraw = new StdDraw();
 		final int count = 1000;
 		final double delta = (right - left) / count;
@@ -71,9 +71,9 @@ public interface Plotter {
 			beta = betaNext;
 		}
 		String name = new Timestamp(System.currentTimeMillis()).toString();
-		LogManager.getLogger(this.getClass()).info(name);
+		LogManager.getLogger(this.getClass()).debug(name);
 		name = name.replaceAll("\\s", "_").replaceAll("\\:", ".");
-		LogManager.getLogger(this.getClass()).info("plotting {} to file {}.png", this, name);
+		LogManager.getLogger(this.getClass()).debug("plotting {} to file {}.png", this, name);
 		StdDraw.save(GlobalSettings.PLOTS + name + ".png");
 	}
 

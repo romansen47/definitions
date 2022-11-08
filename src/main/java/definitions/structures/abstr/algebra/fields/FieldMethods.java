@@ -47,7 +47,7 @@ public interface FieldMethods extends XmlPrintable {
 				s += products[i][j] + " ";
 				j++;
 			}
-			FieldMethods.logger.info(s);
+			FieldMethods.logger.debug(s);
 			i++;
 		}
 	}

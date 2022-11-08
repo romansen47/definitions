@@ -669,7 +669,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
 				e.printStackTrace();
 			}
 		} else {
-			LogManager.getLogger(StdDraw.class).info("Invalid image file type: " + suffix);
+			LogManager.getLogger(StdDraw.class).debug("Invalid image file type: " + suffix);
 		}
 	}
 

@@ -36,17 +36,17 @@ public class SpringConfiguration implements ApplicationContextAware {
 	}
 
 	private void getBeans() {
-		SpringConfiguration.logger.info("applicationContext {} scanning in definitions..*",
+		SpringConfiguration.logger.debug("applicationContext {} scanning in definitions..*",
 				this.applicationContext.toString().split(",")[0]);
 		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
-		SpringConfiguration.logger.info("applicationContext {} refreshing",
+		SpringConfiguration.logger.debug("applicationContext {} refreshing",
 				this.applicationContext.toString().split(",")[0]);
 		((AbstractApplicationContext) this.applicationContext).refresh();
-		logger.info("Beans we are aware of:");
+		logger.debug("Beans we are aware of:");
 		for (final String beanName : applicationContext.getBeanNamesForType(Object.class)) {
-			logger.info("bean " + beanName);
+			logger.debug("bean " + beanName);
 		}
-		logger.info("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
+		logger.debug("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
 	}
 
 	private void updateLoggers() {

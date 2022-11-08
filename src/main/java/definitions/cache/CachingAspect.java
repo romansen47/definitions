@@ -65,7 +65,7 @@ public class CachingAspect {
 		if (field.equals(Generator.getInstance().getFieldGenerator().getRealLine())) {
 			final EuclideanSpace ans = CachingAspect.coordinatesSpaces.get(dim);
 			if (ans != null) {
-				this.getLogger().info("restored {}-dimensional euclidean space {} from cache! ", dim, ans);
+				this.getLogger().debug("restored {}-dimensional euclidean space {} from cache! ", dim, ans);
 				return ans;
 			}
 			if (dim == 1) {
@@ -94,9 +94,9 @@ public class CachingAspect {
 		});
 
 		final EuclideanSpace ans = new FiniteDimensionalVectorSpace(field, basetmp);
-		this.getLogger().info("Created new {}-dimensional space over {}: {}", dim, field, ans);
+		this.getLogger().debug("Created new {}-dimensional space over {}: {}", dim, field, ans);
 		if (field.equals(Generator.getInstance().getFieldGenerator().getRealLine())) {
-			this.getLogger().info("Saved {} to cached spaces on cachingAspect", ans);
+			this.getLogger().debug("Saved {} to cached spaces on cachingAspect", ans);
 			CachingAspect.coordinatesSpaces.put(dim, ans);
 		}
 		return ans;

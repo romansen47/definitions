@@ -17,7 +17,7 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final Scalar in = matrix[0][0];
 			if (in.equals(Generator.getInstance().getFieldGenerator().getRealLine().getZero())) {
-				Generator.getInstance().getLogger().info("devision by 0");
+				Generator.getInstance().getLogger().debug("devision by 0");
 				return null;
 			}
 			return (InvertibleSelfMapping) Generator.getInstance().getMappingGenerator()

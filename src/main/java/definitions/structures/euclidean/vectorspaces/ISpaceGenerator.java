@@ -203,12 +203,12 @@ public interface ISpaceGenerator {
 	default EuclideanSpace getTrigonometricFunctionSpaceWithLinearGrowth(final Field f, final int n, final double right)
 			throws DevisionByZeroException, IOException, ExtendingFailedException {
 		if (Math.abs(right - Math.PI) > 1e-3) {
-			this.getLogger().info("intervall is wrong for this method : [{},{}]", -right, right);
+			this.getLogger().debug("intervall is wrong for this method : [{},{}]", -right, right);
 		}
 		Generator.getInstance();
 		EuclideanSpace space = this.getMyCache().getConcreteCache().get(n);
 		if (space != null) {
-			LogManager.getLogger(ISpaceGenerator.class).info(
+			LogManager.getLogger(ISpaceGenerator.class).debug(
 					"restored {}-dimensional trigonometric space {} with linear functions from cache", ((2 * n) + 1),
 					space);
 			return space;
@@ -229,7 +229,7 @@ public interface ISpaceGenerator {
 		if (space == null) {
 			space = answer;
 		}
-		LogManager.getLogger(ISpaceGenerator.class).info(
+		LogManager.getLogger(ISpaceGenerator.class).debug(
 				"saved {}-dimensional trigonometric space {} with linear functions to cache", ((2 * n) + 1), space);
 		return space;
 	}

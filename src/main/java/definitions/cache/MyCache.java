@@ -28,7 +28,7 @@ public class MyCache implements ICache, XmlPrintable {
 
 	@Override
 	public void setConcreteCache(final Map<Integer, EuclideanSpace> cache) {
-		logger.info("setter triggered: {}", "concrete cache");
+		logger.debug("setter triggered: {}", "concrete cache");
 		this.coordinateSpaces = cache;
 	}
 

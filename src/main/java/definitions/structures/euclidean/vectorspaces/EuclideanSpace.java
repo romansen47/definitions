@@ -185,7 +185,7 @@ public interface EuclideanSpace extends InnerProductSpace, VectorSpaceMethods {
 				s.append(scalarProducts[i][j] + " ");
 				j++;
 			}
-			LogManager.getLogger(EuclideanSpace.class).info(s.toString());
+			LogManager.getLogger(EuclideanSpace.class).debug(s.toString());
 			i++;
 		}
 		return scalarProducts;
