@@ -18,7 +18,6 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.abstr.vectorspaces.FunctionSpace;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
-import definitions.structures.abstr.vectorspaces.vectors.Function;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.functionspaces.EuclideanFunctionSpace;
@@ -48,13 +47,13 @@ public interface ISpaceGenerator {
 			Map<Vector, Scalar> tmp = new ConcurrentHashMap<>();
 			if (vec instanceof Sine) {
 				final Scalar freq = ((Sine) vec).getFrequency();
-				final boolean isSine = ((Real) ((Sine) vec).getTranslation()).getDoubleValue() == 0.;
+				final boolean isSine = zero.equals(((Sine) vec).getTranslation());
 				for (final Vector otherVec : base) {
 					tmp.put(otherVec, zero);
 					if (otherVec instanceof Sine) {
 						final Scalar otherFreq = ((Sine) otherVec).getFrequency();
-						final boolean otherIsSine = ((Real) ((Sine) otherVec).getTranslation()).getDoubleValue() == 0.;
-						if (((Real) freq).getDoubleValue() == ((Real) otherFreq).getDoubleValue()) {
+						final boolean otherIsSine = zero.equals(((Sine) otherVec).getTranslation());
+						if (freq.equals(otherFreq)) {
 							if (!isSine && otherIsSine) {
 								tmp.put(otherVec, ((RealLine) realLine).get(-((Real) freq).getDoubleValue()));
 							}
@@ -80,27 +79,26 @@ public interface ISpaceGenerator {
 	default EuclideanSpace extend(final VectorSpace space, final Vector fun)
 			throws DevisionByZeroException, ExtendingFailedException {
 		final EuclideanSpace asEuclidean = (EuclideanSpace) space;
-		if (fun instanceof Function) {
-			final List<Vector> base = asEuclidean.genericBaseToList();
-			List<Vector> newBase = new ArrayList<>();
-			newBase.addAll(base);
-			newBase.add(fun);
-			newBase = ((EuclideanSpace) space).getOrthonormalBase(newBase);
-			if (space instanceof FunctionSpace) {
-				if (space instanceof FiniteDimensionalSobolevSpace) {
-					return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalSobolevSpace(
-							space.getField(), newBase, ((FunctionSpace) space).getLeft(),
-							((FunctionSpace) space).getRight(), ((FiniteDimensionalSobolevSpace) space).getDegree(),
-							false);
-				}
-				return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalFunctionSpace(space.getField(),
-						newBase, ((FunctionSpace) space).getLeft(), ((FunctionSpace) space).getRight(), false);
-			}
-			return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalVectorSpace(space.getField(),
-					newBase);
-		} else {
-			throw new ExtendingFailedException(space, fun);
+		final List<Vector> base = asEuclidean.genericBaseToList();
+		List<Vector> newBase = new ArrayList<>();
+		newBase.addAll(base);
+		newBase.add(fun);
+		newBase = ((EuclideanSpace) space).getOrthonormalBase(newBase);
+		if (space instanceof FunctionSpace) {
+			return extendFunctionSpace((FunctionSpace) space, newBase);
 		}
+		return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalVectorSpace(space.getField(), newBase);
+	}
+
+	default EuclideanSpace extendFunctionSpace(FunctionSpace space, List<Vector> newBase)
+			throws DevisionByZeroException {
+		if (space instanceof FiniteDimensionalSobolevSpace) {
+			return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalSobolevSpace(space.getField(),
+					newBase, space.getLeft(), space.getRight(), ((FiniteDimensionalSobolevSpace) space).getDegree(),
+					false);
+		}
+		return Generator.getInstance().getSpaceGenerator().getFiniteDimensionalFunctionSpace(space.getField(), newBase,
+				space.getLeft(), space.getRight(), false);
 	}
 
 	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {

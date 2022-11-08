@@ -22,6 +22,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Aspect
@@ -29,19 +30,35 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
 @EnableAspectJAutoProxy
 public class CachingAspect {
 
-	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new ConcurrentHashMap<>();
-
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	public Logger getLogger() {
 		return this.logger;
 	}
 
+	/**
+	 * the map containing the cached spaces
+	 */
+	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new ConcurrentHashMap<>();
+
+	/**
+	 * the chasing advise
+	 * 
+	 * @param pjp zhe join point
+	 *            {@link ISpaceGenerator#getFiniteDimensionalVectorSpace}
+	 * @return
+	 */
 	@Around("execution(* definitions.structures.euclidean.vectorspaces.ISpaceGenerator.getFiniteDimensionalVectorSpace(definitions.structures.abstr.algebra.fields.Field,int))")
 	public Object getCoordinateSpace(final ProceedingJoinPoint pjp) {
 		return this.coordinateSpace(pjp);
 	}
 
+	/**
+	 * method to get the cached space
+	 * 
+	 * @param pjp the join point containing the information which space to get
+	 * @return the cached space
+	 */
 	private Object coordinateSpace(ProceedingJoinPoint pjp) {
 		final Field field = (Field) (pjp.getArgs()[0]);
 		final int dim = (int) (pjp.getArgs()[1]);

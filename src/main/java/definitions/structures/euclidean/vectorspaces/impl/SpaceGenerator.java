@@ -11,8 +11,7 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 @Service
 public class SpaceGenerator implements ISpaceGenerator, XmlPrintable {
 
-	public static final org.apache.logging.log4j.Logger logger = org.apache.logging.log4j.LogManager
-			.getLogger(SpaceGenerator.class);
+	public static final Logger logger = org.apache.logging.log4j.LogManager.getLogger(SpaceGenerator.class);
 
 	@Autowired(required = true)
 	private MyCache myCache;

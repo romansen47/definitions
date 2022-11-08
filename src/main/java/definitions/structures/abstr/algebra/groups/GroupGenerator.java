@@ -22,7 +22,6 @@ import definitions.structures.abstr.algebra.rings.FiniteRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.mappings.VectorSpaceHomomorphism;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
-import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.LinearSelfMapping;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
@@ -478,13 +477,11 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 			// Hier liegt das Problem! Die Vervollständigung bezieht sich hier auf die
 			// Addition... Historisch bedingter Fehler: Hier sollte der Halbring der
 			// Natürlichen Zahlen mit 0, welcher ... ( was?? )
-			final DiscreetDomain binaryDomain = Generator.getInstance().getGroupGenerator()
-					.completeToDiscreetRing(test);
+			final DiscreetDomain binaryDomain = completeToDiscreetRing(test);
 			binaryDomain.getNeutralElement();
 			binaryDomain.getOne();
 			binaryDomain.getMuliplicativeMonoid();
-			this.constructedBinaries = Generator.getInstance().getGroupGenerator()
-					.completeToDiscreetField(binaryDomain);
+			this.constructedBinaries = completeToDiscreetField(binaryDomain);
 			this.constructedBinaries.getNeutralElement();
 			this.constructedBinaries.getOne();
 			this.constructedBinaries.getMuliplicativeMonoid();
