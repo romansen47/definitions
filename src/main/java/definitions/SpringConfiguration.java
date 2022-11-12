@@ -10,13 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.EnableLoadTimeWeaving;
-import org.springframework.context.annotation.EnableLoadTimeWeaving.AspectJWeaving;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import definitions.structures.euclidean.Generator;
 
-@EnableLoadTimeWeaving(aspectjWeaving = AspectJWeaving.ENABLED)
 @ComponentScan(basePackages = "definitions")
 public class SpringConfiguration implements ApplicationContextAware {
 
@@ -32,6 +29,7 @@ public class SpringConfiguration implements ApplicationContextAware {
 	}
 
 	private void setInstances() {
+		logger.debug("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
 		Generator.setInstance(this.applicationContext.getBean(Generator.class));
 	}
 
@@ -46,7 +44,6 @@ public class SpringConfiguration implements ApplicationContextAware {
 		for (final String beanName : applicationContext.getBeanNamesForType(Object.class)) {
 			logger.debug("bean " + beanName);
 		}
-		logger.debug("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
 	}
 
 	private void updateLoggers() {
