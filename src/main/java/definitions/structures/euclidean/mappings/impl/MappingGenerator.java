@@ -3,7 +3,7 @@ package definitions.structures.euclidean.mappings.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import definitions.settings.XmlPrintable;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
@@ -16,7 +16,7 @@ import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.IMappingGenerator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
-@Service
+@Component
 public class MappingGenerator implements IMappingGenerator, XmlPrintable {
 
 	/**

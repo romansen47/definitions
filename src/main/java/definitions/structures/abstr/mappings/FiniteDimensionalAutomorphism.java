@@ -5,6 +5,7 @@ import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.InvertibleSelfMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import exceptions.DevisionByZeroException;
 
 public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorphism, VectorSpaceAutomorphism {
 
@@ -12,7 +13,7 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 	 * {@inheritDoc}
 	 */
 	@Override
-	default VectorSpaceIsomorphism getInverse() {
+	default VectorSpaceIsomorphism getInverse() throws DevisionByZeroException {
 		final Scalar[][] matrix = this.getGenericMatrix();
 		if ((matrix.length == 1) && (matrix[0].length == 1)) {
 			final Scalar in = matrix[0][0];
@@ -30,9 +31,7 @@ public interface FiniteDimensionalAutomorphism extends FiniteDimensionalEndomorp
 		try {
 			det = 1.0 / ((Real) this.det(matrix)).getDoubleValue();
 		} catch (final Exception e) {
-			System.err.println("Division durch 0!");
-			return (InvertibleSelfMapping) Generator.getInstance().getMappingGenerator()
-					.getFiniteDimensionalLinearMapping(new Scalar[0][0]);
+			throw new DevisionByZeroException();
 		}
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < k; j++) {

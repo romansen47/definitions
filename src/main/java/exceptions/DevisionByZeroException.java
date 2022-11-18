@@ -8,7 +8,7 @@ package exceptions;
 public class DevisionByZeroException extends Exception {
 	private static final long serialVersionUID = 1L;
 
-	DevisionByZeroException() {
+	public DevisionByZeroException() {
 		super("division by zero exception");
 	}
 }

@@ -29,20 +29,20 @@ public class SpringConfiguration implements ApplicationContextAware {
 	}
 
 	private void setInstances() {
-		logger.debug("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
+		logger.info("applicationContext {} getting bean generator", this.applicationContext.toString().split(",")[0]);
 		Generator.setInstance(this.applicationContext.getBean(Generator.class));
 	}
 
 	private void getBeans() {
-		SpringConfiguration.logger.debug("applicationContext {} scanning in definitions..*",
+		SpringConfiguration.logger.info("applicationContext {} scanning in definitions..*",
 				this.applicationContext.toString().split(",")[0]);
 		((AnnotationConfigApplicationContext) this.applicationContext).scan("definitions..*");
-		SpringConfiguration.logger.debug("applicationContext {} refreshing",
+		SpringConfiguration.logger.info("applicationContext {} refreshing",
 				this.applicationContext.toString().split(",")[0]);
 		((AbstractApplicationContext) this.applicationContext).refresh();
-		logger.debug("Beans we are aware of:");
+		logger.info("Beans we are aware of:");
 		for (final String beanName : applicationContext.getBeanNamesForType(Object.class)) {
-			logger.debug("bean " + beanName);
+			logger.info("bean " + beanName);
 		}
 	}
 

@@ -5,9 +5,10 @@ import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import org.springframework.stereotype.Component;
+
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
-import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.vectorspaces.VectorSpace;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
@@ -15,6 +16,7 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.Tuple;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 
+@Component
 public class Complex extends Tuple implements Scalar, FieldElement {
 
 	@XmlElement
@@ -42,7 +44,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
-		return space == ComplexPlane.getInstance();
+		return space.equals(Generator.getInstance().getFieldGenerator().getComplexPlane());
 	}
 
 	@Override
@@ -69,8 +71,8 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	public Map<Vector, Scalar> getCoordinates() {
 		final Map<Vector, Scalar> tmp = super.getCoordinates();
 		if (tmp.isEmpty()) {
-			tmp.put(((Field) ComplexPlane.getInstance()).getOne(), this.getReal());
-			tmp.put(((ComplexPlane) ComplexPlane.getInstance()).getI(), this.getImag());
+			tmp.put(((Field) Generator.getInstance().getFieldGenerator().getComplexPlane()).getOne(), this.getReal());
+			tmp.put(Generator.getInstance().getFieldGenerator().getComplexPlane().getI(), this.getImag());
 		}
 		super.setCoordinates(tmp);
 		return tmp;
@@ -112,7 +114,7 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	@Override
 	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
 		super.setCoordinates(coordinates);
-		this.real = coordinates.get(((Field) ComplexPlane.getInstance()).getOne());
+		this.real = coordinates.get(((Field) Generator.getInstance().getFieldGenerator().getComplexPlane()).getOne());
 	}
 
 	/**

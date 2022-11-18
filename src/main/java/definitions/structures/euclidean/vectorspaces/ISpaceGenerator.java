@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import definitions.cache.MyCache;
 import definitions.structures.abstr.algebra.fields.Field;
-import definitions.structures.abstr.algebra.fields.impl.ComplexPlane;
 import definitions.structures.abstr.algebra.fields.impl.RealLine;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
@@ -102,7 +101,7 @@ public interface ISpaceGenerator {
 	}
 
 	default VectorSpace getFiniteDimensionalComplexSpace(final int dim) {
-		final Field field = (Field) ComplexPlane.getInstance();
+		final Field field = Generator.getInstance().getFieldGenerator().getComplexPlane();
 		if (dim == 1) {
 			return field;
 		}

@@ -1,5 +1,7 @@
 package definitions.structures.abstr.mappings;
 
+import exceptions.DevisionByZeroException;
+
 /**
  * Isomorphism between vector spaces.
  *
@@ -12,6 +14,6 @@ public interface VectorSpaceIsomorphism extends GroupIsomorphism, VectorSpaceMon
 	 *
 	 * @return the inverse
 	 */
-	VectorSpaceIsomorphism getInverse();
+	VectorSpaceIsomorphism getInverse() throws DevisionByZeroException;
 
 }

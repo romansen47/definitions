@@ -362,16 +362,7 @@ public interface IGroupGenerator {
 
 	DiscreetSemiRing getNaturals();
 
-	default DiscreetDomain getIntegers() {
-		if (this.getIntegers() == null) {
-			final DiscreetDomain integers = this.completeToDiscreetRing(this.getNaturals());
-			this.setIntegers(integers);
-			return integers;
-		}
-		return null;
-	}
-
-	void setIntegers(DiscreetRing integers);
+	DiscreetDomain getIntegers();
 
 	default DiscreetDomain completeToDiscreetRing(DiscreetSemiRing semiRing) {
 		return new DiscreetDomain() {
@@ -740,11 +731,7 @@ public interface IGroupGenerator {
 		};
 	}
 
-	void setNaturals(DiscreetSemiRing naturals);
-
 	PrimeField getRationals();
-
-	void setRationals(PrimeField rationals);
 
 	PrimeField getConstructedBinaries();
 

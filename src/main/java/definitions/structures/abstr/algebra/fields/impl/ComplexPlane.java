@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.PrimeField;
@@ -15,7 +18,6 @@ import definitions.structures.abstr.vectorspaces.RealSpace;
 import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
-import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 /**
@@ -24,32 +26,14 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *
  *         Implementation of the field of complex numbers as a singleton class.
  */
+@Component
 public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
-
-	/**
-	 * this one is a singleton
-	 */
-	private static EuclideanSpace instance;
-
-	/**
-	 * Getter for the instance
-	 *
-	 * @return the instance
-	 */
-	public static EuclideanSpace getInstance() {
-		return ComplexPlane.instance;
-	}
-
-	public static void setInstance(ComplexPlane complexPlane) {
-		logger.debug(complexPlane);
-		instance = complexPlane;
-	}
 
 	/**
 	 * the field of real numbers
 	 */
-	@Autowired
-	private static RealLine realLine;
+	@Autowired(required = true)
+	private RealLine realLine;
 
 	/**
 	 * Setter for the field. We choose to work with the complex plane as a simple 2
@@ -57,8 +41,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 *
 	 * @param realLine the real line
 	 */
-	public static void setRealLine(final RealLine realLine) {
-		ComplexPlane.realLine = realLine;
+	public void setRealLine(final RealLine realLine) {
+		this.realLine = realLine;
 	}
 
 	/**
@@ -84,15 +68,16 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	/**
 	 * the constructor
 	 */
-	public ComplexPlane() {
+	public ComplexPlane(RealLine realLine) {
+		super(realLine);
+		this.realLine = realLine;
 		this.dim = 2;
 		this.base = new ArrayList<>();
-		this.one = new Complex(ComplexPlane.realLine.getOne(), ComplexPlane.realLine.getZero());
-		this.zero = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getZero());
-		this.i = new Complex(ComplexPlane.realLine.getZero(), ComplexPlane.realLine.getOne());
+		this.one = new Complex(realLine.getOne(), realLine.getZero());
+		this.zero = new Complex(realLine.getZero(), realLine.getZero());
+		this.i = new Complex(realLine.getZero(), realLine.getOne());
 		this.base.add(this.one);
 		this.base.add(this.i);
-		ComplexPlane.instance = this;
 	}
 
 	/**
@@ -111,6 +96,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 *
 	 * @return zero as a complex number
 	 */
+	@Bean
+	@Scope("prototype")
 	public Complex complex() {
 		return new Complex(0, 0);
 	}
@@ -136,6 +123,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Bean
+	@Scope("prototype")
 	public Complex get(final double realValue) {
 		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, 0);
@@ -150,6 +139,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * @param imValue   the imaginary part
 	 * @return the complex number realValue+i*imValue
 	 */
+	@Bean
+	@Scope("prototype")
 	public Complex get(final double realValue, final double imValue) {
 		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, imValue);

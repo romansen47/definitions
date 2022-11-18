@@ -1,16 +1,19 @@
 package definitions.structures.abstr.algebra.fields.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import definitions.Unweavable;
 import definitions.structures.abstr.algebra.fields.IFieldGenerator;
 
-@Service
+@Component
 public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	@Autowired
 	private RealLine realLine;
+
+	@Autowired
+	private ComplexPlane complexPlane;
 
 	@Override
 	public RealLine getRealLine() {
@@ -19,6 +22,15 @@ public class FieldGenerator implements IFieldGenerator, Unweavable {
 
 	public void setRealLine(final RealLine realLine) {
 		this.realLine = realLine;
+	}
+
+	@Override
+	public ComplexPlane getComplexPlane() {
+		return complexPlane;
+	}
+
+	public void setComplexPlane(ComplexPlane complexPlane) {
+		this.complexPlane = complexPlane;
 	}
 
 }

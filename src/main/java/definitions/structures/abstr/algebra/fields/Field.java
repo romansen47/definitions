@@ -36,6 +36,8 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 *
 	 * @param value the input scalar
 	 * @return the conjugated scalar
+	 * 
+	 * @deprecated how to define in general?
 	 */
 	@Deprecated
 	default Scalar conjugate(Scalar value) {

@@ -3,7 +3,9 @@ package definitions.structures.impl;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.RepresentableElement;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
@@ -14,7 +16,7 @@ import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.impl.semigroups.DiscreetSemiGroupImpl;
 import settings.GlobalSettings;
 
-@Service
+@Component
 public class Naturals extends DiscreetSemiGroupImpl
 		implements DiscreetSemiRing, DiscreetMonoid, OrderedMonoid, SemiDomain {
 
@@ -61,6 +63,8 @@ public class Naturals extends DiscreetSemiGroupImpl
 	}
 
 	@Override
+	@Bean
+	@Scope("prototype")
 	public Element get(Number representant) {
 		return new NaturalNumber(representant) {
 

@@ -3,7 +3,7 @@ package definitions.structures.euclidean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import definitions.Unweavable;
 import definitions.settings.XmlPrintable;
@@ -13,10 +13,14 @@ import definitions.structures.euclidean.mappings.impl.MappingGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
 import plotter.Plotter;
 
-@Service
+@Component
 public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable {
 
 	private static final Logger logger = LogManager.getLogger(Generator.class);
+
+	public Logger getLogger() {
+		return Generator.logger;
+	}
 
 	private static Generator instance;
 
@@ -48,10 +52,6 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	@Override
 	public GroupGenerator getGroupGenerator() {
 		return this.groupGenerator;
-	}
-
-	public Logger getLogger() {
-		return Generator.logger;
 	}
 
 	@Override

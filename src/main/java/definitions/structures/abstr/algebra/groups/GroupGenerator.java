@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import definitions.Unweavable;
 import definitions.settings.XmlPrintable;
@@ -27,44 +28,30 @@ import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.impl.Naturals;
 
-@Service
+@Component
 public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable {
 
-	private DiscreetSemiRing naturals;
+	@Autowired
+	private Naturals naturals;
 
 	private DiscreetDomain integers;
-
 	private PrimeField rationals;
-
 	private FinitePrimeField binaries;
+	private PrimeField constructedBinaries;
 
 	Map<Integer, FiniteRing> map = new ConcurrentHashMap<>();
 
-	private PrimeField constructedBinaries;
-
-	public void setIntegers(final DiscreetDomain integers) {
-		this.integers = integers;
+	@Override
+	public DiscreetSemiRing getNaturals() {
+		return this.naturals;
 	}
 
 	@Override
 	public DiscreetDomain getIntegers() {
 		if (this.integers == null) {
-			this.setIntegers(this.completeToDiscreetRing(this.getNaturals()));
+			this.integers = this.completeToDiscreetRing(this.getNaturals());
 		}
 		return this.integers;
-	}
-
-	@Override
-	public DiscreetSemiRing getNaturals() {
-		if (this.naturals == null) {
-			this.setNaturals(new Naturals());
-		}
-		return this.naturals;
-	}
-
-	@Override
-	public void setNaturals(DiscreetSemiRing naturals) {
-		this.naturals = naturals;
 	}
 
 	/**
@@ -73,22 +60,9 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 	@Override
 	public PrimeField getRationals() {
 		if (this.rationals == null) {
-			this.setRationals(this.completeToDiscreetField(this.integers));
+			this.rationals = this.completeToDiscreetField(this.integers);
 		}
 		return this.rationals;
-	}
-
-	/**
-	 * @param rationals the rationals to set
-	 */
-	@Override
-	public void setRationals(PrimeField rationals) {
-		this.rationals = rationals;
-	}
-
-	@Override
-	public void setIntegers(DiscreetRing integers) {
-		this.integers = (DiscreetDomain) integers;
 	}
 
 	public FinitePrimeField getBinaries() {

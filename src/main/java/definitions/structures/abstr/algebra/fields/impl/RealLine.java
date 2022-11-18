@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
@@ -32,7 +32,7 @@ import settings.GlobalSettings;
  *
  *         Implementation of the field of real numbers as a singleton class.
  */
-@Service
+@Component
 public class RealLine implements Field, RealSpace {
 
 	private static final Real one = RealOne.getOne();
