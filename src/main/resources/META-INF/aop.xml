@@ -4,13 +4,13 @@
 	<weaver options="-Xset:weaveJavaxPackages=true -verbose ">
 		<!-- -showWeaveInfo -debug -verbose -->
 		<include within="org.springframework..*" /> 
-		<include within="definitions..*" />
+		<include within="definitions.structures.euclidean.vectorspaces.ISpaceGenerator" />
 		<exclude within="plotter.Plotter" />
 		<include within="customaspects..*" />
 		<exclude within="org.apache..*" />
 		<exclude within="org.junit.Test" /> 
 	</weaver>
-	<aspects>
-		<aspect name="definitions.cache.CachingAspect" />  
+	<aspects> 
+		<aspect name="definitions.cache.CachingAspect" /> 
 	</aspects>
 </aspectj>

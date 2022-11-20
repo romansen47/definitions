@@ -28,14 +28,18 @@ public class CachingAspect {
 
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
-	public Logger getLogger() {
-		return this.logger;
-	}
-
 	/**
 	 * the map containing the cached spaces
 	 */
 	private static final Map<Integer, EuclideanSpace> coordinatesSpaces = new ConcurrentHashMap<>();
+
+	CachingAspect() {
+		getLogger().info("instantiation of a caching aspect, id = {}", hashCode());
+	}
+
+	public Logger getLogger() {
+		return this.logger;
+	}
 
 	/**
 	 * the chasing advise
