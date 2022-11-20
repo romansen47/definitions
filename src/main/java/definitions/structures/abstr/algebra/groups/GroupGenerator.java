@@ -35,8 +35,11 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 	private Naturals naturals;
 
 	private DiscreetDomain integers;
+
 	private PrimeField rationals;
+
 	private FinitePrimeField binaries;
+
 	private PrimeField constructedBinaries;
 
 	Map<Integer, FiniteRing> map = new ConcurrentHashMap<>();
@@ -65,6 +68,7 @@ public class GroupGenerator implements IGroupGenerator, XmlPrintable, Unweavable
 		return this.rationals;
 	}
 
+	@Override
 	public FinitePrimeField getBinaries() {
 		if (this.binaries == null) {
 			this.binaries = new FinitePrimeField() {

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.PrimeField;
@@ -19,6 +19,7 @@ import definitions.structures.abstr.vectorspaces.vectors.FiniteVectorMethods;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import exceptions.DevisionByZeroException;
 
 /**
  *
@@ -26,7 +27,7 @@ import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVecto
  *
  *         Implementation of the field of complex numbers as a singleton class.
  */
-@Component
+@Configuration
 public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field, RealSpace {
 
 	/**
@@ -70,7 +71,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 */
 	public ComplexPlane(RealLine realLine) {
 		super(realLine);
-		this.realLine = realLine;
+		this.setRealLine(realLine);
 		this.dim = 2;
 		this.base = new ArrayList<>();
 		this.one = new Complex(realLine.getOne(), realLine.getZero());
@@ -96,10 +97,8 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 *
 	 * @return zero as a complex number
 	 */
-	@Bean
-	@Scope("prototype")
 	public Complex complex() {
-		return new Complex(0, 0);
+		return get(0, 0);
 	}
 
 	/**
@@ -142,8 +141,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	@Bean
 	@Scope("prototype")
 	public Complex get(final double realValue, final double imValue) {
-		final Complex newComplex = this.complex();
-		newComplex.setValue(realValue, imValue);
+		final Complex newComplex = new Complex(realValue, imValue);
 		return newComplex;
 	}
 
@@ -193,9 +191,11 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws DevisionByZeroException
 	 */
 	@Override
-	public Complex getMultiplicativeInverseElement(final Vector factor) {
+	public Complex getMultiplicativeInverseElement(final Vector factor) throws DevisionByZeroException {
 		return (Complex) Field.super.getMultiplicativeInverseElement(factor);
 	}
 

@@ -11,8 +11,6 @@ import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
@@ -26,8 +24,6 @@ import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
 
 @Aspect
-@ComponentScan(basePackages = "definitions")
-@EnableAspectJAutoProxy
 public class CachingAspect {
 
 	private final Logger logger = LogManager.getLogger(this.getClass());

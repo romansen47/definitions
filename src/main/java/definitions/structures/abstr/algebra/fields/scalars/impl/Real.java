@@ -36,6 +36,19 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	@XmlElement
 	private Double representant;
 
+	@XmlElement
+	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
+
+	private Map<Vector, Scalar> coordinates;
+
+	public Real() {
+
+	}
+
+	public Real(double value) {
+		this.representant = value;
+	}
+
 	/**
 	 * Getter for the representant
 	 *
@@ -44,18 +57,6 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	@Override
 	public Double getRepresentant() {
 		return this.representant;
-	}
-
-	private Map<Vector, Scalar> coordinates;
-
-	@XmlElement
-	private final double eps = GlobalSettings.REAL_EQUALITY_FEINHEIT;
-
-	/**
-	 * Constructor of zero
-	 */
-	public Real() {
-		this.representant = 0d;
 	}
 
 	/**
@@ -71,7 +72,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public boolean elementOf(final VectorSpace space) {
-		return space == Generator.getInstance().getFieldGenerator().getRealLine();
+		return space.equals(Generator.getInstance().getFieldGenerator().getRealLine());
 	}
 
 	/**
@@ -88,26 +89,6 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	@Override
 	public float floatValue() {
 		return (float) this.getDoubleValue();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<Vector, Scalar> getCoordinates() {
-		if (this.coordinates == null) {
-			this.coordinates = new ConcurrentHashMap<>();
-			this.coordinates.put(Generator.getInstance().getFieldGenerator().getRealLine().getOne(), this);
-		}
-		return this.coordinates;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
-		return this.getCoordinates();
 	}
 
 	/**
@@ -134,7 +115,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public int intValue() {
-		return (int) this.getDoubleValue();
+		throw new Error("real has no int value");
 	}
 
 	/**
@@ -142,21 +123,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 */
 	@Override
 	public long longValue() {
-		return (long) this.getDoubleValue();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		throw new Error("real has no long value");
 	}
 
 	/**
@@ -165,7 +132,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	 * @return the given number as a complex number
 	 */
 	public Scalar toComplex() {
-		return new Complex(this, Generator.getInstance().getFieldGenerator().getRealLine().getZero());
+		return Generator.getInstance().getFieldGenerator().getComplexPlane().get(this.doubleValue());
 	}
 
 	/**
@@ -174,7 +141,7 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 	@Override
 	@XmlAttribute
 	public String toString() {
-		return "" + this.getDoubleValue();
+		return String.valueOf(this.getDoubleValue());
 	}
 
 	/**
@@ -187,5 +154,41 @@ public class Real extends Number implements Scalar, FieldElement, FiniteVector, 
 
 	public void setRepresentant(Double representant) {
 		this.representant = representant;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<Vector, Scalar> getCoordinates() {
+		if (this.coordinates == null) {
+			this.coordinates = new ConcurrentHashMap<>();
+			this.coordinates.put(Generator.getInstance().getFieldGenerator().getRealLine().getOne(), this);
+		}
+		return this.coordinates;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<Vector, Scalar> getCoordinates(final EuclideanSpace source) {
+		return this.getCoordinates();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates) {
+		// no need for
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setCoordinates(final Map<Vector, Scalar> coordinates, final EuclideanSpace space) {
+		// no need for
 	}
 }

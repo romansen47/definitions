@@ -28,11 +28,6 @@ public class FunctionTuple extends Tuple implements Function {
 		this.field = space.getField();
 	}
 
-	public FunctionTuple(final Scalar[] coordinates, final Field field) {
-		super(coordinates);
-		this.field = field;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */

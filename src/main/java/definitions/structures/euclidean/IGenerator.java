@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import definitions.structures.abstr.algebra.fields.Field;
+import definitions.structures.abstr.algebra.fields.IFieldGenerator;
 import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.IGroupGenerator;
@@ -18,7 +19,7 @@ import exceptions.DevisionByZeroException;
 
 public interface IGenerator {
 
-	FieldGenerator getFieldGenerator();
+	IFieldGenerator getFieldGenerator();
 
 	default VectorSpace getFiniteDimensionalFunctionSpace(final Field field, final List<Vector> genericBase,
 			final double left, final double right) throws DevisionByZeroException {

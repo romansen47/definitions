@@ -28,6 +28,9 @@ public class Complex extends Tuple implements Scalar, FieldElement {
 	@XmlElement
 	private Scalar imag;
 
+	Complex() {
+	}
+
 	public Complex(final double x, final double y) {
 		this(Generator.getInstance().getFieldGenerator().getRealLine().get(x),
 				Generator.getInstance().getFieldGenerator().getRealLine().get(y));

@@ -16,6 +16,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.mappings.FiniteDimensionalHomomorphism;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
+import exceptions.DevisionByZeroException;
 
 /**
  *
@@ -74,7 +75,13 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 
 			@Override
 			public Element getInverseElement(final Element element) {
-				return Field.this.getMultiplicativeInverseElement((Scalar) element);
+				try {
+					return Field.this.getMultiplicativeInverseElement((Scalar) element);
+				} catch (DevisionByZeroException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
 			}
 
 			@Override
@@ -146,8 +153,9 @@ public interface Field extends CommutativeRing, Domain, EuclideanAlgebra, FieldM
 	 *
 	 * @param element the element
 	 * @return the multiplicative inverse, if exists, null otherwise
+	 * @throws DevisionByZeroException
 	 */
-	default Vector getMultiplicativeInverseElement(final Vector element) {
+	default Vector getMultiplicativeInverseElement(final Vector element) throws DevisionByZeroException {
 		final Field field = this;
 		final VectorSpace multLinMaps = new LinearMappingsSpace() {
 

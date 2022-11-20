@@ -16,6 +16,7 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FiniteDimensionalVectorSpace;
+import exceptions.DevisionByZeroException;
 
 /**
  *
@@ -244,9 +245,11 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws DevisionByZeroException
 	 */
 	@Override
-	public Quaternion getMultiplicativeInverseElement(final Vector factor) {
+	public Quaternion getMultiplicativeInverseElement(final Vector factor) throws DevisionByZeroException {
 		return (Quaternion) Field.super.getMultiplicativeInverseElement(factor);
 	}
 

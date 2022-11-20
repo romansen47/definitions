@@ -6,6 +6,7 @@ import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.groups.Group;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import exceptions.DevisionByZeroException;
 
 /**
  * We consider real vector spaces. A F-vectorspace V is a group V and a field F
@@ -40,6 +41,8 @@ public interface VectorSpace extends Group {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws DevisionByZeroException
 	 */
 	@Override
 	default Vector getInverseElement(final Element element) {

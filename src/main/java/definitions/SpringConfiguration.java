@@ -66,4 +66,8 @@ public class SpringConfiguration implements ApplicationContextAware {
 		this.applicationContext = applicationContext;
 	}
 
+	public ApplicationContext getApplicationContext() {
+		return this.applicationContext;
+	}
+
 }

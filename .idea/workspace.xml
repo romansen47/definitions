@@ -2,35 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca451893-3505-4da0-a6bc-f4631988d4cc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/SpringConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/SpringConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/fields/CyclicRingDistributor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/DiscreetRing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/IGroupGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/IGroupGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/impl/GroupGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/GroupGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/impl/Int.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/groups/impl/package-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/DiscreetMonoid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/DiscreetMonoid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/FiniteMonoid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/monoids/FiniteMonoid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/DiscreetSemiRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/DiscreetSemiRing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteRing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/FiniteRing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/rings/impl/Integers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/DiscreetSemiGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/DiscreetSemiGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/Element.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/Element.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/FiniteSemiGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/abstr/algebra/semigroups/FiniteSemiGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/Generator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/Generator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalDerivativeOperator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/impl/FiniteDimensionalDerivativeOperator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/Naturals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/Naturals.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/semigroups/FiniteSemiGroupImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/definitions/structures/impl/semigroups/FiniteSemiGroupImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/DiscreetDynamicSystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/DiscreetDynamicSystemTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/GroupGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/GroupGeneratorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/IntegersTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/classes/" />
-    <ignored path="$PROJECT_DIR$/target/classes/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,37 +13,6 @@
   <component name="DefaultGradleProjectSettings">
     <option name="testRunner" value="GRADLE" />
     <option name="delegatedBuild" value="true" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/FiniteDimensionalHomomorphism.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/definitions/aspectjtest/MultiDimensionalSpaceOverBinaryFieldTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,6 +30,7 @@
     <option name="width" value="1400" />
     <option name="height" value="970" />
   </component>
+  <component name="ProjectId" id="2HjSGoYYODhz28LXofewevRWX1g" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -97,26 +41,18 @@
       <pane id="PackagesPane" />
     </panes>
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ro/git/definitions-test&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="ca451893-3505-4da0-a6bc-f4631988d4cc" name="Default Changelist" comment="" />
@@ -155,6 +91,17 @@
       <window_info anchor="right" id="Maven" order="4" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/definitions/structures/euclidean/mappings/FiniteDimensionalHomomorphism.java">

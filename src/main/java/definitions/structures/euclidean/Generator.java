@@ -3,17 +3,21 @@ package definitions.structures.euclidean;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import definitions.Unweavable;
 import definitions.settings.XmlPrintable;
+import definitions.structures.abstr.algebra.fields.IFieldGenerator;
 import definitions.structures.abstr.algebra.fields.impl.FieldGenerator;
 import definitions.structures.abstr.algebra.groups.GroupGenerator;
-import definitions.structures.euclidean.mappings.impl.MappingGenerator;
-import definitions.structures.euclidean.vectorspaces.impl.SpaceGenerator;
+import definitions.structures.abstr.algebra.groups.IGroupGenerator;
+import definitions.structures.euclidean.mappings.IMappingGenerator;
+import definitions.structures.euclidean.vectorspaces.ISpaceGenerator;
 import plotter.Plotter;
 
-@Component
+@Configuration
+@EnableAspectJAutoProxy
 public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable {
 
 	private static final Logger logger = LogManager.getLogger(Generator.class);
@@ -33,34 +37,34 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	}
 
 	@Autowired
-	private MappingGenerator mappingGenerator;
+	private IMappingGenerator mappingGenerator;
 
 	@Autowired
-	private SpaceGenerator spaceGenerator;
+	private ISpaceGenerator spaceGenerator;
 
 	@Autowired
-	private FieldGenerator fieldGenerator;
+	private IFieldGenerator fieldGenerator;
 
 	@Autowired
-	private GroupGenerator groupGenerator;
+	private IGroupGenerator groupGenerator;
 
 	@Override
-	public FieldGenerator getFieldGenerator() {
+	public IFieldGenerator getFieldGenerator() {
 		return this.fieldGenerator;
 	}
 
 	@Override
-	public GroupGenerator getGroupGenerator() {
+	public IGroupGenerator getGroupGenerator() {
 		return this.groupGenerator;
 	}
 
 	@Override
-	public MappingGenerator getMappingGenerator() {
+	public IMappingGenerator getMappingGenerator() {
 		return this.mappingGenerator;
 	}
 
 	@Override
-	public SpaceGenerator getSpaceGenerator() {
+	public ISpaceGenerator getSpaceGenerator() {
 		return this.spaceGenerator;
 	}
 
@@ -77,4 +81,5 @@ public class Generator implements IGenerator, Unweavable, Plotter, XmlPrintable 
 	public String toXml() {
 		return "the main generator";
 	}
+
 }

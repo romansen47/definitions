@@ -5,6 +5,7 @@ import definitions.structures.abstr.algebra.groups.DiscreetGroup;
 import definitions.structures.abstr.algebra.groups.DiscreetRing;
 import definitions.structures.abstr.algebra.semigroups.Element;
 import definitions.structures.abstr.vectorspaces.vectors.Vector;
+import exceptions.DevisionByZeroException;
 
 /**
  * a field that also is a discreet ring
@@ -38,7 +39,13 @@ public interface DiscreetField extends DiscreetRing, Field {
 
 			@Override
 			public Element getInverseElement(final Element element) {
-				return DiscreetField.this.getMultiplicativeInverseElement((Scalar) element);
+				try {
+					return DiscreetField.this.getMultiplicativeInverseElement((Scalar) element);
+				} catch (DevisionByZeroException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
 			}
 
 			@Override

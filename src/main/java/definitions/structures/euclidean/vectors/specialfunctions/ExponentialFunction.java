@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.fields.scalars.impl.Real;
-import definitions.structures.abstr.algebra.fields.scalars.impl.RealZero;
 import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.vectors.impl.GenericFunction;
 
@@ -27,7 +26,7 @@ public abstract class ExponentialFunction extends GenericFunction {
 	private final Scalar b;
 
 	protected ExponentialFunction() {
-		this.a = RealZero.getZero();
+		this.a = Generator.getInstance().getFieldGenerator().getRealLine().getZero();
 		this.b = Generator.getInstance().getFieldGenerator().getRealLine().getOne();
 	}
 

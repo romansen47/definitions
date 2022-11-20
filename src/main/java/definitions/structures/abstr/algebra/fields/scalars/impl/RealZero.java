@@ -13,17 +13,10 @@ import definitions.structures.euclidean.Generator;
 public class RealZero extends Real {
 
 	private static final long serialVersionUID = 4784581571935827482L;
-	private static Real zero;
-
-	public static Real getZero() {
-		if (RealZero.zero == null) {
-			RealZero.zero = new RealZero();
-		}
-		return RealZero.zero;
-	}
 
 	public RealZero() {
 		super();
+		this.setRepresentant(0d);
 	}
 
 	@Override

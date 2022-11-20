@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import definitions.structures.abstr.algebra.fields.Field;
@@ -24,6 +23,7 @@ import definitions.structures.euclidean.Generator;
 import definitions.structures.euclidean.mappings.impl.FiniteDimensionalLinearMapping;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
+import exceptions.DevisionByZeroException;
 import settings.GlobalSettings;
 
 /**
@@ -35,23 +35,29 @@ import settings.GlobalSettings;
 @Component
 public class RealLine implements Field, RealSpace {
 
-	private static final Real one = RealOne.getOne();
-	private static final Real zero = RealZero.getZero();
+	@Autowired
+	private RealOne one;
+
+	@Autowired
+	private RealZero zero;
+
 	private EuclideanSpace dualSpace;
 	final Map<Vector, Scalar> coordinates;
 	private final List<Vector> base;
 	private Map<Vector, VectorSpaceHomomorphism> multiplicationMatrix;
 
-	public RealLine() {
+	public RealLine(RealOne one, RealZero zero) {
+		this.one = one;
+		this.zero = zero;
 		this.base = new ArrayList<>();
 		this.base.add(this.getOne());
 		final Map<Vector, Map<Vector, Scalar>> multiplicationMap = new HashMap<>();
 		final Map<Vector, Scalar> a = new HashMap<>();
-		a.put(RealLine.one, RealLine.one);
+		a.put(one, one);
 		this.coordinates = a;
-		multiplicationMap.put(RealLine.one, a);
+		multiplicationMap.put(one, a);
 		final Map<Vector, VectorSpaceHomomorphism> newMap = new HashMap<>();
-		newMap.put(RealLine.one, new FiniteDimensionalLinearMapping(this, this, multiplicationMap));
+		newMap.put(one, new FiniteDimensionalLinearMapping(this, this, multiplicationMap));
 		this.setMultiplicationMatrix(newMap);
 	}
 
@@ -67,15 +73,11 @@ public class RealLine implements Field, RealSpace {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@Bean
-	@Scope("prototype")
 	public Real get(final double value) {
 		if (Math.abs(value) < GlobalSettings.REAL_EQUALITY_FEINHEIT) {
 			return this.getZero();
 		}
-		final Real newReal = new Real();
-		newReal.setRepresentant(value);
-		return newReal;
+		return new Real(value);
 	}
 
 	/**
@@ -150,7 +152,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public final Real getOne() {
-		return RealLine.one;
+		return one;
 	}
 
 	/**
@@ -166,7 +168,7 @@ public class RealLine implements Field, RealSpace {
 	 */
 	@Override
 	public final Real getZero() {
-		return RealLine.zero;
+		return zero;
 	}
 
 	/**
@@ -179,6 +181,8 @@ public class RealLine implements Field, RealSpace {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws DevisionByZeroException
 	 */
 	@Override
 	public Real getMultiplicativeInverseElement(final Vector factor) {

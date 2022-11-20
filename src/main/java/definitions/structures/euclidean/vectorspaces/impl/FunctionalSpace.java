@@ -29,6 +29,7 @@ public class FunctionalSpace extends FiniteDimensionalVectorSpace {
 	final EuclideanSpace source;
 
 	public FunctionalSpace(final EuclideanSpace source) {
+		super();
 		this.source = source;
 		this.dim = source.getDim();
 		final List<Vector> base = new ArrayList<>();

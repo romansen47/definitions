@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import definitions.structures.abstr.algebra.fields.Field;
 import definitions.structures.abstr.algebra.fields.FieldElement;
+import definitions.structures.abstr.algebra.fields.FinitePrimeField;
 import definitions.structures.abstr.algebra.fields.PrimeField;
 import definitions.structures.abstr.algebra.fields.scalars.Scalar;
 import definitions.structures.abstr.algebra.monoids.DiscreetMonoid;
@@ -26,10 +27,13 @@ import definitions.structures.abstr.vectorspaces.vectors.Vector;
 import definitions.structures.euclidean.vectors.FiniteVector;
 import definitions.structures.euclidean.vectorspaces.EuclideanSpace;
 import definitions.structures.euclidean.vectorspaces.impl.FunctionalSpace;
+import exceptions.DevisionByZeroException;
 
 public interface IGroupGenerator {
 
 	static Logger logger = LogManager.getLogger(IGroupGenerator.class);
+
+	FinitePrimeField getBinaries();
 
 	public class Fraction extends ProductElement {
 		private final Monoid baseMonoid;
@@ -579,6 +583,8 @@ public interface IGroupGenerator {
 
 			/**
 			 * {@inheritDoc}
+			 * 
+			 * @throws DevisionByZeroException
 			 */
 			@Override
 			public FieldElement getInverseElement(final Element element) {
