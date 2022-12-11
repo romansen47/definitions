@@ -169,9 +169,11 @@ public class QuaternionSpace extends FiniteDimensionalVectorSpace implements Fie
 	 * method to create a Quaternion number using two real number as real and
 	 * imaginary parts
 	 *
-	 * @param realValue the real part
-	 * @param imValue   the imaginary part
-	 * @return the Quaternion number realValue+i*imValue
+	 * @param r the r
+	 * @param i the i
+	 * @param j the j
+	 * @param k the k
+	 * @return the Quaternion with coordinates (r,i,j,k)
 	 */
 	public Quaternion get(final double r, final double i, final double j, final double k) {
 		return new Quaternion(r, i, j, k);

@@ -121,9 +121,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
-	@Bean
-	@Scope("prototype")
+	@Override 
 	public Complex get(final double realValue) {
 		final Complex newComplex = this.complex();
 		newComplex.setValue(realValue, 0);
@@ -137,9 +135,7 @@ public class ComplexPlane extends FiniteDimensionalVectorSpace implements Field,
 	 * @param realValue the real part
 	 * @param imValue   the imaginary part
 	 * @return the complex number realValue+i*imValue
-	 */
-	@Bean
-	@Scope("prototype")
+	 */ 
 	public Complex get(final double realValue, final double imValue) {
 		final Complex newComplex = new Complex(realValue, imValue);
 		return newComplex;

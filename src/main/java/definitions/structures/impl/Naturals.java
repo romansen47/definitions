@@ -59,9 +59,7 @@ public class Naturals extends DiscreetSemiGroupImpl
 	public Element operation(Element first, Element second) {
 		return this.get(((NaturalNumber) first).getRepresentant() + ((NaturalNumber) second).getRepresentant());
 	}
-
-//	@Bean
-//	@Scope("prototype")
+ 
 	public Element natural(Number representant) {
 		return new NaturalNumber(representant) {
 
